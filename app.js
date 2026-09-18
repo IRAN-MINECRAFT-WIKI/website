@@ -585,6 +585,7 @@ window.filterCat = filterCat;
 
 function animateCount() {
   document.querySelectorAll('[data-count]').forEach(el => {
+    if (el.dataset.fetch) return;
     const target = +el.dataset.count;
     let cur = 0;
     const step = Math.max(1, Math.ceil(target / 60));
@@ -594,6 +595,24 @@ function animateCount() {
       else el.textContent = cur;
     }, 28);
   });
+}
+
+async function initLiveStats() {
+  try {
+    const res = await fetch('mods.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return;
+    const data = await res.json();
+    const mods = data.mods || [];
+    const featured = mods.filter(m => m.featured).length;
+    document.querySelectorAll('[data-fetch="mods"]').forEach(el => {
+      el.dataset.count = mods.length;
+      animateCount.call(el);
+    });
+    document.querySelectorAll('[data-fetch="featured"]').forEach(el => {
+      el.dataset.count = featured;
+      animateCount.call(el);
+    });
+  } catch (e) {}
 }
 
 function initChips() {
@@ -639,6 +658,7 @@ async function loadModsFromJson() {
   renderFeatured();
   renderMods();
   animateCount();
+  initLiveStats();
 }
 
 function initIndexPage() {
