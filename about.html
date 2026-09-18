@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>درباره ما | MineBed</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+<meta name="description" content="درباره پروژه MineBed - مرجع دانلود افزونه ماینکرفت بدراک">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yjtimwkoiu");
+</script>
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏️</text></svg>">
+
+<style>
+:root {
+  --bg: #0d0d18; --bg-2: #14142a; --panel: #1c1c34; --panel-2: #242445;
+  --line: #2e2e4a; --text: #e6e6f2; --text-2: #9a9ab8; --text-3: #5c5c7a;
+  --grass: #5fa838; --grass-2: #7cc84a; --grass-3: #3d7521;
+  --dirt: #79553a; --dirt-2: #5b3f29; --gold: #fcb32b; --diamond: #4aedd9;
+  --redstone: #ff3b3b; --emerald: #17dd62;
+  --font: 'Vazirmatn', sans-serif; --pixel: 'Press Start 2P', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.9; min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+main { flex: 1; }
+a, button { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { max-width: 100%; display: block; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb { background: #4a4a6a; border: 3px solid var(--bg-2); }
+::-webkit-scrollbar-thumb:hover { background: var(--grass); }
+::selection { background: var(--grass); color: #fff; }
+
+/* هدر */
+.site-header {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(20,20,42,0.96); backdrop-filter: blur(10px);
+  border-bottom: 3px solid #2b1d0e;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+}
+.site-header::before {
+  content: ''; display: block; height: 8px;
+  background: linear-gradient(90deg, #3d7521, #4f9c2c, #3d7521);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; padding: 12px 28px; max-width: 1400px; margin: 0 auto;
+}
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--pixel); font-size: 13px; color: #fff;
+  text-shadow: 2px 2px 0 #000; letter-spacing: 1px; white-space: nowrap;
+}
+.brand-mark {
+  width: 30px; height: 30px;
+  background: linear-gradient(180deg, #6db73f 0 8px, #79553a 8px 100%);
+  border: 2px solid #2b1d0e;
+  box-shadow: inset -2px -2px 0 rgba(0,0,0,0.35), inset 2px 2px 0 rgba(255,255,255,0.12);
+}
+.main-nav { display: flex; gap: 6px; align-items: center; }
+.main-nav a {
+  padding: 8px 16px; font-size: 13.5px; font-weight: 700;
+  color: var(--text-2); border: 2px solid transparent;
+  transition: all 0.15s; text-decoration: none;
+}
+.main-nav a:hover { color: #fff; border-color: var(--line); background: var(--panel); }
+.main-nav a.active {
+  color: #fff; background: var(--grass);
+  border-color: var(--grass-3); border-top-color: var(--grass-2); border-right-color: var(--grass-2);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.4); text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+.menu-toggle {
+  display: none; width: 40px; height: 40px;
+  border: 2px solid var(--line); font-size: 20px; color: var(--text);
+  background: none; align-items: center; justify-content: center;
+}
+
+/* کانتینر */
+.container { max-width: 1000px; margin: 0 auto; padding: 0 28px; width: 100%; }
+
+/* هیرو صفحه */
+.page-hero {
+  padding: 60px 0 30px; text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #17331b 0%, transparent 60%);
+}
+.page-hero .eyebrow {
+  font-family: var(--pixel); font-size: 10px; color: var(--grass);
+  letter-spacing: 2px; margin-bottom: 14px; display: block;
+  text-shadow: 1px 1px 0 #000;
+}
+.page-hero h1 {
+  font-size: clamp(24px, 4vw, 38px); font-weight: 900; color: #fff;
+  margin-bottom: 16px; line-height: 1.3;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+}
+.page-hero h1 span { color: var(--grass); }
+.page-hero p {
+  color: var(--text-2); font-size: 15px;
+  max-width: 600px; margin: 0 auto;
+}
+
+/* پنل‌ها */
+.panel {
+  background: var(--panel); border: 2px solid var(--line);
+  padding: 28px 26px; margin-bottom: 20px;
+}
+.panel h3 {
+  font-size: 18px; color: #fff; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.panel h3::before {
+  content: ''; width: 6px; height: 20px;
+  background: var(--grass); box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+}
+.panel p { color: var(--text-2); font-size: 14.5px; line-height: 2; }
+.panel p + p { margin-top: 12px; }
+.panel ul { list-style: none; padding: 0; }
+.panel ul li {
+  position: relative; padding-right: 24px;
+  margin-bottom: 10px; color: var(--text-2); font-size: 14.5px;
+}
+.panel ul li::before {
+  content: '▸'; position: absolute; right: 0; top: 0;
+  color: var(--grass-2); font-weight: 900;
+}
+
+/* ویژگی‌ها */
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px; margin-bottom: 20px;
+}
+.feature-card {
+  background: var(--panel); border: 2px solid var(--line);
+  padding: 22px 18px; text-align: center; transition: all 0.2s;
+}
+.feature-card:hover {
+  border-color: var(--grass-2); transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.feature-card .icon {
+  font-size: 40px; margin-bottom: 12px; display: block;
+}
+.feature-card h4 {
+  font-size: 15px; color: #fff; margin-bottom: 8px; font-weight: 800;
+}
+.feature-card p {
+  font-size: 13px; color: var(--text-2); line-height: 1.9;
+}
+
+/* FAQ */
+.faq-item {
+  border-bottom: 1px dashed var(--line);
+  padding: 16px 0;
+}
+.faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+.faq-item h4 {
+  font-size: 15px; color: #fff; margin-bottom: 8px; font-weight: 800;
+}
+.faq-item p { color: var(--text-2); font-size: 13.5px; line-height: 1.9; }
+
+/* اطلاعات تماس */
+.contact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.contact-item {
+  background: var(--bg-2); border: 2px solid var(--line);
+  padding: 18px 16px; text-align: center;
+  transition: all 0.2s;
+}
+.contact-item:hover {
+  border-color: var(--diamond); transform: translateY(-3px);
+}
+.contact-item .c-icon {
+  font-size: 32px; margin-bottom: 10px; display: block;
+}
+.contact-item .c-label {
+  font-size: 11px; color: var(--text-3); margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.contact-item .c-value {
+  font-size: 14px; color: var(--diamond); font-weight: 800;
+  word-break: break-all;
+}
+
+/* دکمه */
+.mc-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 13px 26px; font-size: 14px; font-weight: 800;
+  color: #fff; background: var(--grass);
+  border: 3px solid; border-color: var(--grass-2) var(--grass-3) var(--grass-3) var(--grass-2);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.45);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  transition: transform 0.08s, background 0.15s;
+  cursor: pointer; text-decoration: none; font-family: inherit;
+}
+.mc-btn:hover { background: var(--grass-2); }
+.mc-btn:active { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0.45); }
+.mc-btn.ghost {
+  background: var(--panel); border-color: var(--line) #111120 #111120 var(--line);
+  color: var(--text); text-shadow: none;
+}
+.mc-btn.ghost:hover { background: var(--panel-2); border-color: var(--diamond); color: var(--diamond); }
+.back-wrap { text-align: center; margin: 40px 0; }
+
+/* فوتر */
+.site-footer {
+  background: #0a0a14; border-top: 3px solid var(--dirt-2);
+  padding: 55px 28px 25px; margin-top: 60px; position: relative;
+}
+.site-footer::before {
+  content: ''; position: absolute; top: -3px; left: 0; right: 0; height: 3px;
+  background: repeating-linear-gradient(90deg, var(--dirt) 0 6px, var(--dirt-2) 6px 12px);
+  opacity: 0.7;
+}
+.footer-inner {
+  max-width: 1300px; margin: 0 auto; display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr; gap: 40px;
+  padding-bottom: 30px; border-bottom: 2px dashed var(--line);
+}
+.footer-brand { font-family: var(--pixel); font-size: 12px; color: #fff; letter-spacing: 2px; margin-bottom: 14px; text-shadow: 2px 2px 0 #000; }
+.footer-col p { font-size: 13px; color: var(--text-3); line-height: 2.1; }
+.footer-col h4 { font-size: 13px; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+.footer-col a { display: block; font-size: 13.5px; color: var(--text-2); margin-bottom: 10px; transition: color 0.15s; }
+.footer-col a:hover { color: var(--grass-2); }
+.footer-bottom { max-width: 1300px; margin: 22px auto 0; text-align: center; font-size: 12px; color: var(--text-3); line-height: 2; }
+
+/* واکنش‌گرا */
+@media (max-width: 720px) {
+  .header-inner { padding: 10px 16px; }
+  .main-nav {
+    position: fixed; top: 60px; right: -100%; width: 78%; max-width: 300px;
+    height: calc(100vh - 60px); background: var(--bg-2);
+    flex-direction: column; align-items: stretch; padding: 24px 16px;
+    gap: 8px; transition: right 0.25s; border-left: 3px solid var(--line);
+    box-shadow: -8px 0 24px rgba(0,0,0,0.4); overflow-y: auto;
+  }
+  .main-nav.open { right: 0; }
+  .main-nav a { padding: 14px 16px; }
+  .menu-toggle { display: flex; }
+  .container { padding: 0 16px; }
+  .panel { padding: 22px 18px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"></span>
+      MINEBED
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">خانه</a>
+      <a href="index.html#mods">افزونه‌ها</a>
+      <a href="guide.html">آموزش نصب</a>
+      <a href="about.html" class="active">درباره ما</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">ABOUT US</span>
+    <h1>درباره‌ی <span>MineBed</span></h1>
+    <p>مرجع فارسی دانلود افزونه، مپ و ریسورس‌پک ماینکرفت بدراک</p>
+  </div>
+</section>
+
+<div class="container" style="padding-top: 30px;">
+
+  <!-- داستان -->
+  <div class="panel">
+    <h3>📖 داستان ما</h3>
+    <p>
+      <b style="color: var(--grass-2);">MineBed</b> یه پروژه‌ی مستقل فارسیه که با هدف ساده‌ای شروع شد:
+      پیدا کردن افزونه‌های خوب برای ماینکرفت بدراک بدون گشتن بین صدها سایت پر از تبلیغ و لینک خراب.
+    </p>
+    <p>
+      ما باور داریم که بازیکن‌های فارسی‌زبان ماینکرفت لایق یه جای تمیز، سریع و امن برای دانلود افزونه‌هاشون هستن.
+      برای همین تصمیم گرفتیم یه سایت بسازیم که همه چیز توش پیدا بشه — تست‌شده، با توضیح فارسی،
+      و بدون تبلیغ‌های آزاردهنده.
+    </p>
+    <p>
+      همه‌ی فایل‌های سایت ما <b style="color: var(--grass-2);">رایگان</b> هستن و می‌تونی بدون نیاز به ثبت‌نام دانلودشون کنی.
+    </p>
+  </div>
+
+  <!-- ویژگی‌ها -->
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="icon">🛡️</span>
+      <h4>تست‌شده و امن</h4>
+      <p>هر افزونه قبل از انتشار تست می‌شه</p>
+    </div>
+    <div class="feature-card">
+      <span class="icon">🆓</span>
+      <h4>صددرصد رایگان</h4>
+      <p>بدون نیاز به ثبت‌نام یا پرداخت</p>
+    </div>
+    <div class="feature-card">
+      <span class="icon">🔄</span>
+      <h4>به‌روزرسانی منظم</h4>
+      <p>هر هفته چند افزونه‌ی جدید اضافه می‌شه</p>
+    </div>
+    <div class="feature-card">
+      <span class="icon">🇮🇷</span>
+      <h4>کاملاً فارسی</h4>
+      <p>توضیحات فارسی، نه ترجمه ماشینی</p>
+    </div>
+  </div>
+
+  <!-- ارزش‌های ما -->
+  <div class="panel">
+    <h3>💎 ارزش‌های ما</h3>
+    <ul>
+      <li>هیچ فایلی بدون تست و بررسی منتشر نمی‌شه</li>
+      <li>توضیحات فارسی روان و دقیق، نه ترجمه‌ی ماشینی</li>
+      <li>تبلیغات محدود و غیر مزاحم (همکار با پلتفرم‌های معتبر ایرانی)</li>
+      <li>به‌روزرسانی منظم افزونه‌های قدیمی و سازگاری با نسخه‌های جدید</li>
+      <li>پشتیبانی از طریق ایمیل و تلگرام</li>
+      <li>احترام به حریم خصوصی کاربران</li>
+    </ul>
+  </div>
+
+  <!-- سوالات متداول -->
+  <div class="panel">
+    <h3>❓ سوالات پرتکرار</h3>
+    <div id="faqList"></div>
+  </div>
+
+  <!-- ارتباط -->
+  <div class="panel">
+    <h3>📞 با ما در تماس باش</h3>
+    <p style="margin-bottom: 20px;">
+      اگه افزونه‌ای خراب بود، یا می‌خوای افزونه‌ی خودت رو معرفی کنی، یا هر سوالی داری،
+      از راه‌های زیر باهامون در تماس باش:
+    </p>
+    <div class="contact-grid">
+      <a href="mailto:minebed.contact@gmail.com" class="contact-item">
+        <span class="c-icon">📧</span>
+        <div class="c-label">ایمیل</div>
+        <div class="c-value">MineBedWeb@gmail.com</div>
+      </a>
+      <a href="https://t.me/MineBed" target="_blank" rel="noopener" class="contact-item">
+        <span class="c-icon">📢</span>
+        <div class="c-label">تلگرام</div>
+        <div class="c-value">@MineBedWeb</div>
+      </a>
+      <a href="https://instagram.com/minebed" target="_blank" rel="noopener" class="contact-item">
+        <span class="c-icon">📷</span>
+        <div class="c-label">اینستاگرام</div>
+        <div class="c-value">@minebed</div>
+      </a>
+      <a href="https://youtube.com/@minebed" target="_blank" rel="noopener" class="contact-item">
+        <span class="c-icon">🎬</span>
+        <div class="c-label">یوتیوب</div>
+        <div class="c-value">@minebed</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="back-wrap">
+    <a href="index.html" class="mc-btn">← بازگشت به صفحه اصلی</a>
+  </div>
+
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-brand">MINEBED</div>
+      <p>مرجع فارسی افزونه‌های ماینکرفت بدراک. همه‌ی فایل‌ها روی سرورهای خارجی میزبانی می‌شن.</p>
+    </div>
+    <div class="footer-col">
+      <h4>دسترسی سریع</h4>
+      <a href="index.html">خانه</a>
+      <a href="index.html#mods">لیست افزونه‌ها</a>
+      <a href="guide.html">آموزش نصب</a>
+      <a href="about.html">درباره ما</a>
+    </div>
+    <div class="footer-col">
+      <h4>دسته‌بندی‌ها</h4>
+      <a href="index.html#mods">گیم‌پلی</a>
+      <a href="index.html#mods">گرافیک</a>
+      <a href="index.html#mods">مپ‌ها</a>
+      <a href="index.html#mods">موجودات</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>این سایت یک پروژه‌ی مستقل است و هیچ ارتباطی با Mojang یا Microsoft ندارد.</p>
+    <p>© ۱۴۰۴ MINEBED — ساخته شده با علاقه برای جامعه ماینکرفت</p>
+  </div>
+</footer>
+
+<script>
+const FAQ = [
+  { q: 'افزونه‌ها رایگان هستن؟', a: 'بله، همه‌ی افزونه‌های این سایت رایگان هستن. هیچ فایل پولی بدون اجازه‌ی سازنده منتشر نمی‌شه.' },
+  { q: 'چرا بعضی افزونه‌ها از سایت‌های دیگه لود می‌شن؟', a: 'برای اینکه سرعت سایت بالا بمونه و هزینه‌ی پهنای باند ما کم بشه، فایل‌های حجیم روی سرورهای میزبانی فایل خارجی قرار می‌گیرن. این کار برای تو هم مزیت داره چون دانلودت سریع‌تر می‌شه.' },
+  { q: 'افزونه‌ها رو چطور نصب کنم؟', a: 'برو به صفحه‌ی «آموزش نصب» و پلتفرمت رو انتخاب کن. تمام مراحل با تصویر توضیح داده شده.' },
+  { q: 'اگه افزونه کار نکرد چی؟', a: 'احتمالاً نسخه‌ی بازیت با افزونه سازگار نیست. توضیحات افزونه رو چک کن. اگه باز مشکل داشتی، به ما اطلاع بده.' },
+  { q: 'می‌تونم افزونه‌ی خودم رو بفرستم؟', a: 'حتماً. از طریق ایمیل یا تلگرام بفرست. اگه کیفیتش خوب باشه و تست پس بده، منتشرش می‌کنیم.' },
+  { q: 'آیا سایتتون امنه؟', a: 'بله. همه‌ی فایل‌ها قبل از انتشار تست می‌شن. ما از سرویس‌های معتبر ایرانی مثل تپسل برای تبلیغات استفاده می‌کنیم و به حریم خصوصی کاربران احترام می‌ذاریم.' }
+];
+
+document.getElementById('faqList').innerHTML = FAQ.map((item, i) => `
+  <div class="faq-item">
+    <h4>❓ ${item.q}</h4>
+    <p>${item.a}</p>
+  </div>
+`).join('');
+
+// منوی موبایل
+const menuToggle = document.getElementById('menuToggle');
+const mainNav = document.getElementById('mainNav');
+if (menuToggle && mainNav) {
+  menuToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
+  mainNav.addEventListener('click', e => {
+    if (e.target.tagName === 'A') mainNav.classList.remove('open');
+  });
+}
+</script>
+</body>
+</html>

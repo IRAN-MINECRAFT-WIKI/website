@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شرایط استفاده | MineBed</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+<meta name="description" content="شرایط و قوانین استفاده از سایت MineBed">
+<meta name="robots" content="index, follow">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yjtimwkoiu");
+</script>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏️</text></svg>">
+
+<style>
+:root {
+  --bg: #0d0d18; --bg-2: #14142a; --panel: #1c1c34; --panel-2: #242445;
+  --line: #2e2e4a; --text: #e6e6f2; --text-2: #9a9ab8; --text-3: #5c5c7a;
+  --grass: #5fa838; --grass-2: #7cc84a; --grass-3: #3d7521;
+  --dirt: #79553a; --dirt-2: #5b3f29; --gold: #fcb32b; --diamond: #4aedd9;
+  --redstone: #ff3b3b; --emerald: #17dd62;
+  --font: 'Vazirmatn', sans-serif; --pixel: 'Press Start 2P', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.9; min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+main { flex: 1; }
+a, button { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { max-width: 100%; display: block; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb { background: #4a4a6a; border: 3px solid var(--bg-2); }
+::-webkit-scrollbar-thumb:hover { background: var(--grass); }
+::selection { background: var(--grass); color: #fff; }
+
+.site-header {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(20,20,42,0.96); backdrop-filter: blur(10px);
+  border-bottom: 3px solid #2b1d0e;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+}
+.site-header::before {
+  content: ''; display: block; height: 8px;
+  background: linear-gradient(90deg, #3d7521, #4f9c2c, #3d7521);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; padding: 12px 28px; max-width: 1400px; margin: 0 auto;
+}
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--pixel); font-size: 13px; color: #fff;
+  text-shadow: 2px 2px 0 #000; letter-spacing: 1px; white-space: nowrap;
+}
+.brand-mark {
+  width: 30px; height: 30px;
+  background: linear-gradient(180deg, #6db73f 0 8px, #79553a 8px 100%);
+  border: 2px solid #2b1d0e;
+  box-shadow: inset -2px -2px 0 rgba(0,0,0,0.35), inset 2px 2px 0 rgba(255,255,255,0.12);
+}
+.main-nav { display: flex; gap: 6px; align-items: center; }
+.main-nav a {
+  padding: 8px 16px; font-size: 13.5px; font-weight: 700;
+  color: var(--text-2); border: 2px solid transparent;
+  transition: all 0.15s; text-decoration: none;
+}
+.main-nav a:hover { color: #fff; border-color: var(--line); background: var(--panel); }
+.menu-toggle {
+  display: none; width: 40px; height: 40px;
+  border: 2px solid var(--line); font-size: 20px; color: var(--text);
+  background: none; align-items: center; justify-content: center;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 28px; width: 100%; }
+
+.page-hero {
+  padding: 60px 0 30px; text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #17331b 0%, transparent 60%);
+}
+.page-hero .eyebrow {
+  font-family: var(--pixel); font-size: 10px; color: var(--grass);
+  letter-spacing: 2px; margin-bottom: 14px; display: block;
+  text-shadow: 1px 1px 0 #000;
+}
+.page-hero h1 {
+  font-size: clamp(24px, 4vw, 38px); font-weight: 900; color: #fff;
+  margin-bottom: 16px; line-height: 1.3;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+}
+.page-hero h1 span { color: var(--grass); }
+.page-hero p {
+  color: var(--text-2); font-size: 15px;
+  max-width: 600px; margin: 0 auto;
+}
+
+.panel {
+  background: var(--panel); border: 2px solid var(--line);
+  padding: 28px 26px; margin-bottom: 20px;
+}
+.panel h3 {
+  font-size: 18px; color: #fff; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.panel h3::before {
+  content: ''; width: 6px; height: 20px;
+  background: var(--grass); box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+}
+.panel p { color: var(--text-2); font-size: 14.5px; line-height: 2.1; }
+.panel p + p { margin-top: 12px; }
+.panel ul { list-style: none; padding: 0; margin-top: 10px; }
+.panel ul li {
+  position: relative; padding-right: 24px;
+  margin-bottom: 10px; color: var(--text-2); font-size: 14.5px;
+  line-height: 2;
+}
+.panel ul li::before {
+  content: '▸'; position: absolute; right: 0; top: 0;
+  color: var(--grass-2); font-weight: 900;
+}
+.panel strong { color: var(--grass-2); }
+.panel a { color: var(--diamond); text-decoration: underline; }
+.panel a:hover { color: var(--grass-2); }
+
+.warning-box {
+  background: linear-gradient(135deg, rgba(255,59,59,0.08), rgba(252,179,43,0.05));
+  border: 2px solid var(--redstone); border-right: 4px solid var(--redstone);
+  padding: 18px 20px; margin: 16px 0;
+}
+.warning-box p { color: #ff9b9b; font-size: 14px; margin: 0; }
+.warning-box strong { color: var(--redstone); }
+
+.last-update {
+  text-align: center; color: var(--text-3); font-size: 12.5px;
+  margin: 30px 0 20px;
+  font-family: var(--pixel); letter-spacing: 1px;
+}
+
+.mc-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 13px 26px; font-size: 14px; font-weight: 800;
+  color: #fff; background: var(--grass);
+  border: 3px solid; border-color: var(--grass-2) var(--grass-3) var(--grass-3) var(--grass-2);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.45);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  transition: transform 0.08s, background 0.15s;
+  cursor: pointer; text-decoration: none; font-family: inherit;
+}
+.mc-btn:hover { background: var(--grass-2); }
+.mc-btn:active { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0.45); }
+.back-wrap { text-align: center; margin: 40px 0; }
+
+.site-footer {
+  background: #0a0a14; border-top: 3px solid var(--dirt-2);
+  padding: 55px 28px 25px; margin-top: 60px; position: relative;
+}
+.site-footer::before {
+  content: ''; position: absolute; top: -3px; left: 0; right: 0; height: 3px;
+  background: repeating-linear-gradient(90deg, var(--dirt) 0 6px, var(--dirt-2) 6px 12px);
+  opacity: 0.7;
+}
+.footer-inner {
+  max-width: 1300px; margin: 0 auto; display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr; gap: 40px;
+  padding-bottom: 30px; border-bottom: 2px dashed var(--line);
+}
+.footer-brand { font-family: var(--pixel); font-size: 12px; color: #fff; letter-spacing: 2px; margin-bottom: 14px; text-shadow: 2px 2px 0 #000; }
+.footer-col p { font-size: 13px; color: var(--text-3); line-height: 2.1; }
+.footer-col h4 { font-size: 13px; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+.footer-col a { display: block; font-size: 13.5px; color: var(--text-2); margin-bottom: 10px; transition: color 0.15s; }
+.footer-col a:hover { color: var(--grass-2); }
+.footer-bottom { max-width: 1300px; margin: 22px auto 0; text-align: center; font-size: 12px; color: var(--text-3); line-height: 2; }
+
+@media (max-width: 720px) {
+  .header-inner { padding: 10px 16px; }
+  .main-nav {
+    position: fixed; top: 60px; right: -100%; width: 78%; max-width: 300px;
+    height: calc(100vh - 60px); background: var(--bg-2);
+    flex-direction: column; align-items: stretch; padding: 24px 16px;
+    gap: 8px; transition: right 0.25s; border-left: 3px solid var(--line);
+    box-shadow: -8px 0 24px rgba(0,0,0,0.4); overflow-y: auto;
+  }
+  .main-nav.open { right: 0; }
+  .main-nav a { padding: 14px 16px; }
+  .menu-toggle { display: flex; }
+  .container { padding: 0 16px; }
+  .panel { padding: 22px 18px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"></span>
+      MINEBED
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">خانه</a>
+      <a href="index.html#mods">افزونه‌ها</a>
+      <a href="guide.html">آموزش نصب</a>
+      <a href="about.html">درباره ما</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">TERMS OF USE</span>
+    <h1>شرایط و <span>قوانین استفاده</span></h1>
+    <p>لطفاً پیش از استفاده از سایت MineBed، این شرایط را با دقت مطالعه کنید</p>
+  </div>
+</section>
+
+<div class="container" style="padding-top: 30px;">
+
+  <div class="panel">
+    <h3>📌 مقدمه</h3>
+    <p>
+      به <strong>MineBed</strong> خوش آمدید. با ورود و استفاده از این سایت، شما با شرایط و قوانین زیر موافقت می‌کنید.
+      اگر با هر یک از این شرایط موافق نیستید، لطفاً از سایت ما استفاده نکنید.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3>✅ شرایط استفاده از سایت</h3>
+    <p>استفاده از سایت MineBed در چارچوب زیر مجاز است:</p>
+    <ul>
+      <li>استفاده‌ی شخصی و غیرتجاری از محتوا و فایل‌های سایت</li>
+      <li>اشتراک‌گذاری لینک صفحات سایت با دیگران</li>
+      <li>دانلود افزونه‌ها، مپ‌ها و ریسورس‌پک‌های موجود در سایت برای بازی شخصی</li>
+      <li>استفاده از مطالب سایت به عنوان منبع، با ذکر نام و لینک سایت</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>🚫 محدودیت‌های استفاده</h3>
+    <p>موارد زیر در استفاده از سایت MineBed <strong>ممنوع</strong> است:</p>
+    <ul>
+      <li>فروش یا بازتوزیع تجاری محتوای سایت بدون اجازه‌ی کتبی</li>
+      <li>کپی کردن کامل مطالب سایت و انتشار آن به نام خود</li>
+      <li>استفاده از ربات‌ها یا ابزارهای خودکار برای دانلود انبوه فایل‌ها</li>
+      <li>تلاش برای هک، نفوذ یا آسیب رساندن به سایت</li>
+      <li>انتشار محتوای نامناسب در بخش نظرات یا ارتباط با ما</li>
+      <li>استفاده از نام و لوگوی MineBed بدون اجازه</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>©️ کپی‌رایت و مالکیت معنوی</h3>
+    <p>
+      تمامی افزونه‌ها، مپ‌ها و ریسورس‌پک‌های موجود در سایت، متعلق به سازندگان اصلی آن‌ها هستند.
+      سایت <strong>MineBed</strong> تنها به معرفی، توضیح و ارائه‌ی لینک دانلود این فایل‌ها می‌پردازد و ادعای مالکیت بر آن‌ها ندارد.
+    </p>
+    <p>
+      طراحی سایت، لوگو، متون فارسی، ساختار و کدهای سایت، متعلق به MineBed بوده و تحت حمایت قوانین کپی‌رایت قرار دارد.
+    </p>
+    <div class="warning-box">
+      <p>
+        <strong>⚠️ توجه:</strong> اگر مالک یک افزونه هستید و مایل نیستید فایل شما در سایت ما منتشر شود،
+        لطفاً از طریق <a href="about.html" style="color: var(--diamond);">صفحه‌ی تماس</a> به ما اطلاع دهید
+        تا در اسرع وقت آن را حذف کنیم.
+      </p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>⚠️ سلب مسئولیت</h3>
+    <p>
+      سایت MineBed تمام تلاش خود را برای تست و بررسی فایل‌ها قبل از انتشار انجام می‌دهد،
+      اما هیچ تضمینی در مورد عملکرد صحیح آن‌ها در همه‌ی دستگاه‌ها و نسخه‌ها ارائه نمی‌دهد.
+    </p>
+    <p>
+      <strong>سایت MineBed مسئول موارد زیر نیست:</strong>
+    </p>
+    <ul>
+      <li>آسیب‌های احتمالی به دنیای بازی یا دستگاه کاربر پس از نصب افزونه‌ها</li>
+      <li>عملکرد نادرست افزونه‌ها به دلیل نسخه‌ی نامناسب بازی</li>
+      <li>محتوای سایت‌های خارجی که لینک دانلود از آن‌ها ارائه می‌شود</li>
+      <li>هرگونه مشکل ناشی از استفاده‌ی نادرست از فایل‌های سایت</li>
+    </ul>
+    <div class="warning-box">
+      <p>
+        <strong>🔴 هشدار مهم:</strong> همیشه قبل از نصب افزونه روی دنیای اصلی خود،
+        از دنیای بازی <strong>بکاپ</strong> بگیرید.
+      </p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🔗 لینک‌های خارجی</h3>
+    <p>
+      سایت MineBed ممکن است شامل لینک‌هایی به سایت‌های خارجی باشد (مثل سرویس‌های میزبانی فایل).
+      ما هیچ کنترلی روی محتوای این سایت‌ها نداریم و مسئولیتی در قبال محتوا یا عملکرد آن‌ها نمی‌پذیریم.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3>📢 تبلیغات</h3>
+    <p>
+      سایت MineBed ممکن است شامل تبلیغات از پلتفرم‌های معتبر ایرانی مثل <strong>تپسل</strong> باشد.
+      این تبلیغات برای پوشش هزینه‌های نگهداری سایت استفاده می‌شوند.
+      ما مسئولیتی در قبال محتوای تبلیغات نمایش داده شده نداریم.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3>🔄 تغییرات در قوانین</h3>
+    <p>
+      MineBed این حق را برای خود محفوظ می‌دارد که در هر زمان این شرایط و قوانین را تغییر دهد.
+      استفاده‌ی مستمر شما از سایت پس از هر تغییر، به معنای پذیرش شرایط جدید است.
+      توصیه می‌کنیم هر چند وقت یک بار این صفحه را بررسی کنید.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3>⚖️ قوانین حاکم</h3>
+    <p>
+      این شرایط تحت قوانین جمهوری اسلامی ایران تفسیر و اجرا می‌شود.
+      هرگونه اختلاف در رابطه با سایت MineBed، در صلاحیت دادگاه‌های ایران خواهد بود.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3>📞 تماس با ما</h3>
+    <p>
+      اگر در رابطه با این شرایط و قوانین سوال یا نگرانی دارید، می‌توانید از طریق راه‌های زیر با ما در تماس باشید:
+    </p>
+    <ul>
+      <li>ایمیل: <strong>minebed.contact@gmail.com</strong></li>
+      <li>تلگرام: <strong>@MineBed</strong></li>
+      <li>صفحه‌ی <a href="about.html">درباره ما</a></li>
+    </ul>
+  </div>
+
+  <div class="last-update">📅 آخرین به‌روزرسانی: ۱۴۰۴/۰۶/۲۷</div>
+
+  <div class="back-wrap">
+    <a href="index.html" class="mc-btn">← بازگشت به صفحه اصلی</a>
+  </div>
+
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-brand">MINEBED</div>
+      <p>مرجع فارسی افزونه‌های ماینکرفت بدراک. همه‌ی فایل‌ها روی سرورهای خارجی میزبانی می‌شن.</p>
+    </div>
+    <div class="footer-col">
+      <h4>دسترسی سریع</h4>
+      <a href="index.html">خانه</a>
+      <a href="index.html#mods">افزونه‌ها</a>
+      <a href="guide.html">آموزش نصب</a>
+      <a href="about.html">درباره ما</a>
+      <a href="privacy.html">حریم خصوصی</a>
+      <a href="terms.html">قوانین</a>
+    </div>
+    <div class="footer-col">
+      <h4>دسته‌بندی‌ها</h4>
+      <a href="index.html#mods">گیم‌پلی</a>
+      <a href="index.html#mods">گرافیک</a>
+      <a href="index.html#mods">مپ‌ها</a>
+      <a href="index.html#mods">موجودات</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>این سایت یک پروژه‌ی مستقل است و هیچ ارتباطی با Mojang یا Microsoft ندارد.</p>
+    <p>© ۱۴۰۴ MINEBED — ساخته شده با علاقه برای جامعه ماینکرفت</p>
+  </div>
+</footer>
+
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const mainNav = document.getElementById('mainNav');
+if (menuToggle && mainNav) {
+  menuToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
+  mainNav.addEventListener('click', e => {
+    if (e.target.tagName === 'A') mainNav.classList.remove('open');
+  });
+}
+</script>
+</body>
+</html>

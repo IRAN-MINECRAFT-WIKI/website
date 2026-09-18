@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>در حال بارگذاری... | MineBed</title>
+ <link rel="icon" type="image/png" href="/favicon.png">
+<meta name="description" content="دانلود افزونه ماینکرفت بدراک">
+<meta name="robots" content="index, follow">
+<link rel="canonical" id="canonicalLink" href="">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yjtimwkoiu");
+</script>
+
+<!-- Tapsell Loader -->
+<script type="text/javascript">
+    (function (){
+      const head = document.getElementsByTagName("head")[0];
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.src = "https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js";
+      head.appendChild(script);
+    })();
+</script>
+
+<style>
+:root {
+  --bg: #0d0d18; --bg-2: #14142a; --panel: #1c1c34; --panel-2: #242445;
+  --line: #2e2e4a; --text: #e6e6f2; --text-2: #9a9ab8; --text-3: #5c5c7a;
+  --grass: #5fa838; --grass-2: #7cc84a; --grass-3: #3d7521;
+  --dirt: #79553a; --dirt-2: #5b3f29; --gold: #fcb32b; --diamond: #4aedd9;
+  --redstone: #ff3b3b; --emerald: #17dd62;
+  --font: 'Vazirmatn', sans-serif; --pixel: 'Press Start 2P', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.9; min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+body.no-scroll { overflow: hidden; }
+main { flex: 1; }
+a, button { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { max-width: 100%; display: block; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb { background: #4a4a6a; border: 3px solid var(--bg-2); }
+::-webkit-scrollbar-thumb:hover { background: var(--grass); }
+::selection { background: var(--grass); color: #fff; }
+
+.site-header {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(20,20,42,0.96); backdrop-filter: blur(10px);
+  border-bottom: 3px solid #2b1d0e;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+}
+.site-header::before {
+  content: ''; display: block; height: 8px;
+  background: linear-gradient(90deg, #3d7521, #4f9c2c, #3d7521);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; padding: 12px 28px; max-width: 1400px; margin: 0 auto;
+}
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--pixel); font-size: 13px; color: #fff;
+  text-shadow: 2px 2px 0 #000; letter-spacing: 1px;
+  text-decoration: none;
+}
+.brand-mark {
+  width: 30px; height: 30px;
+  background: linear-gradient(180deg, #6db73f 0 8px, #79553a 8px 100%);
+  border: 2px solid #2b1d0e;
+  box-shadow: inset -2px -2px 0 rgba(0,0,0,0.35), inset 2px 2px 0 rgba(255,255,255,0.12);
+}
+.main-nav { display: flex; gap: 6px; }
+.main-nav a {
+  padding: 8px 16px; font-size: 13.5px; font-weight: 700;
+  color: var(--text-2); border: 2px solid transparent;
+  transition: all 0.15s; text-decoration: none;
+}
+.main-nav a:hover { color: #fff; border-color: var(--line); background: var(--panel); }
+.menu-toggle {
+  display: none; width: 40px; height: 40px;
+  border: 2px solid var(--line); font-size: 20px; color: var(--text);
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; width: 100%; }
+
+.breadcrumb {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  font-size: 13px; color: var(--text-2);
+  padding: 24px 0 16px;
+}
+.breadcrumb a { color: var(--diamond); }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .sep { color: var(--text-3); }
+.breadcrumb .current { color: #fff; font-weight: 700; }
+
+.mod-hero {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 32px; align-items: start; margin-bottom: 30px;
+}
+.mod-art {
+  position: relative; aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #1a2a1a, #1e1e34);
+  border: 3px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 120px; overflow: hidden;
+}
+.mod-art img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.mod-art .fallback { opacity: 0.35; }
+
+.mod-info h1 {
+  font-size: clamp(22px, 3.2vw, 34px); font-weight: 900;
+  color: #fff; line-height: 1.3; margin-bottom: 10px;
+}
+.mod-cat-tag {
+  display: inline-block; padding: 4px 12px;
+  background: rgba(95,168,56,0.15); border: 2px solid var(--grass-3);
+  color: var(--grass-2); font-size: 11.5px; font-weight: 800;
+  margin-bottom: 14px; letter-spacing: 1px;
+}
+.mod-tagline-lg {
+  font-size: 15.5px; color: var(--text-2); margin-bottom: 20px;
+  line-height: 1.9;
+}
+
+.badges-row {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+}
+.badge-pill {
+  padding: 5px 12px; font-size: 11px; font-weight: 800;
+  border: 2px solid;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.badge-pill.new { background: var(--redstone); color: #fff; border-color: #8a1a1a; }
+.badge-pill.featured { background: var(--gold); color: #22160a; border-color: #8f5d0f; }
+.badge-pill.version { background: var(--bg-2); color: var(--diamond); border-color: var(--line); }
+
+.spec-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px; margin-bottom: 22px;
+}
+.spec {
+  background: var(--panel); border: 2px solid var(--line);
+  padding: 12px 14px;
+}
+.spec .k {
+  font-size: 10.5px; color: var(--text-3);
+  letter-spacing: 1px; margin-bottom: 4px;
+}
+.spec .v {
+  font-size: 14px; color: #fff; font-weight: 800;
+}
+
+.mc-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 14px 28px; font-size: 15px; font-weight: 800;
+  color: #fff; background: var(--grass);
+  border: 3px solid; border-color: var(--grass-2) var(--grass-3) var(--grass-3) var(--grass-2);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.45);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  transition: transform 0.08s, background 0.15s;
+  cursor: pointer; text-decoration: none; font-family: inherit;
+}
+.mc-btn:hover { background: var(--grass-2); }
+.mc-btn:active { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0.45); }
+.mc-btn.ghost {
+  background: var(--panel); border-color: var(--line) #111120 #111120 var(--line);
+  color: var(--text); text-shadow: none;
+}
+.mc-btn.ghost:hover { background: var(--panel-2); border-color: var(--diamond); color: var(--diamond); }
+.mc-btn.download-btn { width: 100%; font-size: 16px; padding: 16px 30px; }
+
+.download-actions {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.download-actions .mc-btn { flex: 1; min-width: 200px; }
+
+.section-block {
+  background: var(--panel); border: 2px solid var(--line);
+  padding: 28px 26px; margin-bottom: 20px;
+}
+.section-block h2 {
+  font-size: 18px; color: #fff; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-block h2::before {
+  content: ''; width: 6px; height: 20px;
+  background: var(--grass); box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+}
+.section-block p { color: var(--text-2); font-size: 14.5px; line-height: 2; }
+.section-block p + p { margin-top: 12px; }
+
+/* تبلیغ داخل صفحه */
+.ad-in-page {
+  background: var(--panel); border: 2px dashed var(--line);
+  padding: 20px; margin-bottom: 20px; min-height: 120px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.ad-in-page::before {
+  content: 'AD'; position: absolute; top: 8px; right: 12px;
+  font-family: var(--pixel); font-size: 9px; color: var(--text-3); letter-spacing: 2px;
+}
+.ad-banner-page {
+  background: var(--panel); border: 2px dashed var(--gold);
+  padding: 20px; margin-bottom: 20px; min-height: 250px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.ad-banner-page::before {
+  content: 'AD'; position: absolute; top: 8px; right: 12px;
+  font-family: var(--pixel); font-size: 9px; color: var(--gold); letter-spacing: 2px;
+}
+
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.gallery-grid .shot {
+  aspect-ratio: 16/10; background: var(--bg-2);
+  border: 2px solid var(--line); overflow: hidden; cursor: zoom-in;
+  transition: border-color 0.2s;
+}
+.gallery-grid .shot:hover { border-color: var(--diamond); }
+.gallery-grid .shot img { width: 100%; height: 100%; object-fit: cover; }
+
+#imageOverlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+  z-index: 9999; display: flex; align-items: center; justify-content: center;
+  padding: 20px; cursor: zoom-out;
+}
+#imageOverlay img { max-width: 100%; max-height: 100%; border: 3px solid var(--line); }
+
+@keyframes countPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); color: var(--grass-2); }
+  100% { transform: scale(1); }
+}
+
+.toast-msg {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+  background: var(--grass); color: #fff; padding: 12px 22px;
+  border: 3px solid var(--grass-3); font-weight: 700; font-size: 14px;
+  z-index: 99999; box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  max-width: 90vw; text-align: center;
+}
+
+.related-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+.related-card {
+  background: var(--bg-2); border: 2px solid var(--line);
+  padding: 14px; text-decoration: none; color: inherit;
+  transition: all 0.2s; display: block;
+}
+.related-card:hover {
+  border-color: var(--grass-2); transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.related-thumb {
+  aspect-ratio: 16/10; background: linear-gradient(135deg, #1a2a1a, #1e1e34);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; margin-bottom: 10px; overflow: hidden;
+  position: relative; border: 2px solid var(--line);
+}
+.related-thumb img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover;
+}
+.related-card h4 {
+  font-size: 14px; color: #fff; font-weight: 800;
+  margin-bottom: 6px; line-height: 1.4;
+}
+.related-card .cat {
+  font-size: 11px; color: var(--grass-2); font-weight: 700;
+}
+
+.error-page {
+  text-align: center; padding: 100px 20px;
+}
+.error-page .emoji { font-size: 80px; margin-bottom: 20px; opacity: 0.4; }
+.error-page h1 { font-size: 28px; color: #fff; margin-bottom: 12px; }
+.error-page p { color: var(--text-2); margin-bottom: 24px; }
+
+.loading-page {
+  text-align: center; padding: 120px 20px;
+}
+.loading-page .spinner {
+  width: 60px; height: 60px; margin: 0 auto 24px;
+  border: 6px solid var(--line); border-top-color: var(--grass);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-page p { color: var(--text-2); font-family: var(--pixel); font-size: 11px; letter-spacing: 2px; }
+
+.site-footer {
+  background: #0a0a14; border-top: 3px solid var(--dirt-2);
+  padding: 40px 24px 20px; margin-top: 50px; text-align: center;
+}
+.site-footer p {
+  font-size: 13px; color: var(--text-3); line-height: 2;
+}
+.site-footer a { color: var(--diamond); }
+
+@media (max-width: 720px) {
+  .header-inner { padding: 10px 16px; }
+  .main-nav {
+    position: fixed; top: 60px; right: -100%; width: 78%;
+    height: calc(100vh - 60px); background: var(--bg-2);
+    flex-direction: column; padding: 24px 16px; gap: 8px;
+    transition: right 0.25s; border-left: 3px solid var(--line);
+    overflow-y: auto;
+  }
+  .main-nav.open { right: 0; }
+  .menu-toggle { display: flex; }
+  .mod-hero { grid-template-columns: 1fr; gap: 20px; }
+  .spec-grid { grid-template-columns: 1fr 1fr; }
+  .container { padding: 0 16px; }
+  .section-block { padding: 22px 18px; }
+  .download-actions .mc-btn { min-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"></span>
+      MINEBED
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">خانه</a>
+      <a href="index.html#mods">افزونه‌ها</a>
+      <a href="guide.html">آموزش نصب</a>
+      <a href="about.html">درباره ما</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+</header>
+
+<main>
+  <div class="container" id="pageContent">
+    <div class="loading-page">
+      <div class="spinner"></div>
+      <p>LOADING...</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>این سایت یک پروژه‌ی مستقل است و هیچ ارتباطی با Mojang یا Microsoft ندارد.</p>
+  <p>© ۱۴۰۴ <a href="index.html">MINEBED</a> — ساخته شده با ❤️ برای جامعه ماینکرفت</p>
+</footer>
+
+<script>
+const CAT_NAMES = {
+  gameplay: 'گیم‌پلی', graphics: 'گرافیک', maps: 'مپ',
+  mobs: 'موجودات', decoration: 'دکوراسیون', world: 'دنیا', utility: 'ابزار'
+};
+
+function getParam(name) {
+  return new URLSearchParams(window.location.search).get(name);
+}
+function escapeHtml(s = '') {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+function showToastMsg(text, isError = false) {
+  const el = document.createElement('div');
+  el.className = 'toast-msg';
+  el.textContent = text;
+  if (isError) { el.style.background = 'var(--redstone)'; el.style.borderColor = '#8a1a1a'; }
+  document.body.appendChild(el);
+  setTimeout(() => {
+    el.style.transition = 'opacity 0.3s';
+    el.style.opacity = '0';
+    setTimeout(() => el.remove(), 300);
+  }, 3000);
+}
+
+const CORS_PROXIES = [
+  url => url,
+  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+  url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+];
+
+async function forceDownload(event, url, filename) {
+  if (event) { event.preventDefault(); event.stopPropagation(); }
+  if (!url || url === '#' || url === '') {
+    showToastMsg('❌ لینک دانلود موجود نیست', true); return;
+  }
+  if (!filename) {
+    try { filename = decodeURIComponent(url.split('/').pop().split('?')[0]) || 'mod.mcpack'; }
+    catch { filename = 'mod.mcpack'; }
+  }
+  await showCountdown(4);
+  showToastMsg('⏳ در حال دانلود...');
+  for (let i = 0; i < CORS_PROXIES.length; i++) {
+    try {
+      const res = await fetch(CORS_PROXIES[i](url), { cache: 'no-store', mode: 'cors' });
+      if (!res.ok) continue;
+      const blob = await res.blob();
+      if (blob.size < 500) continue;
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = blobUrl; a.download = filename;
+      a.style.display = 'none';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+      showToastMsg('✅ دانلود شروع شد');
+      return;
+    } catch (err) { console.log('پروکسی ' + i + ' نشد'); }
+  }
+  showToastMsg('⚠️ سرور مقصد اجازه دانلود مستقیم نمی‌ده');
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.style.display = 'none';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+window.forceDownload = forceDownload;
+
+function showCountdown(seconds) {
+  return new Promise(resolve => {
+    let count = seconds;
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-family:var(--font);color:#fff;';
+    overlay.innerHTML = `
+      <div style="background:var(--panel);border:3px solid var(--line);padding:40px 60px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6);min-width:280px;max-width:90vw;">
+        <div style="font-family:var(--pixel);font-size:12px;color:var(--grass);letter-spacing:2px;margin-bottom:20px;">⏳ دانلود</div>
+        <div id="countdownNum" style="font-family:var(--pixel);font-size:64px;color:var(--diamond);text-shadow:0 0 30px rgba(74,237,217,0.6),3px 3px 0 #000;margin-bottom:16px;line-height:1;">${count}</div>
+        <div style="font-size:14px;color:var(--text-2);">لطفاً صبر کن...</div>
+        <div style="margin-top:20px;width:100%;height:6px;background:var(--bg-2);border:2px solid var(--line);overflow:hidden;">
+          <div id="countdownBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--grass-3),var(--grass-2));transition:width ${seconds}s linear;"></div>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+    document.body.classList.add('no-scroll');
+    const numEl = overlay.querySelector('#countdownNum');
+    const barEl = overlay.querySelector('#countdownBar');
+    requestAnimationFrame(() => { barEl.style.width = '100%'; });
+    const timer = setInterval(() => {
+      count--;
+      if (count > 0) {
+        numEl.textContent = count;
+        numEl.style.animation = 'none';
+        void numEl.offsetWidth;
+        numEl.style.animation = 'countPulse 0.5s ease';
+      } else {
+        clearInterval(timer);
+        overlay.remove();
+        document.body.classList.remove('no-scroll');
+        resolve();
+      }
+    }, 1000);
+  });
+}
+
+function copyPageLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    showToastMsg('🔗 لینک کپی شد');
+  }).catch(() => showToastMsg('❌ کپی نشد', true));
+}
+window.copyPageLink = copyPageLink;
+
+function openImage(url) {
+  const overlay = document.createElement('div');
+  overlay.id = 'imageOverlay';
+  const img = document.createElement('img');
+  img.src = url; img.alt = 'تصویر';
+  overlay.appendChild(img);
+  overlay.onclick = () => overlay.remove();
+  document.body.appendChild(overlay);
+}
+window.openImage = openImage;
+
+function injectJsonLd(mod) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": mod.name,
+    "description": mod.tagline || mod.desc || '',
+    "image": mod.cover || '',
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Android, iOS, Windows",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "IRR" },
+    "author": { "@type": "Organization", "name": mod.author || 'MineBed' }
+  };
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(data);
+  document.head.appendChild(script);
+}
+
+function renderModPage(mod, allMods) {
+  const pageTitle = `${mod.name} | دانلود افزونه ماینکرفت بدراک`;
+  const pageDesc = mod.tagline || `${mod.name} را برای ماینکرفت بدراک دانلود کن`;
+  document.title = pageTitle;
+  document.querySelector('meta[name="description"]').setAttribute('content', pageDesc);
+  document.getElementById('canonicalLink').setAttribute('href', window.location.href);
+
+  injectJsonLd(mod);
+
+  const related = allMods
+    .filter(m => m.id !== mod.id && m.category === mod.category)
+    .slice(0, 4);
+
+  const relatedHTML = related.length ? `
+    <div class="section-block">
+      <h2>افزونه‌های مرتبط</h2>
+      <div class="related-grid">
+        ${related.map(r => `
+          <a href="mod.html?id=${encodeURIComponent(r.id)}" class="related-card">
+            <div class="related-thumb">
+              ${r.icon || '📦'}
+              ${r.cover ? `<img src="${r.cover}" alt="${escapeHtml(r.name)}" loading="lazy" onerror="this.remove()">` : ''}
+            </div>
+            <h4>${escapeHtml(r.name)}</h4>
+            <div class="cat">${r.catName || CAT_NAMES[r.category] || ''}</div>
+          </a>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
+
+  const galleryHTML = (mod.gallery && mod.gallery.length) ? `
+    <div class="section-block">
+      <h2>📸 گالری تصاویر</h2>
+      <div class="gallery-grid">
+        ${mod.gallery.map(url => `
+          <div class="shot" onclick="openImage('${url}')">
+            <img src="${url}" alt="${escapeHtml(mod.name)}" loading="lazy" onerror="this.parentElement.remove()">
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
+
+  const descHTML = mod.desc ? `
+    <div class="section-block">
+      <h2>📝 توضیحات کامل</h2>
+      ${mod.desc.split('\n').filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join('')}
+    </div>
+  ` : '';
+
+  const catName = mod.catName || CAT_NAMES[mod.category] || '';
+  const safeName = (mod.name || 'mod').replace(/'/g, "\\'");
+  const safeUrl = (mod.downloadUrl || '').replace(/'/g, "\\'");
+
+  const html = `
+    <nav class="breadcrumb">
+      <a href="index.html">خانه</a>
+      <span class="sep">›</span>
+      <a href="index.html#mods">افزونه‌ها</a>
+      <span class="sep">›</span>
+      <a href="index.html#mods">${catName}</a>
+      <span class="sep">›</span>
+      <span class="current">${escapeHtml(mod.name)}</span>
+    </nav>
+
+    <div class="mod-hero">
+      <div class="mod-art">
+        <span class="fallback">${mod.icon || '📦'}</span>
+        ${mod.cover ? `<img src="${mod.cover}" alt="${escapeHtml(mod.name)}" onerror="this.remove()">` : ''}
+      </div>
+      <div class="mod-info">
+        <span class="mod-cat-tag">${catName}</span>
+        <h1>${escapeHtml(mod.name)}</h1>
+        <p class="mod-tagline-lg">${escapeHtml(mod.tagline || '')}</p>
+
+        <div class="badges-row">
+          ${mod.isNew ? '<span class="badge-pill new">🆕 جدید</span>' : ''}
+          ${mod.featured ? '<span class="badge-pill featured">⭐ ویژه</span>' : ''}
+          <span class="badge-pill version">📦 نسخه ${mod.version || '-'}</span>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec"><div class="k">📦 نسخه</div><div class="v">${mod.version || '-'}</div></div>
+          <div class="spec"><div class="k">💾 حجم</div><div class="v">${mod.size || '-'}</div></div>
+          <div class="spec"><div class="k">👤 سازنده</div><div class="v">${mod.author || '-'}</div></div>
+          <div class="spec"><div class="k">📅 آپدیت</div><div class="v">${mod.updated || '-'}</div></div>
+        </div>
+
+        <div class="download-actions">
+          <button class="mc-btn download-btn" onclick="forceDownload(event, '${safeUrl}', '${safeName}.mcpack')">
+            ⬇️ دانلود افزونه
+          </button>
+          <button class="mc-btn ghost" onclick="copyPageLink()">🔗 کپی لینک</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- تبلیغ همسان بالا -->
+    <div class="ad-in-page">
+      <div id="mediaad-nwmnG"></div>
+    </div>
+
+    ${descHTML}
+
+    <!-- تبلیغ بنری وسط -->
+    <div class="ad-banner-page">
+      <div id="mediaad-JRBY2"></div>
+    </div>
+
+    ${galleryHTML}
+
+    <!-- تبلیغ همسان پایین -->
+    <div class="ad-in-page">
+      <div id="mediaad-nwmnG"></div>
+    </div>
+
+    ${relatedHTML}
+  `;
+
+  document.getElementById('pageContent').innerHTML = html;
+}
+
+function renderError(message) {
+  document.title = 'افزونه پیدا نشد | MineBed';
+  document.getElementById('pageContent').innerHTML = `
+    <div class="error-page">
+      <div class="emoji">🔍</div>
+      <h1>${message}</h1>
+      <p>ممکنه آدرس اشتباه باشه یا این افزونه حذف شده باشه</p>
+      <a href="index.html" class="mc-btn">← بازگشت به صفحه اصلی</a>
+    </div>
+  `;
+}
+
+(async function init() {
+  const id = getParam('id');
+  if (!id) { renderError('شناسه افزونه مشخص نشده'); return; }
+  try {
+    const res = await fetch('mods.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('خطا در بارگذاری فایل داده');
+    const data = await res.json();
+    const allMods = data.mods || [];
+    const mod = allMods.find(m => m.id === id);
+    if (!mod) { renderError('این افزونه پیدا نشد'); return; }
+    renderModPage(mod, allMods);
+  } catch (err) {
+    console.error(err);
+    renderError('خطا در بارگذاری صفحه');
+  }
+})();
+
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('mainNav').classList.toggle('open');
+});
+document.querySelectorAll('.main-nav a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('mainNav').classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>

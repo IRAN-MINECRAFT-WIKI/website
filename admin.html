@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل مدیریت | MineBed</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d18; --bg-2: #14142a; --panel: #1c1c34; --panel-2: #242445;
+  --line: #2e2e4a; --text: #e6e6f2; --text-2: #9a9ab8; --text-3: #5c5c7a;
+  --grass: #5fa838; --grass-2: #7cc84a; --grass-3: #3d7521;
+  --gold: #fcb32b; --diamond: #4aedd9; --redstone: #ff3b3b; --emerald: #17dd62;
+  --font: 'Vazirmatn', sans-serif; --pixel: 'Press Start 2P', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  min-height: 100vh; line-height: 1.9;
+}
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, textarea, select {
+  font-family: inherit; font-size: 14px;
+  background: var(--bg-2); border: 2px solid var(--line);
+  color: var(--text); padding: 11px 14px; width: 100%;
+  outline: none; transition: border-color 0.2s;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--grass-2); }
+textarea { resize: vertical; min-height: 90px; line-height: 1.8; }
+label {
+  display: block; font-size: 13px; font-weight: 700;
+  color: var(--text-2); margin-bottom: 6px; margin-top: 14px;
+}
+label:first-child { margin-top: 0; }
+
+.admin-header {
+  background: var(--bg-2); border-bottom: 3px solid #2b1d0e;
+  padding: 14px 24px; display: flex; justify-content: space-between;
+  align-items: center; gap: 20px; flex-wrap: wrap; position: relative;
+}
+.admin-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px;
+  background: linear-gradient(90deg, #3d7521, #4f9c2c, #3d7521);
+}
+.admin-logo {
+  font-family: var(--pixel); font-size: 13px; color: var(--grass);
+  text-shadow: 0 0 15px rgba(93,156,58,0.6); letter-spacing: 2px;
+  display: flex; align-items: center; gap: 10px;
+}
+.admin-logo .icon {
+  width: 26px; height: 26px;
+  background: linear-gradient(180deg, #6db73f 0 8px, #79553a 8px 100%);
+  border: 2px solid #2b1d0e;
+}
+.header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 18px; font-size: 13px; font-weight: 700;
+  border: 3px solid; cursor: pointer; transition: all 0.1s;
+  text-decoration: none; font-family: inherit;
+}
+.btn-primary {
+  background: var(--grass); color: #fff;
+  border-color: var(--grass-2) var(--grass-3) var(--grass-3) var(--grass-2);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+}
+.btn-primary:hover { background: var(--grass-2); }
+.btn-primary:active { transform: translateY(3px); box-shadow: none; }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-ghost {
+  background: var(--panel); color: var(--text);
+  border-color: var(--line) #111120 #111120 var(--line);
+}
+.btn-ghost:hover { border-color: var(--diamond); color: var(--diamond); }
+.btn-danger {
+  background: var(--redstone); color: #fff;
+  border-color: #ff7b7b #8a1a1a #8a1a1a #ff7b7b;
+}
+.btn-danger:hover { background: #ff5050; }
+.btn-gold {
+  background: var(--gold); color: #21160a;
+  border-color: #ffe08a #8f5d0f #8f5d0f #ffe08a;
+}
+.btn.small { padding: 6px 12px; font-size: 12px; }
+
+#loginScreen {
+  min-height: calc(100vh - 80px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 20px;
+}
+.login-card {
+  background: var(--panel); border: 3px solid var(--line);
+  max-width: 480px; width: 100%; padding: 40px 32px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.login-card h1 {
+  font-family: var(--pixel); font-size: 16px; color: var(--grass);
+  margin-bottom: 14px; letter-spacing: 2px; text-align: center;
+}
+.login-card p {
+  color: var(--text-2); font-size: 13.5px; margin-bottom: 26px;
+  text-align: center; line-height: 2;
+}
+.login-card .hint {
+  background: var(--bg-2); border: 2px dashed var(--line);
+  padding: 14px 16px; font-size: 12px; color: var(--text-3);
+  margin-top: 18px; line-height: 2;
+}
+.login-card .hint b { color: var(--diamond); }
+.login-card .hint a { color: var(--grass-2); text-decoration: none; }
+.login-card .hint a:hover { text-decoration: underline; }
+.login-error {
+  background: rgba(255,59,59,0.12); border: 2px solid var(--redstone);
+  color: #ff9b9b; padding: 10px 14px; font-size: 13px;
+  margin-bottom: 16px; display: none;
+}
+.login-error.show { display: block; }
+.login-success {
+  background: rgba(23,221,98,0.12); border: 2px solid var(--emerald);
+  color: #9bffc4; padding: 10px 14px; font-size: 13px;
+  margin-bottom: 16px; display: none;
+}
+.login-success.show { display: block; }
+
+#adminPanel { display: none; padding: 30px 24px; max-width: 1400px; margin: 0 auto; }
+#adminPanel.show { display: block; }
+
+.user-info-bar {
+  background: var(--panel); border: 2px solid var(--line);
+  padding: 12px 18px; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  font-size: 13px; color: var(--text-2);
+}
+.user-info-bar .avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid var(--grass);
+  overflow: hidden; background: var(--bg-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.user-info-bar .avatar img { width: 100%; height: 100%; object-fit: cover; }
+.user-info-bar b { color: var(--grass-2); }
+.user-info-bar .badge {
+  background: var(--grass); color: #fff;
+  padding: 2px 10px; font-size: 10px; font-weight: 800;
+  margin-right: auto;
+  border: 2px solid var(--grass-3);
+}
+
+.stats-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px; margin-bottom: 30px;
+}
+.stat-card {
+  background: var(--panel); border: 2px solid var(--line);
+  padding: 18px 16px; text-align: center;
+}
+.stat-card .num {
+  font-family: var(--pixel); font-size: 22px; color: var(--diamond);
+  display: block; margin-bottom: 6px; text-shadow: 2px 2px 0 #000;
+}
+.stat-card .lbl { font-size: 11.5px; color: var(--text-2); }
+
+.toolbar {
+  display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+  align-items: center; justify-content: space-between;
+}
+.toolbar .title {
+  font-size: 18px; font-weight: 800; color: #fff;
+}
+.toolbar .title::before {
+  content: ''; display: inline-block; width: 6px; height: 20px;
+  background: var(--grass); margin-left: 10px; vertical-align: middle;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+}
+
+.mods-list { display: grid; gap: 12px; }
+.mod-row {
+  background: var(--panel); border: 2px solid var(--line);
+  padding: 14px 18px; display: flex; gap: 16px;
+  align-items: center; transition: border-color 0.2s;
+}
+.mod-row:hover { border-color: var(--grass-2); }
+.mod-row .thumb {
+  width: 70px; height: 70px; flex-shrink: 0;
+  background: linear-gradient(135deg, #1a2a1a, #1e1e34);
+  border: 2px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; overflow: hidden; position: relative;
+}
+.mod-row .thumb img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.mod-row .info { flex: 1; min-width: 0; }
+.mod-row .name { font-size: 15px; color: #fff; font-weight: 800; margin-bottom: 4px; }
+.mod-row .meta { font-size: 11.5px; color: var(--text-3); display: flex; gap: 12px; flex-wrap: wrap; }
+.mod-row .actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.form-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px); z-index: 9999;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 30px 20px; overflow-y: auto;
+}
+.form-overlay.hidden { display: none; }
+.form-card {
+  background: var(--panel); border: 3px solid var(--line);
+  max-width: 720px; width: 100%; padding: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.form-header {
+  background: var(--bg-2); padding: 16px 22px;
+  border-bottom: 2px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.form-header h2 { font-size: 17px; color: #fff; }
+.form-body { padding: 22px; }
+.form-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+.form-grid .full { grid-column: 1 / -1; }
+.form-footer {
+  padding: 16px 22px; border-top: 2px solid var(--line);
+  background: var(--bg-2); display: flex; gap: 10px; justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.checkbox-row {
+  display: flex; gap: 20px; margin-top: 14px; flex-wrap: wrap;
+}
+.checkbox-row label {
+  display: flex; align-items: center; gap: 8px;
+  margin: 0; cursor: pointer; font-size: 13.5px; color: var(--text);
+}
+.checkbox-row input[type=checkbox] {
+  width: 18px; height: 18px; accent-color: var(--grass);
+  cursor: pointer;
+}
+
+.toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+  background: var(--grass); color: #fff; padding: 14px 24px;
+  border: 3px solid; border-color: var(--grass-2) var(--grass-3) var(--grass-3) var(--grass-2);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  font-weight: 700; font-size: 14px; z-index: 99999;
+  transition: transform 0.3s; max-width: 90vw; text-align: center;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.error { background: var(--redstone); border-color: #ff7b7b #8a1a1a #8a1a1a #ff7b7b; }
+
+@media (max-width: 720px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .mod-row { flex-wrap: wrap; }
+  .mod-row .actions { width: 100%; justify-content: flex-end; }
+  .admin-header { padding: 12px 16px; }
+  #adminPanel { padding: 20px 16px; }
+  .login-card { padding: 28px 22px; }
+}
+</style>
+</head>
+<body>
+
+<header class="admin-header">
+  <div class="admin-logo"><span class="icon"></span> ADMIN PANEL</div>
+  <div class="header-actions">
+    <a href="index.html" class="btn btn-ghost small">← بازگشت به سایت</a>
+    <button class="btn btn-ghost small" id="logoutBtn" style="display:none;">خروج</button>
+  </div>
+</header>
+
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>🔒 ورود ادمین</h1>
+    <p>برای دسترسی به پنل، توکن GitHub خودت رو وارد کن</p>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-success" id="loginSuccess"></div>
+    <label>GitHub Personal Access Token</label>
+    <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxx">
+    <button class="btn btn-primary" style="width:100%; margin-top: 20px;" id="loginBtn">
+      🔓 ورود
+    </button>
+    <div class="hint">
+      <b>چطور توکن بسازم؟</b><br>
+      1. برو به <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a><br>
+      2. روی <b>Generate new token (classic)</b> بزن<br>
+      3. توی <b>Note</b> بنویس: MineBed Admin<br>
+      4. توی <b>Scopes</b> تیک <b>repo</b> رو بزن<br>
+      5. <b>Generate token</b> بزن و توکن رو کپی کن<br>
+      6. توکن رو اینجا پیست کن<br>
+      <br>
+      <b style="color: var(--gold);">⚠️ فقط ادمین اصلی سایت (IRAN-MINECRAFT-WIKI) اجازه ورود داره</b>
+    </div>
+  </div>
+</div>
+
+<div id="adminPanel">
+
+  <div class="user-info-bar" id="userInfoBar">
+    <div class="avatar" id="userAvatar">👤</div>
+    <div>وارد شده به عنوان <b id="userName">...</b></div>
+    <span class="badge">👑 ادمین اصلی</span>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><span class="num" id="statTotal">0</span><span class="lbl">کل مادها</span></div>
+    <div class="stat-card"><span class="num" id="statFeatured">0</span><span class="lbl">ویژه</span></div>
+    <div class="stat-card"><span class="num" id="statNew">0</span><span class="lbl">جدید</span></div>
+    <div class="stat-card"><span class="num" id="statUnsaved">0</span><span class="lbl">تغییر ذخیره‌نشده</span></div>
+  </div>
+
+<div class="toolbar" style="justify-content:flex-start; gap:12px;">
+    <button class="btn btn-primary" id="tabModsBtn">📦 مادها</button>
+    <button class="btn btn-ghost" id="tabMusicBtn">🎵 موزیک‌ها</button>
+  </div>
+
+  <!-- تب مادها -->
+  <div id="modsTab">
+    <div class="toolbar">
+      <div class="title">لیست مادها</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-ghost small" id="refreshBtn">🔄 بروزرسانی</button>
+        <button class="btn btn-primary" id="addModBtn">+ افزودن ماد جدید</button>
+        <button class="btn btn-gold" id="saveBtn">💾 ذخیره مادها</button>
+      </div>
+    </div>
+    <div class="mods-list" id="modsList"></div>
+  </div>
+
+  <!-- تب موزیک -->
+  <div id="musicTab" style="display:none;">
+    <div class="toolbar">
+      <div class="title">لیست موزیک‌ها</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-primary" id="addMusicBtn">+ افزودن موزیک</button>
+        <button class="btn btn-gold" id="saveMusicBtn">💾 ذخیره موزیک‌ها</button>
+      </div>
+    </div>
+    <div class="mods-list" id="musicList"></div>
+  </div>
+</div>
+
+<div class="form-overlay hidden" id="formOverlay">
+  <div class="form-card">
+    <div class="form-header">
+      <h2 id="formTitle">افزودن ماد جدید</h2>
+      <button class="btn btn-ghost small" id="closeFormBtn">✕</button>
+    </div>
+    <div class="form-body">
+      <div class="form-grid">
+        <div>
+          <label>شناسه (انگلیسی، بدون فاصله)*</label>
+          <input type="text" id="fId" placeholder="furniture-addon">
+        </div>
+        <div>
+          <label>نام نمایشی*</label>
+          <input type="text" id="fName" placeholder="Furniture Addon">
+        </div>
+        <div class="full">
+   <label>نام فارسی (برای نمایش و جستجو)</label>
+       <input type="text" id="fNameFa" placeholder="افزونه مبلمان">
+           </div>
+         <div class="full">
+   <label>کلمات کلیدی (برای جستجوی فارسی، با فاصله جدا کن)</label>
+     <input type="text" id="fKeywords" placeholder="مبلمان مبل صندلی میز تخت خونگی دکوراسیون">
+         </div>
+        <div>
+          <label>دسته‌بندی*</label>
+          <select id="fCategory">
+            <option value="gameplay">گیم‌پلی</option>
+            <option value="graphics">گرافیک</option>
+            <option value="maps">مپ</option>
+            <option value="mobs">موجودات</option>
+            <option value="decoration">دکوراسیون</option>
+            <option value="world">دنیا</option>
+            <option value="utility">ابزار</option>
+          </select>
+        </div>
+        <div>
+          <label>آیکون (ایموجی)</label>
+          <input type="text" id="fIcon" placeholder="🪑" maxlength="4">
+        </div>
+        <div class="full">
+          <label>توضیح کوتاه (یک خطی)*</label>
+          <input type="text" id="fTagline" placeholder="صدها وسیله خونگی واقعی...">
+        </div>
+        <div class="full">
+          <label>توضیحات کامل</label>
+          <textarea id="fDesc" placeholder="توضیح مفصل درباره این ماد..."></textarea>
+        </div>
+        <div>
+          <label>نسخه بازی*</label>
+          <input type="text" id="fVersion" placeholder="1.21">
+        </div>
+        <div>
+          <label>حجم فایل*</label>
+          <input type="text" id="fSize" placeholder="4.2 MB">
+        </div>
+        <div>
+          <label>سازنده</label>
+          <input type="text" id="fAuthor" placeholder="MineTeam">
+        </div>
+        <div>
+          <label>آخرین آپدیت</label>
+          <input type="text" id="fUpdated" placeholder="1404/06/01">
+        </div>
+        <div class="full">
+          <label>لینک دانلود*</label>
+          <input type="url" id="fDownloadUrl" placeholder="https://example.com/file.mcaddon">
+        </div>
+        <div class="full">
+          <label>لینک تصویر کاور</label>
+          <input type="url" id="fCover" placeholder="https://cdn.imgurl.ir/uploads/xxx.webp">
+        </div>
+        <div class="full">
+          <label>لینک تصاویر گالری (هر خط یک لینک)</label>
+          <textarea id="fGallery" placeholder="https://example.com/img1.jpg&#10;https://example.com/img2.jpg"></textarea>
+        </div>
+      </div>
+      <div class="checkbox-row">
+        <label><input type="checkbox" id="fFeatured"> نمایش در ویژه‌ها</label>
+        <label><input type="checkbox" id="fIsNew"> برچسب «جدید»</label>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn btn-ghost" id="cancelFormBtn">انصراف</button>
+      <button class="btn btn-primary" id="saveModBtn">💾 ذخیره ماد</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   تنظیمات
+   ============================================================ */
+const GITHUB_USER = 'IRAN-MINECRAFT-WIKI';
+const GITHUB_REPO = 'website';
+const MODS_FILE = 'mods.json';
+const SITEMAP_FILE = 'sitemap.xml';
+const SITE_BASE_URL = 'https://iran-minecraft-wiki.github.io/website';
+const TOKEN_KEY = 'minebed_github_token';
+const ALLOWED_USER = 'IRAN-MINECRAFT-WIKI';
+
+const CAT_NAMES = {
+  gameplay: 'گیم‌پلی', graphics: 'گرافیک', maps: 'مپ',
+  mobs: 'موجودات', decoration: 'دکوراسیون', world: 'دنیا', utility: 'ابزار'
+};
+
+/* ============================================================
+   متغیرها
+   ============================================================ */
+let modsData = [];
+let originalData = '';
+let currentToken = '';
+let currentSha = null;
+let currentUser = null;
+let editingId = null;
+
+/* ============================================================
+   توست
+   ============================================================ */
+const toastEl = document.getElementById('toast');
+let toastTimer;
+function toast(msg, isError = false) {
+  clearTimeout(toastTimer);
+  toastEl.textContent = msg;
+  toastEl.className = 'toast show' + (isError ? ' error' : '');
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3500);
+}
+
+function isAllowedUser(login) {
+  return login.toUpperCase() === ALLOWED_USER.toUpperCase();
+}
+
+/* ============================================================
+   ابزار Base64 با UTF-8
+   ============================================================ */
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary);
+}
+
+function base64ToUtf8(b64) {
+  const binary = atob(b64.replace(/\n/g, ''));
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
+/* ============================================================
+   هدرهای GitHub API (بدون Cache-Control/Pragma برای CORS)
+   ============================================================ */
+function buildHeaders(extra = {}) {
+  const h = {
+    'Accept': 'application/vnd.github.v3+json'
+  };
+  if (currentToken) h['Authorization'] = 'token ' + currentToken;
+  return Object.assign(h, extra);
+}
+
+/* ============================================================
+   ورود
+   ============================================================ */
+const tokenInput = document.getElementById('tokenInput');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const loginSuccess = document.getElementById('loginSuccess');
+const loginScreen = document.getElementById('loginScreen');
+const adminPanel = document.getElementById('adminPanel');
+const logoutBtn = document.getElementById('logoutBtn');
+
+async function validateToken(token) {
+  const res = await fetch('https://api.github.com/user', {
+    headers: {
+      Authorization: 'token ' + token,
+      'Accept': 'application/vnd.github.v3+json'
+    },
+    cache: 'no-store'
+  });
+
+  if (res.status === 401) throw new Error('توکن اشتباه یا منقضی شده');
+  if (res.status === 403) throw new Error('دسترسی کافی نداری. مطمئن شو تیک repo رو زدی');
+  if (!res.ok) throw new Error('خطای ناشناخته از GitHub (کد ' + res.status + ')');
+
+  const user = await res.json();
+  if (!isAllowedUser(user.login)) {
+    throw new Error('⛔ این پنل فقط برای ادمین اصلی سایت قابل دسترسیه');
+  }
+  return user;
+}
+
+loginBtn.addEventListener('click', async () => {
+  const token = tokenInput.value.trim();
+  loginError.classList.remove('show');
+  loginSuccess.classList.remove('show');
+
+  if (!token) {
+    loginError.textContent = 'لطفاً توکن رو وارد کن';
+    loginError.classList.add('show');
+    return;
+  }
+
+  loginBtn.textContent = '⏳ در حال بررسی...';
+  loginBtn.disabled = true;
+
+  try {
+    const user = await validateToken(token);
+    currentToken = token;
+    currentUser = user;
+    localStorage.setItem(TOKEN_KEY, token);
+
+    loginSuccess.textContent = '✅ خوش آمدی ' + user.login;
+    loginSuccess.classList.add('show');
+    toast('خوش آمدی ادمین 🎉');
+    setTimeout(() => showAdmin(), 500);
+  } catch (err) {
+    loginError.textContent = '❌ ' + err.message;
+    loginError.classList.add('show');
+    loginBtn.textContent = '🔓 ورود';
+    loginBtn.disabled = false;
+  }
+});
+
+tokenInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') loginBtn.click();
+});
+
+logoutBtn.addEventListener('click', () => {
+  if (!confirm('از حساب خارج می‌شی؟')) return;
+  localStorage.removeItem(TOKEN_KEY);
+  location.reload();
+});
+
+function showAdmin() {
+  loginScreen.style.display = 'none';
+  adminPanel.classList.add('show');
+  logoutBtn.style.display = 'inline-flex';
+
+  if (currentUser) {
+    document.getElementById('userName').textContent = currentUser.login;
+    const av = document.getElementById('userAvatar');
+    if (currentUser.avatar_url) {
+      av.innerHTML = `<img src="${currentUser.avatar_url}" alt="avatar">`;
+    }
+  }
+
+  loadMods();
+}
+
+/* ============================================================
+   بارگذاری mods.json
+   ============================================================ */
+async function loadMods() {
+  const list = document.getElementById('modsList');
+  list.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-3);">
+    ⏳ در حال بارگذاری...
+  </div>`;
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${MODS_FILE}?t=${Date.now()}`,
+      {
+        headers: buildHeaders(),
+        cache: 'no-store'
+      }
+    );
+
+    if (res.status === 404) {
+      modsData = [];
+      currentSha = null;
+      originalData = JSON.stringify({ mods: [] }, null, 2);
+      renderList();
+      toast('فایل mods.json پیدا نشد. اولین ماد رو اضافه کن!');
+      return;
+    }
+
+    if (res.status === 403) throw new Error('دسترسی نداری. تیک repo رو چک کن');
+    if (!res.ok) throw new Error('خطا در بارگذاری (کد ' + res.status + ')');
+
+    const data = await res.json();
+    currentSha = data.sha;
+    const content = base64ToUtf8(data.content);
+    const parsed = JSON.parse(content);
+    modsData = parsed.mods || [];
+    originalData = JSON.stringify(parsed, null, 2);
+
+    renderList();
+  } catch (err) {
+    toast('خطا: ' + err.message, true);
+    console.error(err);
+    list.innerHTML = `<div style="text-align:center;padding:40px;color:var(--redstone);">
+      خطا: ${err.message}
+    </div>`;
+  }
+}
+
+/* ============================================================
+   رندر لیست
+   ============================================================ */
+function renderList() {
+  const list = document.getElementById('modsList');
+  if (!modsData.length) {
+    list.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--text-3);">
+      <div style="font-size:50px;margin-bottom:14px;opacity:0.35;">📦</div>
+      <p>هنوز مادی اضافه نشده. روی «افزودن ماد جدید» بزن.</p>
+    </div>`;
+    updateStats();
+    return;
+  }
+
+  list.innerHTML = modsData.map(m => {
+    const cat = CAT_NAMES[m.category] || m.category;
+    const cover = m.cover ? `<img src="${m.cover}" onerror="this.remove()">` : '';
+    return `
+      <div class="mod-row">
+        <div class="thumb">${m.icon || '📦'}${cover}</div>
+        <div class="info">
+          <div class="name">${escapeHtml(m.name)}</div>
+          <div class="meta">
+            <span>📁 ${cat}</span>
+            <span>📦 ${m.version || '-'}</span>
+            <span>💾 ${m.size || '-'}</span>
+            ${m.featured ? '<span style="color:var(--gold);">⭐ ویژه</span>' : ''}
+            ${m.isNew ? '<span style="color:var(--redstone);">🆕 جدید</span>' : ''}
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-ghost small" data-edit="${m.id}">✏️ ویرایش</button>
+          <button class="btn btn-danger small" data-del="${m.id}">🗑️ حذف</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('[data-edit]').forEach(b => {
+    b.addEventListener('click', () => openForm(b.dataset.edit));
+  });
+  list.querySelectorAll('[data-del]').forEach(b => {
+    b.addEventListener('click', () => deleteMod(b.dataset.del));
+  });
+
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('statTotal').textContent = modsData.length;
+  document.getElementById('statFeatured').textContent = modsData.filter(m => m.featured).length;
+  document.getElementById('statNew').textContent = modsData.filter(m => m.isNew).length;
+
+  const current = JSON.stringify({ mods: modsData }, null, 2);
+  document.getElementById('statUnsaved').textContent = (current !== originalData) ? '!' : '0';
+}
+
+function escapeHtml(s = '') {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+/* ============================================================
+   تب‌ها
+   ============================================================ */
+document.getElementById('tabModsBtn').addEventListener('click', () => {
+  document.getElementById('modsTab').style.display = 'block';
+  document.getElementById('musicTab').style.display = 'none';
+  document.getElementById('tabModsBtn').className = 'btn btn-primary';
+  document.getElementById('tabMusicBtn').className = 'btn btn-ghost';
+});
+
+document.getElementById('tabMusicBtn').addEventListener('click', () => {
+  document.getElementById('modsTab').style.display = 'none';
+  document.getElementById('musicTab').style.display = 'block';
+  document.getElementById('tabModsBtn').className = 'btn btn-ghost';
+  document.getElementById('tabMusicBtn').className = 'btn btn-primary';
+  loadMusic();
+});
+
+/* ============================================================
+   مدیریت موزیک
+   ============================================================ */
+let musicData = [];
+let musicOriginalData = '';
+let musicSha = null;
+
+async function loadMusic() {
+  const list = document.getElementById('musicList');
+  if (!list) return;
+  list.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-3);">⏳ در حال بارگذاری...</div>`;
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/music.json?t=${Date.now()}`,
+      { headers: buildHeaders(), cache: 'no-store' }
+    );
+    if (res.status === 404) {
+      musicData = [];
+      musicSha = null;
+      musicOriginalData = JSON.stringify({ tracks: [] }, null, 2);
+      renderMusicList();
+      return;
+    }
+    if (!res.ok) throw new Error('خطا در بارگذاری');
+    const data = await res.json();
+    musicSha = data.sha;
+    const content = base64ToUtf8(data.content);
+    const parsed = JSON.parse(content);
+    musicData = parsed.tracks || [];
+    musicOriginalData = JSON.stringify(parsed, null, 2);
+    renderMusicList();
+  } catch (err) {
+    toast('خطا: ' + err.message, true);
+  }
+}
+
+function renderMusicList() {
+  const list = document.getElementById('musicList');
+  if (!list) return;
+  if (!musicData.length) {
+    list.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--text-3);">
+      <div style="font-size:50px;margin-bottom:14px;opacity:0.35;">🎵</div>
+      <p>هنوز موزیکی اضافه نشده. روی «افزودن موزیک» بزن.</p>
+    </div>`;
+    return;
+  }
+  list.innerHTML = musicData.map((m, i) => `
+    <div class="mod-row">
+      <div class="thumb">🎵</div>
+      <div class="info">
+        <div class="name">${escapeHtml(m.title || 'بی‌نام')}</div>
+        <div class="meta">
+          <span style="word-break:break-all;font-size:10.5px;">${escapeHtml(m.src || '')}</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-danger small" data-mdel="${i}">🗑️ حذف</button>
+      </div>
+    </div>
+  `).join('');
+  list.querySelectorAll('[data-mdel]').forEach(b => {
+    b.addEventListener('click', () => {
+      const i = +b.dataset.mdel;
+      if (!confirm(`موزیک «${musicData[i].title}» حذف بشه؟`)) return;
+      musicData.splice(i, 1);
+      renderMusicList();
+      toast('موزیک حذف شد (هنوز ذخیره نشده)');
+    });
+  });
+}
+
+document.getElementById('addMusicBtn').addEventListener('click', () => {
+  const title = prompt('اسم موزیک (برای نمایش):');
+  if (!title) return;
+  const src = prompt('لینک مستقیم فایل MP3:');
+  if (!src) return;
+  musicData.push({ title, src });
+  renderMusicList();
+  toast('موزیک اضافه شد ✅ (هنوز ذخیره نشده)');
+});
+
+document.getElementById('saveMusicBtn').addEventListener('click', async () => {
+  if (!currentToken) { toast('اول وارد شو', true); return; }
+  const content = JSON.stringify({ tracks: musicData }, null, 2);
+  const base64 = utf8ToBase64(content);
+  const btn = document.getElementById('saveMusicBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ در حال ذخیره...';
+  try {
+    let sha = null;
+    const shaRes = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/music.json?t=${Date.now()}`,
+      { headers: buildHeaders(), cache: 'no-store' }
+    );
+    if (shaRes.ok) {
+      const d = await shaRes.json();
+      sha = d.sha;
+    }
+    const body = {
+      message: `Update music.json (${musicData.length} tracks)`,
+      content: base64
+    };
+    if (sha) body.sha = sha;
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/music.json`,
+      { method: 'PUT', headers: buildHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify(body) }
+    );
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'خطا');
+    }
+    const result = await res.json();
+    musicSha = result.content.sha;
+    musicOriginalData = content;
+    toast('✅ music.json با موفقیت ذخیره شد!');
+    setTimeout(() => loadMusic(), 1500);
+  } catch (err) {
+    toast('خطا: ' + err.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 ذخیره موزیک‌ها';
+  }
+});
+/* ============================================================
+   فرم
+   ============================================================ */
+const formOverlay = document.getElementById('formOverlay');
+const formTitle = document.getElementById('formTitle');
+
+function openForm(id = null) {
+  editingId = id;
+  formTitle.textContent = id ? 'ویرایش ماد' : 'افزودن ماد جدید';
+
+  if (id) {
+    const m = modsData.find(x => x.id === id);
+    if (!m) return;
+    document.getElementById('fId').value = m.id || '';
+    document.getElementById('fName').value = m.name || '';
+    document.getElementById('fNameFa').value = m.nameFa || '';
+    document.getElementById('fKeywords').value = m.keywords || '';
+    document.getElementById('fCategory').value = m.category || 'gameplay';
+    document.getElementById('fIcon').value = m.icon || '';
+    document.getElementById('fTagline').value = m.tagline || '';
+    document.getElementById('fDesc').value = m.desc || '';
+    document.getElementById('fVersion').value = m.version || '';
+    document.getElementById('fSize').value = m.size || '';
+    document.getElementById('fAuthor').value = m.author || '';
+    document.getElementById('fUpdated').value = m.updated || '';
+    document.getElementById('fDownloadUrl').value = m.downloadUrl || '';
+    document.getElementById('fCover').value = m.cover || '';
+    document.getElementById('fGallery').value = (m.gallery || []).join('\n');
+    document.getElementById('fFeatured').checked = !!m.featured;
+    document.getElementById('fIsNew').checked = !!m.isNew;
+    document.getElementById('fId').disabled = true;
+  } else {
+    ['fId','fName','fNameFa','fKeywords','fTagline','fDesc','fVersion','fSize','fAuthor','fUpdated','fDownloadUrl','fCover','fGallery']
+      .forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fIcon').value = '';
+    document.getElementById('fCategory').value = 'gameplay';
+    document.getElementById('fFeatured').checked = false;
+    document.getElementById('fIsNew').checked = true;
+    document.getElementById('fId').disabled = false;
+  }
+
+  formOverlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeForm() {
+  formOverlay.classList.add('hidden');
+  document.body.style.overflow = '';
+  editingId = null;
+}
+
+document.getElementById('addModBtn').addEventListener('click', () => openForm());
+document.getElementById('closeFormBtn').addEventListener('click', closeForm);
+document.getElementById('cancelFormBtn').addEventListener('click', closeForm);
+formOverlay.addEventListener('click', (e) => {
+  if (e.target === formOverlay) closeForm();
+});
+
+document.getElementById('saveModBtn').addEventListener('click', () => {
+  const id = document.getElementById('fId').value.trim();
+  const name = document.getElementById('fName').value.trim();
+  const tagline = document.getElementById('fTagline').value.trim();
+  const version = document.getElementById('fVersion').value.trim();
+  const size = document.getElementById('fSize').value.trim();
+  const downloadUrl = document.getElementById('fDownloadUrl').value.trim();
+
+  if (!id || !name || !tagline || !version || !size || !downloadUrl) {
+    toast('لطفاً فیلدهای ستاره‌دار رو پر کن', true);
+    return;
+  }
+
+  if (!/^[a-z0-9-]+$/.test(id)) {
+    toast('شناسه فقط حروف کوچیک، عدد و خط تیره', true);
+    return;
+  }
+
+  const category = document.getElementById('fCategory').value;
+  const galleryRaw = document.getElementById('fGallery').value.trim();
+  const gallery = galleryRaw ? galleryRaw.split('\n').map(s => s.trim()).filter(Boolean) : [];
+
+const modData = {
+    id, name, category,
+    nameFa: document.getElementById('fNameFa').value.trim(),
+    keywords: document.getElementById('fKeywords').value.trim(),
+    catName: CAT_NAMES[category] || category,
+    tagline,
+    desc: document.getElementById('fDesc').value.trim(),
+    icon: document.getElementById('fIcon').value.trim() || '📦',
+    version, size,
+    downloads: editingId ? (modsData.find(x => x.id === editingId)?.downloads || '0') : '0',
+    downloadUrl,
+    cover: document.getElementById('fCover').value.trim(),
+    gallery,
+    featured: document.getElementById('fFeatured').checked,
+    isNew: document.getElementById('fIsNew').checked,
+    author: document.getElementById('fAuthor').value.trim(),
+    updated: document.getElementById('fUpdated').value.trim()
+  };
+
+  if (editingId) {
+    const idx = modsData.findIndex(x => x.id === editingId);
+    if (idx >= 0) modsData[idx] = modData;
+    toast('ماد ویرایش شد ✅ (هنوز ذخیره نشده)');
+  } else {
+    if (modsData.find(x => x.id === id)) {
+      toast('این شناسه قبلاً استفاده شده', true);
+      return;
+    }
+    modsData.push(modData);
+    toast('ماد اضافه شد ✅ (هنوز ذخیره نشده)');
+  }
+
+  closeForm();
+  renderList();
+});
+
+/* ============================================================
+   حذف
+   ============================================================ */
+function deleteMod(id) {
+  const m = modsData.find(x => x.id === id);
+  if (!m) return;
+  if (!confirm(`ماد «${m.name}» حذف بشه؟`)) return;
+  modsData = modsData.filter(x => x.id !== id);
+  renderList();
+  toast('ماد حذف شد (هنوز ذخیره نشده)');
+}
+
+/* ============================================================
+   آپدیت خودکار sitemap.xml
+   ============================================================ */
+async function updateSitemap() {
+  const today = new Date().toISOString().split('T')[0];
+
+  let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE_BASE_URL}/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>`;
+
+  modsData.forEach(mod => {
+    sitemap += `
+  <url>
+    <loc>${SITE_BASE_URL}/mod.html?id=${mod.id}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>`;
+  });
+
+  sitemap += `
+</urlset>`;
+
+  // گرفتن SHA فعلی sitemap.xml
+  let sha = null;
+  try {
+    const shaRes = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${SITEMAP_FILE}?t=${Date.now()}`,
+      {
+        headers: buildHeaders(),
+        cache: 'no-store'
+      }
+    );
+    if (shaRes.ok) {
+      const shaData = await shaRes.json();
+      sha = shaData.sha;
+    }
+  } catch (e) {
+    console.log('sitemap.xml وجود نداره، جدید ساخته می‌شه');
+  }
+
+  const base64 = utf8ToBase64(sitemap);
+
+  const body = {
+    message: `Auto-update sitemap (${modsData.length} mods)`,
+    content: base64
+  };
+  if (sha) body.sha = sha;
+
+  const res = await fetch(
+    `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${SITEMAP_FILE}`,
+    {
+      method: 'PUT',
+      headers: buildHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(body)
+    }
+  );
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'خطا در آپدیت sitemap');
+  }
+
+  return await res.json();
+}
+
+/* ============================================================
+   ذخیره در گیت‌هاب (mods.json + sitemap.xml)
+   ============================================================ */
+document.getElementById('saveBtn').addEventListener('click', async () => {
+  if (!currentToken) {
+    toast('اول وارد شو', true);
+    return;
+  }
+
+  const content = JSON.stringify({ mods: modsData }, null, 2);
+  const base64 = utf8ToBase64(content);
+
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ ذخیره mods.json...';
+
+  try {
+    // ۱. گرفتن SHA تازه از سرور
+    let sha = null;
+    const shaRes = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${MODS_FILE}?t=${Date.now()}`,
+      {
+        headers: buildHeaders(),
+        cache: 'no-store'
+      }
+    );
+    if (shaRes.ok) {
+      const shaData = await shaRes.json();
+      sha = shaData.sha;
+    }
+
+    // ۲. ذخیره mods.json
+    const body = {
+      message: `Update mods.json (${modsData.length} mods)`,
+      content: base64
+    };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${MODS_FILE}`,
+      {
+        method: 'PUT',
+        headers: buildHeaders({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'خطا در ذخیره (کد ' + res.status + ')');
+    }
+
+    const result = await res.json();
+    currentSha = result.content.sha;
+    originalData = content;
+
+    // ۳. آپدیت خودکار sitemap.xml
+    btn.textContent = '⏳ آپدیت sitemap...';
+    try {
+      await updateSitemap();
+      toast('✅ mods.json و sitemap.xml با موفقیت ذخیره شدن!');
+    } catch (sitemapErr) {
+      console.error('خطای sitemap:', sitemapErr);
+      toast('✅ mods.json ذخیره شد، ولی sitemap خطا داد', true);
+    }
+
+    updateStats();
+
+    // ۴. بارگذاری مجدد از سرور
+    setTimeout(() => {
+      toast('در حال بارگذاری مجدد از سرور...');
+      loadMods();
+    }, 2500);
+
+  } catch (err) {
+    toast('خطا: ' + err.message, true);
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 ذخیره در GitHub';
+  }
+});
+
+/* ============================================================
+   دکمه بروزرسانی دستی
+   ============================================================ */
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  if (modsData.length && JSON.stringify({ mods: modsData }, null, 2) !== originalData) {
+    if (!confirm('تغییرات ذخیره‌نشده‌ات پاک می‌شن. مطمئنی؟')) return;
+  }
+  loadMods();
+});
+
+/* ============================================================
+   ورود خودکار
+   ============================================================ */
+(async function autoLogin() {
+  const savedToken = localStorage.getItem(TOKEN_KEY);
+  if (!savedToken) return;
+  try {
+    const user = await validateToken(savedToken);
+    currentToken = savedToken;
+    currentUser = user;
+    showAdmin();
+  } catch (e) {
+    localStorage.removeItem(TOKEN_KEY);
+    console.log('ورود خودکار ناموفق:', e.message);
+  }
+})();
+
+/* ============================================================
+   هشدار قبل از بستن صفحه
+   ============================================================ */
+window.addEventListener('beforeunload', (e) => {
+  const current = JSON.stringify({ mods: modsData }, null, 2);
+  if (current !== originalData && modsData.length > 0) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+</script>
+</body>
+</html>
