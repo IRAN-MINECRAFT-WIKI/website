@@ -497,7 +497,7 @@ function modCard(m) {
       <span class="badge version">${m.version || ''}</span>
     </div>`;
   return `
-    <article class="mod-card" data-id="${m.id}" onclick="location.href='mod.html?id=${encodeURIComponent(m.id)}'">
+    <article class="mod-card" data-id="${m.id}" onclick="navigateTo('mod.html?id=${encodeURIComponent(m.id)}')">
       <div class="mod-thumb">${fallback}${img}${badges}</div>
       <div class="mod-body">
         <div class="mod-cat">${m.catName || ''}</div>
@@ -505,7 +505,7 @@ function modCard(m) {
         <p class="mod-tagline">${m.tagline || ''}</p>
         <div class="mod-meta"><span>💾 ${m.size || '-'}</span><span>⬇️ ${m.downloads || '0'}</span></div>
         <div class="mod-actions">
-          <a href="mod.html?id=${encodeURIComponent(m.id)}" class="mc-btn small" onclick="event.stopPropagation()">👁️ مشاهده</a>
+          <a href="mod.html?id=${encodeURIComponent(m.id)}" class="mc-btn small" onclick="event.preventDefault();navigateTo('mod.html?id=${encodeURIComponent(m.id)}');event.stopPropagation()">👁️ مشاهده</a>
         </div>
       </div>
     </article>`;
@@ -585,7 +585,8 @@ window.filterCat = filterCat;
 
 function animateCount() {
   document.querySelectorAll('[data-count]').forEach(el => {
-    if (el.dataset.fetch) return;
+    if (el.dataset.fetch || el.dataset.animated === '1') return;
+    el.dataset.animated = '1';
     const target = +el.dataset.count;
     let cur = 0;
     const step = Math.max(1, Math.ceil(target / 60));
@@ -606,12 +607,13 @@ async function initLiveStats() {
     const featured = mods.filter(m => m.featured).length;
     document.querySelectorAll('[data-fetch="mods"]').forEach(el => {
       el.dataset.count = mods.length;
-      animateCount.call(el);
+      el.dataset.animated = '0';
     });
     document.querySelectorAll('[data-fetch="featured"]').forEach(el => {
       el.dataset.count = featured;
-      animateCount.call(el);
+      el.dataset.animated = '0';
     });
+    animateCount();
   } catch (e) {}
 }
 
@@ -686,7 +688,7 @@ async function forceDownload(event, url, filename) {
     try { filename = decodeURIComponent(url.split('/').pop().split('?')[0]) || 'mod.mcpack'; }
     catch { filename = 'mod.mcpack'; }
   }
-  await showCountdown(4);
+  await showCountdown(2);
   showToastMsg('⏳ در حال دانلود...');
   for (let i = 0; i < CORS_PROXIES.length; i++) {
     try {
@@ -720,7 +722,7 @@ function showCountdown(seconds) {
       <div style="background:var(--panel);border:3px solid var(--line);padding:40px 60px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6);min-width:280px;max-width:90vw;">
         <div style="font-family:var(--pixel);font-size:12px;color:var(--grass);letter-spacing:2px;margin-bottom:20px;">⏳ دانلود</div>
         <div id="countdownNum" style="font-family:var(--pixel);font-size:64px;color:var(--diamond);text-shadow:0 0 30px rgba(74,237,217,0.6),3px 3px 0 #000;margin-bottom:16px;line-height:1;">${count}</div>
-        <div style="font-size:14px;color:var(--text-2);">لطفاً صبر کن...</div>
+        <div style="font-size:14px;color:var(--text-2);">کلیک دوم برای دانلود...</div>
         <div style="margin-top:20px;width:100%;height:6px;background:var(--bg-2);border:2px solid var(--line);overflow:hidden;">
           <div id="countdownBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--grass-3),var(--grass-2));transition:width ${seconds}s linear;"></div>
         </div>
@@ -806,7 +808,7 @@ function renderModPage(mod, allMods) {
       <h2>افزونه‌های مرتبط</h2>
       <div class="related-grid">
         ${related.map(r => `
-          <a href="mod.html?id=${encodeURIComponent(r.id)}" class="related-card">
+          <a href="mod.html?id=${encodeURIComponent(r.id)}" class="related-card" onclick="event.preventDefault();navigateTo('mod.html?id=${encodeURIComponent(r.id)}')">
             <div class="related-thumb">
               ${r.icon || '📦'}
               ${r.cover ? `<img src="${r.cover}" alt="${escapeHtml(r.name)}" loading="lazy" onerror="this.remove()">` : ''}
@@ -1055,11 +1057,15 @@ async function navigateTo(url, push = true) {
     const curDesc = document.querySelector('meta[name="description"]');
     if (newDesc && curDesc) curDesc.setAttribute('content', newDesc.getAttribute('content') || '');
 
-    // محتوای main
+    // محتوای main — کپی DOM کامل برای حفظ audio و سایر المان‌ها
     const newMain = doc.querySelector('main');
     const currentMain = document.querySelector('main');
     if (newMain && currentMain) {
-      currentMain.innerHTML = newMain.innerHTML;
+      // کپی نodelist به صورت safe
+      const temp = document.createDocumentFragment();
+      while (newMain.firstChild) temp.appendChild(newMain.firstChild);
+      currentMain.innerHTML = '';
+      currentMain.appendChild(temp);
     }
 
     // بازگردانی پیش‌لودر (نمایش کوتاه)
