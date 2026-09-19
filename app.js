@@ -698,32 +698,49 @@ function showDownloadCountdown(url, filename) {
   return new Promise(resolve => {
     let count = 10;
     let downloadStarted = false;
-    let adOpened = false;
 
     const overlay = document.createElement('div');
     overlay.id = 'downloadOverlay';
-    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-family:var(--font);color:#fff;padding:20px;';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-family:var(--font);color:#fff;padding:20px;overflow-y:auto;';
     overlay.innerHTML = `
-      <div style="background:var(--panel);border:3px solid var(--line);padding:35px 40px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6);max-width:520px;width:100%;">
-        <div style="font-family:var(--pixel);font-size:12px;color:var(--grass);letter-spacing:2px;margin-bottom:20px;">⏳ آماده‌سازی دانلود</div>
-        <div id="dlCountdownNum" style="font-family:var(--pixel);font-size:72px;color:var(--diamond);text-shadow:0 0 30px rgba(74,237,217,0.6),3px 3px 0 #000;margin-bottom:20px;line-height:1;">${count}</div>
-        <div id="dlMessage" style="font-size:14px;color:var(--text-2);line-height:2;margin-bottom:16px;">
+      <div style="background:var(--panel);border:3px solid var(--line);padding:28px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.7);max-width:600px;width:100%;margin:auto;">
+        <div style="font-family:var(--pixel);font-size:12px;color:var(--grass);letter-spacing:2px;margin-bottom:14px;">⏳ آماده‌سازی دانلود</div>
+        <div id="dlCountdownNum" style="font-family:var(--pixel);font-size:64px;color:var(--diamond);text-shadow:0 0 30px rgba(74,237,217,0.6),3px 3px 0 #000;margin-bottom:14px;line-height:1;">${count}</div>
+        <div id="dlMessage" style="font-size:13.5px;color:var(--text-2);line-height:1.9;margin-bottom:14px;">
           لطفاً صبر کنید...
         </div>
-        <div style="margin-top:20px;width:100%;height:8px;background:var(--bg-2);border:2px solid var(--line);overflow:hidden;">
+
+        <div style="background:var(--bg-2);border:2px dashed var(--line);min-height:260px;padding:10px;margin:14px 0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <span style="position:absolute;top:4px;right:8px;font-family:var(--pixel);font-size:8px;color:var(--text-3);letter-spacing:2px;z-index:1;">AD</span>
+          <div id="mediaad-5k48W" style="width:100%;display:flex;justify-content:center;"></div>
+        </div>
+
+        <div id="dlHint" style="display:none;margin-top:10px;font-size:11.5px;color:var(--text-3);line-height:1.8;">
+          دانلود در حال شروع است...
+        </div>
+
+        <div style="margin-top:16px;width:100%;height:8px;background:var(--bg-2);border:2px solid var(--line);overflow:hidden;">
           <div id="dlBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--grass-3),var(--grass-2));transition:width 10s linear;"></div>
         </div>
-        <a id="adLinkBtn" href="https://www.tapsell.ir/" target="_blank" rel="noopener" style="display:none;margin-top:18px;padding:10px 20px;background:var(--gold);color:#21160a;font-weight:800;font-size:13px;border:3px solid #8f5d0f;text-decoration:none;">
-          🎁 مشاهده تبلیغ
-        </a>
       </div>`;
     document.body.appendChild(overlay);
     document.body.classList.add('no-scroll');
 
+    // ⬅️ لودر MediaAd رو دوباره اجرا کن تا Ad Zone جدید لود بشه
+    setTimeout(() => {
+      if (window.mediaad && typeof window.mediaad.render === 'function') {
+        try { window.mediaad.render(); } catch(e) {}
+      }
+      // روش جایگزین: دوباره لودر رو صدا بزن
+      if (window.MediaAdLoader) {
+        try { window.MediaAdLoader(); } catch(e) {}
+      }
+    }, 200);
+
     const numEl = overlay.querySelector('#dlCountdownNum');
     const barEl = overlay.querySelector('#dlBar');
     const msgEl = overlay.querySelector('#dlMessage');
-    const adBtn = overlay.querySelector('#adLinkBtn');
+    const hintEl = overlay.querySelector('#dlHint');
 
     requestAnimationFrame(() => { barEl.style.width = '100%'; });
 
@@ -731,7 +748,6 @@ function showDownloadCountdown(url, filename) {
       count--;
 
       if (count === 7 && !downloadStarted) {
-        // ۱. شروع دانلود
         const a = document.createElement('a');
         a.href = url;
         a.download = filename;
@@ -741,11 +757,8 @@ function showDownloadCountdown(url, filename) {
         document.body.removeChild(a);
         downloadStarted = true;
 
-        // ۲. نمایش دکمه‌ی تبلیغ (به جای window.open که popup blocker می‌گیره)
-        adBtn.style.display = 'inline-block';
-        adBtn.click(); // شبیه‌سازی کلیک کاربر
-
-        msgEl.innerHTML = '⚠️ به یک وب‌سایت دیگر می‌روید<br>بعد از باز شدن، برگردید و تایمر را کامل کنید';
+        hintEl.style.display = 'block';
+        msgEl.innerHTML = '⚠️ دانلود شروع شد';
       }
 
       if (count > 0) {
@@ -758,7 +771,7 @@ function showDownloadCountdown(url, filename) {
         setTimeout(() => {
           overlay.remove();
           document.body.classList.remove('no-scroll');
-          showToastMsg('✅ دانلود شروع شد — بسته به اینترنت شما زمان می‌برد');
+          showToastMsg('✅ دانلود شروع شد');
           resolve();
         }, 500);
       }
