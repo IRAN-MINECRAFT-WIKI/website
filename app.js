@@ -710,9 +710,9 @@ function showDownloadCountdown(url, filename) {
           لطفاً صبر کنید...
         </div>
 
-        <div style="background:var(--bg-2);border:2px dashed var(--line);min-height:260px;padding:10px;margin:14px 0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+        <div id="adSlotContainer" style="background:var(--bg-2);border:2px dashed var(--line);min-height:260px;padding:10px;margin:14px 0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
           <span style="position:absolute;top:4px;right:8px;font-family:var(--pixel);font-size:8px;color:var(--text-3);letter-spacing:2px;z-index:1;">AD</span>
-          <div id="mediaad-5k48W" style="width:100%;display:flex;justify-content:center;"></div>
+          <!-- ⬅️ Ad Zone از جای مخفی اینجا منتقل میشه -->
         </div>
 
         <div id="dlHint" style="display:none;margin-top:10px;font-size:11.5px;color:var(--text-3);line-height:1.8;">
@@ -726,16 +726,17 @@ function showDownloadCountdown(url, filename) {
     document.body.appendChild(overlay);
     document.body.classList.add('no-scroll');
 
-    // ⬅️ لودر MediaAd رو دوباره اجرا کن تا Ad Zone جدید لود بشه
-    setTimeout(() => {
-      if (window.mediaad && typeof window.mediaad.render === 'function') {
-        try { window.mediaad.render(); } catch(e) {}
-      }
-      // روش جایگزین: دوباره لودر رو صدا بزن
-      if (window.MediaAdLoader) {
-        try { window.MediaAdLoader(); } catch(e) {}
-      }
-    }, 200);
+    // ⬅️ Ad Zone رو از مخفی بیار و بذار توی مودال
+    const hiddenAd = document.getElementById('hiddenAdZone');
+    const adContainer = document.getElementById('adSlotContainer');
+    if (hiddenAd && adContainer) {
+      adContainer.appendChild(hiddenAd);
+      hiddenAd.style.position = 'static';
+      hiddenAd.style.left = 'auto';
+      hiddenAd.style.top = 'auto';
+      hiddenAd.style.width = '100%';
+      hiddenAd.style.height = 'auto';
+    }
 
     const numEl = overlay.querySelector('#dlCountdownNum');
     const barEl = overlay.querySelector('#dlBar');
@@ -771,6 +772,16 @@ function showDownloadCountdown(url, filename) {
         setTimeout(() => {
           overlay.remove();
           document.body.classList.remove('no-scroll');
+          // ⬅️ Ad Zone رو برگردون به جای مخفی (برای بار بعدی)
+          const backToHidden = document.getElementById('hiddenAdZone');
+          if (backToHidden) {
+            backToHidden.style.position = 'fixed';
+            backToHidden.style.left = '-9999px';
+            backToHidden.style.top = '-9999px';
+            backToHidden.style.width = '300px';
+            backToHidden.style.height = '250px';
+            document.body.appendChild(backToHidden);
+          }
           showToastMsg('✅ دانلود شروع شد');
           resolve();
         }, 500);
