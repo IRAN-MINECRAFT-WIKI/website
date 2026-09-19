@@ -607,12 +607,11 @@ async function initLiveStats() {
     const featured = mods.filter(m => m.featured).length;
     document.querySelectorAll('[data-fetch="mods"]').forEach(el => {
       el.dataset.count = mods.length;
-      el.dataset.animated = '0';
     });
     document.querySelectorAll('[data-fetch="featured"]').forEach(el => {
       el.dataset.count = featured;
-      el.dataset.animated = '0';
     });
+    // Animate after setting values
     animateCount();
   } catch (e) {}
 }
@@ -1038,12 +1037,16 @@ async function navigateTo(url, push = true) {
   if (isNavigating) return;
   isNavigating = true;
 
+  // Show preloader immediately
+  const preloader = document.getElementById('preloader');
+  if (preloader) preloader.classList.remove('done');
+
   try {
     // اسکرول به بالا
     window.scrollTo({ top: 0, behavior: 'auto' });
 
     const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) { window.location.href = url; return; }
+    if (!res.ok) throw new Error('Failed to fetch: ' + url);
     const html = await res.text();
 
     const parser = new DOMParser();
@@ -1057,39 +1060,31 @@ async function navigateTo(url, push = true) {
     const curDesc = document.querySelector('meta[name="description"]');
     if (newDesc && curDesc) curDesc.setAttribute('content', newDesc.getAttribute('content') || '');
 
-    // محتوای main — کپی DOM کامل برای حفظ audio و سایر المان‌ها
+    // محتوای main — فقط محتوای main رو عوض کن (پلیر و هدر ثابت می‌مونن)
     const newMain = doc.querySelector('main');
     const currentMain = document.querySelector('main');
     if (newMain && currentMain) {
-      // کپی نodelist به صورت safe
-      const temp = document.createDocumentFragment();
-      while (newMain.firstChild) temp.appendChild(newMain.firstChild);
-      currentMain.innerHTML = '';
-      currentMain.appendChild(temp);
-    }
-
-    // بازگردانی پیش‌لودر (نمایش کوتاه)
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-      preloader.classList.remove('done');
-      setTimeout(() => preloader.classList.add('done'), 400);
+      currentMain.innerHTML = newMain.innerHTML;
     }
 
     // ناوبری فعال
     updateActiveNav(url);
 
-    // مقداردهی مجدد
-    setTimeout(() => {
-      reInitPage();
-      isNavigating = false;
-    }, 100);
+    // مقداردهی مجدد صفحه
+    reInitPage();
+
+    // Hide preloader
+    if (preloader) preloader.classList.add('done');
 
     if (push) {
       history.pushState({ url }, '', url);
     }
   } catch (err) {
     console.error('خطا در ناوبری:', err);
+    // Fallback to full page load
     window.location.href = url;
+  } finally {
+    isNavigating = false;
   }
 }
 window.navigateTo = navigateTo;
