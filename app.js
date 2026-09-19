@@ -528,7 +528,7 @@ function renderFeatured() {
       html += `
         <div style="grid-column:1/-1;background:var(--panel);border:2px dashed var(--line);padding:18px;min-height:120px;display:flex;align-items:center;justify-content:center;position:relative;">
           <span style="position:absolute;top:6px;right:10px;font-family:var(--pixel);font-size:9px;color:var(--text-3);letter-spacing:2px;">AD</span>
-          <div id="mediaad-nwmnG"></div>
+          <div id="mediaad-JRBY2"></div> 
         </div>`;
     }
   });
@@ -1104,6 +1104,9 @@ function reInitPage() {
   initMobileMenu();
   initGuidePage();
 
+  // ⬅️ ری‌لود تبلیغات
+  setTimeout(() => reloadMediaAd(), 300);
+
   // صفحه‌های خاص
   if (document.getElementById('modsGrid')) initIndexPage();
   if (document.getElementById('pageContent')) initModPage();
@@ -1158,6 +1161,7 @@ async function navigateTo(url, push = true) {
     const curDesc = document.querySelector('meta[name="description"]');
     if (newDesc && curDesc) curDesc.setAttribute('content', newDesc.getAttribute('content') || '');
 
+   
     // محتوای main
     const newMain = doc.querySelector('main');
     const currentMain = document.querySelector('main');
@@ -1167,6 +1171,9 @@ async function navigateTo(url, push = true) {
       currentMain.innerHTML = '';
       currentMain.appendChild(temp);
     }
+
+    // ⬅️ اضافه کن: ری‌لود تبلیغات
+    reloadMediaAd();
 
     // بازگردانی پیش‌لودر
     const preloader = document.getElementById('preloader');
@@ -1231,6 +1238,31 @@ function initSPARouter() {
     }
   });
 }
+/* ============================================================
+   ۱۶) ری‌لود تبلیغات MediaAd بعد از ناوبری SPA
+   ============================================================ */
+function reloadMediaAd() {
+  // ۱. همه Ad Zoneهای قدیمی رو خالی کن
+  document.querySelectorAll('[id^="mediaad-"]').forEach(zone => {
+    zone.innerHTML = '';
+  });
+
+  // ۲. لودر قدیمی رو حذف کن
+  const oldLoader = document.getElementById('mediaad-loader-script');
+  if (oldLoader) oldLoader.remove();
+
+  // ۳. لودر جدید رو با cache-busting اضافه کن
+  const head = document.getElementsByTagName('head')[0];
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.async = true;
+  script.id = 'mediaad-loader-script';
+  script.src = 'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js?t=' + Date.now();
+  head.appendChild(script);
+
+  console.log('🔄 MediaAd reloaded');
+}
+window.reloadMediaAd = reloadMediaAd;
 
 /* ============================================================
    ۱۵) راه‌اندازی خودکار
