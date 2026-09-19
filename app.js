@@ -1037,10 +1037,25 @@ async function navigateTo(url, push = true) {
   isNavigating = true;
 
   try {
+    // جدا کردن hash از URL
+    const hashIndex = url.indexOf('#');
+    const hash = hashIndex >= 0 ? url.slice(hashIndex + 1) : '';
+    const urlNoHash = hashIndex >= 0 ? url.slice(0, hashIndex) : url;
+
+    // اگه روی همون صفحه هستیم و فقط hash عوض شده، اسکرول کن
+    const currentPath = (window.location.pathname.split('/').pop() || 'index.html');
+    const targetPath = (urlNoHash.split('/').pop() || 'index.html') || currentPath;
+    if (currentPath === targetPath && hash && document.getElementById(hash)) {
+      document.getElementById(hash).scrollIntoView({ behavior: 'smooth' });
+      if (push) history.pushState({ url }, '', url);
+      isNavigating = false;
+      return;
+    }
+
     // اسکرول به بالا
     window.scrollTo({ top: 0, behavior: 'auto' });
 
-    const res = await fetch(url, { cache: 'no-store' });
+    const res = await fetch(urlNoHash, { cache: 'no-store' });
     if (!res.ok) {
       isNavigating = false;
       window.location.href = url;
@@ -1059,18 +1074,17 @@ async function navigateTo(url, push = true) {
     const curDesc = document.querySelector('meta[name="description"]');
     if (newDesc && curDesc) curDesc.setAttribute('content', newDesc.getAttribute('content') || '');
 
-    // محتوای main — کپی DOM کامل برای حفظ audio و سایر المان‌ها
+    // محتوای main
     const newMain = doc.querySelector('main');
     const currentMain = document.querySelector('main');
     if (newMain && currentMain) {
-      // کپی نodelist به صورت safe
       const temp = document.createDocumentFragment();
       while (newMain.firstChild) temp.appendChild(newMain.firstChild);
       currentMain.innerHTML = '';
       currentMain.appendChild(temp);
     }
 
-    // بازگردانی پیش‌لودر (نمایش کوتاه)
+    // بازگردانی پیش‌لودر
     const preloader = document.getElementById('preloader');
     if (preloader) {
       preloader.classList.remove('done');
@@ -1080,10 +1094,17 @@ async function navigateTo(url, push = true) {
     // ناوبری فعال
     updateActiveNav(url);
 
-    // مقداردهی مجدد
+    // مقداردهی مجدد + اسکرول به hash اگه بود
     setTimeout(() => {
       reInitPage();
       isNavigating = false;
+
+      if (hash) {
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+      }
     }, 100);
 
     if (push) {
@@ -1095,6 +1116,7 @@ async function navigateTo(url, push = true) {
     window.location.href = url;
   }
 }
+
 window.navigateTo = navigateTo;
 
 function initSPARouter() {
