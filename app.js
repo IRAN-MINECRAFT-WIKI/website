@@ -528,7 +528,7 @@ function renderFeatured() {
       html += `
         <div style="grid-column:1/-1;background:var(--panel);border:2px dashed var(--line);padding:18px;min-height:120px;display:flex;align-items:center;justify-content:center;position:relative;">
           <span style="position:absolute;top:6px;right:10px;font-family:var(--pixel);font-size:9px;color:var(--text-3);letter-spacing:2px;">AD</span>
-          <div id="mediaad-FEATURED"></div>
+          <div id="mediaad-nwmqR"></div>
         </div>`;
     }
   });
@@ -973,14 +973,14 @@ function renderModPage(mod, allMods) {
 
     <!-- تبلیغ اول (بالای توضیحات) -->
     <div class="ad-inline">
-      <div id="mediaad-MODTOP"></div>
+      <div id="mediaad-JRBzY"></div>
     </div>
 
     ${descHTML}
 
     <!-- تبلیغ دوم (وسط) -->
     <div class="ad-inline" style="border-color:var(--gold);">
-      <div id="mediaad-MODMID"></div>
+      <div id="mediaad-W2B88"></div>
     </div>
 
     ${galleryHTML}
