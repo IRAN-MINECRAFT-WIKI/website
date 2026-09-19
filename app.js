@@ -585,7 +585,7 @@ window.filterCat = filterCat;
 
 function animateCount() {
   document.querySelectorAll('[data-count]').forEach(el => {
-    if (el.dataset.fetch || el.dataset.animated === '1') return;
+    if (el.dataset.animated === '1') return;
     el.dataset.animated = '1';
     const target = +el.dataset.count;
     let cur = 0;
@@ -598,22 +598,18 @@ function animateCount() {
   });
 }
 
-async function initLiveStats() {
-  try {
-    const res = await fetch('mods.json?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) return;
-    const data = await res.json();
-    const mods = data.mods || [];
-    const featured = mods.filter(m => m.featured).length;
-    document.querySelectorAll('[data-fetch="mods"]').forEach(el => {
-      el.dataset.count = mods.length;
-    });
-    document.querySelectorAll('[data-fetch="featured"]').forEach(el => {
-      el.dataset.count = featured;
-    });
-    // Animate after setting values
-    animateCount();
-  } catch (e) {}
+function updateLiveStats() {
+  const mods = MODS || [];
+  const featured = mods.filter(m => m.featured).length;
+  document.querySelectorAll('[data-fetch="mods"]').forEach(el => {
+    el.dataset.count = mods.length;
+    el.dataset.animated = '0';
+  });
+  document.querySelectorAll('[data-fetch="featured"]').forEach(el => {
+    el.dataset.count = featured;
+    el.dataset.animated = '0';
+  });
+  animateCount();
 }
 
 function initChips() {
@@ -647,6 +643,12 @@ function initSearch() {
 }
 
 async function loadModsFromJson() {
+  if (MODS.length) {
+    renderFeatured();
+    renderMods();
+    updateLiveStats();
+    return;
+  }
   try {
     const res = await fetch('mods.json?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('mods.json not found');
@@ -654,12 +656,11 @@ async function loadModsFromJson() {
     MODS = data.mods || [];
   } catch (err) {
     console.warn('خطا در بارگذاری mods.json:', err);
-    MODS = [];
+    if (!MODS.length) MODS = [];
   }
   renderFeatured();
   renderMods();
-  animateCount();
-  initLiveStats();
+  updateLiveStats();
 }
 
 function initIndexPage() {
@@ -843,6 +844,11 @@ function renderModPage(mod, allMods) {
   const catName = mod.catName || CAT_NAMES[mod.category] || '';
   const safeName = (mod.name || 'mod').replace(/'/g, "\\'");
   const safeUrl = (mod.downloadUrl || '').replace(/'/g, "\\'");
+  let dlFilename = 'mod.mcpack';
+  try {
+    dlFilename = decodeURIComponent(mod.downloadUrl.split('/').pop().split('?')[0]) || 'mod.mcpack';
+  } catch { dlFilename = 'mod.mcpack'; }
+  dlFilename = dlFilename.replace(/'/g, "\\'");
 
   const html = `
     <nav class="breadcrumb">
@@ -880,7 +886,7 @@ function renderModPage(mod, allMods) {
         </div>
 
         <div class="download-actions">
-          <button class="mc-btn download-btn" onclick="forceDownload(event, '${safeUrl}', '${safeName}.mcpack')">
+          <button class="mc-btn download-btn" onclick="forceDownload(event, '${safeUrl}', '${dlFilename}')">
             ⬇️ دانلود افزونه
           </button>
           <button class="mc-btn ghost" onclick="copyPageLink()">🔗 کپی لینک</button>
@@ -999,6 +1005,7 @@ function isInternalLink(href) {
   if (href.startsWith('http://') || href.startsWith('https://')) return false;
   if (href.startsWith('mailto:') || href.startsWith('tel:')) return false;
   if (href.endsWith('.json') || href.endsWith('.xml') || href.endsWith('.txt')) return false;
+  if (href.match(/^(guide|about|privacy|terms)\.html/)) return false;
   return true;
 }
 
@@ -1037,16 +1044,16 @@ async function navigateTo(url, push = true) {
   if (isNavigating) return;
   isNavigating = true;
 
-  // Show preloader immediately
-  const preloader = document.getElementById('preloader');
-  if (preloader) preloader.classList.remove('done');
-
   try {
     // اسکرول به بالا
     window.scrollTo({ top: 0, behavior: 'auto' });
 
     const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error('Failed to fetch: ' + url);
+    if (!res.ok) {
+      isNavigating = false;
+      window.location.href = url;
+      return;
+    }
     const html = await res.text();
 
     const parser = new DOMParser();
@@ -1060,31 +1067,40 @@ async function navigateTo(url, push = true) {
     const curDesc = document.querySelector('meta[name="description"]');
     if (newDesc && curDesc) curDesc.setAttribute('content', newDesc.getAttribute('content') || '');
 
-    // محتوای main — فقط محتوای main رو عوض کن (پلیر و هدر ثابت می‌مونن)
+    // محتوای main — کپی DOM کامل برای حفظ audio و سایر المان‌ها
     const newMain = doc.querySelector('main');
     const currentMain = document.querySelector('main');
     if (newMain && currentMain) {
-      currentMain.innerHTML = newMain.innerHTML;
+      // کپی نodelist به صورت safe
+      const temp = document.createDocumentFragment();
+      while (newMain.firstChild) temp.appendChild(newMain.firstChild);
+      currentMain.innerHTML = '';
+      currentMain.appendChild(temp);
+    }
+
+    // بازگردانی پیش‌لودر (نمایش کوتاه)
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+      preloader.classList.remove('done');
+      setTimeout(() => preloader.classList.add('done'), 400);
     }
 
     // ناوبری فعال
     updateActiveNav(url);
 
-    // مقداردهی مجدد صفحه
-    reInitPage();
-
-    // Hide preloader
-    if (preloader) preloader.classList.add('done');
+    // مقداردهی مجدد
+    setTimeout(() => {
+      reInitPage();
+      isNavigating = false;
+    }, 100);
 
     if (push) {
       history.pushState({ url }, '', url);
     }
   } catch (err) {
     console.error('خطا در ناوبری:', err);
-    // Fallback to full page load
-    window.location.href = url;
-  } finally {
     isNavigating = false;
+    window.location.href = url;
   }
 }
 window.navigateTo = navigateTo;

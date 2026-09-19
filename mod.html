@@ -67,43 +67,5 @@
 <button class="to-top" id="toTop" aria-label="بازگشت به بالا">↑</button>
 
 <script src="app.js"></script>
-<script>
-(async function init() {
-  try {
-    const res = await fetch('mods.json?t=' + Date.now(), { cache: 'no-store' });
-    if (res.ok) {
-      const data = await res.json();
-      MODS = data.mods || [];
-    }
-  } catch (e) { console.warn('خطا در بارگذاری داده‌ها', e); }
-
-  const id = getParam('id');
-  if (!id) { renderError('شناسه افزونه مشخص نشده'); return; }
-  try {
-    const mod = MODS.find(m => m.id === id);
-    if (!mod) { renderError('این افزونه پیدا نشد'); return; }
-    renderModPage(mod, MODS);
-  } catch (err) {
-    console.error(err);
-    renderError('خطا در بارگذاری صفحه');
-  }
-  const cl = document.getElementById('canonicalLink');
-  if (cl) cl.href = window.location.href;
-
-  // Mobile menu
-  const toggle = document.getElementById('menuToggle');
-  const nav = document.getElementById('mainNav');
-  if (toggle && nav) {
-    toggle.addEventListener('click', () => nav.classList.toggle('open'));
-    nav.addEventListener('click', e => { if (e.target.tagName === 'A') nav.classList.remove('open'); });
-  }
-
-  // Back to top
-  const toTop = document.getElementById('toTop');
-  if (toTop) {
-    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  }
-})();
-</script>
 </body>
 </html>
