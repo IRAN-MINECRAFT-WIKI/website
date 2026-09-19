@@ -998,7 +998,6 @@ function isInternalLink(href) {
   if (href.startsWith('http://') || href.startsWith('https://')) return false;
   if (href.startsWith('mailto:') || href.startsWith('tel:')) return false;
   if (href.endsWith('.json') || href.endsWith('.xml') || href.endsWith('.txt')) return false;
-  if (href.match(/^(guide|about|privacy|terms)\.html/)) return false;
   return true;
 }
 
