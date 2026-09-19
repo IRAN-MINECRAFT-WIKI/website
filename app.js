@@ -689,22 +689,82 @@ async function forceDownload(event, url, filename) {
     catch { filename = 'mod.mcpack'; }
   }
 
-  // ⬅️ راه‌حل: باز کردن در تب جدید بلافاصله (user gesture حفظ می‌شه)
-  // این کار باعث می‌شه مرورگر دانلود رو شروع کنه
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  a.style.display = 'none';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-
-  showToastMsg('✅ دانلود شروع شد');
+  // نمایش مودال شمارش معکوس
+  await showDownloadCountdown(url, filename);
 }
 window.forceDownload = forceDownload;
 
+function showDownloadCountdown(url, filename) {
+  return new Promise(resolve => {
+    let count = 10;
+    let downloadStarted = false;
+    let adOpened = false;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'downloadOverlay';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-family:var(--font);color:#fff;padding:20px;';
+    overlay.innerHTML = `
+      <div style="background:var(--panel);border:3px solid var(--line);padding:35px 40px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6);max-width:520px;width:100%;">
+        <div style="font-family:var(--pixel);font-size:12px;color:var(--grass);letter-spacing:2px;margin-bottom:20px;">⏳ آماده‌سازی دانلود</div>
+        <div id="dlCountdownNum" style="font-family:var(--pixel);font-size:72px;color:var(--diamond);text-shadow:0 0 30px rgba(74,237,217,0.6),3px 3px 0 #000;margin-bottom:20px;line-height:1;">${count}</div>
+        <div id="dlMessage" style="font-size:14px;color:var(--text-2);line-height:2;margin-bottom:16px;">
+          لطفاً صبر کنید...
+        </div>
+        <div style="margin-top:20px;width:100%;height:8px;background:var(--bg-2);border:2px solid var(--line);overflow:hidden;">
+          <div id="dlBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--grass-3),var(--grass-2));transition:width 10s linear;"></div>
+        </div>
+        <a id="adLinkBtn" href="https://www.tapsell.ir/" target="_blank" rel="noopener" style="display:none;margin-top:18px;padding:10px 20px;background:var(--gold);color:#21160a;font-weight:800;font-size:13px;border:3px solid #8f5d0f;text-decoration:none;">
+          🎁 مشاهده تبلیغ
+        </a>
+      </div>`;
+    document.body.appendChild(overlay);
+    document.body.classList.add('no-scroll');
+
+    const numEl = overlay.querySelector('#dlCountdownNum');
+    const barEl = overlay.querySelector('#dlBar');
+    const msgEl = overlay.querySelector('#dlMessage');
+    const adBtn = overlay.querySelector('#adLinkBtn');
+
+    requestAnimationFrame(() => { barEl.style.width = '100%'; });
+
+    const timer = setInterval(() => {
+      count--;
+
+      if (count === 7 && !downloadStarted) {
+        // ۱. شروع دانلود
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        downloadStarted = true;
+
+        // ۲. نمایش دکمه‌ی تبلیغ (به جای window.open که popup blocker می‌گیره)
+        adBtn.style.display = 'inline-block';
+        adBtn.click(); // شبیه‌سازی کلیک کاربر
+
+        msgEl.innerHTML = '⚠️ به یک وب‌سایت دیگر می‌روید<br>بعد از باز شدن، برگردید و تایمر را کامل کنید';
+      }
+
+      if (count > 0) {
+        numEl.textContent = count;
+        numEl.style.animation = 'none';
+        void numEl.offsetWidth;
+        numEl.style.animation = 'countPulse 0.5s ease';
+      } else {
+        clearInterval(timer);
+        setTimeout(() => {
+          overlay.remove();
+          document.body.classList.remove('no-scroll');
+          showToastMsg('✅ دانلود شروع شد — بسته به اینترنت شما زمان می‌برد');
+          resolve();
+        }, 500);
+      }
+    }, 1000);
+  });
+}
 
 function showCountdown(seconds) {
   return new Promise(resolve => {
