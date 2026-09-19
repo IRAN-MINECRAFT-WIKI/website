@@ -4,262 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>آموزش نصب افزونه | MineBed</title>
-  <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/png" href="/favicon.png">
 <meta name="description" content="آموزش گام‌به‌گام نصب افزونه، مپ و ریسورس‌پک ماینکرفت بدراک روی اندروید، iOS و ویندوز">
 <link rel="canonical" href="https://iran-minecraft-wiki.github.io/website/guide.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0d0d18; --bg-2: #14142a; --panel: #1c1c34; --panel-2: #242445;
-  --line: #2e2e4a; --text: #e6e6f2; --text-2: #9a9ab8; --text-3: #5c5c7a;
-  --grass: #5fa838; --grass-2: #7cc84a; --grass-3: #3d7521;
-  --dirt: #79553a; --dirt-2: #5b3f29; --gold: #fcb32b; --diamond: #4aedd9;
-  --redstone: #ff3b3b; --emerald: #17dd62;
-  --font: 'Vazirmatn', sans-serif; --pixel: 'Press Start 2P', monospace;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font); background: var(--bg); color: var(--text);
-  line-height: 1.9; min-height: 100vh;
-  display: flex; flex-direction: column;
-}
-main { flex: 1; }
-a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-img { max-width: 100%; display: block; }
-::-webkit-scrollbar { width: 12px; }
-::-webkit-scrollbar-track { background: var(--bg-2); }
-::-webkit-scrollbar-thumb { background: #4a4a6a; border: 3px solid var(--bg-2); }
-::-webkit-scrollbar-thumb:hover { background: var(--grass); }
-::selection { background: var(--grass); color: #fff; }
+<link rel="stylesheet" href="style.css">
 
-/* ============ هدر ============ */
-.site-header {
-  position: sticky; top: 0; z-index: 1000;
-  background: rgba(20,20,42,0.96); backdrop-filter: blur(10px);
-  border-bottom: 3px solid #2b1d0e;
-  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
-}
-.site-header::before {
-  content: ''; display: block; height: 8px;
-  background: linear-gradient(90deg, #3d7521, #4f9c2c, #3d7521);
-}
-.header-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; padding: 12px 28px; max-width: 1400px; margin: 0 auto;
-}
-.brand {
-  display: flex; align-items: center; gap: 12px;
-  font-family: var(--pixel); font-size: 13px; color: #fff;
-  text-shadow: 2px 2px 0 #000; letter-spacing: 1px; white-space: nowrap;
-}
-.brand-mark {
-  width: 30px; height: 30px;
-  background: linear-gradient(180deg, #6db73f 0 8px, #79553a 8px 100%);
-  border: 2px solid #2b1d0e;
-  box-shadow: inset -2px -2px 0 rgba(0,0,0,0.35), inset 2px 2px 0 rgba(255,255,255,0.12);
-}
-.main-nav { display: flex; gap: 6px; align-items: center; }
-.main-nav a {
-  padding: 8px 16px; font-size: 13.5px; font-weight: 700;
-  color: var(--text-2); border: 2px solid transparent;
-  transition: all 0.15s;
-}
-.main-nav a:hover { color: #fff; border-color: var(--line); background: var(--panel); }
-.main-nav a.active {
-  color: #fff; background: var(--grass);
-  border-color: var(--grass-3); border-top-color: var(--grass-2); border-right-color: var(--grass-2);
-  box-shadow: 0 3px 0 rgba(0,0,0,0.4); text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
-}
-.menu-toggle {
-  display: none; width: 40px; height: 40px;
-  border: 2px solid var(--line); font-size: 20px; color: var(--text);
-  background: none; align-items: center; justify-content: center;
-}
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yjtimwkoiu");
+</script>
 
-/* ============ کانتینر ============ */
-.container { max-width: 1000px; margin: 0 auto; padding: 0 28px; width: 100%; }
-
-/* ============ هیرو ============ */
-.page-hero {
-  padding: 60px 0 40px; text-align: center;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, #17331b 0%, transparent 60%);
-}
-.page-hero .eyebrow {
-  font-family: var(--pixel); font-size: 10px; color: var(--grass);
-  letter-spacing: 2px; margin-bottom: 14px; display: block;
-  text-shadow: 1px 1px 0 #000;
-}
-.page-hero h1 {
-  font-size: clamp(24px, 4vw, 38px); font-weight: 900; color: #fff;
-  margin-bottom: 16px; line-height: 1.3;
-  text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
-}
-.page-hero h1 span { color: var(--grass); }
-.page-hero p {
-  color: var(--text-2); font-size: 15px;
-  max-width: 600px; margin: 0 auto;
-}
-
-/* ============ پلتفرم‌ها ============ */
-.platform-tabs {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  justify-content: center; margin: 30px 0 40px;
-}
-.platform-tab {
-  display: flex; align-items: center; gap: 8px;
-  padding: 12px 22px; font-size: 14px; font-weight: 700;
-  background: var(--panel); border: 2px solid var(--line);
-  color: var(--text-2); transition: all 0.15s;
-}
-.platform-tab:hover { color: #fff; border-color: var(--grass-2); }
-.platform-tab.active {
-  background: var(--grass); border-color: var(--grass-3);
-  border-top-color: var(--grass-2); border-right-color: var(--grass-2);
-  color: #fff; box-shadow: 0 3px 0 rgba(0,0,0,0.4);
-}
-
-/* ============ محتوا ============ */
-.guide-content { display: none; padding-bottom: 60px; }
-.guide-content.active { display: block; }
-
-.step {
-  display: flex; gap: 20px;
-  background: var(--panel); border: 2px solid var(--line);
-  padding: 24px 22px; margin-bottom: 16px;
-  transition: all 0.2s;
-  position: relative;
-}
-.step:hover { border-color: var(--grass-2); transform: translateX(-3px); }
-.step-num {
-  flex-shrink: 0;
-  width: 44px; height: 44px;
-  background: var(--grass);
-  border: 3px solid;
-  border-color: var(--grass-2) var(--grass-3) var(--grass-3) var(--grass-2);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--pixel); font-size: 14px; color: #fff;
-  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
-  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
-}
-.step-body { flex: 1; }
-.step-body h3 {
-  font-size: 16px; color: #fff; margin-bottom: 8px; font-weight: 800;
-}
-.step-body p {
-  color: var(--text-2); font-size: 14px; line-height: 1.9;
-}
-
-/* ============ نکات ============ */
-.tips-box {
-  background: linear-gradient(135deg, rgba(252,179,43,0.08), rgba(255,59,59,0.05));
-  border: 2px solid var(--gold); border-right: 4px solid var(--gold);
-  padding: 22px 24px; margin: 30px 0;
-}
-.tips-box h3 {
-  font-size: 16px; color: var(--gold); margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
-}
-.tips-box ul { list-style: none; padding: 0; }
-.tips-box li {
-  position: relative; padding-right: 24px;
-  margin-bottom: 10px; color: var(--text-2); font-size: 14px;
-}
-.tips-box li::before {
-  content: '▸'; position: absolute; right: 0; top: 0;
-  color: var(--gold); font-weight: 900;
-}
-
-/* ============ FAQ ============ */
-.faq-section {
-  margin-top: 40px; padding: 30px 24px;
-  background: var(--panel); border: 2px solid var(--line);
-}
-.faq-section h2 {
-  font-size: 20px; color: #fff; margin-bottom: 20px;
-  display: flex; align-items: center; gap: 10px;
-}
-.faq-section h2::before {
-  content: ''; width: 6px; height: 22px; background: var(--grass);
-  box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
-}
-.faq-item {
-  border-bottom: 1px dashed var(--line);
-  padding: 16px 0;
-}
-.faq-item:last-child { border-bottom: none; padding-bottom: 0; }
-.faq-item h4 {
-  font-size: 15px; color: #fff; margin-bottom: 8px;
-  font-weight: 800;
-}
-.faq-item p { color: var(--text-2); font-size: 13.5px; line-height: 1.9; }
-
-/* ============ دکمه‌ها ============ */
-.mc-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: 8px; padding: 13px 26px; font-size: 14px; font-weight: 800;
-  color: #fff; background: var(--grass);
-  border: 3px solid; border-color: var(--grass-2) var(--grass-3) var(--grass-3) var(--grass-2);
-  box-shadow: 0 4px 0 rgba(0,0,0,0.45);
-  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
-  transition: transform 0.08s, background 0.15s;
-  cursor: pointer; text-decoration: none; font-family: inherit;
-}
-.mc-btn:hover { background: var(--grass-2); }
-.mc-btn:active { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0.45); }
-.mc-btn.ghost {
-  background: var(--panel); border-color: var(--line) #111120 #111120 var(--line);
-  color: var(--text); text-shadow: none;
-}
-.mc-btn.ghost:hover { background: var(--panel-2); border-color: var(--diamond); color: var(--diamond); }
-.mc-btn.small { padding: 8px 14px; font-size: 12.5px; }
-
-.back-wrap { text-align: center; margin: 40px 0; }
-
-/* ============ فوتر ============ */
-.site-footer {
-  background: #0a0a14; border-top: 3px solid var(--dirt-2);
-  padding: 55px 28px 25px; margin-top: 60px; position: relative;
-}
-.site-footer::before {
-  content: ''; position: absolute; top: -3px; left: 0; right: 0; height: 3px;
-  background: repeating-linear-gradient(90deg, var(--dirt) 0 6px, var(--dirt-2) 6px 12px);
-  opacity: 0.7;
-}
-.footer-inner {
-  max-width: 1300px; margin: 0 auto; display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr; gap: 40px;
-  padding-bottom: 30px; border-bottom: 2px dashed var(--line);
-}
-.footer-brand { font-family: var(--pixel); font-size: 12px; color: #fff; letter-spacing: 2px; margin-bottom: 14px; text-shadow: 2px 2px 0 #000; }
-.footer-col p { font-size: 13px; color: var(--text-3); line-height: 2.1; }
-.footer-col h4 { font-size: 13px; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
-.footer-col a { display: block; font-size: 13.5px; color: var(--text-2); margin-bottom: 10px; transition: color 0.15s; }
-.footer-col a:hover { color: var(--grass-2); }
-.footer-bottom { max-width: 1300px; margin: 22px auto 0; text-align: center; font-size: 12px; color: var(--text-3); line-height: 2; }
-
-/* ============ واکنش‌گرا ============ */
-@media (max-width: 720px) {
-  .header-inner { padding: 10px 16px; }
-  .main-nav {
-    position: fixed; top: 60px; right: -100%; width: 78%; max-width: 300px;
-    height: calc(100vh - 60px); background: var(--bg-2);
-    flex-direction: column; align-items: stretch; padding: 24px 16px;
-    gap: 8px; transition: right 0.25s; border-left: 3px solid var(--line);
-    box-shadow: -8px 0 24px rgba(0,0,0,0.4); overflow-y: auto;
-  }
-  .main-nav.open { right: 0; }
-  .main-nav a { padding: 14px 16px; }
-  .menu-toggle { display: flex; }
-  .container { padding: 0 16px; }
-  .footer-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-  .step { flex-direction: column; gap: 12px; padding: 20px 18px; }
-  .platform-tab { padding: 10px 16px; font-size: 13px; }
-}
-</style>
+<!-- Tapsell Loader -->
+<script type="text/javascript">
+    (function (){
+      const head = document.getElementsByTagName("head")[0];
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.src = "https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js";
+      head.appendChild(script);
+    })();
+</script>
 </head>
 <body>
+
+<div id="preloader">
+  <div class="pre-logo">MineBed</div>
+  <div class="pre-bar"><div class="pre-bar-fill"></div></div>
+  <div class="pre-text">در حال بارگذاری...</div>
+</div>
 
 <header class="site-header">
   <div class="header-inner">
@@ -289,117 +69,34 @@ img { max-width: 100%; display: block; }
 
 <div class="container">
 
-  <!-- تب‌های پلتفرم -->
   <div class="platform-tabs">
     <button class="platform-tab active" data-platform="android">📱 اندروید</button>
     <button class="platform-tab" data-platform="ios">🍎 iOS</button>
     <button class="platform-tab" data-platform="windows">💻 ویندوز</button>
   </div>
 
-  <!-- ============ اندروید ============ -->
   <div class="guide-content active" id="android">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <h3>دانلود فایل افزونه</h3>
-        <p>از صفحه‌ی هر افزونه، روی دکمه‌ی «⬇️ دانلود» بزن. فایل با فرمت <b>.mcaddon</b> یا <b>.mcpack</b> ذخیره می‌شه. صبر کن تا دانلود کامل بشه.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <h3>باز کردن فایل</h3>
-        <p>از نوتیفیکیشن دانلود یا از فایل‌منیجر گوشی، روی فایل دانلود شده بزن. ماینکرفت خودش باز می‌شه و ازت می‌پرسه که فایل رو نصب کنی یا نه.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <h3>انتخاب دنیا</h3>
-        <p>وقتی پنجره‌ی Import باز شد، دنیای مورد نظر رو انتخاب کن (یا یه دنیای جدید بساز). افزونه به دنیای انتخابی اضافه می‌شه.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <h3>فعال‌سازی روی دنیا</h3>
-        <p>برو به <b>Play</b> → روی دنیای مورد نظر <b>Edit</b> بزن → بخش <b>Add-Ons</b> → افزونه رو در دو قسمت <b>Behavior Pack</b> و <b>Resource Pack</b> فعال کن.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">5</div>
-      <div class="step-body">
-        <h3>شروع بازی</h3>
-        <p>دنیا رو باز کن و لذت ببر! اگه افزونه جدید باشه، شاید لازم باشه دنیا رو تازه بسازی تا همه‌ی تغییرات اعمال بشه.</p>
-      </div>
-    </div>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><h3>دانلود فایل افزونه</h3><p>از صفحه‌ی هر افزونه، روی دکمه‌ی «⬇️ دانلود» بزن. فایل با فرمت <b>.mcaddon</b> یا <b>.mcpack</b> ذخیره می‌شه. صبر کن تا دانلود کامل بشه.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><h3>باز کردن فایل</h3><p>از نوتیفیکیشن دانلود یا از فایل‌منیجر گوشی، روی فایل دانلود شده بزن. ماینکرفت خودش باز می‌شه و ازت می‌پرسه که فایل رو نصب کنی یا نه.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><h3>انتخاب دنیا</h3><p>وقتی پنجره‌ی Import باز شد، دنیای مورد نظر رو انتخاب کن (یا یه دنیای جدید بساز). افزونه به دنیای انتخابی اضافه می‌شه.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><h3>فعال‌سازی روی دنیا</h3><p>برو به <b>Play</b> → روی دنیای مورد نظر <b>Edit</b> بزن → بخش <b>Add-Ons</b> → افزونه رو در دو قسمت <b>Behavior Pack</b> و <b>Resource Pack</b> فعال کن.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body"><h3>شروع بازی</h3><p>دنیا رو باز کن و لذت ببر! اگه افزونه جدید باشه، شاید لازم باشه دنیا رو تازه بسازی تا همه‌ی تغییرات اعمال بشه.</p></div></div>
   </div>
 
-  <!-- ============ iOS ============ -->
   <div class="guide-content" id="ios">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <h3>دانلود فایل افزونه</h3>
-        <p>از مرورگر سافاری، فایل افزونه رو دانلود کن. فایل توی اپ <b>Files</b> گوشی ذخیره می‌شه.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <h3>انتقال به ماینکرفت</h3>
-        <p>از اپ <b>Files</b>، روی فایل دانلود شده بزن و گزینه‌ی <b>Share</b> → <b>Copy to Minecraft</b> رو انتخاب کن.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <h3>فعال‌سازی</h3>
-        <p>ماینکرفت باز می‌شه و ازت می‌پرسه فایل رو کجا وارد کنی. روی <b>Import</b> بزن و دنیای مورد نظر رو انتخاب کن.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <h3>اضافه به دنیا</h3>
-        <p>برو به دنیات و از بخش <b>Add-Ons</b> هر دو قسمت Behavior و Resource رو فعال کن و بازی رو شروع کن.</p>
-      </div>
-    </div>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><h3>دانلود فایل افزونه</h3><p>از مرورگر سافاری، فایل افزونه رو دانلود کن. فایل توی اپ <b>Files</b> گوشی ذخیره می‌شه.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><h3>انتقال به ماینکرفت</h3><p>از اپ <b>Files</b>، روی فایل دانلود شده بزن و گزینه‌ی <b>Share</b> → <b>Copy to Minecraft</b> رو انتخاب کن.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><h3>فعال‌سازی</h3><p>ماینکرفت باز می‌شه و ازت می‌پرسه فایل رو کجا وارد کنی. روی <b>Import</b> بزن و دنیای مورد نظر رو انتخاب کن.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><h3>اضافه به دنیا</h3><p>برو به دنیات و از بخش <b>Add-Ons</b> هر دو قسمت Behavior و Resource رو فعال کن و بازی رو شروع کن.</p></div></div>
   </div>
 
-  <!-- ============ ویندوز ============ -->
   <div class="guide-content" id="windows">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <h3>دانلود فایل</h3>
-        <p>از مرورگر روی دکمه‌ی دانلود کلیک کن. فایل توی پوشه‌ی <b>Downloads</b> ذخیره می‌شه.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <h3>باز کردن فایل</h3>
-        <p>روی فایل <b>.mcaddon</b> دابل‌کلیک کن. ماینکرفت خودکار باز می‌شه و ازت می‌خواد فایل رو Import کنی.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <h3>فعال روی دنیا</h3>
-        <p>ماینکرفت رو باز کن، برو به <b>Play</b> → روی دنیای مورد نظر <b>Edit</b> بزن → بخش <b>Add-Ons</b> → افزونه رو در هر دو قسمت فعال کن.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <h3>شروع بازی</h3>
-        <p>دنیا رو باز کن و لذت ببر! برای اعمال تغییرات، ممکنه لازم باشه یه دنیای جدید بسازی.</p>
-      </div>
-    </div>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><h3>دانلود فایل</h3><p>از مرورگر روی دکمه‌ی دانلود کلیک کن. فایل توی پوشه‌ی <b>Downloads</b> ذخیره می‌شه.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><h3>باز کردن فایل</h3><p>روی فایل <b>.mcaddon</b> دابل‌کلیک کن. ماینکرفت خودکار باز می‌شه و ازت می‌خواد فایل رو Import کنی.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><h3>فعال روی دنیا</h3><p>ماینکرفت رو باز کن، برو به <b>Play</b> → روی دنیای مورد نظر <b>Edit</b> بزن → بخش <b>Add-Ons</b> → افزونه رو در هر دو قسمت فعال کن.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><h3>شروع بازی</h3><p>دنیا رو باز کن و لذت ببر! برای اعمال تغییرات، ممکنه لازم باشه یه دنیای جدید بسازی.</p></div></div>
   </div>
 
-  <!-- نکات مهم -->
   <div class="tips-box">
     <h3>💡 نکات مهم قبل از نصب</h3>
     <ul>
@@ -411,29 +108,13 @@ img { max-width: 100%; display: block; }
     </ul>
   </div>
 
-  <!-- سوالات متداول -->
   <div class="faq-section">
     <h2>❓ سوالات متداول</h2>
-    <div class="faq-item">
-      <h4>افزونه نصب شد ولی توی بازی نیست!</h4>
-      <p>مطمئن شو افزونه رو توی بخش <b>Add-Ons</b> دنیا فعال کردی. بعضی افزونه‌ها نیاز به ساخت یه دنیای جدید دارن تا اعمال بشن.</p>
-    </div>
-    <div class="faq-item">
-      <h4>چطور بفهمم افزونه با نسخه‌ی بازیم سازگاره؟</h4>
-      <p>توی صفحه‌ی هر افزونه، فیلد <b>«نسخه»</b> رو نگاه کن. باید با نسخه‌ی ماینکرفت گوشی یا کامپیوترت یکی باشه یا حداقل سازگار باشه.</p>
-    </div>
-    <div class="faq-item">
-      <h4>افزونه‌ها رایگان هستن؟</h4>
-      <p>بله، همه‌ی افزونه‌های سایت <b>رایگان</b> هستن و نیازی به پرداخت یا ثبت‌نام ندارن.</p>
-    </div>
-    <div class="faq-item">
-      <h4>اگه هنگام نصب خطا داد چی‌کار کنم؟</h4>
-      <p>اول از همه مطمئن شو فایل کامل دانلود شده. اگه باز مشکل داشت، افزونه رو حذف کن و دوباره نصب کن. اگه باز هم مشکل بود، به ما از طریق <a href="about.html" style="color:var(--diamond);">صفحه‌ی درباره</a> اطلاع بده.</p>
-    </div>
-    <div class="faq-item">
-      <h4>آیا این افزونه‌ها روی کنسول (Xbox, PlayStation) نصب می‌شن؟</h4>
-      <p>روی کنسول‌ها نصب مستقیم افزونه‌ی خارجی معمولاً ممکن نیست. بهتره افزونه‌ها رو روی موبایل یا ویندوز تست کنی.</p>
-    </div>
+    <div class="faq-item"><h4>افزونه نصب شد ولی توی بازی نیست!</h4><p>مطمئن شو افزونه رو توی بخش <b>Add-Ons</b> دنیا فعال کردی. بعضی افزونه‌ها نیاز به ساخت یه دنیای جدید دارن تا اعمال بشن.</p></div>
+    <div class="faq-item"><h4>چطور بفهمم افزونه با نسخه‌ی بازیم سازگاره؟</h4><p>توی صفحه‌ی هر افزونه، فیلد <b>«نسخه»</b> رو نگاه کن. باید با نسخه‌ی ماینکرفت گوشی یا کامپیوترت یکی باشه یا حداقل سازگار باشه.</p></div>
+    <div class="faq-item"><h4>افزونه‌ها رایگان هستن؟</h4><p>بله، همه‌ی افزونه‌های سایت <b>رایگان</b> هستن و نیازی به پرداخت یا ثبت‌نام ندارن.</p></div>
+    <div class="faq-item"><h4>اگه هنگام نصب خطا داد چی‌کار کنم؟</h4><p>اول از همه مطمئن شو فایل کامل دانلود شده. اگه باز مشکل داشت، افزونه رو حذف کن و دوباره نصب کن. اگه باز هم مشکل بود، به ما از طریق <a href="about.html" style="color:var(--diamond);">صفحه‌ی درباره</a> اطلاع بده.</p></div>
+    <div class="faq-item"><h4>آیا این افزونه‌ها روی کنسول (Xbox, PlayStation) نصب می‌شن؟</h4><p>روی کنسول‌ها نصب مستقیم افزونه‌ی خارجی معمولاً ممکن نیست. بهتره افزونه‌ها رو روی موبایل یا ویندوز تست کنی.</p></div>
   </div>
 
   <div class="back-wrap">
@@ -447,7 +128,7 @@ img { max-width: 100%; display: block; }
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col">
-      <div class="footer-brand">MINEBED</div>
+      <div class="footer-brand">MINEBED FARSI</div>
       <p>مرجع فارسی افزونه‌های ماینکرفت بدراک. همه‌ی فایل‌ها روی سرورهای خارجی میزبانی می‌شن.</p>
     </div>
     <div class="footer-col">
@@ -456,6 +137,8 @@ img { max-width: 100%; display: block; }
       <a href="index.html#mods">لیست افزونه‌ها</a>
       <a href="guide.html">آموزش نصب</a>
       <a href="about.html">درباره ما</a>
+      <a href="privacy.html">حریم خصوصی</a>
+      <a href="terms.html">قوانین</a>
     </div>
     <div class="footer-col">
       <h4>دسته‌بندی‌ها</h4>
@@ -467,34 +150,24 @@ img { max-width: 100%; display: block; }
   </div>
   <div class="footer-bottom">
     <p>این سایت یک پروژه‌ی مستقل است و هیچ ارتباطی با Mojang یا Microsoft ندارد.</p>
-    <p>© ۱۴۰۴ MINEBED — ساخته شده با علاقه برای جامعه ماینکرفت</p>
+    <p>© ۱۴۰۴ MINEBED FARSI — ساخته شده با علاقه برای جامعه ماینکرفت</p>
   </div>
 </footer>
 
-<script>
-// تب‌های پلتفرم
-const tabs = document.querySelectorAll('.platform-tab');
-const contents = document.querySelectorAll('.guide-content');
+<button class="to-top" id="toTop" aria-label="بازگشت به بالا">↑</button>
 
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    contents.forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    const platform = tab.dataset.platform;
-    document.getElementById(platform).classList.add('active');
-  });
-});
+<div id="bgMusicPlayer" class="bg-music-player">
+  <div class="player-info">
+    <span class="music-icon">🎵</span>
+    <span id="musicTitle">در حال بارگذاری...</span>
+  </div>
+  <div class="player-controls">
+    <button class="player-btn play" id="playPauseBtn" title="پخش / توقف">▶</button>
+    <button class="player-btn" id="nextBtn" title="آهنگ بعدی">↻</button>
+  </div>
+  <audio id="bgAudio" preload="auto" loop></audio>
+</div>
 
-// منوی موبایل
-const menuToggle = document.getElementById('menuToggle');
-const mainNav = document.getElementById('mainNav');
-if (menuToggle && mainNav) {
-  menuToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
-  mainNav.addEventListener('click', e => {
-    if (e.target.tagName === 'A') mainNav.classList.remove('open');
-  });
-}
-</script>
+<script src="app.js"></script>
 </body>
 </html>
