@@ -343,7 +343,6 @@ function initMusic() {
   const musicTitle = document.getElementById('musicTitle');
   if (!audio || !playPauseBtn) return;
 
-  // اگه قبلاً مقداردهی شده، فقط UI رو آپدیت کن
   if (musicInitialized) {
     if (musicTitle && MUSIC_TRACKS[currentTrackIndex]) {
       musicTitle.textContent = MUSIC_TRACKS[currentTrackIndex].title;
@@ -355,6 +354,132 @@ function initMusic() {
   musicInitialized = true;
 
   let isPlaying = false;
+
+  // ⬅️ Fade in آروم
+  function fadeIn() {
+    let v = 0;
+    const target = 0.35;
+    const step = target / 40;
+    const interval = setInterval(() => {
+      v += step;
+      if (v >= target) { v = target; clearInterval(interval); }
+      audio.volume = v;
+    }, 100);
+  }
+
+  function loadTrack(index, autoplay = false) {
+    currentTrackIndex = index;
+    const track = MUSIC_TRACKS[index];
+    if (!track) return;
+    if (musicTitle) musicTitle.textContent = track.title;
+    audio.src = track.src;
+    audio.volume = 0;
+    audio.loop = MUSIC_TRACKS.length === 1;
+    if (autoplay) tryPlay();
+  }
+
+  function tryPlay() {
+    const p = audio.play();
+    if (p !== undefined) {
+      p.then(() => {
+        isPlaying = true;
+        playPauseBtn.textContent = '❚❚';
+        fadeIn();
+      }).catch(() => {
+        isPlaying = false;
+        playPauseBtn.textContent = '▶';
+      });
+    }
+  }
+
+  function pause() {
+    audio.pause();
+    isPlaying = false;
+    playPauseBtn.textContent = '▶';
+  }
+
+  // ⬅️ موزیک رو لود کن ولی پخش نکن
+  loadTrack(0, false);
+
+  // ⬅️ ترفند: با muted پخش کن، بعد unmute کن
+  audio.muted = true;
+  audio.volume = 0.35;
+
+  const autoPlayAttempt = audio.play();
+  if (autoPlayAttempt !== undefined) {
+    autoPlayAttempt.then(() => {
+      // پخش شد (بی‌صدا) → حالا unmute کن
+      audio.muted = false;
+      audio.volume = 0;
+      isPlaying = true;
+      playPauseBtn.textContent = '❚❚';
+      fadeIn();
+      console.log('✅ موزیک خودکار پخش شد');
+    }).catch((err) => {
+      // مرورگر اجازه نداد → منتظر کلیک کاربر
+      console.log('⚠️ autoplay بلاک شد، منتظر کلیک کاربر');
+      audio.muted = false;
+      audio.volume = 0.35;
+
+      const startOnInteract = () => {
+        if (!isPlaying) {
+          audio.play().then(() => {
+            isPlaying = true;
+            playPauseBtn.textContent = '❚❚';
+            audio.volume = 0;
+            fadeIn();
+          }).catch(() => {});
+        }
+        document.removeEventListener('click', startOnInteract);
+        document.removeEventListener('touchstart', startOnInteract);
+        document.removeEventListener('scroll', startOnInteract);
+        document.removeEventListener('keydown', startOnInteract);
+      };
+      document.addEventListener('click', startOnInteract, { once: true });
+      document.addEventListener('touchstart', startOnInteract, { once: true });
+      document.addEventListener('scroll', startOnInteract, { once: true });
+      document.addEventListener('keydown', startOnInteract, { once: true });
+    });
+  }
+
+  // ⬅️ دکمه‌ی پخش/توقف
+  playPauseBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isPlaying) pause(); else tryPlay();
+  });
+
+  // ⬅️ دکمه‌ی بعدی
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (MUSIC_TRACKS.length <= 1) {
+        audio.currentTime = 0;
+        if (!isPlaying) tryPlay();
+      } else {
+        const next = (currentTrackIndex + 1) % MUSIC_TRACKS.length;
+        loadTrack(next, true);
+      }
+    });
+  }
+
+  // ⬅️ وقتی آهنگ تموم شد
+  audio.addEventListener('ended', () => {
+    if (MUSIC_TRACKS.length > 1) {
+      const next = (currentTrackIndex + 1) % MUSIC_TRACKS.length;
+      loadTrack(next, true);
+    }
+  });
+
+  audio.addEventListener('play', () => {
+    isPlaying = true;
+    playPauseBtn.textContent = '❚❚';
+  });
+
+  audio.addEventListener('pause', () => {
+    isPlaying = false;
+    playPauseBtn.textContent = '▶';
+  });
+}
 
   function loadTrack(index, autoplay = false) {
     currentTrackIndex = index;
@@ -456,12 +581,11 @@ function initMobileMenu() {
    ۹) پیش‌لودر
    ============================================================ */
 function initPreloader() {
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const preloader = document.getElementById('preloader');
-      if (preloader) preloader.classList.add('done');
-    }, 1200);
-  });
+  // ⬅️ فقط ۸۰۰ms بعد از DOMContentLoaded ببند (بدون انتظار برای تصاویر)
+  setTimeout(() => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) preloader.classList.add('done');
+  }, 800);
 }
 
 /* ============================================================
@@ -1265,15 +1389,11 @@ window.reloadMediaAd = reloadMediaAd;
 /* ============================================================
    ۱۵) راه‌اندازی خودکار
    ============================================================ */
-document.addEventListener('DOMContentLoaded', async () => {
-  // اول موزیک‌ها رو لود کن
-  await loadMusicFromJson();
-
-  // بعد راه‌اندازی کن
+document.addEventListener('DOMContentLoaded', () => {
+  // اول همه‌چیز رو راه‌اندازی کن (بدون انتظار)
   initMobileMenu();
   initToTop();
   initPreloader();
-  initMusic();
   initGlobalEffects();
   buildCube();
   initHeroBlocks();
@@ -1284,4 +1404,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (document.getElementById('pageContent')) initModPage();
   if (document.querySelector('.platform-tabs')) initGuidePage();
   if (document.getElementById('faqList')) initAboutPage();
+
+  // ⬅️ موزیک رو جدا لود کن (بدون await)
+  loadMusicFromJson().then(() => {
+    initMusic();
+  });
 });
