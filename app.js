@@ -688,30 +688,23 @@ async function forceDownload(event, url, filename) {
     try { filename = decodeURIComponent(url.split('/').pop().split('?')[0]) || 'mod.mcpack'; }
     catch { filename = 'mod.mcpack'; }
   }
-  await showCountdown(2);
-  showToastMsg('⏳ در حال دانلود...');
-  for (let i = 0; i < CORS_PROXIES.length; i++) {
-    try {
-      const res = await fetch(CORS_PROXIES[i](url), { cache: 'no-store', mode: 'cors' });
-      if (!res.ok) continue;
-      const blob = await res.blob();
-      if (blob.size < 500) continue;
-      const blobUrl = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = blobUrl; a.download = filename;
-      a.style.display = 'none';
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
-      showToastMsg('✅ دانلود شروع شد');
-      return;
-    } catch (err) { console.log('پروکسی ' + i + ' نشد'); }
-  }
-  showToastMsg('⚠️ سرور مقصد اجازه دانلود مستقیم نمی‌ده');
+
+  // ⬅️ راه‌حل: باز کردن در تب جدید بلافاصله (user gesture حفظ می‌شه)
+  // این کار باعث می‌شه مرورگر دانلود رو شروع کنه
   const a = document.createElement('a');
-  a.href = url; a.download = filename; a.style.display = 'none';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  a.href = url;
+  a.download = filename;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  showToastMsg('✅ دانلود شروع شد');
 }
 window.forceDownload = forceDownload;
+
 
 function showCountdown(seconds) {
   return new Promise(resolve => {
