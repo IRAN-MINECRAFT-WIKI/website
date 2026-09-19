@@ -4,11 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>حریم خصوصی | MineBed</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/png" href="/favicon.png">
 <meta name="description" content="سیاست حفظ حریم خصوصی سایت MineBed - مرجع دانلود افزونه ماینکرفت بدراک">
 <link rel="canonical" href="https://iran-minecraft-wiki.github.io/website/privacy.html">
 <meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
@@ -18,182 +21,14 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "yjtimwkoiu");
 </script>
-
-
-<style>
-:root {
-  --bg: #0d0d18; --bg-2: #14142a; --panel: #1c1c34; --panel-2: #242445;
-  --line: #2e2e4a; --text: #e6e6f2; --text-2: #9a9ab8; --text-3: #5c5c7a;
-  --grass: #5fa838; --grass-2: #7cc84a; --grass-3: #3d7521;
-  --dirt: #79553a; --dirt-2: #5b3f29; --gold: #fcb32b; --diamond: #4aedd9;
-  --redstone: #ff3b3b; --emerald: #17dd62;
-  --font: 'Vazirmatn', sans-serif; --pixel: 'Press Start 2P', monospace;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font); background: var(--bg); color: var(--text);
-  line-height: 1.9; min-height: 100vh;
-  display: flex; flex-direction: column;
-}
-main { flex: 1; }
-a, button { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
-img { max-width: 100%; display: block; }
-::-webkit-scrollbar { width: 12px; }
-::-webkit-scrollbar-track { background: var(--bg-2); }
-::-webkit-scrollbar-thumb { background: #4a4a6a; border: 3px solid var(--bg-2); }
-::-webkit-scrollbar-thumb:hover { background: var(--grass); }
-::selection { background: var(--grass); color: #fff; }
-
-.site-header {
-  position: sticky; top: 0; z-index: 1000;
-  background: rgba(20,20,42,0.96); backdrop-filter: blur(10px);
-  border-bottom: 3px solid #2b1d0e;
-  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
-}
-.site-header::before {
-  content: ''; display: block; height: 8px;
-  background: linear-gradient(90deg, #3d7521, #4f9c2c, #3d7521);
-}
-.header-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; padding: 12px 28px; max-width: 1400px; margin: 0 auto;
-}
-.brand {
-  display: flex; align-items: center; gap: 12px;
-  font-family: var(--pixel); font-size: 13px; color: #fff;
-  text-shadow: 2px 2px 0 #000; letter-spacing: 1px; white-space: nowrap;
-}
-.brand-mark {
-  width: 30px; height: 30px;
-  background: linear-gradient(180deg, #6db73f 0 8px, #79553a 8px 100%);
-  border: 2px solid #2b1d0e;
-  box-shadow: inset -2px -2px 0 rgba(0,0,0,0.35), inset 2px 2px 0 rgba(255,255,255,0.12);
-}
-.main-nav { display: flex; gap: 6px; align-items: center; }
-.main-nav a {
-  padding: 8px 16px; font-size: 13.5px; font-weight: 700;
-  color: var(--text-2); border: 2px solid transparent;
-  transition: all 0.15s; text-decoration: none;
-}
-.main-nav a:hover { color: #fff; border-color: var(--line); background: var(--panel); }
-.menu-toggle {
-  display: none; width: 40px; height: 40px;
-  border: 2px solid var(--line); font-size: 20px; color: var(--text);
-  background: none; align-items: center; justify-content: center;
-}
-
-.container { max-width: 900px; margin: 0 auto; padding: 0 28px; width: 100%; }
-
-.page-hero {
-  padding: 60px 0 30px; text-align: center;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, #17331b 0%, transparent 60%);
-}
-.page-hero .eyebrow {
-  font-family: var(--pixel); font-size: 10px; color: var(--grass);
-  letter-spacing: 2px; margin-bottom: 14px; display: block;
-  text-shadow: 1px 1px 0 #000;
-}
-.page-hero h1 {
-  font-size: clamp(24px, 4vw, 38px); font-weight: 900; color: #fff;
-  margin-bottom: 16px; line-height: 1.3;
-  text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
-}
-.page-hero h1 span { color: var(--grass); }
-.page-hero p {
-  color: var(--text-2); font-size: 15px;
-  max-width: 600px; margin: 0 auto;
-}
-
-.panel {
-  background: var(--panel); border: 2px solid var(--line);
-  padding: 28px 26px; margin-bottom: 20px;
-}
-.panel h3 {
-  font-size: 18px; color: #fff; margin-bottom: 16px;
-  display: flex; align-items: center; gap: 10px;
-}
-.panel h3::before {
-  content: ''; width: 6px; height: 20px;
-  background: var(--grass); box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
-}
-.panel p { color: var(--text-2); font-size: 14.5px; line-height: 2.1; }
-.panel p + p { margin-top: 12px; }
-.panel ul { list-style: none; padding: 0; margin-top: 10px; }
-.panel ul li {
-  position: relative; padding-right: 24px;
-  margin-bottom: 10px; color: var(--text-2); font-size: 14.5px;
-  line-height: 2;
-}
-.panel ul li::before {
-  content: '▸'; position: absolute; right: 0; top: 0;
-  color: var(--grass-2); font-weight: 900;
-}
-.panel strong { color: var(--grass-2); }
-.panel a { color: var(--diamond); text-decoration: underline; }
-.panel a:hover { color: var(--grass-2); }
-
-.last-update {
-  text-align: center; color: var(--text-3); font-size: 12.5px;
-  margin: 30px 0 20px;
-  font-family: var(--pixel); letter-spacing: 1px;
-}
-
-.mc-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: 8px; padding: 13px 26px; font-size: 14px; font-weight: 800;
-  color: #fff; background: var(--grass);
-  border: 3px solid; border-color: var(--grass-2) var(--grass-3) var(--grass-3) var(--grass-2);
-  box-shadow: 0 4px 0 rgba(0,0,0,0.45);
-  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
-  transition: transform 0.08s, background 0.15s;
-  cursor: pointer; text-decoration: none; font-family: inherit;
-}
-.mc-btn:hover { background: var(--grass-2); }
-.mc-btn:active { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0.45); }
-.back-wrap { text-align: center; margin: 40px 0; }
-
-.site-footer {
-  background: #0a0a14; border-top: 3px solid var(--dirt-2);
-  padding: 55px 28px 25px; margin-top: 60px; position: relative;
-}
-.site-footer::before {
-  content: ''; position: absolute; top: -3px; left: 0; right: 0; height: 3px;
-  background: repeating-linear-gradient(90deg, var(--dirt) 0 6px, var(--dirt-2) 6px 12px);
-  opacity: 0.7;
-}
-.footer-inner {
-  max-width: 1300px; margin: 0 auto; display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr; gap: 40px;
-  padding-bottom: 30px; border-bottom: 2px dashed var(--line);
-}
-.footer-brand { font-family: var(--pixel); font-size: 12px; color: #fff; letter-spacing: 2px; margin-bottom: 14px; text-shadow: 2px 2px 0 #000; }
-.footer-col p { font-size: 13px; color: var(--text-3); line-height: 2.1; }
-.footer-col h4 { font-size: 13px; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
-.footer-col a { display: block; font-size: 13.5px; color: var(--text-2); margin-bottom: 10px; transition: color 0.15s; }
-.footer-col a:hover { color: var(--grass-2); }
-.footer-bottom { max-width: 1300px; margin: 22px auto 0; text-align: center; font-size: 12px; color: var(--text-3); line-height: 2; }
-
-@media (max-width: 720px) {
-  .header-inner { padding: 10px 16px; }
-  .main-nav {
-    position: fixed; top: 60px; right: -100%; width: 78%; max-width: 300px;
-    height: calc(100vh - 60px); background: var(--bg-2);
-    flex-direction: column; align-items: stretch; padding: 24px 16px;
-    gap: 8px; transition: right 0.25s; border-left: 3px solid var(--line);
-    box-shadow: -8px 0 24px rgba(0,0,0,0.4); overflow-y: auto;
-  }
-  .main-nav.open { right: 0; }
-  .main-nav a { padding: 14px 16px; }
-  .menu-toggle { display: flex; }
-  .container { padding: 0 16px; }
-  .panel { padding: 22px 18px; }
-  .footer-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-}
-</style>
 </head>
 <body>
+
+<div id="preloader">
+  <div class="pre-logo">MineBed</div>
+  <div class="pre-bar"><div class="pre-bar-fill"></div></div>
+  <div class="pre-text">در حال بارگذاری...</div>
+</div>
 
 <header class="site-header">
   <div class="header-inner">
@@ -225,14 +60,8 @@ img { max-width: 100%; display: block; }
 
   <div class="panel">
     <h3>📌 مقدمه</h3>
-    <p>
-      در <strong>MineBed</strong>، حریم خصوصی کاربران برای ما از اهمیت بالایی برخوردار است.
-      این صفحه توضیح می‌دهد که چه اطلاعاتی جمع‌آوری می‌کنیم، چطور از آن‌ها استفاده می‌کنیم
-      و چه حقوقی در رابطه با اطلاعات خود دارید.
-    </p>
-    <p>
-      با استفاده از سایت ما، شما با این سیاست حریم خصوصی موافقت می‌کنید.
-    </p>
+    <p>در <strong>MineBed</strong>، حریم خصوصی کاربران برای ما از اهمیت بالایی برخوردار است. این صفحه توضیح می‌دهد که چه اطلاعاتی جمع‌آوری می‌کنیم، چطور از آن‌ها استفاده می‌کنیم و چه حقوقی در رابطه با اطلاعات خود دارید.</p>
+    <p>با استفاده از سایت ما، شما با این سیاست حریم خصوصی موافقت می‌کنید.</p>
   </div>
 
   <div class="panel">
@@ -244,17 +73,12 @@ img { max-width: 100%; display: block; }
       <li><strong>اطلاعات شبکه:</strong> آدرس IP (به صورت ناشناس برای تحلیل ترافیک)</li>
       <li><strong>اطلاعات تعامل:</strong> کلیک‌ها، اسکرول‌ها و رفتار کاربر در سایت (به صورت ناشناس)</li>
     </ul>
-    <p style="margin-top: 14px;">
-      <strong>مهم:</strong> ما هیچ‌گاه اطلاعات شخصی مثل نام، آدرس، شماره تلفن یا ایمیل شما را بدون اجازه‌ی صریح جمع‌آوری نمی‌کنیم.
-    </p>
+    <p style="margin-top: 14px;"><strong>مهم:</strong> ما هیچ‌گاه اطلاعات شخصی مثل نام، آدرس، شماره تلفن یا ایمیل شما را بدون اجازه‌ی صریح جمع‌آوری نمی‌کنیم.</p>
   </div>
 
   <div class="panel">
     <h3>🍪 استفاده از کوکی‌ها</h3>
-    <p>
-      سایت ما از <strong>کوکی‌ها</strong> (Cookies) و فناوری‌های مشابه برای بهبود تجربه‌ی کاربری شما استفاده می‌کند.
-      کوکی‌ها فایل‌های کوچکی هستند که در مرورگر شما ذخیره می‌شوند.
-    </p>
+    <p>سایت ما از <strong>کوکی‌ها</strong> (Cookies) و فناوری‌های مشابه برای بهبود تجربه‌ی کاربری شما استفاده می‌کند. کوکی‌ها فایل‌های کوچکی هستند که در مرورگر شما ذخیره می‌شوند.</p>
     <p>ما از کوکی‌ها برای این اهداف استفاده می‌کنیم:</p>
     <ul>
       <li>ذخیره‌ی تنظیمات و ترجیحات شما (مثل حالات موسیقی سایت)</li>
@@ -262,18 +86,12 @@ img { max-width: 100%; display: block; }
       <li>نمایش تبلیغات مرتبط از طریق شبکه‌های تبلیغاتی</li>
       <li>بهبود عملکرد و سرعت سایت</li>
     </ul>
-    <p style="margin-top: 14px;">
-      شما می‌توانید در هر زمان از طریق تنظیمات مرورگر خود، کوکی‌ها را مسدود یا پاک کنید.
-      توجه داشته باشید که مسدود کردن کوکی‌ها ممکن است برخی از قابلیت‌های سایت را تحت تأثیر قرار دهد.
-    </p>
+    <p style="margin-top: 14px;">شما می‌توانید در هر زمان از طریق تنظیمات مرورگر خود، کوکی‌ها را مسدود یا پاک کنید. توجه داشته باشید که مسدود کردن کوکی‌ها ممکن است برخی از قابلیت‌های سایت را تحت تأثیر قرار دهد.</p>
   </div>
 
   <div class="panel">
     <h3>📢 تبلیغات و سرویس‌های شخص ثالث</h3>
-    <p>
-      سایت MineBed از سرویس‌های تبلیغاتی برای پوشش هزینه‌های نگهداری سایت استفاده می‌کند.
-      در حال حاضر، ما با پلتفرم تبلیغاتی <strong>تپسل (Tapsell)</strong> همکاری می‌کنیم.
-    </p>
+    <p>سایت MineBed از سرویس‌های تبلیغاتی برای پوشش هزینه‌های نگهداری سایت استفاده می‌کند. در حال حاضر، ما با پلتفرم تبلیغاتی <strong>تپسل (Tapsell)</strong> همکاری می‌کنیم.</p>
     <p>سرویس‌های شخص ثالث ممکن است اطلاعات زیر را جمع‌آوری کنند:</p>
     <ul>
       <li>آدرس IP و اطلاعات مکانی تقریبی (کشور و شهر)</li>
@@ -281,37 +99,24 @@ img { max-width: 100%; display: block; }
       <li>رفتار شما در سایت (برای نمایش تبلیغات مرتبط)</li>
       <li>تعامل با تبلیغات (کلیک‌ها، بازدیدها)</li>
     </ul>
-    <p style="margin-top: 14px;">
-      این اطلاعات به صورت ناشناس جمع‌آوری می‌شوند و تنها برای نمایش تبلیغات مرتبط‌تر استفاده می‌شوند.
-      برای اطلاع از جزئیات بیشتر، می‌توانید <a href="https://tapsell.ir/privacy" target="_blank" rel="noopener">سیاست حریم خصوصی تپسل</a> را مطالعه کنید.
-    </p>
+    <p style="margin-top: 14px;">این اطلاعات به صورت ناشناس جمع‌آوری می‌شوند و تنها برای نمایش تبلیغات مرتبط‌تر استفاده می‌شوند. برای اطلاع از جزئیات بیشتر، می‌توانید <a href="https://tapsell.ir/privacy" target="_blank" rel="noopener">سیاست حریم خصوصی تپسل</a> را مطالعه کنید.</p>
   </div>
 
   <div class="panel">
     <h3>📈 ابزارهای تحلیلی</h3>
-    <p>
-      ما از <strong>Microsoft Clarity</strong> برای تحلیل رفتار کاربران استفاده می‌کنیم.
-      این ابزار به ما کمک می‌کند تا بفهمیم کاربران چطور از سایت استفاده می‌کنند و تجربه‌ی کاربری را بهبود ببخشیم.
-    </p>
-    <p>
-      Microsoft Clarity اطلاعات زیر را جمع‌آوری می‌کند:
-    </p>
+    <p>ما از <strong>Microsoft Clarity</strong> برای تحلیل رفتار کاربران استفاده می‌کنیم. این ابزار به ما کمک می‌کند تا بفهمیم کاربران چطور از سایت استفاده می‌کنند و تجربه‌ی کاربری را بهبود ببخشیم.</p>
+    <p>Microsoft Clarity اطلاعات زیر را جمع‌آوری می‌کند:</p>
     <ul>
       <li>حرکات موس و کلیک‌ها (به صورت ناشناس)</li>
       <li>اسکرول و زمان حضور در صفحات</li>
       <li>اطلاعات فنی دستگاه و مرورگر</li>
     </ul>
-    <p style="margin-top: 14px;">
-      این اطلاعات هیچ‌گاه به اطلاعات شخصی شما مرتبط نمی‌شوند و تمام داده‌ها به صورت ناشناس تحلیل می‌شوند.
-    </p>
+    <p style="margin-top: 14px;">این اطلاعات هیچ‌گاه به اطلاعات شخصی شما مرتبط نمی‌شوند و تمام داده‌ها به صورت ناشناس تحلیل می‌شوند.</p>
   </div>
 
   <div class="panel">
     <h3>🔒 امنیت اطلاعات</h3>
-    <p>
-      ما تلاش می‌کنیم اطلاعات کاربران را در برابر دسترسی غیرمجاز، تغییر، افشا یا تخریب محافظت کنیم.
-      با این حال، به یاد داشته باشید که هیچ روش انتقال یا ذخیره‌سازی اطلاعات در اینترنت ۱۰۰٪ امن نیست.
-    </p>
+    <p>ما تلاش می‌کنیم اطلاعات کاربران را در برابر دسترسی غیرمجاز، تغییر، افشا یا تخریب محافظت کنیم. با این حال، به یاد داشته باشید که هیچ روش انتقال یا ذخیره‌سازی اطلاعات در اینترنت ۱۰۰٪ امن نیست.</p>
     <ul>
       <li>تمام ارتباطات سایت با کاربران از طریق پروتکل <strong>HTTPS</strong> انجام می‌شود</li>
       <li>فایل‌ها روی سرورهای امن میزبانی می‌شوند</li>
@@ -321,27 +126,17 @@ img { max-width: 100%; display: block; }
 
   <div class="panel">
     <h3>👶 کودکان</h3>
-    <p>
-      سایت MineBed برای کاربران در هر سنی مناسب است و هیچ محتوای بزرگسال یا نامناسبی ندارد.
-      با این حال، ما آگاهانه هیچ اطلاعات شخصی از کودکان زیر ۱۳ سال جمع‌آوری نمی‌کنیم.
-      اگر والدین متوجه شوند که فرزندشان اطلاعاتی در اختیار سایت ما قرار داده، لطفاً با ما تماس بگیرند.
-    </p>
+    <p>سایت MineBed برای کاربران در هر سنی مناسب است و هیچ محتوای بزرگسال یا نامناسبی ندارد. با این حال، ما آگاهانه هیچ اطلاعات شخصی از کودکان زیر ۱۳ سال جمع‌آوری نمی‌کنیم. اگر والدین متوجه شوند که فرزندشان اطلاعاتی در اختیار سایت ما قرار داده، لطفاً با ما تماس بگیرند.</p>
   </div>
 
   <div class="panel">
     <h3>🔄 تغییرات در این سیاست</h3>
-    <p>
-      ما ممکن است این سیاست حریم خصوصی را در آینده به‌روزرسانی کنیم.
-      هرگونه تغییر مهم در این صفحه اطلاع‌رسانی خواهد شد.
-      توصیه می‌کنیم هر چند وقت یک بار این صفحه را بررسی کنید.
-    </p>
+    <p>ما ممکن است این سیاست حریم خصوصی را در آینده به‌روزرسانی کنیم. هرگونه تغییر مهم در این صفحه اطلاع‌رسانی خواهد شد. توصیه می‌کنیم هر چند وقت یک بار این صفحه را بررسی کنید.</p>
   </div>
 
   <div class="panel">
     <h3>📞 تماس با ما</h3>
-    <p>
-      اگر در رابطه با این سیاست حریم خصوصی سوال یا نگرانی دارید، می‌توانید از طریق راه‌های زیر با ما در تماس باشید:
-    </p>
+    <p>اگر در رابطه با این سیاست حریم خصوصی سوال یا نگرانی دارید، می‌توانید از طریق راه‌های زیر با ما در تماس باشید:</p>
     <ul>
       <li>ایمیل: <strong>MineBedWeb@gmail.com</strong></li>
       <li>تلگرام: <strong>@MineBedWeb</strong></li>
@@ -362,13 +157,13 @@ img { max-width: 100%; display: block; }
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col">
-      <div class="footer-brand">MINEBED</div>
+      <div class="footer-brand">MINEBED FARSI</div>
       <p>مرجع فارسی افزونه‌های ماینکرفت بدراک. همه‌ی فایل‌ها روی سرورهای خارجی میزبانی می‌شن.</p>
     </div>
     <div class="footer-col">
       <h4>دسترسی سریع</h4>
       <a href="index.html">خانه</a>
-      <a href="index.html#mods">افزونه‌ها</a>
+      <a href="index.html#mods">لیست افزونه‌ها</a>
       <a href="guide.html">آموزش نصب</a>
       <a href="about.html">درباره ما</a>
       <a href="privacy.html">حریم خصوصی</a>
@@ -384,19 +179,24 @@ img { max-width: 100%; display: block; }
   </div>
   <div class="footer-bottom">
     <p>این سایت یک پروژه‌ی مستقل است و هیچ ارتباطی با Mojang یا Microsoft ندارد.</p>
-    <p>© ۱۴۰۴ MINEBED — ساخته شده با علاقه برای جامعه ماینکرفت</p>
+    <p>© ۱۴۰۴ MINEBED FARSI — ساخته شده با علاقه برای جامعه ماینکرفت</p>
   </div>
 </footer>
 
-<script>
-const menuToggle = document.getElementById('menuToggle');
-const mainNav = document.getElementById('mainNav');
-if (menuToggle && mainNav) {
-  menuToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
-  mainNav.addEventListener('click', e => {
-    if (e.target.tagName === 'A') mainNav.classList.remove('open');
-  });
-}
-</script>
+<button class="to-top" id="toTop" aria-label="بازگشت به بالا">↑</button>
+
+<div id="bgMusicPlayer" class="bg-music-player">
+  <div class="player-info">
+    <span class="music-icon">🎵</span>
+    <span id="musicTitle">در حال بارگذاری...</span>
+  </div>
+  <div class="player-controls">
+    <button class="player-btn play" id="playPauseBtn" title="پخش / توقف">▶</button>
+    <button class="player-btn" id="nextBtn" title="آهنگ بعدی">↻</button>
+  </div>
+  <audio id="bgAudio" preload="auto" loop></audio>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
