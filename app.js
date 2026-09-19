@@ -481,72 +481,7 @@ function initMusic() {
   });
 }
 
-  function loadTrack(index, autoplay = false) {
-    currentTrackIndex = index;
-    const track = MUSIC_TRACKS[index];
-    if (!track) return;
-    if (musicTitle) musicTitle.textContent = track.title;
-    audio.src = track.src;
-    audio.volume = 0.35;
-    audio.loop = MUSIC_TRACKS.length === 1;
-    if (autoplay) tryPlay();
-  }
 
-  function tryPlay() {
-    const p = audio.play();
-    if (p !== undefined) {
-      p.then(() => { isPlaying = true; playPauseBtn.textContent = '❚❚'; })
-       .catch(() => { isPlaying = false; playPauseBtn.textContent = '▶'; });
-    }
-  }
-  function pause() {
-    audio.pause();
-    isPlaying = false;
-    playPauseBtn.textContent = '▶';
-  }
-
-  audio.addEventListener('canplaythrough', () => {
-    setTimeout(() => tryPlay(), 300);
-  }, { once: true });
-
-  const startOnInteract = () => {
-    if (!isPlaying) tryPlay();
-    document.removeEventListener('click', startOnInteract);
-    document.removeEventListener('touchstart', startOnInteract);
-  };
-  document.addEventListener('click', startOnInteract, { once: true });
-  document.addEventListener('touchstart', startOnInteract, { once: true });
-
-  playPauseBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (isPlaying) pause(); else tryPlay();
-  });
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (MUSIC_TRACKS.length <= 1) {
-        audio.currentTime = 0;
-        if (!isPlaying) tryPlay();
-      } else {
-        const next = (currentTrackIndex + 1) % MUSIC_TRACKS.length;
-        loadTrack(next, true);
-      }
-    });
-  }
-
-  audio.addEventListener('ended', () => {
-    if (MUSIC_TRACKS.length > 1) {
-      const next = (currentTrackIndex + 1) % MUSIC_TRACKS.length;
-      loadTrack(next, true);
-    }
-  });
-
-  audio.addEventListener('play', () => { isPlaying = true; playPauseBtn.textContent = '❚❚'; });
-  audio.addEventListener('pause', () => { isPlaying = false; playPauseBtn.textContent = '▶'; });
-
-  loadTrack(0, false);
-}
 
 /* ============================================================
    ۷) دکمه بازگشت به بالا
