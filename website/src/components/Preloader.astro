@@ -1,0 +1,100 @@
+---
+/**
+ * Preloader.astro — full-screen pixel loader with progress bar.
+ * Fades out after window load + 1100ms.
+ */
+---
+
+<div id="preloader" class="preloader" transition:persist>
+  <div class="pre-logo">MineBed</div>
+  <div class="pre-bar"><div class="pre-bar-fill"></div></div>
+  <div class="pre-text">در حال بارگذاری...</div>
+</div>
+
+<style>
+  .preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--bg, #0d0d18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+
+  .preloader.done {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .pre-logo {
+    font-family: var(--pixel), 'Press Start 2P', monospace;
+    font-size: 1.5rem;
+    color: var(--grass, #5fa838);
+    text-shadow: 0 0 20px rgba(95, 168, 56, 0.6);
+    letter-spacing: 3px;
+    text-align: center;
+  }
+
+  .pre-bar {
+    width: 260px;
+    height: 12px;
+    background: var(--panel, #1c1c34);
+    border: 2px solid var(--line, #2e2e4a);
+    overflow: hidden;
+    max-width: 80vw;
+  }
+
+  .pre-bar-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--grass-3, #3d7521), var(--grass-2, #7cc84a));
+    animation: loadBar 1.6s ease-in-out forwards;
+  }
+
+  @keyframes loadBar {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+
+  .pre-text {
+    font-family: var(--pixel), 'Press Start 2P', monospace;
+    font-size: 0.625rem;
+    color: var(--text-3, #5c5c7a);
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Don't re-show preloader on view transitions */
+  astro-swap[data-transition='swap'] .preloader,
+  astro-swap[data-transition='initial'] .preloader {
+    display: none;
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.__preloaderInit) return;
+    window.__preloaderInit = true;
+
+    function hide() {
+      const el = document.getElementById('preloader');
+      if (!el) return;
+      setTimeout(() => el.classList.add('done'), 1100);
+    }
+
+    if (document.readyState === 'complete') {
+      hide();
+    } else {
+      window.addEventListener('load', hide);
+    }
+  })();
+</script>

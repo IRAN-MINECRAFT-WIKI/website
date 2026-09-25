@@ -1,0 +1,182 @@
+---
+/**
+ * ParticleEffects.astro — ذرات پیکسلی Minecraft-style
+ *
+ * 🎯 این نسخه:
+ * - ذرات بزرگ‌تر (۱۲×۱۲ پیکسل) برای دیدن بهتر
+ * - انیمیشن ۱.۲ ثانیه (آروم‌تر و قابل دیدن)
+ * - ۳۰ ذره در هر کلیک (بیشتر از قبل)
+ * - دنباله موس هر ۳۰ms (نرم‌تر)
+ * - ۸ رنگ Minecraft palette
+ * - DOM-based CSS animations (CPU سبک)
+ * - transition:persist بین صفحات
+ */
+---
+
+<div id="fxLayer" class="fx-layer" transition:persist></div>
+
+<style>
+  .fx-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border: 2px solid rgba(0, 0, 0, 0.45);
+    box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.35), inset 2px 2px 0 rgba(255, 255, 255, 0.18);
+    animation: particleBurst 1.2s cubic-bezier(0.15, 0.7, 0.35, 1) forwards;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  @keyframes particleBurst {
+    0% {
+      transform: translate(0, 0) scale(1.2) rotate(0deg);
+      opacity: 1;
+    }
+    40% {
+      transform: translate(calc(var(--tx) * 0.6), calc(var(--ty) * 0.6)) scale(1) rotate(calc(var(--rot) * 0.4));
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(var(--rot));
+      opacity: 0;
+    }
+  }
+
+  .trail-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: inset -1px -1px 0 rgba(0, 0, 0, 0.3), inset 1px 1px 0 rgba(255, 255, 255, 0.15);
+    animation: trailFade 1s ease-out forwards;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  @keyframes trailFade {
+    0% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translate(0, -15px) scale(0.4) rotate(180deg);
+      opacity: 0;
+    }
+  }
+
+  /* Hide only on very strict reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .particle, .trail-particle { animation-duration: 0.3s !important; }
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.__fxInit) return;
+    window.__fxInit = true;
+
+    function getLayer() {
+      return document.getElementById('fxLayer');
+    }
+
+    // MineBed palette (Minecraft colors) — 8 رنگ
+    const palette = [
+      '#5fa838', // grass
+      '#7cc84a', // grass-2 (lighter)
+      '#3d7521', // grass-3 (darker)
+      '#fcb32b', // gold
+      '#4aedd9', // diamond
+      '#ff3b3b', // redstone
+      '#17dd62', // emerald
+      '#79553a', // dirt
+    ];
+
+    // ─── Burst particles on click ───
+    function burstAt(x, y, count = 30) {
+      const layer = getLayer();
+      if (!layer) return;
+
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        p.style.background = palette[Math.floor(Math.random() * palette.length)];
+
+        // Random direction + distance — bigger spread
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+        const distance = 80 + Math.random() * 100; // 80-180px (was 60-140)
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance - 30; // upward bias
+
+        p.style.setProperty('--tx', tx + 'px');
+        p.style.setProperty('--ty', ty + 'px');
+        p.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
+
+        layer.appendChild(p);
+        // Cleanup after animation (1.2s + small buffer)
+        setTimeout(() => p.remove(), 1300);
+      }
+    }
+
+    // Make function globally available
+    window.burstParticles = function (x, y, count = 30) {
+      burstAt(x, y, count);
+    };
+
+    // ─── Trail particles on mousemove ───
+    let lastTrailTime = 0;
+    function trailAt(x, y) {
+      const now = Date.now();
+      // Throttle: max 1 particle per 30ms
+      if (now - lastTrailTime < 30) return;
+      lastTrailTime = now;
+
+      const layer = getLayer();
+      if (!layer) return;
+
+      const p = document.createElement('div');
+      p.className = 'trail-particle';
+      p.style.left = (x + (Math.random() - 0.5) * 10) + 'px';
+      p.style.top = (y + (Math.random() - 0.5) * 10) + 'px';
+      p.style.background = palette[Math.floor(Math.random() * palette.length)];
+      layer.appendChild(p);
+      setTimeout(() => p.remove(), 1100);
+    }
+
+    function onBurst(e) {
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      const y = e.touches ? e.touches[0].clientY : e.clientY;
+      burstAt(x, y, 30);
+    }
+
+    function onTrail(e) {
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      const y = e.touches ? e.touches[0].clientY : e.clientY;
+      trailAt(x, y);
+    }
+
+    // ─── Wire up events (document-level — survives view transitions) ───
+    document.addEventListener('click', onBurst);
+    document.addEventListener('touchstart', onBurst, { passive: true });
+    document.addEventListener('mousemove', onTrail);
+    document.addEventListener('touchmove', onTrail, { passive: true });
+
+    // Re-bind on view transitions (layer persists, listeners stay on document)
+    document.addEventListener('astro:after-swap', () => {
+      // Re-attach if needed (document listeners should still work)
+    });
+  })();
+</script>

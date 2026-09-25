@@ -1,0 +1,400 @@
+---
+/**
+ * SearchBox.astro — Pagefind-powered search (با fallback در dev mode)
+ *
+ * 🎯 در dev mode (bun run dev): Pagefind در دسترس نیست → پیام کاربرپسند
+ * 🎯 در production (bun run build): Pagefind به‌صورت کامل کار می‌کنه
+ */
+import '@components/icons.astro';
+---
+
+<div class="search-wrap">
+  <button id="searchOpen" class="search-trigger" aria-label="جستجو">
+    <svg class="search-icon" width="14" height="14"><use href="#icon-search" /></svg>
+    <span class="search-text hidden sm:inline">جستجو</span>
+    <kbd class="hidden md:inline-block">/</kbd>
+  </button>
+  <div id="searchModal" class="search-modal" aria-hidden="true" hidden>
+    <div class="search-modal-backdrop" data-close></div>
+    <div class="search-modal-content">
+      <div class="search-input-wrap">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="جستجوی افزونه، مقاله، سید..."
+          autocomplete="off"
+          autofocus
+        />
+        <button class="search-close" data-close aria-label="بستن">
+          <svg width="14" height="14"><use href="#icon-close" /></svg>
+        </button>
+      </div>
+      <div id="searchResults" class="search-results"></div>
+      <div id="searchHint" class="search-hint">
+        نتایج از Pagefind • ایندکس تمام صفحات سایت
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .search-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    background: rgba(28, 28, 52, 0.6);
+    border: 1px solid var(--line, #2e2e4a);
+    color: var(--text-2, #9a9ab8);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    border-radius: 4px;
+  }
+  .search-trigger:hover {
+    border-color: var(--grass-2, #7cc84a);
+    color: var(--text, #e6e6f2);
+  }
+  .search-trigger kbd {
+    padding: 1px 6px;
+    background: rgba(13, 13, 24, 0.8);
+    border: 1px solid var(--line, #2e2e4a);
+    font-family: monospace;
+    font-size: 0.625rem;
+  }
+
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8vh;
+  }
+  .search-modal[hidden] { display: none; }
+  .search-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+  }
+  .search-modal-content {
+    position: relative;
+    width: min(90vw, 720px);
+    max-height: 75vh;
+    background: rgba(28, 28, 52, 0.96);
+    border: 2px solid var(--grass-3, #3d7521);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .search-input-wrap {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--line, #2e2e4a);
+    background: rgba(13, 13, 24, 0.8);
+  }
+  .search-input-wrap input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 1rem 1.25rem;
+    color: var(--text, #e6e6f2);
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+  }
+  .search-close {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    color: var(--text-3, #5c5c7a);
+    cursor: pointer;
+    border: none;
+  }
+  .search-close:hover {
+    color: var(--redstone, #ff3b3b);
+  }
+
+  .search-results {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0.5rem;
+  }
+  .search-results:empty::before {
+    content: "شروع به تایپ کن...";
+    display: block;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-3, #5c5c7a);
+    font-size: 0.875rem;
+  }
+
+  .search-hint {
+    padding: 0.5rem 1rem;
+    background: rgba(13, 13, 24, 0.8);
+    border-top: 1px solid var(--line, #2e2e4a);
+    color: var(--text-3, #5c5c7a);
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
+  .search-result {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--line, #2e2e4a);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.1s;
+  }
+  .search-result:hover {
+    background: rgba(95, 168, 56, 0.1);
+  }
+  .search-result .title {
+    color: var(--grass-2, #7cc84a);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+  .search-result .excerpt {
+    color: var(--text-2, #9a9ab8);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  .search-result .excerpt mark {
+    background: rgba(95, 168, 56, 0.3);
+    color: var(--grass-2, #7cc84a);
+    padding: 0 2px;
+  }
+
+  .search-error {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-2, #9a9ab8);
+  }
+  .search-error-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .search-error-title {
+    color: var(--gold, #fcb32b);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .search-error-text {
+    font-size: 0.85rem;
+    color: var(--text-3, #5c5c7a);
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+  (function () {
+    const openBtn = document.getElementById('searchOpen');
+    const modal = document.getElementById('searchModal');
+    const input = document.getElementById('searchInput');
+    const results = document.getElementById('searchResults');
+    const hint = document.getElementById('searchHint');
+
+    if (!openBtn || !modal || !input || !results) return;
+
+    let pagefind = null;
+    let initialized = false;
+    let searchTimer = null;
+    let pagefindNotFound = false; // true if pagefind failed to load
+
+    function showSearchError() {
+      results.innerHTML = `
+        <div class="search-error">
+          <div class="search-error-icon">🔍</div>
+          <div class="search-error-title">در حال بارگذاری جستجو...</div>
+          <div class="search-error-text">
+            برای فعال‌سازی جستجوی کامل، وب‌سایت را build کنید:
+            <br><code style="direction: ltr; display: inline-block; background: rgba(0,0,0,0.5); padding: 4px 8px; margin-top: 8px;">bun run build</code>
+            <br>سپس:
+            <code style="direction: ltr; display: inline-block; background: rgba(0,0,0,0.5); padding: 4px 8px; margin-top: 8px;">bun run preview</code>
+          </div>
+        </div>
+      `;
+      if (hint) hint.textContent = 'جستجو فقط در نسخه‌ی build شده کار می‌کنه';
+    }
+
+    async function loadPagefind() {
+      if (initialized) return pagefind;
+      try {
+        // Detect base path from a known Astro asset (favicon)
+        // Use the BASE_URL injected by Astro via the document
+        const base = document.documentElement.dataset.astroBase;
+
+        const url = `${base}pagefind/pagefind.js`;
+        const mod = await import(/* @vite-ignore */ url);
+        pagefind = mod.default || mod;
+        await pagefind.init();
+        pagefind.options({ excerptLength: 12 });
+        initialized = true;
+      } catch (e) {
+        console.warn('Pagefind not loaded (dev mode or not built)', e);
+        pagefindNotFound = true;
+      }
+      return pagefind;
+    }
+
+    function openModal() {
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      setTimeout(() => input.focus(), 50);
+      document.body.style.overflow = 'hidden';
+      if (!initialized) {
+        loadPagefind();
+      }
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    modal.querySelectorAll('[data-close]').forEach((el) =>
+      el.addEventListener('click', closeModal)
+    );
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.hidden) closeModal();
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+
+    input.addEventListener('input', (e) => {
+      const q = e.target.value.trim();
+      clearTimeout(searchTimer);
+      if (!q) {
+        results.innerHTML = '';
+        return;
+      }
+      searchTimer = setTimeout(async () => {
+        if (pagefindNotFound) {
+          showSearchError();
+          return;
+        }
+        if (!pagefind) await loadPagefind();
+        if (!pagefind) {
+          showSearchError();
+          return;
+        }
+        try {
+          const search = await pagefind.search(q);
+          results.innerHTML = '';
+          if (!search || !search.results) return;
+          const limit = Math.min(10, search.results.length);
+          for (let i = 0; i < limit; i++) {
+            const r = await search.results[i].data();
+            const div = document.createElement('a');
+            div.className = 'search-result';
+            div.href = r.url;
+            div.style.textDecoration = 'none';
+            div.style.color = 'inherit';
+            // Use textContent (not innerHTML) for user/Pagefind-supplied strings — XSS-safe
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'title';
+            titleDiv.textContent = (r.meta && r.meta.title) || r.url;
+            const excerptDiv = document.createElement('div');
+            excerptDiv.className = 'excerpt';
+            excerptDiv.textContent = r.excerpt || '';
+            div.appendChild(titleDiv);
+            div.appendChild(excerptDiv);
+            results.appendChild(div);
+          }
+        } catch (err) {
+          console.error('Search error:', err);
+          showSearchError();
+        }
+      }, 250);
+    });
+
+    // Re-bind after Astro View Transitions — must be INSIDE the IIFE so it
+    // can access `initialized`, `pagefind`, `pagefindNotFound`, `loadPagefind`.
+    document.addEventListener('astro:after-swap', () => {
+      // Reset state so search works again after navigation
+      initialized = false;
+      pagefind = null;
+      pagefindNotFound = false;
+
+      // Re-get elements (they were replaced by View Transition)
+      const newOpenBtn = document.getElementById('searchOpen');
+      const newModal = document.getElementById('searchModal');
+      const newInput = document.getElementById('searchInput');
+      const newResults = document.getElementById('searchResults');
+
+      if (newOpenBtn) {
+        newOpenBtn.addEventListener('click', () => {
+          if (newModal) {
+            newModal.hidden = false;
+            newModal.setAttribute('aria-hidden', 'false');
+            setTimeout(() => newInput && newInput.focus(), 50);
+            document.body.style.overflow = 'hidden';
+            if (!initialized) loadPagefind();
+          }
+        });
+      }
+
+      if (newModal) {
+        newModal.querySelectorAll('[data-close]').forEach(el =>
+          el.addEventListener('click', () => {
+            newModal.hidden = true;
+            newModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          })
+        );
+      }
+
+      if (newInput && newResults) {
+        let searchTimer2 = null;
+        newInput.addEventListener('input', (e) => {
+          const q = e.target.value.trim();
+          clearTimeout(searchTimer2);
+          if (!q) { newResults.innerHTML = ''; return; }
+          searchTimer2 = setTimeout(async () => {
+            if (pagefindNotFound) {
+              newResults.innerHTML = '<div class="search-error"><div class="search-error-icon">🔍</div><div class="search-error-title">در حال بارگذاری جستجو...</div><div class="search-error-text">bun run build کن</div></div>';
+              return;
+            }
+            if (!pagefind) await loadPagefind();
+            if (!pagefind) return;
+            try {
+              const search = await pagefind.search(q);
+              newResults.innerHTML = '';
+              if (!search || !search.results) return;
+              const limit = Math.min(10, search.results.length);
+              for (let i = 0; i < limit; i++) {
+                const r = await search.results[i].data();
+                const div = document.createElement('a');
+                div.className = 'search-result';
+                div.href = r.url;
+                div.style.textDecoration = 'none';
+                div.style.color = 'inherit';
+                // Use textContent for user-supplied strings (excerpt, title) to prevent XSS
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'title';
+                titleDiv.textContent = (r.meta && r.meta.title) || r.url;
+                const excerptDiv = document.createElement('div');
+                excerptDiv.className = 'excerpt';
+                excerptDiv.textContent = r.excerpt || '';
+                div.appendChild(titleDiv);
+                div.appendChild(excerptDiv);
+                newResults.appendChild(div);
+              }
+            } catch(err) { console.error('Search error:', err); }
+          }, 250);
+        });
+      }
+    });
+  })();
+
+</script>

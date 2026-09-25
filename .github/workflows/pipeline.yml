@@ -1,0 +1,41 @@
+name: Daily Auto-Fetch Mods
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: |
+          pip install -r website/pipeline/requirements.txt
+
+      - name: Fetch 5 new mods
+        env:
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_REPO_ID: ${{ secrets.HF_REPO_ID }}
+          LM_STUDIO_URL: ${{ secrets.LM_STUDIO_URL }}
+          MODEL_NAME: ${{ secrets.MODEL_NAME }}
+        run: |
+          python website/pipeline/run.py --auto 5 --auto-approve
+
+      - name: Commit changes
+        run: |
+          git config user.name "MineBed Bot"
+          git config user.email "bot@minebed.users.noreply.github.com"
+          git add website/src/data/mods.json
+          git diff --staged --quiet || git commit -m "chore: daily mod sync"
+          git push

@@ -1,0 +1,148 @@
+---
+import '@/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import StructuredData from '@components/StructuredData.astro';
+import MusicPlayer from '@components/MusicPlayer.astro';
+import BackToTop from '@components/BackToTop.astro';
+import Preloader from '@components/Preloader.astro';
+import ParticleEffects from '@components/ParticleEffects.astro';
+import Icons from '@components/icons.astro';
+import BrowserWarning from '@components/BrowserWarning.astro';
+import { siteConfig } from '@/lib/data';
+import { buildHeadMeta, type SeoMeta, websiteJsonLd, organizationJsonLd } from '@/lib/seo';
+
+// ⚙️ Base URL helper — در پروژه‌های project-page GitHub Pages، base برابر
+// با `/website/` است. تمام URLهای public/ باید با این prefix استفاده بشن.
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+export interface Props extends SeoMeta {
+  path: string;
+  children?: any;
+}
+
+const { path, ...meta } = Astro.props;
+const headMeta = buildHeadMeta(meta, path);
+
+// Add global JSON-LD: WebSite + Organization
+const websiteLd = websiteJsonLd();
+const orgLd = organizationJsonLd();
+---
+
+<!doctype html>
+<html lang="fa" dir="rtl" data-astro-base={BASE}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{headMeta.title}</title>
+    <meta name="description" content={headMeta.description} />
+    <meta name="robots" content={headMeta.robots} />
+    <link rel="canonical" href={headMeta.canonical} />
+
+    <!-- Favicon (with base prefix) -->
+    <link rel="icon" type="image/png" href={base('/favicon-96x96.png')} sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href={base('/favicon.svg')} />
+    <link rel="shortcut icon" href={base('/favicon.ico')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={base('/apple-touch-icon.png')} />
+    <link rel="manifest" href={base('/site.webmanifest')} />
+
+    <!-- RSS feed + OpenSearch (with base prefix) -->
+    <link rel="alternate" type="application/rss+xml" title="MineBed Farsi RSS" href={base('/rss.xml')} />
+    <link rel="search" type="application/opensearchdescription+xml" href={base('/opensearch.xml')} title="MineBed Farsi" />
+
+    <!-- OpenGraph -->
+    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:type" content={headMeta.openGraph.type} />
+    <meta property="og:title" content={headMeta.openGraph.title} />
+    <meta property="og:description" content={headMeta.openGraph.description} />
+    <meta property="og:url" content={headMeta.openGraph.url} />
+    <meta property="og:site_name" content={headMeta.openGraph.siteName} />
+    <meta property="og:image" content={headMeta.openGraph.image} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={headMeta.twitter.card} />
+    <meta name="twitter:title" content={headMeta.twitter.title} />
+    <meta name="twitter:description" content={headMeta.twitter.description} />
+    <meta name="twitter:image" content={headMeta.twitter.image} />
+    <meta name="twitter:site" content={headMeta.twitter.site} />
+
+    <!-- Fonts: self-hosted Rooyin (Persian, Farsi numerals) -->
+    <link rel="preload" href={base('/fonts/Rooyin-Regular.woff2')} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={base('/fonts/Rooyin-Bold.woff2')} as="font" type="font/woff2" crossorigin />
+    <style is:global>
+      @font-face {
+        font-family: 'Rooyin';
+        src: url('${BASE}fonts/Rooyin-Regular.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Rooyin';
+        src: url('${BASE}fonts/Rooyin-Bold.woff2') format('woff2');
+        font-weight: 600 900;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+
+    <!-- Structured Data: global (WebSite + Organization) -->
+    <StructuredData data={websiteLd} />
+    <StructuredData data={orgLd} />
+
+    <!-- Microsoft Clarity (deferred, no render block) -->
+    <script is:inline defer>
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', 'yjtimwkoiu');
+    </script>
+
+    <!-- Tapsell (deferred, no render block) -->
+    <script is:inline defer>
+      (function () {
+        const head = document.getElementsByTagName('head')[0];
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src =
+          'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js';
+        head.appendChild(script);
+      })();
+    </script>
+
+    <!-- View Transitions: SPA-like navigation -->
+    <ClientRouter />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Icons />
+    <!-- Old browser warning -->
+    <BrowserWarning />
+
+    <!-- Global particle canvas (persist across pages) -->
+    <ParticleEffects />
+
+    <!-- Preloader (persists so it doesn't re-trigger on each navigation) -->
+    <Preloader />
+
+    <Header />
+    <main class="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- Floating UI: music player + back-to-top -->
+    <MusicPlayer />
+    <BackToTop />
+  </body>
+</html>

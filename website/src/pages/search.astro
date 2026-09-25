@@ -1,0 +1,136 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'جستجو', url: '/search' },
+];
+---
+
+<BaseLayout
+  path="/search"
+  title="جستجو در MineBed Farsi"
+  description="جستجوی افزونه، سید، مقاله و آموزش ماینکرفت بدراک در MineBed Farsi"
+  noindex={true}
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">جستجو در سایت</h1>
+    <p class="text-sm text-mc-text-2">هر چیزی از ماینکرفت بدراک که دنبالش هستی رو پیدا کن</p>
+  </div>
+
+  <div class="mc-panel p-5 mb-6">
+    <div class="search-input-wrap">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="مثلاً: لکی بلاک، شیدر، تفنگ، نصب مود..."
+        class="w-full bg-mc-bg-2 border-2 border-mc-line px-4 py-3 text-base text-mc-text focus:border-mc-grass-2 outline-none"
+        autofocus
+      />
+    </div>
+  </div>
+
+  <div id="searchResults" class="space-y-2"></div>
+  <div id="searchEmpty" class="mc-panel text-center py-12">
+    <div class="text-4xl mb-3">🔍</div>
+    <p class="text-mc-text-2 text-sm">شروع به تایپ کن...</p>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .search-result {
+    display: block;
+    padding: 1rem 1.25rem;
+    background: var(--panel, #1c1c34);
+    border: 2px solid var(--line, #2e2e4a);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .search-result:hover {
+    border-color: var(--grass-2, #7cc84a);
+    transform: translateY(-2px);
+  }
+  .search-result .title {
+    color: var(--grass-2, #7cc84a);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+  .search-result .excerpt {
+    color: var(--text-2, #9a9ab8);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .search-result .excerpt mark {
+    background: rgba(95, 168, 56, 0.3);
+    color: var(--grass-2, #7cc84a);
+    padding: 0 2px;
+  }
+</style>
+
+<script>
+  (function () {
+    const input = document.getElementById('searchInput');
+    const results = document.getElementById('searchResults');
+    const empty = document.getElementById('searchEmpty');
+
+    let pagefind = null;
+
+    async function loadPagefind() {
+      if (pagefind) return pagefind;
+      try {
+        const base = window.location.pathname.split('/').slice(0, -1).join('/') || '';
+        const url = `${base}/pagefind/pagefind.js`;
+        const mod = await import(/* @vite-ignore */ url);
+        pagefind = mod.default || mod;
+        await pagefind.init();
+      } catch (e) {
+        console.warn('Pagefind not available', e);
+      }
+      return pagefind;
+    }
+
+    let timer = null;
+    input.addEventListener('input', (e) => {
+      const q = e.target.value.trim();
+      clearTimeout(timer);
+      if (!q) {
+        results.innerHTML = '';
+        empty.style.display = '';
+        return;
+      }
+      empty.style.display = 'none';
+      timer = setTimeout(async () => {
+        if (!pagefind) await loadPagefind();
+        if (!pagefind) {
+          results.innerHTML = '<p class="text-mc-text-2 text-sm text-center py-4">جستجو هنوز بارگذاری نشده. صبر کن...</p>';
+          return;
+        }
+        const search = await pagefind.search(q);
+        results.innerHTML = '';
+        if (!search || !search.results || search.results.length === 0) {
+          results.innerHTML = '<p class="text-mc-text-2 text-sm text-center py-8">نتیجه‌ای پیدا نشد.</p>';
+          return;
+        }
+        const limit = Math.min(20, search.results.length);
+        for (let i = 0; i < limit; i++) {
+          const r = await search.results[i].data();
+          const div = document.createElement('a');
+          div.className = 'search-result';
+          div.href = r.url;
+          div.innerHTML = `
+            <div class="title">${r.meta?.title || r.url}</div>
+            <div class="excerpt">${r.excerpt}</div>
+          `;
+          results.appendChild(div);
+        }
+      }, 250);
+    });
+
+    loadPagefind();
+  })();
+</script>

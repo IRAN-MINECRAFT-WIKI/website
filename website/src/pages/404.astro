@@ -1,0 +1,332 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@components/icons.astro';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+---
+
+<BaseLayout
+  path="/404"
+  title="۴۰۴ — کریپر این صفحه رو منفجر کرد!"
+  description="این صفحه توسط کریپر منفجر شده است."
+  noindex={true}
+>
+  <div class="error-page">
+    <div class="creeper-container">
+      <!-- Animated pixel creeper -->
+      <div class="creeper" role="img" aria-label="کریپر ماینکرفت">
+        <div class="creeper-face">
+          <div class="creeper-eye left"></div>
+          <div class="creeper-eye right"></div>
+          <div class="creeper-mouth">
+            <div class="mouth-top"></div>
+            <div class="mouth-bottom"></div>
+          </div>
+        </div>
+      </div>
+      <div class="creeper-shadow"></div>
+    </div>
+
+    <div class="error-content">
+      <div class="error-code">404</div>
+      <h1 class="error-title">کریپر این صفحه رو منفجر کرد!</h1>
+      <p class="error-desc">
+        شاید یه کریپر از پشت سرت اومد و صفحه‌ای که دنبالش بودی رو هوا کرد.
+        یا شاید آدرس رو اشتباه وارد کردی.
+        <br>
+        صدای: <button class="play-sound-btn" id="playSound" aria-label="پخش صدای انفجار کریپر">🔊 صدای انفجار</button>
+      </p>
+      <div class="error-actions">
+        <a href={base('/')} class="mc-btn" data-route>
+          <svg width="14" height="14"><use href="#icon-home" /></svg>
+          بازگشت به خانه
+        </a>
+        <a href={base('/mods')} class="mc-btn ghost" data-route>
+          <svg width="14" height="14"><use href="#icon-cube" /></svg>
+          دیدن مودها
+        </a>
+        <button class="mc-btn gold small" onclick="history.back()">
+          <svg width="14" height="14"><use href="#icon-chevron-right" /></svg>
+          برگشت
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden audio element — uses WebAudio API for creeper sound effect -->
+  <script>
+    (function () {
+      function playCreeperSound() {
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+          // Hiss (fuse burning) — 1.5 seconds
+          const hissOsc = ctx.createOscillator();
+          const hissGain = ctx.createGain();
+          const hissFilter = ctx.createBiquadFilter();
+          hissOsc.type = 'sawtooth';
+          hissOsc.frequency.setValueAtTime(800, ctx.currentTime);
+          hissOsc.frequency.linearRampToValueAtTime(1200, ctx.currentTime + 1.5);
+          hissFilter.type = 'bandpass';
+          hissFilter.frequency.value = 1500;
+          hissGain.gain.setValueAtTime(0.001, ctx.currentTime);
+          hissGain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.1);
+          hissGain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+          hissOsc.connect(hissFilter);
+          hissFilter.connect(hissGain);
+          hissGain.connect(ctx.destination);
+          hissOsc.start();
+          hissOsc.stop(ctx.currentTime + 1.5);
+
+          // Boom (explosion) — at 1.5s
+          const boomTime = ctx.currentTime + 1.5;
+
+          // Low boom
+          const boomOsc = ctx.createOscillator();
+          const boomGain = ctx.createGain();
+          boomOsc.type = 'sine';
+          boomOsc.frequency.setValueAtTime(80, boomTime);
+          boomOsc.frequency.exponentialRampToValueAtTime(20, boomTime + 0.4);
+          boomGain.gain.setValueAtTime(0.5, boomTime);
+          boomGain.gain.exponentialRampToValueAtTime(0.001, boomTime + 0.5);
+          boomOsc.connect(boomGain);
+          boomGain.connect(ctx.destination);
+          boomOsc.start(boomTime);
+          boomOsc.stop(boomTime + 0.5);
+
+          // Noise burst (the actual explosion sound)
+          const bufferSize = ctx.sampleRate * 0.5;
+          const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() - 0.5) * Math.pow(1 - i / bufferSize, 2);
+          }
+          const noise = ctx.createBufferSource();
+          noise.buffer = buffer;
+          const noiseGain = ctx.createGain();
+          const noiseFilter = ctx.createBiquadFilter();
+          noiseFilter.type = 'lowpass';
+          noiseFilter.frequency.setValueAtTime(2000, boomTime);
+          noiseFilter.frequency.exponentialRampToValueAtTime(200, boomTime + 0.4);
+          noiseGain.gain.setValueAtTime(0.6, boomTime);
+          noiseGain.gain.exponentialRampToValueAtTime(0.001, boomTime + 0.5);
+          noise.connect(noiseFilter);
+          noiseFilter.connect(noiseGain);
+          noiseGain.connect(ctx.destination);
+          noise.start(boomTime);
+
+          // Cleanup
+          setTimeout(() => ctx.close(), 2500);
+        } catch (e) {
+          console.warn('Audio failed:', e);
+        }
+      }
+
+      // Auto-play on first user interaction (browser policy)
+      let played = false;
+      function tryAutoPlay() {
+        if (played) return;
+        played = true;
+        // Small delay so the page renders first
+        setTimeout(playCreeperSound, 500);
+        document.removeEventListener('click', tryAutoPlay);
+        document.removeEventListener('keydown', tryAutoPlay);
+        document.removeEventListener('touchstart', tryAutoPlay);
+      }
+
+      document.addEventListener('click', tryAutoPlay);
+      document.addEventListener('keydown', tryAutoPlay);
+      document.addEventListener('touchstart', tryAutoPlay, { passive: true });
+
+      // Also button to replay
+      const btn = document.getElementById('playSound');
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          playCreeperSound();
+        });
+      }
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .error-page {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    text-align: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ─── Pixel Creeper ─── */
+  .creeper-container {
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .creeper {
+    width: 200px;
+    height: 200px;
+    background: #5cc44c;
+    border: 6px solid #2d5018;
+    box-shadow:
+      inset -8px -8px 0 rgba(0, 0, 0, 0.25),
+      inset 8px 8px 0 rgba(255, 255, 255, 0.15),
+      0 8px 24px rgba(0, 0, 0, 0.5);
+    position: relative;
+    image-rendering: pixelated;
+    animation: creeperBreath 2s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+
+  @keyframes creeperBreath {
+    0%, 100% { transform: scaleY(1) scaleX(1); }
+    50% { transform: scaleY(1.02) scaleX(0.99); }
+  }
+
+  .creeper-face {
+    position: absolute;
+    inset: 30px;
+    display: grid;
+    grid-template-areas:
+      "eye-left eye-right"
+      "mouth mouth";
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .creeper-eye {
+    width: 30px;
+    height: 50px;
+    background: #1a3010;
+    box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.4);
+  }
+  .creeper-eye.left {
+    grid-area: eye-left;
+    justify-self: end;
+  }
+  .creeper-eye.right {
+    grid-area: eye-right;
+    justify-self: start;
+  }
+
+  .creeper-mouth {
+    grid-area: mouth;
+    display: grid;
+    grid-template-rows: 30px 1fr;
+    gap: 4px;
+    align-self: start;
+    justify-self: center;
+    width: 90px;
+  }
+
+  .mouth-top {
+    height: 30px;
+    background: #1a3010;
+    box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .mouth-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    height: 50px;
+  }
+
+  .mouth-bottom::before,
+  .mouth-bottom::after {
+    content: '';
+    background: #1a3010;
+    box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .creeper-shadow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 16px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.6), transparent 70%);
+    filter: blur(4px);
+    animation: shadowBreath 2s ease-in-out infinite;
+  }
+
+  @keyframes shadowBreath {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+    50% { transform: translateX(-50%) scale(0.95); opacity: 0.5; }
+  }
+
+  /* ─── Error content ─── */
+  .error-code {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 5rem;
+    color: #5cc44c;
+    text-shadow:
+      4px 4px 0 #1a3010,
+      0 0 30px rgba(92, 196, 76, 0.5);
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    .error-code { font-size: 3.5rem; }
+    .creeper { width: 140px; height: 140px; border-width: 4px; }
+    .creeper-face { inset: 20px; grid-template-rows: 35px 1fr; }
+    .creeper-eye { width: 22px; height: 35px; }
+    .creeper-mouth { width: 65px; }
+    .mouth-top { height: 22px; }
+    .mouth-bottom { height: 35px; }
+  }
+
+  .error-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .error-desc {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.85;
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .play-sound-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: rgba(92, 196, 76, 0.15);
+    border: 1px solid var(--grass-3);
+    color: var(--grass-2);
+    font-family: inherit;
+    font-size: 0.75rem;
+    cursor: pointer;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin: 0 4px;
+  }
+  .play-sound-btn:hover {
+    background: rgba(92, 196, 76, 0.25);
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>

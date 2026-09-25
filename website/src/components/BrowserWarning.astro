@@ -1,0 +1,150 @@
+---
+/**
+ * BrowserWarning.astro — هشدار مرورگر قدیمی
+ *
+ * اگر کاربر از مرورگر قدیمی استفاده کنه، یه banner نمایش می‌ده که
+ * پیشنهاد آپدیت می‌کنه. روی مرورگرهای مدرن (Chrome 100+، Firefox 100+،
+ * Safari 15+) نمایش داده نمی‌شه.
+ */
+---
+
+<div id="browserWarning" class="browser-warning hidden">
+  <div class="browser-warning-content">
+    <div class="browser-warning-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="browser-warning-text">
+      <strong>مرورگر شما قدیمی است</strong>
+      <p>برای تجربه‌ی بهتر و استفاده از همه‌ی امکانات سایت، لطفاً مرورگر خود را به آخرین نسخه به‌روز کنید.</p>
+    </div>
+    <button id="browserWarningClose" class="browser-warning-close" aria-label="بستن">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .browser-warning {
+    position: sticky;
+    top: 0;
+    z-index: 9990;
+    background: linear-gradient(135deg, #fcb32b 0%, #f59e0b 100%);
+    color: #1a1a2e;
+    border-bottom: 2px solid #2b1d0e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .browser-warning.hidden { display: none; }
+
+  .browser-warning-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .browser-warning-icon {
+    color: #1a1a2e;
+    flex-shrink: 0;
+  }
+
+  .browser-warning-text {
+    flex: 1;
+    font-family: 'Rooyin', system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .browser-warning-text strong {
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .browser-warning-close {
+    background: transparent;
+    border: 2px solid #1a1a2e;
+    color: #1a1a2e;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .browser-warning-close:hover {
+    background: #1a1a2e;
+    color: #fcb32b;
+  }
+</style>
+
+<script>
+  (function () {
+    function detectOldBrowser() {
+      const ua = navigator.userAgent;
+      // Skip if user dismissed recently
+      const dismissed = localStorage.getItem('browserWarningDismissed');
+      if (dismissed) {
+        const dismissTime = parseInt(dismissed, 10);
+        if (Date.now() - dismissTime < 7 * 24 * 60 * 60 * 1000) return false; // 7 days
+      }
+
+      // Check for modern features
+      try {
+        if (!('IntersectionObserver' in window)) return true;
+        if (!('fetch' in window)) return true;
+        if (!('customElements' in window)) return true;
+        if (!CSS.supports('display', 'grid')) return true;
+      } catch (e) {
+        return true;
+      }
+
+      // Version detection from UA
+      const chromeMatch = ua.match(/Chrome\/(\d+)/);
+      const firefoxMatch = ua.match(/Firefox\/(\d+)/);
+      const safariMatch = ua.match(/Version\/(\d+).*Safari/);
+      const edgeMatch = ua.match(/Edg\/(\d+)/);
+
+      if (chromeMatch && !edgeMatch && parseInt(chromeMatch[1], 10) < 90) return true;
+      if (firefoxMatch && parseInt(firefoxMatch[1], 10) < 90) return true;
+      if (safariMatch && parseInt(safariMatch[1], 10) < 14) return true;
+      if (edgeMatch && parseInt(edgeMatch[1], 10) < 90) return true;
+
+      // IE check (very old)
+      if (ua.includes('MSIE') || ua.includes('Trident/')) return true;
+
+      return false;
+    }
+
+    function show() {
+      if (!detectOldBrowser()) return;
+      const el = document.getElementById('browserWarning');
+      if (!el) return;
+      el.classList.remove('hidden');
+      const closeBtn = document.getElementById('browserWarningClose');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          el.classList.add('hidden');
+          localStorage.setItem('browserWarningDismissed', String(Date.now()));
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', show);
+    } else {
+      show();
+    }
+    document.addEventListener('astro:page-load', show);
+  })();
+</script>

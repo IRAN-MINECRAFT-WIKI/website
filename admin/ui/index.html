@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MineBed Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- ===== App shell ===== -->
+  <div id="app">
+    <!-- ===== Sidebar ===== -->
+    <aside id="sidebar">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">
+          <!-- grass block SVG -->
+          <svg viewBox="0 0 24 24" width="34" height="34" role="img" aria-label="MineBed">
+            <rect x="2" y="6" width="20" height="14" rx="1" fill="#1c1c34"/>
+            <rect x="2" y="5" width="20" height="5" fill="#5fa838"/>
+            <rect x="2" y="9" width="20" height="1" fill="#3f7a25"/>
+            <path d="M5 5h2v2H5zM9 5h2v2H9zM13 5h2v2h-2zM17 5h2v2h-2z" fill="#4a8c2c"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">MineBed</div>
+          <div class="brand-sub">پنل مدیریت</div>
+        </div>
+      </div>
+
+      <nav id="nav">
+        <a href="#/dashboard" class="nav-item" data-route="dashboard">
+          <span class="nav-ico">◈</span> داشبورد
+        </a>
+        <a href="#/autofetch" class="nav-item" data-route="autofetch">
+          <span class="nav-ico">⚡</span> دریافت خودکار
+        </a>
+        <a href="#/crawl" class="nav-item" data-route="crawl">
+          <span class="nav-ico">◐</span> دریافت تکی
+        </a>
+        <a href="#/mods" class="nav-item" data-route="mods">
+          <span class="nav-ico">≣</span> مادها
+        </a>
+        <a href="#/settings" class="nav-item" data-route="settings">
+          <span class="nav-ico">⚙</span> تنظیمات
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div id="server-badge" class="server-badge">در حال اتصال…</div>
+        <div class="version">v1.0.0</div>
+      </div>
+    </aside>
+
+    <!-- ===== Main content ===== -->
+    <main id="main">
+      <header id="topbar">
+        <h1 id="page-title">داشبورد</h1>
+        <div id="topbar-right"></div>
+      </header>
+
+      <div id="content">
+        <!-- Pages render here via direct DOM manipulation in app.js -->
+        <div class="loading">در حال بارگذاری…</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===== Modal host ===== -->
+  <div id="modal-host" class="modal-host hidden" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h2 id="modal-title">جزئیات</h2>
+        <button id="modal-close" class="modal-close" aria-label="بستن">✕</button>
+      </div>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ===== Toast host ===== -->
+  <div id="toast-host" class="toast-host" aria-live="polite"></div>
+
+  <!-- App logic (regular <script src> — pywebview uses a real browser engine) -->
+  <script src="/app.js"></script>
+</body>
+</html>

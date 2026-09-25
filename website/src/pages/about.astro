@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'درباره ما', url: '/about' },
+];
+---
+
+<BaseLayout
+  path="/about"
+  title="درباره MineBed Farsi"
+  description="MineBed Farsi مرجع فارسی دانلود افزونه ماینکرفت بدراک است. هرچه لازم داری از مود، مپ، ریسورس‌پک و سید، اینجاست."
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <article class="mc-panel p-6 lg:p-8 prose prose-invert max-w-none">
+    <h1>درباره ماین بد (MineBed)</h1>
+
+    <p><strong>ماین بد</strong> (به انگلیسی: MineBed) بزرگ‌ترین مرجع فارسی دانلود افزونه ماینکرفت بدراک در ایران است.</p>
+
+    <p>اسم <strong>«ماین بد»</strong> ترکیبی از دو کلمه است:</p>
+    <ul>
+      <li><strong>ماین</strong> = Minecraft (ماینکرفت)</li>
+      <li><strong>بد</strong> = Bedrock (بدراک)</li>
+    </ul>
+    <p>پس <strong>ماین بد = ماینکرفت بدراک</strong></p>
+
+    <p>
+      MineBed Farsi یک پروژه‌ی مستقل و فارسی‌زبان است که در سال ۱۴۰۴ با هدف
+      ارائه‌ی مرجعی کامل و قابل اعتماد برای دانلود افزونه‌های ماینکرفت بدراک
+      به‌صورت رایگان آغاز شد. ما بر این باوریم که هیچ‌کس نباید برای دسترسی به
+      محتوای مود باید پرداختی انجام دهد یا با تبلیغات مزاحم دست‌وپنجه نرم
+      کند.
+    </p>
+
+    <h2>ماموریت ما</h2>
+    <p>
+      ماموریت ما ساخت بزرگ‌ترین مرجع فارسی ماینکرفت بدراک است. برای رسیدن به
+      این هدف، هر افزونه قبل از انتشار روی دنیای آزمایشی ما تست می‌شود تا
+      از امنیت و عملکرد آن مطمئن شویم. هیچ فایل ناشناسی وارد سایت نمی‌شود و
+      تمام توضیحات به فارسی روان و با لحن دوستانه نوشته می‌شوند.
+    </p>
+
+    <h2>تیم ما</h2>
+    <p>
+      تیم ما از چند توسعه‌دهنده و نویسنده‌ی داوطلب تشکیل شده که با علاقه‌ی
+      کامل به ماینکرفت این کار را انجام می‌دهند. اگر دوست داری به ما
+      بپیوندی، از طریق تلگرام یا اینستاگرام در ارتباط باش.
+    </p>
+
+    <h2>تماس با ما</h2>
+    <ul>
+      <li>تلگرام: <a href="https://t.me/MineBedWeb" target="_blank" rel="noopener">@MineBedWeb</a></li>
+      <li>اینستاگرام: <a href="https://instagram.com/craftify" target="_blank" rel="noopener">@craftify</a></li>
+      <li>یوتیوب: <a href="https://youtube.com/@craftify" target="_blank" rel="noopener">@craftify</a></li>
+    </ul>
+
+    <h2>سلب مسئولیت</h2>
+    <p>
+      MineBed Farsi یک پروژه‌ی مستقل است و هیچ ارتباطی با Mojang Studios یا
+      Microsoft ندارد. تمام حقوق ماینکرفت متعلق به این شرکت‌هاست.
+    </p>
+  </article>
+</BaseLayout>

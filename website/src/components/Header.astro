@@ -1,0 +1,228 @@
+---
+import '@components/icons.astro';
+import { siteConfig, categories } from '@/lib/data';
+import SearchBox from '@components/SearchBox.astro';
+
+// In Astro, BASE_URL includes trailing slash (e.g., /website/)
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const nav = [
+  { href: base('/'), label: 'خانه', icon: 'icon-home', active: false },
+  { href: base('/mods'), label: 'افزونه‌ها', icon: 'icon-cube', active: false },
+  { href: base('/versions'), label: 'نسخه‌ها', icon: 'icon-version', active: false },
+  { href: base('/seeds'), label: 'سیدها', icon: 'icon-seed', active: false },
+  { href: base('/categories'), label: 'دسته‌ها', icon: 'icon-category', active: false },
+  { href: base('/blog'), label: 'وبلاگ', icon: 'icon-blog', active: false },
+  { href: base('/wiki'), label: 'ویکی', icon: 'icon-wiki', active: false },
+  { href: base('/guide'), label: 'آموزش', icon: 'icon-tutorial', active: false },
+  { href: base('/about'), label: 'درباره', icon: 'icon-eye', active: false },
+];
+
+// Determine current path (without base) to mark active item
+const currentPath = Astro.url.pathname.replace(BASE, '/').replace(/\/+$/, '') || '/';
+for (const item of nav) {
+  const itemPath = item.href.replace(BASE, '/').replace(/\/+$/, '') || '/';
+  if (currentPath === itemPath || (itemPath !== '/' && currentPath.startsWith(itemPath))) {
+    item.active = true;
+  }
+}
+---
+
+<header class="site-header sticky top-0 z-50">
+  <div class="pixel-divider"></div>
+
+  <div class="header-inner">
+    <a href={base('/')} class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-text">MINEBED</span>
+    </a>
+
+    <nav class="main-nav">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class={`nav-link ${item.active ? 'active' : ''}`}
+          >
+            <svg class="nav-icon" width="16" height="16"><use href={`#${item.icon}`} /></svg>
+            <span>{item.label}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="header-actions">
+      <SearchBox />
+      <button id="menuToggle" class="menu-toggle" aria-label="منو">
+        <svg width="20" height="20"><use href="#icon-menu" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobileNav" class="mobile-nav hidden">
+    {
+      nav.map((item) => (
+        <a href={item.href} class={`mobile-nav-link ${item.active ? 'active' : ''}`}>
+          <svg class="nav-icon" width="18" height="18"><use href={`#${item.icon}`} /></svg>
+          <span>{item.label}</span>
+        </a>
+      ))
+    }
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: rgba(13, 13, 24, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    /* RTL: brand on right, search/menu on left */
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  .brand-text {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.875rem;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--text-2);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+    border-radius: 4px;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: rgba(124, 200, 74, 0.08);
+    border-color: rgba(124, 200, 74, 0.2);
+  }
+
+  .nav-link.active {
+    color: var(--grass-2);
+    background: rgba(95, 168, 56, 0.15);
+    border-color: rgba(124, 200, 74, 0.3);
+  }
+
+  .nav-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 90%;
+    max-width: 280px;
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-2);
+    text-decoration: none;
+    background: rgba(28, 28, 52, 0.6);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    transition: all 0.15s;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link.active {
+    color: var(--grass-2);
+    background: rgba(95, 168, 56, 0.15);
+    border-color: var(--grass-3);
+  }
+
+  /* Desktop: show all nav items */
+  @media (min-width: 1024px) {
+    .main-nav { display: flex; }
+    .menu-toggle { display: none; }
+    .mobile-nav { display: none !important; }
+  }
+
+  /* Mobile/tablet: hide main nav, show hamburger */
+  @media (max-width: 1023px) {
+    .main-nav { display: none; }
+    .menu-toggle { display: flex; }
+  }
+
+  @media (max-width: 480px) {
+    .brand-text { font-size: 0.75rem; }
+    .header-inner { padding: 0.5rem; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const toggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('mobileNav');
+    if (!toggle || !nav) return;
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('hidden');
+    });
+    nav.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => nav.classList.add('hidden'));
+    });
+    document.addEventListener('astro:after-swap', () => {
+      nav.classList.add('hidden');
+    });
+  })();
+</script>

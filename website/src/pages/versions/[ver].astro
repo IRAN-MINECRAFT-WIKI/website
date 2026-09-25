@@ -1,0 +1,94 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import BackButton from "@components/BackButton.astro";
+import ModCard from '@components/ModCard.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { versions, getModsByVersion, getModsByCategory } from '@/lib/data';
+import { breadcrumbJsonLd, articleJsonLd } from '@/lib/seo';
+
+export async function getStaticPaths() {
+  return versions.map((v) => ({
+    params: { ver: v.id },
+    props: { version: v },
+  }));
+}
+
+const { version } = Astro.props;
+const compatibleMods = getModsByVersion(version.id);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'نسخه‌ها', url: '/versions' },
+  { name: version.nameFa, url: `/versions/${version.id}` },
+];
+
+const ldBread = breadcrumbJsonLd(breadcrumb);
+const ldArticle = articleJsonLd({
+  title: version.nameFa,
+  description: version.summary,
+  datePublished: version.releaseDate,
+  url: `/versions/${version.id}`,
+});
+---
+
+<BaseLayout
+  path={`/versions/${version.id}`}
+  title={`${version.nameFa} — راهنمای کامل ${version.name} ماینکرفت بدراک`}
+  description={version.summary}
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <BackButton />
+  <StructuredData data={ldArticle} />
+  <StructuredData data={ldBread} />
+
+  <div class="mb-6 flex items-start gap-4">
+    <span class="text-6xl shrink-0">{version.icon}</span>
+    <div>
+      <div class="flex items-center gap-3 mb-1 flex-wrap">
+        <h1 class="text-2xl lg:text-4xl font-extrabold">{version.nameFa}</h1>
+        {version.isLatest && (
+          <span class="bg-mc-grass text-white text-xs font-pixel px-2 py-1">جدیدترین</span>
+        )}
+      </div>
+      <p class="text-sm text-mc-text-2 mb-2">
+        📅 {version.releaseDate} • 🏷️ {version.codename}
+      </p>
+      <p class="text-base text-mc-text-2 leading-loose">{version.summary}</p>
+    </div>
+  </div>
+
+  <!-- Highlights -->
+  <section class="mc-panel mb-6 p-5">
+    <h2 class="text-xl font-extrabold mb-3">ویژگی‌های برجسته</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {version.highlights.map((h) => (
+        <div class="flex items-start gap-2">
+          <span class="text-mc-grass-2 mt-1">✓</span>
+          <span class="text-sm text-mc-text-2">{h}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Full description -->
+  <section class="mc-panel mb-6 p-5 prose prose-invert max-w-none">
+    <h2 class="text-xl font-extrabold mb-3">درباره‌ی این نسخه</h2>
+    <p set:html={version.description.replace(/\n/g, '<br>')} class="leading-loose text-mc-text-2" />
+  </section>
+
+  <!-- Compatible mods -->
+  <section class="mb-6">
+    <h2 class="text-xl font-extrabold mb-4">افزونه‌های سازگار با این نسخه</h2>
+    {compatibleMods.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {compatibleMods.map((mod) => <ModCard mod={mod} />)}
+      </div>
+    ) : (
+      <p class="mc-panel text-center py-8 text-sm text-mc-text-2">
+        افزونه‌های این نسخه به‌زودی اضافه می‌شن!
+      </p>
+    )}
+  </section>
+</BaseLayout>

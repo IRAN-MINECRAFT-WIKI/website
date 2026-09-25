@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { mods } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+// Collect unique authors + counts
+const blog = await getCollection('blog', ({ data }) => !data.draft);
+const wiki = await getCollection('wiki', ({ data }) => !data.draft);
+const tutorials = await getCollection('tutorials', ({ data }) => !data.draft);
+
+const authorCounts = new Map<string, number>();
+const bump = (a?: string) => {
+  if (!a || a === 'Unknown') return;
+  authorCounts.set(a, (authorCounts.get(a) || 0) + 1);
+};
+
+[...blog, ...wiki, ...tutorials].forEach((entry) => bump(entry.data.author));
+
+mods.forEach((m) => bump(m.author));
+
+// Sort by count desc, then alphabetical
+const allAuthors = Array.from(authorCounts.entries()).sort((a, b) => {
+  if (b[1] !== a[1]) return b[1] - a[1];
+  return a[0].localeCompare(b[0], 'fa');
+});
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'سازنده‌ها', url: '/authors' },
+];
+---
+
+<BaseLayout
+  path="/authors"
+  title="سازنده‌ها و نویسندگان — MineBed Farsi"
+  description="فهرست سازندگان مود و نویسندگان محتوای MineBed Farsi."
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">سازنده‌ها</h1>
+    <p class="text-sm text-mc-text-2">
+      مجموع <span class="text-mc-grass-2 font-bold">{allAuthors.length}</span> سازنده و نویسنده
+    </p>
+  </div>
+
+  {allAuthors.length === 0 ? (
+    <div class="mc-panel text-center py-12">
+      <p class="text-mc-text-2">هنوز سازنده‌ای ثبت نشده.</p>
+    </div>
+  ) : (
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {allAuthors.map(([author, count]) => (
+        <a
+          href={base(`/authors/${encodeURIComponent(author)}`)}
+          class="mc-panel hoverable flex items-center gap-3 p-4"
+        >
+          <div class="w-12 h-12 rounded-full bg-mc-grass flex items-center justify-center text-xl text-white font-bold border-2 border-mc-grass-3 flex-shrink-0">
+            {author.charAt(0).toUpperCase()}
+          </div>
+          <div class="min-w-0">
+            <h3 class="font-bold text-mc-text truncate">{author}</h3>
+            <p class="text-xs text-mc-text-2">{count} مورد منتشر شده</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</BaseLayout>

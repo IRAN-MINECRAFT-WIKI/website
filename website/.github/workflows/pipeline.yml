@@ -1,0 +1,91 @@
+name: Pipeline Daily Crawl
+
+# Daily crawler — reads URLs from pipeline/urls.txt, crawls new mods,
+# uploads to HuggingFace, updates src/data/mods.json on GitHub,
+# then triggers the deploy workflow.
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 02:00 UTC = 05:30 IRST
+  workflow_dispatch:
+  push:
+    paths:
+      - 'pipeline/urls.txt'  # trigger when URLs list changes
+
+permissions:
+  contents: write  # needed to commit mods.json updates
+
+concurrency:
+  group: 'pipeline'
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: pipeline/requirements.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r pipeline/requirements.txt
+          pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Verify environment
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -c "
+          import os, sys
+          if not os.getenv('HF_TOKEN'):
+              print('❌ HF_TOKEN secret is not set'); sys.exit(1)
+          if not os.getenv('GITHUB_TOKEN'):
+              print('❌ GITHUB_TOKEN secret is not set'); sys.exit(1)
+          print('✅ All tokens present')
+          "
+
+      - name: Run pipeline
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LM_STUDIO_URL: ${{ secrets.LM_STUDIO_URL }}
+          AUTO_APPROVE: '1'
+        run: |
+          python pipeline/run_pipeline.py \
+            --urls-file pipeline/urls.txt \
+            --auto-approve
+
+      - name: Commit updated mods.json
+        run: |
+          git config user.name "MineBed Pipeline"
+          git config user.email "pipeline@minebed.users.noreply.github.com"
+          if [[ -n "$(git status --porcelain src/data/mods.json)" ]]; then
+            git add src/data/mods.json
+            git commit -m "chore(pipeline): daily mod sync ($(date -u +%Y-%m-%d))"
+            git push
+            echo "PUSHED=true" >> $GITHUB_ENV
+          else
+            echo "No changes to commit."
+            echo "PUSHED=false" >> $GITHUB_ENV
+          fi
+
+      - name: Trigger deploy workflow
+        if: env.PUSHED == 'true'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Build & Deploy to GitHub Pages
+          token: ${{ secrets.GITHUB_TOKEN }}

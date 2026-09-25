@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import ModCard from '@components/ModCard.astro';
+import { categories, mods, getModsByCategory } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+export async function getStaticPaths() {
+  return categories.map((cat) => ({
+    params: { cat: cat.id },
+    props: { cat },
+  }));
+}
+
+const { cat } = Astro.props;
+const list = getModsByCategory(cat.id);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'دسته‌ها', url: '/categories' },
+  { name: cat.name, url: `/categories/${cat.id}` },
+];
+---
+
+<BaseLayout
+  path={`/categories/${cat.id}`}
+  title={`${cat.name} — دانلود افزونه ماینکرفت بدراک ${cat.name}`}
+  description={`دانلود رایگان افزونه‌های ${cat.name} ماینکرفت بدراک. ${cat.description}`}
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6 flex items-center gap-4">
+    <span class="text-5xl">{cat.icon}</span>
+    <div>
+      <h1 class="text-2xl lg:text-3xl font-extrabold mb-1">{cat.name}</h1>
+      <p class="text-sm text-mc-text-2">{cat.description} • {list.length} مود</p>
+    </div>
+  </div>
+
+  {list.length > 0 ? (
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      {list.map((mod) => <ModCard mod={mod} />)}
+    </div>
+  ) : (
+    <div class="mc-panel text-center py-12">
+      <div class="text-5xl mb-4">📦</div>
+      <h3 class="text-xl font-bold text-mc-text-2 mb-2">هنوز مودی در این دسته نیست</h3>
+      <p class="text-sm text-mc-text-3 mb-4">به زودی افزونه‌های این دسته اضافه خواهد شد</p>
+      <a href={base('/mods')} class="mc-btn small">مشاهده همه افزونه‌ها</a>
+    </div>
+  )}
+</BaseLayout>

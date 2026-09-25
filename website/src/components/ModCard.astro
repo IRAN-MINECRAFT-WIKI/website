@@ -1,0 +1,220 @@
+---
+import type { Mod } from '@/lib/data';
+import { getCategoryById } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+export interface Props {
+  mod: Mod;
+  featured?: boolean;
+}
+
+const { mod, featured = false } = Astro.props;
+const cat = getCategoryById(mod.category);
+const cover = mod.cover || `${BASE}images/placeholder-mod.svg`;
+const catIconMap: Record<string, string> = {
+  gameplay: 'icon-sword',
+  graphics: 'icon-diamond',
+  maps: 'icon-map',
+  mobs: 'icon-mob',
+  decoration: 'icon-decoration',
+  world: 'icon-world',
+  utility: 'icon-tool',
+};
+const catIcon = catIconMap[mod.category] || 'icon-cube';
+---
+
+<article class="mc-card group mod-card">
+  <!-- Cover -->
+  <a href={base(`/mods/${mod.id}`)} class="block mod-cover">
+    <img
+      src={cover}
+      alt={mod.nameFa || mod.name}
+      width="640"
+      height="360"
+      loading="lazy"
+      decoding="async"
+      class="mod-cover-img"
+      onerror={`this.src='${BASE}images/placeholder-mod.svg'`}
+    />
+    {
+      featured && (
+        <span class="mod-badge featured">ویژه</span>
+      )
+    }
+    {
+      mod.isNew && (
+        <span class="mod-badge new">جدید</span>
+      )
+    }
+    <span class="mod-version">v{mod.version}</span>
+  </a>
+
+  <!-- Body -->
+  <div class="mod-body">
+    <div class="mod-header">
+      <h3 class="mod-title">
+        <a href={base(`/mods/${mod.id}`)} class="mod-title-link">
+          {mod.nameFa || mod.name}
+        </a>
+      </h3>
+      <span class="mod-icon" aria-hidden="true">{mod.icon || '📦'}</span>
+    </div>
+
+    <p class="mod-tagline">{mod.tagline}</p>
+
+    <!-- Meta -->
+    <div class="mod-meta">
+      <a href={base(`/categories/${mod.category}`)} class="mod-cat">
+        <svg width="14" height="14"><use href={`#${catIcon}`} /></svg>
+        <span>{mod.catName || cat?.name}</span>
+      </a>
+      <span class="mod-size">{mod.size || '—'}</span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .mod-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.25s ease;
+  }
+
+  .mod-cover {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1c1c34, #14142a);
+  }
+
+  .mod-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .mod-card:hover .mod-cover-img {
+    transform: scale(1.05);
+  }
+
+  .mod-badge {
+    position: absolute;
+    top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    font-weight: bold;
+    border: 1px solid;
+    backdrop-filter: blur(4px);
+  }
+
+  .mod-badge.featured {
+    right: 0.5rem;
+    background: linear-gradient(135deg, var(--gold), #d99a1e);
+    color: #21160a;
+    border-color: #8f5d0f;
+    text-shadow: none;
+  }
+
+  .mod-badge.new {
+    left: 0.5rem;
+    background: linear-gradient(135deg, var(--redstone), #c52c2c);
+    color: #fff;
+    border-color: #8a1a1a;
+  }
+
+  .mod-version {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: rgba(13, 13, 24, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: var(--text-2);
+    border: 1px solid var(--line);
+  }
+
+  .mod-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1rem;
+  }
+
+  .mod-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .mod-title {
+    font-size: 0.9375rem;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .mod-title-link {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .mod-title-link:hover {
+    color: var(--grass-2);
+  }
+
+  .mod-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .mod-tagline {
+    font-size: 0.75rem;
+    color: var(--text-2);
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .mod-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .mod-cat {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .mod-cat:hover {
+    color: var(--grass-2);
+  }
+
+  .mod-size {
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+</style>

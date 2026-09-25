@@ -1,0 +1,45 @@
+---
+/**
+ * Breadcrumbs.astro — با base-aware URLs
+ */
+import { breadcrumbJsonLd } from '@/lib/seo';
+import StructuredData from './StructuredData.astro';
+import '@components/icons.astro';
+
+export interface Crumb {
+  name: string;
+  url: string;
+}
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const { items } = Astro.props as { items: Crumb[] };
+
+const ld = breadcrumbJsonLd(items);
+---
+
+<nav aria-label="breadcrumb" class="mb-4">
+  <ol class="flex flex-wrap items-center gap-2 text-sm text-mc-text-2">
+    {
+      items.map((item, idx) => (
+        <li class="flex items-center gap-2">
+          {idx === 0 ? null : (
+            <svg width="10" height="10" class="text-mc-text-3"><use href="#icon-chevron-left" /></svg>
+          )}
+          {idx === items.length - 1 ? (
+            <span class="text-mc-grass-2 font-bold" aria-current="page">
+              {item.name}
+            </span>
+          ) : (
+            <a href={base(item.url)} class="hover:text-mc-grass-2 transition-colors">
+              {item.name}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<StructuredData data={ld} />

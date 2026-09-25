@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /pagefind/
+
+# Sitemap
+Sitemap: https://iran-minecraft-wiki.github.io/website/sitemap-index.xml
+
+# OpenSearch description
+# (linked from <link rel="search"> in HTML head instead)

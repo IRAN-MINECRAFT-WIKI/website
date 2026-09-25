@@ -1,0 +1,71 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import ModCard from '@components/ModCard.astro';
+import { mods } from '@/lib/data';
+
+const PER_PAGE = 12;
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+export async function getStaticPaths() {
+  const PER = 12;
+  const total = Math.ceil(mods.length / PER);
+  return Array.from({ length: total }, (_, i) => ({
+    params: { page: String(i + 1) },
+    props: { page: i + 1, total },
+  }));
+}
+
+const { page, total } = Astro.props;
+const start = (page - 1) * PER_PAGE;
+const end = start + PER_PAGE;
+const pageMods = mods.slice(start, end);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'افزونه‌ها', url: '/mods' },
+  { name: `صفحه ${page}`, url: `/mods/page/${page}` },
+];
+---
+
+<BaseLayout
+  path={`/mods/page/${page}`}
+  title={`افزونه‌های ماینکرفت بدراک — صفحه ${page} از ${total}`}
+  description={`صفحه ${page} از لیست افزونه‌های ماینکرفت بدراک. جستجوی کامل بین مودها.`}
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6 flex items-center justify-between flex-wrap gap-3">
+    <div>
+      <h1 class="text-2xl lg:text-3xl font-extrabold mb-1">افزونه‌ها — صفحه {page}</h1>
+      <p class="text-sm text-mc-text-2">
+        نمایش {start + 1} تا {Math.min(end, mods.length)} از {mods.length} مود
+      </p>
+    </div>
+    <a href={base('/mods')} class="mc-btn ghost small">🔍 جستجوی کامل</a>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+    {pageMods.map((mod) => <ModCard mod={mod} />)}
+  </div>
+
+  {total > 1 && (
+    <nav class="flex items-center justify-center gap-2 my-8" aria-label="Pagination">
+      {page > 1 && (
+        <a href={page === 2 ? base('/mods') : base(`/mods/page/${page - 1}`)} class="mc-btn ghost small">→ قبلی</a>
+      )}
+      {Array.from({ length: total }, (_, i) => i + 1).map((p) => (
+        <a
+          href={p === 1 ? base('/mods') : base(`/mods/page/${p}`)}
+          class={`px-3 py-2 text-sm font-bold border-2 ${p === page ? 'bg-mc-grass text-white border-mc-grass-3' : 'bg-mc-panel border-mc-line text-mc-text-2 hover:bg-mc-panel-2'}`}
+        >
+          {p}
+        </a>
+      ))}
+      {page < total && (
+        <a href={base(`/mods/page/${page + 1}`)} class="mc-btn ghost small">بعدی ←</a>
+      )}
+    </nav>
+  )}
+</BaseLayout>

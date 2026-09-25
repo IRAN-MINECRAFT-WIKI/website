@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background — dark with subtle glow -->
+  <rect width="64" height="64" fill="#0d0d18" rx="6"/>
+
+  <!-- Subtle outer glow ring -->
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#5fa838" stroke-width="1" opacity="0.4"/>
+
+  <!-- Minecraft grass block — pixel style -->
+  <!-- Top face (grass) -->
+  <polygon points="32,4 56,16 32,28 8,16" fill="#5fa838" stroke="#2b1d0e" stroke-width="1.5"/>
+  <!-- Top grass texture (highlight pixels) -->
+  <polygon points="32,4 56,16 32,28 8,16" fill="#7cc84a" opacity="0.4"/>
+  <!-- Small green speckles -->
+  <rect x="20" y="10" width="2" height="2" fill="#9ce85a"/>
+  <rect x="38" y="12" width="2" height="2" fill="#9ce85a"/>
+  <rect x="28" y="16" width="2" height="2" fill="#9ce85a"/>
+  <rect x="44" y="18" width="2" height="2" fill="#9ce85a"/>
+
+  <!-- Left face (dirt with grass top edge) -->
+  <polygon points="8,16 32,28 32,56 8,44" fill="#79553a" stroke="#2b1d0e" stroke-width="1.5"/>
+  <!-- Grass overhang on top edge -->
+  <polygon points="8,16 32,28 32,22 8,10" fill="#5fa838"/>
+  <polygon points="8,16 32,28 32,20 8,12" fill="#3d7521" opacity="0.5"/>
+  <!-- Dirt texture dots -->
+  <rect x="12" y="30" width="2" height="2" fill="#5b3f29"/>
+  <rect x="20" y="36" width="2" height="2" fill="#5b3f29"/>
+  <rect x="14" y="40" width="2" height="2" fill="#5b3f29"/>
+  <rect x="22" y="46" width="2" height="2" fill="#4a3220"/>
+
+  <!-- Right face (dirt darker, with grass top edge) -->
+  <polygon points="56,16 32,28 32,56 56,44" fill="#6b4530" stroke="#2b1d0e" stroke-width="1.5"/>
+  <!-- Grass overhang on top edge -->
+  <polygon points="56,16 32,28 32,22 56,10" fill="#5fa838"/>
+  <polygon points="56,16 32,28 32,20 56,12" fill="#3d7521" opacity="0.6"/>
+  <!-- Dirt texture dots -->
+  <rect x="48" y="30" width="2" height="2" fill="#4a3220"/>
+  <rect x="40" y="36" width="2" height="2" fill="#4a3220"/>
+  <rect x="50" y="40" width="2" height="2" fill="#5b3f29"/>
+  <rect x="42" y="46" width="2" height="2" fill="#4a3220"/>
+
+  <!-- "M" letter on top face — Press Start 2P style -->
+  <!-- 3x5 pixel M made of small squares -->
+  <!-- Row 1 (top) -->
+  <rect x="22" y="13" width="2" height="2" fill="#ffffff"/>
+  <rect x="40" y="13" width="2" height="2" fill="#ffffff"/>
+  <!-- Row 2 -->
+  <rect x="22" y="15" width="2" height="2" fill="#ffffff"/>
+  <rect x="26" y="15" width="2" height="2" fill="#ffffff"/>
+  <rect x="40" y="15" width="2" height="2" fill="#ffffff"/>
+  <rect x="36" y="15" width="2" height="2" fill="#ffffff"/>
+  <!-- Row 3 (middle) -->
+  <rect x="22" y="17" width="2" height="2" fill="#ffffff"/>
+  <rect x="30" y="17" width="2" height="2" fill="#ffffff"/>
+  <rect x="40" y="17" width="2" height="2" fill="#ffffff"/>
+  <rect x="32" y="17" width="2" height="2" fill="#ffffff"/>
+  <!-- Row 4 -->
+  <rect x="22" y="19" width="2" height="2" fill="#ffffff"/>
+  <rect x="40" y="19" width="2" height="2" fill="#ffffff"/>
+  <!-- Row 5 (bottom) -->
+  <rect x="22" y="21" width="2" height="2" fill="#ffffff"/>
+  <rect x="40" y="21" width="2" height="2" fill="#ffffff"/>
+
+  <!-- Pixel corners (Minecraft-style border) -->
+  <rect x="0" y="0" width="6" height="6" fill="#5fa838"/>
+  <rect x="58" y="0" width="6" height="6" fill="#5fa838"/>
+  <rect x="0" y="58" width="6" height="6" fill="#5fa838"/>
+  <rect x="58" y="58" width="6" height="6" fill="#5fa838"/>
+</svg>

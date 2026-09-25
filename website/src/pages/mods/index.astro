@@ -1,0 +1,209 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ModCard from '@components/ModCard.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import AdSlot from '@components/AdSlot.astro';
+import { mods, categories, siteConfig } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'افزونه‌ها', url: '/mods' },
+];
+
+const catIconMap: Record<string, string> = {
+  gameplay: 'icon-sword',
+  graphics: 'icon-diamond',
+  maps: 'icon-map',
+  mobs: 'icon-mob',
+  decoration: 'icon-decoration',
+  world: 'icon-world',
+  utility: 'icon-tool',
+};
+---
+
+<BaseLayout
+  path="/mods"
+  title="دانلود افزونه ماینکرفت بدراک — لیست کامل"
+  description="لیست کامل افزونه‌های ماینکرفت بدراک به فارسی — شامل گیم‌پلی، گرافیک، مپ، موجودات، دکوراسیون و دنیا. همه تست‌شده و رایگان."
+  type="website"
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">همه‌ی افزونه‌ها</h1>
+    <p class="text-sm text-mc-text-2">
+      جستجو بین <span class="text-mc-grass-2 font-bold">{mods.length}</span>+ افزونه‌ی تست‌شده ماینکرفت بدراک
+    </p>
+  </div>
+
+  <div class="mc-panel mb-6 p-4">
+    <div class="flex flex-col md:flex-row gap-3 items-stretch md:items-center">
+      <div class="flex-1 relative">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="جستجوی افزونه (مثلاً: لکی بلاک، شیدر، تفنگ)..."
+          class="w-full bg-mc-bg-2 border border-mc-line px-4 py-2.5 pr-10 text-sm text-mc-text focus:border-mc-grass-2 outline-none"
+        />
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-mc-text-3">
+          <svg width="16" height="16"><use href="#icon-search" /></svg>
+        </span>
+      </div>
+      <select id="sortSelect" class="bg-mc-bg-2 border border-mc-line px-3 py-2.5 text-sm text-mc-text">
+        <option value="new">جدیدترین</option>
+        <option value="featured">ویژه‌ها</option>
+        <option value="name">نام (الفبا)</option>
+      </select>
+    </div>
+    <div class="flex flex-wrap gap-2 mt-3 pt-3 border-t border-mc-line" id="chipRow">
+      <button class="mc-chip active" data-cat="all">همه ({mods.length})</button>
+      {categories.map((cat) => {
+        const count = mods.filter(m => m.category === cat.id).length;
+        return (
+          <button class="mc-chip" data-cat={cat.id}>
+            <svg width="12" height="12"><use href={`#${catIconMap[cat.id] || 'icon-cube'}`} /></svg>
+            <span>{cat.name}</span>
+            <span class="opacity-50">({count})</span>
+          </button>
+        );
+      })}
+    </div>
+  </div>
+
+  <div id="modsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    {mods.map((mod) => <ModCard mod={mod} />)}
+  </div>
+
+  <div id="emptyState" class="mc-panel text-center py-12 hidden">
+    <div class="text-5xl mb-4">🔍</div>
+    <h3 class="text-xl font-bold text-mc-text-2 mb-2">هیچ افزونه‌ای پیدا نشد</h3>
+    <p class="text-sm text-mc-text-3">عبارت دیگری را امتحان کن</p>
+  </div>
+
+  <div class="my-8">
+    <AdSlot slotId="mediaad-modslist" format="banner" />
+  </div>
+</BaseLayout>
+
+<script>
+  (function () {
+    var input = document.getElementById("searchInput");
+    var sort = document.getElementById("sortSelect");
+    var grid = document.getElementById("modsGrid");
+    var empty = document.getElementById("emptyState");
+    var chips = document.querySelectorAll("#chipRow .mc-chip");
+
+    if (!input || !grid) return;
+
+    var currentCat = "all";
+    var currentQuery = "";
+    var currentSort = "new";
+
+    function getCards() {
+      return Array.from(grid.children).map(function (card) {
+        var link = card.querySelector("a[href*='/categories/']");
+        var cat = "";
+        if (link) {
+          var m = link.getAttribute("href").match(/\/categories\/([^/?#]+)/);
+          if (m) cat = m[1];
+        }
+        var titleEl = card.querySelector(".mod-title-link") || card.querySelector("a");
+        return {
+          el: card,
+          name: (titleEl ? titleEl.textContent.trim().toLowerCase() : ""),
+          cat: cat,
+          isNew: !!card.querySelector(".mod-badge.new"),
+          isFeatured: !!card.querySelector(".mod-badge.featured")
+        };
+      });
+    }
+
+    var allCards = getCards();
+
+    function applyFilters() {
+      var visible = 0;
+      var i;
+      for (i = 0; i < allCards.length; i++) {
+        var item = allCards[i];
+        var show = true;
+        if (currentCat !== "all" && item.cat !== currentCat) show = false;
+        if (currentQuery && show) {
+          if (item.name.indexOf(currentQuery.toLowerCase()) === -1) show = false;
+        }
+        item.el.style.display = show ? "" : "none";
+        if (show) visible++;
+      }
+      if (empty) {
+        if (visible === 0) empty.classList.remove("hidden");
+        else empty.classList.add("hidden");
+      }
+      if (currentSort === "featured") {
+        allCards.sort(function(a, b) { return (b.isFeatured?1:0) - (a.isFeatured?1:0); });
+      } else if (currentSort === "name") {
+        allCards.sort(function(a, b) { return a.name.localeCompare(b.name, "fa"); });
+      } else {
+        allCards.sort(function(a, b) { return (b.isNew?1:0) - (a.isNew?1:0); });
+      }
+      for (i = 0; i < allCards.length; i++) {
+        grid.appendChild(allCards[i].el);
+      }
+    }
+
+    input.addEventListener("input", function(e) {
+      currentQuery = e.target.value.trim();
+      applyFilters();
+    });
+
+    if (sort) {
+      sort.addEventListener("change", function(e) {
+        currentSort = e.target.value;
+        applyFilters();
+      });
+    }
+
+    chips.forEach(function(chip) {
+      chip.addEventListener("click", function() {
+        chips.forEach(function(c) { c.classList.remove("active"); });
+        chip.classList.add("active");
+        currentCat = chip.dataset.cat || "all";
+        applyFilters();
+      });
+    });
+
+    document.addEventListener("astro:page-load", function() {
+      var newGrid = document.getElementById("modsGrid");
+      var newInput = document.getElementById("searchInput");
+      if (newGrid && newInput) {
+        grid = newGrid;
+        input = newInput;
+        sort = document.getElementById("sortSelect");
+        empty = document.getElementById("emptyState");
+        chips = document.querySelectorAll("#chipRow .mc-chip");
+        allCards = getCards();
+        
+        newInput.addEventListener("input", function(e) {
+          currentQuery = e.target.value.trim();
+          applyFilters();
+        });
+        if (sort) {
+          sort.addEventListener("change", function(e) {
+            currentSort = e.target.value;
+            applyFilters();
+          });
+        }
+        chips.forEach(function(chip) {
+          chip.addEventListener("click", function() {
+            chips.forEach(function(c) { c.classList.remove("active"); });
+            chip.classList.add("active");
+            currentCat = chip.dataset.cat || "all";
+            applyFilters();
+          });
+        });
+        applyFilters();
+      }
+    });
+  })();
+</script>

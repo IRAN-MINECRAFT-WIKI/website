@@ -1,0 +1,11 @@
+{
+  "categories": [
+    { "id": "gameplay", "name": "گیم‌پلی", "nameEn": "Gameplay", "icon": "⚔️", "color": "emerald", "description": "مودهایی که مکانیک‌های بازی را بهبود می‌بخشند یا اضافه می‌کنند" },
+    { "id": "graphics", "name": "گرافیک", "nameEn": "Graphics", "icon": "🎨", "color": "diamond", "description": "شیدر، بافت‌ها و بهبودهای بصری" },
+    { "id": "maps", "name": "مپ", "nameEn": "Maps", "icon": "🗺️", "color": "gold", "description": "مپ‌های ماجراجویی، survival، کریتیو" },
+    { "id": "mobs", "name": "موجودات", "nameEn": "Mobs", "icon": "🐉", "color": "redstone", "description": "اضافه‌کردن موجودات جدید به بازی" },
+    { "id": "decoration", "name": "دکوراسیون", "nameEn": "Decoration", "icon": "🪑", "color": "gold", "description": "بلوک‌ها و آیتم‌های تزئینی" },
+    { "id": "world", "name": "دنیا", "nameEn": "World", "icon": "🌍", "color": "emerald", "description": "تغییر در دنیا، بیوم‌ها و ژنراتورها" },
+    { "id": "utility", "name": "ابزار", "nameEn": "Utility", "icon": "🔧", "color": "diamond", "description": "ابزارها، ترفندها و ردستون" }
+  ]
+}

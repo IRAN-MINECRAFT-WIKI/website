@@ -1,0 +1,10 @@
+---
+/**
+ * StructuredData.astro — render any JS object as a JSON-LD <script type="application/ld+json">
+ */
+export interface Props {
+  data: any;
+}
+const { data } = Astro.props;
+---
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

@@ -1,0 +1,602 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================
+   MineBed Farsi — global styles (RTL + Glassmorphism)
+   Font: Rooyin (Persian, Farsi numerals)
+   Theme: Minecraft pixel + Glassmorphism
+   Mobile: lighter theme (less glass)
+   Desktop: full glass + premium feel
+   =========================================== */
+
+@layer base {
+  :root {
+    /* Color palette (Minecraft-inspired) */
+    --bg: #0d0d18;
+    --bg-2: #14142a;
+    --panel: #1c1c34;
+    --panel-2: #242445;
+    --line: #2e2e4a;
+    --text: #e6e6f2;
+    --text-2: #9a9ab8;
+    --text-3: #5c5c7a;
+
+    --grass: #5fa838;
+    --grass-2: #7cc84a;
+    --grass-3: #3d7521;
+    --dirt: #79553a;
+    --dirt-2: #5b3f29;
+    --stone: #7d7d7d;
+    --gold: #fcb32b;
+    --diamond: #4aedd9;
+    --redstone: #ff3b3b;
+    --emerald: #17dd62;
+
+    /* Glass effect — desktop (premium) */
+    --glass-bg: rgba(28, 28, 52, 0.65);
+    --glass-blur: 16px;
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    /* Mobile: lighter glass (less blur, more solid colors for performance + readability) */
+    --glass-bg-mobile: rgba(28, 28, 52, 0.92);
+    --glass-blur-mobile: 8px;
+
+    --font: 'Rooyin', system-ui, sans-serif;
+    --pixel: 'Press Start 2P', monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font);
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    /* Background: subtle Minecraft-themed pattern + glows */
+    background-image:
+      radial-gradient(circle at 0% 0%, rgba(95, 168, 56, 0.06), transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(74, 237, 217, 0.04), transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(252, 179, 43, 0.02), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  /* Persian digits + RTL friendly */
+  body[dir='rtl'] {
+    text-align: right;
+  }
+
+  /* Better focus ring */
+  :focus-visible {
+    outline: 2px solid var(--grass-2);
+    outline-offset: 2px;
+  }
+
+  /* Custom scrollbar — pixel theme */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-2);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border: 3px solid var(--bg-2);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--grass);
+  }
+
+  ::selection {
+    background: var(--grass);
+    color: #fff;
+  }
+
+  /* Headings use Rooyin Bold + slight glow */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  /* Code uses monospace, RTL ltr for code */
+  code, pre {
+    font-family: 'Courier New', monospace;
+    direction: ltr;
+    text-align: left;
+  }
+}
+
+@layer components {
+  /* Minecraft-style button with glassmorphism touch */
+  .mc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: var(--font);
+    color: #fff;
+    background: linear-gradient(135deg, var(--grass), var(--grass-3));
+    border: 2px solid var(--grass-3);
+    box-shadow:
+      0 4px 0 rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mc-btn:hover {
+    background: linear-gradient(135deg, var(--grass-2), var(--grass));
+    transform: translateY(-1px);
+    box-shadow:
+      0 5px 0 rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .mc-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .mc-btn.ghost {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border-color: var(--line);
+  }
+
+  .mc-btn.gold {
+    background: linear-gradient(135deg, var(--gold), #d99a1e);
+    color: #21160a;
+    border-color: #8f5d0f;
+    text-shadow: none;
+  }
+
+  .mc-btn.danger {
+    background: linear-gradient(135deg, var(--redstone), #c52c2c);
+    border-color: #8a1a1a;
+  }
+
+  .mc-btn.small {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+  }
+
+  /* Glass panel — main container */
+  .mc-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    padding: 1.25rem;
+    box-shadow:
+      var(--glass-shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .mc-panel.hoverable:hover {
+    border-color: rgba(124, 200, 74, 0.4);
+    transform: translateY(-2px);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(124, 200, 74, 0.15);
+  }
+
+  /* Pixel grass divider */
+  .pixel-divider {
+    height: 6px;
+    background: linear-gradient(90deg, #3d7521, #4f9c2c, #3d7521);
+    background-size: 16px 6px;
+    margin: 0;
+    border-bottom: 2px solid #2b1d0e;
+  }
+
+  /* Brand mark — pixel dirt block */
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(180deg, #6db73f 0 8px, #79553a 8px 100%);
+    border: 2px solid #2b1d0e;
+    box-shadow:
+      inset -2px -2px 0 rgba(0, 0, 0, 0.35),
+      inset 2px 2px 0 rgba(255, 255, 255, 0.12);
+    flex-shrink: 0;
+    image-rendering: pixelated;
+  }
+
+  /* Tag chip */
+  .mc-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: rgba(28, 28, 52, 0.6);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--line);
+    color: var(--text-2);
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .mc-chip:hover, .mc-chip.active {
+    background: linear-gradient(135deg, var(--grass), var(--grass-3));
+    color: #fff;
+    border-color: var(--grass-3);
+  }
+
+  /* Glass card (for mod cards, etc.) */
+  .mc-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+    transition: all 0.25s ease;
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    position: relative;
+  }
+
+  .mc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  }
+
+  .mc-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(124, 200, 74, 0.5);
+    box-shadow:
+      0 12px 32px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(124, 200, 74, 0.2);
+  }
+
+  /* Stat block */
+  .stat-num {
+    font-family: var(--pixel);
+    font-size: 1.5rem;
+    color: var(--grass-2);
+    text-shadow: 0 0 15px rgba(95, 168, 56, 0.5);
+  }
+
+  /* Skeleton loading */
+  .skeleton {
+    background: var(--panel);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* Toast */
+  .toast-msg {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    padding: 0.875rem 1.25rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--grass);
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: var(--glass-shadow);
+    animation: toastIn 0.3s ease-out;
+  }
+
+  /* Mobile nav */
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    top: 60px;
+    z-index: 999;
+    background: rgba(13, 13, 24, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+    transition: opacity 0.2s;
+  }
+
+  .mobile-nav.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .text-shadow-mc {
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  .bg-pixel {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  .gradient-grass {
+    background: linear-gradient(180deg, #6db73f 0%, #3d7521 100%);
+  }
+
+  .gradient-dirt {
+    background: linear-gradient(180deg, #79553a 0%, #5b3f29 100%);
+  }
+
+  /* Glass effect utility */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Preloader + animations */
+@keyframes loadBar {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes toastIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* RTL fixes for code blocks */
+[dir='rtl'] pre {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Prose tweaks for Persian */
+.prose :where(h2, h3, h4) {
+  font-weight: 800;
+  color: var(--text);
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+.prose :where(p) {
+  line-height: 2;
+}
+
+.prose :where(a) {
+  color: var(--grass-2);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+
+.prose :where(a:hover) {
+  color: var(--grass);
+}
+
+.prose :where(strong) {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ============================================
+   Mobile: lighter theme — less glass, more solid
+   For performance + readability on small screens
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --glass-bg: var(--glass-bg-mobile);
+    --glass-blur: var(--glass-blur-mobile);
+    --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  body {
+    /* Lighter background pattern on mobile */
+    background-image:
+      radial-gradient(circle at 0% 0%, rgba(95, 168, 56, 0.04), transparent 40%);
+  }
+
+  /* Reduce blur for better performance */
+  .mc-panel,
+  .mc-card,
+  .glass {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Buttons slightly smaller on mobile */
+  .mc-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  /* Cards less shadow */
+  .mc-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* ============================================
+   Desktop: enhanced premium look
+   ============================================ */
+
+@media (min-width: 1024px) {
+  /* Stronger glass effect with multiple layers */
+  .mc-panel {
+    background: linear-gradient(
+      135deg,
+      rgba(28, 28, 52, 0.7) 0%,
+      rgba(36, 36, 69, 0.65) 100%
+    );
+  }
+
+  .mc-card {
+    background: linear-gradient(
+      135deg,
+      rgba(28, 28, 52, 0.65) 0%,
+      rgba(36, 36, 69, 0.6) 100%
+    );
+  }
+}
+
+/* Reduced motion — accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Back Button ─── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.875rem;
+  background: rgba(28, 28, 52, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.back-btn:hover {
+  background: rgba(95, 168, 56, 0.15);
+  color: var(--grass-2);
+  border-color: var(--grass-3);
+  transform: translateX(2px);
+}
+
+.back-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ─── Better Ads (more visible) ─── */
+.ad-slot {
+  position: relative;
+  min-height: 120px;
+  background:
+    linear-gradient(135deg, rgba(28, 28, 52, 0.6), rgba(36, 36, 69, 0.6)),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 12px,
+      rgba(255, 255, 255, 0.02) 12px,
+      rgba(255, 255, 255, 0.02) 24px
+    );
+  border: 2px dashed var(--line);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color 0.3s;
+  padding: 16px;
+}
+
+.ad-slot:hover {
+  border-color: var(--grass-3);
+}
+
+.ad-slot::before {
+  content: 'تبلیغات';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 10px;
+  color: var(--text-3);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.ad-slot.banner {
+  min-height: 100px;
+}
+
+.ad-slot.native {
+  min-height: 280px;
+  padding: 24px;
+}
+
+.ad-slot > div {
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  z-index: 1;
+  position: relative;
+}

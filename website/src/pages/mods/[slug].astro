@@ -1,0 +1,196 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import BackButton from "@components/BackButton.astro";
+import ModCard from '@components/ModCard.astro';
+import AdSlot from '@components/AdSlot.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { mods, getModBySlug, getRelatedMods, getCategoryById, siteConfig } from '@/lib/data';
+import { modJsonLd, faqJsonLd } from '@/lib/seo';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+export async function getStaticPaths() {
+  return mods.map((mod) => ({
+    params: { slug: mod.id },
+    props: { mod },
+  }));
+}
+
+const { mod } = Astro.props;
+const cat = getCategoryById(mod.category);
+const related = getRelatedMods(mod, 4);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'افزونه‌ها', url: '/mods' },
+  { name: mod.catName || cat?.name || '', url: `/categories/${mod.category}` },
+  { name: mod.nameFa || mod.name, url: `/mods/${mod.id}` },
+];
+
+const ldMod = modJsonLd({
+  name: mod.name,
+  nameFa: mod.nameFa,
+  tagline: mod.tagline,
+  desc: mod.desc,
+  downloadUrl: mod.downloadUrl,
+  cover: mod.cover,
+  author: mod.author,
+  version: mod.version,
+  size: mod.size,
+  category: mod.catName,
+  updated: mod.updated,
+});
+
+const faqs = [
+  { q: 'این افزونه رایگان است؟', a: 'بله، تمام افزونه‌های MineBed کاملاً رایگان هستند و بدون نیاز به ثبت‌نام قابل دانلود هستند.' },
+  { q: 'این افزونه روی چه نسخه‌ای کار می‌کند؟', a: `این افزونه با نسخه ${mod.version} ماینکرفت بدراک تست شده است و روی نسخه‌های نزدیک هم کار می‌کند.` },
+  { q: 'چطور افزونه را نصب کنم؟', a: 'فایل .mcpack یا .mcaddon را دانلود کنید و روی آن کلیک کنید تا Minecraft به طور خودکار آن را نصب کند. برای راهنمای کامل به بخش آموزش مراجعه کنید.' },
+  { q: 'آیا این افزونه امن است؟', a: 'بله، همه‌ی افزونه‌ها قبل از انتشار روی دنیای آزمایشی تست می‌شوند و هیچ فایل ناشناسی روی سایت قرار نمی‌گیرد.' },
+];
+
+const ldFaq = faqJsonLd(faqs);
+
+const gallery = mod.gallery || [];
+---
+
+<BaseLayout
+  path={`/mods/${mod.id}`}
+  title={`${mod.nameFa || mod.name} — دانلود افزونه ماینکرفت بدراک ${mod.version}`}
+  description={mod.tagline || mod.desc.slice(0, 160)}
+  image={mod.cover}
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <BackButton />
+  <StructuredData data={ldMod} />
+  <StructuredData data={ldFaq} />
+
+  <div class="grid lg:grid-cols-[1fr_360px] gap-6">
+    <!-- Main content -->
+    <article>
+      <!-- Header -->
+      <header class="mc-panel mb-6">
+        <div class="aspect-video overflow-hidden bg-mc-panel-2">
+          <img
+            src={mod.cover}
+            alt={mod.nameFa || mod.name}
+            width="640"
+            height="360"
+            loading="eager"
+            decoding="async"
+            class="w-full h-full object-cover"
+            onerror={`this.src='${BASE}images/placeholder-mod.svg'`}
+          />
+        </div>
+        <div class="p-5">
+          <div class="flex items-start gap-4">
+            <div class="text-5xl shrink-0">{mod.icon || '📦'}</div>
+            <div class="flex-1 min-w-0">
+              <h1 class="text-2xl lg:text-3xl font-extrabold text-mc-text mb-1">
+                {mod.nameFa || mod.name}
+              </h1>
+              <p class="text-sm text-mc-text-2 mb-3">{mod.tagline}</p>
+              <div class="flex flex-wrap gap-3 text-xs">
+                {mod.author && (
+                  <span class="text-mc-text-3">👤 سازنده: <b class="text-mc-text-2">{mod.author}</b></span>
+                )}
+                {mod.version && (
+                  <span class="text-mc-text-3">🏷️ نسخه: <b class="text-mc-text-2">{mod.version}</b></span>
+                )}
+                {mod.size && (
+                  <span class="text-mc-text-3">💾 حجم: <b class="text-mc-text-2">{mod.size}</b></span>
+                )}
+                {mod.updated && (
+                  <span class="text-mc-text-3">📅 آپدیت: <b class="text-mc-text-2">{mod.updated}</b></span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Gallery -->
+      {gallery.length > 0 && (
+        <section class="mc-panel mb-6 p-5">
+          <h2 class="text-lg font-extrabold mb-3">گالری</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {gallery.map((g) => (
+              <a href={g} target="_blank" class="block aspect-video overflow-hidden bg-mc-panel-2">
+                <img src={g} alt="اسکرین‌شات" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform" />
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Description — use textContent + CSS white-space: pre-wrap to render
+           newlines without XSS risk (set:html would allow injection if mod.desc
+           ever contained HTML). -->
+      <section class="mc-panel mb-6 p-5 prose prose-invert max-w-none">
+        <h2 class="text-xl font-extrabold mb-3">درباره‌ی این افزونه</h2>
+        <div class="mod-desc-text">{mod.desc}</div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="mc-panel mb-6 p-5">
+        <h2 class="text-xl font-extrabold mb-4">سوالات متداول</h2>
+        <div class="space-y-3">
+          {faqs.map((faq) => (
+            <details class="bg-mc-bg-2 border-2 border-mc-line p-3 group">
+              <summary class="cursor-pointer font-bold text-mc-text flex items-center justify-between">
+                {faq.q}
+                <span class="text-mc-grass-2 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p class="text-sm text-mc-text-2 mt-2 leading-loose">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <!-- Related -->
+      {related.length > 0 && (
+        <section class="mt-8">
+          <h2 class="text-xl font-extrabold mb-4">افزونه‌های مرتبط</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {related.map((m) => <ModCard mod={m} />)}
+          </div>
+        </section>
+      )}
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="space-y-4">
+      <!-- Download box -->
+      <div class="mc-panel p-5 sticky top-20">
+        <h3 class="font-extrabold text-mc-text mb-3">دانلود</h3>
+        <a href={mod.downloadUrl} target="_blank" rel="noopener" class="mc-btn w-full mb-3">دانلود مستقیم</a>
+        <p class="text-xs text-mc-text-3 mb-4">
+          حجم: {mod.size} • نسخه: {mod.version}
+        </p>
+        <a href={base('/guide')} class="mc-btn ghost w-full small">راهنمای نصب</a>
+
+        <div class="border-t border-mc-line mt-4 pt-4">
+          <p class="text-xs text-mc-text-3 mb-2">دسته:</p>
+          <a href={base(`/categories/${mod.category}`)} class="mc-chip">
+            <span>{cat?.icon}</span>
+            <span>{cat?.name}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Ad -->
+      <AdSlot slotId="mediaad-modside" format="banner" />
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .mod-desc-text {
+    white-space: pre-wrap;
+    line-height: 1.85;
+    color: var(--text);
+    font-size: 0.9375rem;
+  }
+</style>

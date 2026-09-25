@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'آموزش نصب', url: '/guide' },
+];
+
+const steps = [
+  {
+    icon: '1️⃣',
+    title: 'دانلود فایل',
+    desc: 'روی دکمه‌ی "دانلود مستقیم" در صفحه‌ی هر افزونه کلیک کن. فایل با پسوند .mcpack یا .mcaddon دانلود می‌شه.',
+  },
+  {
+    icon: '2️⃣',
+    title: 'باز کردن فایل',
+    desc: 'بعد از دانلود، روی فایل کلیک کن. ماینکرفت به طور خودکار باز می‌شه و شروع به نصب می‌کنه.',
+  },
+  {
+    icon: '3️⃣',
+    title: 'فعال‌سازی در دنیا',
+    desc: 'به تنظیمات دنیا (World Settings) برو و Behavior Pack و Resource Pack مورد نظر را فعال کن.',
+  },
+  {
+    icon: '4️⃣',
+    title: 'شروع بازی',
+    desc: 'دنیا را باز کن و از افزونه لذت ببر! اگر مشکلی داشتی به ما تلگرام بگو.',
+  },
+];
+---
+
+<BaseLayout
+  path="/guide"
+  title="آموزش نصب افزونه ماینکرفت بدراک — راهنمای کامل"
+  description="آموزش گام‌به‌گام نصب افزونه‌های ماینکرفت بدراک (.mcpack, .mcaddon, .mcworld) با تصویر و توضیح کامل."
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">آموزش نصب افزونه</h1>
+    <p class="text-sm text-mc-text-2">راهنمای گام‌به‌گام نصب افزونه‌های ماینکرفت بدراک</p>
+  </div>
+
+  <div class="space-y-4">
+    {steps.map((step) => (
+      <div class="mc-panel p-5 flex items-start gap-4">
+        <span class="text-3xl shrink-0">{step.icon}</span>
+        <div>
+          <h2 class="text-lg font-extrabold text-mc-grass-2 mb-1">{step.title}</h2>
+          <p class="text-sm text-mc-text-2 leading-loose">{step.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="mc-panel p-5 mt-6 border-mc-gold">
+    <h2 class="text-lg font-extrabold text-mc-gold mb-2">⚠️ نکات مهم</h2>
+    <ul class="text-sm text-mc-text-2 space-y-2 list-disc list-inside">
+      <li>هر افزونه با نسخه‌ی خاصی از ماینکرفت تست شده — حتماً نسخه را چک کن.</li>
+      <li>اگر افزونه شامل دو فایل Behavior و Resource بود، هر دو را فعال کن.</li>
+      <li>بعد از نصب، حتماً دنیا را با backup بگیر تا در صورت خرابی قابل بازگشت باشد.</li>
+      <li>اگر فایل دانلود شده .zip بود، آن را به .mcpack تغییر نام بده و دوباره باز کن.</li>
+    </ul>
+  </div>
+</BaseLayout>

@@ -1,0 +1,475 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ModCard from '@components/ModCard.astro';
+import CategoryStrip from '@components/CategoryStrip.astro';
+import AdSlot from '@components/AdSlot.astro';
+import Cube3D from '@components/Cube3D.astro';
+import { getFeaturedMods, getLatestVersion, versions, siteConfig, mods, seeds } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const featuredMods = getFeaturedMods().slice(0, 8);
+const latestVersion = getLatestVersion();
+const popularVersions = versions.filter((v) => v.featured).slice(0, 3);
+
+// Stat numbers (computed at build time for SEO + reliability)
+const modsCount = mods.length;
+const featuredCount = featuredMods.length;
+const seedsCount = seeds.length;
+const categoriesCount = 7;
+
+const heroStats = [
+  { num: modsCount, lbl: 'افزونه‌ی فعال' },
+  { num: featuredCount, lbl: 'افزونه‌ی ویژه' },
+  { num: 100, suffix: '%', lbl: 'درصد رایگان' },
+  { num: seedsCount, lbl: 'سید منتخب' },
+];
+---
+
+<BaseLayout
+  path="/"
+  title="دانلود رایگان افزونه ماینکرفت بدراک"
+  description={siteConfig.description}
+  type="website"
+>
+  <!-- ============ HERO ============ -->
+  <section class="hero relative overflow-hidden mb-8">
+    <!-- Floating pixel blocks background -->
+    <div class="hero-blocks-bg" aria-hidden="true">
+      {Array.from({ length: 16 }).map((_, i) => (
+        <span
+          class="float-block"
+          style={`--i:${i}; --delay:${(i * 0.6).toFixed(2)}s; --x:${(i * 53) % 100}%; --y:${(i * 37) % 100}%;`}
+        ></span>
+      ))}
+    </div>
+
+    <!-- 3D Cube — بالای متن، در مرکز صفحه -->
+    <div class="hero-cube-wrap">
+      <Cube3D />
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="hero-tag">
+          <span class="hero-tag-dot"></span>
+          به‌روزرسانی هفتگی
+        </span>
+
+        <h1 class="hero-title">
+          ماین بد (MineBed) — هرچی برای <span class="hero-title-accent">ماینکرفت بدراک</span> لازم داری، اینجاست
+        </h1>
+
+        <p class="hero-desc">
+          افزونه، مپ، ریسورس‌پک، سید، آموزش و راهنمای نسخه‌های ماینکرفت —
+          همه تست‌شده، رایگان و مخصوص نسخه‌ی بدراک. بدون نیاز به ثبت‌نام.
+        </p>
+
+        <div class="hero-actions">
+          <a href={base('/mods')} class="mc-btn">
+            <svg width="16" height="16"><use href="#icon-cube" /></svg>
+            شروع دانلود
+          </a>
+          <a href="#why" class="mc-btn ghost">چرا ما؟</a>
+          <a href={base('/versions')} class="mc-btn gold small">راهنمای نسخه‌ها</a>
+        </div>
+
+        <div class="hero-stats">
+          {heroStats.map((s) => (
+            <div class="hero-stat">
+              <div
+                class="stat-num"
+                data-count={s.num}
+                data-suffix={s.suffix || ''}
+              >۰</div>
+              <div class="hero-stat-lbl">{s.lbl}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pixel-divider mb-8"></div>
+
+  <!-- ============ AD BANNER (TOP) ============ -->
+  <div class="my-6">
+    <AdSlot slotId="mediaad-JRBY2" format="banner" />
+  </div>
+
+  <!-- ============ FEATURED MODS ============ -->
+  <section class="my-12">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">FEATURED</span>
+        <h2 class="section-title">
+          افزونه‌های <span class="text-accent-grass">ویژه</span> این هفته
+        </h2>
+        <p class="section-sub">دست‌چین شده توسط تیم ما از بین صدها افزونه</p>
+      </div>
+      <a href={base('/mods')} class="mc-btn ghost small">
+        همه افزونه‌ها
+        <svg width="12" height="12"><use href="#icon-chevron-left" /></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {featuredMods.map((mod) => <ModCard mod={mod} featured={true} />)}
+    </div>
+  </section>
+
+  <!-- ============ CATEGORIES ============ -->
+  <CategoryStrip />
+
+  <!-- ============ VERSIONS HUB TEASER ============ -->
+  <section class="my-12">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow text-accent-diamond">VERSIONS</span>
+        <h2 class="section-title">
+          راهنمای <span class="text-accent-diamond">نسخه‌های</span> ماینکرفت
+        </h2>
+        <p class="section-sub">آموزش و توضیحات کامل برای هر نسخه‌ی ماینکرفت بدراک</p>
+      </div>
+      <a href={base('/versions')} class="mc-btn ghost small">
+        همه نسخه‌ها
+        <svg width="12" height="12"><use href="#icon-chevron-left" /></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {popularVersions.map((v) => (
+        <a href={base(`/versions/${v.id}`)} class="mc-panel hoverable group flex items-center gap-4 p-5">
+          <span class="text-4xl">{v.icon}</span>
+          <div class="flex-1">
+            <h3 class="font-extrabold text-mc-text group-hover:text-mc-diamond">{v.nameFa}</h3>
+            <p class="text-xs text-mc-text-2 mt-1 line-clamp-2">{v.summary}</p>
+            <span class="text-[10px] font-pixel text-mc-grass-2 mt-2 block">
+              {v.isLatest ? 'جدیدترین' : `1.${v.minor}`}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ SEEDS TEASER ============ -->
+  <section class="my-12">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow text-accent-gold">SEEDS</span>
+        <h2 class="section-title">
+          بهترین <span class="text-accent-gold">سیدهای</span> ماینکرفت
+        </h2>
+        <p class="section-sub">سیدهای دست‌چین شده با منابع فراوان و اسپاون فوق‌العاده</p>
+      </div>
+      <a href={base('/seeds')} class="mc-btn ghost small">
+        همه سیدها
+        <svg width="12" height="12"><use href="#icon-chevron-left" /></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <a href={base('/seeds')} class="mc-panel hoverable group p-5">
+        <div class="text-3xl mb-3">💎</div>
+        <h3 class="font-extrabold text-mc-text group-hover:text-mc-gold mb-1">بهشت الماس</h3>
+        <p class="text-xs text-mc-text-2">سیستمی از غارهای بزرگ پر از Diamond و Ancient Debris</p>
+      </a>
+      <a href={base('/seeds')} class="mc-panel hoverable group p-5">
+        <div class="text-3xl mb-3">🏛️</div>
+        <h3 class="font-extrabold text-mc-text group-hover:text-mc-gold mb-1">شهر باستانی زیر پا</h3>
+        <p class="text-xs text-mc-text-2">Ancient City واقعاً زیر نقطه‌ی اسپاون!</p>
+      </a>
+      <a href={base('/seeds')} class="mc-panel hoverable group p-5">
+        <div class="text-3xl mb-3">🏁</div>
+        <h3 class="font-extrabold text-mc-text group-hover:text-mc-gold mb-1">سید Speedrun End</h3>
+        <p class="text-xs text-mc-text-2">بهترین سید برای رکورد شکستن به End</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ AD BANNER (MIDDLE) ============ -->
+  <div class="my-8">
+    <AdSlot slotId="mediaad-nwmnG" format="native" />
+  </div>
+
+  <!-- ============ WHY US ============ -->
+  <section id="why" class="my-12">
+    <div class="text-center mb-8">
+      <span class="section-eyebrow">WHY US</span>
+      <h2 class="section-title">
+        چرا <span class="text-accent-grass">MineBed Farsi</span>؟
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="mc-panel">
+        <div class="text-3xl mb-3">🔒</div>
+        <h3 class="font-extrabold text-mc-text mb-2">تست‌شده و امن</h3>
+        <p class="text-sm text-mc-text-2 leading-loose">هر افزونه قبل از انتشار روی دنیای آزمایشی نصب و تست می‌شه. هیچ فایل ناشناسی وارد سایت نمی‌شه.</p>
+      </div>
+      <div class="mc-panel">
+        <div class="text-3xl mb-3">⚡</div>
+        <h3 class="font-extrabold text-mc-text mb-2">سرورهای پرسرعت</h3>
+        <p class="text-sm text-mc-text-2 leading-loose">فایل‌های حجیم روی سرورهای اختصاصی میزبانی می‌شن تا سرعت دانلود بالا بمونه.</p>
+      </div>
+      <div class="mc-panel">
+        <div class="text-3xl mb-3">📅</div>
+        <h3 class="font-extrabold text-mc-text mb-2">به‌روزرسانی هفتگی</h3>
+        <p class="text-sm text-mc-text-2 leading-loose">هر هفته چند افزونه‌ی جدید اضافه می‌شه و افزونه‌های قدیمی آپدیت می‌شن.</p>
+      </div>
+      <div class="mc-panel">
+        <div class="text-3xl mb-3">📖</div>
+        <h3 class="font-extrabold text-mc-text mb-2">راهنمای فارسی</h3>
+        <p class="text-sm text-mc-text-2 leading-loose">برای هر افزونه یه آموزش فارسی همراه با تصویر نوشته شده تا راحت نصبش کنی.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 1rem 0;
+  }
+
+  .hero-blocks-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .float-block {
+    position: absolute;
+    left: var(--x, 50%);
+    top: var(--y, 30%);
+    width: 24px;
+    height: 24px;
+    background: var(--grass);
+    border: 2px solid #2b1d0e;
+    box-shadow:
+      inset -2px -2px 0 rgba(0, 0, 0, 0.25),
+      inset 2px 2px 0 rgba(255, 255, 255, 0.12);
+    opacity: 0.12;
+    animation: floatBlock 8s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    image-rendering: pixelated;
+  }
+  .float-block:nth-child(3n) { background: var(--dirt); }
+  .float-block:nth-child(3n+1) { background: var(--stone); }
+  .float-block:nth-child(4n) { background: var(--gold); }
+
+  @keyframes floatBlock {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-15px) rotate(5deg); }
+    50% { transform: translateY(0) rotate(-3deg); }
+    75% { transform: translateY(-8px) rotate(2deg); }
+  }
+
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-grid {
+      padding: 2rem 0;
+    }
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.875rem;
+    background: rgba(28, 28, 52, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(124, 200, 74, 0.3);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--grass-2);
+    margin-bottom: 1rem;
+  }
+
+  .hero-tag-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--grass);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(95, 168, 56, 0.6); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(95, 168, 56, 0); }
+  }
+
+  .hero-title {
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-title { font-size: 3rem; }
+  }
+
+  .hero-title-accent {
+    color: var(--grass-2);
+    text-shadow: 0 0 20px rgba(124, 200, 74, 0.4);
+  }
+
+  .hero-desc {
+    font-size: 0.9375rem;
+    color: var(--text-2);
+    margin-bottom: 1.5rem;
+    line-height: 1.85;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-desc { font-size: 1.0625rem; }
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-stats { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat-lbl {
+    font-size: 0.6875rem;
+    color: var(--text-3);
+    margin-top: 0.25rem;
+  }
+
+  /* 3D Cube — در بالای متن، مرکز صفحه، سایز ریسپانسیو */
+  .hero-cube-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-cube-wrap :global(.cube-stage) {
+    --cube-size: min(35vh, 30vw, 260px);
+  }
+
+  @media (max-width: 768px) {
+    .hero-cube-wrap :global(.cube-stage) {
+      --cube-size: min(30vh, 50vw, 200px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-cube-wrap :global(.cube-stage) {
+      --cube-size: min(25vh, 60vw, 160px);
+    }
+  }
+
+
+  /* Section heads */
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .section-eyebrow {
+    display: block;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.625rem;
+    color: var(--grass-2);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  .text-accent-grass { color: var(--grass-2); }
+  .text-accent-gold { color: var(--gold); }
+  .text-accent-diamond { color: var(--diamond); }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  @media (min-width: 1024px) {
+    .section-title { font-size: 1.875rem; }
+  }
+
+  .section-sub {
+    font-size: 0.8125rem;
+    color: var(--text-2);
+    margin-top: 0.25rem;
+  }
+
+  /* Line clamp utility */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // Animated stat counter — اعداد انگلیسی با فونت پیکسلی (مثل Minecraft اصلی)
+  (function () {
+    function animateCount(el) {
+      const target = parseInt(el.dataset.count || '0', 10);
+      const suffix = el.dataset.suffix || '';
+      if (target === 0) {
+        el.textContent = '0' + suffix;
+        return;
+      }
+      const duration = 1200;
+      const startTime = performance.now();
+      function step(now) {
+        const t = Math.min(1, (now - startTime) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const val = Math.floor(eased * target);
+        el.textContent = val + suffix;  // انگلیسی — pixel font آن‌ها را قشنگ‌تر نشون می‌ده
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+
+    function runCounters() {
+      document.querySelectorAll('.stat-num').forEach((el) => animateCount(el));
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runCounters);
+    } else {
+      runCounters();
+    }
+    document.addEventListener('astro:page-load', runCounters);
+  })();
+</script>

@@ -1,0 +1,48 @@
+---
+import '@components/icons.astro';
+import { categories, mods } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const catIconMap: Record<string, string> = {
+  gameplay: 'icon-sword',
+  graphics: 'icon-diamond',
+  maps: 'icon-map',
+  mobs: 'icon-mob',
+  decoration: 'icon-decoration',
+  world: 'icon-world',
+  utility: 'icon-tool',
+};
+
+const catCounts = categories.map((c) => ({
+  ...c,
+  icon_id: catIconMap[c.id] || 'icon-cube',
+  count: mods.filter((m) => m.category === c.id).length,
+}));
+---
+
+<section class="my-8">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-extrabold text-mc-text">دسته‌بندی‌ها</h2>
+    <a href={base('/categories')} class="text-sm text-mc-grass-2 hover:underline flex items-center gap-1">
+      <span>همه</span>
+      <svg width="12" height="12"><use href="#icon-chevron-left" /></svg>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
+    {catCounts.map((cat) => (
+      <a
+        href={base(`/categories/${cat.id}`)}
+        class="mc-panel hoverable group flex flex-col items-center text-center p-4"
+      >
+        <svg width="32" height="32" class="text-mc-grass-2 mb-2">
+          <use href={`#${cat.icon_id}`} />
+        </svg>
+        <span class="text-sm font-bold text-mc-text group-hover:text-mc-grass-2">{cat.name}</span>
+        <span class="text-xs text-mc-text-3 mt-1">{cat.count} مود</span>
+      </a>
+    ))}
+  </div>
+</section>

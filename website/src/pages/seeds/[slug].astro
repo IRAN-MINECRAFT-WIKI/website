@@ -1,0 +1,121 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import BackButton from "@components/BackButton.astro";
+import StructuredData from '@components/StructuredData.astro';
+import { seeds } from '@/lib/data';
+import { breadcrumbJsonLd } from '@/lib/seo';
+
+export async function getStaticPaths() {
+  return seeds.map((seed) => ({
+    params: { slug: seed.id },
+    props: { seed },
+  }));
+}
+
+const { seed } = Astro.props;
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'سیدها', url: '/seeds' },
+  { name: seed.nameFa, url: `/seeds/${seed.id}` },
+];
+
+const ldBread = breadcrumbJsonLd(breadcrumb);
+---
+
+<BaseLayout
+  path={`/seeds/${seed.id}`}
+  title={`${seed.nameFa} — سید ماینکرفت ${seed.version}`}
+  description={seed.tagline}
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <BackButton />
+  <StructuredData data={ldBread} />
+
+  <div class="grid lg:grid-cols-[1fr_360px] gap-6">
+    <article>
+      <!-- Header -->
+      <header class="mc-panel mb-6 p-5">
+        <div class="flex items-start gap-4 mb-4">
+          <span class="text-5xl">{seed.icon}</span>
+          <div>
+            <h1 class="text-2xl lg:text-3xl font-extrabold mb-1">{seed.nameFa}</h1>
+            <p class="text-sm text-mc-text-2">{seed.tagline}</p>
+          </div>
+        </div>
+        <div class="bg-mc-bg-2 border-2 border-mc-gold p-3">
+          <div class="text-xs text-mc-text-3 mb-1">سید ماینکرفت (برای کپی کلیک کنید):</div>
+          <div class="font-mono text-lg text-mc-diamond break-all cursor-pointer" id="seedCode">{seed.code}</div>
+        </div>
+      </header>
+
+      <!-- Description -->
+      <section class="mc-panel mb-6 p-5 prose prose-invert max-w-none">
+        <h2 class="text-xl font-extrabold mb-3">درباره‌ی این سید</h2>
+        <div set:html={seed.description.replace(/\n/g, '<br>')} />
+      </section>
+
+      <!-- Structures -->
+      {seed.structures && seed.structures.length > 0 && (
+        <section class="mc-panel mb-6 p-5">
+          <h2 class="text-xl font-extrabold mb-3">ساختارهای مهم</h2>
+          <div class="flex flex-wrap gap-2">
+            {seed.structures.map((s) => (
+              <span class="mc-chip">🏛️ {s}</span>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="space-y-4">
+      <div class="mc-panel p-5 sticky top-20">
+        <h3 class="font-extrabold text-mc-text mb-3">اطلاعات</h3>
+        <dl class="text-sm space-y-2">
+          <div class="flex justify-between">
+            <dt class="text-mc-text-3">نسخه:</dt>
+            <dd class="text-mc-text-2 font-bold">MC {seed.version}</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-mc-text-3">بیوم:</dt>
+            <dd class="text-mc-text-2 font-bold">{seed.biome}</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-mc-text-3">امتیاز:</dt>
+            <dd class="text-mc-gold font-bold">⭐ {seed.rating}</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-mc-text-3">دسته:</dt>
+            <dd class="text-mc-text-2 font-bold">{seed.catName}</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-mc-text-3">سازنده:</dt>
+            <dd class="text-mc-text-2 font-bold">{seed.author}</dd>
+          </div>
+        </dl>
+
+        <button class="mc-btn w-full mt-4" id="copySeed">کپی سید</button>
+      </div>
+    </aside>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const code = document.getElementById('seedCode');
+    const btn = document.getElementById('copySeed');
+    function copy() {
+      const text = code.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.textContent;
+        btn.textContent = 'کپی شد! ✓';
+        setTimeout(() => (btn.textContent = old), 2000);
+      });
+    }
+    code.addEventListener('click', copy);
+    btn.addEventListener('click', copy);
+  })();
+</script>

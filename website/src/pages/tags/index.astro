@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { mods } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+// Collect unique tags + counts from all collections + mod keywords
+const blog = await getCollection('blog', ({ data }) => !data.draft);
+const wiki = await getCollection('wiki', ({ data }) => !data.draft);
+const tutorials = await getCollection('tutorials', ({ data }) => !data.draft);
+
+const tagCounts = new Map<string, number>();
+
+const bump = (t: string) => {
+  if (!t) return;
+  tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+};
+
+[...blog, ...wiki, ...tutorials].forEach((entry) => {
+  entry.data.tags?.forEach(bump);
+});
+
+// Add mod keywords as tags
+mods.forEach((m) => {
+  if (m.keywords) {
+    m.keywords.split(/\s+/).forEach((kw) => {
+      if (kw.length > 2) bump(kw);
+    });
+  }
+});
+
+// Sort by count desc, then alphabetical
+const allTags = Array.from(tagCounts.entries()).sort((a, b) => {
+  if (b[1] !== a[1]) return b[1] - a[1];
+  return a[0].localeCompare(b[0], 'fa');
+});
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'تگ‌ها', url: '/tags' },
+];
+---
+
+<BaseLayout
+  path="/tags"
+  title="همه‌ی تگ‌ها — MineBed Farsi"
+  description="فهرست کامل تگ‌های MineBed Farsi — مودها، مقالات، آموزش‌ها و ویکی ماینکرفت بدراک."
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">همه‌ی تگ‌ها</h1>
+    <p class="text-sm text-mc-text-2">
+      مجموع <span class="text-mc-grass-2 font-bold">{allTags.length}</span> تگ در MineBed
+    </p>
+  </div>
+
+  {allTags.length === 0 ? (
+    <div class="mc-panel text-center py-12">
+      <p class="text-mc-text-2">هنوز تگی ثبت نشده.</p>
+    </div>
+  ) : (
+    <div class="flex flex-wrap gap-2">
+      {allTags.map(([tag, count]) => (
+        <a
+          href={base(`/tags/${encodeURIComponent(tag)}`)}
+          class="mc-chip hoverable inline-flex items-center gap-1"
+          data-tag={tag}
+        >
+          <span>#{tag}</span>
+          <span class="opacity-50 text-xs">({count})</span>
+        </a>
+      ))}
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .mc-chip {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.15s ease;
+  }
+  .mc-chip:hover {
+    border-color: var(--grass-2);
+    color: var(--grass-2);
+    transform: translateY(-1px);
+  }
+</style>

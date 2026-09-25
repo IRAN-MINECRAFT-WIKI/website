@@ -1,0 +1,91 @@
+---
+/**
+ * BackToTop.astro — pixel green button fixed bottom-right
+ * Shows when scrollY > 500, smooth scroll to top on click.
+ */
+---
+
+<button
+  id="toTop"
+  aria-label="بازگشت به بالا"
+  class="to-top"
+  transition:persist
+>
+  ↑
+</button>
+
+<style>
+  .to-top {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    width: 48px;
+    height: 48px;
+    background: var(--grass, #5fa838);
+    color: #fff;
+    border: 3px solid;
+    border-color: var(--grass-2, #7cc84a) var(--grass-3, #3d7521) var(--grass-3, #3d7521) var(--grass-2, #7cc84a);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.45);
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s, background 0.15s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .to-top.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .to-top:hover {
+    background: var(--grass-2, #7cc84a);
+    transform: translateY(-2px);
+  }
+
+  .to-top:active {
+    transform: translateY(3px);
+    box-shadow: none;
+  }
+
+  @media (max-width: 480px) {
+    .to-top {
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.__backToTopInit) return;
+    window.__backToTopInit = true;
+
+    const btn = document.getElementById('toTop');
+    if (!btn) return;
+
+    function checkScroll() {
+      if (window.scrollY > 500) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    }
+
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Re-check after view transitions
+    document.addEventListener('astro:after-swap', checkScroll);
+    checkScroll();
+  })();
+</script>

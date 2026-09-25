@@ -1,0 +1,200 @@
+---
+import '@components/icons.astro';
+import { siteConfig, categories } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+// Compute Persian (Jalali) year dynamically — auto-updates each year
+const year = new Intl.DateTimeFormat('fa-IR-u-ca-persian', { year: 'numeric' }).format(new Date());
+
+const quickLinks = [
+  { href: base('/'), label: 'خانه' },
+  { href: base('/mods'), label: 'افزونه‌ها' },
+  { href: base('/versions'), label: 'نسخه‌ها' },
+  { href: base('/seeds'), label: 'سیدها' },
+  { href: base('/blog'), label: 'وبلاگ' },
+  { href: base('/about'), label: 'درباره ما' },
+];
+---
+
+<footer class="site-footer">
+  <div class="pixel-divider"></div>
+
+  <div class="footer-inner">
+    <!-- Brand -->
+    <div class="footer-col">
+      <div class="footer-brand">
+        <span class="brand-mark"></span>
+        <span class="footer-brand-text">MINEBED</span>
+      </div>
+      <p class="footer-desc">
+        مرجع فارسی افزونه‌های ماینکرفت بدراک. همه‌ی فایل‌ها تست‌شده، رایگان و بدون تبلیغات مزاحم.
+      </p>
+    </div>
+
+    <!-- Quick links -->
+    <div class="footer-col">
+      <h4 class="footer-title">دسترسی سریع</h4>
+      <div class="footer-links">
+        {quickLinks.map((item) => (
+          <a href={item.href} class="footer-link">{item.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="footer-col">
+      <h4 class="footer-title">دسته‌بندی‌ها</h4>
+      <div class="footer-links">
+        {categories.map((cat) => (
+          <a href={base(`/categories/${cat.id}`)} class="footer-link">
+            <svg width="14" height="14"><use href={`#icon-${cat.id === 'gameplay' ? 'sword' : cat.id === 'graphics' ? 'diamond' : cat.id === 'maps' ? 'map' : cat.id === 'mobs' ? 'mob' : cat.id === 'decoration' ? 'decoration' : cat.id === 'world' ? 'world' : 'tool'}`} /></svg>
+            <span>{cat.name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Legal + Social -->
+    <div class="footer-col">
+      <h4 class="footer-title">قوانین</h4>
+      <div class="footer-links mb-4">
+        <a href={base('/privacy')} class="footer-link">حریم خصوصی</a>
+        <a href={base('/terms')} class="footer-link">قوانین استفاده</a>
+      </div>
+      <h4 class="footer-title">ما را دنبال کنید</h4>
+      <div class="footer-social">
+        <a href={siteConfig.telegram} target="_blank" rel="noopener" class="mc-btn ghost small" aria-label="تلگرام">
+          <svg width="16" height="16"><use href="#icon-telegram" /></svg>
+          <span>تلگرام</span>
+        </a>
+        <a href={siteConfig.instagram} target="_blank" rel="noopener" class="mc-btn ghost small" aria-label="اینستاگرام">
+          <svg width="16" height="16"><use href="#icon-instagram" /></svg>
+          <span>اینستاگرام</span>
+        </a>
+        <a href={siteConfig.youtube} target="_blank" rel="noopener" class="mc-btn ghost small" aria-label="یوتیوب">
+          <svg width="16" height="16"><use href="#icon-youtube" /></svg>
+          <span>یوتیوب</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p>این سایت یک پروژه‌ی مستقل است و هیچ ارتباطی با Mojang یا Microsoft ندارد.</p>
+      <p class="footer-copyright">© {year} MINEBED FARSI — ساخته شده با ❤️ برای جامعه ماینکرفت</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 3rem;
+    background: rgba(13, 13, 24, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 2rem;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-brand-text {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.875rem;
+    color: var(--grass-2);
+    letter-spacing: 2px;
+  }
+
+  .footer-desc {
+    font-size: 0.8125rem;
+    color: var(--text-2);
+    line-height: 1.85;
+    max-width: 320px;
+  }
+
+  .footer-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.875rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-link:hover {
+    color: var(--grass-2);
+  }
+
+  .footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .footer-bottom {
+    border-top: 1px dashed var(--line);
+    padding: 1.25rem 1rem;
+  }
+
+  .footer-bottom-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .footer-bottom-inner p {
+    font-size: 0.75rem;
+    color: var(--text-2);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-copyright {
+    font-size: 0.7rem !important;
+    color: var(--text-3) !important;
+    margin-top: 0.25rem !important;
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import BackButton from "@components/BackButton.astro";
+import StructuredData from '@components/StructuredData.astro';
+import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+export async function getStaticPaths() {
+  const tutorials = await getCollection('tutorials', ({ data }) => !data.draft);
+  return tutorials.map((tut) => ({
+    params: { slug: tut.id },
+    props: { tut },
+  }));
+}
+
+const { tut } = Astro.props as { tut: CollectionEntry<'tutorials'> };
+const { Content } = await render(tut);
+const coverUrl = (tut.data.cover || '').startsWith('http')
+  ? tut.data.cover
+  : base(tut.data.cover || '');
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'آموزش‌ها', url: '/tutorials' },
+  { name: tut.data.title, url: base(`/tutorials/${tut.id}`) },
+];
+
+const ldArticle = articleJsonLd({
+  title: tut.data.title,
+  description: tut.data.description,
+  image: coverUrl,
+  datePublished: tut.data.pubDate.toISOString(),
+  dateModified: (tut.data.modDate || tut.data.pubDate).toISOString(),
+  authorName: tut.data.author,
+  url: base(`/tutorials/${tut.id}`),
+});
+---
+
+<BaseLayout
+  path={`/tutorials/${tut.id}`}
+  title={`${tut.data.title} — آموزش ماینکرفت`}
+  description={tut.data.description}
+  image={coverUrl}
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <BackButton />
+  <StructuredData data={ldArticle} />
+
+  <article class="mc-panel p-5 lg:p-8">
+    <header class="mb-6 pb-6 border-b border-mc-line">
+      <h1 class="text-2xl lg:text-4xl font-extrabold mb-2">{tut.data.title}</h1>
+      <p class="text-sm text-mc-text-2 mb-3">{tut.data.description}</p>
+      <div class="flex items-center gap-3 text-xs text-mc-text-3">
+        <span>📅 {tut.data.pubDate.toLocaleDateString('fa-IR')}</span>
+        <span>⏱️ {tut.data.duration} دقیقه</span>
+        <span>👤 {tut.data.author}</span>
+      </div>
+    </header>
+
+    <div class="prose prose-invert max-w-none">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

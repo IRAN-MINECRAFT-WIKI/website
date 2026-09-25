@@ -1,0 +1,106 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { seeds } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'سیدها', url: '/seeds' },
+];
+
+const catCounts = ['spawn', 'resources', 'structures', 'speedrun'].map((c) => ({
+  id: c,
+  count: seeds.filter((s) => s.category === c).length,
+  name: {
+    spawn: 'اسپاون',
+    resources: 'منابع',
+    structures: 'ساختارها',
+    speedrun: 'اسپیدران',
+  }[c] || c,
+}));
+---
+
+<BaseLayout
+  path="/seeds"
+  title="بهترین سیدهای ماینکرفت بدراک"
+  description="لیست بهترین سیدهای ماینکرفت بدراک با منابع فراوان، Stronghold، Ancient City و Diamond Mine. مناسب برای Survival، Speedrun و ساخت‌وساز."
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">بهترین سیدهای ماینکرفت</h1>
+    <p class="text-sm text-mc-text-2">{seeds.length} سید دست‌چین شده با توضیحات کامل</p>
+  </div>
+
+  <!-- Filter chips -->
+  <div class="flex flex-wrap gap-2 mb-6" id="seedChips">
+    <button class="mc-chip active" data-cat="all">همه ({seeds.length})</button>
+    {catCounts.map((c) => (
+      <button class="mc-chip" data-cat={c.id}>
+        {c.name} ({c.count})
+      </button>
+    ))}
+  </div>
+
+  <!-- Seeds grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="seedsGrid">
+    {seeds.map((seed) => (
+      <a href={base(`/seeds/${seed.id}`)} class="mc-card group flex flex-col" data-cat={seed.category}>
+        <div class="p-5">
+          <div class="flex items-start justify-between gap-2 mb-3">
+            <span class="text-4xl">{seed.icon}</span>
+            {seed.featured && (
+              <span class="bg-mc-gold text-[#21160a] text-[10px] font-extrabold px-2 py-1 font-pixel">ویژه</span>
+            )}
+            {seed.isNew && !seed.featured && (
+              <span class="bg-mc-redstone text-white text-[10px] font-extrabold px-2 py-1 font-pixel">جدید</span>
+            )}
+          </div>
+          <h3 class="text-lg font-extrabold text-mc-text group-hover:text-mc-grass-2 mb-1">{seed.nameFa}</h3>
+          <p class="text-xs text-mc-text-2 mb-3 line-clamp-2">{seed.tagline}</p>
+          <div class="bg-mc-bg-2 border-2 border-mc-line p-2 font-mono text-xs text-mc-diamond break-all">
+            {seed.code}
+          </div>
+          <div class="flex items-center justify-between gap-2 mt-3 pt-3 border-t border-mc-line text-xs">
+            <span class="text-mc-text-3">🌍 {seed.biome || 'نامشخص'}</span>
+            <span class="text-mc-text-3">⭐ {seed.rating}</span>
+            <span class="text-mc-text-3">MC {seed.version}</span>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const chips = document.querySelectorAll('#seedChips .mc-chip');
+    const items = document.querySelectorAll('#seedsGrid > [data-cat]');
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        const cat = chip.dataset.cat;
+        items.forEach((item) => {
+          if (cat === 'all' || item.dataset.cat === cat) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

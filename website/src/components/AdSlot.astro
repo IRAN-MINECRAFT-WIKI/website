@@ -1,0 +1,93 @@
+---
+/**
+ * AdSlot.astro — placeholder بهتر برای تبلیغات
+ * - برچسب «تبلیغات» در گوشه
+ * - Background با pattern
+ * - در صورت خالی بودن، خودکار placeholder نشون می‌ده
+ */
+export interface Props {
+  slotId?: string;
+  format?: 'banner' | 'native' | 'skyscraper';
+  class?: string;
+}
+
+const { slotId = 'mediaad-default', format = 'banner', class: cls = '' } = Astro.props;
+---
+
+<div class={`ad-slot ${format} ${cls}`} data-ad-slot={slotId}>
+  <div id={slotId} class="ad-slot-content">
+    <!-- Ad network will inject content here -->
+  </div>
+</div>
+
+<style>
+  .ad-slot {
+    position: relative;
+    min-height: 120px;
+    background:
+      linear-gradient(135deg, rgba(28, 28, 52, 0.6), rgba(36, 36, 69, 0.6)),
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 12px,
+        rgba(255, 255, 255, 0.02) 12px,
+        rgba(255, 255, 255, 0.02) 24px
+      );
+    border: 2px dashed var(--line);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    padding: 16px;
+  }
+
+  .ad-slot:hover {
+    border-color: var(--grass-3);
+  }
+
+  .ad-slot::before {
+    content: 'تبلیغات';
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 10px;
+    color: var(--text-3);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    z-index: 2;
+  }
+
+  .ad-slot.banner { min-height: 100px; }
+  .ad-slot.native { min-height: 280px; padding: 24px; }
+  .ad-slot.skyscraper { min-height: 600px; }
+
+  .ad-slot-content {
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    z-index: 1;
+    position: relative;
+  }
+
+  /* Fallback: if ad network didn't load, show a Minecraft-themed placeholder */
+  .ad-slot-content:empty::after {
+    content: '📢 جای تبلیغ شما در اینجا — برای اطلاعات بیشتر با ما تماس بگیرید';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 80px;
+    color: var(--text-3);
+    font-size: 11px;
+    text-align: center;
+    padding: 12px;
+    font-weight: 600;
+  }
+</style>

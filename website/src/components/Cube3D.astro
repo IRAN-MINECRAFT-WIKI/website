@@ -1,0 +1,269 @@
+---
+/**
+ * Cube3D.astro — مکعب سه‌بعدی Minecraft با تکسچرهای PNG واقعی
+ *
+ * - ۷ نوع بلوک: grass, dirt, stone, brick, gold_ore, diamond_ore, leaves, wood
+ * - هر بلوک با ۳ تکسچر مجزا (top/side/bottom)
+ * - چرخش خودکار + کلیک برای تعویض
+ * - نام فارسی + label انگلیسی روی مکعب
+ * - ذرات پیکسلی هنگام کلیک
+ *
+ * تکسچرها در public/textures/blocks/ قرار دارن.
+ */
+import '@components/icons.astro';
+
+const BASE = import.meta.env.BASE_URL;
+const tex = (name: string) => `${BASE}textures/blocks/${name}`;
+
+const BLOCKS = [
+  { id: 'grass',       nameFa: 'بلوک چمن',     label: 'GRASS BLOCK',   top: 'grass_top.png',     side: 'grass_side.png',     bottom: 'dirt.png' },
+  { id: 'dirt',        nameFa: 'بلوک خاک',     label: 'DIRT',           top: 'dirt.png',          side: 'dirt.png',          bottom: 'dirt.png' },
+  { id: 'stone',       nameFa: 'بلوک سنگ',     label: 'STONE',          top: 'stone.png',         side: 'stone.png',         bottom: 'stone.png' },
+  { id: 'brick',       nameFa: 'آجر',           label: 'BRICKS',         top: 'brick.png',         side: 'brick.png',         bottom: 'brick.png' },
+  { id: 'gold_ore',    nameFa: 'سنگ معدن طلا', label: 'GOLD ORE',       top: 'gold_ore.png',      side: 'gold_ore.png',      bottom: 'gold_ore.png' },
+  { id: 'diamond_ore', nameFa: 'سنگ الماس',    label: 'DIAMOND ORE',    top: 'diamond_ore.png',   side: 'diamond_ore.png',   bottom: 'diamond_ore.png' },
+  { id: 'leaves',      nameFa: 'برگ‌ها',       label: 'OAK LEAVES',     top: 'leaves.png',        side: 'leaves.png',        bottom: 'leaves.png' },
+  { id: 'wood',        nameFa: 'تنه درخت بلوط', label: 'OAK LOG',        top: 'oak_log_top.png',   side: 'oak_log_side.png',  bottom: 'oak_log_top.png' },
+];
+
+const initialBlock = BLOCKS[0];
+---
+
+<div class="cube-stage" id="cubeStage">
+  <div class="cube-meta">
+    <div class="cube-name" id="cubeName">{initialBlock.nameFa}</div>
+    <div class="cube-hint">برای تعویض بلوک، روی مکعب کلیک کن</div>
+  </div>
+
+  <div class="cube-scene" id="cubeScene" role="button" tabindex="0" aria-label="مکعب قابل کلیک - برای تعویض بلوک کلیک کن">
+    <div class="cube-shadow"></div>
+    <div class="cube" id="cube">
+      <div class="cube-face front"  data-face="front"  style={`background-image: url(${tex(initialBlock.side)});`}></div>
+      <div class="cube-face back"   data-face="back"   style={`background-image: url(${tex(initialBlock.side)});`}></div>
+      <div class="cube-face right"  data-face="right"  style={`background-image: url(${tex(initialBlock.side)});`}></div>
+      <div class="cube-face left"   data-face="left"   style={`background-image: url(${tex(initialBlock.side)});`}></div>
+      <div class="cube-face top"    data-face="top"    style={`background-image: url(${tex(initialBlock.top)});`}></div>
+      <div class="cube-face bottom" data-face="bottom" style={`background-image: url(${tex(initialBlock.bottom)});`}></div>
+    </div>
+    <div class="cube-label" id="cubeLabel">{initialBlock.label}</div>
+  </div>
+
+  <!-- Data attributes for JS to read -->
+  <script type="application/json" id="blocks-data" set:html={JSON.stringify(BLOCKS.map(b => ({
+    id: b.id,
+    nameFa: b.nameFa,
+    label: b.label,
+    top: tex(b.top),
+    side: tex(b.side),
+    bottom: tex(b.bottom),
+  })))} />
+</div>
+
+<style>
+  .cube-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+    position: relative;
+  }
+
+  .cube-meta {
+    text-align: center;
+  }
+
+  .cube-name {
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 1rem;
+    color: #7cc84a;
+    text-shadow: 0 0 18px rgba(124, 200, 74, 0.7), 2px 2px 0 #000;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  .cube-hint {
+    font-family: 'Rooyin', system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: #5c5c7a;
+    opacity: 0.85;
+  }
+
+  .cube-scene {
+    position: relative;
+    width: var(--cube-size, 280px);
+    height: var(--cube-size, 280px);
+    perspective: 1200px;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+  }
+
+  .cube-scene:focus-visible {
+    outline: 2px solid #7cc84a;
+    outline-offset: 8px;
+  }
+
+  .cube-shadow {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    width: 75%;
+    height: 14px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.55), transparent 70%);
+    transform: translateX(-50%);
+    z-index: 1;
+    filter: blur(4px);
+  }
+
+  .cube {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-18deg) rotateY(0deg);
+    animation: spinCube 16s infinite linear;
+    transition: transform 0.4s ease-out;
+  }
+
+  .cube.hit {
+    animation: spinCube 16s infinite linear, hitShake 0.4s ease;
+  }
+
+  @keyframes spinCube {
+    from { transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-18deg) rotateY(0deg); }
+    to { transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-18deg) rotateY(360deg); }
+  }
+
+  @keyframes hitShake {
+    0%, 100% { transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-18deg) scale(1); }
+    50% { transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-18deg) scale(1.18); }
+  }
+
+  .cube-face {
+    position: absolute;
+    width: var(--cube-size, 280px);
+    height: var(--cube-size, 280px);
+    background-size: 100% 100%;
+    background-position: center;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border: 3px solid rgba(0, 0, 0, 0.55);
+    box-shadow:
+      inset -6px -6px 0 rgba(0, 0, 0, 0.28),
+      inset 6px 6px 0 rgba(255, 255, 255, 0.15);
+    transition: background-image 0.15s, box-shadow 0.25s;
+  }
+
+  .cube.hit .cube-face {
+    box-shadow:
+      inset -6px -6px 0 rgba(0, 0, 0, 0.28),
+      inset 6px 6px 0 rgba(255, 255, 255, 0.35),
+      0 0 30px 8px rgba(124, 200, 74, 0.85);
+    border-color: rgba(124, 200, 74, 0.9);
+  }
+
+  .cube-face.front  { transform: rotateY(0deg) translateZ(calc(var(--cube-size, 280px) / 2)); }
+  .cube-face.back   { transform: rotateY(180deg) translateZ(calc(var(--cube-size, 280px) / 2)); }
+  .cube-face.right  { transform: rotateY(90deg) translateZ(calc(var(--cube-size, 280px) / 2)); }
+  .cube-face.left   { transform: rotateY(-90deg) translateZ(calc(var(--cube-size, 280px) / 2)); }
+  .cube-face.top    { transform: rotateX(90deg) translateZ(calc(var(--cube-size, 280px) / 2)); }
+  .cube-face.bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube-size, 280px) / 2)); }
+
+  .cube-label {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: rgba(230, 230, 242, 0.4);
+    letter-spacing: 3px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  @media (max-width: 768px) {
+    .cube-scene { width: 220px; height: 220px; }
+    .cube-face { width: 220px; height: 220px; }
+    .cube { transform: translateZ(-110px) rotateX(-18deg); }
+    @keyframes spinCube {
+      from { transform: translateZ(-110px) rotateX(-18deg) rotateY(0deg); }
+      to { transform: translateZ(-110px) rotateX(-18deg) rotateY(360deg); }
+    }
+    .cube-face.front  { transform: rotateY(0deg) translateZ(110px); }
+    .cube-face.back   { transform: rotateY(180deg) translateZ(110px); }
+    .cube-face.right  { transform: rotateY(90deg) translateZ(110px); }
+    .cube-face.left   { transform: rotateY(-90deg) translateZ(110px); }
+    .cube-face.top    { transform: rotateX(90deg) translateZ(110px); }
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(110px); }
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.__cubeInit) return;
+    window.__cubeInit = true;
+
+    function initCube() {
+      const dataEl = document.getElementById('blocks-data');
+      if (!dataEl) return;
+      let BLOCKS = [];
+      try {
+        BLOCKS = JSON.parse(dataEl.textContent || '[]');
+      } catch (e) { return; }
+      if (!BLOCKS.length) return;
+
+      let currentIdx = 0;
+      const nameEl = document.getElementById('cubeName');
+      const labelEl = document.getElementById('cubeLabel');
+      const cube = document.getElementById('cube');
+      const scene = document.getElementById('cubeScene');
+
+      function applyBlock(block) {
+        document.querySelectorAll('.cube-face').forEach((face) => {
+          const faceType = face.dataset.face;
+          let url = block.side;
+          if (faceType === 'top') url = block.top;
+          else if (faceType === 'bottom') url = block.bottom;
+          face.style.backgroundImage = `url(${url})`;
+        });
+        if (nameEl) nameEl.textContent = block.nameFa;
+        if (labelEl) labelEl.textContent = block.label;
+      }
+
+      function nextBlock(event) {
+        currentIdx = (currentIdx + 1) % BLOCKS.length;
+        const next = BLOCKS[currentIdx];
+        applyBlock(next);
+
+        if (cube) {
+          cube.classList.add('hit');
+          setTimeout(() => cube.classList.remove('hit'), 400);
+        }
+
+        if (event && window.burstParticles) {
+          window.burstParticles(event.clientX, event.clientY, 22, 6);
+        }
+      }
+
+      if (scene) {
+        scene.addEventListener('click', nextBlock);
+        scene.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            nextBlock(e);
+          }
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCube);
+    } else {
+      initCube();
+    }
+
+    document.addEventListener('astro:page-load', initCube);
+  })();
+</script>

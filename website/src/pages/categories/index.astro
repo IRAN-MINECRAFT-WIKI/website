@@ -1,0 +1,47 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { categories, mods } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'دسته‌بندی‌ها', url: '/categories' },
+];
+
+const catCounts = categories.map((c) => ({
+  ...c,
+  count: mods.filter((m) => m.category === c.id).length,
+}));
+---
+
+<BaseLayout
+  path="/categories"
+  title="دسته‌بندی افزونه‌های ماینکرفت بدراک"
+  description="دسته‌بندی کامل افزونه‌های ماینکرفت بدراک: گیم‌پلی، گرافیک، مپ، موجودات، دکوراسیون، دنیا و ابزار. همگی تست‌شده و رایگان."
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">دسته‌بندی‌ها</h1>
+    <p class="text-sm text-mc-text-2">{categories.length} دسته متنوع از افزونه‌های ماینکرفت بدراک</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {catCounts.map((cat) => (
+      <a href={base(`/categories/${cat.id}`)} class="mc-panel hoverable group p-6 flex items-center gap-4">
+        <span class="text-5xl shrink-0">{cat.icon}</span>
+        <div class="flex-1">
+          <h2 class="text-lg font-extrabold text-mc-text group-hover:text-mc-grass-2 mb-1">
+            {cat.name}
+          </h2>
+          <p class="text-xs text-mc-text-2 mb-2 line-clamp-2">{cat.description}</p>
+          <span class="text-xs font-bold text-mc-grass-2">{cat.count} مود</span>
+        </div>
+        <span class="text-mc-text-3 group-hover:text-mc-grass-2 group-hover:translate-x-1 transition-all">←</span>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

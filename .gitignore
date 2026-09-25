@@ -1,0 +1,69 @@
+# ============================================================
+# SECRETS — هرگز کامیت نشن!
+# ============================================================
+.env
+.env.local
+config.js
+secrets.json
+*.key
+credentials.json
+
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+build/
+.venv/
+venv/
+
+# ============================================================
+# Node.js / Astro
+# ============================================================
+node_modules/
+dist/
+.astro/
+
+# ============================================================
+# OS / Editor
+# ============================================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ============================================================
+# Logs
+# ============================================================
+*.log
+
+# ============================================================
+# Admin app — runtime data (not for GitHub)
+# ============================================================
+admin/data/
+admin/cache/
+admin/.env
+minebed-desktop.log
+
+# ============================================================
+# Pipeline — runtime artifacts
+# ============================================================
+website/pipeline/mods_data/
+website/pipeline/downloaded_mods/
+website/pipeline/agent_screenshots/
+website/pipeline/debug_dumps/
+website/pipeline/uploaded_history.json
+website/pipeline/sync_log.json
+website/pipeline/mods.json
+website/pipeline/music.json
+
+# ============================================================
+# Tests
+# ============================================================
+.pytest_cache/
+.coverage
+htmlcov/

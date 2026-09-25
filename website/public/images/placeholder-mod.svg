@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+  <rect width="100%" height="100%" fill="#1c1c34"/>
+  <rect x="0" y="0" width="640" height="60" fill="#3d7521"/>
+  <text x="320" y="200" text-anchor="middle" font-family="monospace" font-size="32" fill="#7cc84a">📦 MineBed</text>
+  <text x="320" y="240" text-anchor="middle" font-family="monospace" font-size="14" fill="#9a9ab8">No cover available</text>
+</svg>
