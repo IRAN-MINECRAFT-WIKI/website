@@ -143,7 +143,18 @@ const heroStats = [
       {popularVersions.map((v) => (
         <a href={base(`/versions/${v.id}`)} class="mc-block-panel hoverable group flex items-center gap-4 p-5">
           <span class="text-4xl flex-shrink-0">
-            <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+            {/* Use real PNG texture if available, fall back to SVG */}
+            <img
+              src={`${BASE}textures/blocks/${v.icon.replace('px-', '')}.png`}
+              alt={v.nameFa}
+              width="40"
+              height="40"
+              loading="lazy"
+              decoding="async"
+              class="pixel-img"
+              onerror={`this.style.display='none'; this.nextElementSibling.style.display='inline-block';`}
+            />
+            <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
               <use href={`#${v.icon}`} />
             </svg>
           </span>

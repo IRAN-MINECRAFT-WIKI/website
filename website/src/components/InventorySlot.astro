@@ -1,30 +1,35 @@
 ---
 /**
- * InventorySlot.astro — Minecraft-style inventory slot
+ * InventorySlot.astro — Minecraft inventory slot with REAL texture
  *
- * Pattern from minecraft.wiki's `invslot` class. Renders a 32x32 styled
- * square with an SVG icon inside + optional count + optional tooltip.
+ * Renders a 32x32 styled square with the actual Minecraft PNG texture inside.
+ * Falls back to SVG pixel sprite if PNG doesn't exist.
  *
  * Usage:
- *   <InventorySlot icon="diamond" count={64} />
- *   <InventorySlot icon="stick" />
+ *   <InventorySlot icon="diamond" />           <!-- looks in /textures/items/diamond.png -->
+ *   <InventorySlot icon="stone" type="block" />  <!-- looks in /textures/blocks/stone.png -->
+ *   <InventorySlot icon="stick" count={64} />
  *   <InventorySlot icon="diamond-sword" tooltip="شمشیر الماس" />
- *   <InventorySlot />  <!-- empty slot -->
+ *   <InventorySlot />                          <!-- empty slot -->
  */
-import '@components/icons.astro';
+import '@components/pixel-sprites.astro';
 
 interface Props {
-  icon?: string;        // icon name (without icon- prefix)
-  count?: number;      // stack count (hidden if 1 or undefined)
-  tooltip?: string;    // hover tooltip
-  size?: 'sm' | 'md' | 'lg';  // 24/32/48px
-  large?: boolean;    // large variant (48px) — alias for size="lg"
+  icon?: string;        // texture name (without .png)
+  count?: number;       // stack count (hidden if 1 or undefined)
+  tooltip?: string;     // hover tooltip
+  size?: 'sm' | 'md' | 'lg';
+  large?: boolean;
+  type?: 'item' | 'block';
 }
 
-const { icon, count, tooltip, size = 'md', large = false } = Astro.props;
+const { icon, count, tooltip, size = 'md', large = false, type = 'item' } = Astro.props;
 const actualSize = large ? 'lg' : size;
 const pxSize = actualSize === 'sm' ? 24 : actualSize === 'lg' ? 48 : 32;
-const iconName = icon ? (icon.startsWith('icon-') ? icon : `icon-${icon}`) : null;
+const folder = type === 'block' ? 'blocks' : 'items';
+const BASE = import.meta.env.BASE_URL;
+const textureUrl = icon ? `${BASE}textures/${folder}/${icon}.png` : null;
+const svgFallback = icon ? `px-${icon}` : null;
 ---
 
 <div
@@ -32,20 +37,29 @@ const iconName = icon ? (icon.startsWith('icon-') ? icon : `icon-${icon}`) : nul
   title={tooltip}
   data-minetip-text={tooltip}
 >
-  {iconName && (
+  {icon && textureUrl && (
     <span class="invslot-item">
-      <svg
-        width={pxSize * 0.65}
-        height={pxSize * 0.65}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linejoin="round"
-        stroke-linecap="round"
-      >
-        <use href={`#${iconName}`} />
-      </svg>
+      <img
+        src={textureUrl}
+        alt={tooltip || icon}
+        width={Math.floor(pxSize * 0.65)}
+        height={Math.floor(pxSize * 0.65)}
+        loading="lazy"
+        decoding="async"
+        class="pixel-img"
+        onerror={`this.style.display='none'; this.nextElementSibling.style.display='inline-block';`}
+      />
+      {svgFallback && (
+        <svg
+          width={Math.floor(pxSize * 0.65)}
+          height={Math.floor(pxSize * 0.65)}
+          viewBox="0 0 16 16"
+          shape-rendering="crispEdges"
+          style="display: none; image-rendering: pixelated;"
+        >
+          <use href={`#${svgFallback}`} />
+        </svg>
+      )}
     </span>
   )}
   {count && count > 1 && (
@@ -81,8 +95,13 @@ const iconName = icon ? (icon.startsWith('icon-') ? icon : `icon-${icon}`) : nul
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #d4d4d4;
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
+  }
+
+  .pixel-img {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
   }
 
   .invslot-count {

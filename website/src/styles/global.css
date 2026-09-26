@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 /* ===========================================
+   Pixel image rendering — for real Minecraft PNG textures
+   Ensures crisp pixel-art look at any size (no smoothing).
+   =========================================== */
+.pixel-img,
+img.pixel-img {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+  vertical-align: middle;
+}
+
+/* ===========================================
    Press Start 2P — pixel font for headings (loaded from Google Fonts CDN)
    Used for: h1, h2, h3, .pixel, .font-pixel — gives strong Minecraft feel.
    Falls back to monospace if loading fails.

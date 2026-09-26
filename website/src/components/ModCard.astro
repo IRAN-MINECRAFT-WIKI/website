@@ -35,6 +35,18 @@ const pixelIconMap: Record<string, string> = {
   utility: 'px-iron-ingot',
 };
 const pixelIcon = pixelIconMap[mod.category] || 'px-crafting-table';
+
+// Also map category to a real PNG texture (preferred)
+const textureMap: Record<string, string> = {
+  gameplay: 'diamond-sword',
+  graphics: 'diamond',
+  maps: 'grass-block',
+  mobs: 'apple',
+  decoration: 'oak-planks',
+  world: 'grass-block',
+  utility: 'iron-ingot',
+};
+const textureName = textureMap[mod.category] || 'stick';
 ---
 
 <article class="mc-card group mod-card mc-block-panel" data-keywords={mod.keywords || ''} data-cat={mod.category}>
@@ -72,8 +84,18 @@ const pixelIcon = pixelIconMap[mod.category] || 'px-crafting-table';
         </a>
       </h3>
       <span class="mod-icon" aria-hidden="true">
-        <!-- Pixel-art sprite (16x16 viewBox rendered at 28px) -->
-        <svg width="28" height="28" viewBox="0 0 16 16" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+        {/* Real Minecraft PNG texture (preferred), SVG fallback */}
+        <img
+          src={`${BASE}textures/items/${textureName}.png`}
+          alt=""
+          width="28"
+          height="28"
+          loading="lazy"
+          decoding="async"
+          class="pixel-img"
+          onerror={`this.style.display='none'; this.nextElementSibling.style.display='inline-block';`}
+        />
+        <svg width="28" height="28" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
           <use href={`#${pixelIcon}`} />
         </svg>
       </span>

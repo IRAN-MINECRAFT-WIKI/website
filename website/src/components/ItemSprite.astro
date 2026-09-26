@@ -1,36 +1,57 @@
 ---
 /**
- * ItemSprite.astro — Minecraft-style item/block icon (replaces emojis)
+ * ItemSprite.astro — Minecraft item icon (uses REAL Minecraft textures)
  *
- * Pattern inspired by minecraft.wiki's `sprite-file` + `pixel-image` markup.
+ * Renders a 16x16 PNG texture from /textures/items/ (or /textures/blocks/).
+ * Falls back to pixel-art SVG sprite if no PNG exists for the item.
+ *
+ * Pattern from minecraft.wiki's `sprite-file` + `pixel-image` markup.
  *
  * Usage:
  *   <ItemSprite name="diamond" label="الماس" />
- *   <ItemSprite name="diamond-sword" label="شمشیر الماس" href="/wiki/diamond-sword" />
- *
- * Renders: [icon SVG] + [text link] — appropriate for inline lists and tables.
- *
- * Icon lookup: uses the icon-* SVG sprite from icons.astro. Falls back to
- * icon-mod if the requested icon doesn't exist (so content authors don't
- * see broken UI).
+ *   <ItemSprite name="stick" label="چوب" href="/wiki/stick" />
+ *   <ItemSprite name="stone" label="سنگ" type="block" />
  */
-import '@components/icons.astro';
+import '@components/pixel-sprites.astro';
 
 interface Props {
-  name: string;        // icon name, e.g. 'diamond', 'sword', 'enchantment'
+  name: string;        // texture name (e.g., 'diamond', 'stick', 'stone')
   label: string;       // Persian text label
   href?: string;       // optional link
-  size?: number;       // default 18px
+  size?: 'sm' | 'md' | 'lg';  // 16/24/32px
+  type?: 'item' | 'block';  // which folder to look in (default: 'item')
 }
 
-const { name, label, href, size = 18 } = Astro.props;
-const iconName = `icon-${name}`;
+const { name, label, href, size = 'md', type = 'item' } = Astro.props;
+const pxSize = size === 'sm' ? 16 : size === 'lg' ? 32 : 24;
+const folder = type === 'block' ? 'blocks' : 'items';
+const BASE = import.meta.env.BASE_URL;
+const textureUrl = `${BASE}textures/${folder}/${name}.png`;
+// SVG fallback if PNG doesn't exist
+const svgFallback = `px-${name}`;
 ---
 
 <span class="sprite-file nowrap">
   <span class="pixel-image">
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
-      <use href={`#${iconName}`} />
+    <img
+      src={textureUrl}
+      alt={label}
+      width={pxSize}
+      height={pxSize}
+      loading="lazy"
+      decoding="async"
+      class="pixel-img"
+      onerror={`this.style.display='none'; this.nextElementSibling.style.display='inline-block';`}
+    />
+    <!-- SVG fallback (hidden by default, shown if PNG fails to load) -->
+    <svg
+      width={pxSize}
+      height={pxSize}
+      viewBox="0 0 16 16"
+      shape-rendering="crispEdges"
+      style="display: none; image-rendering: pixelated;"
+    >
+      <use href={`#${svgFallback}`} />
     </svg>
   </span>
   {
@@ -56,6 +77,13 @@ const iconName = `icon-${name}`;
     align-items: center;
     justify-content: center;
     color: var(--grass-2, #7cc84a);
+    flex-shrink: 0;
+  }
+  .sprite-file .pixel-img {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+    vertical-align: middle;
   }
   .sprite-file .sprite-text {
     color: inherit;
