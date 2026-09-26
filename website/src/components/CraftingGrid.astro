@@ -98,6 +98,10 @@ const flatPattern = pattern ? (
     margin: 1rem 0;
     color: #ffffff;
     border-radius: 2px;
+    /* Force LTR — Minecraft crafting UI is always LTR even in RTL pages.
+       Without this, the grid + arrow + output order gets reversed in RTL,
+       making the arrow point the wrong way. */
+    direction: ltr;
   }
 
   .mcui-shaped {

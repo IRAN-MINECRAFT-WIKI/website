@@ -1,32 +1,51 @@
 ---
 /**
- * CraftingHelper.astro — Interactive crafting tutorial
+ * CraftingHelper.astro — FULL-SCREEN immersive Minecraft crafting scene
  *
- * A Minecraft character stands in the page. User types what they want
- * to craft → character "thinks" (?) → reaches into pocket → reveals
- * the 3x3 crafting grid with items + wiki link.
+ * Layout:
+ * - Full viewport (100vh, no scroll on desktop)
+ * - Ground (grass block texture repeated)
+ * - 3D crafting table (CSS 3D transforms with perspective)
+ * - Steve character (improved pixel-art with walk animation)
+ * - Side inventory panel (scrollable, all 136 textures)
+ * - Bottom hotbar (9 slots like Minecraft)
+ * - Click block in inventory → adds to hotbar
+ * - Click crafting table → opens crafting grid modal
+ * - Type recipe name → Steve walks to table → grid opens
  *
- * Animation phases:
- * 1. IDLE — character stands, slightly bobbing
- * 2. THINKING — character shakes head, '?' appears above
- * 3. REACHING — character's arm goes to pocket (pocket glow effect)
- * 4. REVEALING — grid pops up with items appearing one by one
+ * Phases:
+ * 1. IDLE — Steve stands idle, slight bobbing
+ * 2. WALKING — Steve walks to crafting table
+ * 3. THINKING — Steve at table, '?' appears
+ * 4. CRAFTING — grid opens, items appear one by one
  * 5. DONE — wiki link card appears
- *
- * Sounds: 8-bit Web Audio API (no external files needed):
- * - click sound when character clicks
- * - pop sound when item appears
- * - chime sound when reveal completes
- *
- * Performance:
- * - Pure vanilla JS (no libraries)
- * - CSS animations only (no requestAnimationFrame)
- * - Sounds generated on-demand (not pre-loaded)
- * - Mobile-friendly (touch + click)
  */
 import '@components/pixel-sprites.astro';
-import InventorySlot from '@components/InventorySlot.astro';
 import recipesJson from '@/data/crafting-recipes.json';
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+const PUBLIC_DIR = join(process.cwd(), 'public');
+const itemsDir = join(PUBLIC_DIR, 'textures', 'items');
+const blocksDir = join(PUBLIC_DIR, 'textures', 'blocks');
+
+let itemTextures: string[] = [];
+let blockTextures: string[] = [];
+try {
+  itemTextures = readdirSync(itemsDir)
+    .filter(f => f.endsWith('.png'))
+    .map(f => f.replace('.png', ''));
+} catch (e) { /* ignore */ }
+try {
+  blockTextures = readdirSync(blocksDir)
+    .filter(f => f.endsWith('.png'))
+    .map(f => f.replace('.png', ''));
+} catch (e) { /* ignore */ }
+
+const allTextures = [
+  ...itemTextures.map(name => ({ name, type: 'item' as const })),
+  ...blockTextures.map(name => ({ name, type: 'block' as const })),
+];
 
 const recipes = recipesJson.recipes;
 const recipesData = JSON.stringify(recipes.map(r => ({
@@ -35,190 +54,557 @@ const recipesData = JSON.stringify(recipes.map(r => ({
   wikiSlug: r.wikiSlug, shapeless: r.shapeless, description: r.description,
 })));
 
+const texturesData = JSON.stringify(allTextures);
+
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 ---
 
-<div class="crafting-helper" id="craftingHelper" data-recipes={recipesData}>
-  <!-- Character (Steve-like pixel-art) -->
-  <div class="character-stage" id="characterStage">
-    <div class="thought-bubble" id="thoughtBubble" hidden>
-      <span class="thought-text" id="thoughtText">؟</span>
+<div class="crafting-scene" id="craftingScene" data-recipes={recipesData} data-textures={texturesData}>
+  <!-- Ground (grass block texture repeated) -->
+  <div class="ground" aria-hidden="true"></div>
+  
+  <!-- Sky gradient overlay -->
+  <div class="sky-overlay" aria-hidden="true"></div>
+  
+  <!-- Floating clouds (decorative) -->
+  <div class="clouds" aria-hidden="true">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+  </div>
+  
+  <!-- Side inventory panel (right side, scrollable) -->
+  <aside class="inventory-panel" id="inventoryPanel">
+    <div class="inventory-header">
+      <span class="inventory-title">🎨 بلاک‌ها</span>
+      <button class="inventory-close" id="inventoryClose" aria-label="بستن">✕</button>
+    </div>
+    <div class="inventory-grid" id="inventoryGrid">
+      {allTextures.map((tex) => (
+        <button
+          class="inventory-slot"
+          data-name={tex.name}
+          data-type={tex.type}
+          title={tex.name}
+          aria-label={tex.name}
+        >
+          <img
+            src={`${BASE}textures/${tex.type === 'block' ? 'blocks' : 'items'}/${tex.name}.png`}
+            alt={tex.name}
+            width="32"
+            height="32"
+            loading="lazy"
+            decoding="async"
+            class="pixel-img"
+          />
+        </button>
+      ))}
+    </div>
+  </aside>
+  
+  <!-- Inventory toggle button (visible on mobile) -->
+  <button class="inventory-toggle" id="inventoryToggle" aria-label="نمایش بلاک‌ها">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7"/>
+      <rect x="14" y="3" width="7" height="7"/>
+      <rect x="14" y="14" width="7" height="7"/>
+      <rect x="3" y="14" width="7" height="7"/>
+    </svg>
+  </button>
+  
+  <!-- Main scene: Steve + Crafting Table -->
+  <div class="scene-stage">
+    <!-- Crafting Table (3D perspective) -->
+    <div class="crafting-table-3d" id="craftingTable3d" role="button" tabindex="0" aria-label="میز کار — برای باز کردن گرید کلیک کنید">
+      <div class="crafting-table-top">
+        <img src={`${BASE}textures/blocks/crafting-table-top.png`} alt="" width="120" height="120" class="pixel-img" />
+      </div>
+      <div class="crafting-table-front">
+        <img src={`${BASE}textures/blocks/crafting-table-side.png`} alt="" width="120" height="80" class="pixel-img" />
+      </div>
+      <div class="crafting-table-shadow"></div>
+      <div class="crafting-table-glow" id="tableGlow"></div>
     </div>
     
-    <div class="character" id="character">
-      <!-- Steve face (pixel-art SVG) -->
-      <svg class="character-head" width="80" height="80" viewBox="0 0 8 8" shape-rendering="crispEdges" style="image-rendering: pixelated;">
-        <!-- Hair (top) -->
-        <rect x="0" y="0" width="8" height="2" fill="#3a2410"/>
-        <rect x="0" y="2" width="2" height="1" fill="#3a2410"/>
-        <rect x="6" y="2" width="2" height="1" fill="#3a2410"/>
-        <!-- Hair sides (lower) -->
-        <rect x="0" y="3" width="1" height="2" fill="#3a2410"/>
-        <rect x="7" y="3" width="1" height="2" fill="#3a2410"/>
-        <!-- Skin (face) -->
-        <rect x="1" y="2" width="6" height="4" fill="#c89568"/>
-        <rect x="2" y="2" width="4" height="1" fill="#c89568"/>
-        <!-- Eyes (white) -->
-        <rect x="1" y="3" width="1" height="1" fill="#ffffff"/>
-        <rect x="2" y="3" width="1" height="1" fill="#5a7ab8"/>
-        <rect x="5" y="3" width="1" height="1" fill="#ffffff"/>
-        <rect x="6" y="3" width="1" height="1" fill="#5a7ab8"/>
-        <!-- Nose + mouth -->
-        <rect x="3" y="4" width="2" height="1" fill="#a87648"/>
-        <rect x="3" y="5" width="2" height="1" fill="#7a5028"/>
-        <!-- Beard shadow (bottom of face) -->
-        <rect x="1" y="5" width="2" height="1" fill="#a87648"/>
-        <rect x="5" y="5" width="2" height="1" fill="#a87648"/>
-        <rect x="0" y="5" width="1" height="1" fill="#3a2410"/>
-        <rect x="7" y="5" width="1" height="1" fill="#3a2410"/>
-      </svg>
+    <!-- Steve character (improved pixel-art) -->
+    <div class="steve" id="steve">
+      <!-- Thought bubble -->
+      <div class="thought-bubble" id="thoughtBubble" hidden>
+        <span id="thoughtText">؟</span>
+      </div>
+      
+      <!-- Head -->
+      <div class="steve-head">
+        <svg width="64" height="64" viewBox="0 0 8 8" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+          <!-- Hair -->
+          <rect x="0" y="0" width="8" height="2" fill="#3a2410"/>
+          <rect x="0" y="2" width="2" height="1" fill="#3a2410"/>
+          <rect x="6" y="2" width="2" height="1" fill="#3a2410"/>
+          <rect x="0" y="3" width="1" height="2" fill="#3a2410"/>
+          <rect x="7" y="3" width="1" height="2" fill="#3a2410"/>
+          <!-- Skin -->
+          <rect x="1" y="2" width="6" height="4" fill="#c89568"/>
+          <rect x="2" y="2" width="4" height="1" fill="#c89568"/>
+          <!-- Eyes (white) -->
+          <rect x="1" y="3" width="1" height="1" fill="#ffffff"/>
+          <rect x="2" y="3" width="1" height="1" fill="#5a7ab8"/>
+          <rect x="5" y="3" width="1" height="1" fill="#ffffff"/>
+          <rect x="6" y="3" width="1" height="1" fill="#5a7ab8"/>
+          <!-- Nose -->
+          <rect x="3" y="4" width="2" height="1" fill="#a87648"/>
+          <!-- Mouth -->
+          <rect x="3" y="5" width="2" height="1" fill="#7a5028"/>
+          <!-- Beard shadow -->
+          <rect x="1" y="5" width="2" height="1" fill="#a87648"/>
+          <rect x="5" y="5" width="2" height="1" fill="#a87648"/>
+          <rect x="0" y="5" width="1" height="1" fill="#3a2410"/>
+          <rect x="7" y="5" width="1" height="1" fill="#3a2410"/>
+        </svg>
+      </div>
       
       <!-- Body (blue shirt) -->
-      <div class="character-body"></div>
+      <div class="steve-body"></div>
       
-      <!-- Arms (skin) -->
-      <div class="character-arm left"></div>
-      <div class="character-arm right" id="rightArm">
-        <!-- Hand -->
-        <div class="character-hand"></div>
+      <!-- Arms (skin tone) -->
+      <div class="steve-arm left"></div>
+      <div class="steve-arm right" id="steveRightArm">
+        <div class="steve-hand"></div>
       </div>
       
       <!-- Legs (blue pants) -->
-      <div class="character-leg left"></div>
-      <div class="character-leg right"></div>
+      <div class="steve-leg left"></div>
+      <div class="steve-leg right"></div>
     </div>
     
-    <!-- Pocket (on character's side) -->
-    <div class="pocket" id="pocket">
-      <div class="pocket-glow" id="pocketGlow"></div>
+    <!-- Search input (compact, bottom of scene) -->
+    <div class="scene-search">
+      <div class="scene-search-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          id="craftingSearch"
+          placeholder="چی می‌خوای بسازی؟ (شمشیر الماس، کلنگ، میز کار...)"
+          autocomplete="off"
+        />
+      </div>
+      <div class="scene-chips">
+        <button class="scene-chip" data-recipe-id="diamond-sword">⚔️ شمشیر الماس</button>
+        <button class="scene-chip" data-recipe-id="iron-pickaxe">⛏️ کلنگ آهنی</button>
+        <button class="scene-chip" data-recipe-id="crafting-table">🪵 میز کار</button>
+        <button class="scene-chip" data-recipe-id="torch">🔥 مشعل</button>
+      </div>
     </div>
   </div>
   
-  <!-- Search input -->
-  <div class="crafting-search">
-    <div class="crafting-input-wrap">
-      <svg class="crafting-input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"/>
-        <path d="M21 21l-4.35-4.35"/>
-      </svg>
-      <input
-        type="text"
-        id="craftingSearch"
-        class="crafting-input"
-        placeholder="بنویس چی می‌خوای بسازی... (مثلاً: شمشیر الماس، کلنگ، میز کار)"
-        autocomplete="off"
-      />
-    </div>
-    
-    <!-- Quick suggestions (chips) -->
-    <div class="crafting-suggestions" id="suggestions">
-      <button class="crafting-chip" data-recipe-id="diamond-sword">⚔️ شمشیر الماس</button>
-      <button class="crafting-chip" data-recipe-id="iron-pickaxe">⛏️ کلنگ آهنی</button>
-      <button class="crafting-chip" data-recipe-id="crafting-table">🪵 میز کار</button>
-      <button class="crafting-chip" data-recipe-id="torch">🔥 مشعل</button>
-      <button class="crafting-chip" data-recipe-id="chest">📦 صندوق</button>
-      <button class="crafting-chip" data-recipe-id="bow">🏹 کمان</button>
-    </div>
+  <!-- Hotbar (bottom, like Minecraft) -->
+  <div class="hotbar" id="hotbar">
+    {Array.from({ length: 9 }).map((_, i) => (
+      <div class="hotbar-slot" data-slot={i}>
+        <span class="hotbar-slot-num">{i + 1}</span>
+      </div>
+    ))}
   </div>
   
-  <!-- Results area (hidden until character "reveals" it) -->
-  <div class="crafting-result" id="craftingResult" hidden>
-    <div class="crafting-result-grid">
-      <!-- CraftingGrid will be rendered here by JS -->
-    </div>
-    
-    <div class="crafting-result-info">
-      <h3 class="crafting-result-title" id="resultTitle"></h3>
-      <p class="crafting-result-desc" id="resultDesc"></p>
-      <a href="#" class="mc-btn pixel small" id="wikiLink" target="_blank">
-        <svg width="14" height="14"><use href="#icon-wiki" /></svg>
-        صفحه‌ی ویکی
-      </a>
+  <!-- Crafting grid modal (hidden by default) -->
+  <div class="crafting-modal" id="craftingModal" hidden>
+    <div class="crafting-modal-backdrop" id="modalBackdrop"></div>
+    <div class="crafting-modal-content">
+      <div class="crafting-modal-header">
+        <h3 class="crafting-modal-title" id="modalTitle">کرافت</h3>
+        <button class="crafting-modal-close" id="modalClose" aria-label="بستن">✕</button>
+      </div>
+      <div class="crafting-modal-grid" id="craftingResult"></div>
+      <div class="crafting-modal-info" id="craftingInfo"></div>
     </div>
   </div>
 </div>
 
 <style>
-  .crafting-helper {
+  .crafting-scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #87ceeb 0%, #b0d8f0 40%, #c8e8b0 70%, #7ab558 100%);
+  }
+  
+  /* ─── Ground (grass block texture repeated) ─── */
+  .ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    background:
+      /* dirt layer at bottom */
+      linear-gradient(180deg, transparent 0%, transparent 25%, rgba(122, 85, 58, 0.9) 25%, rgba(92, 63, 30, 1) 100%),
+      /* grass top */
+      repeating-conic-gradient(from 0deg, rgba(0, 0, 0, 0.06) 0deg 90deg, rgba(255, 255, 255, 0.02) 90deg 180deg) 0 0 / 16px 16px,
+      linear-gradient(180deg, #5fa838 0%, #3d7521 100%);
+    background-size: 100% 100%, 16px 16px, 100% 100%;
+    image-rendering: pixelated;
+  }
+  
+  .sky-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 65%;
+    background: linear-gradient(180deg, rgba(135, 206, 235, 0.4) 0%, rgba(176, 216, 240, 0.2) 100%);
+    pointer-events: none;
+  }
+  
+  /* ─── Clouds (decorative) ─── */
+  .clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    pointer-events: none;
+  }
+  
+  .cloud {
+    position: absolute;
+    width: 80px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    box-shadow:
+      20px 0 0 rgba(255, 255, 255, 0.85),
+      -20px 0 0 rgba(255, 255, 255, 0.85),
+      0 -16px 0 -8px rgba(255, 255, 255, 0.85);
+    animation: cloudDrift 60s linear infinite;
+    image-rendering: pixelated;
+  }
+  
+  .cloud-1 { top: 15%; left: -10%; animation-duration: 80s; }
+  .cloud-2 { top: 25%; left: -10%; animation-duration: 60s; animation-delay: -30s; }
+  .cloud-3 { top: 10%; left: -10%; animation-duration: 100s; animation-delay: -50s; }
+  
+  @keyframes cloudDrift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(120vw); }
+  }
+  
+  /* ─── Side inventory panel ─── */
+  .inventory-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 280px;
+    background: linear-gradient(135deg, rgba(28, 28, 52, 0.95) 0%, rgba(20, 20, 42, 0.98) 100%);
+    border-left: 3px solid #2d5018;
+    border-right: 3px solid #4a8a2c;
+    border-bottom: 3px solid #4a8a2c;
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    transform: translateX(0);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .inventory-panel.closed {
+    transform: translateX(100%);
+  }
+  
+  .inventory-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, rgba(123, 197, 92, 0.15) 0%, rgba(123, 197, 92, 0.05) 100%);
+    border-bottom: 2px solid var(--line, #2e2e4a);
+  }
+  
+  .inventory-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    color: var(--grass-2, #7cc84a);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  }
+  
+  .inventory-close {
+    background: rgba(255, 59, 59, 0.15);
+    border: 2px solid #8a1a1a;
+    color: #ff8b8b;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border-radius: 0;
+    image-rendering: pixelated;
+  }
+  
+  .inventory-close:hover {
+    background: rgba(255, 59, 59, 0.3);
+  }
+  
+  .inventory-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    direction: ltr;
+  }
+  
+  .inventory-slot {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s;
+    border-radius: 0;
+  }
+  
+  .inventory-slot:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #a0a0a0 0%, #828282 50%, #6a6a6a 100%);
+  }
+  
+  .inventory-slot img {
+    width: 70%;
+    height: 70%;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+  
+  /* ─── Inventory toggle (mobile) ─── */
+  .inventory-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #6b6b6b 0%, #5a5a5a 100%);
+    border: 2px solid #1a1a1a;
+    border-right-color: #4a4a4a;
+    border-bottom-color: #4a4a4a;
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 0;
+    z-index: 60;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  
+  @media (max-width: 900px) {
+    .inventory-toggle { display: flex; }
+    .inventory-panel { width: 240px; transform: translateX(100%); }
+    .inventory-panel.open { transform: translateX(0); }
+  }
+  
+  /* ─── Scene stage (Steve + Crafting table) ─── */
+  .scene-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    padding: 2rem 1rem;
+    justify-content: flex-end;
+    padding-bottom: 100px;
+    z-index: 10;
   }
   
-  /* ─── Character stage ─── */
-  .character-stage {
+  /* ─── Crafting table (3D perspective) ─── */
+  .crafting-table-3d {
     position: relative;
-    width: 200px;
-    height: 240px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    width: 120px;
+    height: 100px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    perspective: 400px;
+    margin-bottom: 30px;
+    transition: transform 0.2s;
   }
   
-  .character {
+  .crafting-table-3d:hover {
+    transform: scale(1.05);
+  }
+  
+  .crafting-table-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 30px;
+    background: #5c3f1e;
+    border: 3px solid #1a1a1a;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+    image-rendering: pixelated;
+    transform: rotateX(60deg);
+    transform-origin: bottom;
+    z-index: 2;
+  }
+  
+  .crafting-table-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+  
+  .crafting-table-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 120px;
+    height: 70px;
+    background: #9c7b4e;
+    border: 3px solid #1a1a1a;
+    border-top: none;
+    overflow: hidden;
+    image-rendering: pixelated;
+    z-index: 1;
+  }
+  
+  .crafting-table-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+  
+  .crafting-table-shadow {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 14px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
+    filter: blur(4px);
+    z-index: 0;
+  }
+  
+  .crafting-table-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(255, 200, 60, 0.6) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 5;
+  }
+  
+  .crafting-table-3d.active .crafting-table-glow {
+    opacity: 1;
+    animation: tableGlow 0.6s ease-out;
+  }
+  
+  @keyframes tableGlow {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  
+  /* ─── Steve character ─── */
+  .steve {
     position: relative;
     width: 80px;
-    height: 120px;
+    height: 140px;
+    margin-bottom: -10px;
     image-rendering: pixelated;
-    animation: characterBob 2s ease-in-out infinite;
+    z-index: 5;
+    animation: steveBob 2s ease-in-out infinite;
   }
   
-  @keyframes characterBob {
+  @keyframes steveBob {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+    50% { transform: translateY(-3px); }
   }
   
-  .character.thinking {
-    animation: characterShake 0.3s ease-in-out infinite;
+  .steve.walking {
+    animation: steveWalk 0.5s ease-in-out infinite;
   }
   
-  @keyframes characterShake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    75% { transform: translateX(3px); }
+  @keyframes steveWalk {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-5px) rotate(2deg); }
   }
   
-  .character-head {
-    display: block;
-    margin: 0 auto;
+  .steve.thinking {
+    animation: steveThink 0.3s ease-in-out infinite;
+  }
+  
+  @keyframes steveThink {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    25% { transform: translateX(-2px) rotate(-1deg); }
+    75% { transform: translateX(2px) rotate(1deg); }
+  }
+  
+  .steve.crafting {
+    animation: steveBob 1s ease-in-out infinite;
+  }
+  
+  .steve-head {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     border: 3px solid #1a1a1a;
-    border-bottom: none;
-    box-shadow: 0 -2px 0 #2a2a2a inset;
+    box-shadow: 0 -2px 0 #2a2a2a inset, 0 4px 0 rgba(0, 0, 0, 0.4);
   }
   
-  .character-body {
+  .steve-body {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 48px;
     height: 32px;
-    margin: 0 auto;
     background: linear-gradient(180deg, #5a7ab8 0%, #4a6aa8 100%);
     border: 3px solid #1a1a1a;
     border-top: none;
     border-bottom: none;
   }
   
-  .character-arm {
+  .steve-arm {
     position: absolute;
+    top: 70px;
     width: 12px;
     height: 32px;
     background: linear-gradient(180deg, #c89568 0%, #a87648 100%);
     border: 3px solid #1a1a1a;
-    top: 80px;
   }
-  .character-arm.left { left: 12px; }
-  .character-arm.right { 
-    right: 12px; 
-    transition: transform 0.5s ease-in-out;
+  
+  .steve-arm.left { left: 4px; }
+  .steve-arm.right {
+    right: 4px;
     transform-origin: top center;
+    transition: transform 0.4s ease-in-out;
   }
   
-  .character.reaching .character-arm.right {
-    transform: rotate(45deg) translateX(8px);
+  .steve.reaching .steve-arm.right {
+    transform: rotate(35deg) translateX(8px);
   }
   
-  .character-hand {
+  .steve-hand {
     position: absolute;
     bottom: -8px;
     left: 50%;
@@ -230,34 +616,35 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     border-top: none;
   }
   
-  .character-leg {
+  .steve-leg {
     position: absolute;
+    top: 102px;
     width: 18px;
     height: 24px;
     background: linear-gradient(180deg, #4a3a8a 0%, #3a2a7a 100%);
     border: 3px solid #1a1a1a;
-    top: 110px;
   }
-  .character-leg.left { left: 22px; }
-  .character-leg.right { right: 22px; }
+  
+  .steve-leg.left { left: 22px; }
+  .steve-leg.right { right: 22px; }
   
   /* ─── Thought bubble ─── */
   .thought-bubble {
     position: absolute;
-    top: -10px;
+    top: -50px;
     left: 50%;
     transform: translateX(-50%);
     background: #ffffff;
     color: #1a1a1a;
     border: 3px solid #1a1a1a;
-    padding: 8px 16px;
+    padding: 6px 14px;
     font-family: 'Press Start 2P', monospace;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     border-radius: 50%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     animation: bubbleFloat 0.6s ease-in-out infinite alternate;
-    z-index: 10;
+    z-index: 20;
   }
   
   .thought-bubble::after {
@@ -292,160 +679,247 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     100% { transform: translateX(-50%) translateY(-4px); }
   }
   
-  /* ─── Pocket ─── */
-  .pocket {
+  /* ─── Scene search ─── */
+  .scene-search {
     position: absolute;
-    right: 20px;
-    bottom: 60px;
-    width: 24px;
-    height: 24px;
-    background: linear-gradient(135deg, #4a3a8a 0%, #3a2a7a 100%);
-    border: 3px solid #1a1a1a;
-    border-radius: 0 0 6px 6px;
-  }
-  
-  .pocket-glow {
-    position: absolute;
-    inset: -4px;
-    background: radial-gradient(circle, rgba(255, 200, 60, 0) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    transition: background 0.3s;
-  }
-  
-  .character.reaching + .pocket .pocket-glow,
-  .pocket.active .pocket-glow {
-    background: radial-gradient(circle, rgba(255, 200, 60, 0.8) 0%, transparent 70%);
-    animation: pocketGlow 0.6s ease-out;
-  }
-  
-  @keyframes pocketGlow {
-    0% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 1; transform: scale(1.5); }
-    100% { opacity: 0; transform: scale(2); }
-  }
-  
-  /* ─── Search input ─── */
-  .crafting-search {
-    width: 100%;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
     max-width: 540px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
   
-  .crafting-input-wrap {
+  .scene-search-wrap {
     position: relative;
-    margin-bottom: 1rem;
+    width: 100%;
   }
   
-  .crafting-input-icon {
+  .scene-search-wrap svg {
     position: absolute;
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-3, #5c5c7a);
+    color: #1a1a1a;
   }
   
-  .crafting-input {
+  .scene-search-wrap input {
     width: 100%;
-    background: var(--bg-2, #14142a);
-    border: 3px solid var(--line, #2e2e4a);
+    background: rgba(255, 255, 255, 0.95);
+    border: 3px solid #1a1a1a;
     border-right-color: #4a4a4a;
     border-bottom-color: #4a4a4a;
-    padding: 0.875rem 1rem 0.875rem 3rem;
-    color: var(--text, #e0e0f0);
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    color: #1a1a1a;
     font-size: 0.95rem;
     font-family: inherit;
     outline: none;
     border-radius: 0;
-    transition: border-color 0.15s;
-    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 2px 2px 0 rgba(0, 0, 0, 0.1);
   }
   
-  .crafting-input:focus {
-    border-color: var(--grass-2, #7cc84a);
+  .scene-search-wrap input:focus {
+    border-color: #5fa838;
+    background: #fff;
   }
   
-  .crafting-input::placeholder {
-    color: var(--text-3, #5c5c7a);
+  .scene-search-wrap input::placeholder {
+    color: #5c5c7a;
   }
   
-  .crafting-suggestions {
+  .scene-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
     justify-content: center;
   }
   
-  .crafting-chip {
-    padding: 0.4rem 0.875rem;
-    background: linear-gradient(135deg, #5a5a5a 0%, #4a4a4a 100%);
+  .scene-chip {
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 255, 255, 0.85);
     border: 2px solid #1a1a1a;
     border-right-color: #4a4a4a;
     border-bottom-color: #4a4a4a;
-    color: #e0e0f0;
-    font-size: 0.8125rem;
+    color: #1a1a1a;
+    font-size: 0.75rem;
     font-family: inherit;
     cursor: pointer;
     border-radius: 0;
     transition: transform 0.1s;
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
   }
   
-  .crafting-chip:hover {
-    background: linear-gradient(135deg, var(--grass-3) 0%, var(--grass) 100%);
+  .scene-chip:hover {
     transform: translateY(-1px);
+    background: rgba(255, 200, 60, 0.85);
   }
   
-  .crafting-chip:active {
-    transform: translateY(1px);
+  /* ─── Hotbar (bottom, like Minecraft) ─── */
+  .hotbar {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 6px;
+    border: 3px solid #1a1a1a;
+    border-right-color: #4a4a4a;
+    border-bottom-color: #4a4a4a;
+    border-radius: 0;
+    z-index: 30;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   }
   
-  /* ─── Results ─── */
-  .crafting-result {
-    width: 100%;
-    max-width: 640px;
-    background: var(--panel, #1c1c34);
-    border: 3px solid #2d5018;
+  .hotbar-slot {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    image-rendering: pixelated;
+  }
+  
+  .hotbar-slot img {
+    width: 70%;
+    height: 70%;
+    image-rendering: pixelated;
+  }
+  
+  .hotbar-slot-num {
+    position: absolute;
+    top: 1px;
+    right: 2px;
+    font-size: 0.625rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Courier New', monospace;
+    text-shadow: 1px 1px 0 #000;
+  }
+  
+  /* ─── Crafting modal ─── */
+  .crafting-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .crafting-modal[hidden] { display: none; }
+  
+  .crafting-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+  }
+  
+  .crafting-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    background: linear-gradient(135deg, rgba(28, 28, 52, 0.98) 0%, rgba(20, 20, 42, 0.98) 100%);
+    border: 4px solid #2d5018;
     border-right-color: #4a8a2c;
     border-bottom-color: #4a8a2c;
     padding: 1.5rem;
-    box-shadow:
-      inset 2px 2px 0 rgba(255, 255, 255, 0.06),
-      0 4px 16px rgba(0, 0, 0, 0.4);
-    animation: resultReveal 0.4s ease-out;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), inset 2px 2px 0 rgba(255, 255, 255, 0.06);
+    border-radius: 0;
+    animation: modalReveal 0.3s ease-out;
   }
   
-  @keyframes resultReveal {
-    0% { opacity: 0; transform: scale(0.9); }
+  @keyframes modalReveal {
+    0% { opacity: 0; transform: scale(0.8); }
     100% { opacity: 1; transform: scale(1); }
   }
   
-  .crafting-result-grid {
+  .crafting-modal-header {
     display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--line, #2e2e4a);
   }
   
-  .crafting-result-info {
-    text-align: center;
-  }
-  
-  .crafting-result-title {
+  .crafting-modal-title {
     font-family: 'Press Start 2P', monospace;
     font-size: 0.875rem;
     color: var(--grass-2, #7cc84a);
     text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
-    margin-bottom: 0.75rem;
   }
   
-  .crafting-result-desc {
-    color: var(--text-2, #9a9ab8);
-    font-size: 0.875rem;
-    line-height: 1.7;
+  .crafting-modal-close {
+    background: rgba(255, 59, 59, 0.15);
+    border: 2px solid #8a1a1a;
+    color: #ff8b8b;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 0;
+  }
+  
+  .crafting-modal-close:hover {
+    background: rgba(255, 59, 59, 0.3);
+  }
+  
+  .crafting-modal-grid {
+    display: flex;
+    justify-content: center;
     margin-bottom: 1rem;
   }
   
+  .crafting-modal-info {
+    text-align: center;
+    color: var(--text-2, #9a9ab8);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    .crafting-scene {
+      min-height: 500px;
+    }
+    .scene-search {
+      bottom: 90px;
+      width: 95%;
+    }
+    .hotbar-slot {
+      width: 32px;
+      height: 32px;
+    }
+    .hotbar-slot-num {
+      font-size: 0.5rem;
+    }
+    .crafting-table-3d {
+      width: 90px;
+      height: 80px;
+    }
+    .crafting-table-top { width: 90px; }
+    .crafting-table-front { width: 90px; height: 50px; }
+    .steve {
+      transform: scale(0.85);
+    }
+  }
+  
   @media (prefers-reduced-motion: reduce) {
-    .character, .thought-bubble, .crafting-result {
+    .steve, .cloud, .thought-bubble {
       animation: none;
     }
   }
@@ -455,19 +929,16 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   (function () {
     let audioCtx = null;
     
-    // ── 8-bit sound effects via Web Audio API ──────────────────
     function getAudioCtx() {
       if (!audioCtx) {
         try {
           audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        } catch (e) {
-          return null;
-        }
+        } catch (e) { return null; }
       }
       return audioCtx;
     }
     
-    function playTone(freq, duration, type = 'square', volume = 0.1) {
+    function playTone(freq, duration, type = 'square', volume = 0.08) {
       const ctx = getAudioCtx();
       if (!ctx) return;
       try {
@@ -484,26 +955,26 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       } catch (e) { /* ignore */ }
     }
     
-    function soundClick() {
-      playTone(800, 0.05, 'square', 0.05);
-    }
+    function soundClick() { playTone(800, 0.04, 'square', 0.04); }
     function soundPop() {
-      playTone(600, 0.08, 'sine', 0.08);
-      setTimeout(() => playTone(900, 0.05, 'sine', 0.08), 50);
+      playTone(600, 0.06, 'sine', 0.06);
+      setTimeout(() => playTone(900, 0.04, 'sine', 0.06), 50);
     }
     function soundChime() {
-      playTone(523, 0.15, 'sine', 0.1);  // C5
-      setTimeout(() => playTone(659, 0.15, 'sine', 0.1), 100);  // E5
-      setTimeout(() => playTone(784, 0.3, 'sine', 0.1), 200);  // G5
+      playTone(523, 0.12, 'sine', 0.08);
+      setTimeout(() => playTone(659, 0.12, 'sine', 0.08), 100);
+      setTimeout(() => playTone(784, 0.25, 'sine', 0.08), 200);
     }
-    function soundError() {
-      playTone(200, 0.3, 'sawtooth', 0.1);
-    }
+    function soundError() { playTone(200, 0.2, 'sawtooth', 0.08); }
     function soundThink() {
-      // Three short blips
-      playTone(400, 0.1, 'square', 0.05);
-      setTimeout(() => playTone(450, 0.1, 'square', 0.05), 150);
-      setTimeout(() => playTone(400, 0.1, 'square', 0.05), 300);
+      playTone(400, 0.08, 'square', 0.04);
+      setTimeout(() => playTone(450, 0.08, 'square', 0.04), 130);
+      setTimeout(() => playTone(400, 0.08, 'square', 0.04), 260);
+    }
+    function soundStep() { playTone(150, 0.04, 'square', 0.02); }
+    function soundTableOpen() {
+      playTone(440, 0.08, 'sine', 0.06);
+      setTimeout(() => playTone(660, 0.08, 'sine', 0.06), 80);
     }
     
     // ── State ──────────────────────────────────────────────
@@ -515,100 +986,92 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       return;
     }
     
-    let currentPhase = 'idle';  // idle | thinking | reaching | revealing | done
+    let currentPhase = 'idle';
+    let hotbarItems = new Array(9).fill(null);
     
     // ── DOM refs ─────────────────────────────────────────────
-    const helper = document.getElementById('craftingHelper');
-    const stage = document.getElementById('characterStage');
-    const character = document.getElementById('character');
+    const scene = document.getElementById('craftingScene');
+    const steve = document.getElementById('steve');
     const thoughtBubble = document.getElementById('thoughtBubble');
     const thoughtText = document.getElementById('thoughtText');
-    const pocket = document.getElementById('pocket');
+    const table3d = document.getElementById('craftingTable3d');
+    const tableGlow = document.getElementById('tableGlow');
     const searchInput = document.getElementById('craftingSearch');
-    const suggestions = document.getElementById('suggestions');
-    const result = document.getElementById('craftingResult');
-    const resultGrid = result.querySelector('.crafting-result-grid');
-    const resultTitle = document.getElementById('resultTitle');
-    const resultDesc = document.getElementById('resultDesc');
-    const wikiLink = document.getElementById('wikiLink');
+    const chips = document.querySelectorAll('.scene-chip');
+    const hotbar = document.getElementById('hotbar');
+    const modal = document.getElementById('craftingModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalClose = document.getElementById('modalClose');
+    const modalTitle = document.getElementById('modalTitle');
+    const craftingResult = document.getElementById('craftingResult');
+    const craftingInfo = document.getElementById('craftingInfo');
+    const inventoryGrid = document.getElementById('inventoryGrid');
+    const inventoryPanel = document.getElementById('inventoryPanel');
+    const inventoryToggle = document.getElementById('inventoryToggle');
+    const inventoryClose = document.getElementById('inventoryClose');
     
-    if (!helper || !character || !searchInput || !result) return;
+    if (!scene || !steve || !searchInput || !modal) return;
     
-    // ── Recipe search (fuzzy) ────────────────────────────────
+    // ── Recipe search ──────────────────────────────────────
     function findRecipe(query) {
       const q = query.trim().toLowerCase();
       if (!q) return null;
-      
-      // 1. Exact match by id
       let r = recipes.find(r => r.id === q);
       if (r) return r;
-      
-      // 2. Match by Persian name (case-insensitive)
       r = recipes.find(r => r.nameFa.toLowerCase() === q);
       if (r) return r;
-      
-      // 3. Match by English name (case-insensitive)
       r = recipes.find(r => r.nameEn.toLowerCase() === q);
       if (r) return r;
-      
-      // 4. Match by alias (exact)
       r = recipes.find(r => r.aliases.some(a => a.toLowerCase() === q));
       if (r) return r;
-      
-      // 5. Fuzzy: query is substring of name/alias
-      r = recipes.find(r => 
-        r.nameFa.toLowerCase().includes(q) ||
-        r.nameEn.toLowerCase().includes(q) ||
-        r.aliases.some(a => a.toLowerCase().includes(q))
-      );
+      r = recipes.find(r => r.nameFa.toLowerCase().includes(q) || r.nameEn.toLowerCase().includes(q) || r.aliases.some(a => a.toLowerCase().includes(q)));
       if (r) return r;
-      
-      // 6. Fuzzy: name/alias is substring of query
-      r = recipes.find(r => 
-        q.includes(r.nameFa.toLowerCase()) ||
-        q.includes(r.nameEn.toLowerCase()) ||
-        r.aliases.some(a => q.includes(a.toLowerCase()))
-      );
+      r = recipes.find(r => q.includes(r.nameFa.toLowerCase()) || q.includes(r.nameEn.toLowerCase()) || r.aliases.some(a => q.includes(a.toLowerCase())));
       if (r) return r;
-      
       return null;
     }
     
-    // ── Animation phases ────────────────────────────────────
+    // ── Phases ─────────────────────────────────────────────
     function setPhase(phase) {
       currentPhase = phase;
-      character.classList.remove('thinking', 'reaching');
+      steve.classList.remove('walking', 'thinking', 'crafting');
       thoughtBubble.hidden = true;
-      pocket.classList.remove('active');
       
-      if (phase === 'thinking') {
-        character.classList.add('thinking');
+      if (phase === 'walking') {
+        steve.classList.add('walking');
+        // Step sound loop
+        const stepInterval = setInterval(() => {
+          if (currentPhase !== 'walking') {
+            clearInterval(stepInterval);
+            return;
+          }
+          soundStep();
+        }, 300);
+      } else if (phase === 'thinking') {
+        steve.classList.add('thinking');
         thoughtText.textContent = '؟';
         thoughtBubble.hidden = false;
         soundThink();
       } else if (phase === 'reaching') {
-        character.classList.add('reaching');
-        pocket.classList.add('active');
+        steve.classList.add('crafting');
+        steve.classList.add('reaching');
+        table3d.classList.add('active');
         soundPop();
+      } else if (phase === 'done') {
+        steve.classList.add('crafting');
+        table3d.classList.remove('active');
       }
     }
     
-    // ── Render crafting grid ─────────────────────────────────
+    // ── Render crafting grid in modal ──────────────────────
     function renderGrid(recipe) {
-      resultGrid.innerHTML = '';
+      craftingResult.innerHTML = '';
+      craftingInfo.innerHTML = '';
       
-      // Build the 3x3 grid
       const gridContainer = document.createElement('div');
       gridContainer.className = 'mcui-Crafting_Table';
-      gridContainer.style.cssText = `
-        display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem;
-        background: linear-gradient(135deg, #6b6b6b 0%, #5a5a5a 50%, #4a4a4a 100%);
-        border: 3px solid #373737; border-radius: 2px;
-        box-shadow: inset 3px 3px 0 rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.3);
-        image-rendering: pixelated;
-      `;
+      gridContainer.style.cssText = 'display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: linear-gradient(135deg, #6b6b6b 0%, #5a5a5a 50%, #4a4a4a 100%); border: 3px solid #373737; border-radius: 2px; box-shadow: inset 3px 3px 0 rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.3); image-rendering: pixelated; direction: ltr;';
       
-      // 3x3 input grid
       const inputGrid = document.createElement('div');
       inputGrid.style.cssText = 'display: flex; flex-direction: column; gap: 2px;';
       
@@ -623,41 +1086,59 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
         inputGrid.appendChild(row);
       }
       
-      // Arrow
       const arrow = document.createElement('div');
       arrow.style.cssText = 'color: #c0c0c0; padding: 0 0.5rem;';
       arrow.innerHTML = '<svg width="32" height="16" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h22M21 3l5 5-5 5"/></svg>';
       
-      // Output slot
       const outputSlot = createSlot(recipe.output.item, recipe, recipe.output.count, true);
       
       gridContainer.appendChild(inputGrid);
       gridContainer.appendChild(arrow);
       gridContainer.appendChild(outputSlot);
       
-      resultGrid.appendChild(gridContainer);
+      craftingResult.appendChild(gridContainer);
+      
+      // Add info card
+      const title = document.createElement('h3');
+      title.style.cssText = 'font-family: \'Press Start 2P\', monospace; font-size: 0.875rem; color: #7cc84a; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); margin-bottom: 0.5rem;';
+      title.textContent = recipe.nameFa;
+      
+      const desc = document.createElement('p');
+      desc.style.cssText = 'color: #9a9ab8; font-size: 0.8125rem; line-height: 1.7; margin-bottom: 1rem;';
+      desc.textContent = recipe.description || '';
+      
+      const wikiLink = document.createElement('a');
+      wikiLink.href = BASE + 'wiki/' + recipe.wikiSlug;
+      wikiLink.className = 'mc-btn pixel small';
+      wikiLink.target = '_blank';
+      wikiLink.innerHTML = '<svg width="14" height="14"><use href="#icon-wiki" /></svg> صفحه‌ی ویکی';
+      
+      craftingInfo.appendChild(title);
+      craftingInfo.appendChild(desc);
+      craftingInfo.appendChild(wikiLink);
+      
+      // Animate slots appearing
+      const slots = gridContainer.querySelectorAll('div[style*="opacity: 0"]');
+      slots.forEach((slot, i) => {
+        setTimeout(() => {
+          slot.style.transition = 'opacity 0.2s, transform 0.2s';
+          slot.style.opacity = '1';
+          soundPop();
+        }, i * 100);
+      });
+      
+      setTimeout(() => soundChime(), slots.length * 100 + 200);
     }
     
     function createSlot(itemName, recipe, count, isOutput) {
       const slot = document.createElement('div');
-      slot.style.cssText = `
-        position: relative; display: inline-flex; align-items: center; justify-content: center;
-        background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
-        border-top: 2px solid #373737; border-left: 2px solid #373737;
-        border-right: 2px solid #ffffff; border-bottom: 2px solid #ffffff;
-        box-shadow: inset 2px 2px 0 rgba(0,0,0,0.4), inset -2px -2px 0 rgba(255,255,255,0.25);
-        ${isOutput ? 'width: 48px; height: 48px;' : 'width: 32px; height: 32px;'}
-        image-rendering: pixelated;
-        opacity: 0;
-      `;
+      slot.style.cssText = 'position: relative; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%); border-top: 2px solid #373737; border-left: 2px solid #373737; border-right: 2px solid #ffffff; border-bottom: 2px solid #ffffff; box-shadow: inset 2px 2px 0 rgba(0,0,0,0.4), inset -2px -2px 0 rgba(255,255,255,0.25); ' + (isOutput ? 'width: 48px; height: 48px;' : 'width: 32px; height: 32px;') + ' image-rendering: pixelated; opacity: 0;';
       
       if (itemName) {
+        const blockNames = ['oak-planks', 'cobblestone', 'crafting-table-top', 'chest', 'furnace-side', 'tnt', 'ladder', 'bookshelf'];
+        const folder = blockNames.includes(itemName) ? 'blocks' : 'items';
         const img = document.createElement('img');
-        const folder = (recipe.output && recipe.output.type === 'block') ? 'blocks' : 'items';
-        // For grid items, we need to determine if they're block or item
-        const blockNames = ['oak-planks', 'cobblestone', 'crafting-table-top', 'chest', 'furnace-side', 'tnt', 'ladder'];
-        const itemFolder = blockNames.includes(itemName) ? 'blocks' : 'items';
-        img.src = BASE + 'textures/' + itemFolder + '/' + itemName + '.png';
+        img.src = BASE + 'textures/' + folder + '/' + itemName + '.png';
         img.alt = itemName;
         img.width = isOutput ? 32 : 22;
         img.height = isOutput ? 32 : 22;
@@ -668,11 +1149,7 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
         if (count && count > 1) {
           const countEl = document.createElement('span');
           countEl.textContent = count;
-          countEl.style.cssText = `
-            position: absolute; bottom: -2px; right: 0;
-            font-family: 'Courier New', monospace; font-weight: 700; font-size: 0.625rem;
-            color: #fff; text-shadow: 2px 2px 0 rgba(0,0,0,0.8);
-          `;
+          countEl.style.cssText = 'position: absolute; bottom: -2px; right: 0; font-family: \'Courier New\', monospace; font-weight: 700; font-size: 0.625rem; color: #fff; text-shadow: 2px 2px 0 rgba(0,0,0,0.8);';
           slot.appendChild(countEl);
         }
       }
@@ -680,62 +1157,45 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       return slot;
     }
     
-    function revealGrid(recipe) {
-      result.hidden = false;
-      renderGrid(recipe);
-      resultTitle.textContent = recipe.nameFa;
-      resultDesc.textContent = recipe.description || '';
-      wikiLink.href = BASE + 'wiki/' + recipe.wikiSlug;
-      
-      // Animate slots appearing one by one
-      const slots = resultGrid.querySelectorAll('div[style*="opacity: 0"]');
-      slots.forEach((slot, i) => {
-        setTimeout(() => {
-          slot.style.transition = 'opacity 0.2s, transform 0.2s';
-          slot.style.opacity = '1';
-          slot.style.transform = 'scale(1)';
-          soundPop();
-        }, i * 150);
-      });
-      
-      // Final chime
-      setTimeout(() => {
-        soundChime();
-      }, slots.length * 150 + 200);
-    }
-    
     // ── Main flow ────────────────────────────────────────────
     function searchAndReveal(query) {
       const recipe = findRecipe(query);
       
       if (!recipe) {
-        // No recipe found — error sound
         soundError();
         thoughtText.textContent = '!';
         thoughtBubble.hidden = false;
-        character.classList.add('thinking');
+        steve.classList.add('thinking');
         setTimeout(() => {
           thoughtBubble.hidden = true;
-          character.classList.remove('thinking');
+          steve.classList.remove('thinking');
         }, 1500);
         return;
       }
       
-      // Phase 1: Thinking (1s)
-      setPhase('thinking');
+      // Phase 1: Walk to crafting table (0.8s)
+      setPhase('walking');
+      soundStep();
       
-      // Phase 2: Reaching (after 1s)
+      // Phase 2: Thinking (after 0.8s)
       setTimeout(() => {
-        setPhase('reaching');
+        setPhase('thinking');
         
-        // Phase 3: Revealing grid (after 0.8s)
+        // Phase 3: Reach into table (after 1s)
         setTimeout(() => {
-          character.classList.remove('reaching');
-          pocket.classList.remove('active');
-          revealGrid(recipe);
-          setPhase('done');
-        }, 800);
-      }, 1000);
+          setPhase('reaching');
+          soundTableOpen();
+          
+          // Phase 4: Open modal + reveal grid (after 0.6s)
+          setTimeout(() => {
+            modal.hidden = false;
+            modalTitle.textContent = recipe.nameFa;
+            renderGrid(recipe);
+            steve.classList.remove('reaching');
+            setPhase('done');
+          }, 600);
+        }, 1000);
+      }, 800);
     }
     
     // ── Event handlers ───────────────────────────────────────
@@ -744,15 +1204,13 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       const q = e.target.value.trim();
       clearTimeout(searchTimer);
       if (!q || q.length < 3) {
-        // Reset to idle if query too short
         if (currentPhase !== 'idle') {
           setPhase('idle');
-          result.hidden = true;
+          modal.hidden = true;
         }
         return;
       }
-      // Debounce 500ms
-      searchTimer = setTimeout(() => searchAndReveal(q), 500);
+      searchTimer = setTimeout(() => searchAndReveal(q), 600);
     });
     
     searchInput.addEventListener('keydown', (e) => {
@@ -765,7 +1223,7 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     });
     
     // Chip suggestions
-    suggestions.querySelectorAll('.crafting-chip').forEach(chip => {
+    chips.forEach(chip => {
       chip.addEventListener('click', () => {
         soundClick();
         const recipeId = chip.dataset.recipeId;
@@ -776,5 +1234,111 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
         }
       });
     });
+    
+    // Crafting table click — opens modal with default prompt
+    if (table3d) {
+      table3d.addEventListener('click', () => {
+        soundTableOpen();
+        table3d.classList.add('active');
+        setTimeout(() => table3d.classList.remove('active'), 600);
+        searchInput.focus();
+      });
+      table3d.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          table3d.click();
+        }
+      });
+    }
+    
+    // Modal close
+    function closeModal() {
+      modal.hidden = true;
+      setPhase('idle');
+      soundClick();
+    }
+    
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.hidden) {
+        closeModal();
+      }
+    });
+    
+    // ── Inventory panel interactions ────────────────────────
+    if (inventoryGrid) {
+      inventoryGrid.querySelectorAll('.inventory-slot').forEach(slot => {
+        slot.addEventListener('click', () => {
+          soundClick();
+          const name = slot.dataset.name;
+          const type = slot.dataset.type;
+          // Add to hotbar (first empty slot)
+          const emptyIdx = hotbarItems.findIndex(item => item === null);
+          if (emptyIdx !== -1) {
+            hotbarItems[emptyIdx] = { name, type };
+            renderHotbar();
+            soundPop();
+          } else {
+            // Hotbar full — replace slot 0
+            hotbarItems[0] = { name, type };
+            renderHotbar();
+            soundPop();
+          }
+        });
+      });
+    }
+    
+    function renderHotbar() {
+      if (!hotbar) return;
+      const slots = hotbar.querySelectorAll('.hotbar-slot');
+      slots.forEach((slot, i) => {
+        // Clear existing content (except slot number)
+        const num = slot.querySelector('.hotbar-slot-num');
+        slot.innerHTML = '';
+        if (num) slot.appendChild(num);
+        
+        const item = hotbarItems[i];
+        if (item) {
+          const img = document.createElement('img');
+          img.src = BASE + 'textures/' + (item.type === 'block' ? 'blocks' : 'items') + '/' + item.name + '.png';
+          img.alt = item.name;
+          img.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
+          img.onerror = function () { this.style.display = 'none'; };
+          slot.appendChild(img);
+        }
+      });
+    }
+    
+    // ── Inventory panel toggle (mobile) ────────────────────
+    if (inventoryToggle && inventoryPanel) {
+      inventoryToggle.addEventListener('click', () => {
+        inventoryPanel.classList.toggle('open');
+        soundClick();
+      });
+    }
+    if (inventoryClose && inventoryPanel) {
+      inventoryClose.addEventListener('click', () => {
+        inventoryPanel.classList.remove('open');
+        soundClick();
+      });
+    }
+    
+    // ── Hotbar slot click — remove item ───────────────────
+    if (hotbar) {
+      hotbar.querySelectorAll('.hotbar-slot').forEach((slot, i) => {
+        slot.addEventListener('click', () => {
+          if (hotbarItems[i]) {
+            hotbarItems[i] = null;
+            renderHotbar();
+            soundClick();
+          }
+        });
+      });
+    }
+    
+    // Initialize
+    renderHotbar();
   })();
 </script>
