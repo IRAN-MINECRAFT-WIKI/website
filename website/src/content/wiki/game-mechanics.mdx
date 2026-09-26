@@ -1,0 +1,130 @@
+---
+title: 'مکانیک‌های بازی (Game Mechanics) — راهنمای کامل'
+description: 'راهنمای مکانیک‌های اصلی ماینکرفت بدراک: redstone، enchanting، brewing، farming، trading، combat و...'
+pubDate: 2024-12-12
+author: 'MineBed Team'
+topic: 'mechanics'
+mcVersion: '1.21'
+---
+
+ماینکرفت بازی‌ای است که نه تنها mining و building دارد، بلکه مکانیک‌های عمیقی مثل redstone، enchanting، brewing و trading را هم شامل می‌شود. در این راهنما، مهم‌ترین مکانیک‌ها را معرفی می‌کنیم.
+
+## Redstone
+
+Redstone معادل برق در ماینکرفت است. با آن می‌توانید مدارهای منطقی، درب‌های خودکار، مزرعه‌های اتوماتیک و ماشین‌های computation بسازید.
+
+### بلوک‌های پایه
+- **Redstone Dust** — سیم connection
+- **Redstone Torch** — منبع قدرت دائمی + NOT gate
+- **Repeater** — تکریر سیگنال + delay
+- **Comparator** — مقایسه سیگنال
+- **Piston / Sticky Piston** — هل دادن بلوک‌ها
+- **Observer** — تشخیص تغییر بلوک
+- **Lever / Button / Pressure Plate** — ورودی‌های دستی
+
+### مفاهیم پایه
+- **Signal strength** — ۰ تا ۱۵
+- **Redstone tick** — ۱۰ tick در ثانیه
+- **Power level** — block powered یا unpowered
+
+### مثال: درب پنهان با piston
+1. ۲ sticky piston پشت یک دیگر قرار دهید
+2. بلوک‌ها را به piston وصل کنید
+3. lever با redstone wire به piston وصل کنید
+4. وقتی lever را روشن کنید، piston بلوک‌ها را هل می‌دهد → درب
+
+## Enchanting
+
+برای افزودن قابلیت‌های ویژه به ابزار، سلاح و زره. به Enchanting Table و Bookshelf نیاز دارید.
+
+### مراحل
+۱. ۱۵ Bookshelf دور Enchanting Table بچینید (با فاصله‌ی یک بلوک)
+۲. آیتم + Lapis Lazuli در میز بگذارید
+۳. یکی از ۳ گزینه‌ی نمایش‌داده‌شده را انتخاب کنید
+
+### نکات
+- تجربه (XP) لازم است
+- هرچه bookshelfهای بیشتری بچینید، سطح افزودنی بالاتر
+- برای کتاب افزودنی، میز enchanting استفاده کنید
+
+## Brewing
+
+ساخت potionها با Brewing Stand. به Water Bottle + Nether Wart + مواد خاص نیاز دارید.
+
+### ساختار پایه
+۱. آب در شیشه → Water Bottle
+۲. Nether Wart → Awkward Potion (پایه)
+۳. افزودن material → potion خاص
+۴. افزودن Redstone → طولانی شدن
+۵. افزودن Glowstone → قوی‌تر شدن
+۶. افزودن Gunpowder → splash potion (پرتاب)
+
+### مثال: Potion of Healing
+- Awkward Potion + Glistering Melon → Potion of Healing (Instant Health I)
+- افزودن Glowstone → Instant Health II
+- افزودن Redstone → مدت بیشتر (اما برا Instant Health اثر ندارد)
+
+## Trading (مبادله)
+
+Villagerها با شما مبادله می‌کنند. هر职业 tradeهای خاصی دارد.
+
+### حرفه‌های اصلی
+- **Farmer** — غذا،作物
+- **Librarian** — کتاب‌های enchanted
+- **Blacksmith** — ابزار و زره
+- **Cleric** — مواد magical
+- **Butcher** — meat
+- **Fletcher** — تیر و کمان
+- **Leatherworker** — چرمی
+- **Mason** — stone
+- **Shepherd** — wool
+- **Cartographer** — نقشه‌ها
+- **Fisherman** — fish + boat items
+- **Armorer** — armor
+
+### نکات
+- با تجربه‌ی Level-Up دادن به Villager، tradeها باز می‌شوند
+- zombie villager را با Golden Apple + Weakness Potion درمان کنید تا تخفیه ندهد
+
+## Combat
+
+مبارزه در ماینکرفت چند مکانیک دارد:
+
+### انواع حمله
+- **Melee** — شمشیر، تبر، Pickaxe
+- **Ranged** — کمان، Crossbow، تیر
+- **Magic** — Splash potion، Trident (Riptide)
+- **Defense** — Shield، Armor
+
+### حمله‌ی شارژشده (نوک ۱.۹+)
+- شمشیر نگه دارید → ضربه‌ی قوی‌تر (Critical Hit)
+- هرCritical Hit ۵۰٪ آسیب بیشتر می‌زند
+
+### Shield
+- با ۶ Wood Plank + ۱ Iron Ingot ساخته می‌شود
+- بکشید تا آسیب‌های projectile + melee را block کنید
+
+## Farming
+
+کشت‌کردن غذا و منابع. به Water + Hoe + Seed نیاز دارید.
+
+### انواع farm
+- **Wheat farm** — Wheat + Bread
+- **Carrot/Potato/Beetroot farm**
+- **Melon/Pumpkin farm**
+- **Sugar cane farm**
+- **Tree farm**
+- **Mob farm** (kill mobها برای drops)
+- **Iron golem farm** (ساخت golem برای iron ingot)
+
+### نکات
+- آب هیدراته می‌کند (۴ بلوک دور)
+- Bone Meal رشد را تسریع می‌کند
+- با村民 trading می‌توانید golden carrot + bread بخرید
+
+## نکات پایانی
+
+- Redstone با Minecraft Java Edition کار می‌کند (در Bedrock برخی تفاوت‌ها)
+- Potionها دائمی نیستند (موقت)
+- اثر negative با Milk Bucket پاک می‌شود
+- Shield در Bedrock هم کار می‌کند

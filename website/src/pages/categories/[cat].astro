@@ -45,7 +45,11 @@ const breadcrumb = [
     </div>
   ) : (
     <div class="mc-panel text-center py-12">
-      <div class="text-5xl mb-4">📦</div>
+      <div class="text-5xl mb-4 text-mc-text-3">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" style="display:inline-block; margin: 0 auto;">
+          <use href="#icon-mod" />
+        </svg>
+      </div>
       <h3 class="text-xl font-bold text-mc-text-2 mb-2">هنوز مودی در این دسته نیست</h3>
       <p class="text-sm text-mc-text-3 mb-4">به زودی افزونه‌های این دسته اضافه خواهد شد</p>
       <a href={base('/mods')} class="mc-btn small">مشاهده همه افزونه‌ها</a>

@@ -1,0 +1,135 @@
+---
+title: 'دنیاها (Dimensions) — ندر، اند و بدراک'
+description: 'راهنمای کامل دنیاهای ماینکرفت بدراک. ندر، اند و دنیای اصلی. هر دنیا با ساختار، mobها، بلوک‌ها و ویژگی‌های خاص خود.'
+pubDate: 2024-12-11
+author: 'MineBed Team'
+topic: 'mechanics'
+mcVersion: '1.21'
+---
+
+ماینکرفت سه دنیای اصلی دارد: **Overworld** (دنیای اصلی)، **Nether** و **End**. هر دنیا ساختار، mobها، بلوک‌ها و ویژگی‌های منحصر به فرد خود را دارد. در این راهنما، هر سه دنیا را معرفی می‌کنیم.
+
+## دنیای اصلی (Overworld)
+
+این دنیا که با آن آغاز می‌کنید، الهام‌گرفته از زمین است. شامل:
+
+### بیوم‌ها
+- جنگل (Forest)
+- بیابان (Desert)
+- تندرا (Snowy Tundra)
+- ساحلی (Beach)
+- کوهستان (Mountains)
+- سوانا (Savanna)
+- و بسیاری دیگر...
+
+### mobها
+- **passive:** گاو، گوسفند، خوک، مرغ، اسب، گرگ (ewolf)
+- **neutral:** عنکبوتی غول‌پیکر، enderman، zombie pigman
+- **hostile:** زامبی، اسکلت، کریپر، عنکبوتی، جادوگر
+
+### بلوک‌های شاخص
+- چمن (Grass Block)
+- خاک (Dirt)
+- سنگ (Stone)
+- چوب (Wood)
+- سنگ آهن، طلا، الماس (Ores)
+- آب (Water)
+
+### نکات
+- ارتفاع پیش‌فرض دنیا ۳۸۴ بلوک (از -۶۴ تا ۳۲۰) است.
+- نقطه‌ی تولد معمولاً در Y=64 است.
+- زمان روز/شب ۲۰ دقیقه است.
+
+## ندر (Nether)
+
+جهنم درون ماینکرفت! دنیایی خطرناک و پر از مواد خاص.
+
+### دسترسی
+- با ساخت **Nether Portal** (Obsidian frame + flint and steel)
+- برای ساخت، ۱۰ تا ۱۴ بلوک Obsidian نیاز دارید.
+
+### بیوم‌ها
+- Nether Wastes
+- Crimson Forest
+- Warped Forest
+- Soul Sand Valley
+- Basalt Deltas
+
+### mobها
+- **Zombified Piglin** (ساکن و خطرناک در گروه)
+- **Ghast** (پرنده‌ی شلیک‌کننده‌ی آتش)
+- **Blaze** (مولد آتش)
+- **Wither Skeleton** (قدرت‌تمند)
+- **Enderman** (در Warped Forest)
+- **Hoglin** (در Crimson Forest)
+- **Piglin** و **Piglin Brute**
+
+### بلوک‌های شاخص
+- Netherrack
+- Soul Sand / Soul Soil
+- Glowstone
+- Quartz Ore
+- Crimson/Warped Nylium + Stem
+- Nether Gold Ore
+- Ancient Debris (منبع Netherite!)
+
+### نکات
+- آب در ندر وجود ندارد (با Bucket هم تبخیر می‌شود).
+- بلاک‌های آب به جای آن می‌توانید از **Potion of Fire Resistance** یا **Ice** استفاده کنید.
+- ارتفاع دنیا ۲۵۶ بلوک است.
+- برای کشف Netherite، در Y=15 mine کنید.
+
+## اند (End)
+
+دنیای خالی و تاریک که اژدها در آن سکونت دارد.
+
+### دسترسی
+- با ساخت **End Portal** (در Stronghold)
+- به ۱۲ End Portal Frame و هر Eyes of Ender نیاز دارید.
+
+### بیوم‌ها
+- The End (وسط)
+- End Highlands
+- End Midlands
+- End Barrens
+- Small End Islands
+
+### mobها
+- **Ender Dragon** (باس ندر)
+- **Enderman** (بیشتر از anywhere)
+- **Shulker** (در End City)
+
+### بلوک‌های شاخص
+- End Stone
+- End Portal Frame
+- End Rod (نور)
+- Purpur (از End City)
+- Chorus Plant (گیاه)
+
+### نکات
+- اژدها آخر بعد از کشته شدن، می‌تواند با ۴ End Crystal دوباره احضار شود.
+- بعد از کشتن اژدها، می‌توانید به End Gateway برید و به End Islands دسترسی داشته باشید.
+- **End Cities** معمولاً شامل **Elytra** (تنه پرواز) است.
+
+## سایر دنیاها
+
+### ساخت دنیای سفارشی
+با فرمان، می‌توانید دنیاهای مختلفی بسازید:
+
+```
+/execute in <dimension> run <command>
+```
+
+**مقادیر:**
+- `overworld` — دنیای اصلی
+- `nether` — ندر
+- `the_end` — اند
+
+### Nether Highway
+با ایجاد Portals مختلف و راه‌اندازی مسیر در ندر، می‌توانید به سرعت مسافت‌های طولانی را در دنیای اصلی طی کنید.
+
+## نکات پایانی
+
+- هر دنیا seed جدا ندارد — سه دنیا با یک seed به هم متصل هستند.
+- ندر به اندratio 1:8 عمل می‌کند (مسافت ۱ بلوک در ندر = ۸ بلوک در overworld).
+- End بعد از کشتن اژدها، حالت صلح‌آمیزتری پیدا می‌کند.

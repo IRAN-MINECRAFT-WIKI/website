@@ -148,10 +148,11 @@ const initialBlock = BLOCKS[0];
     animation: none !important;
   }
 
-  /* Smaller cube on mobile + no spinning animation */
+  /* Mobile: smaller cube + SLOWER rotation (30s vs 20s) to save battery
+     but still give users the rotating experience */
   @media (max-width: 900px) {
     .cube { transform: translateZ(calc(-1 * var(--cube-size, 200px) / 2)) rotateX(-15deg) rotateY(-20deg); }
-    .cube.spinning { animation: none; }  /* mobile: no rotation, just static */
+    .cube.spinning { animation: spinCube 30s infinite linear; }
   }
 
   /* Honor reduced motion preference */
@@ -295,10 +296,10 @@ const initialBlock = BLOCKS[0];
       // When it scrolls back into view, we restore both classes.
       const stage = document.getElementById('cubeStage');
       if (stage && cube && 'IntersectionObserver' in window) {
-        // Skip on mobile + reduced-motion (no animation ever)
-        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        // Skip on reduced-motion only. Mobile now also gets the rotation
+        // (just slower, handled by CSS @media query).
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const shouldSpin = !isMobile && !reducedMotion;
+        const shouldSpin = !reducedMotion;
 
         const io = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {

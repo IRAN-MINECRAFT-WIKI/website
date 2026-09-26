@@ -1,0 +1,180 @@
+---
+title: 'اثرهای وضعیت (Status Effects) — راهنمای کامل'
+description: 'راهنمای کامل اثرهای وضعیت (Potion Effects) در ماینکرفت بدراک. لیست همه‌ی effects، مدت زمان، شدت، منابع و کاربرد هر کدام.'
+pubDate: 2024-12-10
+author: 'MineBed Team'
+topic: 'mechanics'
+mcVersion: '1.21'
+---
+
+اثرهای وضعیت (Status Effects) تغییراتی موقت در توانایی‌های بازیکن یا mob هستند. این اثرها از منابع مختلفی به دست می‌آیند — potionها، beaconها، food، و فرمان‌ها. در این راهنما، همه‌ی effects را معرفی می‌کنیم.
+
+## نحوه‌ی نمایش
+
+اثرها در HUD (سمت راست صفحه) نشان داده می‌شوند. هر effect یک آیکون و مدت زمان دارد.
+
+## اثرهای مثبت (Beneficial Effects)
+
+### Speed (سرعت)
+- **شناسه:** `speed`
+- **سطح:** I تا II (یا بالاتر با فرمان)
+- **منبع:** Potion of Swiftness، Beacon، فرمان
+- **اثر:** سرعت حرکت را ۲۰٪ افزایش می‌دهد در هر سطح
+
+### Haste (شتاب)
+- **شناسه:** `haste`
+- **سطح:** I تا II
+- **منبع:** Beacon، فرمان
+- **اثر:** سرعت mining را افزایش می‌دهد
+
+### Strength (قدرت)
+- **شناسه:** `strength`
+- **سطح:** I تا II
+- **منبع:** Potion of Strength، Beacon
+- **اثر:** آسیب حمله را ۳ HP در هر سطح افزایش می‌دهد
+
+### Jump Boost (پرش بالا)
+- **شناسه:** `jump_boost`
+- **سطح:** I تا II
+- **منبع:** Potion of Leaping، Beacon
+- **اثر:** ارتفاع پرش را افزایش می‌دهد
+
+### Regeneration (ترمیم)
+- **شناسه:** `regeneration`
+- **سطح:** I تا II
+- **منبع:** Potion of Regeneration، Beacon، Golden Apple
+- **اثر:** هر چند ثانیه ۱ HP بازیابی می‌کند
+
+### Resistance (مقاومت)
+- **شناسه:** `resistance`
+- **سطح:** I تا II
+- **منبع:** Beacon
+- **اثر:** آسیب دریافتی را ۲۰٪ در هر سطح کاهش می‌دهد
+
+### Fire Resistance (مقاومت آتش)
+- **شناسه:** `fire_resistance`
+- **سطح:** I
+- **منبع:** Potion of Fire Resistance
+- **اثر:** آسیب آتش و لوا را کاملاً بلاک می‌کند
+
+### Water Breathing (تنفس زیر آب)
+- **شناسه:** `water_breathing`
+- **سطح:** I
+- **منبع:** Potion of Water Breathing
+- **اثر:** اجازه‌ی تنفس زیر آب را می‌دهد
+
+### Invisibility (نامرئی)
+- **شناسه:** `invisibility`
+- **سطح:** I
+- **منبع:** Potion of Invisibility
+- **اثر:** بدن نامرئی می‌شود (اما armor و آیتم‌های دست نشان داده می‌شوند)
+
+### Night Vision (دید در شب)
+- **شناسه:** `night_vision`
+- **سطح:** I
+- **منبع:** Potion of Night Vision
+- **اثر:** دید در تاریکی را بهبود می‌دهد
+
+### Health Boost (افزایش سلامتی)
+- **شناسه:** `health_boost`
+- **سطح:** I تا IV
+- **منبع:** Potion (فقط با فرمان)
+- **اثر:** حداکثر HP را ۴ در هر سطح افزایش می‌دهد
+
+## اثرهای منفی (Harmful Effects)
+
+### Slowness (کندی)
+- **شناسه:** `slowness`
+- **سطح:** I تا IV
+- **منبع:** Potion of Slowness، Stray (موب)
+- **اثر:** سرعت حرکت را کاهش می‌دهد
+
+### Mining Fatigue (خستگی mining)
+- **شناسه:** `mining_fatigue`
+- **سطح:** I تا III
+- **منبع:** Elder Guardian
+- **اثر:** سرعت mining را شدیداً کاهش می‌دهد
+
+### Weakness (ضعف)
+- **شناسه:** `weakness`
+- **سطح:** I
+- **منبع:** Potion of Weakness، فرمان
+- **اثر:** آسیب حمله را ۴ HP کاهش می‌دهد
+
+### Poison (سم)
+- **شناسه:** `poison`
+- **سطح:** I تا II
+- **منبع:** Potion of Poison، Cave Spider، Bee
+- **اثر:** هر ۱.۲۵ ثانیه ۱ HP آسیب (اما نمی‌تواند بکشد)
+
+### Wither (پژمرده)
+- **شناسه:** `wither`
+- **سطح:** I تا II
+- **منبع:** Wither Boss، Wither Rose
+- **اثر:** هر چند ثانیه آسیب (می‌تواند بکشد)
+
+### Hunger (گرسنگی)
+- **شناسه:** `hunger`
+- **سطح:** I
+- **منبع:** Husk، فرمان
+- **اثر:** saturation را کاهش می‌دهد
+
+### Nausea (تهوع)
+- **شناسه:** `nausea`
+- **سطح:** I
+- **منبع:** فرمان
+- **اثر:** دید پلر را مبهم می‌کند
+
+### Blindness (کوری)
+- **شناسه:** `blindness`
+- **سطح:** I
+- **منبع:** فرمان
+- **اثر:** دید به شدت محدود می‌شود
+
+### Levitation (معلق)
+- **شناسه:** `levitation`
+- **سطح:** I
+- **منبع:** Shulker
+- **اثر:** بازیکن به بالا بلند می‌شود
+
+## اثرهای خاص
+
+### Glowing (درخشش)
+- **شناسه:** `glowing`
+- **سطح:** I
+- **منبع:** Spectral Arrow
+- **اثر:** outline روشن برای دیدن از پشت دیوار
+
+### Slow Falling (سقوط آرام)
+- **شناسه:** `slow_falling`
+- **سطح:** I
+- **منبع:** Potion of Slow Falling (از Phantom membrane)
+- **اثر:** سرعت سقوط را کاهش می‌دهد، آسیب سقوط را حذف می‌کند
+
+### Conduit Power (قدرت پایپ)
+- **شناسه:** `conduit_power`
+- **سطح:** I
+- **منبع:** Conduit
+- **اثر:** ترکیبی از Water Breathing + Night Vision + Haste زیر آب
+
+### Dolphin's Grace (نعمت دلفین)
+- **شناسه:** `dolphins_grace`
+- **سطح:** I
+- **منبع:** دلفین
+- **اثر:** سرعت شنا را افزایش می‌دهد
+
+## ساخت potionها
+
+برای ساخت potion، به **Brewing Stand** نیاز دارید:
+
+۱. **قابل مشتق کردن از Nether Wart** ( پایه‌ی همه‌ی potionها)
+۲. **افزودن مواد خاص** برای ایجاد effect مورد نظر
+۳. **افزودن Redstone** برای طولانی‌تر کردن مدت
+۴. **افزودن Glowstone** برای قوی‌تر کردن effect
+
+## نکات پایانی
+
+- اثرها با milk قابل پاک کردن هستند.
+- اثرهای منفی می‌توانند با Milk Bucket حذف شوند.
+- برخی اثرها (مثل Wither) با Milk پاک نمی‌شوند.
+- همیشه **Fire Resistance** برای کشف Nether همراه داشته باشید.

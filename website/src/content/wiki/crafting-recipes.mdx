@@ -1,0 +1,222 @@
+---
+title: 'دستورالعمل‌های ساخت (Crafting Recipes) — راهنمای کامل'
+description: 'راهنمای کامل دستورالعمل‌های ساخت در ماینکرفت بدراک. انواع Crafting Table، ترتیب آیتم‌ها و دستورالعمل‌های مهم ابزار، سلاح، زره و...'
+pubDate: 2024-12-13
+author: 'MineBed Team'
+topic: 'mechanics'
+mcVersion: '1.21'
+---
+
+Crafting یکی از مهم‌ترین مکانیک‌های ماینکرفت است. با Crafting Table (۴×۴ grid) و کار的需要 inventory (۲×۲ grid)، شما می‌توانید ابزار، سلاح، زره، بلوک‌ها و ده‌ها آیتم دیگر بسازید.
+
+## اندازه‌ی گرید
+
+| نوع | گرید | کاربرد |
+|------|------|--------|
+| **Inventory** | ۲×۲ | ساده‌ی constructions (پله، تخته، میز، تیر، و...) |
+| **Crafting Table** | ۳×۳ | پیچیده‌ی constructions (ابزار، سلاح، زره، و...) |
+
+## دستورالعمل‌های پایه (Basic Recipes)
+
+### Planks (تخته)
+- **ورودی:** ۱ Wood Log (هر نوع)
+- **خروجی:** ۴ Planks (همان نوع)
+- **گرید:** ۱×۱ (هر کجا)
+
+### Sticks (چوب)
+- **ورودی:** ۲ Planks (هر نوع)
+- **خروجی:** ۴ Sticks
+- **ترتیب:** ۲ عمودی (یکی روی دیگر)
+
+### Crafting Table
+- **ورودی:** ۴ Planks
+- **خروجی:** ۱ Crafting Table
+- **ترتیب:** ۲×۲ (هر چهار خانه)
+
+### Torch (مشعل)
+- **ورودی:** ۱ Stick + ۱ Coal/Charcoal
+- **خروجی:** ۴ Torches
+- **ترتیب:** Coal بالا، Stick پایین
+
+## ابزارها (Tools)
+
+### Pickaxe (کندنده)
+- **ورودی:** ۲ Sticks + ۳ (Wood/Stone/Iron/Gold/Diamond)
+- **ترتیب:**
+```
+X X X
+  S
+  S
+```
+(S = Stick, X = material)
+
+### Axe (تبر)
+- **ورودی:** ۲ Sticks + ۳ material
+- **ترتیب:**
+```
+X X
+X S
+  S
+```
+
+### Shovel (بیل)
+- **ورودی:** ۲ Sticks + ۱ material
+- **ترتیب:**
+```
+X
+S
+S
+```
+
+### Hoe (گاوآهن)
+- **ورودی:** ۲ Sticks + ۲ material
+- **ترتیب:**
+```
+X X
+  S
+  S
+```
+
+### Flint and Steel (ولوم‌زنه)
+- **ورودی:** ۱ Iron Ingot + ۱ Flint
+- **خروجی:** ۱ Flint and Steel
+- **ترتیب:** غیر shape (هر کجا)
+
+## سلاح‌ها (Weapons)
+
+### Sword (شمشیر)
+- **ورودی:** ۱ Stick + ۲ material
+- **ترتیب:**
+```
+X
+X
+S
+```
+
+### Bow (کمان)
+- **ورودی:** ۳ Sticks + ۳ String
+- **ترتیب:**
+```
+S   St
+St S
+S   St
+```
+(St = Stick, S = String)
+
+### Arrow (تیر)
+- **ورودی:** ۱ Stick + ۱ Flint + ۱ Feather
+- **خروجی:** ۴ Arrows
+- **ترتیب:**
+```
+F
+S
+Fe
+```
+(F = Flint, S = Stick, Fe = Feather)
+
+### Shield (سپر)
+- **ورودی:** ۶ Wood Planks + ۱ Iron Ingot
+- **ترتیب:**
+```
+P P P
+P I P
+P P P
+```
+(P = Planks, I = Iron Ingot)
+
+## زره (Armor)
+
+### Helmet (کلاه)
+- **ورودی:** ۵ material (Leather/Iron/Gold/Diamond)
+- **ترتیب:**
+```
+X X X
+X   X
+```
+
+### Chestplate (زره تن)
+- **ورودی:** ۸ material
+- **ترتیب:**
+```
+X   X
+X X X
+X X X
+X X X
+```
+
+### Leggings (شلوار)
+- **ورودی:** ۷ material
+- **ترتیب:**
+```
+X X X
+X   X
+X   X
+X   X
+```
+
+### Boots (چکمه)
+- **ورودی:** ۴ material
+- **ترتیب:**
+```
+X   X
+X   X
+```
+
+## بلوک‌های مفید (Useful Blocks)
+
+### Chest (صندوق)
+- **ورودی:** ۸ Wood Planks
+- **ترتیب:** همه‌ی خانه‌های دور (وسط خالی)
+
+### Furnace (کوره)
+- **ورودی:** ۸ Cobblestone
+- **ترتیب:** همه‌ی خانه‌های دور (وسط خالی)
+
+### Bed (تخت)
+- **ورودی:** ۳ Wool + ۳ Planks
+- **ترتیب:**
+```
+W W W
+P P P
+```
+(W = Wool, P = Planks)
+
+### Ladder (نردبان)
+- **ورودی:** ۷ Sticks
+- **ترتیب:** H شکل
+```
+S S
+SSS
+S S
+```
+
+### Boat (قایق)
+- **ورودی:** ۵ Planks
+- **ترتیب:**
+```
+P   P
+PPPPP
+```
+
+## فرآیندهای خاص
+
+### Smelting (ذوب‌کردن)
+در **Furnace**، با coal + material ورودی، خروجی متفاوت به دست می‌آید:
+- Iron Ore + Coal → Iron Ingot
+- Gold Ore + Coal → Gold Ingot
+- Sand + Coal → Glass
+- Cobblestone + Coal → Stone
+- Raw Food + Coal → Cooked Food
+
+### Stonecutter (Bedrock)
+برای ساخت پله، دیوار، و... با ۱ بلوک سنگ به جای ۶ (در Crafting Table).
+
+### Cartography Table
+برای گسترش نقشه‌ها + kپی + scaling.
+
+## نکات پایانی
+
+- **Recipe Book** در بازی شامل همه‌ی دستورالعمل‌های شناخته‌شده‌ی شماست.
+- با Shift + Click، ساخت حداکثر آیتم‌ها را انجام دهید.
+- برای ساخت stack، روی result کلیک کنید + Shift نگه دارید.
+- در Bedrock، برخی recipeها با Stonecutter بهتر است (مصرف کمتر).

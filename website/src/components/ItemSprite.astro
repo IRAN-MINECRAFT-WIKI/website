@@ -1,0 +1,70 @@
+---
+/**
+ * ItemSprite.astro — Minecraft-style item/block icon (replaces emojis)
+ *
+ * Pattern inspired by minecraft.wiki's `sprite-file` + `pixel-image` markup.
+ *
+ * Usage:
+ *   <ItemSprite name="diamond" label="الماس" />
+ *   <ItemSprite name="diamond-sword" label="شمشیر الماس" href="/wiki/diamond-sword" />
+ *
+ * Renders: [icon SVG] + [text link] — appropriate for inline lists and tables.
+ *
+ * Icon lookup: uses the icon-* SVG sprite from icons.astro. Falls back to
+ * icon-mod if the requested icon doesn't exist (so content authors don't
+ * see broken UI).
+ */
+import '@components/icons.astro';
+
+interface Props {
+  name: string;        // icon name, e.g. 'diamond', 'sword', 'enchantment'
+  label: string;       // Persian text label
+  href?: string;       // optional link
+  size?: number;       // default 18px
+}
+
+const { name, label, href, size = 18 } = Astro.props;
+const iconName = `icon-${name}`;
+---
+
+<span class="sprite-file nowrap">
+  <span class="pixel-image">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+      <use href={`#${iconName}`} />
+    </svg>
+  </span>
+  {
+    href ? (
+      <a href={href} class="sprite-text">{label}</a>
+    ) : (
+      <span class="sprite-text">{label}</span>
+    )
+  }
+</span>
+
+<style is:global>
+  /* Pattern from minecraft.wiki: `sprite-file` + `pixel-image` */
+  .sprite-file {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .sprite-file .pixel-image {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--grass-2, #7cc84a);
+  }
+  .sprite-file .sprite-text {
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  .sprite-file .sprite-text:hover {
+    color: var(--grass-2, #7cc84a);
+    text-decoration: underline;
+  }
+</style>

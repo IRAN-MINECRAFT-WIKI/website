@@ -1,0 +1,65 @@
+---
+/**
+ * MultiColumnList.astro — Multi-column item/block listing (minecraft.wiki pattern)
+ *
+ * Pattern from minecraft.wiki's `div-col columns column-width` layout.
+ * Each item is a sprite icon + text link, listed in a CSS multi-column layout.
+ *
+ * Usage:
+ *   <MultiColumnList items={[
+ *     { icon: 'diamond', label: 'الماس', href: '/wiki/diamond' },
+ *     { icon: 'gold-ingot', label: 'شمشیر طلا', href: '/wiki/gold-ingot' },
+ *   ]} />
+ */
+import ItemSprite from '@components/ItemSprite.astro';
+
+interface Props {
+  items: Array<{ icon: string; label: string; href?: string }>;
+  columnWidth?: string;  // CSS column-width, default '16em'
+}
+
+const { items, columnWidth = '16em' } = Astro.props;
+---
+
+<div class="div-col columns" style={`column-width: ${columnWidth};`}>
+  <ul>
+    {items.map((item) => (
+      <li>
+        <ItemSprite name={item.icon} label={item.label} href={item.href} />
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .div-col {
+    background: var(--panel, #1c1c34);
+    border: 1px solid var(--line, #2e2e4a);
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .div-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .div-col li {
+    margin-bottom: 0.5rem;
+    break-inside: avoid-column;
+  }
+
+  /* Multi-column responsive — 1 column on small screens */
+  @media (max-width: 600px) {
+    .div-col {
+      column-count: 2;
+    }
+  }
+  @media (max-width: 400px) {
+    .div-col {
+      column-count: 1;
+    }
+  }
+</style>

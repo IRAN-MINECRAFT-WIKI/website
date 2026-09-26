@@ -1,0 +1,104 @@
+---
+/**
+ * Infobox.astro — Right-side stat card (minecraft.wiki's `infobox-rows` equivalent)
+ *
+ * Usage:
+ *   <Infobox title="شمشیر الماس" icon="diamond-sword">
+ *     <InfoboxRow label="نوع" value="سلاح" />
+ *     <InfoboxRow label="میزان آسیب" value="۷ ❤" />
+ *     <InfoboxRow label="دوام" value="۱۵۶۱" />
+ *     <InfoboxRow label="قابلیت تجدید" value="بله" />
+ *     <InfoboxRow label="انبار شدن" value="خیر" />
+ *   </Infobox>
+ */
+import '@components/icons.astro';
+
+interface Props {
+  title: string;
+  icon?: string;
+  iconFallback?: string;
+}
+
+const { title, icon = 'mod', iconFallback = 'icon-mod' } = Astro.props;
+const iconName = icon.startsWith('icon-') ? icon : `icon-${icon}`;
+---
+
+<aside class="infobox">
+  <div class="infobox-title">{title}</div>
+  <div class="infobox-imagearea">
+    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+      <use href={`#${iconName}`} />
+    </svg>
+  </div>
+  <table class="infobox-rows">
+    <tbody>
+      <slot />
+    </tbody>
+  </table>
+</aside>
+
+<style>
+  .infobox {
+    float: left;
+    width: 280px;
+    background: var(--panel, #1c1c34);
+    border: 2px solid var(--line, #2e2e4a);
+    border-radius: 6px;
+    margin: 0 1.5rem 1.5rem 0;
+    overflow: hidden;
+  }
+
+  .infobox-title {
+    background: linear-gradient(135deg, rgba(123, 197, 92, 0.15), rgba(123, 197, 92, 0.05));
+    border-bottom: 1px solid var(--line, #2e2e4a);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--grass-2, #7cc84a);
+  }
+
+  .infobox-imagearea {
+    padding: 1rem;
+    text-align: center;
+    color: var(--grass-2, #7cc84a);
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--line, #2e2e4a);
+  }
+
+  .infobox-rows {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .infobox-rows :global(tr) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .infobox-rows :global(tr:last-child) {
+    border-bottom: none;
+  }
+  .infobox-rows :global(th) {
+    text-align: right;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-2, #9a9ab8);
+    background: rgba(0, 0, 0, 0.15);
+    width: 45%;
+    vertical-align: top;
+  }
+  .infobox-rows :global(td) {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text, #e0e0f0);
+    vertical-align: top;
+  }
+
+  /* Mobile: infobox becomes full-width, no float */
+  @media (max-width: 768px) {
+    .infobox {
+      float: none;
+      width: 100%;
+      margin: 0 0 1.5rem 0;
+    }
+  }
+</style>

@@ -18,7 +18,7 @@ import { mods } from '@/lib/data';
 const modsJson = JSON.stringify(mods.map(m => ({
   id: m.id, name: m.name, nameFa: m.nameFa, tagline: m.tagline,
   keywords: m.keywords, category: m.category, catName: m.catName,
-  icon: m.icon || '📦', version: m.version, size: m.size,
+  icon: 'mod', version: m.version, size: m.size,
 })));
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
@@ -276,7 +276,7 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
           url: BASE + 'mods/' + x.m.id,
           title: x.m.nameFa || x.m.name,
           excerpt: x.m.tagline || '',
-          icon: x.m.icon || '📦',
+          icon: 'mod',
           cat: x.m.catName || '',
         };
       });
@@ -290,7 +290,11 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
 
     var icon = document.createElement('div');
     icon.className = 'search-result-item-icon';
-    icon.textContent = r.icon || '📄';
+    // Use SVG icon (not emoji) for search results.
+    // Icon name comes from r.icon (string), prefixed with 'icon-'.
+    var iconName = r.icon || 'mod';
+    if (iconName.indexOf('icon-') !== 0) iconName = 'icon-' + iconName;
+    icon.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><use href="#' + iconName + '"></use></svg>';
 
     var body = document.createElement('div');
     body.className = 'search-result-item-body';
@@ -406,7 +410,7 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
         empty.className = 'search-error';
         var icon = document.createElement('div');
         icon.className = 'search-error-icon';
-        icon.textContent = '🔍';
+        icon.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>';
         var msg = document.createElement('div');
         msg.textContent = 'نتیجه‌ای پیدا نشد. عبارت دیگری امتحان کن.';
         empty.appendChild(icon);

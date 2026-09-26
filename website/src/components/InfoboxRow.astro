@@ -1,0 +1,16 @@
+---
+/**
+ * InfoboxRow.astro — Single row for Infobox (label + value pair)
+ *
+ * Pattern from minecraft.wiki's `infobox-rows` table rows.
+ */
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<tr>
+  <th>{label}</th>
+  <td><slot /></td>
+</tr>

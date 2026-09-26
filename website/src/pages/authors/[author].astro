@@ -74,7 +74,11 @@ const breadcrumb = [
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {authorMods.map((mod) => (
           <a href={base(`/mods/${mod.id}`)} class="mc-panel hoverable group p-4">
-            <div class="text-2xl mb-2">{mod.icon || '📦'}</div>
+            <div class="text-2xl mb-2">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+                <use href="#icon-mod" />
+              </svg>
+            </div>
             <h3 class="font-bold text-sm text-mc-text group-hover:text-mc-grass-2 mb-1">{mod.nameFa || mod.name}</h3>
             <p class="text-xs text-mc-text-2 line-clamp-2">{mod.tagline}</p>
           </a>
