@@ -6,18 +6,13 @@
  * - Primary: Pagefind (built at build time, indexes all HTML pages)
  * - Fallback: In-memory search of mods.json data (no build step required)
  *
- * The fallback is critical because Pagefind can fail to load (network issue,
- * dev mode, or simply not built). Without fallback, search appears broken.
- *
- * UI:
- * - Header button opens a modal with the search input + results
- * - Keyboard shortcut: Ctrl+K / Cmd+K to open, Esc to close
- * - Results show: title, excerpt, mod icon (if mod), category chip
- *
- * Performance:
- * - Pagefind loaded lazily (only when user types)
- * - Fallback index loaded only if Pagefind fails
- * - Results rendered with textContent (XSS-safe)
+ * Robustness:
+ * - Uses `astro:page-load` event to rebind events after EVERY view transition
+ *   (Astro skips re-executing is:inline scripts that are present in both
+ *   old and new page, so the initial IIFE only runs ONCE — the page-load
+ *   handler rebinds to the new DOM elements on every navigation).
+ * - Keyboard: Ctrl/Cmd+K to open, Esc to close, ↑↓ Enter to navigate
+ * - XSS-safe: textContent + createElement everywhere
  */
 import { mods } from '@/lib/data';
 const modsJson = JSON.stringify(mods.map(m => ({
@@ -249,26 +244,117 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
 </style>
 
 <script is:inline define:vars={{ modsJson, BASE }}>
-  (function () {
-    const openBtn = document.getElementById('searchOpen');
-    const modal = document.getElementById('searchModal');
-    const input = document.getElementById('searchInput');
-    const results = document.getElementById('searchResults');
-    const hint = document.getElementById('searchHint');
+  // ============ Module-level state (persists across view transitions) ============
+  window.__searchBox = window.__searchBox || {
+    pagefind: null,
+    pagefindFailed: false,
+    fallbackMods: null,
+    boundEls: new WeakSet(),  // tracks which elements have listeners
+  };
+  var SB = window.__searchBox;
+
+  // ============ Helpers ============
+  function escapeHtml(s) {
+    return String(s || '').replace(/<[^>]+>/g, '');
+  }
+
+  function fallbackSearch(q) {
+    if (!SB.fallbackMods) {
+      try { SB.fallbackMods = JSON.parse(modsJson); } catch { SB.fallbackMods = []; }
+    }
+    var ql = q.toLowerCase();
+    return SB.fallbackMods
+      .map(function (m) {
+        var haystack = [m.name, m.nameFa, m.tagline, m.keywords, m.catName]
+          .filter(Boolean).join(' ').toLowerCase();
+        return { m: m, hit: haystack.includes(ql) };
+      })
+      .filter(function (x) { return x.hit; })
+      .slice(0, 20)
+      .map(function (x) {
+        return {
+          url: BASE + 'mods/' + x.m.id,
+          title: x.m.nameFa || x.m.name,
+          excerpt: x.m.tagline || '',
+          icon: x.m.icon || '📦',
+          cat: x.m.catName || '',
+        };
+      });
+  }
+
+  function renderResult(r) {
+    var a = document.createElement('a');
+    a.className = 'search-result-item';
+    a.href = r.url;
+    a.setAttribute('role', 'option');
+
+    var icon = document.createElement('div');
+    icon.className = 'search-result-item-icon';
+    icon.textContent = r.icon || '📄';
+
+    var body = document.createElement('div');
+    body.className = 'search-result-item-body';
+
+    var title = document.createElement('div');
+    title.className = 'search-result-item-title';
+    title.textContent = r.title;
+
+    var excerpt = document.createElement('div');
+    excerpt.className = 'search-result-item-excerpt';
+    if (r.cat) {
+      var cat = document.createElement('span');
+      cat.className = 'search-result-item-cat';
+      cat.textContent = r.cat;
+      excerpt.appendChild(cat);
+    }
+    excerpt.appendChild(document.createTextNode(escapeHtml(r.excerpt)));
+
+    body.appendChild(title);
+    body.appendChild(excerpt);
+    a.appendChild(icon);
+    a.appendChild(body);
+    return a;
+  }
+
+  async function loadPagefind() {
+    if (SB.pagefind || SB.pagefindFailed) return SB.pagefind;
+    try {
+      var url = BASE + 'pagefind/pagefind.js';
+      var mod = await import(/* @vite-ignore */ url);
+      SB.pagefind = mod.default || mod;
+      await SB.pagefind.init();
+      SB.pagefind.options({ excerptLength: 12 });
+    } catch (e) {
+      console.warn('Pagefind unavailable, using fallback:', e.message);
+      SB.pagefindFailed = true;
+    }
+    return SB.pagefind;
+  }
+
+  // ============ Setup (called on EVERY page load + view transition) ============
+  var currentResults = [];
+  var activeIdx = -1;
+  var timer = null;
+
+  function setupSearch() {
+    var openBtn = document.getElementById('searchOpen');
+    var modal = document.getElementById('searchModal');
+    var input = document.getElementById('searchInput');
+    var results = document.getElementById('searchResults');
+    var hint = document.getElementById('searchHint');
     if (!openBtn || !modal || !input || !results) return;
 
-    let pagefind = null;
-    let pagefindFailed = false;
-    let fallbackMods = null;
-    let activeIdx = -1;
-    let currentResults = [];
+    // Skip if already bound to these EXACT elements (WeakSet tracks DOM nodes)
+    if (SB.boundEls.has(openBtn)) return;
+    SB.boundEls.add(openBtn);
+    SB.boundEls.add(modal);
+    SB.boundEls.add(input);
 
-    // ── Open / close ──────────────────────────────────────────
     function open() {
       modal.hidden = false;
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
-      setTimeout(() => input.focus(), 30);
+      setTimeout(function () { input.focus(); }, 30);
     }
     function close() {
       modal.hidden = true;
@@ -277,132 +363,62 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     }
 
     openBtn.addEventListener('click', open);
-    modal.querySelectorAll('[data-close]').forEach((el) =>
-      el.addEventListener('click', close)
-    );
-
-    // Keyboard: Ctrl/Cmd+K to open, Esc to close, ↑↓ Enter to navigate
-    document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        if (modal.hidden) open();
-        else { input.focus(); input.select(); }
-        return;
-      }
-      if (e.key === 'Escape' && !modal.hidden) {
-        close();
-        return;
-      }
-      if (modal.hidden) return;
-      if (e.key === 'ArrowDown' && currentResults.length) {
-        e.preventDefault();
-        activeIdx = (activeIdx + 1) % currentResults.length;
-        renderActive();
-      } else if (e.key === 'ArrowUp' && currentResults.length) {
-        e.preventDefault();
-        activeIdx = (activeIdx - 1 + currentResults.length) % currentResults.length;
-        renderActive();
-      } else if (e.key === 'Enter' && activeIdx >= 0 && currentResults[activeIdx]) {
-        e.preventDefault();
-        const r = currentResults[activeIdx];
-        window.location.href = r.url;
-      }
+    modal.querySelectorAll('[data-close]').forEach(function (el) {
+      el.addEventListener('click', close);
     });
 
-    // ── Pagefind loader ────────────────────────────────────────
-    async function loadPagefind() {
-      if (pagefind || pagefindFailed) return pagefind;
-      try {
-        const url = BASE + 'pagefind/pagefind.js';
-        const mod = await import(/* @vite-ignore */ url);
-        pagefind = mod.default || mod;
-        await pagefind.init();
-        pagefind.options({ excerptLength: 12 });
-      } catch (e) {
-        console.warn('Pagefind unavailable, using fallback:', e.message);
-        pagefindFailed = true;
-      }
-      return pagefind;
-    }
-
-    // ── Fallback: in-memory mods.json search ──────────────────
-    function fallbackSearch(q) {
-      if (!fallbackMods) {
-        try { fallbackMods = JSON.parse(modsJson); } catch { fallbackMods = []; }
-      }
-      const ql = q.toLowerCase();
-      return fallbackMods
-        .map((m) => {
-          const haystack = [m.name, m.nameFa, m.tagline, m.keywords, m.catName]
-            .filter(Boolean).join(' ').toLowerCase();
-          const score = haystack.includes(ql) ? 1 : 0;
-          return { m, score };
-        })
-        .filter((x) => x.score > 0)
-        .slice(0, 20)
-        .map((x) => ({
-          type: 'mod',
-          url: BASE + 'mods/' + x.m.id,
-          title: x.m.nameFa || x.m.name,
-          excerpt: x.m.tagline || '',
-          icon: x.m.icon || '📦',
-          cat: x.m.catName || '',
-        }));
-    }
-
-    // ── Render helpers (XSS-safe — textContent only) ──────────
-    function escapeHtml(s) {
-      // Strip HTML tags from Pagefind excerpts (which may contain <mark>)
-      return String(s || '').replace(/<[^>]+>/g, '');
-    }
-
-    function renderResult(r) {
-      const a = document.createElement('a');
-      a.className = 'search-result-item';
-      a.href = r.url;
-      a.setAttribute('role', 'option');
-
-      const icon = document.createElement('div');
-      icon.className = 'search-result-item-icon';
-      icon.textContent = r.icon || '📄';
-
-      const body = document.createElement('div');
-      body.className = 'search-result-item-body';
-
-      const title = document.createElement('div');
-      title.className = 'search-result-item-title';
-      title.textContent = r.title;
-
-      const excerpt = document.createElement('div');
-      excerpt.className = 'search-result-item-excerpt';
-      if (r.cat) {
-        const cat = document.createElement('span');
-        cat.className = 'search-result-item-cat';
-        cat.textContent = r.cat;
-        excerpt.appendChild(cat);
-      }
-      excerpt.appendChild(document.createTextNode(escapeHtml(r.excerpt)));
-
-      body.appendChild(title);
-      body.appendChild(excerpt);
-      a.appendChild(icon);
-      a.appendChild(body);
-      return a;
-    }
-
     function renderActive() {
-      const items = results.querySelectorAll('.search-result-item');
-      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
-      const active = items[activeIdx];
+      var items = results.querySelectorAll('.search-result-item');
+      items.forEach(function (el, i) { el.classList.toggle('active', i === activeIdx); });
+      var active = items[activeIdx];
       if (active && active.scrollIntoView) {
         active.scrollIntoView({ block: 'nearest' });
       }
     }
 
-    // ── Search orchestration ───────────────────────────────────
-    let timer = null;
-    input.addEventListener('input', () => {
-      const q = input.value.trim();
+    async function runSearch(q) {
+      if (!SB.pagefindFailed) { await loadPagefind(); }
+      var hits = [];
+      if (SB.pagefind) {
+        try {
+          var search = await SB.pagefind.search(q);
+          if (search && search.results) {
+            for (var i = 0; i < Math.min(20, search.results.length); i++) {
+              var r = await search.results[i].data();
+              hits.push({
+                url: r.url,
+                title: (r.meta && r.meta.title) || r.url,
+                excerpt: escapeHtml(r.excerpt || ''),
+                icon: '📄', cat: '',
+              });
+            }
+          }
+        } catch (e) {
+          console.warn('Pagefind search failed, using fallback:', e);
+        }
+      }
+      if (hits.length === 0) hits = fallbackSearch(q);
+      currentResults = hits;
+      activeIdx = -1;
+      results.innerHTML = '';
+      if (hits.length === 0) {
+        var empty = document.createElement('div');
+        empty.className = 'search-error';
+        var icon = document.createElement('div');
+        icon.className = 'search-error-icon';
+        icon.textContent = '🔍';
+        var msg = document.createElement('div');
+        msg.textContent = 'نتیجه‌ای پیدا نشد. عبارت دیگری امتحان کن.';
+        empty.appendChild(icon);
+        empty.appendChild(msg);
+        results.appendChild(empty);
+        return;
+      }
+      hits.forEach(function (h) { results.appendChild(renderResult(h)); });
+    }
+
+    input.addEventListener('input', function () {
+      var q = input.value.trim();
       clearTimeout(timer);
       if (!q) {
         results.innerHTML = '';
@@ -411,110 +427,73 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
         return;
       }
       if (hint) hint.style.display = 'none';
-      timer = setTimeout(async () => {
-        // Try Pagefind first
-        if (!pagefindFailed) {
-          await loadPagefind();
-        }
-        let hits = [];
-        if (pagefind) {
-          try {
-            const search = await pagefind.search(q);
-            if (search && search.results) {
-              for (let i = 0; i < Math.min(20, search.results.length); i++) {
-                const r = await search.results[i].data();
-                hits.push({
-                  type: 'page',
-                  url: r.url,
-                  title: (r.meta && r.meta.title) || r.url,
-                  excerpt: escapeHtml(r.excerpt || ''),
-                  icon: '📄',
-                  cat: '',
-                });
-              }
-            }
-          } catch (e) {
-            console.warn('Pagefind search failed, using fallback:', e);
-          }
-        }
-        // If Pagefind returned nothing or failed, use fallback
-        if (hits.length === 0) {
-          hits = fallbackSearch(q);
-        }
-        currentResults = hits;
-        activeIdx = -1;
-        results.innerHTML = '';
-        if (hits.length === 0) {
-          const empty = document.createElement('div');
-          empty.className = 'search-error';
-          const icon = document.createElement('div');
-          icon.className = 'search-error-icon';
-          icon.textContent = '🔍';
-          const msg = document.createElement('div');
-          msg.textContent = 'نتیجه‌ای پیدا نشد. عبارت دیگری امتحان کن.';
-          empty.appendChild(icon);
-          empty.appendChild(msg);
-          results.appendChild(empty);
-          return;
-        }
-        hits.forEach((h) => results.appendChild(renderResult(h)));
-      }, 200);
+      timer = setTimeout(function () { runSearch(q); }, 200);
     });
 
-    // Re-bind after view transitions
-    document.addEventListener('astro:after-swap', () => {
-      const newOpenBtn = document.getElementById('searchOpen');
-      const newModal = document.getElementById('searchModal');
-      const newInput = document.getElementById('searchInput');
-      const newResults = document.getElementById('searchResults');
-      const newHint = document.getElementById('searchHint');
-      if (newOpenBtn) {
-        newOpenBtn.onclick = () => {
-          newModal.hidden = false;
-          newModal.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
-          setTimeout(() => newInput && newInput.focus(), 30);
-        };
+    // Keyboard navigation (bound once to document, persists across transitions)
+    if (!SB.keyboardBound) {
+      SB.keyboardBound = true;
+      document.addEventListener('keydown', function (e) {
+        // Ctrl/Cmd+K opens search
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          var m = document.getElementById('searchModal');
+          var i = document.getElementById('searchInput');
+          if (m && m.hidden) {
+            m.hidden = false;
+            m.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            setTimeout(function () { i && i.focus(); }, 30);
+          } else if (i) {
+            i.focus();
+            i.select();
+          }
+          return;
+        }
+        // Esc closes
+        if (e.key === 'Escape') {
+          var mm = document.getElementById('searchModal');
+          if (mm && !mm.hidden) {
+            mm.hidden = true;
+            mm.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            return;
+          }
+        }
+        // Arrow keys + Enter only work when modal is open
+        var mod = document.getElementById('searchModal');
+        if (!mod || mod.hidden) return;
+        if (e.key === 'ArrowDown' && currentResults.length) {
+          e.preventDefault();
+          activeIdx = (activeIdx + 1) % currentResults.length;
+          updateActive();
+        } else if (e.key === 'ArrowUp' && currentResults.length) {
+          e.preventDefault();
+          activeIdx = (activeIdx - 1 + currentResults.length) % currentResults.length;
+          updateActive();
+        } else if (e.key === 'Enter' && activeIdx >= 0 && currentResults[activeIdx]) {
+          e.preventDefault();
+          window.location.href = currentResults[activeIdx].url;
+        }
+      });
+    }
+
+    function updateActive() {
+      var items = results.querySelectorAll('.search-result-item');
+      items.forEach(function (el, i) { el.classList.toggle('active', i === activeIdx); });
+      var active = items[activeIdx];
+      if (active && active.scrollIntoView) {
+        active.scrollIntoView({ block: 'nearest' });
       }
-      // Reset state
-      pagefind = null;
-      pagefindFailed = false;
-      // Restore refs
-      // (Note: input listener re-attached via re-binding approach — simpler to
-      // re-attach everything because view transition replaces the DOM.)
-      if (newInput && newResults) {
-        // Re-attach input handler
-        let t2 = null;
-        newInput.addEventListener('input', () => {
-          const q = newInput.value.trim();
-          clearTimeout(t2);
-          if (!q) { newResults.innerHTML = ''; return; }
-          if (newHint) newHint.style.display = 'none';
-          t2 = setTimeout(async () => {
-            if (!pagefindFailed) { await loadPagefind(); }
-            let hits = [];
-            if (pagefind) {
-              try {
-                const s = await pagefind.search(q);
-                if (s && s.results) {
-                  for (let i = 0; i < Math.min(20, s.results.length); i++) {
-                    const r = await s.results[i].data();
-                    hits.push({
-                      url: r.url,
-                      title: (r.meta && r.meta.title) || r.url,
-                      excerpt: escapeHtml(r.excerpt || ''),
-                      icon: '📄', cat: '',
-                    });
-                  }
-                }
-              } catch (e) { /* fallback */ }
-            }
-            if (hits.length === 0) hits = fallbackSearch(q);
-            newResults.innerHTML = '';
-            hits.forEach((h) => newResults.appendChild(renderResult(h)));
-          }, 200);
-        });
-      }
-    });
-  })();
+    }
+  }
+
+  // ============ Run on initial load ============
+  setupSearch();
+
+  // ============ Re-bind on EVERY view transition ============
+  // Astro skips re-executing is:inline scripts present in both old + new pages,
+  // so we listen for `astro:page-load` to rebind to the new DOM elements.
+  document.addEventListener('astro:page-load', setupSearch);
+  document.addEventListener('astro:after-swap', setupSearch);
 </script>

@@ -121,10 +121,17 @@ const initialBlock = BLOCKS[0];
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    /* STATIC transform — no animation. 3D transforms are expensive on low-end devices.
-       Original cube auto-rotated continuously which caused high CPU/GPU load. */
+    /* Initial position. When the cube enters the viewport, the JS adds the
+       `spinning` class which enables the rotation animation. When it leaves
+       the viewport, the class is removed AND the element gets `visibility:hidden`
+       so the browser skips rendering it entirely (saves CPU + GPU). */
     transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-15deg) rotateY(-20deg);
     transition: transform 0.5s ease-out;
+  }
+
+  /* Spinning state — only applied when cube is visible in viewport */
+  .cube.spinning {
+    animation: spinCube 20s infinite linear;
   }
 
   .cube.hit {
@@ -132,14 +139,24 @@ const initialBlock = BLOCKS[0];
     animation: hitShake 0.4s ease;
   }
 
-  /* Smaller static cube on mobile */
+  /* Off-screen state — completely removed from rendering tree */
+  .cube-stage.offscreen {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .cube-stage.offscreen .cube {
+    animation: none !important;
+  }
+
+  /* Smaller cube on mobile + no spinning animation */
   @media (max-width: 900px) {
     .cube { transform: translateZ(calc(-1 * var(--cube-size, 200px) / 2)) rotateX(-15deg) rotateY(-20deg); }
+    .cube.spinning { animation: none; }  /* mobile: no rotation, just static */
   }
 
   /* Honor reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
-    .cube { animation: none; transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-15deg) rotateY(-20deg); }
+    .cube.spinning { animation: none; }
     .cube.hit { animation: none; }
   }
 
@@ -266,6 +283,53 @@ const initialBlock = BLOCKS[0];
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             nextBlock(e);
+          }
+        });
+      }
+
+      // ── IntersectionObserver: only spin the cube when it's actually visible ──
+      // When the cube scrolls out of viewport, we:
+      // 1. Remove the `spinning` class (stops the animation)
+      // 2. Add `offscreen` class to the stage (visibility:hidden → browser
+      //    skips rendering entirely → zero CPU/GPU cost)
+      // When it scrolls back into view, we restore both classes.
+      const stage = document.getElementById('cubeStage');
+      if (stage && cube && 'IntersectionObserver' in window) {
+        // Skip on mobile + reduced-motion (no animation ever)
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const shouldSpin = !isMobile && !reducedMotion;
+
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              stage.classList.remove('offscreen');
+              if (shouldSpin) cube.classList.add('spinning');
+            } else {
+              stage.classList.add('offscreen');
+              cube.classList.remove('spinning');
+            }
+          });
+        }, {
+          root: null,
+          rootMargin: '50px',  // start spinning slightly before fully visible
+          threshold: 0.1,
+        });
+        io.observe(stage);
+
+        // Pause when tab is hidden
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) {
+            stage.classList.add('offscreen');
+            cube.classList.remove('spinning');
+          } else if (shouldSpin) {
+            // Restore on tab focus (IntersectionObserver will fire again to confirm)
+            const rect = stage.getBoundingClientRect();
+            const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
+            if (inViewport) {
+              stage.classList.remove('offscreen');
+              cube.classList.add('spinning');
+            }
           }
         });
       }

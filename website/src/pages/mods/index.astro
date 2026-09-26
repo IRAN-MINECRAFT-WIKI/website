@@ -104,17 +104,15 @@ const catIconMap: Record<string, string> = {
 
     function getCards() {
       return Array.from(grid.children).map(function (card) {
-        var link = card.querySelector("a[href*='/categories/']");
-        var cat = "";
-        if (link) {
-          var m = link.getAttribute("href").match(/\/categories\/([^/?#]+)/);
-          if (m) cat = m[1];
-        }
+        // Read category from data-cat (more reliable than parsing the chip href)
+        var cat = card.getAttribute("data-cat") || "";
+        // Read keywords from data-keywords attribute (added by ModCard.astro)
+        var keywords = (card.getAttribute("data-keywords") || "").toLowerCase();
         var titleEl = card.querySelector(".mod-title-link") || card.querySelector("a");
         var taglineEl = card.querySelector(".mod-tagline");
         var sizeEl = card.querySelector(".mod-size");
         var versionEl = card.querySelector(".mod-version");
-        // Build a combined haystack across all searchable fields — much better UX
+        // Build a combined haystack across ALL searchable fields including keywords
         var name = titleEl ? titleEl.textContent.trim().toLowerCase() : "";
         var tagline = taglineEl ? taglineEl.textContent.trim().toLowerCase() : "";
         var size = sizeEl ? sizeEl.textContent.trim().toLowerCase() : "";
@@ -125,7 +123,9 @@ const catIconMap: Record<string, string> = {
           tagline: tagline,
           size: size,
           version: version,
-          haystack: name + " " + tagline + " " + size + " " + version + " " + cat,
+          keywords: keywords,
+          // Search across name + tagline + keywords + size + version + cat
+          haystack: name + " " + tagline + " " + keywords + " " + size + " " + version + " " + cat,
           cat: cat,
           isNew: !!card.querySelector(".mod-badge.new"),
           isFeatured: !!card.querySelector(".mod-badge.featured")

@@ -68,10 +68,14 @@ const orgLd = organizationJsonLd();
     <meta name="twitter:image" content={headMeta.twitter.image} />
     <meta name="twitter:site" content={headMeta.twitter.site} />
 
-    <!-- Fonts: self-hosted Rooyin (Persian, Farsi numerals) -->
+    <!-- Fonts: self-hosted Rooyin (Persian, Farsi numerals)
+         Using `is:inline` + `set:html` so the @font-face is rendered as a
+         literal <style> tag in EVERY page's HTML (not bundled per-page).
+         This ensures the @font-face is always available when fonts are
+         preloaded — otherwise the preload warning fires. -->
     <link rel="preload" href={base('/fonts/Rooyin-Regular.woff2')} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={base('/fonts/Rooyin-Bold.woff2')} as="font" type="font/woff2" crossorigin />
-    <style is:global>
+    <style is:inline set:html={`
       @font-face {
         font-family: 'Rooyin';
         src: url('${BASE}fonts/Rooyin-Regular.woff2') format('woff2');
@@ -86,7 +90,7 @@ const orgLd = organizationJsonLd();
         font-style: normal;
         font-display: swap;
       }
-    </style>
+    `} />
 
     <!-- Structured Data: global (WebSite + Organization) -->
     <StructuredData data={websiteLd} />

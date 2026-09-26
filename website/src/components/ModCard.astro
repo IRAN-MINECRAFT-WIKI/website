@@ -25,7 +25,7 @@ const catIconMap: Record<string, string> = {
 const catIcon = catIconMap[mod.category] || 'icon-cube';
 ---
 
-<article class="mc-card group mod-card">
+<article class="mc-card group mod-card" data-keywords={mod.keywords || ''} data-cat={mod.category}>
   <!-- Cover -->
   <a href={base(`/mods/${mod.id}`)} class="block mod-cover">
     <img
