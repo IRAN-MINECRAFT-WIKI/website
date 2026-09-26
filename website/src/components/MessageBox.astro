@@ -1,0 +1,146 @@
+---
+/**
+ * MessageBox.astro — Colored notice banner (minecraft.wiki's msgbox pattern)
+ *
+ * Usage:
+ *   <MessageBox type="info" title="این چه هست؟">
+ *     این صفحه درباره‌ی ... است.
+ *   </MessageBox>
+ *   <MessageBox type="warning" title="توجه">
+ *     این کار خطرناکه!
+ *   </MessageBox>
+ *   <MessageBox type="tip">
+ *     نکته: می‌توانید ...
+ *   </MessageBox>
+ *   <MessageBox type="danger" title="هشدار">
+ *     این کار باعث ...
+ *   </MessageBox>
+ */
+import '@components/icons.astro';
+
+interface Props {
+  type?: 'info' | 'warning' | 'tip' | 'danger' | 'success';
+  title?: string;
+  icon?: string;  // custom icon name
+}
+
+const { type = 'info', title, icon } = Astro.props;
+
+const iconMap = {
+  info: 'icon-eye',
+  warning: 'icon-bell',
+  tip: 'icon-stats',
+  danger: 'icon-trash',
+  success: 'icon-heart',
+};
+
+const iconName = icon || iconMap[type];
+---
+
+<aside class={`msgbox msgbox-${type}`}>
+  <div class="msgbox-icon">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+      <use href={`#${iconName}`} />
+    </svg>
+  </div>
+  <div class="msgbox-body">
+    {title && <div class="msgbox-title">{title}</div>}
+    <div class="msgbox-text"><slot /></div>
+  </div>
+</aside>
+
+<style>
+  .msgbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    padding: 0.875rem 1rem;
+    margin: 1rem 0;
+    border-radius: 6px;
+    border-right: 4px solid var(--mb-color, #888);
+    background: var(--mb-bg, rgba(255, 255, 255, 0.03));
+    color: var(--text, #e0e0f0);
+  }
+
+  .msgbox-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--mb-icon-bg, rgba(255, 255, 255, 0.08));
+    border-radius: 4px;
+    color: var(--mb-color, #888);
+  }
+
+  .msgbox-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .msgbox-title {
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--mb-color, #888);
+    margin-bottom: 0.25rem;
+  }
+
+  .msgbox-text {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--text, #e0e0f0);
+  }
+
+  .msgbox-text :global(p) {
+    margin: 0 0 0.5rem 0;
+  }
+  .msgbox-text :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .msgbox-text :global(a) {
+    color: var(--mb-color, #888);
+    text-decoration: underline;
+  }
+  .msgbox-text :global(code) {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8125rem;
+    color: var(--mb-color, #888);
+  }
+
+  /* Type variants */
+  .msgbox-info {
+    --mb-color: #5dade2;
+    --mb-bg: rgba(93, 173, 226, 0.08);
+    --mb-icon-bg: rgba(93, 173, 226, 0.15);
+  }
+  .msgbox-warning {
+    --mb-color: #f5b041;
+    --mb-bg: rgba(245, 176, 65, 0.08);
+    --mb-icon-bg: rgba(245, 176, 65, 0.15);
+  }
+  .msgbox-tip {
+    --mb-color: #7bc55c;
+    --mb-bg: rgba(123, 197, 92, 0.08);
+    --mb-icon-bg: rgba(123, 197, 92, 0.15);
+  }
+  .msgbox-danger {
+    --mb-color: #ec7063;
+    --mb-bg: rgba(236, 112, 99, 0.08);
+    --mb-icon-bg: rgba(236, 112, 99, 0.15);
+  }
+  .msgbox-success {
+    --mb-color: #58d68d;
+    --mb-bg: rgba(88, 214, 141, 0.08);
+    --mb-icon-bg: rgba(88, 214, 141, 0.15);
+  }
+
+  /* RTL: put border on the right (since text flows right-to-left) */
+  [dir='rtl'] .msgbox {
+    border-right: 4px solid var(--mb-color, #888);
+    border-left: none;
+  }
+</style>

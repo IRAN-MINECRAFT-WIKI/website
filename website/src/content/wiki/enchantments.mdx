@@ -7,125 +7,233 @@ topic: 'mechanics'
 mcVersion: '1.21'
 ---
 
-افزودنی‌ها (Enchantments) قدرت‌های ویژه‌ای هستند که به ابزار، سلاح و زره اضافه می‌شوند. هر افزودنی یک افکت خاص دارد و می‌تواند به سطح حداکثر خود (I تا V) ارتقا یابد. در این راهنما، همه‌ی افزودنی‌های ماینکرفت بدراک را معرفی می‌کنیم.
+import MessageBox from '@components/MessageBox.astro';
+import Hatnote from '@components/Hatnote.astro';
+import Infobox from '@components/Infobox.astro';
+import InfoboxRow from '@components/InfoboxRow.astro';
+
+<Hatnote text="این صفحه درباره‌ی enchantments (افزودنی‌های سحرآمیز) است. برای potionها، Status Effects را ببینید." />
+
+افزودنی‌ها (Enchantments) قدرت‌های ویژه‌ای هستند که به ابزار، سلاح و زره اضافه می‌شوند. هر افزودنی یک افکت خاص دارد و می‌تواند به سطح حداکثر خود (I تا V) ارتقا یابد.
+
+<Infobox title="افزودنی‌ها در نگاه سریع" icon="enchantment">
+  <InfoboxRow label="نوع">مکانیک gameplay</InfoboxRow>
+  <InfoboxRow label="نیازمندی">Enchanting Table + Bookshelf</InfoboxRow>
+  <InfoboxRow label="حداکثر سطح">V (برخی III یا I)</InfoboxRow>
+  <InfoboxRow label="منابع">Enchanting، Anvil + Enchanted Book، Villager</InfoboxRow>
+  <InfoboxRow label="تجدیدپذیر">بله</InfoboxRow>
+</Infobox>
 
 ## نحوه‌ی افزودن
 
 برای افزودن به یک آیتم، نیاز به **Bookshelf** و **Enchanting Table** دارید. هرچه bookshelfهای بیشتری دور میز بچینید (حداکثر ۱۵ عدد با فاصله‌ی یک بلوک)، سطح افزودنی‌های بالاتر آزاد می‌شود.
 
-همچنین می‌توانید از **Anvil** و **Enchanted Book** برای اعمال افزودنی‌های خاص استفاده کنید.
+<MessageBox type="info" title="نحوه‌ی چیدمان bookshelf">
+برای گرفتن بالاترین سطح افزودنی (۳۰)، باید ۱۵ bookshelf را به فاصله‌ی یک بلوک از Enchanting Table بچینید. نباید چیزی بین آن‌ها و میز باشد.
+</MessageBox>
+
+همچنین می‌توانید از **Anvil** و **Enchanted Book** برای اعمال افزودنی‌های خاص استفاده کنید. این روش به شما اجازه می‌دهد افزودنی‌های دلخواهتان را انتخاب کنید، اما به XP نیاز دارد.
 
 ## افزودنی‌های سلاح (Weapon Enchantments)
 
 ### Sharpness (تیزی)
-- **سطح حداکثر:** V
-- **افزودن:** آسیب همه‌ی mobها
-- **ناسازگار با:** Smite، Bane of Arthropods
-- **بهترین کاربرد:** شمشیر و تبر جنگی برای مبارزه‌ی عمومی
+
+<Infobox title="Sharpness" icon="sword">
+  <InfoboxRow label="نام">Sharpness</InfoboxRow>
+  <InfoboxRow label="شناسه">`sharpness`</InfoboxRow>
+  <InfoboxRow label="حداکثر سطح">V</InfoboxRow>
+  <InfoboxRow label="افزودن">آسیب همه‌ی mobها</InfoboxRow>
+  <InfoboxRow label="ناسازگار">Smite، Bane of Arthropods</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">شمشیر، تبر</InfoboxRow>
+</Infobox>
+
+**بهترین کاربرد:** شمشیر و تبر جنگی برای مبارزه‌ی عمومی. هر سطح ۰.۵ آسیب اضافه می‌کند.
 
 ### Smite (ضربت مرگ‌بار)
-- **سطح حداکثر:** V
-- **افزودن:** آسیب به undead mobs (زامبی، اسکلت، و غیره)
-- **ناسازگار با:** Sharpness، Bane of Arthropods
-- **بهترین کاربرد:** شمشیر مخصوص مبارزه با mobهای undead
+
+<Infobox title="Smite" icon="sword">
+  <InfoboxRow label="نام">Smite</InfoboxRow>
+  <InfoboxRow label="شناسه">`smite`</InfoboxRow>
+  <InfoboxRow label="حداکثر سطح">V</InfoboxRow>
+  <InfoboxRow label="افزودن">آسیب به undead mobs</InfoboxRow>
+  <InfoboxRow label="ناسازگار">Sharpness، Bane of Arthropods</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">شمشیر، تبر</InfoboxRow>
+</Infobox>
+
+**بهترین کاربرد:** شمشیر مخصوص مبارزه با mobهای undead. هر سطح ۲.۵ آسیب اضافه می‌کند به undead.
+
+<MessageBox type="tip">Undead mobs: زامبی، اسکلت، ویزرد، استری، زامبی پگلین و...</MessageBox>
 
 ### Bane of Arthropods (نابودگر بندپایان)
-- **سطح حداکثر:** V
-- **افزودن:** آسیب به عنکبوتیان، نارنج‌پا و سایر بندپایان
-- **ناسازگار با:** Sharpness، Smite
+
+<Infobox title="Bane of Arthropods" icon="sword">
+  <InfoboxRow label="نام">Bane of Arthropods</InfoboxRow>
+  <InfoboxRow label="حداکثر سطح">V</InfoboxRow>
+  <InfoboxRow label="افزودن">آسیب به عنکبوتیان، نارنج‌پا و بندپایان</InfoboxRow>
+  <InfoboxRow label="ناسازگار">Sharpness، Smite</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">شمشیر، تبر</InfoboxRow>
+</Infobox>
 
 ### Knockback (پس زدن)
-- **سطح حداکثر:** II
-- **افزودن:** فاصله‌ای که mob پس می‌رود
+
+<Infobox title="Knockback" icon="sword">
+  <InfoboxRow label="حداکثر سطح">II</InfoboxRow>
+  <InfoboxRow label="افزودن">فاصله‌ای که mob پس می‌رود</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">شمشیر</InfoboxRow>
+</Infobox>
 
 ### Fire Aspect (جنبه‌ی آتشین)
-- **سطح حداکثر:** II
-- **افزودن:** mob هدف را آتش می‌زند (۲-۴ ثانیه)
+
+<Infobox title="Fire Aspect" icon="sword">
+  <InfoboxRow label="حداکثر سطح">II</InfoboxRow>
+  <InfoboxRow label="افزودن">mob هدف را آتش می‌زند (۲-۴ ثانیه)</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">شمشیر</InfoboxRow>
+</Infobox>
+
+<MessageBox type="warning">Fire Aspect در ندر روی Zombified Piglin خطرناکه — می‌تونه باعث شود به شما حمله کنند.</MessageBox>
 
 ### Looting (غارت)
-- **سطح حداکثر:** III
-- **افزودن:** احتمال drop بیشتر از mobهای کشته‌شده
 
-### Sweeping Edge (لبه‌ی جاروب‌کننده)
-- **سطح حداکثر:** III (فقط Java)
-- **افزودن:** آسیب به mobهای مجاور هنگام حمله‌ی جاروب
+<Infobox title="Looting" icon="sword">
+  <InfoboxRow label="حداکثر سطح">III</InfoboxRow>
+  <InfoboxRow label="افزودن">احتمال drop بیشتر از mobهای کشته‌شده</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">شمشیر</InfoboxRow>
+</Infobox>
 
 ## افزودنی‌های زره (Armor Enchantments)
 
 ### Protection (محافظت)
-- **سطح حداکثر:** IV
-- **افزودن:** کاهش آسیب همه‌ی منابع
-- **ناسازگار با:** سایر افزودنی‌های Protection خاص
-- **بهترین کاربرد:** تمام قطعات زره
 
-### Fire Protection
-- **سطح حداکثر:** IV
-- **افزودن:** کاهش آسیب آتش
-- **بهترین کاربرد:** برای کشف Nether
+<Infobox title="Protection" icon="decoration">
+  <InfoboxRow label="حداکثر سطح">IV</InfoboxRow>
+  <InfoboxRow label="افزودن">کاهش آسیب همه‌ی منابع</InfoboxRow>
+  <InfoboxRow label="ناسازگار">سایر افزودنی‌های Protection خاص</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">تمام قطعات زره</InfoboxRow>
+</Infobox>
 
-### Blast Protection
-- **سطح حداکثر:** IV
-- **افزودن:** کاهش آسیب انفجار (کریپر، TNT، End Crystal)
+<MessageBox type="tip" title="بهترین انتخاب">
+Protection IV بهترین انتخاب عمومی برای زرهه. آسیب همه‌ی منابع را ۸٪ در هر سطح کاهش می‌دهد (حداکثر ۳۲٪ با ۴ قطعه).
+</MessageBox>
 
-### Projectile Protection
-- **سطح حداکثر:** IV
-- **افزودن:** کاهش آسیب سهم‌ها (اسکلت، شلاق، تیر)
+### Fire Protection / Blast Protection / Projectile Protection
+
+این سه variant از Protection هستند که به‌جای همه‌ی منابع، فقط یک منبع خاص را بهتر کاهش می‌دهند. با هم ناسازگارند.
 
 ### Feather Falling
-- **سطح حداکثر:** IV
-- **افزودن:** کاهش آسیب سقوط (فقط روی چکمه)
+
+<Infobox title="Feather Falling" icon="decoration">
+  <InfoboxRow label="حداکثر سطح">IV</InfoboxRow>
+  <InfoboxRow label="افزودن">کاهش آسیب سقوط</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">چکمه</InfoboxRow>
+</Infobox>
+
+<MessageBox type="info">Feather Falling IV بهترین انتخاب برای چکمه‌هاست. آسیب سقوط را ۴۸٪ کاهش می‌دهد.</MessageBox>
 
 ### Thorns
-- **سطح حداکثر:** III
-- **افزودن:** بازتاب آسیب به مهاجم
+
+<Infobox title="Thorns" icon="decoration">
+  <InfoboxRow label="حداکثر سطح">III</InfoboxRow>
+  <InfoboxRow label="افزودن">بازتاب آسیب به مهاجم</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">تمام قطعات زره</InfoboxRow>
+</Infobox>
 
 ## افزودنی‌های ابزار (Tool Enchantments)
 
 ### Efficiency (بهره‌وری)
-- **سطح حداکثر:** V
-- **افزودن:** سرعت mining با ابزار
+
+<Infobox title="Efficiency" icon="tool">
+  <InfoboxRow label="حداکثر سطح">V</InfoboxRow>
+  <InfoboxRow label="افزودن">سرعت mining با ابزار</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">Pickaxe، Axe، Shovel، Hoe، Shears</InfoboxRow>
+</Infobox>
 
 ### Fortune (شانس)
-- **سطح حداکثر:** III
-- **افزودن:** احتمال drop بیشتر از mining (مثل الماس، زمرد)
-- **ناسازگار با:** Silk Touch
+
+<Infobox title="Fortune" icon="tool">
+  <InfoboxRow label="حداکثر سطح">III</InfoboxRow>
+  <InfoboxRow label="افزودن">احتمال drop بیشتر از mining</InfoboxRow>
+  <InfoboxRow label="ناسازگار">Silk Touch</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">Pickaxe، Axe، Shovel، Hoe</InfoboxRow>
+</Infobox>
+
+<MessageBox type="tip">Fortune III برای mining الماس عالیه — می‌تونه تا ۴ الماس از یک ore بگیرید.</MessageBox>
 
 ### Silk Touch (لمس ابریشمی)
-- **سطح حداکثر:** I
-- **افزودن:** بلوک خودش drop می‌شود (نه item از آن)
-- **ناسازگار با:** Fortune
+
+<Infobox title="Silk Touch" icon="tool">
+  <InfoboxRow label="حداکثر سطح">I</InfoboxRow>
+  <InfoboxRow label="افزودن">بلوک خودش drop می‌شود (نه item از آن)</InfoboxRow>
+  <InfoboxRow label="ناسازگار">Fortune</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">Pickaxe، Axe، Shovel، Hoe، Shears</InfoboxRow>
+</Infobox>
 
 ### Unbreaking (استحکام)
-- **سطح حداکثر:** III
-- **افزودن:** افزایش دوام ابزار/زره/سلاح
+
+<Infobox title="Unbreaking" icon="tool">
+  <InfoboxRow label="حداکثر سطح">III</InfoboxRow>
+  <InfoboxRow label="افزودن">افزایش دوام ابزار/زره/سلاح</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">همه</InfoboxRow>
+</Infobox>
 
 ### Mending
-- **سطح حداکثر:** I
-- **افزودن:** با تجربه‌ی جمع‌شده، دوام آیتم ترمیم می‌شود
-- **نکته:** به شدت توصیه می‌شود!
+
+<Infobox title="Mending" icon="tool">
+  <InfoboxRow label="حداکثر سطح">I</InfoboxRow>
+  <InfoboxRow label="افزودن">با تجربه‌ی جمع‌شده، دوام آیتم ترمیم می‌شود</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">همه (با durability)</InfoboxRow>
+</Infobox>
+
+<MessageBox type="success" title="Mending حیاتی!">
+Mending بهترین افزودنی برای ابزارهاست. با آن، ابزار هرگز می‌شکند (تا وقتی تجربه جمع می‌کنید). همیشه برای ابزارهای مهم بگیرید.
+</MessageBox>
 
 ## افزودنی‌های مخصوص
 
 ### Aqua Affinity (خوی دریایی)
-- **سطح حداکثر:** I (روی کلاه)
-- **افزودن:** سرعت mining زیر آب
+
+<Infobox title="Aqua Affinity" icon="decoration">
+  <InfoboxRow label="حداکثر سطح">I</InfoboxRow>
+  <InfoboxRow label="افزودن">سرعت mining زیر آب</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">کلاه</InfoboxRow>
+</Infobox>
 
 ### Respiration (تنفس)
-- **سطح حداکثر:** III (روی کلاه)
-- **افزودن:** زمان بیشتر زیر آب + احتمال آسیب کمتر از غرق
+
+<Infobox title="Respiration" icon="decoration">
+  <InfoboxRow label="حداکثر سطح">III</InfoboxRow>
+  <InfoboxRow label="افزودن">زمان بیشتر زیر آب + احتمال آسیب کمتر از غرق</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">کلاه</InfoboxRow>
+</Infobox>
 
 ### Depth Strider (قدم‌زنی عمقی)
-- **سطح حداکثر:** III (روی چکمه)
-- **افزودن:** سرعت حرکت زیر آب
+
+<Infobox title="Depth Strider" icon="decoration">
+  <InfoboxRow label="حداکثر سطح">III</InfoboxRow>
+  <InfoboxRow label="افزودن">سرعت حرکت زیر آب</InfoboxRow>
+  <InfoboxRow label="ناسازگار">Frost Walker</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">چکمه</InfoboxRow>
+</Infobox>
 
 ### Frost Walker (راه‌رویخته)
-- **سطح حداکثر:** II (روی چکمه)
-- **افزودن:** تبدیل آب به یخ هنگام راه رفتن
-- **ناسازگار با:** Depth Strider
+
+<Infobox title="Frost Walker" icon="decoration">
+  <InfoboxRow label="حداکثر سطح">II</InfoboxRow>
+  <InfoboxRow label="افزودن">تبدیل آب به یخ هنگام راه رفتن</InfoboxRow>
+  <InfoboxRow label="ناسازگار">Depth Strider</InfoboxRow>
+  <InfoboxRow label="آیتم‌ها">چکمه</InfoboxRow>
+</Infobox>
 
 ## نکات پایانی
 
-- همیشه **Mending** روی ابزارهای مهم اعمال کنید.
-- برای مبارزه‌ی عمومی، **Sharpness V** بهترین انتخاب است.
-- برای mining، **Efficiency V + Unbreaking III + Mending** ترکیب ایده‌آل است.
-- **Fortune III** برای mining钻石 و زمرد انتخاب عالی است.
+<MessageBox type="success" title="بهترین ترکیب‌ها">
+- **شمشیر:** Sharpness V + Unbreaking III + Mending + Looting III
+- **Pickaxe:** Efficiency V + Unbreaking III + Mending + Fortune III (یا Silk Touch)
+- **Axe:** Efficiency V + Unbreaking III + Mending + Silk Touch
+- **زره:** Protection IV + Unbreaking III + Mending (روی همه‌ی قطعات)
+- **کلاه:** Protection IV + Respiration III + Aqua Affinity + Unbreaking III + Mending
+- **چکمه:** Protection IV + Feather Falling IV + Depth Strider III + Unbreaking III + Mending
+</MessageBox>
+
+<MessageBox type="warning" title="نکته نهایی">
+همیشه **Mending** روی ابزارهای مهم اعمال کنید. برای مبارزه‌ی عمومی، **Sharpness V** بهترین انتخاب است. برای mining، **Efficiency V + Unbreaking III + Mending** ترکیب ایده‌آل است.
+</MessageBox>

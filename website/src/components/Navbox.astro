@@ -1,0 +1,157 @@
+---
+/**
+ * Navbox.astro — Bottom-of-page navigation box (minecraft.wiki's navbox pattern)
+ *
+ * Usage:
+ *   <Navbox title="سلاح‌ها" groups={[
+ *     { title: 'شمشیر', items: [
+ *       { label: 'چوبی', href: '/wiki/wooden-sword' },
+ *       { label: 'سنگی', href: '/wiki/stone-sword' },
+ *       { label: 'الماس', href: '/wiki/diamond-sword' },
+ *     ]},
+ *     { title: 'تبر', items: [...] },
+ *   ]} />
+ */
+import '@components/icons.astro';
+import { siteConfig } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface NavGroup {
+  title: string;
+  items: NavItem[];
+}
+
+interface Props {
+  title: string;
+  groups: NavGroup[];
+}
+
+const { title, groups } = Astro.props;
+---
+
+<nav class="navbox" aria-label={title}>
+  <div class="navbox-top">
+    <div class="navbox-title">{title}</div>
+  </div>
+  <table class="navbox-table">
+    <tbody>
+      {groups.map((group, gi) => (
+        <tr key={gi} class="navbox-group-row">
+          <th scope="row" class="navbox-group">{group.title}</th>
+          <td class="navbox-list">
+            <ul class="hlist">
+              {group.items.map((item, ii) => (
+                <li key={ii}>
+                  <a href={base(item.href)} class="navbox-link">{item.label}</a>
+                </li>
+              ))}
+            </ul>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</nav>
+
+<style>
+  .navbox {
+    margin: 2rem 0;
+    background: var(--panel, #1c1c34);
+    border: 2px solid var(--line, #2e2e4a);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbox-top {
+    background: linear-gradient(135deg, rgba(123, 197, 92, 0.15), rgba(123, 197, 92, 0.05));
+    border-bottom: 1px solid var(--line, #2e2e4a);
+  }
+
+  .navbox-title {
+    padding: 0.625rem 1rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--grass-2, #7cc84a);
+    text-shadow: 0 0 8px rgba(123, 197, 92, 0.3);
+  }
+
+  .navbox-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .navbox-group-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .navbox-group-row:last-child {
+    border-bottom: none;
+  }
+
+  .navbox-group {
+    text-align: center;
+    padding: 0.625rem 0.875rem;
+    background: rgba(0, 0, 0, 0.15);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    color: var(--gold, #ffd142);
+    width: 130px;
+    vertical-align: middle;
+  }
+
+  .navbox-list {
+    padding: 0.5rem 0.875rem;
+  }
+
+  .hlist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0;
+  }
+
+  .hlist li {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.8125rem;
+  }
+
+  /* Inline list separator: " • " */
+  .hlist li:not(:last-child)::after {
+    content: '•';
+    margin: 0 0.5rem;
+    color: var(--text-3, #5c5c7a);
+    opacity: 0.5;
+  }
+
+  .navbox-link {
+    color: var(--text-2, #9a9ab8);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .navbox-link:hover {
+    color: var(--grass-2, #7cc84a);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .navbox-group {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 0.875rem;
+    }
+    .navbox-list {
+      padding-top: 0;
+    }
+  }
+</style>

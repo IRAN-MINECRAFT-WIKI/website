@@ -7,216 +7,364 @@ topic: 'mechanics'
 mcVersion: '1.21'
 ---
 
+import CraftingGrid from '@components/CraftingGrid.astro';
+import MessageBox from '@components/MessageBox.astro';
+import Hatnote from '@components/Hatnote.astro';
+
+<Hatnote text="این صفحه درباره‌ی دستورالعمل‌های crafting در ماینکرفت بدراک است. برای ساخت potionها، Brewing رو ببینید." />
+
 Crafting یکی از مهم‌ترین مکانیک‌های ماینکرفت است. با Crafting Table (۴×۴ grid) و کار的需要 inventory (۲×۲ grid)، شما می‌توانید ابزار، سلاح، زره، بلوک‌ها و ده‌ها آیتم دیگر بسازید.
 
-## اندازه‌ی گرید
-
+<MessageBox type="info" title="اندازه‌ی گرید">
 | نوع | گرید | کاربرد |
 |------|------|--------|
 | **Inventory** | ۲×۲ | ساده‌ی constructions (پله، تخته، میز، تیر، و...) |
 | **Crafting Table** | ۳×۳ | پیچیده‌ی constructions (ابزار، سلاح، زره، و...) |
+</MessageBox>
 
 ## دستورالعمل‌های پایه (Basic Recipes)
 
 ### Planks (تخته)
-- **ورودی:** ۱ Wood Log (هر نوع)
-- **خروجی:** ۴ Planks (همان نوع)
-- **گرید:** ۱×۱ (هر کجا)
+
+۱ Wood Log (هر نوع) → ۴ Planks (همان نوع). هر کجا در گرید قرار بگیره کار می‌کنه.
+
+<MessageBox type="tip">Planks پایه‌ی همه‌ی craftingهاست — همیشه چند تا در inventory داشته باشید.</MessageBox>
 
 ### Sticks (چوب)
-- **ورودی:** ۲ Planks (هر نوع)
-- **خروجی:** ۴ Sticks
-- **ترتیب:** ۲ عمودی (یکی روی دیگر)
+
+۲ Planks (هر نوع) به‌صورت عمودی → ۴ Sticks.
+
+<CraftingGrid
+  pattern={[
+    [null, 'decoration', null],
+    [null, 'decoration', null],
+    [null, null, null],
+  ]}
+  result={{ icon: 'tool', count: 4 }}
+/>
+
+<MessageBox type="info">Sticks برای ساخت همه‌ی ابزارها، سلاح‌ها و بسیاری از بلوک‌ها لازم است.</MessageBox>
 
 ### Crafting Table
-- **ورودی:** ۴ Planks
-- **خروجی:** ۱ Crafting Table
-- **ترتیب:** ۲×۲ (هر چهار خانه)
+
+۴ Planks در گرید ۲×۲ → ۱ Crafting Table.
+
+<CraftingGrid
+  pattern={[
+    ['decoration', 'decoration', null],
+    ['decoration', 'decoration', null],
+    [null, null, null],
+  ]}
+  result={{ icon: 'crafting', count: 1 }}
+/>
 
 ### Torch (مشعل)
-- **ورودی:** ۱ Stick + ۱ Coal/Charcoal
-- **خروجی:** ۴ Torches
-- **ترتیب:** Coal بالا، Stick پایین
+
+۱ Stick + ۱ Coal/Charcoal به‌صورت عمودی → ۴ Torches.
+
+<CraftingGrid
+  pattern={[
+    [null, 'decoration', null],
+    [null, 'tool', null],
+    [null, null, null],
+  ]}
+  result={{ icon: 'decoration', count: 4 }}
+/>
 
 ## ابزارها (Tools)
 
 ### Pickaxe (کندنده)
-- **ورودی:** ۲ Sticks + ۳ (Wood/Stone/Iron/Gold/Diamond)
-- **ترتیب:**
-```
-X X X
-  S
-  S
-```
-(S = Stick, X = material)
+
+۳ material در ردیف بالا + ۲ Sticks عمودی → ۱ Pickaxe.
+
+<MessageBox type="info">materials: Wood, Stone, Iron, Gold, Diamond, Netherite</MessageBox>
+
+<CraftingGrid
+  pattern={[
+    ['diamond', 'diamond', 'diamond'],
+    [null, 'tool', null],
+    [null, 'tool', null],
+  ]}
+  result={{ icon: 'tool', count: 1 }}
+/>
 
 ### Axe (تبر)
-- **ورودی:** ۲ Sticks + ۳ material
-- **ترتیب:**
-```
-X X
-X S
-  S
-```
+
+۳ material (شکل L) + ۲ Sticks → ۱ Axe.
+
+<CraftingGrid
+  pattern={[
+    ['diamond', 'diamond', null],
+    ['diamond', 'tool', null],
+    [null, 'tool', null],
+  ]}
+  result={{ icon: 'tool', count: 1 }}
+/>
 
 ### Shovel (بیل)
-- **ورودی:** ۲ Sticks + ۱ material
-- **ترتیب:**
-```
-X
-S
-S
-```
+
+۱ material بالا + ۲ Sticks عمودی → ۱ Shovel.
+
+<CraftingGrid
+  pattern={[
+    [null, 'diamond', null],
+    [null, 'tool', null],
+    [null, 'tool', null],
+  ]}
+  result={{ icon: 'tool', count: 1 }}
+/>
 
 ### Hoe (گاوآهن)
-- **ورودی:** ۲ Sticks + ۲ material
-- **ترتیب:**
-```
-X X
-  S
-  S
-```
+
+۲ material بالایی + ۲ Sticks → ۱ Hoe.
+
+<CraftingGrid
+  pattern={[
+    ['diamond', 'diamond', null],
+    [null, 'tool', null],
+    [null, 'tool', null],
+  ]}
+  result={{ icon: 'tool', count: 1 }}
+/>
+
+<MessageBox type="warning" title="نکته درباره‌ی Hoes">
+Hoes برای آماده‌سازی زمین کشاورزی استفاده می‌شوند. خاک‌های آماده‌شده به‌جای خاک معمولی، سرعت رشد محصولات را افزایش می‌دهند.
+</MessageBox>
 
 ### Flint and Steel (ولوم‌زنه)
-- **ورودی:** ۱ Iron Ingot + ۱ Flint
-- **خروجی:** ۱ Flint and Steel
-- **ترتیب:** غیر shape (هر کجا)
+
+۱ Iron Ingot + ۱ Flint به‌صورت shapeless → ۱ Flint and Steel.
+
+<CraftingGrid
+  items={['diamond', 'diamond']}
+  result={{ icon: 'tool', count: 1 }}
+  shapeless={true}
+/>
 
 ## سلاح‌ها (Weapons)
 
 ### Sword (شمشیر)
-- **ورودی:** ۱ Stick + ۲ material
-- **ترتیب:**
-```
-X
-X
-S
-```
+
+۲ material عمودی + ۱ Stick → ۱ Sword.
+
+<CraftingGrid
+  pattern={[
+    [null, 'diamond', null],
+    [null, 'diamond', null],
+    [null, 'tool', null],
+  ]}
+  result={{ icon: 'sword', count: 1 }}
+/>
+
+<MessageBox type="tip" title="نکته">
+شمشیر در برابر تبر آسیب بیشتری می‌زند، اما تبر هم برای mining و هم برای مبارزه استفاده می‌شود.
+</MessageBox>
 
 ### Bow (کمان)
-- **ورودی:** ۳ Sticks + ۳ String
-- **ترتیب:**
-```
-S   St
-St S
-S   St
-```
-(St = Stick, S = String)
+
+۳ Sticks + ۳ String → ۱ Bow.
+
+<CraftingGrid
+  pattern={[
+    ['tool', null, 'tool'],
+    ['tool', 'tool', null],
+    ['tool', null, 'tool'],
+  ]}
+  result={{ icon: 'tool', count: 1 }}
+/>
 
 ### Arrow (تیر)
-- **ورودی:** ۱ Stick + ۱ Flint + ۱ Feather
-- **خروجی:** ۴ Arrows
-- **ترتیب:**
-```
-F
-S
-Fe
-```
-(F = Flint, S = Stick, Fe = Feather)
+
+۱ Stick + ۱ Flint + ۱ Feather به‌صورت عمودی → ۴ Arrows.
+
+<CraftingGrid
+  pattern={[
+    [null, 'decoration', null],
+    [null, 'tool', null],
+    [null, 'decoration', null],
+  ]}
+  result={{ icon: 'decoration', count: 4 }}
+/>
 
 ### Shield (سپر)
-- **ورودی:** ۶ Wood Planks + ۱ Iron Ingot
-- **ترتیب:**
-```
-P P P
-P I P
-P P P
-```
-(P = Planks, I = Iron Ingot)
+
+۶ Wood Planks + ۱ Iron Ingot → ۱ Shield.
+
+<CraftingGrid
+  pattern={[
+    ['decoration', 'decoration', 'decoration'],
+    ['decoration', 'diamond', 'decoration'],
+    ['decoration', 'decoration', 'decoration'],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
+
+<MessageBox type="tip" title="استفاده از Shield">
+برای استفاده، click راست نگه دارید (Java) یا button shield را نگه دارید (Bedrock). Shield آسیب‌های projectile + melee را block می‌کند.
+</MessageBox>
 
 ## زره (Armor)
 
 ### Helmet (کلاه)
-- **ورودی:** ۵ material (Leather/Iron/Gold/Diamond)
-- **ترتیب:**
-```
-X X X
-X   X
-```
+
+۵ material در شکل U → ۱ Helmet.
+
+<CraftingGrid
+  pattern={[
+    ['diamond', 'diamond', 'diamond'],
+    ['diamond', null, 'diamond'],
+    [null, null, null],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
 
 ### Chestplate (زره تن)
-- **ورودی:** ۸ material
-- **ترتیب:**
-```
-X   X
-X X X
-X X X
-X X X
-```
+
+۸ material به‌جز خانه‌ی بالای وسط → ۱ Chestplate.
+
+<CraftingGrid
+  pattern={[
+    ['diamond', null, 'diamond'],
+    ['diamond', 'diamond', 'diamond'],
+    ['diamond', 'diamond', 'diamond'],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
 
 ### Leggings (شلوار)
-- **ورودی:** ۷ material
-- **ترتیب:**
-```
-X X X
-X   X
-X   X
-X   X
-```
+
+۷ material → ۱ Leggings.
+
+<CraftingGrid
+  pattern={[
+    ['diamond', 'diamond', 'diamond'],
+    ['diamond', null, 'diamond'],
+    ['diamond', null, 'diamond'],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
 
 ### Boots (چکمه)
-- **ورودی:** ۴ material
-- **ترتیب:**
-```
-X   X
-X   X
-```
+
+۴ material در شکل L برعکس → ۱ Boots.
+
+<CraftingGrid
+  pattern={[
+    ['diamond', null, 'diamond'],
+    ['diamond', null, 'diamond'],
+    [null, null, null],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
 
 ## بلوک‌های مفید (Useful Blocks)
 
 ### Chest (صندوق)
-- **ورودی:** ۸ Wood Planks
-- **ترتیب:** همه‌ی خانه‌های دور (وسط خالی)
+
+۸ Wood Planks (همه‌ی خانه‌های دور، وسط خالی) → ۱ Chest.
+
+<CraftingGrid
+  pattern={[
+    ['decoration', 'decoration', 'decoration'],
+    ['decoration', null, 'decoration'],
+    ['decoration', 'decoration', 'decoration'],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
 
 ### Furnace (کوره)
-- **ورودی:** ۸ Cobblestone
-- **ترتیب:** همه‌ی خانه‌های دور (وسط خالی)
+
+۸ Cobblestone (همه‌ی خانه‌های دور، وسط خالی) → ۱ Furnace.
+
+<CraftingGrid
+  pattern={[
+    ['decoration', 'decoration', 'decoration'],
+    ['decoration', null, 'decoration'],
+    ['decoration', 'decoration', 'decoration'],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
 
 ### Bed (تخت)
-- **ورودی:** ۳ Wool + ۳ Planks
-- **ترتیب:**
-```
-W W W
-P P P
-```
-(W = Wool, P = Planks)
+
+۳ Wool + ۳ Planks در دو ردیف → ۱ Bed.
+
+<CraftingGrid
+  pattern={[
+    ['decoration', 'decoration', 'decoration'],
+    ['decoration', 'decoration', 'decoration'],
+    [null, null, null],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
+
+<MessageBox type="warning" title="رنگ تخت">
+رنگ Wool رنگ Bed را تعیین می‌کند. اما برای تنظیم spawn، رنگ Bed مهم نیست — هر Bed کار می‌کند.
+</MessageBox>
 
 ### Ladder (نردبان)
-- **ورودی:** ۷ Sticks
-- **ترتیب:** H شکل
-```
-S S
-SSS
-S S
-```
+
+۷ Sticks در شکل H → ۳ Ladders.
+
+<CraftingGrid
+  pattern={[
+    ['tool', null, 'tool'],
+    ['tool', 'tool', 'tool'],
+    ['tool', null, 'tool'],
+  ]}
+  result={{ icon: 'decoration', count: 3 }}
+/>
 
 ### Boat (قایق)
-- **ورودی:** ۵ Planks
-- **ترتیب:**
-```
-P   P
-PPPPP
-```
+
+۵ Wood Planks در شکل U وارونه → ۱ Boat.
+
+<CraftingGrid
+  pattern={[
+    ['decoration', null, 'decoration'],
+    ['decoration', 'decoration', 'decoration'],
+    ['decoration', 'decoration', 'decoration'],
+  ]}
+  result={{ icon: 'decoration', count: 1 }}
+/>
 
 ## فرآیندهای خاص
 
 ### Smelting (ذوب‌کردن)
+
 در **Furnace**، با coal + material ورودی، خروجی متفاوت به دست می‌آید:
-- Iron Ore + Coal → Iron Ingot
-- Gold Ore + Coal → Gold Ingot
-- Sand + Coal → Glass
-- Cobblestone + Coal → Stone
-- Raw Food + Coal → Cooked Food
+
+| ورودی | سوخت | خروجی |
+|------|------|--------|
+| Iron Ore | Coal | Iron Ingot |
+| Gold Ore | Coal | Gold Ingot |
+| Sand | Coal | Glass |
+| Cobblestone | Coal | Stone |
+| Raw Food | Coal | Cooked Food |
+| Cactus | Coal | Green Dye |
+| Stone | Coal | Smooth Stone |
+
+<MessageBox type="tip">برای ذوب‌کردن ۱ آیتم، ۱ coal لازم است. هر coal ۸ آیتم را ذوب می‌کند.</MessageBox>
 
 ### Stonecutter (Bedrock)
+
 برای ساخت پله، دیوار، و... با ۱ بلوک سنگ به جای ۶ (در Crafting Table).
 
+<MessageBox type="info">Stonecutter در Bedrock + Java موجود است و برای ساخت stair/slab/wall با مصرف کمتر عالی است.</MessageBox>
+
 ### Cartography Table
-برای گسترش نقشه‌ها + kپی + scaling.
+
+برای گسترش نقشه‌ها + کپی + scaling.
 
 ## نکات پایانی
 
+<MessageBox type="success" title="آماده‌اید!">
 - **Recipe Book** در بازی شامل همه‌ی دستورالعمل‌های شناخته‌شده‌ی شماست.
 - با Shift + Click، ساخت حداکثر آیتم‌ها را انجام دهید.
 - برای ساخت stack، روی result کلیک کنید + Shift نگه دارید.
 - در Bedrock، برخی recipeها با Stonecutter بهتر است (مصرف کمتر).
+</MessageBox>
+
+<MessageBox type="warning" title="نکته نهایی">
+اگه دستورالعمل‌ی رو فراموش کردید، در Recipe Book درون بازی (دکمه‌ی سبز راست Crafting Table) چک کنید. تمام recipeهای آموخته‌شده آنجا هستن.
+</MessageBox>

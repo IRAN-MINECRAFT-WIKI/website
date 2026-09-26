@@ -1,0 +1,107 @@
+---
+/**
+ * InventorySlot.astro — Minecraft-style inventory slot
+ *
+ * Pattern from minecraft.wiki's `invslot` class. Renders a 32x32 styled
+ * square with an SVG icon inside + optional count + optional tooltip.
+ *
+ * Usage:
+ *   <InventorySlot icon="diamond" count={64} />
+ *   <InventorySlot icon="stick" />
+ *   <InventorySlot icon="diamond-sword" tooltip="شمشیر الماس" />
+ *   <InventorySlot />  <!-- empty slot -->
+ */
+import '@components/icons.astro';
+
+interface Props {
+  icon?: string;        // icon name (without icon- prefix)
+  count?: number;      // stack count (hidden if 1 or undefined)
+  tooltip?: string;    // hover tooltip
+  size?: 'sm' | 'md' | 'lg';  // 24/32/48px
+  large?: boolean;    // large variant (48px) — alias for size="lg"
+}
+
+const { icon, count, tooltip, size = 'md', large = false } = Astro.props;
+const actualSize = large ? 'lg' : size;
+const pxSize = actualSize === 'sm' ? 24 : actualSize === 'lg' ? 48 : 32;
+const iconName = icon ? (icon.startsWith('icon-') ? icon : `icon-${icon}`) : null;
+---
+
+<div
+  class={`invslot invslot-${actualSize}`}
+  title={tooltip}
+  data-minetip-text={tooltip}
+>
+  {iconName && (
+    <span class="invslot-item">
+      <svg
+        width={pxSize * 0.65}
+        height={pxSize * 0.65}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      >
+        <use href={`#${iconName}`} />
+      </svg>
+    </span>
+  )}
+  {count && count > 1 && (
+    <span class="invslot-count">{count}</span>
+  )}
+</div>
+
+<style>
+  .invslot {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow:
+      inset 2px 2px 0 rgba(0, 0, 0, 0.4),
+      inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    vertical-align: middle;
+  }
+  .invslot-sm { width: 24px; height: 24px; }
+  .invslot-md { width: 32px; height: 32px; }
+  .invslot-lg { width: 48px; height: 48px; }
+
+  .invslot-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4d4d4;
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
+  }
+
+  .invslot-count {
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 0.625rem;
+    color: #ffffff;
+    text-shadow:
+      2px 2px 0 rgba(0, 0, 0, 0.8),
+      -1px -1px 0 rgba(0, 0, 0, 0.4);
+    padding: 0 2px;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .invslot:hover {
+    background: linear-gradient(135deg, #a0a0a0 0%, #828282 50%, #6a6a6a 100%);
+  }
+</style>

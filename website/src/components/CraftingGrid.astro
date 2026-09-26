@@ -1,0 +1,148 @@
+---
+/**
+ * CraftingGrid.astro — Minecraft crafting table UI (3×3 grid + result slot)
+ *
+ * Pattern from minecraft.wiki's `mcui mcui-Crafting_Table`. Renders a
+ * 3×3 grid of InventorySlots + an arrow + a result slot.
+ *
+ * Usage:
+ *   <CraftingGrid
+ *     pattern={[
+ *       ['diamond', null, null],
+ *       ['diamond', null, null],
+ *       [null, 'stick', null],
+ *     ]}
+ *     result={{ icon: 'diamond-sword', count: 1 }}
+ *   />
+ *
+ *   // Shapeless recipe (no specific grid position):
+ *   <CraftingGrid
+ *     items={['iron-ingot', 'flint']}
+ *     result={{ icon: 'flint-and-steel', count: 1 }}
+ *     shapeless={true}
+ *   />
+ */
+import '@components/icons.astro';
+import InventorySlot from '@components/InventorySlot.astro';
+
+interface Props {
+  pattern?: (string | null)[][];  // 3×3 grid of icon names
+  items?: string[];                // shapeless — just icons
+  result: { icon: string; count?: number };
+  shapeless?: boolean;
+}
+
+const { pattern, items, result, shapeless = false } = Astro.props;
+
+// Build flat list for shapeless
+const shapelessItems = items || [];
+
+// Build flat list for shaped (3x3)
+const flatPattern = pattern ? (
+  [0, 1, 2].flatMap(r => [0, 1, 2].map(c => pattern[r]?.[c] || null))
+) : [];
+---
+
+<div class="mcui mcui-Crafting_Table">
+  <div class="mcui-input">
+    {shapeless ? (
+      // Shapeless: just show 3 slots with the items (no fixed positions)
+      <div class="mcui-row shapeless">
+        {[0, 1, 2].map((i) => (
+          <InventorySlot icon={shapelessItems[i]} />
+        ))}
+      </div>
+    ) : (
+      // Shaped: 3x3 grid with fixed positions
+      <div class="mcui-shaped">
+        {[0, 1, 2].map((r) => (
+          <div class="mcui-row">
+            {[0, 1, 2].map((c) => {
+              const idx = r * 3 + c;
+              return <InventorySlot icon={flatPattern[idx] || undefined} />;
+            })}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <div class="mcui-arrow" aria-hidden="true">
+    <svg width="32" height="16" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 8h22M21 3l5 5-5 5"/>
+    </svg>
+  </div>
+
+  <div class="mcui-output">
+    <InventorySlot icon={result.icon} count={result.count} large={true} />
+  </div>
+</div>
+
+<style>
+  .mcui-Crafting_Table {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background:
+      linear-gradient(135deg, #6b6b6b 0%, #5a5a5a 50%, #4a4a4a 100%);
+    border: 3px solid #373737;
+    border-right: 3px solid #555;
+    border-bottom: 3px solid #555;
+    box-shadow:
+      inset 3px 3px 0 rgba(0, 0, 0, 0.3),
+      inset -3px -3px 0 rgba(255, 255, 255, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.3);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    margin: 1rem 0;
+    color: #ffffff;
+    border-radius: 2px;
+  }
+
+  .mcui-shaped {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .mcui-row {
+    display: flex;
+    gap: 2px;
+  }
+
+  .mcui-row.shapeless {
+    margin: 32px 0;
+  }
+
+  .mcui-arrow {
+    color: #c0c0c0;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+    filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.4));
+  }
+
+  .mcui-arrow svg {
+    animation: mcuiPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes mcuiPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* Mobile: stack vertically */
+  @media (max-width: 480px) {
+    .mcui-Crafting_Table {
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.75rem;
+    }
+    .mcui-arrow svg {
+      transform: rotate(90deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mcui-arrow svg { animation: none; }
+  }
+</style>

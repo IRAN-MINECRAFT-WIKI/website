@@ -1,0 +1,53 @@
+---
+/**
+ * Hatnote.astro — Disambiguation hatnote (minecraft.wiki's hatnote pattern)
+ *
+ * Pattern: "This article is about X. For other uses, see Y."
+ *
+ * Usage:
+ *   <Hatnote>
+ *     این صفحه درباره‌ی <strong>شمشیر الماس</strong> است. برای سایر کاربردها،
+ *     <a href="/wiki/swords">شمشیرها</a> را ببینید.
+ *   </Hatnote>
+ */
+interface Props {
+  text?: string;
+}
+const { text } = Astro.props;
+---
+
+<aside class="hatnote">
+  {text ? <p>{text}</p> : <slot />}
+</aside>
+
+<style>
+  .hatnote {
+    margin: 0.5rem 0 1.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-right: 3px solid rgba(123, 197, 92, 0.4);
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    color: var(--text-2, #9a9ab8);
+    line-height: 1.7;
+  }
+
+  [dir='rtl'] .hatnote {
+    border-right: 3px solid rgba(123, 197, 92, 0.4);
+    border-left: none;
+  }
+
+  .hatnote :global(p) {
+    margin: 0;
+  }
+
+  .hatnote :global(a) {
+    color: var(--grass-2, #7cc84a);
+    text-decoration: underline;
+  }
+
+  .hatnote :global(strong) {
+    color: var(--text, #e0e0f0);
+    font-weight: 700;
+  }
+</style>
