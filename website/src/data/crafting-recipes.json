@@ -1,0 +1,499 @@
+{
+  "recipes": [
+    {
+      "id": "stick",
+      "nameFa": "چوب",
+      "nameEn": "Stick",
+      "aliases": ["چوب", "استیک", "stick", "چوپ"],
+      "grid": [
+        [null, "oak-planks", null],
+        [null, "oak-planks", null],
+        [null, null, null]
+      ],
+      "output": { "item": "stick", "count": 4 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "چوب پایه‌ی همه‌ی ابزارها و سلاح‌هاست. با ۲ تخته ساخته می‌شه."
+    },
+    {
+      "id": "crafting-table",
+      "nameFa": "میز کار",
+      "nameEn": "Crafting Table",
+      "aliases": ["میز کار", "میز ساخت", "کرافتینگ تیبل", "crafting table", "workbench"],
+      "grid": [
+        ["oak-planks", "oak-planks", null],
+        ["oak-planks", "oak-planks", null],
+        [null, null, null]
+      ],
+      "output": { "item": "crafting-table-top", "count": 1, "type": "block" },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "میز کار به شما اجازه می‌ده دستورالعمل‌های ۳×۳ بسازید. اساس همه‌ی کرافت‌هاست."
+    },
+    {
+      "id": "torch",
+      "nameFa": "مشعل",
+      "nameEn": "Torch",
+      "aliases": ["مشعل", "تورچ", "torch", "نور"],
+      "grid": [
+        [null, "coal", null],
+        [null, "stick", null],
+        [null, null, null]
+      ],
+      "output": { "item": "torch", "count": 4 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "مشعل نور و روشنایی می‌ده. با ۱ زغال + ۱ چوب ساخته می‌شه."
+    },
+    {
+      "id": "chest",
+      "nameFa": "صندوق",
+      "nameEn": "Chest",
+      "aliases": ["صندوق", "چست", "chest", "باکس"],
+      "grid": [
+        ["oak-planks", "oak-planks", "oak-planks"],
+        ["oak-planks", null, "oak-planks"],
+        ["oak-planks", "oak-planks", "oak-planks"]
+      ],
+      "output": { "item": "chest", "count": 1, "type": "block" },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "صندوق برای ذخیره‌سازی آیتم‌هاست. ۸ تخته لازم داره."
+    },
+    {
+      "id": "furnace",
+      "nameFa": "کوره",
+      "nameEn": "Furnace",
+      "aliases": ["کوره", "فورنس", "furnace", "تنور"],
+      "grid": [
+        ["cobblestone", "cobblestone", "cobblestone"],
+        ["cobblestone", null, "cobblestone"],
+        ["cobblestone", "cobblestone", "cobblestone"]
+      ],
+      "output": { "item": "furnace-side", "count": 1, "type": "block" },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "کوره برای ذوب‌کردن矿石 و پختن غذا استفاده می‌شه. ۸ کابل‌ستون لازم داره."
+    },
+    {
+      "id": "wooden-pickaxe",
+      "nameFa": "کلنگ چوبی",
+      "nameEn": "Wooden Pickaxe",
+      "aliases": ["کلنگ چوبی", "پیکاکس چوبی", "wooden pickaxe", "pickaxe"],
+      "grid": [
+        ["oak-planks", "oak-planks", "oak-planks"],
+        [null, "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "wooden-pickaxe", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "کلنگ چوبی برای mining سنگ اولیه. ضعیف‌ترین کلنگ."
+    },
+    {
+      "id": "stone-pickaxe",
+      "nameFa": "کلنگ سنگی",
+      "nameEn": "Stone Pickaxe",
+      "aliases": ["کلنگ سنگی", "پیکاکس سنگی", "stone pickaxe"],
+      "grid": [
+        ["cobblestone", "cobblestone", "cobblestone"],
+        [null, "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "stone-pickaxe", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "کلنگ سنگی سریع‌تر و قوی‌تر از چوبی. می‌تواند سنگ آهن استخراج کنه."
+    },
+    {
+      "id": "iron-pickaxe",
+      "nameFa": "کلنگ آهنی",
+      "nameEn": "Iron Pickaxe",
+      "aliases": ["کلنگ آهنی", "پیکاکس آهنی", "iron pickaxe"],
+      "grid": [
+        ["iron-ingot", "iron-ingot", "iron-ingot"],
+        [null, "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "iron-pickaxe", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "کلنگ آهنی می‌تواند الماس استخراج کنه. برای رسیدن به mid-game ضروریه."
+    },
+    {
+      "id": "diamond-pickaxe",
+      "nameFa": "کلنگ الماسی",
+      "nameEn": "Diamond Pickaxe",
+      "aliases": ["کلنگ الماسی", "پیکاکس الماسی", "diamond pickaxe"],
+      "grid": [
+        ["diamond", "diamond", "diamond"],
+        [null, "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "diamond-pickaxe", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "کلنگ الماسی می‌تواند Obsidian استخراج کنه. برای ساخت Nether Portal ضروریه."
+    },
+    {
+      "id": "wooden-sword",
+      "nameFa": "شمشیر چوبی",
+      "nameEn": "Wooden Sword",
+      "aliases": ["شمشیر چوبی", "sword"],
+      "grid": [
+        [null, "oak-planks", null],
+        [null, "oak-planks", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "wooden-sword", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "شمشیر چوبی ضعیف‌ترین سلاحه ولی برای شروع کار کافیه."
+    },
+    {
+      "id": "stone-sword",
+      "nameFa": "شمشیر سنگی",
+      "nameEn": "Stone Sword",
+      "aliases": ["شمشیر سنگی", "stone sword"],
+      "grid": [
+        [null, "cobblestone", null],
+        [null, "cobblestone", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "stone-sword", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "شمشیر سنگی قوی‌تر از چوبیه. برای مبارزه‌ی اولیه خوبه."
+    },
+    {
+      "id": "iron-sword",
+      "nameFa": "شمشیر آهنی",
+      "nameEn": "Iron Sword",
+      "aliases": ["شمشیر آهنی", "iron sword"],
+      "grid": [
+        [null, "iron-ingot", null],
+        [null, "iron-ingot", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "iron-sword", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "شمشیر آهنی سلاح استاندارد برای survival. آسیب خوب + دوام خوب."
+    },
+    {
+      "id": "diamond-sword",
+      "nameFa": "شمشیر الماسی",
+      "nameEn": "Diamond Sword",
+      "aliases": ["شمشیر الماسی", "شمشیر دایموند", "diamond sword"],
+      "grid": [
+        [null, "diamond", null],
+        [null, "diamond", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "diamond-sword", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "شمشیر الماسی یکی از قوی‌ترین سلاح‌ها. آسیب بالا + دوام عالی."
+    },
+    {
+      "id": "wooden-axe",
+      "nameFa": "تبر چوبی",
+      "nameEn": "Wooden Axe",
+      "aliases": ["تبر چوبی", "wooden axe", "axe"],
+      "grid": [
+        ["oak-planks", "oak-planks", null],
+        ["oak-planks", "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "wooden-axe", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "تبر چوبی برای چیدن چوب سریع‌تر. همچنین می‌تونه برای مبارزه استفاده بشه."
+    },
+    {
+      "id": "stone-axe",
+      "nameFa": "تبر سنگی",
+      "nameEn": "Stone Axe",
+      "aliases": ["تبر سنگی", "stone axe"],
+      "grid": [
+        ["cobblestone", "cobblestone", null],
+        ["cobblestone", "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "stone-axe", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "تبر سنگی برای چیدن چوب عالیه. آسیب حمله‌ی خوبی هم داره."
+    },
+    {
+      "id": "iron-axe",
+      "nameFa": "تبر آهنی",
+      "nameEn": "Iron Axe",
+      "aliases": ["تبر آهنی", "iron axe"],
+      "grid": [
+        ["iron-ingot", "iron-ingot", null],
+        ["iron-ingot", "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "iron-axe", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "تبر آهنی سریع و قوی. برای چیدن چوب و مبارزه خوبه."
+    },
+    {
+      "id": "diamond-axe",
+      "nameFa": "تبر الماسی",
+      "nameEn": "Diamond Axe",
+      "aliases": ["تبر الماسی", "diamond axe"],
+      "grid": [
+        ["diamond", "diamond", null],
+        ["diamond", "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "diamond-axe", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "تبر الماسی بسیار سریع و دوام‌دار. سلاح قوی هم هست."
+    },
+    {
+      "id": "wooden-shovel",
+      "nameFa": "بیل چوبی",
+      "nameEn": "Wooden Shovel",
+      "aliases": ["بیل چوبی", "shovel"],
+      "grid": [
+        [null, "oak-planks", null],
+        [null, "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "wooden-shovel", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "بیل چوبی برای خاگ‌کردن خاک، شن و سنگ‌ها."
+    },
+    {
+      "id": "iron-shovel",
+      "nameFa": "بیل آهنی",
+      "nameEn": "Iron Shovel",
+      "aliases": ["بیل آهنی", "iron shovel"],
+      "grid": [
+        [null, "iron-ingot", null],
+        [null, "stick", null],
+        [null, "stick", null]
+      ],
+      "output": { "item": "iron-shovel", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "بیل آهنی سریع‌تر و دوام‌دارتر از چوبی."
+    },
+    {
+      "id": "bow",
+      "nameFa": "کمان",
+      "nameEn": "Bow",
+      "aliases": ["کمان", "bow"],
+      "grid": [
+        ["stick", null, "string"],
+        [null, "stick", "string"],
+        ["stick", null, "string"]
+      ],
+      "output": { "item": "bow", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "کمان سلاح دور. به تیر نیاز داره. ۳ چوب + ۳ نخ."
+    },
+    {
+      "id": "arrow",
+      "nameFa": "تیر",
+      "nameEn": "Arrow",
+      "aliases": ["تیر", "arrow"],
+      "grid": [
+        [null, "flint", null],
+        [null, "stick", null],
+        [null, "feather", null]
+      ],
+      "output": { "item": "arrow", "count": 4 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "تیر برای کمان. ۱ تیشه + ۱ چوب + ۱ پر."
+    },
+    {
+      "id": "shield",
+      "nameFa": "سپر",
+      "nameEn": "Shield",
+      "aliases": ["سپر", "شیلد", "shield"],
+      "grid": [
+        ["oak-planks", "iron-ingot", "oak-planks"],
+        ["oak-planks", "oak-planks", "oak-planks"],
+        ["oak-planks", "oak-planks", "oak-planks"]
+      ],
+      "output": { "item": "shield", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "سپر آسیب‌های نزدیک و تیرها رو بلاک می‌کنه. ۶ تخته + ۱ شمش آهن."
+    },
+    {
+      "id": "tnt",
+      "nameFa": "تی‌ان‌تی",
+      "nameEn": "TNT",
+      "aliases": ["تی‌ان‌تی", "tnt", "تی ان تی"],
+      "grid": [
+        ["gunpowder", "sand", "gunpowder"],
+        ["sand", "gunpowder", "sand"],
+        ["gunpowder", "sand", "gunpowder"]
+      ],
+      "output": { "item": "tnt", "count": 1, "type": "block" },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "TNT ماده‌ی منفجره. ۵ باروت + ۴ شن. برای انفجار استفاده می‌شه."
+    },
+    {
+      "id": "ladder",
+      "nameFa": "نردبان",
+      "nameEn": "Ladder",
+      "aliases": ["نردبان", "ladder"],
+      "grid": [
+        ["stick", null, "stick"],
+        ["stick", "stick", "stick"],
+        ["stick", null, "stick"]
+      ],
+      "output": { "item": "ladder", "count": 3, "type": "block" },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "نردبان برای بالا رفتن. ۷ چوب."
+    },
+    {
+      "id": "boat",
+      "nameFa": "قایق",
+      "nameEn": "Boat",
+      "aliases": ["قایق", "boat"],
+      "grid": [
+        ["oak-planks", null, "oak-planks"],
+        ["oak-planks", "oak-planks", "oak-planks"],
+        [null, null, null]
+      ],
+      "output": { "item": "oak-boat", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "قایق برای حرکت روی آب. ۵ تخته."
+    },
+    {
+      "id": "bed",
+      "nameFa": "تخت",
+      "nameEn": "Bed",
+      "aliases": ["تخت", "bed"],
+      "grid": [
+        ["wool", "wool", "wool"],
+        ["oak-planks", "oak-planks", "oak-planks"],
+        [null, null, null]
+      ],
+      "output": { "item": "red-bed", "count": 1, "type": "block" },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "تخت برای گذشتن نقطه‌ی تولد + ن گذشتن شب. ۳ نخ پشم + ۳ تخته."
+    },
+    {
+      "id": "bread",
+      "nameFa": "نان",
+      "nameEn": "Bread",
+      "aliases": ["نان", "bread"],
+      "grid": [
+        ["wheat", "wheat", "wheat"],
+        [null, null, null],
+        [null, null, null]
+      ],
+      "output": { "item": "bread", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "نان غذا. ۳ گندم."
+    },
+    {
+      "id": "bucket",
+      "nameFa": "سطل",
+      "nameEn": "Bucket",
+      "aliases": ["سطل", "bucket"],
+      "grid": [
+        ["iron-ingot", null, "iron-ingot"],
+        [null, "iron-ingot", null],
+        [null, null, null]
+      ],
+      "output": { "item": "bucket", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "سطل برای نگه‌داشتن آب، لوا، شیر. ۳ شمش آهن."
+    },
+    {
+      "id": "bookshelf",
+      "nameFa": "کتاب‌خانه",
+      "nameEn": "Bookshelf",
+      "aliases": ["کتاب‌خانه", "bookshelf"],
+      "grid": [
+        ["oak-planks", "oak-planks", "oak-planks"],
+        ["book", "book", "book"],
+        ["oak-planks", "oak-planks", "oak-planks"]
+      ],
+      "output": { "item": "bookshelf", "count": 1, "type": "block" },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "کتاب‌خانه برای Enchanting. بالای میز افسون不可缺少. ۶ تخته + ۳ کتاب."
+    },
+    {
+      "id": "iron-helmet",
+      "nameFa": "کلاه آهنی",
+      "nameEn": "Iron Helmet",
+      "aliases": ["کلاه آهنی", "iron helmet", "helmet"],
+      "grid": [
+        ["iron-ingot", "iron-ingot", "iron-ingot"],
+        ["iron-ingot", null, "iron-ingot"],
+        [null, null, null]
+      ],
+      "output": { "item": "iron-helmet", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "کلاه آهنی برای محافظت از سر. ۵ شمش آهن."
+    },
+    {
+      "id": "iron-chestplate",
+      "nameFa": "زره تن آهنی",
+      "nameEn": "Iron Chestplate",
+      "aliases": ["زره تن آهنی", "iron chestplate", "chestplate"],
+      "grid": [
+        ["iron-ingot", null, "iron-ingot"],
+        ["iron-ingot", "iron-ingot", "iron-ingot"],
+        ["iron-ingot", "iron-ingot", "iron-ingot"]
+      ],
+      "output": { "item": "iron-chestplate", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "زره تن آهنی بیشترین محافظت رو داره. ۸ شمش آهن."
+    },
+    {
+      "id": "iron-leggings",
+      "nameFa": "شلوار آهنی",
+      "nameEn": "Iron Leggings",
+      "aliases": ["شلوار آهنی", "iron leggings", "leggings"],
+      "grid": [
+        ["iron-ingot", "iron-ingot", "iron-ingot"],
+        ["iron-ingot", null, "iron-ingot"],
+        ["iron-ingot", null, "iron-ingot"]
+      ],
+      "output": { "item": "iron-leggings", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "شلوار آهنی برای محافظت از پاها. ۷ شمش آهن."
+    },
+    {
+      "id": "iron-boots",
+      "nameFa": "چکمه آهنی",
+      "nameEn": "Iron Boots",
+      "aliases": ["چکمه آهنی", "iron boots", "boots"],
+      "grid": [
+        ["iron-ingot", null, "iron-ingot"],
+        ["iron-ingot", null, "iron-ingot"],
+        [null, null, null]
+      ],
+      "output": { "item": "iron-boots", "count": 1 },
+      "wikiSlug": "crafting-recipes",
+      "shapeless": false,
+      "description": "چکمه آهنی برای محافظت از پا. ۴ شمش آهن."
+    }
+  ]
+}

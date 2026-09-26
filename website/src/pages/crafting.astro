@@ -1,0 +1,47 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import CraftingHelper from '@components/CraftingHelper.astro';
+import MessageBox from '@components/MessageBox.astro';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'کرافت', url: '/crafting' },
+];
+---
+
+<BaseLayout
+  path="/crafting"
+  title="راهنمای کرافت — با یه ماینکرفت‌باز حرف بزن!"
+  description="یک کاراکتر ماینکرفتی آماده‌ست تا بهت نشون بده چطوری هر چیزی رو بسازی. اسم آیتم رو بنویس، اون فکر می‌کنه و دستورالعمل کرافت رو نشونت می‌ده."
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6 text-center">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">
+      <span style="font-family: 'Press Start 2P', monospace; font-size: 1rem; color: var(--grass-2);">CRAFTING</span> Helper
+    </h1>
+    <p class="text-sm text-mc-text-2">
+      اسم چیزی که می‌خوای بسازی رو بنویس — کاراکتر ما برات می‌سازتش!
+    </p>
+  </div>
+
+  <MessageBox type="info" title="چطور کار می‌کنه؟">
+    ۱. اسم آیتم رو فارسی یا انگلیسی بنویس (مثلاً: «شمشیر الماس» یا «Diamond Sword»)<br>
+    ۲. کاراکتر یه ثانیه فکر می‌کنه<br>
+    ۳. دستش می‌ره تو جیبش<br>
+    ۴. گرید کرافت با آیتم‌های مورد نیاز ظاهر می‌شه<br>
+    ۵. روی دکمه‌ی «صفحه‌ی ویکی» کلیک کن تا اطلاعات کامل رو بخونی
+  </MessageBox>
+
+  <CraftingHelper />
+
+  <div class="mt-8 text-center">
+    <p class="text-xs text-mc-text-3">
+      ۳۲ دستورالعمل اولیه — به‌زودی همه‌ی آیتم‌های ماینکرفت رو اضافه می‌کنیم!
+    </p>
+  </div>
+</BaseLayout>

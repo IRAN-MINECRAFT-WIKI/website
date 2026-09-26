@@ -10,6 +10,7 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
 const nav = [
   { href: base('/'), label: 'خانه', icon: 'icon-home', active: false },
   { href: base('/mods'), label: 'افزونه‌ها', icon: 'icon-cube', active: false },
+  { href: base('/crafting'), label: 'کرافت', icon: 'icon-crafting', active: false },
   { href: base('/versions'), label: 'نسخه‌ها', icon: 'icon-version', active: false },
   { href: base('/seeds'), label: 'سیدها', icon: 'icon-seed', active: false },
   { href: base('/categories'), label: 'دسته‌ها', icon: 'icon-category', active: false },
