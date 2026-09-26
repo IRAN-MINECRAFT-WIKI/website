@@ -3,6 +3,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import ModCard from '@components/ModCard.astro';
 import CategoryStrip from '@components/CategoryStrip.astro';
 import AdSlot from '@components/AdSlot.astro';
+import MiniGame from '@components/MiniGame.astro';
 import Cube3D from '@components/Cube3D.astro';
 import { getFeaturedMods, getLatestVersion, versions, siteConfig, mods, seeds } from '@/lib/data';
 
@@ -229,6 +230,20 @@ const heroStats = [
         <p class="text-sm text-mc-text-2 leading-loose">برای هر افزونه یه آموزش فارسی همراه با تصویر نوشته شده تا راحت نصبش کنی.</p>
       </div>
     </div>
+  </section>
+
+  <!-- ============ MINI-GAME ============ -->
+  <section class="my-12">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow text-accent-redstone">PLAY</span>
+        <h2 class="section-title">
+          مینی‌گیم <span class="text-accent-redstone">کریپر</span>
+        </h2>
+        <p class="section-sub">آماده‌ای کریپرها رو بزنی؟ امتیاز بگیر و رکورد بزن!</p>
+      </div>
+    </div>
+    <MiniGame duration={60} />
   </section>
 </BaseLayout>
 

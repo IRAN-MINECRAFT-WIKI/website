@@ -1,0 +1,416 @@
+---
+/**
+ * MiniGame.astro — "Whack-a-Creeper" mini-game
+ *
+ * A simple, fun Minecraft-themed clicker game:
+ * - 3×3 grid of blocks
+ * - Creepers randomly pop up in cells
+ * - Click them before they "explode" (timeout)
+ * - Score points; high score saved in localStorage
+ * - Game has a 60-second timer
+ *
+ * Performance:
+ * - Pure vanilla JS (no libraries)
+ * - No animations beyond CSS transitions
+ * - Mobile-friendly (touch + click)
+ * - Stops when offscreen (IntersectionObserver)
+ */
+import '@components/pixel-sprites.astro';
+
+interface Props {
+  duration?: number;  // game duration in seconds (default 60)
+}
+
+const { duration = 60 } = Astro.props;
+---
+
+<div class="minigame" id="minigame" data-duration={duration}>
+  <div class="minigame-header">
+    <div class="minigame-stat">
+      <span class="minigame-stat-label">امتیاز</span>
+      <span class="minigame-stat-value" id="mgScore">۰</span>
+    </div>
+    <div class="minigame-stat">
+      <span class="minigame-stat-label">بهترین</span>
+      <span class="minigame-stat-value" id="mgBest">۰</span>
+    </div>
+    <div class="minigame-stat">
+      <span class="minigame-stat-label">زمان</span>
+      <span class="minigame-stat-value" id="mgTime">{duration}</span>
+    </div>
+  </div>
+
+  <div class="minigame-grid" id="mgGrid">
+    {Array.from({ length: 9 }).map((_, i) => (
+      <button
+        class="minigame-cell mc-block-panel stone"
+        data-cell={i}
+        aria-label={`خانه‌ی ${i + 1}`}
+      >
+        <svg class="minigame-cell-sprite" width="48" height="48" viewBox="0 0 16 16" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+          <use href="#px-cobblestone" />
+        </svg>
+      </button>
+    ))}
+  </div>
+
+  <div class="minigame-controls">
+    <button class="mc-btn pixel big" id="mgStart">شروع بازی</button>
+    <p class="minigame-instructions">
+      روی کریپرها کلیک کن قبل از اینکه منفجر بشن!
+    </p>
+  </div>
+</div>
+
+<style>
+  .minigame {
+    background: var(--panel, #1c1c34);
+    border: 3px solid #2d5018;
+    border-radius: 0;
+    padding: 1.5rem;
+    box-shadow:
+      inset 2px 2px 0 rgba(255, 255, 255, 0.06),
+      0 4px 16px rgba(0, 0, 0, 0.4);
+    image-rendering: pixelated;
+  }
+
+  .minigame-header {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid #2d5018;
+    border-right: 2px solid #4a8a2c;
+    border-bottom: 2px solid #4a8a2c;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .minigame-stat {
+    text-align: center;
+    flex: 1;
+  }
+
+  .minigame-stat-label {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--text-3, #5c5c7a);
+    margin-bottom: 0.25rem;
+    font-family: 'Press Start 2P', monospace;
+  }
+
+  .minigame-stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--grass-2, #7cc84a);
+    font-family: 'Press Start 2P', monospace;
+    text-shadow: 2px 2px 0 #1a3010;
+  }
+
+  .minigame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    aspect-ratio: 1 / 1;
+    max-width: 360px;
+    margin-inline: auto;
+  }
+
+  .minigame-cell {
+    background: linear-gradient(135deg, #5a5a5a 0%, #4a4a4a 50%, #3a3a3a 100%);
+    border: 2px solid #1a1a1a;
+    border-right: 2px solid #5a5a5a;
+    border-bottom: 2px solid #5a5a5a;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.1);
+    transition: transform 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .minigame-cell:hover {
+    transform: scale(0.97);
+  }
+
+  .minigame-cell:active {
+    transform: scale(0.92);
+  }
+
+  .minigame-cell-sprite {
+    width: 60%;
+    height: 60%;
+    color: #7a7a7a;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+
+  .minigame-cell.active .minigame-cell-sprite {
+    /* Creeper sprite shows up */
+    color: #5cc44c;
+    transform: scale(1.1);
+  }
+
+  .minigame-cell.whacked::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255, 200, 60, 0.6) 0%, transparent 70%);
+    animation: whackFlash 0.4s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes whackFlash {
+    0% { opacity: 1; transform: scale(0.5); }
+    100% { opacity: 0; transform: scale(1.5); }
+  }
+
+  .minigame-cell.exploding::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255, 59, 59, 0.8) 0%, transparent 70%);
+    animation: explodeFlash 0.3s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes explodeFlash {
+    0% { opacity: 1; transform: scale(0.3); }
+    100% { opacity: 0; transform: scale(2); }
+  }
+
+  .minigame-controls {
+    text-align: center;
+  }
+
+  .minigame-instructions {
+    margin-top: 0.75rem;
+    color: var(--text-2, #9a9ab8);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  /* When game is over */
+  .minigame.game-over .minigame-cell {
+    cursor: default;
+    opacity: 0.6;
+  }
+
+  .minigame.game-over .minigame-cell:hover {
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .minigame-cell-sprite { transition: none; }
+    .minigame-cell:hover { transform: none; }
+    .minigame-cell.whacked::after,
+    .minigame-cell.exploding::after { animation: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function setupGame() {
+      const game = document.getElementById('minigame');
+      if (!game || game.dataset.bound === '1') return;
+      game.dataset.bound = '1';
+
+      const grid = document.getElementById('mgGrid');
+      const scoreEl = document.getElementById('mgScore');
+      const bestEl = document.getElementById('mgBest');
+      const timeEl = document.getElementById('mgTime');
+      const startBtn = document.getElementById('mgStart');
+      if (!grid || !scoreEl || !bestEl || !timeEl || !startBtn) return;
+
+      const duration = parseInt(game.dataset.duration) || 60;
+      let score = 0;
+      let timeLeft = duration;
+      let active = false;
+      let cellTimers = {};
+      let mainTimer = null;
+      let spawnTimer = null;
+
+      // Persian digits
+      function toPersian(n) {
+        return String(n).replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+      }
+
+      // Load best score from localStorage
+      try {
+        const best = parseInt(localStorage.getItem('mc_whack_best') || '0');
+        bestEl.textContent = toPersian(best);
+      } catch (e) { /* localStorage may be blocked */ }
+
+      function updateScore() {
+        scoreEl.textContent = toPersian(score);
+      }
+
+      function updateBest() {
+        try {
+          const best = parseInt(localStorage.getItem('mc_whack_best') || '0');
+          if (score > best) {
+            localStorage.setItem('mc_whack_best', String(score));
+            bestEl.textContent = toPersian(score);
+          }
+        } catch (e) { /* ignore */ }
+      }
+
+      function updateTimer() {
+        timeEl.textContent = toPersian(timeLeft);
+      }
+
+      function endGame() {
+        active = false;
+        game.classList.add('game-over');
+        // Clear all cell timers
+        Object.keys(cellTimers).forEach(k => {
+          clearTimeout(cellTimers[k]);
+          delete cellTimers[k];
+        });
+        // Clear main timers
+        clearInterval(mainTimer);
+        clearTimeout(spawnTimer);
+        // Reset cells
+        grid.querySelectorAll('.minigame-cell').forEach(c => {
+          c.classList.remove('active', 'whacked', 'exploding');
+          const sprite = c.querySelector('.minigame-cell-sprite use');
+          if (sprite) sprite.setAttribute('href', '#px-cobblestone');
+        });
+        updateBest();
+        startBtn.textContent = 'دوباره بازی کن';
+        startBtn.disabled = false;
+      }
+
+      function spawnCreeper() {
+        if (!active) return;
+        // Find an inactive cell
+        const cells = Array.from(grid.querySelectorAll('.minigame-cell:not(.active)'));
+        if (!cells.length) {
+          scheduleNextSpawn();
+          return;
+        }
+        const cell = cells[Math.floor(Math.random() * cells.length)];
+        const idx = cell.dataset.cell;
+        cell.classList.add('active');
+        // Switch sprite to creeper
+        const sprite = cell.querySelector('.minigame-cell-sprite use');
+        if (sprite) sprite.setAttribute('href', '#px-creeper-face');
+
+        // Creeper will "explode" after 1-1.8s if not whacked
+        const ttl = 1000 + Math.random() * 800;
+        cellTimers[idx] = setTimeout(() => {
+          if (cell.classList.contains('active')) {
+            // Explode!
+            cell.classList.remove('active');
+            cell.classList.add('exploding');
+            // Switch back to cobblestone
+            if (sprite) sprite.setAttribute('href', '#px-cobblestone');
+            // Penalty: -1 score (min 0)
+            if (score > 0) {
+              score = Math.max(0, score - 1);
+              updateScore();
+            }
+            setTimeout(() => cell.classList.remove('exploding'), 350);
+            delete cellTimers[idx];
+          }
+        }, ttl);
+      }
+
+      function scheduleNextSpawn() {
+        if (!active) return;
+        // Spawn interval gets faster as time runs out
+        const minDelay = 400;
+        const maxDelay = 1200;
+        const progress = 1 - (timeLeft / duration);
+        const delay = maxDelay - (maxDelay - minDelay) * progress;
+        spawnTimer = setTimeout(() => {
+          spawnCreeper();
+          scheduleNextSpawn();
+        }, delay + Math.random() * 200);
+      }
+
+      function whackCell(cell) {
+        if (!active || !cell.classList.contains('active')) return;
+        const idx = cell.dataset.cell;
+        cell.classList.remove('active');
+        cell.classList.add('whacked');
+        // Reset sprite
+        const sprite = cell.querySelector('.minigame-cell-sprite use');
+        if (sprite) sprite.setAttribute('href', '#px-cobblestone');
+        // +1 score
+        score++;
+        updateScore();
+        // Clear explode timer
+        if (cellTimers[idx]) {
+          clearTimeout(cellTimers[idx]);
+          delete cellTimers[idx];
+        }
+        setTimeout(() => cell.classList.remove('whacked'), 400);
+      }
+
+      // Wire up cell clicks
+      grid.querySelectorAll('.minigame-cell').forEach(cell => {
+        cell.addEventListener('click', () => whackCell(cell));
+        cell.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          whackCell(cell);
+        }, { passive: false });
+      });
+
+      // Start button
+      startBtn.addEventListener('click', () => {
+        if (active) return;
+        score = 0;
+        timeLeft = duration;
+        active = true;
+        updateScore();
+        updateTimer();
+        game.classList.remove('game-over');
+        startBtn.textContent = 'بازی در حال انجام...';
+        startBtn.disabled = true;
+
+        // Start main timer
+        mainTimer = setInterval(() => {
+          timeLeft--;
+          updateTimer();
+          if (timeLeft <= 0) {
+            endGame();
+          }
+        }, 1000);
+
+        // Start spawning creepers
+        scheduleNextSpawn();
+      });
+
+      // Pause when offscreen
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!active) return;
+            if (!entry.isIntersecting) {
+              // Pause: clear spawn timer
+              clearTimeout(spawnTimer);
+            } else {
+              // Resume: schedule next spawn
+              scheduleNextSpawn();
+            }
+          });
+        });
+        io.observe(game);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupGame);
+    } else {
+      setupGame();
+    }
+    document.addEventListener('astro:page-load', setupGame);
+  })();
+</script>
