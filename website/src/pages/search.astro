@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
+import SearchBox from '@components/SearchBox.astro';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 
 const breadcrumb = [
   { name: 'خانه', url: '/' },
@@ -21,129 +25,73 @@ const breadcrumb = [
     <p class="text-sm text-mc-text-2">هر چیزی از ماینکرفت بدراک که دنبالش هستی رو پیدا کن</p>
   </div>
 
-  <div class="mc-panel p-5 mb-6">
-    <div class="search-input-wrap">
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="مثلاً: لکی بلاک، شیدر، تفنگ، نصب مود..."
-        class="w-full bg-mc-bg-2 border-2 border-mc-line px-4 py-3 text-base text-mc-text focus:border-mc-grass-2 outline-none"
-        autofocus
-      />
+  <div class="search-page-card">
+    <p class="search-page-hint">
+      روی دکمه‌ی جستجو در هدر کلیک کن (یا Ctrl+K رو بزن) تا جستجوی کامل سایت باز بشه.
+      جستجو بین همه‌ی افزونه‌ها، مقالات، آموزش‌ها و سیدها رو شامل می‌شه.
+    </p>
+    <div class="search-page-cta">
+      <button id="openSearchFromPage" class="mc-btn big">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+        باز کردن جستجو
+      </button>
+      <span class="search-page-kbd">می‌تونی Ctrl + K رو هم بزنی</span>
     </div>
   </div>
 
-  <div id="searchResults" class="space-y-2"></div>
-  <div id="searchEmpty" class="mc-panel text-center py-12">
-    <div class="text-4xl mb-3">🔍</div>
-    <p class="text-mc-text-2 text-sm">شروع به تایپ کن...</p>
-  </div>
+  <!-- Include the unified SearchBox (provides modal + keyboard shortcut) -->
+  <SearchBox />
+
+  <!-- Auto-open the search modal on page load -->
+  <script is:inline>
+    document.addEventListener('astro:page-load', function () {
+      // Small delay so the SearchBox script has time to bind
+      setTimeout(function () {
+        var btn = document.getElementById('searchOpen');
+        if (btn) btn.click();
+      }, 100);
+    });
+    // Also try on initial DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(function () {
+        var btn = document.getElementById('searchOpen');
+        if (btn) btn.click();
+      }, 200);
+    });
+  </script>
 </BaseLayout>
 
-<style is:global>
-  .search-result {
-    display: block;
-    padding: 1rem 1.25rem;
+<style>
+  .search-page-card {
     background: var(--panel, #1c1c34);
     border: 2px solid var(--line, #2e2e4a);
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s, transform 0.15s;
+    padding: 2rem 1.5rem;
+    border-radius: 8px;
+    text-align: center;
   }
-  .search-result:hover {
-    border-color: var(--grass-2, #7cc84a);
-    transform: translateY(-2px);
-  }
-  .search-result .title {
-    color: var(--grass-2, #7cc84a);
-    font-weight: 700;
-    font-size: 0.95rem;
-    margin-bottom: 0.25rem;
-  }
-  .search-result .excerpt {
+  .search-page-hint {
     color: var(--text-2, #9a9ab8);
-    font-size: 0.85rem;
-    line-height: 1.6;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 480px;
+    margin-inline: auto;
   }
-  .search-result .excerpt mark {
-    background: rgba(95, 168, 56, 0.3);
-    color: var(--grass-2, #7cc84a);
-    padding: 0 2px;
+  .search-page-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .search-page-kbd {
+    color: var(--text-3, #5c5c7a);
+    font-size: 0.75rem;
+  }
+  .mc-btn.big {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
   }
 </style>
-
-<script>
-  (function () {
-    const input = document.getElementById('searchInput');
-    const results = document.getElementById('searchResults');
-    const empty = document.getElementById('searchEmpty');
-
-    let pagefind = null;
-
-    async function loadPagefind() {
-      if (pagefind) return pagefind;
-      try {
-        // Derive base path from current URL (handles /search and /website/search)
-        const path = window.location.pathname.replace(/\/$/, '');
-        const segments = path.split('/');
-        // Strip the last segment (the page name) → base path
-        segments.pop();
-        const base = segments.join('/') || '';
-        const url = `${base}/pagefind/pagefind.js`;
-        const mod = await import(/* @vite-ignore */ url);
-        pagefind = mod.default || mod;
-        await pagefind.init();
-        pagefind.options({ excerptLength: 12 });
-      } catch (e) {
-        console.warn('Pagefind not available', e);
-      }
-      return pagefind;
-    }
-
-    let timer = null;
-    input.addEventListener('input', (e) => {
-      const q = e.target.value.trim();
-      clearTimeout(timer);
-      if (!q) {
-        results.innerHTML = '';
-        empty.style.display = '';
-        return;
-      }
-      empty.style.display = 'none';
-      timer = setTimeout(async () => {
-        if (!pagefind) await loadPagefind();
-        if (!pagefind) {
-          results.innerHTML = '<p class="text-mc-text-2 text-sm text-center py-4">جستجو هنوز بارگذاری نشده. صبر کن...</p>';
-          return;
-        }
-        const search = await pagefind.search(q);
-        results.innerHTML = '';
-        if (!search || !search.results || search.results.length === 0) {
-          results.innerHTML = '<p class="text-mc-text-2 text-sm text-center py-8">نتیجه‌ای پیدا نشد.</p>';
-          return;
-        }
-        const limit = Math.min(20, search.results.length);
-        for (let i = 0; i < limit; i++) {
-          const r = await search.results[i].data();
-          const div = document.createElement('a');
-          div.className = 'search-result';
-          div.href = r.url;
-          // Use textContent (not innerHTML) — XSS-safe for Pagefind excerpts
-          const titleDiv = document.createElement('div');
-          titleDiv.className = 'title';
-          titleDiv.textContent = (r.meta && r.meta.title) || r.url;
-          const excerptDiv = document.createElement('div');
-          excerptDiv.className = 'excerpt';
-          // Pagefind excerpts may contain <mark> tags — strip them for safety
-          const excerptText = (r.excerpt || '').replace(/<[^>]+>/g, '');
-          excerptDiv.textContent = excerptText;
-          div.appendChild(titleDiv);
-          div.appendChild(excerptDiv);
-          results.appendChild(div);
-        }
-      }, 250);
-    });
-
-    loadPagefind();
-  })();
-</script>

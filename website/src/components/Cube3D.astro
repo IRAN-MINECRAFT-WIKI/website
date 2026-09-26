@@ -121,29 +121,25 @@ const initialBlock = BLOCKS[0];
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-18deg) rotateY(0deg);
-    animation: spinCube 24s infinite linear;  /* slower → less CPU/GPU load */
-    transition: transform 0.4s ease-out;
+    /* STATIC transform — no animation. 3D transforms are expensive on low-end devices.
+       Original cube auto-rotated continuously which caused high CPU/GPU load. */
+    transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-15deg) rotateY(-20deg);
+    transition: transform 0.5s ease-out;
   }
 
   .cube.hit {
-    animation: spinCube 24s infinite linear, hitShake 0.4s ease;
+    /* Click still triggers a small shake, but no infinite animation */
+    animation: hitShake 0.4s ease;
   }
 
-  /* Pause cube rotation when offscreen — saves CPU when scrolled away */
-  .cube-stage:not(:hover) .cube {
-    /* still rotates but at lower priority; browser may skip frames when busy */
-  }
-
-  /* Disable cube animation on mobile to save battery */
+  /* Smaller static cube on mobile */
   @media (max-width: 900px) {
-    .cube { animation: none; transform: translateZ(calc(-1 * var(--cube-size, 200px) / 2)) rotateX(-18deg) rotateY(15deg); }
-    .cube.hit { animation: hitShake 0.4s ease; }
+    .cube { transform: translateZ(calc(-1 * var(--cube-size, 200px) / 2)) rotateX(-15deg) rotateY(-20deg); }
   }
 
   /* Honor reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
-    .cube { animation: none; }
+    .cube { animation: none; transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-15deg) rotateY(-20deg); }
     .cube.hit { animation: none; }
   }
 

@@ -29,13 +29,17 @@ export async function getStaticPaths() {
   });
 
   return Array.from(allTags).map((tag) => ({
-    params: { tag: encodeURIComponent(tag) },
+    // Do NOT encodeURIComponent — Astro handles URL encoding when generating
+    // the static file path. Double-encoding caused the Persian folder name
+    // to be generated as %25D8%25AA... which never matches browser requests.
+    params: { tag },
     props: { tag },
   }));
 }
 
 const { tag } = Astro.props;
-const decodedTag = decodeURIComponent(tag);
+// tag is already the decoded Persian string — no decodeURIComponent needed
+const decodedTag = tag;
 
 const blog = (await getCollection('blog', ({ data }) => !data.draft && data.tags.includes(decodedTag))).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()

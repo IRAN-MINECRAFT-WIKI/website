@@ -24,13 +24,16 @@ export async function getStaticPaths() {
   });
 
   return Array.from(allAuthors).map((author) => ({
-    params: { author: encodeURIComponent(author) },
+    // Do NOT encodeURIComponent — Astro handles URL encoding when generating
+    // the static file path. Double-encoding caused folder name issues.
+    params: { author },
     props: { author },
   }));
 }
 
 const { author } = Astro.props;
-const decodedAuthor = decodeURIComponent(author);
+// author is already the decoded string — no decodeURIComponent needed
+const decodedAuthor = author;
 
 const blog = (await getCollection('blog', ({ data }) => !data.draft && data.author === decodedAuthor)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
