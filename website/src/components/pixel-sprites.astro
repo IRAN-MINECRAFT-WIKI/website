@@ -1,0 +1,484 @@
+---
+/**
+ * pixel-sprites.astro — Pixel-art SVG sprites (16x16, Minecraft-style)
+ *
+ * Unlike the outline icons in icons.astro, these are filled pixel-art
+ * sprites with proper Minecraft bevels + shading. Each sprite is a 16x16
+ * viewBox rendered with `shape-rendering: crispEdges` for pixel-perfect
+ * rendering at any size.
+ *
+ * Pattern: SVG with <rect> elements at integer positions, mirroring the
+ * look of Minecraft's own ItemSprite + BlockSprite PNGs.
+ *
+ * Color palette (Minecraft-canonical):
+ *   Diamond:  #4AEDD9 (light) + #2D7575 (dark)
+ *   Iron:     #D8D8D8 (light) + #A0A0A0 (dark)
+ *   Gold:     #FCD64A (light) + #B8863B (dark)
+ *   Wood:     #9C7B4E (light) + #5C3F1E (dark)
+ *   Stone:    #7E7E7E (light) + #555555 (dark)
+ *   Stick:    #9C7B4E + #5C3F1E (handle material)
+ *   Redstone: #FF3B3B + #8B1818
+ */
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true" is:inline shape-rendering="crispEdges">
+
+  <!-- ===== MATERIALS ===== -->
+
+  <!-- Diamond (16x16) -->
+  <symbol id="px-diamond" viewBox="0 0 16 16">
+    <!-- Outline dark -->
+    <rect x="5" y="1" width="6" height="1" fill="#2d7575"/>
+    <rect x="4" y="2" width="8" height="1" fill="#2d7575"/>
+    <rect x="3" y="3" width="10" height="1" fill="#2d7575"/>
+    <rect x="2" y="4" width="12" height="1" fill="#2d7575"/>
+    <rect x="1" y="5" width="14" height="1" fill="#2d7575"/>
+    <rect x="1" y="6" width="1" height="2" fill="#2d7575"/>
+    <rect x="14" y="6" width="1" height="2" fill="#2d7575"/>
+    <rect x="2" y="8" width="1" height="1" fill="#2d7575"/>
+    <rect x="13" y="8" width="1" height="1" fill="#2d7575"/>
+    <rect x="3" y="9" width="1" height="1" fill="#2d7575"/>
+    <rect x="12" y="9" width="1" height="1" fill="#2d7575"/>
+    <rect x="4" y="10" width="1" height="1" fill="#2d7575"/>
+    <rect x="11" y="10" width="1" height="1" fill="#2d7575"/>
+    <rect x="5" y="11" width="1" height="1" fill="#2d7575"/>
+    <rect x="10" y="11" width="1" height="1" fill="#2d7575"/>
+    <rect x="6" y="12" width="1" height="1" fill="#2d7575"/>
+    <rect x="9" y="12" width="1" height="1" fill="#2d7575"/>
+    <rect x="7" y="13" width="2" height="1" fill="#2d7575"/>
+    <!-- Fill light -->
+    <rect x="5" y="2" width="6" height="1" fill="#4aedd9"/>
+    <rect x="4" y="3" width="8" height="1" fill="#4aedd9"/>
+    <rect x="3" y="4" width="10" height="1" fill="#4aedd9"/>
+    <rect x="2" y="5" width="12" height="1" fill="#4aedd9"/>
+    <rect x="2" y="6" width="12" height="2" fill="#4aedd9"/>
+    <rect x="3" y="8" width="10" height="1" fill="#4aedd9"/>
+    <rect x="4" y="9" width="8" height="1" fill="#4aedd9"/>
+    <rect x="5" y="10" width="6" height="1" fill="#4aedd9"/>
+    <rect x="6" y="11" width="4" height="1" fill="#4aedd9"/>
+    <rect x="7" y="12" width="2" height="1" fill="#4aedd9"/>
+    <!-- Highlight -->
+    <rect x="4" y="5" width="3" height="1" fill="#8fffff"/>
+  </symbol>
+
+  <!-- Iron Ingot (16x16) -->
+  <symbol id="px-iron-ingot" viewBox="0 0 16 16">
+    <!-- Dark outline -->
+    <rect x="3" y="5" width="10" height="1" fill="#737373"/>
+    <rect x="3" y="10" width="10" height="1" fill="#737373"/>
+    <rect x="3" y="5" width="1" height="6" fill="#737373"/>
+    <rect x="12" y="5" width="1" height="6" fill="#737373"/>
+    <!-- Fill (gradient feel with 3 shades) -->
+    <rect x="4" y="6" width="8" height="1" fill="#efefef"/>
+    <rect x="4" y="7" width="8" height="3" fill="#d8d8d8"/>
+    <rect x="4" y="10" width="8" height="1" fill="#a0a0a0"/>
+    <!-- Side bevels -->
+    <rect x="2" y="6" width="1" height="5" fill="#565656"/>
+    <rect x="13" y="6" width="1" height="5" fill="#565656"/>
+    <rect x="2" y="6" width="1" height="1" fill="#2d2d2d"/>
+    <rect x="13" y="11" width="1" height="1" fill="#2d2d2d"/>
+    <!-- Highlight -->
+    <rect x="5" y="6" width="3" height="1" fill="#ffffff"/>
+  </symbol>
+
+  <!-- Gold Ingot (16x16) -->
+  <symbol id="px-gold-ingot" viewBox="0 0 16 16">
+    <rect x="3" y="5" width="10" height="1" fill="#a37714"/>
+    <rect x="3" y="10" width="10" height="1" fill="#a37714"/>
+    <rect x="3" y="5" width="1" height="6" fill="#a37714"/>
+    <rect x="12" y="5" width="1" height="6" fill="#a37714"/>
+    <rect x="4" y="6" width="8" height="1" fill="#ffe066"/>
+    <rect x="4" y="7" width="8" height="3" fill="#fcd64a"/>
+    <rect x="4" y="10" width="8" height="1" fill="#b8863b"/>
+    <rect x="2" y="6" width="1" height="5" fill="#7a5908"/>
+    <rect x="13" y="6" width="1" height="5" fill="#7a5908"/>
+    <rect x="2" y="6" width="1" height="1" fill="#3a2a04"/>
+    <rect x="13" y="11" width="1" height="1" fill="#3a2a04"/>
+    <rect x="5" y="6" width="3" height="1" fill="#fff8c4"/>
+  </symbol>
+
+  <!-- Stick (16x16, diagonal) -->
+  <symbol id="px-stick" viewBox="0 0 16 16">
+    <rect x="11" y="3" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="9" y="5" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="7" y="7" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="5" y="9" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="3" y="11" width="2" height="2" fill="#5c3f1e"/>
+    <!-- Lighter top-left bevel -->
+    <rect x="11" y="2" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="9" y="4" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="7" y="6" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="5" y="8" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="3" y="10" width="2" height="1" fill="#9c7b4e"/>
+    <!-- Dark right-bottom -->
+    <rect x="13" y="4" width="1" height="2" fill="#3a2710"/>
+    <rect x="11" y="6" width="1" height="2" fill="#3a2710"/>
+    <rect x="9" y="8" width="1" height="2" fill="#3a2710"/>
+    <rect x="7" y="10" width="1" height="2" fill="#3a2710"/>
+    <rect x="5" y="12" width="1" height="2" fill="#3a2710"/>
+  </symbol>
+
+  <!-- Coal (16x16) -->
+  <symbol id="px-coal" viewBox="0 0 16 16">
+    <rect x="4" y="4" width="8" height="1" fill="#1a1a1a"/>
+    <rect x="3" y="5" width="10" height="6" fill="#1a1a1a"/>
+    <rect x="4" y="11" width="8" height="1" fill="#1a1a1a"/>
+    <rect x="2" y="6" width="1" height="4" fill="#1a1a1a"/>
+    <rect x="13" y="6" width="1" height="4" fill="#1a1a1a"/>
+    <!-- Highlights -->
+    <rect x="5" y="6" width="2" height="2" fill="#3a3a3a"/>
+    <rect x="9" y="8" width="2" height="2" fill="#3a3a3a"/>
+    <rect x="6" y="9" width="1" height="1" fill="#5a5a5a"/>
+    <rect x="10" y="6" width="1" height="1" fill="#5a5a5a"/>
+  </symbol>
+
+  <!-- Apple (16x16) -->
+  <symbol id="px-apple" viewBox="0 0 16 16">
+    <!-- Stem -->
+    <rect x="7" y="2" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="8" y="3" width="1" height="1" fill="#9c7b4e"/>
+    <!-- Leaf -->
+    <rect x="9" y="3" width="2" height="1" fill="#5fa838"/>
+    <rect x="10" y="4" width="1" height="1" fill="#5fa838"/>
+    <!-- Apple body dark outline -->
+    <rect x="3" y="5" width="10" height="1" fill="#8b1818"/>
+    <rect x="2" y="6" width="1" height="4" fill="#8b1818"/>
+    <rect x="13" y="6" width="1" height="4" fill="#8b1818"/>
+    <rect x="3" y="10" width="10" height="1" fill="#8b1818"/>
+    <rect x="4" y="11" width="8" height="1" fill="#8b1818"/>
+    <rect x="6" y="12" width="4" height="1" fill="#8b1818"/>
+    <!-- Apple body fill -->
+    <rect x="3" y="6" width="10" height="4" fill="#ff3b3b"/>
+    <rect x="4" y="10" width="8" height="1" fill="#c52c2c"/>
+    <rect x="5" y="11" width="6" height="1" fill="#c52c2c"/>
+    <!-- Highlight -->
+    <rect x="5" y="7" width="2" height="2" fill="#ff8b8b"/>
+  </symbol>
+
+  <!-- ===== TOOLS / WEAPONS ===== -->
+
+  <!-- Diamond Sword (16x16, diagonal) -->
+  <symbol id="px-sword-diamond" viewBox="0 0 16 16">
+    <!-- Blade outline (going from top-right to middle) -->
+    <rect x="14" y="2" width="1" height="2" fill="#2d7575"/>
+    <rect x="12" y="4" width="2" height="2" fill="#2d7575"/>
+    <rect x="10" y="6" width="2" height="2" fill="#2d7575"/>
+    <rect x="8" y="8" width="2" height="2" fill="#2d7575"/>
+    <!-- Blade fill (light teal) -->
+    <rect x="14" y="1" width="1" height="1" fill="#4aedd9"/>
+    <rect x="13" y="2" width="1" height="2" fill="#4aedd9"/>
+    <rect x="11" y="4" width="1" height="2" fill="#4aedd9"/>
+    <rect x="9" y="6" width="1" height="2" fill="#4aedd9"/>
+    <rect x="7" y="8" width="1" height="2" fill="#4aedd9"/>
+    <!-- Highlight -->
+    <rect x="14" y="2" width="1" height="1" fill="#8fffff"/>
+    <rect x="12" y="4" width="1" height="1" fill="#8fffff"/>
+    <rect x="10" y="6" width="1" height="1" fill="#8fffff"/>
+    <!-- Crossguard (gold) -->
+    <rect x="5" y="9" width="2" height="2" fill="#a37714"/>
+    <rect x="5" y="9" width="2" height="1" fill="#fcd64a"/>
+    <rect x="7" y="10" width="1" height="1" fill="#a37714"/>
+    <!-- Handle (wood brown) -->
+    <rect x="4" y="11" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="4" y="11" width="1" height="1" fill="#9c7b4e"/>
+    <!-- Pommel (gold) -->
+    <rect x="3" y="12" width="2" height="2" fill="#a37714"/>
+    <rect x="3" y="12" width="1" height="1" fill="#fcd64a"/>
+  </symbol>
+
+  <!-- Iron Sword (16x16, diagonal) -->
+  <symbol id="px-sword-iron" viewBox="0 0 16 16">
+    <rect x="14" y="2" width="1" height="2" fill="#737373"/>
+    <rect x="12" y="4" width="2" height="2" fill="#737373"/>
+    <rect x="10" y="6" width="2" height="2" fill="#737373"/>
+    <rect x="8" y="8" width="2" height="2" fill="#737373"/>
+    <rect x="14" y="1" width="1" height="1" fill="#d8d8d8"/>
+    <rect x="13" y="2" width="1" height="2" fill="#d8d8d8"/>
+    <rect x="11" y="4" width="1" height="2" fill="#d8d8d8"/>
+    <rect x="9" y="6" width="1" height="2" fill="#d8d8d8"/>
+    <rect x="7" y="8" width="1" height="2" fill="#d8d8d8"/>
+    <rect x="14" y="2" width="1" height="1" fill="#ffffff"/>
+    <rect x="12" y="4" width="1" height="1" fill="#ffffff"/>
+    <rect x="5" y="9" width="2" height="2" fill="#a37714"/>
+    <rect x="5" y="9" width="2" height="1" fill="#fcd64a"/>
+    <rect x="4" y="11" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="4" y="11" width="1" height="1" fill="#9c7b4e"/>
+    <rect x="3" y="12" width="2" height="2" fill="#a37714"/>
+    <rect x="3" y="12" width="1" height="1" fill="#fcd64a"/>
+  </symbol>
+
+  <!-- Wooden Sword (16x16, diagonal) -->
+  <symbol id="px-sword-wood" viewBox="0 0 16 16">
+    <rect x="14" y="2" width="1" height="2" fill="#5c3f1e"/>
+    <rect x="12" y="4" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="10" y="6" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="8" y="8" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="14" y="1" width="1" height="1" fill="#9c7b4e"/>
+    <rect x="13" y="2" width="1" height="2" fill="#9c7b4e"/>
+    <rect x="11" y="4" width="1" height="2" fill="#9c7b4e"/>
+    <rect x="9" y="6" width="1" height="2" fill="#9c7b4e"/>
+    <rect x="7" y="8" width="1" height="2" fill="#9c7b4e"/>
+    <rect x="5" y="9" width="2" height="2" fill="#a37714"/>
+    <rect x="5" y="9" width="2" height="1" fill="#fcd64a"/>
+    <rect x="4" y="11" width="2" height="2" fill="#3a2710"/>
+    <rect x="3" y="12" width="2" height="2" fill="#a37714"/>
+  </symbol>
+
+  <!-- Diamond Pickaxe (16x16, diagonal) -->
+  <symbol id="px-pickaxe-diamond" viewBox="0 0 16 16">
+    <!-- Handle (diagonal from top-left to bottom-right) -->
+    <rect x="3" y="3" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="5" y="5" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="7" y="7" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="9" y="9" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="11" y="11" width="2" height="2" fill="#5c3f1e"/>
+    <!-- Handle highlight -->
+    <rect x="3" y="3" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="5" y="5" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="7" y="7" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="9" y="9" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="11" y="11" width="2" height="1" fill="#9c7b4e"/>
+    <!-- Pickaxe head (curved at top) -->
+    <rect x="11" y="1" width="2" height="2" fill="#2d7575"/>
+    <rect x="9" y="2" width="2" height="1" fill="#2d7575"/>
+    <rect x="13" y="3" width="1" height="2" fill="#2d7575"/>
+    <rect x="11" y="1" width="1" height="1" fill="#4aedd9"/>
+    <rect x="12" y="2" width="1" height="1" fill="#4aedd9"/>
+    <rect x="13" y="3" width="1" height="1" fill="#4aedd9"/>
+    <!-- Highlight -->
+    <rect x="11" y="1" width="1" height="1" fill="#8fffff"/>
+  </symbol>
+
+  <!-- ===== BLOCKS ===== -->
+
+  <!-- Crafting Table (16x16) -->
+  <symbol id="px-crafting-table" viewBox="0 0 16 16">
+    <!-- Top: brown plank texture -->
+    <rect x="0" y="0" width="16" height="4" fill="#5c3f1e"/>
+    <rect x="0" y="0" width="16" height="1" fill="#9c7b4e"/>
+    <!-- Grid lines on top -->
+    <rect x="5" y="0" width="1" height="4" fill="#3a2710"/>
+    <rect x="10" y="0" width="1" height="4" fill="#3a2710"/>
+    <!-- Side: lighter brown with saw marks -->
+    <rect x="0" y="4" width="16" height="12" fill="#9c7b4e"/>
+    <!-- Saw marks -->
+    <rect x="2" y="6" width="12" height="1" fill="#5c3f1e"/>
+    <rect x="2" y="10" width="12" height="1" fill="#5c3f1e"/>
+    <rect x="2" y="14" width="12" height="1" fill="#5c3f1e"/>
+    <!-- Border (darker, for depth) -->
+    <rect x="0" y="0" width="16" height="1" fill="#3a2710"/>
+    <rect x="0" y="15" width="16" height="1" fill="#3a2710"/>
+    <rect x="0" y="0" width="1" height="16" fill="#3a2710"/>
+    <rect x="15" y="0" width="1" height="16" fill="#3a2710"/>
+  </symbol>
+
+  <!-- Furnace (16x16) -->
+  <symbol id="px-furnace" viewBox="0 0 16 16">
+    <!-- Stone gray base -->
+    <rect x="0" y="0" width="16" height="16" fill="#7e7e7e"/>
+    <!-- Texture spots -->
+    <rect x="2" y="2" width="2" height="2" fill="#555555"/>
+    <rect x="11" y="3" width="2" height="2" fill="#555555"/>
+    <rect x="3" y="11" width="2" height="2" fill="#555555"/>
+    <rect x="12" y="12" width="2" height="2" fill="#555555"/>
+    <rect x="7" y="2" width="1" height="1" fill="#9a9a9a"/>
+    <rect x="2" y="8" width="1" height="1" fill="#9a9a9a"/>
+    <!-- Opening (dark) -->
+    <rect x="5" y="5" width="6" height="6" fill="#1a1a1a"/>
+    <!-- Fire inside (orange) -->
+    <rect x="6" y="8" width="4" height="2" fill="#ff8b1a"/>
+    <rect x="7" y="9" width="2" height="1" fill="#ffd34a"/>
+    <!-- Opening border -->
+    <rect x="5" y="5" width="6" height="1" fill="#3a3a3a"/>
+    <rect x="5" y="5" width="1" height="6" fill="#3a3a3a"/>
+    <rect x="10" y="5" width="1" height="6" fill="#3a3a3a"/>
+    <rect x="5" y="10" width="6" height="1" fill="#3a3a3a"/>
+    <!-- Outer border -->
+    <rect x="0" y="0" width="16" height="1" fill="#3a3a3a"/>
+    <rect x="0" y="15" width="16" height="1" fill="#3a3a3a"/>
+    <rect x="0" y="0" width="1" height="16" fill="#3a3a3a"/>
+    <rect x="15" y="0" width="1" height="16" fill="#3a3a3a"/>
+  </symbol>
+
+  <!-- Chest (16x16) -->
+  <symbol id="px-chest" viewBox="0 0 16 16">
+    <!-- Top (lid) -->
+    <rect x="2" y="3" width="12" height="4" fill="#9c7b4e"/>
+    <rect x="2" y="3" width="12" height="1" fill="#c0a070"/>
+    <!-- Lock area (golden) -->
+    <rect x="7" y="4" width="2" height="2" fill="#fcd64a"/>
+    <rect x="7" y="4" width="1" height="1" fill="#ffe066"/>
+    <!-- Bottom (body) -->
+    <rect x="2" y="7" width="12" height="6" fill="#5c3f1e"/>
+    <rect x="2" y="7" width="12" height="1" fill="#9c7b4e"/>
+    <!-- Lock area (body) -->
+    <rect x="7" y="7" width="2" height="2" fill="#a37714"/>
+    <rect x="7" y="7" width="2" height="1" fill="#fcd64a"/>
+    <!-- Outer border -->
+    <rect x="1" y="3" width="1" height="10" fill="#3a2710"/>
+    <rect x="14" y="3" width="1" height="10" fill="#3a2710"/>
+    <rect x="2" y="2" width="12" height="1" fill="#3a2710"/>
+    <rect x="2" y="13" width="12" height="1" fill="#3a2710"/>
+  </symbol>
+
+  <!-- Torch (16x16) -->
+  <symbol id="px-torch" viewBox="0 0 16 16">
+    <!-- Flame -->
+    <rect x="7" y="1" width="2" height="1" fill="#ff8b1a"/>
+    <rect x="6" y="2" width="4" height="2" fill="#ff8b1a"/>
+    <rect x="7" y="3" width="2" height="1" fill="#ffd34a"/>
+    <rect x="7" y="2" width="2" height="1" fill="#ffe87a"/>
+    <!-- Stick -->
+    <rect x="7" y="4" width="2" height="9" fill="#9c7b4e"/>
+    <rect x="7" y="4" width="1" height="9" fill="#c0a070"/>
+    <rect x="8" y="4" width="1" height="9" fill="#5c3f1e"/>
+    <!-- Bottom dark -->
+    <rect x="7" y="13" width="2" height="1" fill="#3a2710"/>
+  </symbol>
+
+  <!-- TNT (16x16) -->
+  <symbol id="px-tnt" viewBox="0 0 16 16">
+    <!-- Red body -->
+    <rect x="0" y="3" width="16" height="10" fill="#c52c2c"/>
+    <!-- White stripe in middle -->
+    <rect x="0" y="6" width="16" height="3" fill="#ffffff"/>
+    <!-- TNT text (simplified as 3 dots) -->
+    <rect x="3" y="7" width="1" height="1" fill="#1a1a1a"/>
+    <rect x="5" y="7" width="1" height="1" fill="#1a1a1a"/>
+    <rect x="7" y="7" width="1" height="1" fill="#1a1a1a"/>
+    <rect x="9" y="7" width="1" height="1" fill="#1a1a1a"/>
+    <rect x="11" y="7" width="1" height="1" fill="#1a1a1a"/>
+    <!-- Top + bottom (darker) -->
+    <rect x="0" y="3" width="16" height="1" fill="#8b1818"/>
+    <rect x="0" y="12" width="16" height="1" fill="#8b1818"/>
+    <!-- Fuse (top) -->
+    <rect x="7" y="1" width="2" height="2" fill="#9c7b4e"/>
+    <!-- Outer border -->
+    <rect x="0" y="0" width="16" height="1" fill="#3a3a3a" opacity="0"/>
+    <rect x="0" y="3" width="1" height="10" fill="#8b1818"/>
+    <rect x="15" y="3" width="1" height="10" fill="#8b1818"/>
+  </symbol>
+
+  <!-- Grass Block (16x16) -->
+  <symbol id="px-grass-block" viewBox="0 0 16 16">
+    <!-- Top (green) -->
+    <rect x="0" y="0" width="16" height="4" fill="#5fa838"/>
+    <rect x="0" y="0" width="16" height="1" fill="#7cc84a"/>
+    <!-- Grass blades hanging on side -->
+    <rect x="2" y="4" width="1" height="2" fill="#5fa838"/>
+    <rect x="6" y="4" width="1" height="2" fill="#5fa838"/>
+    <rect x="11" y="4" width="1" height="2" fill="#5fa838"/>
+    <rect x="14" y="4" width="1" height="2" fill="#5fa838"/>
+    <!-- Dirt -->
+    <rect x="0" y="4" width="16" height="12" fill="#79553a"/>
+    <!-- Dirt spots -->
+    <rect x="3" y="6" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="10" y="9" width="2" height="2" fill="#5c3f1e"/>
+    <rect x="5" y="12" width="2" height="2" fill="#5c3f1e"/>
+    <!-- Border -->
+    <rect x="0" y="0" width="16" height="1" fill="#3d7521"/>
+    <rect x="0" y="15" width="16" height="1" fill="#3a2710"/>
+    <rect x="0" y="0" width="1" height="16" fill="#3a2710"/>
+    <rect x="15" y="0" width="1" height="16" fill="#3a2710"/>
+  </symbol>
+
+  <!-- Stone Block (16x16) -->
+  <symbol id="px-stone-block" viewBox="0 0 16 16">
+    <rect x="0" y="0" width="16" height="16" fill="#7e7e7e"/>
+    <!-- Stone texture spots -->
+    <rect x="2" y="2" width="2" height="2" fill="#555555"/>
+    <rect x="11" y="3" width="3" height="2" fill="#555555"/>
+    <rect x="4" y="6" width="3" height="2" fill="#555555"/>
+    <rect x="9" y="9" width="2" height="2" fill="#555555"/>
+    <rect x="2" y="11" width="3" height="2" fill="#555555"/>
+    <rect x="12" y="12" width="2" height="2" fill="#555555"/>
+    <!-- Lighter spots -->
+    <rect x="5" y="2" width="1" height="1" fill="#9a9a9a"/>
+    <rect x="2" y="8" width="1" height="1" fill="#9a9a9a"/>
+    <rect x="13" y="7" width="1" height="1" fill="#9a9a9a"/>
+    <!-- Outer border -->
+    <rect x="0" y="0" width="16" height="1" fill="#3a3a3a"/>
+    <rect x="0" y="15" width="16" height="1" fill="#3a3a3a"/>
+    <rect x="0" y="0" width="1" height="16" fill="#3a3a3a"/>
+    <rect x="15" y="0" width="1" height="16" fill="#3a3a3a"/>
+  </symbol>
+
+  <!-- Wood Plank (16x16) -->
+  <symbol id="px-plank" viewBox="0 0 16 16">
+    <rect x="0" y="0" width="16" height="16" fill="#9c7b4e"/>
+    <!-- Horizontal grain lines -->
+    <rect x="0" y="3" width="16" height="1" fill="#5c3f1e"/>
+    <rect x="0" y="8" width="16" height="1" fill="#5c3f1e"/>
+    <rect x="0" y="13" width="16" height="1" fill="#5c3f1e"/>
+    <!-- Vertical nails -->
+    <rect x="2" y="5" width="1" height="2" fill="#5c3f1e"/>
+    <rect x="13" y="10" width="1" height="2" fill="#5c3f1e"/>
+    <!-- Highlights -->
+    <rect x="0" y="0" width="16" height="1" fill="#c0a070"/>
+    <rect x="0" y="0" width="1" height="16" fill="#c0a070"/>
+    <!-- Outer border -->
+    <rect x="15" y="0" width="1" height="16" fill="#3a2710"/>
+    <rect x="0" y="15" width="16" height="1" fill="#3a2710"/>
+  </symbol>
+
+  <!-- Bow (16x16) -->
+  <symbol id="px-bow" viewBox="0 0 16 16">
+    <!-- Bow curve (right side, brown) -->
+    <rect x="11" y="2" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="13" y="3" width="1" height="2" fill="#9c7b4e"/>
+    <rect x="13" y="6" width="1" height="4" fill="#9c7b4e"/>
+    <rect x="13" y="11" width="1" height="2" fill="#9c7b4e"/>
+    <rect x="11" y="13" width="2" height="1" fill="#9c7b4e"/>
+    <!-- Bow string (left, white) -->
+    <rect x="2" y="3" width="1" height="2" fill="#ffffff"/>
+    <rect x="2" y="6" width="1" height="4" fill="#ffffff"/>
+    <rect x="2" y="11" width="1" height="2" fill="#ffffff"/>
+    <!-- Bow tips -->
+    <rect x="3" y="2" width="2" height="1" fill="#9c7b4e"/>
+    <rect x="3" y="13" width="2" height="1" fill="#9c7b4e"/>
+    <!-- Bow highlights -->
+    <rect x="11" y="2" width="1" height="1" fill="#c0a070"/>
+    <rect x="13" y="3" width="1" height="1" fill="#c0a070"/>
+  </symbol>
+
+  <!-- Arrow (16x16, diagonal) -->
+  <symbol id="px-arrow" viewBox="0 0 16 16">
+    <!-- Tip (gray) -->
+    <rect x="13" y="2" width="1" height="1" fill="#737373"/>
+    <rect x="12" y="3" width="2" height="2" fill="#737373"/>
+    <rect x="11" y="4" width="1" height="1" fill="#d8d8d8"/>
+    <rect x="13" y="2" width="1" height="1" fill="#ffffff"/>
+    <!-- Shaft (brown) -->
+    <rect x="10" y="6" width="2" height="2" fill="#9c7b4e"/>
+    <rect x="8" y="8" width="2" height="2" fill="#9c7b4e"/>
+    <rect x="6" y="10" width="2" height="2" fill="#9c7b4e"/>
+    <rect x="4" y="12" width="2" height="2" fill="#9c7b4e"/>
+    <!-- Shaft highlight -->
+    <rect x="10" y="6" width="2" height="1" fill="#c0a070"/>
+    <rect x="8" y="8" width="2" height="1" fill="#c0a070"/>
+    <rect x="6" y="10" width="2" height="1" fill="#c0a070"/>
+    <rect x="4" y="12" width="2" height="1" fill="#c0a070"/>
+    <!-- Feather (white) -->
+    <rect x="2" y="13" width="2" height="2" fill="#ffffff"/>
+    <rect x="3" y="12" width="2" height="2" fill="#d8d8d8"/>
+  </symbol>
+
+  <!-- Shield (16x16) -->
+  <symbol id="px-shield" viewBox="0 0 16 16">
+    <!-- Outline (dark brown) -->
+    <rect x="3" y="2" width="10" height="1" fill="#3a2710"/>
+    <rect x="2" y="3" width="12" height="7" fill="#3a2710"/>
+    <rect x="3" y="10" width="10" height="2" fill="#3a2710"/>
+    <rect x="5" y="12" width="6" height="2" fill="#3a2710"/>
+    <rect x="6" y="14" width="4" height="1" fill="#3a2710"/>
+    <!-- Body (gray) -->
+    <rect x="3" y="3" width="10" height="6" fill="#d8d8d8"/>
+    <rect x="3" y="9" width="10" height="1" fill="#a0a0a0"/>
+    <rect x="4" y="10" width="8" height="2" fill="#a0a0a0"/>
+    <rect x="6" y="12" width="4" height="1" fill="#a0a0a0"/>
+    <!-- Center emblem (red) -->
+    <rect x="6" y="5" width="4" height="4" fill="#c52c2c"/>
+    <rect x="7" y="6" width="2" height="2" fill="#ff3b3b"/>
+  </symbol>
+
+</svg>

@@ -140,8 +140,12 @@ const heroStats = [
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {popularVersions.map((v) => (
-        <a href={base(`/versions/${v.id}`)} class="mc-panel hoverable group flex items-center gap-4 p-5">
-          <span class="text-4xl">{v.icon}</span>
+        <a href={base(`/versions/${v.id}`)} class="mc-block-panel hoverable group flex items-center gap-4 p-5">
+          <span class="text-4xl flex-shrink-0">
+            <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+              <use href={`#${v.icon}`} />
+            </svg>
+          </span>
           <div class="flex-1">
             <h3 class="font-extrabold text-mc-text group-hover:text-mc-diamond">{v.nameFa}</h3>
             <p class="text-xs text-mc-text-2 mt-1 line-clamp-2">{v.summary}</p>

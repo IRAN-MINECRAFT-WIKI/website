@@ -8,7 +8,7 @@
       "codename": "Trails & Tales",
       "major": 1,
       "minor": 21,
-      "icon": "🚂",
+      "icon": "px-grass-block",
       "summary": "آپدیت بزرگ 2024 با تمرکز بر ماجراجویی، تاریک‌خانه، و موجودات جدید مثل Armadillo.",
       "description": "آپدیت 1.21 که با نام Trails & Tales شناخته می‌شود، یکی از بزرگ‌ترین به‌روزرسانی‌های ماینکرفت بدراک در سال 2024 است. این نسخه با تمرکز بر ماجراجویی، اکتشافات جدید، و داستان‌سرایی محتوای فراوانی را به بازی اضافه کرده است. از موجودات جدید مثل Armadillo که با کنار گرفتنش از شما سپانه‌های محکم می‌سازد تا بلوک‌های تزئینی فراوان و ابزارهای جدید مثل Brush که با آن می‌توانید تاریک‌خانه را کاوش کنید، این نسخه به شما امکانات بی‌سابقه‌ای برای ساخت و ساز و کشف می‌دهد. همچنین Crash Pig و Wolf variants از ویژگی‌های قابل توجه این نسخه هستند.",
       "highlights": [
@@ -30,7 +30,7 @@
       "codename": "Trails & Tales",
       "major": 1,
       "minor": 20,
-      "icon": "🌿",
+      "icon": "px-grass-block",
       "summary": "نسخه آرام و ماجراجویانه با اضافه شدن Cherry Blossom، Bamboo Set و Archaeology.",
       "description": "نسخه 1.20 ماینکرفت با نام Trails & Tales عرضه شد و تم اصلی آن آرامش، ماجراجویی، و داستان‌گویی است. در این نسخه با Biome جدید Cherry Blossom روبرو می‌شوید که با درختان صورتی و محیطی رویایی، چشم‌نوازترین بیوم نسخه محسوب می‌شود. Bamboo Set نیز با نوع جدیدی از چوب‌ها که به شما امکان ساخت درهای منحصربه‌فرد را می‌دهد، اضافه شد. Archaeology سیستم جدیدی است که با Brush به شما امکان کاوش در خاک‌های باستانی را می‌دهد و آیتم‌های تنکی که هرگز نسخه قبلی دیده نشده بود را کشف می‌کنید. Signs نیز هوشمند شده و با چسباندن Hanging Sign می‌توانید نشانه‌های آویزون بسازید.",
       "highlights": [
@@ -51,7 +51,7 @@
       "codename": "The Wild Update",
       "major": 1,
       "minor": 19,
-      "icon": "🌿",
+      "icon": "px-grass-block",
       "summary": "آپدیت وحشی با Deep Dark، Warden و Mangrove Swamp.",
       "description": "نسخه 1.19 با نام The Wild Update شناخته می‌شود و یکی از ترسناک‌ترین آپدیت‌های ماینکرفت به شمار می‌رود. این نسخه Deep Dark biome را اضافه کرد که در اعماق زمین قرار دارد و محل زندگی Warden است — موحوشی که می‌تواند با یک ضربه بازیکنان را از بین ببرد. Mangrove Swamp نیز با درختان منگرو، چوب منگرو، و خاک منگروی به بازی اضافه شد. Allay موجود کوچک و دوست‌داشتنی که آیتم‌ها را جمع می‌کند، یکی دیگر از ویژگی‌های برجسته این نسخه است.",
       "highlights": [
@@ -72,7 +72,7 @@
       "codename": "Caves & Cliffs Part 2",
       "major": 1,
       "minor": 18,
-      "icon": "⛰️",
+      "icon": "px-stone-block",
       "summary": "بخش دوم Caves & Cliffs با World Generation جدید، غارهای بزرگ‌تر و کوه‌های بلندتر.",
       "description": "نسخه 1.18 که بخش دوم آپدیت بزرگ Caves & Cliffs است، World Generation بازی را کاملاً دگرگون کرد. غارها به اشکال مختلف مثل Lush Caves و Dripstone Caves درآمدند و عمیق‌تر شدند. کوه‌ها به ارتفاع 256 بلوک رسیدند و بیوم‌های مثلاً Meadow و Grove اضافه شد. این نسخه یکی از بزرگ‌ترین تغییرات World Generation در تاریخ ماینکرفت محسوب می‌شود.",
       "highlights": [
@@ -92,7 +92,7 @@
       "codename": "Caves & Cliffs Part 1",
       "major": 1,
       "minor": 17,
-      "icon": "💎",
+      "icon": "px-diamond",
       "summary": "بخش اول Caves & Cliffs با بلوک‌های جدید مثل Amethyst، Copper و Lightning Rod.",
       "description": "نسخه 1.17 بخش اول آپدیت بزرگ Caves & Cliffs است. در این نسخه بلوک‌های جدید زیادی اضافه شد از جمله Copper که با گذشت زمان رنگش تغییر می‌کند، Amethyst Geodes که در اعماق زمین پیدا می‌شوند، و Lightning Rod برای جذب صاعقه. همچنین موجودات جدید Axolotl و Goat اضافه شدند.",
       "highlights": [
@@ -112,7 +112,7 @@
       "codename": "Nether Update",
       "major": 1,
       "minor": 16,
-      "icon": "🔥",
+      "icon": "px-tnt",
       "summary": "آپدیت بزرگ Nether با بیوم‌های جدید، Piglins و Netherite.",
       "description": "نسخه 1.16 با نام Nether Update یکی از مهم‌ترین آپدیت‌های تاریخ ماینکرفت است. این نسخه Nether را از یک محیط خالی و یکنواخت به جهانی پر از تنوع تبدیل کرد. بیوم‌های جدید مثل Crimson Forest، Warped Forest، Soulsand Valley و Basalt Deltas اضافه شدند. Piglins که موجودات قابل تجارت هستند اضافه شدند و می‌توانید با آن‌ها طلا مبادله کنید. اما مهم‌تر از همه، Netherite به عنوان مادون DIAMOND معرفی شد که از ترکیب Ancient Debris و Gold ساخته می‌شود و قوی‌تر و دیرگدازتر از Diamond است.",
       "highlights": [

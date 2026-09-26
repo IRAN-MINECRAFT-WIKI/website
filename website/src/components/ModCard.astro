@@ -23,9 +23,21 @@ const catIconMap: Record<string, string> = {
   utility: 'icon-tool',
 };
 const catIcon = catIconMap[mod.category] || 'icon-cube';
+
+// Pick a pixel-art icon based on category (uses pixel-sprites.astro)
+const pixelIconMap: Record<string, string> = {
+  gameplay: 'px-sword-diamond',
+  graphics: 'px-diamond',
+  maps: 'px-grass-block',
+  mobs: 'px-apple',  // apple as fallback for mobs
+  decoration: 'px-plank',
+  world: 'px-grass-block',
+  utility: 'px-iron-ingot',
+};
+const pixelIcon = pixelIconMap[mod.category] || 'px-crafting-table';
 ---
 
-<article class="mc-card group mod-card" data-keywords={mod.keywords || ''} data-cat={mod.category}>
+<article class="mc-card group mod-card mc-block-panel" data-keywords={mod.keywords || ''} data-cat={mod.category}>
   <!-- Cover -->
   <a href={base(`/mods/${mod.id}`)} class="block mod-cover">
     <img
@@ -60,8 +72,9 @@ const catIcon = catIconMap[mod.category] || 'icon-cube';
         </a>
       </h3>
       <span class="mod-icon" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
-          <use href="#icon-mod" />
+        <!-- Pixel-art sprite (16x16 viewBox rendered at 28px) -->
+        <svg width="28" height="28" viewBox="0 0 16 16" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+          <use href={`#${pixelIcon}`} />
         </svg>
       </span>
     </div>

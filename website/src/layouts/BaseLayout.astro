@@ -9,6 +9,7 @@ import BackToTop from '@components/BackToTop.astro';
 import Preloader from '@components/Preloader.astro';
 import ParticleEffects from '@components/ParticleEffects.astro';
 import Icons from '@components/icons.astro';
+import PixelSprites from '@components/pixel-sprites.astro';
 import BrowserWarning from '@components/BrowserWarning.astro';
 import { siteConfig } from '@/lib/data';
 import { buildHeadMeta, type SeoMeta, websiteJsonLd, organizationJsonLd } from '@/lib/seo';
@@ -140,6 +141,7 @@ const orgLd = organizationJsonLd();
   </head>
   <body class="min-h-screen flex flex-col">
     <Icons />
+    <PixelSprites />
     <!-- Old browser warning -->
     <BrowserWarning />
 

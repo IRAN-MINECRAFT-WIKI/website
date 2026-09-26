@@ -3,11 +3,26 @@
 @tailwind utilities;
 
 /* ===========================================
-   MineBed Farsi — global styles (RTL + Glassmorphism)
-   Font: Rooyin (Persian, Farsi numerals)
-   Theme: Minecraft pixel + Glassmorphism
+   Press Start 2P — pixel font for headings (loaded from Google Fonts CDN)
+   Used for: h1, h2, h3, .pixel, .font-pixel — gives strong Minecraft feel.
+   Falls back to monospace if loading fails.
+   =========================================== */
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAam6xVtLZg.woff2') format('woff2');
+}
+
+/* ===========================================
+   MineBed Farsi — global styles (RTL + Pixel Minecraft)
+   Fonts:
+     - Headings: 'Press Start 2P' (pixel font)
+     - Body: 'Rooyin' (Persian, Farsi numerals)
+   Theme: Strong Minecraft pixel aesthetic (inset/outset borders,
+     no border-radius for sharp pixel-perfect corners)
    Mobile: lighter theme (less glass)
-   Desktop: full glass + premium feel
    =========================================== */
 
 @layer base {
@@ -235,6 +250,114 @@
       0 0 0 1px rgba(124, 200, 74, 0.15);
   }
 
+  /* ──────────────────────────────────────────────────
+     .mc-block-panel — STRONG Minecraft block look
+     Pixel-perfect borders (inset/outset, no border-radius),
+     with subtle block texture background. Used for primary
+     content blocks to give the site a true Minecraft feel.
+     ────────────────────────────────────────────────── */
+  .mc-block-panel {
+    position: relative;
+    background:
+      /* Block texture pattern (subtle 4x4 pixel grid) */
+      repeating-conic-gradient(
+        from 0deg,
+        rgba(0, 0, 0, 0.06) 0deg 90deg,
+        rgba(255, 255, 255, 0.02) 90deg 180deg
+      ) 0 0 / 8px 8px,
+      var(--panel, #1c1c34);
+    border: 2px solid #1a1a1a;
+    border-right: 2px solid #4a4a4a;
+    border-bottom: 2px solid #4a4a4a;
+    border-radius: 0;  /* pixel-perfect sharp corners */
+    padding: 1.25rem;
+    box-shadow:
+      inset 2px 2px 0 rgba(255, 255, 255, 0.08),
+      inset -2px -2px 0 rgba(0, 0, 0, 0.4),
+      0 4px 16px rgba(0, 0, 0, 0.4);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .mc-block-panel.hoverable:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 2px 2px 0 rgba(255, 255, 255, 0.12),
+      inset -2px -2px 0 rgba(0, 0, 0, 0.4),
+      0 8px 24px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(124, 200, 74, 0.25);
+  }
+
+  /* Grass block variant — green top, brown dirt body */
+  .mc-block-panel.grass {
+    background:
+      linear-gradient(180deg,
+        rgba(95, 168, 56, 0.15) 0,
+        rgba(95, 168, 56, 0.05) 4px,
+        transparent 4px
+      ),
+      repeating-conic-gradient(
+        from 0deg,
+        rgba(0, 0, 0, 0.06) 0deg 90deg,
+        rgba(255, 255, 255, 0.02) 90deg 180deg
+      ) 0 0 / 8px 8px,
+      var(--panel, #1c1c34);
+    border-top: 3px solid var(--grass-3);
+  }
+
+  /* Stone block variant — gray with stone texture */
+  .mc-block-panel.stone {
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.04) 1px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(0, 0, 0, 0.1) 1px, transparent 2px),
+      radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.03) 1px, transparent 2px),
+      var(--panel, #1c1c34);
+  }
+
+  /* Diamond block variant — cyan glow */
+  .mc-block-panel.diamond {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(74, 237, 217, 0.15), transparent 50%),
+      repeating-conic-gradient(
+        from 0deg,
+        rgba(0, 0, 0, 0.06) 0deg 90deg,
+        rgba(255, 255, 255, 0.02) 90deg 180deg
+      ) 0 0 / 8px 8px,
+      var(--panel, #1c1c34);
+    border-color: #2d7575;
+  }
+
+  /* Netherrack variant — dark red */
+  .mc-block-panel.nether {
+    background:
+      radial-gradient(circle at 30% 50%, rgba(255, 59, 59, 0.1), transparent 60%),
+      repeating-conic-gradient(
+        from 0deg,
+        rgba(0, 0, 0, 0.1) 0deg 90deg,
+        rgba(255, 255, 255, 0.02) 90deg 180deg
+      ) 0 0 / 8px 8px,
+      #2a1a1a;
+    border-color: #5a1818;
+  }
+
+  /* ──────────────────────────────────────────────────
+     Pixel-art border — sharper Minecraft button variant
+     ────────────────────────────────────────────────── */
+  .mc-btn.pixel {
+    border-radius: 0;  /* sharp corners */
+    image-rendering: pixelated;
+    border: 2px solid #1a1a1a;
+    border-right: 2px solid #4a4a4a;
+    border-bottom: 2px solid #4a4a4a;
+    border-top: 2px solid #1a1a1a;
+    border-left: 2px solid #1a1a1a;
+    box-shadow:
+      inset 2px 2px 0 rgba(255, 255, 255, 0.15),
+      inset -2px -2px 0 rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  }
+
   /* Pixel grass divider */
   .pixel-divider {
     height: 6px;
@@ -441,11 +564,35 @@
 }
 
 /* Prose tweaks for Persian */
-.prose :where(h2, h3, h4) {
+.prose :where(h2) {
+  font-family: var(--pixel), 'Press Start 2P', monospace;
+  font-size: 1rem;  /* pixel font is dense — keep small */
+  font-weight: 400;
+  color: var(--grass-2, #7cc84a);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  margin-top: 2.5em;
+  margin-bottom: 1em;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  border-bottom: 2px solid var(--grass-3, #3d7521);
+  padding-bottom: 0.5rem;
+}
+
+.prose :where(h3) {
+  font-family: var(--font);
   font-weight: 800;
-  color: var(--text);
-  margin-top: 2em;
-  margin-bottom: 0.75em;
+  color: var(--gold, #fcb32b);
+  margin-top: 1.75em;
+  margin-bottom: 0.625em;
+}
+
+.prose :where(h4) {
+  font-family: var(--font);
+  font-weight: 700;
+  color: var(--diamond, #4aedd9);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-size: 1.05rem;
 }
 
 .prose :where(p) {
