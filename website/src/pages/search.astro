@@ -83,11 +83,17 @@ const breadcrumb = [
     async function loadPagefind() {
       if (pagefind) return pagefind;
       try {
-        const base = window.location.pathname.split('/').slice(0, -1).join('/') || '';
+        // Derive base path from current URL (handles /search and /website/search)
+        const path = window.location.pathname.replace(/\/$/, '');
+        const segments = path.split('/');
+        // Strip the last segment (the page name) → base path
+        segments.pop();
+        const base = segments.join('/') || '';
         const url = `${base}/pagefind/pagefind.js`;
         const mod = await import(/* @vite-ignore */ url);
         pagefind = mod.default || mod;
         await pagefind.init();
+        pagefind.options({ excerptLength: 12 });
       } catch (e) {
         console.warn('Pagefind not available', e);
       }
@@ -122,10 +128,17 @@ const breadcrumb = [
           const div = document.createElement('a');
           div.className = 'search-result';
           div.href = r.url;
-          div.innerHTML = `
-            <div class="title">${r.meta?.title || r.url}</div>
-            <div class="excerpt">${r.excerpt}</div>
-          `;
+          // Use textContent (not innerHTML) — XSS-safe for Pagefind excerpts
+          const titleDiv = document.createElement('div');
+          titleDiv.className = 'title';
+          titleDiv.textContent = (r.meta && r.meta.title) || r.url;
+          const excerptDiv = document.createElement('div');
+          excerptDiv.className = 'excerpt';
+          // Pagefind excerpts may contain <mark> tags — strip them for safety
+          const excerptText = (r.excerpt || '').replace(/<[^>]+>/g, '');
+          excerptDiv.textContent = excerptText;
+          div.appendChild(titleDiv);
+          div.appendChild(excerptDiv);
           results.appendChild(div);
         }
       }, 250);

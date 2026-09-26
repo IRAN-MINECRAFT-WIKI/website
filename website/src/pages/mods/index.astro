@@ -111,9 +111,21 @@ const catIconMap: Record<string, string> = {
           if (m) cat = m[1];
         }
         var titleEl = card.querySelector(".mod-title-link") || card.querySelector("a");
+        var taglineEl = card.querySelector(".mod-tagline");
+        var sizeEl = card.querySelector(".mod-size");
+        var versionEl = card.querySelector(".mod-version");
+        // Build a combined haystack across all searchable fields — much better UX
+        var name = titleEl ? titleEl.textContent.trim().toLowerCase() : "";
+        var tagline = taglineEl ? taglineEl.textContent.trim().toLowerCase() : "";
+        var size = sizeEl ? sizeEl.textContent.trim().toLowerCase() : "";
+        var version = versionEl ? versionEl.textContent.trim().toLowerCase() : "";
         return {
           el: card,
-          name: (titleEl ? titleEl.textContent.trim().toLowerCase() : ""),
+          name: name,
+          tagline: tagline,
+          size: size,
+          version: version,
+          haystack: name + " " + tagline + " " + size + " " + version + " " + cat,
           cat: cat,
           isNew: !!card.querySelector(".mod-badge.new"),
           isFeatured: !!card.querySelector(".mod-badge.featured")
@@ -131,7 +143,8 @@ const catIconMap: Record<string, string> = {
         var show = true;
         if (currentCat !== "all" && item.cat !== currentCat) show = false;
         if (currentQuery && show) {
-          if (item.name.indexOf(currentQuery.toLowerCase()) === -1) show = false;
+          // Search across the combined haystack (name + tagline + size + version + cat)
+          if (item.haystack.indexOf(currentQuery.toLowerCase()) === -1) show = false;
         }
         item.el.style.display = show ? "" : "none";
         if (show) visible++;

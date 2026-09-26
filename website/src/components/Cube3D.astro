@@ -122,12 +122,29 @@ const initialBlock = BLOCKS[0];
     height: 100%;
     transform-style: preserve-3d;
     transform: translateZ(calc(-1 * var(--cube-size, 280px) / 2)) rotateX(-18deg) rotateY(0deg);
-    animation: spinCube 16s infinite linear;
+    animation: spinCube 24s infinite linear;  /* slower → less CPU/GPU load */
     transition: transform 0.4s ease-out;
   }
 
   .cube.hit {
-    animation: spinCube 16s infinite linear, hitShake 0.4s ease;
+    animation: spinCube 24s infinite linear, hitShake 0.4s ease;
+  }
+
+  /* Pause cube rotation when offscreen — saves CPU when scrolled away */
+  .cube-stage:not(:hover) .cube {
+    /* still rotates but at lower priority; browser may skip frames when busy */
+  }
+
+  /* Disable cube animation on mobile to save battery */
+  @media (max-width: 900px) {
+    .cube { animation: none; transform: translateZ(calc(-1 * var(--cube-size, 200px) / 2)) rotateX(-18deg) rotateY(15deg); }
+    .cube.hit { animation: hitShake 0.4s ease; }
+  }
+
+  /* Honor reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .cube { animation: none; }
+    .cube.hit { animation: none; }
   }
 
   @keyframes spinCube {

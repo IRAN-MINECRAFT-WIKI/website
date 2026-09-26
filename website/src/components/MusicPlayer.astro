@@ -46,7 +46,7 @@ const tracksJson = JSON.stringify(musicTracks);
       </svg>
     </button>
   </div>
-  <audio id="bgAudio" preload="auto" loop></audio>
+  <audio id="bgAudio" preload="none" loop></audio>
 </div>
 
 <style>
@@ -266,7 +266,8 @@ const tracksJson = JSON.stringify(musicTracks);
     nextBtn.addEventListener('click', next);
 
     // Auto-start after first user interaction (browser autoplay policy)
-    // But ONLY if user hasn't explicitly paused before
+    // But ONLY if user hasn't explicitly paused before AND not on mobile (mobile data + battery)
+    const isMobileDevice = window.matchMedia('(max-width: 900px)').matches;
     function startOnInteraction() {
       if (isPlaying) return;
       if (localStorage.getItem('musicUserPaused') === 'true') {
@@ -280,7 +281,7 @@ const tracksJson = JSON.stringify(musicTracks);
       );
     }
 
-    if (!userPausedMusic) {
+    if (!userPausedMusic && !isMobileDevice) {
       ['click', 'keydown', 'touchstart'].forEach((ev) =>
         document.addEventListener(ev, startOnInteraction, true)
       );

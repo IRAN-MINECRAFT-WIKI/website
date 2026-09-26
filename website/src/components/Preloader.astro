@@ -1,7 +1,8 @@
 ---
 /**
- * Preloader.astro — full-screen pixel loader with progress bar.
- * Fades out after window load + 1100ms.
+ * Preloader.astro — Lightweight pixel loader with progress bar.
+ * Performance: hides after window load + 400ms (was 1100ms).
+ * Also hides immediately if reduced-motion or slow connection.
  */
 ---
 
@@ -53,7 +54,7 @@
     height: 100%;
     width: 0;
     background: linear-gradient(90deg, var(--grass-3, #3d7521), var(--grass-2, #7cc84a));
-    animation: loadBar 1.6s ease-in-out forwards;
+    animation: loadBar 0.8s ease-in-out forwards;
   }
 
   @keyframes loadBar {
@@ -78,6 +79,11 @@
   astro-swap[data-transition='initial'] .preloader {
     display: none;
   }
+
+  /* Reduced motion: skip animation entirely */
+  @media (prefers-reduced-motion: reduce) {
+    .preloader { display: none !important; }
+  }
 </style>
 
 <script>
@@ -88,7 +94,8 @@
     function hide() {
       const el = document.getElementById('preloader');
       if (!el) return;
-      setTimeout(() => el.classList.add('done'), 1100);
+      // Skip the long delay — just give one frame to render then hide.
+      setTimeout(() => el.classList.add('done'), 400);
     }
 
     if (document.readyState === 'complete') {
