@@ -137,19 +137,16 @@ const quickLinks = [
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     opacity: 0;
-    animation: qaBackdropIn 0.3s ease-out forwards;
+    transition: opacity 0.3s ease-out;
   }
-  
-  @keyframes qaBackdropIn {
-    to { opacity: 1; }
+
+  .qa-overlay:not([hidden]) .qa-backdrop {
+    opacity: 1;
   }
   
   .qa-overlay.closing .qa-backdrop {
-    animation: qaBackdropOut 0.2s ease-in forwards;
-  }
-  
-  @keyframes qaBackdropOut {
-    to { opacity: 0; }
+    opacity: 0 !important;
+    transition: opacity 0.2s ease-in;
   }
   
   /* ─── Panel (slide down from top) ─── */
@@ -169,8 +166,15 @@ const quickLinks = [
     /* Slide down from top + scale up */
     opacity: 0;
     transform: translateY(-50px) scale(0.95);
-    animation: qaPanelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     z-index: 2;
+  }
+
+  /* Opening class — added by JS when user clicks. Without this,
+     the animation auto-runs on every page load. */
+  .qa-overlay:not([hidden]) .qa-panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   @keyframes qaPanelIn {
@@ -181,14 +185,9 @@ const quickLinks = [
   }
   
   .qa-overlay.closing .qa-panel {
-    animation: qaPanelOut 0.2s ease-in forwards;
-  }
-  
-  @keyframes qaPanelOut {
-    to {
-      opacity: 0;
-      transform: translateY(-30px) scale(0.95);
-    }
+    opacity: 0 !important;
+    transform: translateY(-30px) scale(0.95) !important;
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
   }
   
   /* ─── Panel header ─── */
@@ -253,8 +252,8 @@ const quickLinks = [
     /* POP OUT animation: starts at scale(0) + rotated, pops to scale(1) */
     opacity: 0;
     transform: scale(0) rotate(-15deg);
-    animation: qaPopOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: var(--pop-delay, 0.15s);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--pop-delay, 0.15s);
   }
   
   @keyframes qaPopOut {
@@ -273,9 +272,18 @@ const quickLinks = [
   }
   
   /* Closing: tiles shrink back (reverse stagger) */
+  /* When overlay is visible (not hidden), tiles animate to visible state */
+  .qa-overlay:not([hidden]) .qa-tile {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* Closing: tiles shrink back */
   .qa-overlay.closing .qa-tile {
-    animation: qaPopIn 0.15s ease-in forwards;
-    animation-delay: 0s;
+    opacity: 0 !important;
+    transform: scale(0) rotate(15deg) !important;
+    transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+    transition-delay: 0s !important;
   }
   
   @keyframes qaPopIn {
@@ -440,6 +448,18 @@ const quickLinks = [
     } else {
       setupQuickAccess();
     }
-    document.addEventListener('astro:page-load', setupQuickAccess);
+    // Close panel on EVERY page navigation (prevents it from staying open)
+  function closePanelOnNav() {
+    var o = document.getElementById('quickAccessOverlay');
+    if (o && !o.hidden) {
+      o.hidden = true;
+      o.classList.remove('closing');
+    }
+  }
+  document.addEventListener('astro:before-swap', closePanelOnNav);
+  document.addEventListener('astro:page-load', function () {
+    closePanelOnNav();
+    setupQuickAccess();
+  });
   })();
 </script>

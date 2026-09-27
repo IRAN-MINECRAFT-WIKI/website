@@ -946,3 +946,112 @@ img.pixel-img {
   z-index: 1;
   position: relative;
 }
+
+/* ===========================================
+   iPhone-like smooth animations — global
+   Spring-like cubic-bezier curves for everything
+   =========================================== */
+
+/* Universal smooth transition for interactive elements */
+.mc-btn,
+.mc-chip,
+.mc-panel,
+.mc-card,
+.mc-block-panel,
+.nav-link,
+.footer-link,
+.search-trigger,
+.qa-trigger,
+.inv-slot,
+.craft-slot,
+.storage-slot,
+.hotbar-slot,
+.inventory-slot {
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.2s ease-out,
+    border-color 0.2s ease-out,
+    box-shadow 0.2s ease-out,
+    opacity 0.2s ease-out;
+}
+
+/* Spring-like hover scale (iPhone-like) */
+.mc-btn:hover,
+.mc-chip:hover,
+.search-trigger:hover,
+.qa-trigger:hover,
+.inv-slot:hover,
+.inventory-slot:hover {
+  transform: scale(1.05);
+}
+
+.mc-btn:active,
+.mc-chip:active,
+.search-trigger:active,
+.qa-trigger:active,
+.inv-slot:active,
+.inventory-slot:active {
+  transform: scale(0.93);
+  transition: transform 0.08s ease-out;
+}
+
+/* Cards lift on hover (iPhone-like depth) */
+.mc-card:hover,
+.mc-block-panel.hoverable:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(123, 197, 92, 0.2);
+}
+
+/* Page content fade-in on view transition (iPhone-like) */
+@keyframes pageContentFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main {
+  animation: pageContentFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Smooth scroll behavior (iPhone-like) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus ring smooth transition */
+:focus-visible {
+  transition: outline-offset 0.15s ease-out;
+}
+
+/* Link hover transitions */
+a {
+  transition: color 0.15s ease-out, text-decoration-color 0.15s ease-out;
+}
+
+/* Image hover — subtle scale */
+img.pixel-img {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Header smooth shadow on scroll */
+.site-header {
+  transition: box-shadow 0.3s ease-out, background 0.3s ease-out;
+}
+
+/* View transition: smooth fade between pages */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Disable all transitions for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
