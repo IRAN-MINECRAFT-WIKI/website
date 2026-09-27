@@ -1055,3 +1055,229 @@ img.pixel-img {
     animation: none !important;
   }
 }
+
+/* ===========================================
+   ADVANCED ANIMATIONS — iPhone-smooth + Minecraft-pixel
+   =========================================== */
+
+/* Ripple effect on button click (like iPhone) */
+.mc-btn, .qa-trigger, .search-trigger {
+  position: relative;
+  overflow: hidden;
+}
+
+.mc-btn .ripple, .qa-trigger .ripple, .search-trigger .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: rippleEffect 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* Shimmer loading effect (for lazy content) */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(123, 197, 92, 0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Glow pulse (for important elements) */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(123, 197, 92, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(123, 197, 92, 0.6); }
+}
+
+.glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Bounce in (for new content) */
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3) translateY(30px); }
+  50% { opacity: 1; transform: scale(1.05) translateY(-5px); }
+  70% { transform: scale(0.95) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.bounce-in {
+  animation: bounceIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide up reveal (for scroll-triggered content) */
+@keyframes slideUpReveal {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUpReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Pixel block entrance (Minecraft-style) */
+@keyframes pixelBlockIn {
+  0% { opacity: 0; transform: scale(0) rotate(-10deg); image-rendering: pixelated; }
+  60% { opacity: 1; transform: scale(1.15) rotate(3deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.pixel-block-in {
+  animation: pixelBlockIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Floating animation (for decorative elements) */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-anim {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Tilt on hover (3D card effect) */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 600px;
+}
+
+.tilt-card:hover {
+  transform: rotateY(-5deg) rotateX(3deg) translateY(-4px);
+}
+
+/* Minecraft button — real game style (flat 3D) */
+.mc-btn.minecraft {
+  background: linear-gradient(180deg, #6a6a6a 0%, #5a5a5a 50%, #4a4a4a 100%);
+  border: 2px solid #1a1a1a;
+  border-top-color: #373737;
+  border-left-color: #373737;
+  border-right-color: #6a6a6a;
+  border-bottom-color: #6a6a6a;
+  border-radius: 0;
+  box-shadow:
+    inset 2px 2px 0 rgba(255, 255, 255, 0.15),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.4);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  image-rendering: pixelated;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 1px;
+  padding: 0.625rem 1.25rem;
+}
+
+.mc-btn.minecraft:hover {
+  background: linear-gradient(180deg, #7a7a7a 0%, #6a6a6a 50%, #5a5a5a 100%);
+  transform: translateY(-1px);
+}
+
+.mc-btn.minecraft:active {
+  background: linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 100%);
+  box-shadow:
+    inset -2px -2px 0 rgba(255, 255, 255, 0.1),
+    inset 2px 2px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(1px);
+}
+
+/* Minecraft green button variant */
+.mc-btn.minecraft.green {
+  background: linear-gradient(180deg, #5fa838 0%, #4d8a2c 50%, #3d7521 100%);
+  border-top-color: #2d5018;
+  border-left-color: #2d5018;
+}
+
+.mc-btn.minecraft.green:hover {
+  background: linear-gradient(180deg, #6fb848 0%, #5d9a3c 50%, #4d8521 100%);
+}
+
+/* Smooth skeleton loading */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Parallax depth on scroll (applied via JS IntersectionObserver) */
+.parallax-depth {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* Glass morphism enhancement */
+.glass-enhanced {
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background: rgba(28, 28, 52, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px rgba(123, 197, 92, 0.05);
+}
+
+/* Text gradient (for headings) */
+.text-gradient-mc {
+  background: linear-gradient(135deg, #7cc84a 0%, #4aedd9 50%, #fcb32b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+/* Confetti on achievement (decorative) */
+@keyframes confettiFall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  z-index: 99999;
+  animation: confettiFall 2s linear forwards;
+  pointer-events: none;
+}
+
+/* Smooth tab indicator */
+.tab-indicator {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--grass-2, #7cc84a);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-indicator.active::after {
+  transform: scaleX(1);
+}
+
+/* Disable all advanced animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ripple, .shimmer, .glow-pulse, .bounce-in, .slide-up,
+  .pixel-block-in, .float-anim, .confetti-piece {
+    animation: none !important;
+  }
+  .tilt-card:hover {
+    transform: none;
+  }
+}
