@@ -103,12 +103,19 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   }
   .search-modal[hidden] { display: none; }
 
+  /* Smooth slide-in animation for backdrop */
   .search-modal-backdrop {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    animation: searchBackdropIn 0.25s ease-out forwards;
+  }
+
+  @keyframes searchBackdropIn {
+    to { opacity: 1; }
   }
 
   .search-modal-panel {
@@ -120,6 +127,17 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     border-radius: 8px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     overflow: hidden;
+    /* Smooth slide-down + scale animation */
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+    animation: searchPanelIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes searchPanelIn {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   .search-modal-input-wrap {

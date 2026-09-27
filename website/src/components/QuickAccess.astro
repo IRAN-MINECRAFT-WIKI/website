@@ -1,0 +1,441 @@
+---
+/**
+ * QuickAccess.astro — Slide-in navigation panel (next to search)
+ *
+ * A Minecraft-styled slide-in panel that opens from the right side
+ * with smooth animation. Contains quick navigation links to all
+ * major sections of the site, each with a pixel-art icon.
+ *
+ * Animation: slides in from right with ease-out timing.
+ * Mobile + desktop friendly.
+ */
+import '@components/pixel-sprites.astro';
+import { categories } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const quickLinks = [
+  { href: base('/'), label: 'خانه', icon: 'px-grass-block', type: 'block' },
+  { href: base('/mods'), label: 'افزونه‌ها', icon: 'px-chest', type: 'block' },
+  { href: base('/crafting'), label: 'کرافت', icon: 'px-crafting-table', type: 'block' },
+  { href: base('/versions'), label: 'نسخه‌ها', icon: 'px-grass-block', type: 'block' },
+  { href: base('/seeds'), label: 'سیدها', icon: 'px-grass-block', type: 'block' },
+  { href: base('/categories'), label: 'دسته‌ها', icon: 'px-cobblestone', type: 'block' },
+  { href: base('/wiki'), label: 'ویکی', icon: 'px-book', type: 'item' },
+  { href: base('/blog'), label: 'وبلاگ', icon: 'px-book', type: 'item' },
+  { href: base('/guide'), label: 'آموزش', icon: 'px-stick', type: 'item' },
+  { href: base('/about'), label: 'درباره', icon: 'px-apple', type: 'item' },
+];
+---
+
+<!-- Trigger button (grid icon) -->
+<button id="quickAccessBtn" class="qa-trigger" aria-label="دسترسی سریع" title="دسترسی سریع به بخش‌ها">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="7" height="7"/>
+    <rect x="14" y="3" width="7" height="7"/>
+    <rect x="14" y="14" width="7" height="7"/>
+    <rect x="3" y="14" width="7" height="7"/>
+  </svg>
+</button>
+
+<!-- Slide-in panel -->
+<div class="qa-panel" id="quickAccessPanel" hidden>
+  <div class="qa-backdrop" id="qaBackdrop" data-close></div>
+  
+  <div class="qa-content">
+    <div class="qa-header">
+      <h3 class="qa-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+        دسترسی سریع
+      </h3>
+      <button class="qa-close" id="qaClose" data-close aria-label="بستن">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="qa-nav">
+      {quickLinks.map((link) => (
+        <a href={link.href} class="qa-link" data-route>
+          <span class="qa-link-icon">
+            <img
+              src={`${BASE}textures/${link.type === 'block' ? 'blocks' : 'items'}/${link.icon.replace('px-', '')}.png`}
+              alt=""
+              width="24"
+              height="24"
+              loading="lazy"
+              class="pixel-img"
+              onerror="this.style.display='none'"
+            />
+          </span>
+          <span class="qa-link-text">{link.label}</span>
+          <svg class="qa-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </a>
+      ))}
+    </nav>
+    
+    <div class="qa-footer">
+      <p class="qa-footer-text">MineBed Farsi — مرجع ماینکرفت بدراک</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ─── Trigger button ─── */
+  .qa-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--line, #2e2e4a);
+    color: var(--text-2, #9a9ab8);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.15s;
+    padding: 0;
+  }
+  
+  .qa-trigger:hover {
+    background: rgba(123, 197, 92, 0.1);
+    border-color: var(--grass-2, #7cc84a);
+    color: var(--grass-2, #7cc84a);
+  }
+  
+  .qa-trigger:active {
+    transform: scale(0.92);
+  }
+  
+  @media (max-width: 640px) {
+    .qa-trigger {
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
+  /* ─── Panel overlay ─── */
+  .qa-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  /* RTL: panel slides from RIGHT */
+  [dir='rtl'] .qa-panel {
+    justify-content: flex-end;
+  }
+  
+  .qa-panel[hidden] {
+    display: none;
+  }
+  
+  /* ─── Backdrop ─── */
+  .qa-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    animation: qaFadeIn 0.25s ease-out forwards;
+  }
+  
+  @keyframes qaFadeIn {
+    to { opacity: 1; }
+  }
+  
+  .qa-panel.closing .qa-backdrop {
+    animation: qaFadeOut 0.2s ease-in forwards;
+  }
+  
+  @keyframes qaFadeOut {
+    to { opacity: 0; }
+  }
+  
+  /* ─── Content (slide-in panel) ─── */
+  .qa-content {
+    position: relative;
+    width: 280px;
+    max-width: 85vw;
+    height: 100%;
+    background: linear-gradient(180deg, #1c1c34 0%, #14142a 100%);
+    border-left: 3px solid #2d5018;
+    border-right: 3px solid #4a8a2c;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* RTL: slide from right */
+    transform: translateX(100%);
+    animation: qaSlideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    image-rendering: pixelated;
+  }
+  
+  /* LTR: slide from left */
+  [dir='ltr'] .qa-content {
+    border-left: 3px solid #4a8a2c;
+    border-right: 3px solid #2d5018;
+    transform: translateX(-100%);
+    animation: qaSlideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  @keyframes qaSlideInRight {
+    to { transform: translateX(0); }
+  }
+  
+  @keyframes qaSlideInLeft {
+    to { transform: translateX(0); }
+  }
+  
+  .qa-panel.closing .qa-content {
+    animation: qaSlideOutRight 0.2s ease-in forwards;
+  }
+  
+  [dir='ltr'] .qa-panel.closing .qa-content {
+    animation: qaSlideOutLeft 0.2s ease-in forwards;
+  }
+  
+  @keyframes qaSlideOutRight {
+    to { transform: translateX(100%); }
+  }
+  
+  @keyframes qaSlideOutLeft {
+    to { transform: translateX(-100%); }
+  }
+  
+  /* ─── Header ─── */
+  .qa-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, rgba(123, 197, 92, 0.15) 0%, rgba(123, 197, 92, 0.05) 100%);
+    border-bottom: 2px solid var(--line, #2e2e4a);
+  }
+  
+  .qa-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    color: var(--grass-2, #7cc84a);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+  }
+  
+  .qa-close {
+    background: rgba(255, 59, 59, 0.1);
+    border: 2px solid #8a1a1a;
+    color: #ff8b8b;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    transition: all 0.15s;
+    padding: 0;
+  }
+  
+  .qa-close:hover {
+    background: rgba(255, 59, 59, 0.25);
+    transform: rotate(90deg);
+  }
+  
+  /* ─── Navigation links ─── */
+  .qa-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .qa-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.875rem;
+    color: var(--text, #e0e0f0);
+    text-decoration: none;
+    border-radius: 0;
+    transition: all 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .qa-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(123, 197, 92, 0.15) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  
+  /* RTL: gradient from right */
+  [dir='rtl'] .qa-link::before {
+    background: linear-gradient(270deg, rgba(123, 197, 92, 0.15) 0%, transparent 100%);
+  }
+  
+  .qa-link:hover::before {
+    opacity: 1;
+  }
+  
+  .qa-link:hover {
+    padding-right: 0.625rem;
+  }
+  
+  [dir='rtl'] .qa-link:hover {
+    padding-right: 0.875rem;
+    padding-left: 0.625rem;
+  }
+  
+  .qa-link-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
+    image-rendering: pixelated;
+  }
+  
+  .qa-link-icon img {
+    width: 18px;
+    height: 18px;
+    image-rendering: pixelated;
+  }
+  
+  .qa-link-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    flex: 1;
+    z-index: 1;
+  }
+  
+  .qa-link-arrow {
+    color: var(--text-3, #5c5c7a);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.15s;
+    z-index: 1;
+  }
+  
+  [dir='rtl'] .qa-link-arrow {
+    transform: translateX(8px) scaleX(-1);
+  }
+  
+  .qa-link:hover .qa-link-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  [dir='rtl'] .qa-link:hover .qa-link-arrow {
+    transform: translateX(0) scaleX(-1);
+  }
+  
+  /* ─── Footer ─── */
+  .qa-footer {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--line, #2e2e4a);
+    text-align: center;
+  }
+  
+  .qa-footer-text {
+    font-size: 0.6875rem;
+    color: var(--text-3, #5c5c7a);
+    line-height: 1.5;
+  }
+  
+  /* ─── Responsive ─── */
+  @media (max-width: 640px) {
+    .qa-content {
+      width: 240px;
+    }
+    .qa-link {
+      padding: 0.5rem 0.75rem;
+    }
+    .qa-link-text {
+      font-size: 0.8125rem;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .qa-content, .qa-backdrop {
+      animation: none;
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .qa-panel[hidden] { display: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function setupQuickAccess() {
+      var btn = document.getElementById('quickAccessBtn');
+      var panel = document.getElementById('quickAccessPanel');
+      if (!btn || !panel) return;
+      
+      // Use onclick (replaces previous handler, no duplicates)
+      btn.onclick = function () {
+        panel.hidden = false;
+        panel.classList.remove('closing');
+      };
+      
+      // Close on backdrop / close button / any data-close element
+      panel.querySelectorAll('[data-close]').forEach(function (el) {
+        el.onclick = function () {
+          panel.classList.add('closing');
+          setTimeout(function () {
+            panel.hidden = true;
+            panel.classList.remove('closing');
+          }, 200);
+        };
+      });
+      
+      // Close on Esc
+      if (!window.__qaKeyboardBound) {
+        window.__qaKeyboardBound = true;
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            var p = document.getElementById('quickAccessPanel');
+            if (p && !p.hidden) {
+              p.classList.add('closing');
+              setTimeout(function () {
+                p.hidden = true;
+                p.classList.remove('closing');
+              }, 200);
+            }
+          }
+        });
+      }
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupQuickAccess);
+    } else {
+      setupQuickAccess();
+    }
+    document.addEventListener('astro:page-load', setupQuickAccess);
+  })();
+</script>
