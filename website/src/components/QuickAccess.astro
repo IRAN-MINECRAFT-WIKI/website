@@ -88,7 +88,7 @@ const quickLinks = [
   </div>
 </div>
 
-<style>
+<style is:global>
   /* ─── Trigger button ─── */
   .qa-trigger {
     display: inline-flex;
@@ -117,13 +117,14 @@ const quickLinks = [
   
   /* ─── Full-screen overlay ─── */
   .qa-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2147483647 !important;  /* max z-index — always on top */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 1rem !important;
   }
   
   .qa-overlay[hidden] { display: none; }
@@ -156,6 +157,7 @@ const quickLinks = [
     position: relative;
     width: 100%;
     max-width: 600px;
+    min-height: auto;
     margin-top: 5vh;
     background: linear-gradient(180deg, #1c1c34 0%, #14142a 100%);
     border: 3px solid #2d5018;
@@ -163,11 +165,12 @@ const quickLinks = [
     border-bottom-color: #4a8a2c;
     border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(123, 197, 92, 0.1);
-    overflow: hidden;
+    overflow: visible;
     /* Slide down from top + scale up */
     opacity: 0;
     transform: translateY(-50px) scale(0.95);
     animation: qaPanelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    z-index: 2;
   }
   
   @keyframes qaPanelIn {
