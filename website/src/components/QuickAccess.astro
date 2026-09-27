@@ -1,36 +1,38 @@
 ---
 /**
- * QuickAccess.astro — Slide-in navigation panel (next to search)
+ * QuickAccess.astro — Xiaomi-style Control Center with pop-out buttons
  *
- * A Minecraft-styled slide-in panel that opens from the right side
- * with smooth animation. Contains quick navigation links to all
- * major sections of the site, each with a pixel-art icon.
+ * When the trigger button is clicked:
+ * 1. Full-screen overlay fades in
+ * 2. A large panel slides down from the top
+ * 3. Navigation buttons "pop out" one by one (staggered animation)
+ *    — each button scales from 0 to 1 with a delay
+ * 4. Clicking a link navigates
+ * 5. Closing: buttons shrink back (reverse stagger), panel slides up
  *
- * Animation: slides in from right with ease-out timing.
- * Mobile + desktop friendly.
+ * Animation pattern: cubic-bezier(0.16, 1, 0.3, 1) — smooth overshoot
  */
 import '@components/pixel-sprites.astro';
-import { categories } from '@/lib/data';
 
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 
 const quickLinks = [
-  { href: base('/'), label: 'خانه', icon: 'px-grass-block', type: 'block' },
-  { href: base('/mods'), label: 'افزونه‌ها', icon: 'px-chest', type: 'block' },
-  { href: base('/crafting'), label: 'کرافت', icon: 'px-crafting-table', type: 'block' },
-  { href: base('/versions'), label: 'نسخه‌ها', icon: 'px-grass-block', type: 'block' },
-  { href: base('/seeds'), label: 'سیدها', icon: 'px-grass-block', type: 'block' },
-  { href: base('/categories'), label: 'دسته‌ها', icon: 'px-cobblestone', type: 'block' },
-  { href: base('/wiki'), label: 'ویکی', icon: 'px-book', type: 'item' },
-  { href: base('/blog'), label: 'وبلاگ', icon: 'px-book', type: 'item' },
-  { href: base('/guide'), label: 'آموزش', icon: 'px-stick', type: 'item' },
-  { href: base('/about'), label: 'درباره', icon: 'px-apple', type: 'item' },
+  { href: base('/'), label: 'خانه', icon: 'grass-block', type: 'block', color: '#5fa838' },
+  { href: base('/mods'), label: 'افزونه‌ها', icon: 'chest', type: 'block', color: '#9c7b4e' },
+  { href: base('/crafting'), label: 'کرافت', icon: 'crafting-table-top', type: 'block', color: '#9c7b4e' },
+  { href: base('/versions'), label: 'نسخه‌ها', icon: 'grass-block', type: 'block', color: '#5fa838' },
+  { href: base('/seeds'), label: 'سیدها', icon: 'grass-block', type: 'block', color: '#5fa838' },
+  { href: base('/categories'), label: 'دسته‌ها', icon: 'cobblestone', type: 'block', color: '#7e7e7e' },
+  { href: base('/wiki'), label: 'ویکی', icon: 'book', type: 'item', color: '#9c7b4e' },
+  { href: base('/blog'), label: 'وبلاگ', icon: 'book', type: 'item', color: '#9c7b4e' },
+  { href: base('/guide'), label: 'آموزش', icon: 'stick', type: 'item', color: '#9c7b4e' },
+  { href: base('/about'), label: 'درباره', icon: 'apple', type: 'item', color: '#ff3b3b' },
 ];
 ---
 
 <!-- Trigger button (grid icon) -->
-<button id="quickAccessBtn" class="qa-trigger" aria-label="دسترسی سریع" title="دسترسی سریع به بخش‌ها">
+<button id="quickAccessBtn" class="qa-trigger" aria-label="دسترسی سریع" title="دسترسی سریع">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <rect x="3" y="3" width="7" height="7"/>
     <rect x="14" y="3" width="7" height="7"/>
@@ -39,49 +41,49 @@ const quickLinks = [
   </svg>
 </button>
 
-<!-- Slide-in panel -->
-<div class="qa-panel" id="quickAccessPanel" hidden>
+<!-- Full-screen overlay (Xiaomi Control Center style) -->
+<div class="qa-overlay" id="quickAccessOverlay" hidden>
   <div class="qa-backdrop" id="qaBackdrop" data-close></div>
   
-  <div class="qa-content">
-    <div class="qa-header">
-      <h3 class="qa-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 12h18M3 6h18M3 18h18"/>
-        </svg>
-        دسترسی سریع
-      </h3>
-      <button class="qa-close" id="qaClose" data-close aria-label="بستن">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+  <div class="qa-panel">
+    <div class="qa-panel-header">
+      <h3 class="qa-panel-title">دسترسی سریع</h3>
+      <button class="qa-panel-close" id="qaClose" data-close aria-label="بستن">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M6 6l12 12M18 6L6 18"/>
         </svg>
       </button>
     </div>
     
-    <nav class="qa-nav">
-      {quickLinks.map((link) => (
-        <a href={link.href} class="qa-link" data-route>
-          <span class="qa-link-icon">
+    <!-- Grid of large buttons that pop out one by one -->
+    <nav class="qa-grid">
+      {quickLinks.map((link, i) => (
+        <a
+          href={link.href}
+          class="qa-tile"
+          data-route
+          style={`--pop-delay: ${i * 0.05 + 0.15}s; --tile-color: ${link.color};`}
+        >
+          <div class="qa-tile-icon">
             <img
-              src={`${BASE}textures/${link.type === 'block' ? 'blocks' : 'items'}/${link.icon.replace('px-', '')}.png`}
+              src={`${BASE}textures/${link.type === 'block' ? 'blocks' : 'items'}/${link.icon}.png`}
               alt=""
-              width="24"
-              height="24"
+              width="40"
+              height="40"
               loading="lazy"
+              decoding="async"
               class="pixel-img"
               onerror="this.style.display='none'"
             />
-          </span>
-          <span class="qa-link-text">{link.label}</span>
-          <svg class="qa-link-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
+          </div>
+          <span class="qa-tile-label">{link.label}</span>
         </a>
       ))}
     </nav>
     
-    <div class="qa-footer">
-      <p class="qa-footer-text">MineBed Farsi — مرجع ماینکرفت بدراک</p>
+    <div class="qa-panel-footer">
+      <span class="qa-footer-logo">MINEBED</span>
+      <span class="qa-footer-text">مرجع فارسی ماینکرفت بدراک</span>
     </div>
   </div>
 </div>
@@ -110,282 +112,284 @@ const quickLinks = [
   }
   
   .qa-trigger:active {
-    transform: scale(0.92);
+    transform: scale(0.88);
   }
   
-  @media (max-width: 640px) {
-    .qa-trigger {
-      width: 36px;
-      height: 36px;
-    }
-  }
-  
-  /* ─── Panel overlay ─── */
-  .qa-panel {
+  /* ─── Full-screen overlay ─── */
+  .qa-overlay {
     position: fixed;
     inset: 0;
     z-index: 9999;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: flex-start;
   }
   
-  /* RTL: panel slides from RIGHT */
-  [dir='rtl'] .qa-panel {
-    justify-content: flex-end;
-  }
+  .qa-overlay[hidden] { display: none; }
   
-  .qa-panel[hidden] {
-    display: none;
-  }
-  
-  /* ─── Backdrop ─── */
+  /* ─── Backdrop (fade in) ─── */
   .qa-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     opacity: 0;
-    animation: qaFadeIn 0.25s ease-out forwards;
+    animation: qaBackdropIn 0.3s ease-out forwards;
   }
   
-  @keyframes qaFadeIn {
+  @keyframes qaBackdropIn {
     to { opacity: 1; }
   }
   
-  .qa-panel.closing .qa-backdrop {
-    animation: qaFadeOut 0.2s ease-in forwards;
+  .qa-overlay.closing .qa-backdrop {
+    animation: qaBackdropOut 0.2s ease-in forwards;
   }
   
-  @keyframes qaFadeOut {
+  @keyframes qaBackdropOut {
     to { opacity: 0; }
   }
   
-  /* ─── Content (slide-in panel) ─── */
-  .qa-content {
+  /* ─── Panel (slide down from top) ─── */
+  .qa-panel {
     position: relative;
-    width: 280px;
-    max-width: 85vw;
-    height: 100%;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 5vh;
     background: linear-gradient(180deg, #1c1c34 0%, #14142a 100%);
-    border-left: 3px solid #2d5018;
-    border-right: 3px solid #4a8a2c;
-    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
+    border: 3px solid #2d5018;
+    border-right-color: #4a8a2c;
+    border-bottom-color: #4a8a2c;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(123, 197, 92, 0.1);
     overflow: hidden;
-    /* RTL: slide from right */
-    transform: translateX(100%);
-    animation: qaSlideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    image-rendering: pixelated;
+    /* Slide down from top + scale up */
+    opacity: 0;
+    transform: translateY(-50px) scale(0.95);
+    animation: qaPanelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   
-  /* LTR: slide from left */
-  [dir='ltr'] .qa-content {
-    border-left: 3px solid #4a8a2c;
-    border-right: 3px solid #2d5018;
-    transform: translateX(-100%);
-    animation: qaSlideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  @keyframes qaPanelIn {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
   
-  @keyframes qaSlideInRight {
-    to { transform: translateX(0); }
+  .qa-overlay.closing .qa-panel {
+    animation: qaPanelOut 0.2s ease-in forwards;
   }
   
-  @keyframes qaSlideInLeft {
-    to { transform: translateX(0); }
+  @keyframes qaPanelOut {
+    to {
+      opacity: 0;
+      transform: translateY(-30px) scale(0.95);
+    }
   }
   
-  .qa-panel.closing .qa-content {
-    animation: qaSlideOutRight 0.2s ease-in forwards;
-  }
-  
-  [dir='ltr'] .qa-panel.closing .qa-content {
-    animation: qaSlideOutLeft 0.2s ease-in forwards;
-  }
-  
-  @keyframes qaSlideOutRight {
-    to { transform: translateX(100%); }
-  }
-  
-  @keyframes qaSlideOutLeft {
-    to { transform: translateX(-100%); }
-  }
-  
-  /* ─── Header ─── */
-  .qa-header {
+  /* ─── Panel header ─── */
+  .qa-panel-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.25rem;
+    padding: 1rem 1.5rem;
     background: linear-gradient(135deg, rgba(123, 197, 92, 0.15) 0%, rgba(123, 197, 92, 0.05) 100%);
     border-bottom: 2px solid var(--line, #2e2e4a);
   }
   
-  .qa-title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  .qa-panel-title {
     font-family: 'Press Start 2P', monospace;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--grass-2, #7cc84a);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
   }
   
-  .qa-close {
+  .qa-panel-close {
     background: rgba(255, 59, 59, 0.1);
     border: 2px solid #8a1a1a;
     color: #ff8b8b;
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0;
+    border-radius: 6px;
     transition: all 0.15s;
     padding: 0;
   }
   
-  .qa-close:hover {
+  .qa-panel-close:hover {
     background: rgba(255, 59, 59, 0.25);
     transform: rotate(90deg);
   }
   
-  /* ─── Navigation links ─── */
-  .qa-nav {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0.5rem;
+  /* ─── Grid of large tiles ─── */
+  .qa-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    padding: 1.5rem;
+  }
+  
+  /* ─── Each tile (pops out one by one!) ─── */
+  .qa-tile {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-  }
-  
-  .qa-link {
-    display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.625rem 0.875rem;
-    color: var(--text, #e0e0f0);
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 2px solid var(--tile-color, #4a8a2c);
+    border-radius: 10px;
     text-decoration: none;
-    border-radius: 0;
-    transition: all 0.15s;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .qa-link::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(123, 197, 92, 0.15) 0%, transparent 100%);
+    color: var(--text, #e0e0f0);
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+    /* POP OUT animation: starts at scale(0) + rotated, pops to scale(1) */
     opacity: 0;
-    transition: opacity 0.15s;
+    transform: scale(0) rotate(-15deg);
+    animation: qaPopOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--pop-delay, 0.15s);
   }
   
-  /* RTL: gradient from right */
-  [dir='rtl'] .qa-link::before {
-    background: linear-gradient(270deg, rgba(123, 197, 92, 0.15) 0%, transparent 100%);
+  @keyframes qaPopOut {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotate(-15deg);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
   }
   
-  .qa-link:hover::before {
-    opacity: 1;
+  /* Closing: tiles shrink back (reverse stagger) */
+  .qa-overlay.closing .qa-tile {
+    animation: qaPopIn 0.15s ease-in forwards;
+    animation-delay: 0s;
   }
   
-  .qa-link:hover {
-    padding-right: 0.625rem;
+  @keyframes qaPopIn {
+    to {
+      opacity: 0;
+      transform: scale(0) rotate(15deg);
+    }
   }
   
-  [dir='rtl'] .qa-link:hover {
-    padding-right: 0.875rem;
-    padding-left: 0.625rem;
+  .qa-tile:hover {
+    background: linear-gradient(135deg, var(--tile-color, #4a8a2c) 0%, rgba(123, 197, 92, 0.1) 100%);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 16px var(--tile-color, #4a8a2c);
   }
   
-  .qa-link-icon {
+  .qa-tile:active {
+    transform: scale(0.95);
+  }
+  
+  /* ─── Tile icon (inventory-style slot) ─── */
+  .qa-tile-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 56px;
+    height: 56px;
     background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
     border-top: 2px solid #373737;
     border-left: 2px solid #373737;
     border-right: 2px solid #ffffff;
     border-bottom: 2px solid #ffffff;
-    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
-    flex-shrink: 0;
+    box-shadow:
+      inset 2px 2px 0 rgba(0, 0, 0, 0.4),
+      inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    image-rendering: pixelated;
+    transition: box-shadow 0.15s;
+  }
+  
+  .qa-tile:hover .qa-tile-icon {
+    box-shadow:
+      inset 2px 2px 0 rgba(0, 0, 0, 0.3),
+      inset -2px -2px 0 rgba(255, 255, 255, 0.35),
+      0 0 12px var(--tile-color, #4a8a2c);
+  }
+  
+  .qa-tile-icon img {
     image-rendering: pixelated;
   }
   
-  .qa-link-icon img {
-    width: 18px;
-    height: 18px;
-    image-rendering: pixelated;
-  }
-  
-  .qa-link-text {
-    font-size: 0.875rem;
-    font-weight: 600;
-    flex: 1;
-    z-index: 1;
-  }
-  
-  .qa-link-arrow {
-    color: var(--text-3, #5c5c7a);
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: all 0.15s;
-    z-index: 1;
-  }
-  
-  [dir='rtl'] .qa-link-arrow {
-    transform: translateX(8px) scaleX(-1);
-  }
-  
-  .qa-link:hover .qa-link-arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  [dir='rtl'] .qa-link:hover .qa-link-arrow {
-    transform: translateX(0) scaleX(-1);
+  /* ─── Tile label ─── */
+  .qa-tile-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
   }
   
   /* ─── Footer ─── */
-  .qa-footer {
-    padding: 0.75rem 1.25rem;
-    border-top: 1px solid var(--line, #2e2e4a);
-    text-align: center;
+  .qa-panel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    border-top: 2px solid var(--line, #2e2e4a);
+    background: rgba(0, 0, 0, 0.2);
+  }
+  
+  .qa-footer-logo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.625rem;
+    color: var(--grass-2, #7cc84a);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
   }
   
   .qa-footer-text {
     font-size: 0.6875rem;
     color: var(--text-3, #5c5c7a);
-    line-height: 1.5;
   }
   
   /* ─── Responsive ─── */
   @media (max-width: 640px) {
-    .qa-content {
-      width: 240px;
+    .qa-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      padding: 1rem;
     }
-    .qa-link {
-      padding: 0.5rem 0.75rem;
+    .qa-panel {
+      margin-top: 3vh;
+      max-width: 95vw;
     }
-    .qa-link-text {
-      font-size: 0.8125rem;
+    .qa-tile {
+      padding: 0.75rem 0.5rem;
+    }
+    .qa-tile-icon {
+      width: 48px;
+      height: 48px;
+    }
+    .qa-tile-label {
+      font-size: 0.6875rem;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .qa-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   
   @media (prefers-reduced-motion: reduce) {
-    .qa-content, .qa-backdrop {
+    .qa-panel, .qa-backdrop, .qa-tile {
       animation: none;
-      transform: translateX(0);
       opacity: 1;
+      transform: none;
     }
-    .qa-panel[hidden] { display: none; }
   }
 </style>
 
@@ -393,38 +397,35 @@ const quickLinks = [
   (function () {
     function setupQuickAccess() {
       var btn = document.getElementById('quickAccessBtn');
-      var panel = document.getElementById('quickAccessPanel');
-      if (!btn || !panel) return;
+      var overlay = document.getElementById('quickAccessOverlay');
+      if (!btn || !overlay) return;
       
-      // Use onclick (replaces previous handler, no duplicates)
       btn.onclick = function () {
-        panel.hidden = false;
-        panel.classList.remove('closing');
+        overlay.hidden = false;
+        overlay.classList.remove('closing');
       };
       
-      // Close on backdrop / close button / any data-close element
-      panel.querySelectorAll('[data-close]').forEach(function (el) {
+      overlay.querySelectorAll('[data-close]').forEach(function (el) {
         el.onclick = function () {
-          panel.classList.add('closing');
+          overlay.classList.add('closing');
           setTimeout(function () {
-            panel.hidden = true;
-            panel.classList.remove('closing');
-          }, 200);
+            overlay.hidden = true;
+            overlay.classList.remove('closing');
+          }, 300);
         };
       });
       
-      // Close on Esc
       if (!window.__qaKeyboardBound) {
         window.__qaKeyboardBound = true;
         document.addEventListener('keydown', function (e) {
           if (e.key === 'Escape') {
-            var p = document.getElementById('quickAccessPanel');
-            if (p && !p.hidden) {
-              p.classList.add('closing');
+            var o = document.getElementById('quickAccessOverlay');
+            if (o && !o.hidden) {
+              o.classList.add('closing');
               setTimeout(function () {
-                p.hidden = true;
-                p.classList.remove('closing');
-              }, 200);
+                o.hidden = true;
+                o.classList.remove('closing');
+              }, 300);
             }
           }
         });
