@@ -117,17 +117,19 @@ const quickLinks = [
   
   /* ─── Full-screen overlay ─── */
   .qa-overlay {
-    position: fixed !important;
-    inset: 0 !important;
-    z-index: 2147483647 !important;  /* max z-index — always on top */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    padding: 1rem !important;
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;  /* max z-index — always on top */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
   }
   
-  .qa-overlay[hidden] { display: none; }
+  /* CRITICAL: !important on display:none so it overrides display:flex above.
+     Without this, the overlay is ALWAYS visible (covering everything). */
+  .qa-overlay[hidden] { display: none !important; }
   
   /* ─── Backdrop (fade in) ─── */
   .qa-backdrop {
