@@ -249,9 +249,13 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     pagefind: null,
     pagefindFailed: false,
     fallbackMods: null,
-    boundEls: new WeakSet(),  // tracks which elements have listeners
+    keyboardBound: false,
   };
   var SB = window.__searchBox;
+
+  var currentResults = [];
+  var activeIdx = -1;
+  var timer = null;
 
   // ============ Helpers ============
   function escapeHtml(s) {
@@ -290,8 +294,6 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
 
     var icon = document.createElement('div');
     icon.className = 'search-result-item-icon';
-    // Use SVG icon (not emoji) for search results.
-    // Icon name comes from r.icon (string), prefixed with 'icon-'.
     var iconName = r.icon || 'mod';
     if (iconName.indexOf('icon-') !== 0) iconName = 'icon-' + iconName;
     icon.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><use href="#' + iconName + '"></use></svg>';
@@ -335,49 +337,61 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     return SB.pagefind;
   }
 
-  // ============ Setup (called on EVERY page load + view transition) ============
-  var currentResults = [];
-  var activeIdx = -1;
-  var timer = null;
+  // ============ Open / Close (always fetch fresh DOM elements!) ============
+  // BUG FIX: Previous version captured `modal` in a closure. After view
+  // transitions, the closure pointed to STALE (removed) DOM elements.
+  // Now we always fetch fresh elements inside open()/close().
+  function openSearch() {
+    var m = document.getElementById('searchModal');
+    var i = document.getElementById('searchInput');
+    if (!m) return;
+    m.hidden = false;
+    m.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { if (i) i.focus(); }, 30);
+  }
 
+  function closeSearch() {
+    var m = document.getElementById('searchModal');
+    if (!m) return;
+    m.hidden = true;
+    m.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // ============ Setup (called on EVERY page load) ============
   function setupSearch() {
     var openBtn = document.getElementById('searchOpen');
+    if (!openBtn) return;
+
+    // Use .onclick (REPLACES previous handler, no duplicates).
+    // This is safe to call on every page-load — it just replaces the handler.
+    openBtn.onclick = openSearch;
+
     var modal = document.getElementById('searchModal');
+    if (modal) {
+      modal.querySelectorAll('[data-close]').forEach(function (el) {
+        el.onclick = closeSearch;
+      });
+    }
+
     var input = document.getElementById('searchInput');
     var results = document.getElementById('searchResults');
     var hint = document.getElementById('searchHint');
-    if (!openBtn || !modal || !input || !results) return;
-
-    // Skip if already bound to these EXACT elements (WeakSet tracks DOM nodes)
-    if (SB.boundEls.has(openBtn)) return;
-    SB.boundEls.add(openBtn);
-    SB.boundEls.add(modal);
-    SB.boundEls.add(input);
-
-    function open() {
-      modal.hidden = false;
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      setTimeout(function () { input.focus(); }, 30);
-    }
-    function close() {
-      modal.hidden = true;
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    openBtn.addEventListener('click', open);
-    modal.querySelectorAll('[data-close]').forEach(function (el) {
-      el.addEventListener('click', close);
-    });
-
-    function renderActive() {
-      var items = results.querySelectorAll('.search-result-item');
-      items.forEach(function (el, i) { el.classList.toggle('active', i === activeIdx); });
-      var active = items[activeIdx];
-      if (active && active.scrollIntoView) {
-        active.scrollIntoView({ block: 'nearest' });
-      }
+    if (input && results) {
+      // Use .oninput (REPLACES previous handler)
+      input.oninput = function () {
+        var q = input.value.trim();
+        clearTimeout(timer);
+        if (!q) {
+          results.innerHTML = '';
+          currentResults = [];
+          if (hint) hint.style.display = '';
+          return;
+        }
+        if (hint) hint.style.display = 'none';
+        timer = setTimeout(function () { runSearch(q); }, 200);
+      };
     }
 
     async function runSearch(q) {
@@ -393,18 +407,19 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
                 url: r.url,
                 title: (r.meta && r.meta.title) || r.url,
                 excerpt: escapeHtml(r.excerpt || ''),
-                icon: '📄', cat: '',
+                icon: 'mod', cat: '',
               });
             }
           }
-        } catch (e) {
-          console.warn('Pagefind search failed, using fallback:', e);
-        }
+        } catch (e) { /* fallback */ }
       }
       if (hits.length === 0) hits = fallbackSearch(q);
       currentResults = hits;
       activeIdx = -1;
-      results.innerHTML = '';
+      // Fetch fresh results container
+      var res = document.getElementById('searchResults');
+      if (!res) return;
+      res.innerHTML = '';
       if (hits.length === 0) {
         var empty = document.createElement('div');
         empty.className = 'search-error';
@@ -415,56 +430,34 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
         msg.textContent = 'نتیجه‌ای پیدا نشد. عبارت دیگری امتحان کن.';
         empty.appendChild(icon);
         empty.appendChild(msg);
-        results.appendChild(empty);
+        res.appendChild(empty);
         return;
       }
-      hits.forEach(function (h) { results.appendChild(renderResult(h)); });
+      hits.forEach(function (h) { res.appendChild(renderResult(h)); });
     }
 
-    input.addEventListener('input', function () {
-      var q = input.value.trim();
-      clearTimeout(timer);
-      if (!q) {
-        results.innerHTML = '';
-        currentResults = [];
-        if (hint) hint.style.display = '';
-        return;
-      }
-      if (hint) hint.style.display = 'none';
-      timer = setTimeout(function () { runSearch(q); }, 200);
-    });
-
-    // Keyboard navigation (bound once to document, persists across transitions)
+    // Keyboard navigation (bound ONCE to document)
     if (!SB.keyboardBound) {
       SB.keyboardBound = true;
       document.addEventListener('keydown', function (e) {
-        // Ctrl/Cmd+K opens search
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
           e.preventDefault();
           var m = document.getElementById('searchModal');
-          var i = document.getElementById('searchInput');
           if (m && m.hidden) {
-            m.hidden = false;
-            m.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-            setTimeout(function () { i && i.focus(); }, 30);
-          } else if (i) {
-            i.focus();
-            i.select();
+            openSearch();
+          } else {
+            var i = document.getElementById('searchInput');
+            if (i) { i.focus(); i.select(); }
           }
           return;
         }
-        // Esc closes
         if (e.key === 'Escape') {
           var mm = document.getElementById('searchModal');
           if (mm && !mm.hidden) {
-            mm.hidden = true;
-            mm.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
+            closeSearch();
             return;
           }
         }
-        // Arrow keys + Enter only work when modal is open
         var mod = document.getElementById('searchModal');
         if (!mod || mod.hidden) return;
         if (e.key === 'ArrowDown' && currentResults.length) {
@@ -483,7 +476,9 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     }
 
     function updateActive() {
-      var items = results.querySelectorAll('.search-result-item');
+      var res = document.getElementById('searchResults');
+      if (!res) return;
+      var items = res.querySelectorAll('.search-result-item');
       items.forEach(function (el, i) { el.classList.toggle('active', i === activeIdx); });
       var active = items[activeIdx];
       if (active && active.scrollIntoView) {
@@ -496,8 +491,6 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   setupSearch();
 
   // ============ Re-bind on EVERY view transition ============
-  // Astro skips re-executing is:inline scripts present in both old + new pages,
-  // so we listen for `astro:page-load` to rebind to the new DOM elements.
   document.addEventListener('astro:page-load', setupSearch);
   document.addEventListener('astro:after-swap', setupSearch);
 </script>
