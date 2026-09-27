@@ -1,24 +1,27 @@
 ---
 /**
- * CraftingHelper.astro — FULL-SCREEN immersive Minecraft crafting scene
+ * CraftingHelper.astro — FULL-SCREEN Minecraft crafting experience
  *
- * Layout:
- * - Full viewport (100vh, no scroll on desktop)
- * - Ground (grass block texture repeated)
- * - 3D crafting table (CSS 3D transforms with perspective)
- * - Steve character (improved pixel-art with walk animation)
- * - Side inventory panel (scrollable, all 136 textures)
- * - Bottom hotbar (9 slots like Minecraft)
- * - Click block in inventory → adds to hotbar
- * - Click crafting table → opens crafting grid modal
- * - Type recipe name → Steve walks to table → grid opens
+ * Layout (like the real Minecraft inventory):
+ * - Landscape: Steve + Crafting Table in a scene
+ * - Portrait mobile: show "rotate device" overlay
  *
- * Phases:
- * 1. IDLE — Steve stands idle, slight bobbing
- * 2. WALKING — Steve walks to crafting table
- * 3. THINKING — Steve at table, '?' appears
- * 4. CRAFTING — grid opens, items appear one by one
- * 5. DONE — wiki link card appears
+ * Interaction flow:
+ * 1. User clicks/taps the Crafting Table → Inventory modal opens
+ * 2. Inventory modal layout (like Minecraft's "E" inventory):
+ *    Left:   Steve character preview + 4 armor slots + offhand slot
+ *    Middle: 3x3 crafting grid + arrow + result slot
+ *    Right:  3x9 = 27 inventory slots
+ *    Bottom: 9 hotbar slots (outside the modal)
+ * 3. Click on Steve → search input is focused → type item name
+ * 4. Type + Enter → crafting grid fills with correct items + result
+ *
+ * Sounds: 8-bit Web Audio API (no external files)
+ *
+ * Performance:
+ * - Pure vanilla JS (no libraries)
+ * - CSS animations only
+ * - Mobile-friendly
  */
 import '@components/pixel-sprites.astro';
 import recipesJson from '@/data/crafting-recipes.json';
@@ -32,14 +35,10 @@ const blocksDir = join(PUBLIC_DIR, 'textures', 'blocks');
 let itemTextures: string[] = [];
 let blockTextures: string[] = [];
 try {
-  itemTextures = readdirSync(itemsDir)
-    .filter(f => f.endsWith('.png'))
-    .map(f => f.replace('.png', ''));
+  itemTextures = readdirSync(itemsDir).filter(f => f.endsWith('.png')).map(f => f.replace('.png', ''));
 } catch (e) { /* ignore */ }
 try {
-  blockTextures = readdirSync(blocksDir)
-    .filter(f => f.endsWith('.png'))
-    .map(f => f.replace('.png', ''));
+  blockTextures = readdirSync(blocksDir).filter(f => f.endsWith('.png')).map(f => f.replace('.png', ''));
 } catch (e) { /* ignore */ }
 
 const allTextures = [
@@ -54,203 +53,332 @@ const recipesData = JSON.stringify(recipes.map(r => ({
   wikiSlug: r.wikiSlug, shapeless: r.shapeless, description: r.description,
 })));
 
-const texturesData = JSON.stringify(allTextures);
-
 const BASE = import.meta.env.BASE_URL;
-const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 ---
 
-<div class="crafting-scene" id="craftingScene" data-recipes={recipesData} data-textures={texturesData}>
-  <!-- Ground (grass block texture repeated) -->
-  <div class="ground" aria-hidden="true"></div>
-  
-  <!-- Sky gradient overlay -->
-  <div class="sky-overlay" aria-hidden="true"></div>
-  
-  <!-- Floating clouds (decorative) -->
-  <div class="clouds" aria-hidden="true">
-    <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
-    <div class="cloud cloud-3"></div>
+<div class="crafting-scene" id="craftingScene" data-recipes={recipesData}>
+  <!-- ═══════════════════════════════════════════════════════════
+       ROTATE DEVICE OVERLAY (portrait mobile only)
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="rotate-overlay" id="rotateOverlay">
+    <div class="rotate-phone" aria-hidden="true">
+      <div class="rotate-phone-screen"></div>
+    </div>
+    <h2 class="rotate-title">صفحه رو بچرخون!</h2>
+    <p class="rotate-text">این تجربه بهترین حالت رو در حالت افقی (Landscape) داره</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN SCENE (visible only in landscape / desktop)
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="scene-content" id="sceneContent">
+    <!-- Sky gradient -->
+    <div class="sky-gradient" aria-hidden="true"></div>
+    
+    <!-- Clouds -->
+    <div class="clouds" aria-hidden="true">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+    </div>
+    
+    <!-- Ground -->
+    <div class="ground" aria-hidden="true"></div>
+    
+    <!-- Side inventory panel (only on desktop, large screens) -->
+    <aside class="inventory-panel" id="inventoryPanel">
+      <div class="inventory-header">
+        <span class="inventory-title">🎨 بلاک‌ها</span>
+      </div>
+      <div class="inventory-grid" id="inventoryGrid">
+        {allTextures.map((tex) => (
+          <button
+            class="inv-slot"
+            data-name={tex.name}
+            data-type={tex.type}
+            title={tex.name}
+            aria-label={tex.name}
+          >
+            <img
+              src={`${BASE}textures/${tex.type === 'block' ? 'blocks' : 'items'}/${tex.name}.png`}
+              alt={tex.name}
+              width="32"
+              height="32"
+              loading="lazy"
+              decoding="async"
+              class="pixel-img"
+            />
+          </button>
+        ))}
+      </div>
+    </aside>
+    
+    <!-- Main stage: Steve + Crafting Table -->
+    <div class="scene-stage">
+      <!-- Crafting Table (3D perspective, click to open inventory) -->
+      <button
+        class="crafting-table-3d"
+        id="craftingTableBtn"
+        aria-label="میز کار — برای باز کردن اینونتوری کلیک کنید"
+      >
+        <div class="ct-top">
+          <img src={`${BASE}textures/blocks/crafting-table-top.png`} alt="" width="120" height="120" class="pixel-img" />
+        </div>
+        <div class="ct-front">
+          <img src={`${BASE}textures/blocks/crafting-table-side.png`} alt="" width="120" height="80" class="pixel-img" />
+        </div>
+        <div class="ct-shadow"></div>
+        <div class="ct-glow" id="tableGlow"></div>
+        <div class="ct-hint">⚡ کلیک کن!</div>
+      </button>
+      
+      <!-- Steve character -->
+      <div class="steve" id="steve">
+        <!-- Thought bubble -->
+        <div class="thought-bubble" id="thoughtBubble" hidden>
+          <span id="thoughtText">؟</span>
+        </div>
+        
+        <!-- Head -->
+        <div class="steve-head">
+          <svg width="64" height="64" viewBox="0 0 8 8" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+            <rect x="0" y="0" width="8" height="2" fill="#3a2410"/>
+            <rect x="0" y="2" width="2" height="1" fill="#3a2410"/>
+            <rect x="6" y="2" width="2" height="1" fill="#3a2410"/>
+            <rect x="0" y="3" width="1" height="2" fill="#3a2410"/>
+            <rect x="7" y="3" width="1" height="2" fill="#3a2410"/>
+            <rect x="1" y="2" width="6" height="4" fill="#c89568"/>
+            <rect x="1" y="3" width="1" height="1" fill="#ffffff"/>
+            <rect x="2" y="3" width="1" height="1" fill="#5a7ab8"/>
+            <rect x="5" y="3" width="1" height="1" fill="#ffffff"/>
+            <rect x="6" y="3" width="1" height="1" fill="#5a7ab8"/>
+            <rect x="3" y="4" width="2" height="1" fill="#a87648"/>
+            <rect x="3" y="5" width="2" height="1" fill="#7a5028"/>
+            <rect x="1" y="5" width="2" height="1" fill="#a87648"/>
+            <rect x="5" y="5" width="2" height="1" fill="#a87648"/>
+            <rect x="0" y="5" width="1" height="1" fill="#3a2410"/>
+            <rect x="7" y="5" width="1" height="1" fill="#3a2410"/>
+          </svg>
+        </div>
+        <div class="steve-body"></div>
+        <div class="steve-arm left"></div>
+        <div class="steve-arm right" id="steveRightArm">
+          <div class="steve-hand"></div>
+        </div>
+        <div class="steve-leg left"></div>
+        <div class="steve-leg right"></div>
+      </div>
+    </div>
+    
+    <!-- Hint text below the scene -->
+    <div class="scene-hint">
+      <p>📌 روی میز کار کلیک کن تا اینونتوری باز بشه</p>
+    </div>
   </div>
   
-  <!-- Side inventory panel (right side, scrollable) -->
-  <aside class="inventory-panel" id="inventoryPanel">
-    <div class="inventory-header">
-      <span class="inventory-title">🎨 بلاک‌ها</span>
-      <button class="inventory-close" id="inventoryClose" aria-label="بستن">✕</button>
-    </div>
-    <div class="inventory-grid" id="inventoryGrid">
-      {allTextures.map((tex) => (
-        <button
-          class="inventory-slot"
-          data-name={tex.name}
-          data-type={tex.type}
-          title={tex.name}
-          aria-label={tex.name}
-        >
-          <img
-            src={`${BASE}textures/${tex.type === 'block' ? 'blocks' : 'items'}/${tex.name}.png`}
-            alt={tex.name}
-            width="32"
-            height="32"
-            loading="lazy"
-            decoding="async"
-            class="pixel-img"
+  <!-- ═══════════════════════════════════════════════════════════
+       INVENTORY MODAL (like Minecraft's "E" inventory)
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="inv-modal" id="invModal" hidden>
+    <div class="inv-modal-backdrop" id="invBackdrop"></div>
+    
+    <div class="inv-modal-content">
+      <div class="inv-modal-header">
+        <h3 class="inv-modal-title">اینونتوری</h3>
+        <button class="inv-modal-close" id="invClose" aria-label="بستن">✕</button>
+      </div>
+      
+      <!-- Search input (hidden by default, shown when Steve is clicked) -->
+      <div class="search-area" id="searchArea" hidden>
+        <div class="search-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input
+            type="text"
+            id="craftingSearch"
+            placeholder="به استیو بگو چی بسازه... (شمشیر الماس، کلنگ، میز کار...)"
+            autocomplete="off"
           />
-        </button>
-      ))}
-    </div>
-  </aside>
-  
-  <!-- Inventory toggle button (visible on mobile) -->
-  <button class="inventory-toggle" id="inventoryToggle" aria-label="نمایش بلاک‌ها">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="3" width="7" height="7"/>
-      <rect x="14" y="3" width="7" height="7"/>
-      <rect x="14" y="14" width="7" height="7"/>
-      <rect x="3" y="14" width="7" height="7"/>
-    </svg>
-  </button>
-  
-  <!-- Main scene: Steve + Crafting Table -->
-  <div class="scene-stage">
-    <!-- Crafting Table (3D perspective) -->
-    <div class="crafting-table-3d" id="craftingTable3d" role="button" tabindex="0" aria-label="میز کار — برای باز کردن گرید کلیک کنید">
-      <div class="crafting-table-top">
-        <img src={`${BASE}textures/blocks/crafting-table-top.png`} alt="" width="120" height="120" class="pixel-img" />
-      </div>
-      <div class="crafting-table-front">
-        <img src={`${BASE}textures/blocks/crafting-table-side.png`} alt="" width="120" height="80" class="pixel-img" />
-      </div>
-      <div class="crafting-table-shadow"></div>
-      <div class="crafting-table-glow" id="tableGlow"></div>
-    </div>
-    
-    <!-- Steve character (improved pixel-art) -->
-    <div class="steve" id="steve">
-      <!-- Thought bubble -->
-      <div class="thought-bubble" id="thoughtBubble" hidden>
-        <span id="thoughtText">؟</span>
+        </div>
+        <div class="search-chips">
+          <button class="search-chip" data-recipe-id="diamond-sword">⚔️ شمشیر الماس</button>
+          <button class="search-chip" data-recipe-id="iron-pickaxe">⛏️ کلنگ آهنی</button>
+          <button class="search-chip" data-recipe-id="crafting-table">🪵 میز کار</button>
+          <button class="search-chip" data-recipe-id="torch">🔥 مشعل</button>
+        </div>
       </div>
       
-      <!-- Head -->
-      <div class="steve-head">
-        <svg width="64" height="64" viewBox="0 0 8 8" shape-rendering="crispEdges" style="image-rendering: pixelated;">
-          <!-- Hair -->
-          <rect x="0" y="0" width="8" height="2" fill="#3a2410"/>
-          <rect x="0" y="2" width="2" height="1" fill="#3a2410"/>
-          <rect x="6" y="2" width="2" height="1" fill="#3a2410"/>
-          <rect x="0" y="3" width="1" height="2" fill="#3a2410"/>
-          <rect x="7" y="3" width="1" height="2" fill="#3a2410"/>
-          <!-- Skin -->
-          <rect x="1" y="2" width="6" height="4" fill="#c89568"/>
-          <rect x="2" y="2" width="4" height="1" fill="#c89568"/>
-          <!-- Eyes (white) -->
-          <rect x="1" y="3" width="1" height="1" fill="#ffffff"/>
-          <rect x="2" y="3" width="1" height="1" fill="#5a7ab8"/>
-          <rect x="5" y="3" width="1" height="1" fill="#ffffff"/>
-          <rect x="6" y="3" width="1" height="1" fill="#5a7ab8"/>
-          <!-- Nose -->
-          <rect x="3" y="4" width="2" height="1" fill="#a87648"/>
-          <!-- Mouth -->
-          <rect x="3" y="5" width="2" height="1" fill="#7a5028"/>
-          <!-- Beard shadow -->
-          <rect x="1" y="5" width="2" height="1" fill="#a87648"/>
-          <rect x="5" y="5" width="2" height="1" fill="#a87648"/>
-          <rect x="0" y="5" width="1" height="1" fill="#3a2410"/>
-          <rect x="7" y="5" width="1" height="1" fill="#3a2410"/>
-        </svg>
+      <!-- Main inventory area (Minecraft-like) -->
+      <div class="inv-modal-body" style="direction: ltr;">
+        <!-- Left: Steve preview + armor slots -->
+        <div class="inv-left">
+          <!-- Click Steve to focus search -->
+          <button class="inv-steve-preview" id="invStevePreview" aria-label="روی استیو کلیک کن تا تایپ کنی" title="کلیک کن تا تایپ کنی">
+            <div class="inv-steve">
+              <div class="inv-steve-head">
+                <svg width="40" height="40" viewBox="0 0 8 8" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+                  <rect x="0" y="0" width="8" height="2" fill="#3a2410"/>
+                  <rect x="0" y="2" width="2" height="1" fill="#3a2410"/>
+                  <rect x="6" y="2" width="2" height="1" fill="#3a2410"/>
+                  <rect x="0" y="3" width="1" height="2" fill="#3a2410"/>
+                  <rect x="7" y="3" width="1" height="2" fill="#3a2410"/>
+                  <rect x="1" y="2" width="6" height="4" fill="#c89568"/>
+                  <rect x="1" y="3" width="1" height="1" fill="#ffffff"/>
+                  <rect x="2" y="3" width="1" height="1" fill="#5a7ab8"/>
+                  <rect x="5" y="3" width="1" height="1" fill="#ffffff"/>
+                  <rect x="6" y="3" width="1" height="1" fill="#5a7ab8"/>
+                  <rect x="3" y="4" width="2" height="1" fill="#a87648"/>
+                  <rect x="3" y="5" width="2" height="1" fill="#7a5028"/>
+                </svg>
+              </div>
+              <div class="inv-steve-body"></div>
+              <div class="inv-steve-arm left"></div>
+              <div class="inv-steve-arm right"></div>
+              <div class="inv-steve-leg left"></div>
+              <div class="inv-steve-leg right"></div>
+              <div class="inv-steve-tap-hint" id="steveTapHint">👇 کلیک کن</div>
+            </div>
+          </button>
+          
+          <!-- Armor slots (4) + offhand -->
+          <div class="armor-slots">
+            <div class="armor-slot" data-slot="helmet" title="کلاه"></div>
+            <div class="armor-slot" data-slot="chestplate" title="زره تن"></div>
+            <div class="armor-slot" data-slot="leggings" title="شلوار"></div>
+            <div class="armor-slot" data-slot="boots" title="چکمه"></div>
+            <div class="armor-slot offhand" data-slot="offhand" title="دست چپ"></div>
+          </div>
+        </div>
+        
+        <!-- Center: 3x3 Crafting grid + arrow + result -->
+        <div class="inv-crafting">
+          <div class="crafting-grid-3x3" id="craftingGrid3x3">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <div class="craft-slot" data-craft-slot={i}></div>
+            ))}
+          </div>
+          <div class="crafting-arrow" aria-hidden="true">
+            <svg width="32" height="16" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8h22M21 3l5 5-5 5"/>
+            </svg>
+          </div>
+          <div class="craft-result-slot" id="craftResultSlot"></div>
+        </div>
+        
+        <!-- Right: 27 inventory slots (3 rows of 9) -->
+        <div class="inv-storage">
+          {Array.from({ length: 27 }).map((_, i) => (
+            <div class="storage-slot" data-storage-slot={i}></div>
+          ))}
+        </div>
       </div>
       
-      <!-- Body (blue shirt) -->
-      <div class="steve-body"></div>
-      
-      <!-- Arms (skin tone) -->
-      <div class="steve-arm left"></div>
-      <div class="steve-arm right" id="steveRightArm">
-        <div class="steve-hand"></div>
+      <!-- Bottom: 9 hotbar slots (outside main body, always visible) -->
+      <div class="inv-hotbar">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <div class="hotbar-slot" data-hotbar-slot={i}>
+            <span class="hotbar-num">{i + 1}</span>
+          </div>
+        ))}
       </div>
       
-      <!-- Legs (blue pants) -->
-      <div class="steve-leg left"></div>
-      <div class="steve-leg right"></div>
-    </div>
-    
-    <!-- Search input (compact, bottom of scene) -->
-    <div class="scene-search">
-      <div class="scene-search-wrap">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="M21 21l-4.35-4.35"/>
-        </svg>
-        <input
-          type="text"
-          id="craftingSearch"
-          placeholder="چی می‌خوای بسازی؟ (شمشیر الماس، کلنگ، میز کار...)"
-          autocomplete="off"
-        />
+      <!-- Recipe info (shown when a recipe is revealed) -->
+      <div class="recipe-info" id="recipeInfo" hidden>
+        <div class="recipe-info-content">
+          <h4 class="recipe-title" id="recipeTitle"></h4>
+          <p class="recipe-desc" id="recipeDesc"></p>
+          <a href="#" class="mc-btn pixel small" id="wikiLink" target="_blank">
+            <svg width="14" height="14"><use href="#icon-wiki" /></svg>
+            صفحه‌ی ویکی
+          </a>
+        </div>
       </div>
-      <div class="scene-chips">
-        <button class="scene-chip" data-recipe-id="diamond-sword">⚔️ شمشیر الماس</button>
-        <button class="scene-chip" data-recipe-id="iron-pickaxe">⛏️ کلنگ آهنی</button>
-        <button class="scene-chip" data-recipe-id="crafting-table">🪵 میز کار</button>
-        <button class="scene-chip" data-recipe-id="torch">🔥 مشعل</button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Hotbar (bottom, like Minecraft) -->
-  <div class="hotbar" id="hotbar">
-    {Array.from({ length: 9 }).map((_, i) => (
-      <div class="hotbar-slot" data-slot={i}>
-        <span class="hotbar-slot-num">{i + 1}</span>
-      </div>
-    ))}
-  </div>
-  
-  <!-- Crafting grid modal (hidden by default) -->
-  <div class="crafting-modal" id="craftingModal" hidden>
-    <div class="crafting-modal-backdrop" id="modalBackdrop"></div>
-    <div class="crafting-modal-content">
-      <div class="crafting-modal-header">
-        <h3 class="crafting-modal-title" id="modalTitle">کرافت</h3>
-        <button class="crafting-modal-close" id="modalClose" aria-label="بستن">✕</button>
-      </div>
-      <div class="crafting-modal-grid" id="craftingResult"></div>
-      <div class="crafting-modal-info" id="craftingInfo"></div>
     </div>
   </div>
 </div>
 
 <style>
+  /* ═══════════════════════════════════════════════════════════
+     ROTATE DEVICE OVERLAY (portrait mobile)
+     ═══════════════════════════════════════════════════════════ */
+  .rotate-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #1c1c34 0%, #14142a 100%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .rotate-phone {
+    width: 80px;
+    height: 140px;
+    border: 4px solid #7cc84a;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    animation: rotateAnim 2s ease-in-out infinite;
+    position: relative;
+  }
+  
+  .rotate-phone-screen {
+    position: absolute;
+    inset: 8px 4px;
+    background: linear-gradient(135deg, rgba(95, 168, 56, 0.3), rgba(95, 168, 56, 0.1));
+    border-radius: 4px;
+  }
+  
+  @keyframes rotateAnim {
+    0%, 40% { transform: rotate(0); }
+    60%, 100% { transform: rotate(-90deg); }
+  }
+  
+  .rotate-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+    color: #7cc84a;
+    text-shadow: 2px 2px 0 #1a3010;
+    letter-spacing: 1px;
+  }
+  
+  .rotate-text {
+    color: #9a9ab8;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    max-width: 280px;
+  }
+  
+  /* Show rotate overlay only on portrait mobile */
+  @media (max-width: 768px) and (orientation: portrait) {
+    .rotate-overlay { display: flex; }
+    .scene-content { display: none; }
+  }
+  
+  /* ═══════════════════════════════════════════════════════════
+     MAIN SCENE (landscape + desktop)
+     ═══════════════════════════════════════════════════════════ */
   .crafting-scene {
     position: relative;
     width: 100%;
     height: 100vh;
-    min-height: 600px;
+    min-height: 400px;
     overflow: hidden;
     background: linear-gradient(180deg, #87ceeb 0%, #b0d8f0 40%, #c8e8b0 70%, #7ab558 100%);
   }
   
-  /* ─── Ground (grass block texture repeated) ─── */
-  .ground {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 35%;
-    background:
-      /* dirt layer at bottom */
-      linear-gradient(180deg, transparent 0%, transparent 25%, rgba(122, 85, 58, 0.9) 25%, rgba(92, 63, 30, 1) 100%),
-      /* grass top */
-      repeating-conic-gradient(from 0deg, rgba(0, 0, 0, 0.06) 0deg 90deg, rgba(255, 255, 255, 0.02) 90deg 180deg) 0 0 / 16px 16px,
-      linear-gradient(180deg, #5fa838 0%, #3d7521 100%);
-    background-size: 100% 100%, 16px 16px, 100% 100%;
-    image-rendering: pixelated;
+  .scene-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
   
-  .sky-overlay {
+  .sky-gradient {
     position: absolute;
     top: 0;
     left: 0;
@@ -260,7 +388,19 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     pointer-events: none;
   }
   
-  /* ─── Clouds (decorative) ─── */
+  .ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    background:
+      linear-gradient(180deg, transparent 0%, transparent 25%, rgba(122, 85, 58, 0.9) 25%, rgba(92, 63, 30, 1) 100%),
+      repeating-conic-gradient(from 0deg, rgba(0, 0, 0, 0.06) 0deg 90deg, rgba(255, 255, 255, 0.02) 90deg 180deg) 0 0 / 16px 16px,
+      linear-gradient(180deg, #5fa838 0%, #3d7521 100%);
+    image-rendering: pixelated;
+  }
+  
   .clouds {
     position: absolute;
     top: 0;
@@ -281,7 +421,6 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       -20px 0 0 rgba(255, 255, 255, 0.85),
       0 -16px 0 -8px rgba(255, 255, 255, 0.85);
     animation: cloudDrift 60s linear infinite;
-    image-rendering: pixelated;
   }
   
   .cloud-1 { top: 15%; left: -10%; animation-duration: 80s; }
@@ -293,73 +432,45 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     100% { transform: translateX(120vw); }
   }
   
-  /* ─── Side inventory panel ─── */
+  /* ─── Side inventory panel (desktop only) ─── */
   .inventory-panel {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 280px;
+    width: 220px;
     background: linear-gradient(135deg, rgba(28, 28, 52, 0.95) 0%, rgba(20, 20, 42, 0.98) 100%);
     border-left: 3px solid #2d5018;
-    border-right: 3px solid #4a8a2c;
-    border-bottom: 3px solid #4a8a2c;
     box-shadow: -4px 0 16px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
-    z-index: 50;
-    transform: translateX(0);
-    transition: transform 0.3s ease-out;
-  }
-  
-  .inventory-panel.closed {
-    transform: translateX(100%);
+    z-index: 30;
   }
   
   .inventory-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
+    padding: 0.625rem 0.875rem;
     background: linear-gradient(135deg, rgba(123, 197, 92, 0.15) 0%, rgba(123, 197, 92, 0.05) 100%);
     border-bottom: 2px solid var(--line, #2e2e4a);
   }
   
   .inventory-title {
     font-family: 'Press Start 2P', monospace;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--grass-2, #7cc84a);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-  }
-  
-  .inventory-close {
-    background: rgba(255, 59, 59, 0.15);
-    border: 2px solid #8a1a1a;
-    color: #ff8b8b;
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 700;
-    border-radius: 0;
-    image-rendering: pixelated;
-  }
-  
-  .inventory-close:hover {
-    background: rgba(255, 59, 59, 0.3);
   }
   
   .inventory-grid {
     flex: 1;
     overflow-y: auto;
-    padding: 0.5rem;
+    padding: 0.4rem;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 4px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
     direction: ltr;
   }
   
-  .inventory-slot {
+  .inv-slot {
     width: 100%;
     aspect-ratio: 1;
     background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
@@ -377,80 +488,63 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     border-radius: 0;
   }
   
-  .inventory-slot:hover {
+  .inv-slot:hover {
     transform: scale(1.1);
     background: linear-gradient(135deg, #a0a0a0 0%, #828282 50%, #6a6a6a 100%);
   }
   
-  .inventory-slot img {
+  .inv-slot img {
     width: 70%;
     height: 70%;
     image-rendering: pixelated;
     pointer-events: none;
   }
   
-  /* ─── Inventory toggle (mobile) ─── */
-  .inventory-toggle {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #6b6b6b 0%, #5a5a5a 100%);
-    border: 2px solid #1a1a1a;
-    border-right-color: #4a4a4a;
-    border-bottom-color: #4a4a4a;
-    color: #fff;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 0;
-    z-index: 60;
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.15);
-  }
-  
   @media (max-width: 900px) {
-    .inventory-toggle { display: flex; }
-    .inventory-panel { width: 240px; transform: translateX(100%); }
-    .inventory-panel.open { transform: translateX(0); }
+    .inventory-panel { display: none; }
   }
   
-  /* ─── Scene stage (Steve + Crafting table) ─── */
+  /* ─── Scene stage ─── */
   .scene-stage {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 100px;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1.5rem;
     z-index: 10;
   }
   
-  /* ─── Crafting table (3D perspective) ─── */
+  /* ─── Crafting table (clickable button) ─── */
   .crafting-table-3d {
     position: relative;
-    width: 120px;
-    height: 100px;
+    width: 110px;
+    height: 90px;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
     transform-style: preserve-3d;
     perspective: 400px;
-    margin-bottom: 30px;
     transition: transform 0.2s;
   }
   
   .crafting-table-3d:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
   
-  .crafting-table-top {
+  .crafting-table-3d:active {
+    transform: scale(0.95);
+  }
+  
+  .ct-top {
     position: absolute;
     top: 0;
     left: 0;
-    width: 120px;
-    height: 30px;
+    width: 110px;
+    height: 28px;
     background: #5c3f1e;
     border: 3px solid #1a1a1a;
     box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.15);
@@ -461,19 +555,19 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     z-index: 2;
   }
   
-  .crafting-table-top img {
+  .ct-top img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     image-rendering: pixelated;
   }
   
-  .crafting-table-front {
+  .ct-front {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 120px;
-    height: 70px;
+    width: 110px;
+    height: 62px;
     background: #9c7b4e;
     border: 3px solid #1a1a1a;
     border-top: none;
@@ -482,26 +576,26 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     z-index: 1;
   }
   
-  .crafting-table-front img {
+  .ct-front img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     image-rendering: pixelated;
   }
   
-  .crafting-table-shadow {
+  .ct-shadow {
     position: absolute;
     bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 130px;
+    width: 120px;
     height: 14px;
     background: radial-gradient(ellipse, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
     filter: blur(4px);
     z-index: 0;
   }
   
-  .crafting-table-glow {
+  .ct-glow {
     position: absolute;
     inset: -20px;
     background: radial-gradient(circle, rgba(255, 200, 60, 0.6) 0%, transparent 70%);
@@ -512,7 +606,7 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     z-index: 5;
   }
   
-  .crafting-table-3d.active .crafting-table-glow {
+  .crafting-table-3d.active .ct-glow {
     opacity: 1;
     animation: tableGlow 0.6s ease-out;
   }
@@ -523,12 +617,35 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     100% { transform: scale(1.5); opacity: 0; }
   }
   
+  .ct-hint {
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(123, 197, 92, 0.95);
+    color: #1a3010;
+    padding: 3px 8px;
+    font-size: 0.625rem;
+    font-weight: 700;
+    border-radius: 0;
+    border: 2px solid #1a1a1a;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    animation: hintBounce 1s ease-in-out infinite;
+    font-family: 'Press Start 2P', monospace;
+  }
+  
+  @keyframes hintBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-3px); }
+  }
+  
   /* ─── Steve character ─── */
   .steve {
     position: relative;
-    width: 80px;
-    height: 140px;
-    margin-bottom: -10px;
+    width: 70px;
+    height: 130px;
+    margin-bottom: -8px;
     image-rendering: pixelated;
     z-index: 5;
     animation: steveBob 2s ease-in-out infinite;
@@ -553,13 +670,9 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   }
   
   @keyframes steveThink {
-    0%, 100% { transform: translateX(0) rotate(0); }
-    25% { transform: translateX(-2px) rotate(-1deg); }
-    75% { transform: translateX(2px) rotate(1deg); }
-  }
-  
-  .steve.crafting {
-    animation: steveBob 1s ease-in-out infinite;
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
   }
   
   .steve-head {
@@ -568,16 +681,16 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     left: 50%;
     transform: translateX(-50%);
     border: 3px solid #1a1a1a;
-    box-shadow: 0 -2px 0 #2a2a2a inset, 0 4px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
   }
   
   .steve-body {
     position: absolute;
-    top: 70px;
+    top: 64px;
     left: 50%;
     transform: translateX(-50%);
-    width: 48px;
-    height: 32px;
+    width: 42px;
+    height: 28px;
     background: linear-gradient(180deg, #5a7ab8 0%, #4a6aa8 100%);
     border: 3px solid #1a1a1a;
     border-top: none;
@@ -586,9 +699,9 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   
   .steve-arm {
     position: absolute;
-    top: 70px;
-    width: 12px;
-    height: 32px;
+    top: 64px;
+    width: 10px;
+    height: 28px;
     background: linear-gradient(180deg, #c89568 0%, #a87648 100%);
     border: 3px solid #1a1a1a;
   }
@@ -601,16 +714,16 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   }
   
   .steve.reaching .steve-arm.right {
-    transform: rotate(35deg) translateX(8px);
+    transform: rotate(35deg) translateX(6px);
   }
   
   .steve-hand {
     position: absolute;
-    bottom: -8px;
+    bottom: -6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 12px;
-    height: 8px;
+    width: 10px;
+    height: 6px;
     background: #c89568;
     border: 3px solid #1a1a1a;
     border-top: none;
@@ -618,32 +731,29 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   
   .steve-leg {
     position: absolute;
-    top: 102px;
-    width: 18px;
-    height: 24px;
+    top: 94px;
+    width: 16px;
+    height: 22px;
     background: linear-gradient(180deg, #4a3a8a 0%, #3a2a7a 100%);
     border: 3px solid #1a1a1a;
   }
   
-  .steve-leg.left { left: 22px; }
-  .steve-leg.right { right: 22px; }
+  .steve-leg.left { left: 19px; }
+  .steve-leg.right { right: 19px; }
   
-  /* ─── Thought bubble ─── */
   .thought-bubble {
     position: absolute;
-    top: -50px;
+    top: -45px;
     left: 50%;
     transform: translateX(-50%);
-    background: #ffffff;
+    background: #fff;
     color: #1a1a1a;
     border: 3px solid #1a1a1a;
-    padding: 6px 14px;
+    padding: 5px 12px;
     font-family: 'Press Start 2P', monospace;
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1rem;
     border-radius: 50%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    animation: bubbleFloat 0.6s ease-in-out infinite alternate;
     z-index: 20;
   }
   
@@ -660,130 +770,408 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     border-top: 10px solid #1a1a1a;
   }
   
-  .thought-bubble::before {
-    content: '';
+  /* ─── Scene hint ─── */
+  .scene-hint {
     position: absolute;
-    bottom: -6px;
+    bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 8px solid #ffffff;
-    z-index: 1;
+    z-index: 15;
+    text-align: center;
   }
   
-  @keyframes bubbleFloat {
-    0% { transform: translateX(-50%) translateY(0); }
-    100% { transform: translateX(-50%) translateY(-4px); }
+  .scene-hint p {
+    color: #fff;
+    font-size: 0.75rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
-  /* ─── Scene search ─── */
-  .scene-search {
+  /* ═══════════════════════════════════════════════════════════
+     INVENTORY MODAL (like Minecraft "E" inventory)
+     ═══════════════════════════════════════════════════════════ */
+  .inv-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .inv-modal[hidden] { display: none; }
+  
+  .inv-modal-backdrop {
     position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 540px;
-    z-index: 20;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+  }
+  
+  .inv-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    max-height: 95vh;
+    background: linear-gradient(135deg, rgba(40, 40, 60, 0.98) 0%, rgba(28, 28, 52, 0.98) 100%);
+    border: 4px solid #2d5018;
+    border-right-color: #4a8a2c;
+    border-bottom-color: #4a8a2c;
+    padding: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), inset 2px 2px 0 rgba(255, 255, 255, 0.06);
+    border-radius: 0;
+    overflow-y: auto;
+    animation: modalReveal 0.3s ease-out;
+    image-rendering: pixelated;
+  }
+  
+  @keyframes modalReveal {
+    0% { opacity: 0; transform: scale(0.85); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  
+  .inv-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--line, #2e2e4a);
+  }
+  
+  .inv-modal-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    color: var(--grass-2, #7cc84a);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  }
+  
+  .inv-modal-close {
+    background: rgba(255, 59, 59, 0.15);
+    border: 2px solid #8a1a1a;
+    color: #ff8b8b;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border-radius: 0;
+  }
+  
+  .inv-modal-close:hover {
+    background: rgba(255, 59, 59, 0.3);
+  }
+  
+  /* ─── Search area (hidden until Steve is clicked) ─── */
+  .search-area {
+    margin-bottom: 0.75rem;
+    padding: 0.625rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--line, #2e2e4a);
+    animation: searchReveal 0.3s ease-out;
+  }
+  
+  @keyframes searchReveal {
+    0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+    100% { opacity: 1; transform: scaleY(1); }
+  }
+  
+  .search-wrap {
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-wrap svg {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9a9ab8;
+  }
+  
+  .search-wrap input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #4a8a2c;
+    border-right-color: #2d5018;
+    border-bottom-color: #2d5018;
+    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+    color: #e0e0f0;
+    font-size: 0.875rem;
+    font-family: inherit;
+    outline: none;
+    border-radius: 0;
+  }
+  
+  .search-wrap input:focus {
+    border-color: #7cc84a;
+  }
+  
+  .search-wrap input::placeholder {
+    color: #5c5c7a;
+  }
+  
+  .search-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+  .search-chip {
+    padding: 0.25rem 0.5rem;
+    background: rgba(123, 197, 92, 0.15);
+    border: 1px solid #4a8a2c;
+    color: #7cc84a;
+    font-size: 0.6875rem;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 0;
+  }
+  
+  .search-chip:hover {
+    background: rgba(123, 197, 92, 0.3);
+  }
+  
+  /* ─── Inventory modal body (3-column layout) ─── */
+  .inv-modal-body {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.875rem;
+    align-items: start;
+  }
+  
+  /* Left: Steve preview + armor */
+  .inv-left {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
   }
   
-  .scene-search-wrap {
-    position: relative;
-    width: 100%;
-  }
-  
-  .scene-search-wrap svg {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #1a1a1a;
-  }
-  
-  .scene-search-wrap input {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    border: 3px solid #1a1a1a;
-    border-right-color: #4a4a4a;
-    border-bottom-color: #4a4a4a;
-    padding: 0.75rem 1rem 0.75rem 3rem;
-    color: #1a1a1a;
-    font-size: 0.95rem;
-    font-family: inherit;
-    outline: none;
+  .inv-steve-preview {
+    background: rgba(0, 0, 0, 0.3);
+    border: 3px solid #2d5018;
+    border-right-color: #4a8a2c;
+    border-bottom-color: #4a8a2c;
+    padding: 0.5rem;
+    cursor: pointer;
     border-radius: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 2px 2px 0 rgba(0, 0, 0, 0.1);
+    transition: transform 0.15s, box-shadow 0.15s;
+    image-rendering: pixelated;
   }
   
-  .scene-search-wrap input:focus {
-    border-color: #5fa838;
-    background: #fff;
+  .inv-steve-preview:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(123, 197, 92, 0.5);
   }
   
-  .scene-search-wrap input::placeholder {
-    color: #5c5c7a;
+  .inv-steve-preview.active {
+    box-shadow: 0 0 16px rgba(123, 197, 92, 0.8);
+    background: rgba(123, 197, 92, 0.15);
   }
   
-  .scene-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+  .inv-steve {
+    position: relative;
+    width: 36px;
+    height: 64px;
+    image-rendering: pixelated;
+  }
+  
+  .inv-steve-head {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid #1a1a1a;
+  }
+  
+  .inv-steve-body {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 14px;
+    background: linear-gradient(180deg, #5a7ab8 0%, #4a6aa8 100%);
+    border: 2px solid #1a1a1a;
+    border-top: none;
+    border-bottom: none;
+  }
+  
+  .inv-steve-arm {
+    position: absolute;
+    top: 28px;
+    width: 5px;
+    height: 14px;
+    background: linear-gradient(180deg, #c89568 0%, #a87648 100%);
+    border: 2px solid #1a1a1a;
+  }
+  
+  .inv-steve-arm.left { left: 4px; }
+  .inv-steve-arm.right { right: 4px; }
+  
+  .inv-steve-leg {
+    position: absolute;
+    top: 42px;
+    width: 8px;
+    height: 12px;
+    background: linear-gradient(180deg, #4a3a8a 0%, #3a2a7a 100%);
+    border: 2px solid #1a1a1a;
+  }
+  
+  .inv-steve-leg.left { left: 11px; }
+  .inv-steve-leg.right { right: 11px; }
+  
+  .inv-steve-tap-hint {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(123, 197, 92, 0.95);
+    color: #1a3010;
+    padding: 1px 5px;
+    font-size: 0.5rem;
+    font-weight: 700;
+    border: 1px solid #1a1a1a;
+    border-radius: 0;
+    white-space: nowrap;
+    font-family: 'Press Start 2P', monospace;
+    animation: hintPulse 1s ease-in-out infinite;
+  }
+  
+  @keyframes hintPulse {
+    0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+  }
+  
+  /* Armor slots */
+  .armor-slots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+    direction: ltr;
+  }
+  
+  .armor-slot {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #565656 0%, #373737 100%);
+    border-top: 2px solid #1a1a1a;
+    border-left: 2px solid #1a1a1a;
+    border-right: 2px solid #5a5a5a;
+    border-bottom: 2px solid #5a5a5a;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.5);
+    image-rendering: pixelated;
+  }
+  
+  .armor-slot.offhand {
+    grid-column: span 2;
+    margin-top: 4px;
+  }
+  
+  /* Center: crafting grid + arrow + result */
+  .inv-crafting {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 0.625rem;
+    align-items: center;
     justify-content: center;
   }
   
-  .scene-chip {
-    padding: 0.35rem 0.75rem;
-    background: rgba(255, 255, 255, 0.85);
-    border: 2px solid #1a1a1a;
-    border-right-color: #4a4a4a;
-    border-bottom-color: #4a4a4a;
-    color: #1a1a1a;
-    font-size: 0.75rem;
-    font-family: inherit;
-    cursor: pointer;
-    border-radius: 0;
-    transition: transform 0.1s;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  .crafting-grid-3x3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    direction: ltr;
   }
   
-  .scene-chip:hover {
-    transform: translateY(-1px);
-    background: rgba(255, 200, 60, 0.85);
-  }
-  
-  /* ─── Hotbar (bottom, like Minecraft) ─── */
-  .hotbar {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 4px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 6px;
-    border: 3px solid #1a1a1a;
-    border-right-color: #4a4a4a;
-    border-bottom-color: #4a4a4a;
-    border-radius: 0;
-    z-index: 30;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-  }
-  
-  .hotbar-slot {
-    width: 44px;
-    height: 44px;
+  .craft-slot,
+  .craft-result-slot {
+    width: 36px;
+    height: 36px;
     background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
     border-top: 2px solid #373737;
     border-left: 2px solid #373737;
     border-right: 2px solid #ffffff;
     border-bottom: 2px solid #ffffff;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  
+  .craft-slot.empty,
+  .craft-result-slot.empty {
+    opacity: 0.3;
+  }
+  
+  .craft-slot img,
+  .craft-result-slot img {
+    width: 70%;
+    height: 70%;
+    image-rendering: pixelated;
+  }
+  
+  .craft-result-slot {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #a0a0a0 0%, #828282 50%, #6a6a6a 100%);
+    border-top-color: #5a5a5a;
+    border-left-color: #5a5a5a;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
+  }
+  
+  .crafting-arrow {
+    color: #c0c0c0;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  }
+  
+  /* Right: 27 storage slots */
+  .inv-storage {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 2px;
+    direction: ltr;
+  }
+  
+  .storage-slot {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    image-rendering: pixelated;
+  }
+  
+  /* Bottom: hotbar (9 slots, always visible at bottom of modal) */
+  .inv-hotbar {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+    margin-top: 0.625rem;
+    padding-top: 0.625rem;
+    border-top: 2px solid var(--line, #2e2e4a);
+    direction: ltr;
+  }
+  
+  .hotbar-slot {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border: 2px solid #1a1a1a;
+    border-top-color: #373737;
+    border-left-color: #373737;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
     box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
     display: flex;
     align-items: center;
@@ -798,128 +1186,76 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     image-rendering: pixelated;
   }
   
-  .hotbar-slot-num {
+  .hotbar-num {
     position: absolute;
     top: 1px;
     right: 2px;
-    font-size: 0.625rem;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
     font-family: 'Courier New', monospace;
     text-shadow: 1px 1px 0 #000;
   }
   
-  /* ─── Crafting modal ─── */
-  .crafting-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .crafting-modal[hidden] { display: none; }
-  
-  .crafting-modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(4px);
-  }
-  
-  .crafting-modal-content {
-    position: relative;
-    width: 90%;
-    max-width: 600px;
-    background: linear-gradient(135deg, rgba(28, 28, 52, 0.98) 0%, rgba(20, 20, 42, 0.98) 100%);
-    border: 4px solid #2d5018;
-    border-right-color: #4a8a2c;
-    border-bottom-color: #4a8a2c;
-    padding: 1.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), inset 2px 2px 0 rgba(255, 255, 255, 0.06);
-    border-radius: 0;
-    animation: modalReveal 0.3s ease-out;
-  }
-  
-  @keyframes modalReveal {
-    0% { opacity: 0; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-  
-  .crafting-modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--line, #2e2e4a);
-  }
-  
-  .crafting-modal-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.875rem;
-    color: var(--grass-2, #7cc84a);
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
-  }
-  
-  .crafting-modal-close {
-    background: rgba(255, 59, 59, 0.15);
-    border: 2px solid #8a1a1a;
-    color: #ff8b8b;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 700;
-    border-radius: 0;
-  }
-  
-  .crafting-modal-close:hover {
-    background: rgba(255, 59, 59, 0.3);
-  }
-  
-  .crafting-modal-grid {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-  
-  .crafting-modal-info {
+  /* Recipe info card */
+  .recipe-info {
+    margin-top: 0.625rem;
+    padding: 0.625rem;
+    background: rgba(123, 197, 92, 0.08);
+    border: 2px solid #4a8a2c;
     text-align: center;
-    color: var(--text-2, #9a9ab8);
-    font-size: 0.875rem;
-    line-height: 1.7;
+    animation: searchReveal 0.3s ease-out;
   }
   
-  /* ─── Responsive ─── */
-  @media (max-width: 768px) {
-    .crafting-scene {
-      min-height: 500px;
+  .recipe-info[hidden] { display: none; }
+  
+  .recipe-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    color: #7cc84a;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+    margin-bottom: 0.25rem;
+  }
+  
+  .recipe-desc {
+    color: #9a9ab8;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* ═══════════════════════════════════════════════════════════
+     Responsive
+     ═══════════════════════════════════════════════════════════ */
+  @media (max-width: 600px) and (orientation: landscape) {
+    .inv-modal-content {
+      padding: 0.625rem;
+      max-height: 100vh;
     }
-    .scene-search {
-      bottom: 90px;
-      width: 95%;
+    .inv-steve-preview {
+      padding: 0.25rem;
     }
-    .hotbar-slot {
-      width: 32px;
-      height: 32px;
+    .craft-slot, .storage-slot, .hotbar-slot {
+      width: 28px;
+      height: 28px;
     }
-    .hotbar-slot-num {
-      font-size: 0.5rem;
+    .craft-result-slot {
+      width: 36px;
+      height: 36px;
     }
-    .crafting-table-3d {
-      width: 90px;
-      height: 80px;
+    .armor-slot {
+      width: 24px;
+      height: 24px;
     }
-    .crafting-table-top { width: 90px; }
-    .crafting-table-front { width: 90px; height: 50px; }
-    .steve {
+    .inv-steve {
       transform: scale(0.85);
+    }
+    .inv-modal-body {
+      gap: 0.5rem;
     }
   }
   
   @media (prefers-reduced-motion: reduce) {
-    .steve, .cloud, .thought-bubble {
+    .steve, .cloud, .ct-hint, .inv-steve-tap-hint {
       animation: none;
     }
   }
@@ -931,9 +1267,8 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     
     function getAudioCtx() {
       if (!audioCtx) {
-        try {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        } catch (e) { return null; }
+        try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+        catch (e) { return null; }
       }
       return audioCtx;
     }
@@ -971,7 +1306,6 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       setTimeout(() => playTone(450, 0.08, 'square', 0.04), 130);
       setTimeout(() => playTone(400, 0.08, 'square', 0.04), 260);
     }
-    function soundStep() { playTone(150, 0.04, 'square', 0.02); }
     function soundTableOpen() {
       playTone(440, 0.08, 'sine', 0.06);
       setTimeout(() => playTone(660, 0.08, 'sine', 0.06), 80);
@@ -979,38 +1313,38 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
     
     // ── State ──────────────────────────────────────────────
     let recipes = [];
-    try {
-      recipes = JSON.parse(recipesData);
-    } catch (e) {
-      console.error('Failed to parse recipes', e);
-      return;
-    }
+    try { recipes = JSON.parse(recipesData); }
+    catch (e) { console.error('Failed to parse recipes', e); return; }
     
     let currentPhase = 'idle';
-    let hotbarItems = new Array(9).fill(null);
+    let searchRevealed = false;
     
     // ── DOM refs ─────────────────────────────────────────────
     const scene = document.getElementById('craftingScene');
     const steve = document.getElementById('steve');
     const thoughtBubble = document.getElementById('thoughtBubble');
     const thoughtText = document.getElementById('thoughtText');
-    const table3d = document.getElementById('craftingTable3d');
+    const tableBtn = document.getElementById('craftingTableBtn');
     const tableGlow = document.getElementById('tableGlow');
+    const invModal = document.getElementById('invModal');
+    const invBackdrop = document.getElementById('invBackdrop');
+    const invClose = document.getElementById('invClose');
+    const invStevePreview = document.getElementById('invStevePreview');
+    const steveTapHint = document.getElementById('steveTapHint');
+    const searchArea = document.getElementById('searchArea');
     const searchInput = document.getElementById('craftingSearch');
-    const chips = document.querySelectorAll('.scene-chip');
-    const hotbar = document.getElementById('hotbar');
-    const modal = document.getElementById('craftingModal');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const modalClose = document.getElementById('modalClose');
-    const modalTitle = document.getElementById('modalTitle');
-    const craftingResult = document.getElementById('craftingResult');
-    const craftingInfo = document.getElementById('craftingInfo');
+    const chips = document.querySelectorAll('.search-chip');
+    const craftSlots = document.querySelectorAll('.craft-slot');
+    const craftResultSlot = document.getElementById('craftResultSlot');
+    const storageSlots = document.querySelectorAll('.storage-slot');
+    const hotbarSlots = document.querySelectorAll('.hotbar-slot');
+    const recipeInfo = document.getElementById('recipeInfo');
+    const recipeTitle = document.getElementById('recipeTitle');
+    const recipeDesc = document.getElementById('recipeDesc');
+    const wikiLink = document.getElementById('wikiLink');
     const inventoryGrid = document.getElementById('inventoryGrid');
-    const inventoryPanel = document.getElementById('inventoryPanel');
-    const inventoryToggle = document.getElementById('inventoryToggle');
-    const inventoryClose = document.getElementById('inventoryClose');
     
-    if (!scene || !steve || !searchInput || !modal) return;
+    if (!scene || !invModal || !tableBtn) return;
     
     // ── Recipe search ──────────────────────────────────────
     function findRecipe(query) {
@@ -1027,140 +1361,128 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       r = recipes.find(r => r.nameFa.toLowerCase().includes(q) || r.nameEn.toLowerCase().includes(q) || r.aliases.some(a => a.toLowerCase().includes(q)));
       if (r) return r;
       r = recipes.find(r => q.includes(r.nameFa.toLowerCase()) || q.includes(r.nameEn.toLowerCase()) || r.aliases.some(a => q.includes(a.toLowerCase())));
-      if (r) return r;
-      return null;
+      return r || null;
     }
     
-    // ── Phases ─────────────────────────────────────────────
-    function setPhase(phase) {
-      currentPhase = phase;
-      steve.classList.remove('walking', 'thinking', 'crafting');
-      thoughtBubble.hidden = true;
-      
-      if (phase === 'walking') {
-        steve.classList.add('walking');
-        // Step sound loop
-        const stepInterval = setInterval(() => {
-          if (currentPhase !== 'walking') {
-            clearInterval(stepInterval);
-            return;
-          }
-          soundStep();
-        }, 300);
-      } else if (phase === 'thinking') {
-        steve.classList.add('thinking');
-        thoughtText.textContent = '؟';
-        thoughtBubble.hidden = false;
-        soundThink();
-      } else if (phase === 'reaching') {
-        steve.classList.add('crafting');
-        steve.classList.add('reaching');
-        table3d.classList.add('active');
-        soundPop();
-      } else if (phase === 'done') {
-        steve.classList.add('crafting');
-        table3d.classList.remove('active');
+    // ── Open/close inventory modal ────────────────────────
+    function openInventory() {
+      invModal.hidden = false;
+      soundTableOpen();
+      tableBtn.classList.add('active');
+      setTimeout(() => tableBtn.classList.remove('active'), 600);
+      // Hide search by default — user must click Steve to reveal it
+      searchArea.hidden = true;
+      searchRevealed = false;
+      invStevePreview.classList.remove('active');
+      recipeInfo.hidden = true;
+      // Clear crafting grid
+      craftSlots.forEach(s => { s.innerHTML = ''; s.classList.add('empty'); });
+      craftResultSlot.innerHTML = '';
+      craftResultSlot.classList.add('empty');
+    }
+    
+    function closeInventory() {
+      invModal.hidden = true;
+      soundClick();
+    }
+    
+    // ── Click Steve in inventory → reveal search ──────────
+    function clickSteveInInventory() {
+      soundClick();
+      searchRevealed = !searchRevealed;
+      if (searchRevealed) {
+        searchArea.hidden = false;
+        invStevePreview.classList.add('active');
+        if (steveTapHint) steveTapHint.style.display = 'none';
+        // Focus the search input
+        setTimeout(() => searchInput && searchInput.focus(), 100);
+      } else {
+        searchArea.hidden = true;
+        invStevePreview.classList.remove('active');
+        if (steveTapHint) steveTapHint.style.display = '';
       }
     }
     
-    // ── Render crafting grid in modal ──────────────────────
-    function renderGrid(recipe) {
-      craftingResult.innerHTML = '';
-      craftingInfo.innerHTML = '';
+    // ── Render recipe into crafting grid ───────────────────
+    function renderRecipe(recipe) {
+      // Clear slots first
+      craftSlots.forEach(s => { s.innerHTML = ''; s.classList.add('empty'); });
+      craftResultSlot.innerHTML = '';
+      craftResultSlot.classList.add('empty');
+      recipeInfo.hidden = true;
       
-      const gridContainer = document.createElement('div');
-      gridContainer.className = 'mcui-Crafting_Table';
-      gridContainer.style.cssText = 'display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: linear-gradient(135deg, #6b6b6b 0%, #5a5a5a 50%, #4a4a4a 100%); border: 3px solid #373737; border-radius: 2px; box-shadow: inset 3px 3px 0 rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.3); image-rendering: pixelated; direction: ltr;';
+      // Animate Steve reaching
+      steve.classList.add('reaching', 'crafting');
+      thoughtBubble.hidden = false;
+      thoughtText.textContent = '؟';
+      soundThink();
       
-      const inputGrid = document.createElement('div');
-      inputGrid.style.cssText = 'display: flex; flex-direction: column; gap: 2px;';
-      
-      for (let r = 0; r < 3; r++) {
-        const row = document.createElement('div');
-        row.style.cssText = 'display: flex; gap: 2px;';
-        for (let c = 0; c < 3; c++) {
-          const itemName = recipe.grid[r] && recipe.grid[r][c];
-          const slot = createSlot(itemName, recipe);
-          row.appendChild(slot);
-        }
-        inputGrid.appendChild(row);
-      }
-      
-      const arrow = document.createElement('div');
-      arrow.style.cssText = 'color: #c0c0c0; padding: 0 0.5rem;';
-      arrow.innerHTML = '<svg width="32" height="16" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h22M21 3l5 5-5 5"/></svg>';
-      
-      const outputSlot = createSlot(recipe.output.item, recipe, recipe.output.count, true);
-      
-      gridContainer.appendChild(inputGrid);
-      gridContainer.appendChild(arrow);
-      gridContainer.appendChild(outputSlot);
-      
-      craftingResult.appendChild(gridContainer);
-      
-      // Add info card
-      const title = document.createElement('h3');
-      title.style.cssText = 'font-family: \'Press Start 2P\', monospace; font-size: 0.875rem; color: #7cc84a; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); margin-bottom: 0.5rem;';
-      title.textContent = recipe.nameFa;
-      
-      const desc = document.createElement('p');
-      desc.style.cssText = 'color: #9a9ab8; font-size: 0.8125rem; line-height: 1.7; margin-bottom: 1rem;';
-      desc.textContent = recipe.description || '';
-      
-      const wikiLink = document.createElement('a');
-      wikiLink.href = BASE + 'wiki/' + recipe.wikiSlug;
-      wikiLink.className = 'mc-btn pixel small';
-      wikiLink.target = '_blank';
-      wikiLink.innerHTML = '<svg width="14" height="14"><use href="#icon-wiki" /></svg> صفحه‌ی ویکی';
-      
-      craftingInfo.appendChild(title);
-      craftingInfo.appendChild(desc);
-      craftingInfo.appendChild(wikiLink);
-      
-      // Animate slots appearing
-      const slots = gridContainer.querySelectorAll('div[style*="opacity: 0"]');
-      slots.forEach((slot, i) => {
-        setTimeout(() => {
-          slot.style.transition = 'opacity 0.2s, transform 0.2s';
-          slot.style.opacity = '1';
-          soundPop();
-        }, i * 100);
-      });
-      
-      setTimeout(() => soundChime(), slots.length * 100 + 200);
-    }
-    
-    function createSlot(itemName, recipe, count, isOutput) {
-      const slot = document.createElement('div');
-      slot.style.cssText = 'position: relative; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%); border-top: 2px solid #373737; border-left: 2px solid #373737; border-right: 2px solid #ffffff; border-bottom: 2px solid #ffffff; box-shadow: inset 2px 2px 0 rgba(0,0,0,0.4), inset -2px -2px 0 rgba(255,255,255,0.25); ' + (isOutput ? 'width: 48px; height: 48px;' : 'width: 32px; height: 32px;') + ' image-rendering: pixelated; opacity: 0;';
-      
-      if (itemName) {
-        const blockNames = ['oak-planks', 'cobblestone', 'crafting-table-top', 'chest', 'furnace-side', 'tnt', 'ladder', 'bookshelf'];
-        const folder = blockNames.includes(itemName) ? 'blocks' : 'items';
-        const img = document.createElement('img');
-        img.src = BASE + 'textures/' + folder + '/' + itemName + '.png';
-        img.alt = itemName;
-        img.width = isOutput ? 32 : 22;
-        img.height = isOutput ? 32 : 22;
-        img.style.cssText = 'image-rendering: pixelated;';
-        img.onerror = function () { this.style.display = 'none'; };
-        slot.appendChild(img);
+      // After 1s, fill the grid + reveal
+      setTimeout(() => {
+        steve.classList.remove('reaching');
+        thoughtBubble.hidden = true;
         
-        if (count && count > 1) {
-          const countEl = document.createElement('span');
-          countEl.textContent = count;
-          countEl.style.cssText = 'position: absolute; bottom: -2px; right: 0; font-family: \'Courier New\', monospace; font-weight: 700; font-size: 0.625rem; color: #fff; text-shadow: 2px 2px 0 rgba(0,0,0,0.8);';
-          slot.appendChild(countEl);
+        const blockNames = ['oak-planks', 'cobblestone', 'crafting-table-top', 'chest', 'furnace-side', 'tnt', 'ladder', 'bookshelf'];
+        
+        // Fill 3x3 grid
+        for (let r = 0; r < 3; r++) {
+          for (let c = 0; c < 3; c++) {
+            const idx = r * 3 + c;
+            const itemName = recipe.grid[r] && recipe.grid[r][c];
+            const slot = craftSlots[idx];
+            if (!slot) continue;
+            
+            if (itemName) {
+              setTimeout(() => {
+                slot.classList.remove('empty');
+                const folder = blockNames.includes(itemName) ? 'blocks' : 'items';
+                const img = document.createElement('img');
+                img.src = BASE + 'textures/' + folder + '/' + itemName + '.png';
+                img.alt = itemName;
+                img.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
+                img.onerror = function () { this.style.display = 'none'; };
+                slot.innerHTML = '';
+                slot.appendChild(img);
+                soundPop();
+              }, idx * 80);
+            }
+          }
         }
-      }
-      
-      return slot;
+        
+        // Output slot
+        const outFolder = (recipe.output && recipe.output.type === 'block') ? 'blocks' : 'items';
+        setTimeout(() => {
+          craftResultSlot.classList.remove('empty');
+          const outImg = document.createElement('img');
+          outImg.src = BASE + 'textures/' + outFolder + '/' + recipe.output.item + '.png';
+          outImg.alt = recipe.nameFa;
+          outImg.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
+          outImg.onerror = function () { this.style.display = 'none'; };
+          craftResultSlot.innerHTML = '';
+          craftResultSlot.appendChild(outImg);
+          
+          if (recipe.output.count && recipe.output.count > 1) {
+            const count = document.createElement('span');
+            count.textContent = recipe.output.count;
+            count.style.cssText = 'position: absolute; bottom: 0; right: 2px; font-family: \'Courier New\', monospace; font-size: 0.625rem; color: #fff; text-shadow: 1px 1px 0 #000; font-weight: 700;';
+            craftResultSlot.appendChild(count);
+            craftResultSlot.style.position = 'relative';
+          }
+          
+          soundChime();
+          
+          // Show recipe info card
+          recipeTitle.textContent = recipe.nameFa;
+          recipeDesc.textContent = recipe.description || '';
+          wikiLink.href = BASE + 'wiki/' + recipe.wikiSlug;
+          recipeInfo.hidden = false;
+        }, 9 * 80 + 200);
+      }, 1000);
     }
     
-    // ── Main flow ────────────────────────────────────────────
+    // ── Search and reveal ─────────────────────────────────
     function searchAndReveal(query) {
       const recipe = findRecipe(query);
-      
       if (!recipe) {
         soundError();
         thoughtText.textContent = '!';
@@ -1169,60 +1491,64 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
         setTimeout(() => {
           thoughtBubble.hidden = true;
           steve.classList.remove('thinking');
-        }, 1500);
+        }, 1200);
         return;
       }
-      
-      // Phase 1: Walk to crafting table (0.8s)
-      setPhase('walking');
-      soundStep();
-      
-      // Phase 2: Thinking (after 0.8s)
-      setTimeout(() => {
-        setPhase('thinking');
-        
-        // Phase 3: Reach into table (after 1s)
-        setTimeout(() => {
-          setPhase('reaching');
-          soundTableOpen();
-          
-          // Phase 4: Open modal + reveal grid (after 0.6s)
-          setTimeout(() => {
-            modal.hidden = false;
-            modalTitle.textContent = recipe.nameFa;
-            renderGrid(recipe);
-            steve.classList.remove('reaching');
-            setPhase('done');
-          }, 600);
-        }, 1000);
-      }, 800);
+      renderRecipe(recipe);
     }
     
-    // ── Event handlers ───────────────────────────────────────
+    // ── Event handlers ─────────────────────────────────────
+    
+    // Click crafting table → open inventory
+    if (tableBtn) {
+      tableBtn.addEventListener('click', openInventory);
+    }
+    
+    // Click Steve in inventory → reveal search
+    if (invStevePreview) {
+      invStevePreview.addEventListener('click', clickSteveInInventory);
+    }
+    
+    // Modal close
+    if (invClose) invClose.addEventListener('click', closeInventory);
+    if (invBackdrop) invBackdrop.addEventListener('click', closeInventory);
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !invModal.hidden) {
+        closeInventory();
+      }
+    });
+    
+    // Search input
     let searchTimer = null;
-    searchInput.addEventListener('input', (e) => {
-      const q = e.target.value.trim();
-      clearTimeout(searchTimer);
-      if (!q || q.length < 3) {
-        if (currentPhase !== 'idle') {
-          setPhase('idle');
-          modal.hidden = true;
-        }
-        return;
-      }
-      searchTimer = setTimeout(() => searchAndReveal(q), 600);
-    });
-    
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const q = e.target.value.trim();
         clearTimeout(searchTimer);
-        const q = searchInput.value.trim();
-        if (q.length >= 3) searchAndReveal(q);
-      }
-    });
+        if (!q || q.length < 3) {
+          // Clear crafting grid
+          craftSlots.forEach(s => { s.innerHTML = ''; s.classList.add('empty'); });
+          craftResultSlot.innerHTML = '';
+          craftResultSlot.classList.add('empty');
+          recipeInfo.hidden = true;
+          steve.classList.remove('reaching', 'thinking', 'crafting');
+          thoughtBubble.hidden = true;
+          return;
+        }
+        searchTimer = setTimeout(() => searchAndReveal(q), 600);
+      });
+      
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          clearTimeout(searchTimer);
+          const q = searchInput.value.trim();
+          if (q.length >= 3) searchAndReveal(q);
+        }
+      });
+    }
     
-    // Chip suggestions
+    // Chips
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
         soundClick();
@@ -1235,110 +1561,48 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       });
     });
     
-    // Crafting table click — opens modal with default prompt
-    if (table3d) {
-      table3d.addEventListener('click', () => {
-        soundTableOpen();
-        table3d.classList.add('active');
-        setTimeout(() => table3d.classList.remove('active'), 600);
-        searchInput.focus();
-      });
-      table3d.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          table3d.click();
-        }
-      });
-    }
-    
-    // Modal close
-    function closeModal() {
-      modal.hidden = true;
-      setPhase('idle');
-      soundClick();
-    }
-    
-    if (modalClose) modalClose.addEventListener('click', closeModal);
-    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
-    
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.hidden) {
-        closeModal();
-      }
-    });
-    
-    // ── Inventory panel interactions ────────────────────────
+    // Inventory panel slots (desktop) → fill hotbar
     if (inventoryGrid) {
-      inventoryGrid.querySelectorAll('.inventory-slot').forEach(slot => {
+      inventoryGrid.querySelectorAll('.inv-slot').forEach(slot => {
         slot.addEventListener('click', () => {
           soundClick();
           const name = slot.dataset.name;
           const type = slot.dataset.type;
-          // Add to hotbar (first empty slot)
-          const emptyIdx = hotbarItems.findIndex(item => item === null);
-          if (emptyIdx !== -1) {
-            hotbarItems[emptyIdx] = { name, type };
-            renderHotbar();
-            soundPop();
-          } else {
-            // Hotbar full — replace slot 0
-            hotbarItems[0] = { name, type };
-            renderHotbar();
-            soundPop();
+          // Add to first empty hotbar slot
+          for (let i = 0; i < hotbarSlots.length; i++) {
+            if (!hotbarSlots[i].querySelector('img')) {
+              const img = document.createElement('img');
+              img.src = BASE + 'textures/' + (type === 'block' ? 'blocks' : 'items') + '/' + name + '.png';
+              img.alt = name;
+              img.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
+              img.onerror = function () { this.style.display = 'none'; };
+              hotbarSlots[i].appendChild(img);
+              soundPop();
+              break;
+            }
           }
         });
       });
     }
     
-    function renderHotbar() {
-      if (!hotbar) return;
-      const slots = hotbar.querySelectorAll('.hotbar-slot');
-      slots.forEach((slot, i) => {
-        // Clear existing content (except slot number)
-        const num = slot.querySelector('.hotbar-slot-num');
-        slot.innerHTML = '';
-        if (num) slot.appendChild(num);
-        
-        const item = hotbarItems[i];
-        if (item) {
-          const img = document.createElement('img');
-          img.src = BASE + 'textures/' + (item.type === 'block' ? 'blocks' : 'items') + '/' + item.name + '.png';
-          img.alt = item.name;
-          img.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
-          img.onerror = function () { this.style.display = 'none'; };
-          slot.appendChild(img);
+    // Click hotbar slot → remove item
+    hotbarSlots.forEach(slot => {
+      slot.addEventListener('click', () => {
+        const img = slot.querySelector('img');
+        if (img) {
+          img.remove();
+          soundClick();
         }
       });
-    }
+    });
     
-    // ── Inventory panel toggle (mobile) ────────────────────
-    if (inventoryToggle && inventoryPanel) {
-      inventoryToggle.addEventListener('click', () => {
-        inventoryPanel.classList.toggle('open');
-        soundClick();
-      });
-    }
-    if (inventoryClose && inventoryPanel) {
-      inventoryClose.addEventListener('click', () => {
-        inventoryPanel.classList.remove('open');
-        soundClick();
-      });
-    }
+    // Click storage slot → no-op (decorative for now)
+    storageSlots.forEach(slot => {
+      slot.addEventListener('click', () => soundClick());
+    });
     
-    // ── Hotbar slot click — remove item ───────────────────
-    if (hotbar) {
-      hotbar.querySelectorAll('.hotbar-slot').forEach((slot, i) => {
-        slot.addEventListener('click', () => {
-          if (hotbarItems[i]) {
-            hotbarItems[i] = null;
-            renderHotbar();
-            soundClick();
-          }
-        });
-      });
-    }
-    
-    // Initialize
-    renderHotbar();
+    // Initial state
+    craftSlots.forEach(s => s.classList.add('empty'));
+    craftResultSlot.classList.add('empty');
   })();
 </script>
