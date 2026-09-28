@@ -5,10 +5,15 @@ Provides a simple shared-secret API key check. The desktop app pywebview
 points at 127.0.0.1:8000 from the same machine, so this is primarily
 defence-in-depth against accidental exposure on a shared host.
 
-The admin token is read from environment variable ``ADMIN_API_KEY`` (or
-``.env``). If unset, the admin runs in "no-auth" mode and emits a
-warning at startup — useful for local dev but should never be used in
-any kind of network-accessible deployment.
+The admin token is read from environment variables.  Two names are
+accepted for backward compatibility:
+
+  * ``ADMIN_SECRET``   — preferred, the name used in the user's .env
+  * ``ADMIN_API_KEY``  — legacy, the name originally used in this codebase
+
+If neither is set, the admin runs in "no-auth" mode and emits a warning
+at startup — useful for local dev but should never be used in any kind
+of network-accessible deployment.
 
 Usage (in main.py):
 
@@ -33,8 +38,9 @@ from fastapi.responses import JSONResponse
 # Config
 # ---------------------------------------------------------------------------
 def get_admin_token() -> Optional[str]:
-    """Return the admin API token from env, or None if not set."""
-    return os.getenv("ADMIN_API_KEY") or None
+    """Return the admin API token from env (ADMIN_SECRET preferred,
+    ADMIN_API_KEY as a legacy fallback), or None if neither is set."""
+    return os.getenv("ADMIN_SECRET") or os.getenv("ADMIN_API_KEY") or None
 
 
 def is_auth_enabled() -> bool:

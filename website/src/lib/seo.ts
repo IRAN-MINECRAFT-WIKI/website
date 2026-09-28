@@ -3,8 +3,30 @@
  *
  * All structured data follows schema.org specifications that Google
  * rewards in rich results.
+ *
+ * IMPORTANT — base path handling
+ * ------------------------------
+ * The site is published as a GitHub "project page" at
+ * ``https://iran-minecraft-wiki.github.io/website/`` — the ``/website/``
+ * prefix is set in ``astro.config.mjs`` as ``base``.  Every public URL
+ * (canonical, og:url, sitemap, JSON-LD ``item`` fields) MUST include
+ * this prefix; otherwise Google sees a canonical mismatch (canonical
+ * says root, page lives at ``/website/``) and discards the rich-result
+ * eligibility.  We centralise that here via ``SITE_PUBLIC_BASE``.
  */
 import { siteConfig } from './data';
+
+/**
+ * The full public origin + base path.  This is what every absolute URL
+ * in <link rel="canonical">, og:url, JSON-LD ``item`` etc. must be
+ * prefixed with.  ``import.meta.env.BASE_URL`` includes the trailing
+ * slash (e.g. ``/website/``).
+ *
+ * We read it once at module load — Astro inlines this value at build
+ * time, so it's safe to use in any server-rendered page.
+ */
+const SITE_BASE_PATH = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
+export const SITE_PUBLIC_BASE = `${siteConfig.url}${SITE_BASE_PATH}`;
 
 export type SeoMeta = {
   title: string;
@@ -20,9 +42,13 @@ export type SeoMeta = {
 
 /** Build standard <meta> + OpenGraph + Twitter card strings */
 export function buildHeadMeta(meta: SeoMeta, path: string) {
-  const url = `${siteConfig.url}${path}`;
+  // Build the absolute URL with the /website/ base prefix included.
+  // ``path`` is the in-app route (e.g. ``/mods/foo``) — we strip a
+  // leading slash so the base path's trailing slash isn't doubled.
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const url = `${SITE_PUBLIC_BASE}${normalizedPath}`;
   const canonical = meta.canonical || url;
-  const image = meta.image || `${siteConfig.url}/website/web-app-manifest-512x512.png`;
+  const image = meta.image || `${SITE_PUBLIC_BASE}/web-app-manifest-512x512.png`;
   const type = meta.type || 'website';
 
   return {
@@ -56,13 +82,13 @@ export function websiteJsonLd() {
     '@type': 'WebSite',
     name: "ماین بد (MineBed)",
     alternateName: ["MineBed", "MineBed Farsi", "ماین بد", "ماینبد", siteConfig.nameEn],
-    url: siteConfig.url,
+    url: SITE_PUBLIC_BASE,
     inLanguage: 'fa-IR',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${siteConfig.url}/mods?q={search_term_string}`,
+        urlTemplate: `${SITE_PUBLIC_BASE}/search?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -78,7 +104,22 @@ export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
       '@type': 'ListItem',
       position: idx + 1,
       name: item.name,
-      item: `${siteConfig.url}${item.url}`,
+      item: `${SITE_PUBLIC_BASE}${item.url}`,
+    })),
+  };
+}
+
+/** JSON-LD: ItemList for listing pages (mods index, category page, ...) */
+export function itemListJsonLd(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    numberOfItems: items.length,
+    itemListElement: items.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: item.name,
+      url: `${SITE_PUBLIC_BASE}${item.url}`,
     })),
   };
 }
@@ -96,6 +137,7 @@ export function modJsonLd(mod: {
   size?: string;
   category?: string;
   updated?: string;
+  slug?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -160,7 +202,7 @@ export function articleJsonLd(article: {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: article.image || `${siteConfig.url}/website/web-app-manifest-512x512.png`,
+    image: article.image || `${SITE_PUBLIC_BASE}/web-app-manifest-512x512.png`,
     datePublished: article.datePublished,
     dateModified: article.dateModified || article.datePublished,
     author: {
@@ -173,12 +215,12 @@ export function articleJsonLd(article: {
       alternateName: ["MineBed", "MineBed Farsi", "ماین بد", "ماینبد"],
       logo: {
         '@type': 'ImageObject',
-        url: `${siteConfig.url}/website/web-app-manifest-512x512.png`,
+        url: `${SITE_PUBLIC_BASE}/web-app-manifest-512x512.png`,
       },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${siteConfig.url}${article.url}`,
+      '@id': `${SITE_PUBLIC_BASE}${article.url}`,
     },
     inLanguage: 'fa-IR',
   };
@@ -206,7 +248,7 @@ export function howToJsonLd(howto: {
     })),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${siteConfig.url}${howto.url}`,
+      '@id': `${SITE_PUBLIC_BASE}${howto.url}`,
     },
     inLanguage: 'fa-IR',
   };
@@ -219,8 +261,8 @@ export function organizationJsonLd() {
     '@type': 'Organization',
     name: "ماین بد (MineBed)",
     alternateName: ["MineBed", "MineBed Farsi", "ماین بد", "ماینبد"],
-    url: siteConfig.url,
-    logo: `${siteConfig.url}/website/web-app-manifest-512x512.png`,
+    url: SITE_PUBLIC_BASE,
+    logo: `${SITE_PUBLIC_BASE}/web-app-manifest-512x512.png`,
     sameAs: [
       siteConfig.telegram,
       siteConfig.instagram,

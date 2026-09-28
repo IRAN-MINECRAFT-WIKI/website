@@ -18,6 +18,7 @@ Public API
 from __future__ import annotations
 
 import json
+import re
 import time
 from typing import Optional
 
@@ -79,16 +80,26 @@ def _build_prompt(page_data: dict) -> tuple[str, str]:
         "  tagline    : یک جمله کوتاه فارسی برای جذاب کردن ماد\n"
         "  keywords   : آرایه‌ای از ۵ تا ۸ کلمه کلیدی فارسی/انگلیسی\n"
         "  desc       : توضیح کامل فارسی ماد (۳ تا ۶ پاراگراف، با مارک‌داون)\n"
-        "  category   : دسته‌بندی فارسی (مثلاً: ماد، نقشه، اسکین، شیپ، شیدوِر)\n"
-        "  download   : دستورالعمل نصب فارسی\n\n"
+        "  category   : یکی از این شناسه‌های دسته (فقط یکی از این رشته‌ها): "
+        "'gameplay' یا 'graphics' یا 'maps' یا 'mobs' یا 'decoration' یا 'world' یا 'utility'\n"
+        "  download   : دستورالعمل نصب فارسی (کوتاه، ۱ تا ۳ جمله)\n\n"
+        "راهنمای انتخاب category:\n"
+        "  - gameplay   : مادهایی که گیم‌پلی، مبارزه، انیمیشن، مکانیک بازی را تغییر می‌دهند\n"
+        "  - graphics   : شیدرها، ریسورس‌پک‌ها، بهبود بصری، تکسچرها\n"
+        "  - maps       : مپ‌های آماده، دنیای از پیش ساخته‌شده، ادونچر مپ\n"
+        "  - mobs       : مادهایی که موجودات جدید اضافه می‌کنند یا رفتار موجودات را تغییر می‌دهند\n"
+        "  - decoration : مادهای دکوراسیون، مبلمان، بلوک‌های تزئینی\n"
+        "  - world      : مادهایی که تولید دنیا، بایوم‌ها، ساختارها را تغییر می‌دهند\n"
+        "  - utility    : ابزارها، مودهای کمکی، رابط کاربری، قابلیت‌های کاربردی\n\n"
         f"عنوان انگلیسی: {title}\n"
         f"سازنده: {author}\n"
         f"نسخه: {version}\n"
-        f"دسته‌بندی‌های انگلیسی: {cats}\n"
+        f"دسته‌بندی‌های انگلیسی (MCPEDL tags): {cats}\n"
         f"نام فایل‌ها: {file_names}\n"
         f"آدرس کاور: {cover}\n\n"
         f"توضیح انگلیسی:\n{description}\n\n"
-        "یادت باشد: فقط JSON خروجی بده."
+        "یادت باشد: فقط JSON خروجی بده. مقدار category باید دقیقاً یکی از "
+        "هفت شناسه بالا باشد (نه فارسی، نه اسم دسته‌)."
     )
     return system, user
 
@@ -109,9 +120,6 @@ def _parse_response(text: str) -> dict:
         return json.loads(raw)
     except Exception:
         return {}
-
-
-import re  # noqa: E402  (placed late so import block above stays clean)
 
 
 def _fallback(page_data: dict) -> dict:

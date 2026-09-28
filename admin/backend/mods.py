@@ -35,7 +35,11 @@ def _load() -> list[dict]:
         data = json.loads(raw)
     except Exception:
         return []
-    # Accept either a bare array or an object with ``mods`` key.
+    # Accept either a bare array or an object with a ``mods`` key.
+    # The Astro website (see website/src/lib/data.ts) expects the
+    # ``{ "mods": [...] }`` wrapper, so we read that shape; but we
+    # also tolerate a bare array for backward compatibility with
+    # older admin versions that wrote raw arrays.
     if isinstance(data, dict):
         mods = data.get("mods") or data.get("data") or []
     else:
@@ -44,9 +48,22 @@ def _load() -> list[dict]:
 
 
 def _save(mods: list[dict]) -> None:
+    """Persist mods to disk.
+
+    CRITICAL: the Astro website's ``data.ts`` loader expects::
+
+        { "mods": [ ... ] }
+
+    (a bare array would make the site build fail with
+    ``modsRaw.mods is undefined``).  Older versions of this module
+    wrote a bare array — that was the root cause of the website
+    breaking after the admin approved a mod.  Always write the
+    wrapper object.
+    """
     p = _path()
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(mods, ensure_ascii=False, indent=2),
+    payload = {"mods": mods}
+    p.write_text(json.dumps(payload, ensure_ascii=False, indent=2),
                  encoding="utf-8")
 
 
@@ -106,8 +123,12 @@ def count() -> int:
 
 
 def export_json() -> str:
-    """Return the current mods.json as a pretty JSON string."""
-    return json.dumps(_load(), ensure_ascii=False, indent=2)
+    """Return the current mods.json as a pretty JSON string.
+
+    The format MUST be ``{ "mods": [...] }`` — the same shape that
+    ``_save`` writes and that the Astro website expects to read.
+    """
+    return json.dumps({"mods": _load()}, ensure_ascii=False, indent=2)
 
 
 def build_mod_record(crawled: dict, ai: dict) -> dict:
@@ -123,8 +144,10 @@ def build_mod_record(crawled: dict, ai: dict) -> dict:
     """
     slug = crawled.get("slug") or crawled.get("url", "").rsplit("/", 1)[-1]
 
-    # Category — must be a cat ID (gameplay, graphics, maps, ...) not Persian name
-    cat_id = ai.get("category") or "gameplay"
+    # Category — must be a cat ID (gameplay, graphics, maps, ...).
+    # The AI prompt asks for one of the seven canonical IDs, but be
+    # defensive: if the model returns a Persian name or an unknown
+    # string, fall back to gameplay (the largest category).
     cat_name_map = {
         "gameplay": "گیم\u200cپلی",
         "graphics": "گرافیک",
@@ -134,7 +157,9 @@ def build_mod_record(crawled: dict, ai: dict) -> dict:
         "world": "دنیا",
         "utility": "ابزار",
     }
-    cat_name = cat_name_map.get(cat_id, "ماد")
+    raw_cat = (ai.get("category") or "").strip().lower()
+    cat_id = raw_cat if raw_cat in cat_name_map else "gameplay"
+    cat_name = cat_name_map[cat_id]
 
     # Keywords — must be a space-separated string, not a list
     keywords = ai.get("keywords") or ""

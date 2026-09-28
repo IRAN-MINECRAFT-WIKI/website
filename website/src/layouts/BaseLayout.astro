@@ -40,7 +40,33 @@ const orgLd = organizationJsonLd();
     <title>{headMeta.title}</title>
     <meta name="description" content={headMeta.description} />
     <meta name="robots" content={headMeta.robots} />
+    <meta name="author" content={siteConfig.author} />
+    <meta name="generator" content="Astro" />
     <link rel="canonical" href={headMeta.canonical} />
+
+    <!--
+      hreflang — declare that this site is Persian-only for the Iranian
+      locale. Even with a single language, declaring hreflang helps
+      Google route users to the right URL (vs. the bare /website/ root).
+    -->
+    <link rel="alternate" hreflang="fa-IR" href={headMeta.canonical} />
+    <link rel="alternate" hreflang="x-default" href={headMeta.canonical} />
+
+    <!--
+      Google Search Console verification — drop your
+      ``google-site-verification`` token into the env var
+      ``GOOGLE_SITE_VERIFICATION`` and this meta tag activates.
+      (Local .env value is exposed to client via ``PUBLIC_`` prefix.)
+    -->
+    {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
+      <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+    )}
+    {import.meta.env.PUBLIC_BING_SITE_VERIFICATION && (
+      <meta name="msvalidate.01" content={import.meta.env.PUBLIC_BING_SITE_VERIFICATION} />
+    )}
+    {import.meta.env.PUBLIC_YANDEX_VERIFICATION && (
+      <meta name="yandex-verification" content={import.meta.env.PUBLIC_YANDEX_VERIFICATION} />
+    )}
 
     <!-- Favicon (with base prefix) -->
     <link rel="icon" type="image/png" href={base('/favicon-96x96.png')} sizes="96x96" />
@@ -52,6 +78,12 @@ const orgLd = organizationJsonLd();
     <!-- RSS feed + OpenSearch (with base prefix) -->
     <link rel="alternate" type="application/rss+xml" title="MineBed Farsi RSS" href={base('/rss.xml')} />
     <link rel="search" type="application/opensearchdescription+xml" href={base('/opensearch.xml')} title="MineBed Farsi" />
+
+    <!-- Preconnect to HuggingFace CDN — most mod files / covers are
+         served from there, so warming the connection shaves 200-500ms
+         off the first download click for Iranian users. -->
+    <link rel="preconnect" href="https://huggingface.co" crossorigin />
+    <link rel="dns-prefetch" href="https://huggingface.co" />
 
     <!-- OpenGraph -->
     <meta property="og:locale" content="fa_IR" />

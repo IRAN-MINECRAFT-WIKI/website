@@ -3,7 +3,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import ModCard from '@components/ModCard.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import AdSlot from '@components/AdSlot.astro';
+import StructuredData from '@components/StructuredData.astro';
 import { mods, categories, siteConfig } from '@/lib/data';
+import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
 
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
@@ -22,6 +24,15 @@ const catIconMap: Record<string, string> = {
   world: 'icon-world',
   utility: 'icon-tool',
 };
+
+// Structured data: BreadcrumbList + ItemList (top 30 mods)
+const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
+const ldItemList = itemListJsonLd(
+  mods.slice(0, 30).map((m) => ({
+    name: m.nameFa || m.name,
+    url: `/mods/${m.id}`,
+  }))
+);
 ---
 
 <BaseLayout
@@ -30,6 +41,8 @@ const catIconMap: Record<string, string> = {
   description="لیست کامل افزونه‌های ماینکرفت بدراک به فارسی — شامل گیم‌پلی، گرافیک، مپ، موجودات، دکوراسیون و دنیا. همه تست‌شده و رایگان."
   type="website"
 >
+  <StructuredData data={ldBreadcrumb} />
+  <StructuredData data={ldItemList} />
   <Breadcrumbs items={breadcrumb} />
 
   <div class="mb-6">

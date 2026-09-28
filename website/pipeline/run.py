@@ -1,25 +1,49 @@
 """
 run.py — Daily auto-run entrypoint for the MineBed pipeline.
 
-Designed to be called from GitHub Actions (cron) and reads the list of
-mod URLs from `pipeline/urls.txt`. For each URL, the full pipeline
-(crawl → AI write → download → upload to HF → update mods.json on GitHub)
-is run.
+This is the CI entrypoint called from ``.github/workflows/pipeline.yml``.
+It:
+
+  1. Discovers the top-N newest MCPEDL mod URLs (using the admin
+     crawler's ``fetch_top_mods``).
+  2. For each URL:
+     a. Crawls the mod page (admin crawler's ``crawl_mod``)
+     b. Generates Persian content via Agnes AI (admin ``agnes`` module)
+     c. Builds a website-shaped Mod record (admin ``mods.build_mod_record``)
+     d. Mirrors cover/gallery/mod-file to HuggingFace (admin ``uploader``)
+     e. Merges into existing ``mods.json``
+  3. Pushes the merged ``mods.json`` back to GitHub.
+
+This makes the daily cron actually do something useful (the previous
+version was a no-op stub that only built a record from the URL alone,
+without crawling).
 
 Usage (local):
-    cd pipeline
-    python run.py
+    cd admin
+    python -m backend.pipeline_runner --auto 5
 
 Usage (CI):
-    python pipeline/run.py --auto 5 --urls-file pipeline/urls.txt
+    PYTHONPATH=admin python -m backend.pipeline_runner --auto 5
 """
+from __future__ import annotations
+
 import argparse
 import asyncio
+import base64
+import datetime as _dt
 import json
 import os
 import sys
+import traceback
 from pathlib import Path
-from urllib.parse import urlparse
+from typing import Optional
+
+# Allow running both as ``python pipeline/run.py`` (legacy path) and
+# ``python -m backend.pipeline_runner`` (preferred).
+_HERE = Path(__file__).resolve().parent
+_ADMIN_DIR = _HERE.parent.parent / "admin"
+if _ADMIN_DIR.is_dir():
+    sys.path.insert(0, str(_ADMIN_DIR))
 
 try:
     from dotenv import load_dotenv
@@ -27,60 +51,159 @@ try:
 except ImportError:
     pass
 
-# Make sibling modules importable when run from CI (cd website/src/data)
-BASE_DIR = Path(__file__).parent.resolve()
-sys.path.insert(0, str(BASE_DIR))
-
-DEFAULT_URLS_FILE = BASE_DIR / "urls.txt"
+# Import the admin backend modules — these are the canonical impls.
+from backend import config, crawler, agnes, github_service, mods, uploader  # noqa: E402
 
 
-def read_urls(path: Path, limit: int = 0) -> list[dict]:
-    """Read URLs from file. Optionally limit to first N entries."""
-    if not path.exists():
-        print(f"\u26a0\ufe0f  URLs file not found: {path}")
-        return []
-    urls = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        slug = urlparse(line).path.strip("/").split("/")[-1] or "mod"
-        urls.append({"slug": slug, "url": line})
-        if limit and len(urls) >= limit:
-            break
-    return urls
+# ---------------------------------------------------------------------------
+# Mods.json sync (uses admin's github_service for proper format)
+# ---------------------------------------------------------------------------
+GITHUB_MODS_FILE = "website/src/data/mods.json"
 
 
-def fetch_remote_mods_json():
-    """Fetch current mods.json from GitHub via sync_from_github helpers."""
-    try:
-        from sync_from_github import fetch_file_from_github, MODS_FILE
-    except ImportError as e:
-        print(f"\u274c  Cannot import sync_from_github: {e}")
+def fetch_remote_mods() -> tuple[Optional[list], Optional[str]]:
+    """Fetch current mods.json from GitHub + the blob SHA.
+
+    Returns (mods_list, sha). Either may be None on failure.
+    """
+    if not config.GITHUB_TOKEN:
+        print("❌  GITHUB_TOKEN not set — cannot fetch remote mods.json")
         return None, None
-    return fetch_file_from_github(MODS_FILE)
 
+    import requests
 
-def push_mods_json_to_github(mods_data: dict) -> tuple[bool, str]:
-    """Push updated mods.json back to GitHub."""
+    url = (f"https://api.github.com/repos/{config.GITHUB_USER}/"
+           f"{config.GITHUB_REPO}/contents/{GITHUB_MODS_FILE}")
     try:
-        from sync_from_github import (
-            save_file_to_github,
-            MODS_FILE,
-            fetch_file_from_github,
+        r = requests.get(url,
+                         headers={
+                             "Authorization": f"Bearer {config.GITHUB_TOKEN}",
+                             "Accept": "application/vnd.github+json",
+                         },
+                         params={"ref": config.GITHUB_BRANCH},
+                         timeout=20)
+        if r.status_code == 404:
+            return [], None  # file doesn't exist yet — that's OK
+        if r.status_code != 200:
+            print(f"❌  GET mods.json → HTTP {r.status_code}: {r.text[:200]}")
+            return None, None
+        body = r.json()
+        sha = body.get("sha")
+        content_b64 = body.get("content", "") or ""
+        content = base64.b64decode(content_b64).decode("utf-8", errors="replace")
+        try:
+            data = json.loads(content)
+        except Exception:
+            data = []
+        if isinstance(data, dict):
+            mods_list = data.get("mods") or []
+        elif isinstance(data, list):
+            mods_list = data
+        else:
+            mods_list = []
+        return mods_list, sha
+    except Exception as e:
+        print(f"❌  Fetch mods.json failed: {e}")
+        return None, None
+
+
+def push_mods_to_github(mods_list: list, sha: Optional[str] = None) -> bool:
+    """PUT the merged mods.json (in ``{ "mods": [...] }`` shape) to GitHub."""
+    if not config.GITHUB_TOKEN:
+        print("❌  GITHUB_TOKEN not set")
+        return False
+
+    import requests
+
+    payload = {"mods": mods_list}
+    content_b64 = base64.b64encode(
+        json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
+    ).decode("ascii")
+
+    body = {
+        "message": (f"chore: daily mod sync — "
+                    f"{_dt.datetime.now():%Y-%m-%d %H:%M} UTC"),
+        "content": content_b64,
+        "branch": config.GITHUB_BRANCH,
+    }
+    if sha:
+        body["sha"] = sha
+
+    url = (f"https://api.github.com/repos/{config.GITHUB_USER}/"
+           f"{config.GITHUB_REPO}/contents/{GITHUB_MODS_FILE}")
+    try:
+        r = requests.put(
+            url,
+            headers={
+                "Authorization": f"Bearer {config.GITHUB_TOKEN}",
+                "Accept": "application/vnd.github+json",
+            },
+            json=body,
+            timeout=30,
         )
-    except ImportError as e:
-        return False, f"Cannot import sync_from_github: {e}"
+        if r.status_code in (200, 201):
+            commit = r.json().get("commit", {})
+            print(f"✅  Pushed mods.json — commit {commit.get('sha', '')[:7]}")
+            return True
+        print(f"❌  Push failed: HTTP {r.status_code}: {r.text[:300]}")
+        return False
+    except Exception as e:
+        print(f"❌  Push error: {e}")
+        return False
 
-    # Get current SHA so we can update (not create)
-    existing, sha = fetch_file_from_github(MODS_FILE)
-    return save_file_to_github(
-        MODS_FILE, mods_data, "chore: daily mod sync", sha=sha
-    )
+
+# ---------------------------------------------------------------------------
+# Per-URL processing (crawl → AI → build → upload)
+# ---------------------------------------------------------------------------
+def process_one(url: str) -> Optional[dict]:
+    """Crawl + AI-generate + mirror assets for a single mod URL.
+
+    Returns the built mod record, or None on failure.
+    """
+    slug = crawler._slug_from_url(url)
+    print(f"\n🎯  Processing: {slug}")
+    print(f"    URL: {url}")
+
+    # 1. Crawl
+    try:
+        page = crawler.crawl_mod(url)
+    except Exception as e:
+        print(f"    ! crawl error: {e}")
+        return None
+    if not page:
+        print("    ! empty page, skipping")
+        return None
+
+    # 2. AI
+    try:
+        ai = agnes.generate_mod_content(page)
+    except Exception as e:
+        print(f"    ! AI error: {e}")
+        ai = agnes._fallback(page)
+        ai["_ai_used"] = False
+
+    # 3. Build record (matches website's Mod type)
+    record = mods.build_mod_record(page, ai)
+
+    # 4. Mirror assets to HuggingFace (best-effort, non-fatal)
+    if config.HF_TOKEN and uploader.HF_AVAILABLE:
+        print("    → mirroring assets to HuggingFace…")
+        try:
+            record = uploader.process_mod_assets(record)
+        except Exception as e:
+            print(f"    ! asset mirror failed: {e}")
+    else:
+        print("    ~ HuggingFace not configured — keeping MCPEDL URLs")
+
+    ai_used = "yes" if ai.get("_ai_used") else "no"
+    print(f"    ✓ queued «{record.get('nameFa')}» (AI={ai_used})")
+    return record
 
 
+# ---------------------------------------------------------------------------
+# Merge logic (idempotent — existing mods with same id are updated)
+# ---------------------------------------------------------------------------
 def merge_new_mods(existing: list, new_mods: list) -> tuple[list, int, int]:
-    """Merge new mods into existing list, return (merged, added, updated)."""
     by_id = {str(m.get("id") or m.get("slug") or ""): m for m in existing}
     added = 0
     updated = 0
@@ -89,7 +212,13 @@ def merge_new_mods(existing: list, new_mods: list) -> tuple[list, int, int]:
         if not mid:
             continue
         if mid in by_id:
-            by_id[mid].update(mod)
+            # Update in place — preserve any manual flags (featured/isNew)
+            # the admin set, but override content fields.
+            old = by_id[mid]
+            for k, v in mod.items():
+                if k in ("featured", "isNew"):
+                    continue  # don't auto-flip manual flags
+                old[k] = v
             updated += 1
         else:
             by_id[mid] = mod
@@ -97,153 +226,88 @@ def merge_new_mods(existing: list, new_mods: list) -> tuple[list, int, int]:
     return list(by_id.values()), added, updated
 
 
-async def process_one(entry: dict) -> dict | None:
-    """Process a single URL entry — fetch metadata + AI-generate Persian content.
-
-    NOTE: This is a simplified version. For full pipeline with file crawling,
-    use the admin desktop app's crawler module which is more complete.
-    """
-    try:
-        from ai_writer import generate_persian_content
-    except ImportError as e:
-        print(f"\u274c  Cannot import ai_writer: {e}")
-        return None
-
-    slug = entry["slug"]
-    url = entry["url"]
-    print(f"\n\U0001f3af  Processing: {slug}")
-
-    # Stage 1: build a minimal page_data stub from the URL alone
-    # (In production, the admin crawler would have populated real page data;
-    #  CI mode is a no-op placeholder for URL discovery — actual crawling
-    #  happens through the admin desktop app.)
-    page_data = {
-        "title": slug.replace("-", " ").title(),
-        "tagline": "",
-        "author": "",
-        "version": "",
-        "tags": [],
-        "description": "",
-        "full_text": "",
-        "url": url,
-    }
-
-    # Stage 2: generate Persian content via LM Studio
-    result = generate_persian_content(page_data)
-    if not result:
-        print(f"\u26a0\ufe0f  AI generation failed for {slug}, skipping")
-        return None
-
-    # Stage 3: build a mod record that matches the website's Mod type
-    cat_id = result.get("category", "gameplay") or "gameplay"
-    cat_name_map = {
-        "gameplay": "\u06af\u06cc\u0645\u200c\u067e\u0644\u06cc",
-        "graphics": "\u06af\u0631\u0627\u0641\u06cc\u06a9",
-        "maps": "\u0645\u067e",
-        "mobs": "\u0645\u0648\u062c\u0648\u062f\u0627\u062a",
-        "decoration": "\u062f\u06a9\u0648\u0631\u0627\u0633\u06cc\u0648\u0646",
-        "world": "\u062f\u0646\u06cc\u0627",
-        "utility": "\u0627\u0628\u0632\u0627\u0631",
-    }
-    keywords = result.get("keywords", "")
-    if isinstance(keywords, list):
-        keywords = " ".join(str(k) for k in keywords)
-
-    return {
-        "id": slug,
-        "name": page_data["title"],
-        "nameFa": result.get("nameFa") or page_data["title"],
-        "keywords": keywords,
-        "category": cat_id,
-        "catName": cat_name_map.get(cat_id, "\u0645\u0627\u062f"),
-        "tagline": result.get("tagline", ""),
-        "desc": result.get("desc", ""),
-        "icon": "\U0001f3ae",
-        "version": "",
-        "size": "",
-        "downloads": "0",
-        "downloadUrl": "",
-        "cover": "",
-        "gallery": [],
-        "featured": False,
-        "isNew": True,
-        "author": "",
-        "updated": "",
-        "source": url,
-    }
-
-
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
 async def main(args):
-    urls = read_urls(args.urls_file, limit=args.auto)
-    if not urls:
-        print(f"\u274c  No URLs in {args.urls_file}")
+    print("🚀  MineBed pipeline runner")
+    print(f"    GITHUB_USER/REPO: {config.GITHUB_USER}/{config.GITHUB_REPO}")
+    print(f"    GITHUB_BRANCH: {config.GITHUB_BRANCH}")
+    print(f"    AGNES_MODEL: {config.AGNES_MODEL}")
+    print(f"    HF_REPO_ID: {config.HF_REPO_ID}")
+    print(f"    Auto-limit: {args.auto if args.auto else 'no limit'}")
+
+    # 1. Fetch existing mods.json from GitHub
+    print("\n📥  Fetching existing mods.json from GitHub…")
+    existing, sha = fetch_remote_mods()
+    if existing is None:
+        print("❌  Cannot continue without mods.json baseline")
         return 1
+    print(f"    Remote mods.json: {len(existing)} mods (sha={sha[:7] if sha else 'new'})")
 
-    print(f"\U0001f3af  Processing {len(urls)} mods from {args.urls_file}")
+    # 2. Discover top-N MCPEDL URLs
+    print(f"\n🔍  Discovering top {args.auto} MCPEDL mods…")
+    try:
+        urls = crawler.fetch_top_mods(count=args.auto)
+    except Exception as e:
+        print(f"❌  Discovery failed: {e}")
+        traceback.print_exc()
+        return 1
+    if not urls:
+        print("    ⚠️  No URLs discovered — aborting")
+        return 0
 
-    # Fetch existing mods.json from GitHub
-    remote_data, sha = fetch_remote_mods_json()
-    existing_mods = []
-    if remote_data and isinstance(remote_data, dict):
-        existing_mods = remote_data.get("mods", [])
-    elif remote_data and isinstance(remote_data, list):
-        existing_mods = remote_data
+    # Dedup
+    existing_ids = {str(m.get("id") or m.get("slug") or "") for m in existing}
+    new_urls = [u for u in urls if crawler._slug_from_url(u) not in existing_ids]
+    skipped = len(urls) - len(new_urls)
+    print(f"    Found {len(urls)} URLs, {len(new_urls)} new, {skipped} already saved")
 
-    print(f"\U0001f4c5  Remote mods.json has {len(existing_mods)} mods")
+    if not new_urls:
+        print("\n✅  Nothing new to add — exiting")
+        return 0
 
-    # Process each URL
+    # 3. Process each URL
     new_mods = []
-    for entry in urls:
-        mod = await process_one(entry)
+    for i, url in enumerate(new_urls, 1):
+        print(f"\n[{i}/{len(new_urls)}]")
+        mod = process_one(url)
         if mod:
             new_mods.append(mod)
 
     if not new_mods:
-        print("\u26a0\ufe0f  No mods were processed successfully.")
+        print("\n⚠️  No mods were processed successfully.")
         return 0
 
-    print(f"\n\u2705  {len(new_mods)} mods ready for merge")
+    # 4. Merge
+    print(f"\n📊  Merging {len(new_mods)} new mods into existing {len(existing)}…")
+    merged, added, updated = merge_new_mods(existing, new_mods)
+    print(f"    +{added} new, ~{updated} updated → {len(merged)} total")
 
-    # Merge into existing mods
-    merged, added, updated = merge_new_mods(existing_mods, new_mods)
-    print(f"\U0001f4ca  +{added} new, ~{updated} updated")
-
-    # Auto-approve in CI mode — push back to GitHub
-    if args.auto_approve:
-        print("\U0001f916  Auto-approving all mods, pushing to GitHub...")
-        mods_payload = {"mods": merged}
-        ok, info = push_mods_json_to_github(mods_payload)
-        if ok:
-            print(f"\u2705  mods.json pushed to GitHub")
-        else:
-            print(f"\u274c  Push failed: {info}")
+    # 5. Push back to GitHub
+    if args.push:
+        print("\n📤  Pushing updated mods.json to GitHub…")
+        ok = push_mods_to_github(merged, sha=sha)
+        if not ok:
+            print("❌  Push failed — see above")
             return 1
     else:
-        print("\n\U0001f4cb  To review manually, run the admin desktop app.")
+        print("\n   --no-push: skipping push (dry run)")
 
+    print("\n✅  Done")
     return 0
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run MineBed pipeline")
-    parser.add_argument(
-        "--urls-file",
-        type=Path,
-        default=DEFAULT_URLS_FILE,
-        help="Path to URLs file (one URL per line)",
-    )
-    parser.add_argument(
-        "--auto",
-        type=int,
-        default=0,
-        help="Limit to N URLs (0 = all). CI passes --auto 5",
-    )
-    parser.add_argument(
-        "--auto-approve",
-        action="store_true",
-        default=True,
-        help="Auto-approve all crawled mods (default for CI)",
-    )
-    args = parser.parse_args()
+def parse_args():
+    p = argparse.ArgumentParser(description="MineBed pipeline runner (CI)")
+    p.add_argument("--auto", type=int, default=5,
+                   help="Limit to N URLs (default 5)")
+    p.add_argument("--push", action="store_true", default=True,
+                   help="Push updated mods.json to GitHub (default: true)")
+    p.add_argument("--no-push", dest="push", action="store_false",
+                   help="Don't push — dry run only")
+    return p.parse_args()
 
-    sys.exit(asyncio.run(main(args)))
+
+if __name__ == "__main__":
+    sys.exit(asyncio.run(main(parse_args())))

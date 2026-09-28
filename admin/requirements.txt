@@ -1,7 +1,21 @@
-pywebview>=5.0
+# MineBed Admin — Python dependencies
+#
+# Two install profiles:
+#   • Desktop (local pywebview app):  pip install -r requirements.txt
+#   • CI pipeline only:               pip install -r requirements.txt --no-deps \
+#                                       --no-build-isolation && \
+#                                       pip install requests openai huggingface_hub \
+#                                         python-dotenv fastapi uvicorn
+
+# ─── Core backend ─────────────────────────────────────────
 fastapi>=0.115
 uvicorn>=0.34
-requests>=2.31
+requests>=2.31.0
 openai>=1.0
 python-dotenv>=1.0
 huggingface_hub>=0.20.0
+
+# ─── Desktop only (pywebview window) ─────────────────────
+# CI / headless servers can skip these by installing without
+# the ``pywebview`` extra (see top of file).
+pywebview>=5.0

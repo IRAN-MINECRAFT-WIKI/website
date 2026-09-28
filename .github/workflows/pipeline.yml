@@ -2,8 +2,13 @@ name: Daily Auto-Fetch Mods
 
 on:
   schedule:
+    # 02:00 UTC every day (~05:30 Iran Standard Time)
     - cron: '0 2 * * *'
   workflow_dispatch:
+
+# Allow the workflow to push back to the repo
+permissions:
+  contents: write
 
 jobs:
   fetch:
@@ -12,30 +17,43 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
-          pip install -r website/pipeline/requirements.txt
+          python -m pip install --upgrade pip
+          pip install \
+            requests \
+            openai \
+            python-dotenv \
+            huggingface_hub \
+            fastapi \
+            uvicorn
 
-      - name: Fetch 5 new mods
+      - name: Run daily pipeline (crawl + AI + HuggingFace + GitHub push)
         env:
+          # Secret tokens (do not echo)
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AGNES_BASE_URL: ${{ secrets.AGNES_BASE_URL }}
+          AGNES_MODEL: ${{ secrets.AGNES_MODEL }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }} # use a PAT, NOT the auto GITHUB_TOKEN
+          GITHUB_USER: IRAN-MINECRAFT-WIKI
+          GITHUB_REPO: website
+          GITHUB_BRANCH: main
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HF_REPO_ID: ${{ secrets.HF_REPO_ID }}
-          LM_STUDIO_URL: ${{ secrets.LM_STUDIO_URL }}
-          MODEL_NAME: ${{ secrets.MODEL_NAME }}
+          ASTRO_DATA_PATH: website/src/data
+          MODS_JSON_PATH: website/src/data/mods.json
         run: |
-          python website/pipeline/run.py --auto 5 --auto-approve
+          PYTHONPATH=admin python website/pipeline/run.py --auto 5
 
-      - name: Commit changes
-        run: |
-          git config user.name "MineBed Bot"
-          git config user.email "bot@minebed.users.noreply.github.com"
-          git add website/src/data/mods.json
-          git diff --staged --quiet || git commit -m "chore: daily mod sync"
-          git push
+      # NOTE: the pipeline pushes mods.json to GitHub directly via the
+      # Contents API (see push_mods_to_github in pipeline/run.py), so
+      # no separate git commit / push step is needed.  This works
+      # around the GITHUB_TOKEN auto-token's restrictions on pushing
+      # to the default branch by requiring GH_PAT (a real PAT) instead.

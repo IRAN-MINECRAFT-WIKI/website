@@ -403,15 +403,31 @@
     if (mod.aiGenerated) body.appendChild(el("span", { class: "tag-ai", text: "AI" }));
 
     const desc = el("div", { class: "desc" });
-    desc.innerHTML = (mod.description || mod.desc || "").slice(0, 400);
+    // Render the description text safely.  The backend returns plain
+    // text (we don't trust AI output enough to inject HTML), so we use
+    // textContent + CSS ``white-space: pre-wrap`` to preserve newlines.
+    desc.textContent = (mod.description || mod.desc || "").slice(0, 400);
+    desc.style.whiteSpace = "pre-wrap";
+    desc.style.wordBreak = "break-word";
     body.appendChild(desc);
 
-    // Meta chips
+    // Meta chips — keywords can be a space-separated string (website's
+    // Mod shape) OR an array (legacy admin form).  Normalize both.
+    const keywordsArr = (() => {
+      const kw = mod.keywords;
+      if (Array.isArray(kw)) return kw;
+      if (typeof kw === "string") return kw.split(/\s+/).filter(Boolean);
+      return [];
+    })();
+
     const chips = el("div", { class: "chips" });
-    if (mod.category) chips.appendChild(el("span", { class: "chip", text: mod.category }));
+    if (mod.catName || mod.category) {
+      chips.appendChild(el("span", { class: "chip",
+        text: mod.catName || mod.category }));
+    }
     if (mod.version) chips.appendChild(el("span", { class: "chip", text: "v" + mod.version }));
     if (mod.author) chips.appendChild(el("span", { class: "chip", text: mod.author }));
-    (mod.keywords || []).slice(0, 4).forEach(k =>
+    keywordsArr.slice(0, 4).forEach(k =>
       chips.appendChild(el("span", { class: "chip", text: k })));
     body.appendChild(chips);
 
@@ -458,42 +474,98 @@
       const form = el("div", {});
       const fields = [
         ["nameFa", "نام فارسی", "text"],
+        ["name", "نام انگلیسی", "text"],
         ["tagline", "تگ‌لاین", "text"],
-        ["category", "دسته‌بندی", "text"],
-        ["version", "نسخه", "text"],
+        ["category", "دسته (gameplay/graphics/maps/mobs/decoration/world/utility)", "text"],
+        ["version", "نسخه ماینکرفت", "text"],
         ["author", "سازنده", "text"],
-        ["cover", "آدرس کاور", "url"],
-        ["download", "دستورالعمل نصب", "text"],
+        ["cover", "آدرس کاور (URL)", "url"],
+        ["downloadUrl", "آدرس دانلود (URL)", "url"],
+        ["size", "حجم فایل", "text"],
+        ["updated", "تاریخ آپدیت (YYYY-MM-DD)", "text"],
       ];
       const inputs = {};
       for (const [key, label, type] of fields) {
-        const i = el("input", { type, value: mod[key] || "" });
+        const i = el("input", { type, value: mod[key] || "",
+          style: type === "url" || key === "version" || key === "updated"
+            ? "direction:ltr; text-align:left;" : "" });
         inputs[key] = i;
         form.appendChild(el("label", { class: "field" },
           el("span", { text: label }), i));
       }
-      const descTa = el("textarea", {});
+
+      // Category dropdown (better UX than free-text)
+      const catSelect = el("select", {});
+      const catOptions = [
+        ["gameplay", "گیم‌پلی"],
+        ["graphics", "گرافیک"],
+        ["maps", "مپ"],
+        ["mobs", "موجودات"],
+        ["decoration", "دکوراسیون"],
+        ["world", "دنیا"],
+        ["utility", "ابزار"],
+      ];
+      for (const [id, name] of catOptions) {
+        const o = el("option", { value: id, text: `${name} (${id})` });
+        if (mod.category === id) o.setAttribute("selected", "");
+        catSelect.appendChild(o);
+      }
+      // Replace the free-text category input with the dropdown
+      inputs.category.replaceWith(catSelect);
+      inputs.category = catSelect;
+
+      const descTa = el("textarea", { rows: "6" });
       descTa.value = mod.description || mod.desc || "";
       form.appendChild(el("label", { class: "field" },
         el("span", { text: "توضیحات (مارک‌داون)" }), descTa));
 
-      const kwInput = el("input", { type: "text",
-        value: (mod.keywords || []).join(", ") });
+      // keywords is a space-separated string per the website's Mod
+      // type — show it as such (not comma-separated).
+      const kwStr = Array.isArray(mod.keywords)
+        ? mod.keywords.join(" ")
+        : (mod.keywords || "");
+      const kwInput = el("input", { type: "text", value: kwStr,
+        style: "direction:ltr; text-align:left;" });
       form.appendChild(el("label", { class: "field" },
-        el("span", { text: "کلمات کلیدی (با ویرگول جدا کنید)" }), kwInput));
+        el("span", { text: "کلمات کلیدی (با فاصله جدا کنید — مثل نام فارسی سایت)" }),
+        kwInput));
+
+      // Featured / New flags
+      const flagsRow = el("div", { class: "row",
+        style: "gap:16px; margin-top:8px;" });
+      const featCb = el("input", { type: "checkbox" });
+      if (mod.featured) featCb.setAttribute("checked", "");
+      const newCb = el("input", { type: "checkbox" });
+      if (mod.isNew) newCb.setAttribute("checked", "");
+      flagsRow.appendChild(el("label", { class: "field",
+        style: "flex-direction:row; align-items:center; gap:6px; margin:0;" },
+        featCb, el("span", { text: "ویژه (featured)" })));
+      flagsRow.appendChild(el("label", { class: "field",
+        style: "flex-direction:row; align-items:center; gap:6px; margin:0;" },
+        newCb, el("span", { text: "جدید (isNew)" })));
+      form.appendChild(flagsRow);
 
       body.appendChild(form);
 
-      const actions = el("div", { class: "row", style: "justify-content:flex-end; margin-top:16px;" });
-      actions.appendChild(el("button", { class: "btn btn-ghost", text: "انصراف", onclick: closeModal }));
-      actions.appendChild(el("button", { class: "btn btn-primary", text: "ذخیره و تأیید", onclick: async () => {
-        const updated = Object.assign({}, mod);
-        for (const [k] of fields) updated[k] = inputs[k].value.trim();
-        updated.description = descTa.value;
-        updated.keywords = kwInput.value.split(",").map(s => s.trim()).filter(Boolean);
-        closeModal();
-        await approveMod(updated);
-      }}));
+      const actions = el("div", { class: "row",
+        style: "justify-content:flex-end; margin-top:16px;" });
+      actions.appendChild(el("button", { class: "btn btn-ghost",
+        text: "انصراف", onclick: closeModal }));
+      actions.appendChild(el("button", { class: "btn btn-primary",
+        text: "💾 ذخیره و ارسال",
+        onclick: async () => {
+          const updated = Object.assign({}, mod);
+          for (const [k] of fields) {
+            updated[k] = inputs[k].value.trim();
+          }
+          updated.description = descTa.value;
+          updated.desc = descTa.value;  // keep both — reviewCard reads desc
+          updated.keywords = kwInput.value.trim();
+          updated.featured = featCb.checked;
+          updated.isNew = newCb.checked;
+          closeModal();
+          await approveMod(updated);
+        }}));
       body.appendChild(actions);
     });
   }

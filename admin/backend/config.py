@@ -74,6 +74,7 @@ GITHUB_BRANCH: str = _get("GITHUB_BRANCH", "main")
 # Hugging Face
 # ---------------------------------------------------------------------------
 HF_TOKEN: str = _get("HF_TOKEN")
+HF_REPO_ID: str = _get("HF_REPO_ID", "Habib91700/minebed-mods_")
 
 # ---------------------------------------------------------------------------
 # Data paths
@@ -88,6 +89,21 @@ def _resolve(p: str) -> Path:
 
 ASTRO_DATA_PATH: Path = _resolve(_get("ASTRO_DATA_PATH", "website/src/data"))
 MODS_JSON_PATH: Path = _resolve(_get("MODS_JSON_PATH", "website/src/data/mods.json"))
+
+# ---------------------------------------------------------------------------
+# Admin auth
+# ---------------------------------------------------------------------------
+# Two env names are accepted for backward compatibility:
+#   - ADMIN_SECRET  (the name used by the user's .env)
+#   - ADMIN_API_KEY (the name originally used in this codebase)
+# We prefer ADMIN_SECRET, but fall back to ADMIN_API_KEY.
+ADMIN_SECRET: str = _get("ADMIN_SECRET") or _get("ADMIN_API_KEY")
+
+
+def _resolve_admin_token() -> str:
+    """Return whichever admin secret env var is set (preferring ADMIN_SECRET)."""
+    return _get("ADMIN_SECRET") or _get("ADMIN_API_KEY")
+
 
 # ---------------------------------------------------------------------------
 # Server
@@ -117,6 +133,8 @@ def as_dict() -> dict:
         "GITHUB_REPO": GITHUB_REPO,
         "GITHUB_BRANCH": GITHUB_BRANCH,
         "HF_TOKEN": HF_TOKEN,
+        "HF_REPO_ID": HF_REPO_ID,
+        "ADMIN_SECRET": _resolve_admin_token(),
         "ASTRO_DATA_PATH": str(ASTRO_DATA_PATH),
         "MODS_JSON_PATH": str(MODS_JSON_PATH),
         "HOST": HOST,
@@ -152,6 +170,8 @@ def update_from_dict(values: dict) -> None:
     g["GITHUB_REPO"] = _get("GITHUB_REPO")
     g["GITHUB_BRANCH"] = _get("GITHUB_BRANCH")
     g["HF_TOKEN"] = _get("HF_TOKEN")
+    g["HF_REPO_ID"] = _get("HF_REPO_ID", "Habib91700/minebed-mods_")
+    g["ADMIN_SECRET"] = _resolve_admin_token()
     g["ASTRO_DATA_PATH"] = _resolve(_get("ASTRO_DATA_PATH", "website/src/data"))
     g["MODS_JSON_PATH"] = _resolve(_get("MODS_JSON_PATH", "website/src/data/mods.json"))
 
@@ -177,7 +197,8 @@ def update_from_dict(values: dict) -> None:
     known_keys = [
         "AGNES_API_KEY", "AGNES_BASE_URL", "AGNES_MODEL",
         "GITHUB_TOKEN", "GITHUB_USER", "GITHUB_REPO", "GITHUB_BRANCH",
-        "HF_TOKEN", "ASTRO_DATA_PATH", "MODS_JSON_PATH",
+        "HF_TOKEN", "HF_REPO_ID", "ADMIN_SECRET",
+        "ASTRO_DATA_PATH", "MODS_JSON_PATH",
         "HOST", "PORT",
     ]
 

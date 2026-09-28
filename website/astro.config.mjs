@@ -25,9 +25,13 @@ export default defineConfig({
         defaultLocale: 'fa',
         locales: { fa: 'fa-IR', en: 'en-US' },
       },
-      changefreq: 'daily',
+      changefreq: 'weekly',
       priority: 0.8,
-      lastmod: new Date(),
+      // NOTE: do NOT set a global ``lastmod: new Date()`` — that would
+      // tell Google every URL "changed today", which dilutes the value
+      // of the lastmod signal.  When omitted, the sitemap integration
+      // falls back to per-URL lastmod from the build's last-modified
+      // time of each page's source file, which is what we want.
     }),
   ],
   image: {

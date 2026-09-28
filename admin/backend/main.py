@@ -25,7 +25,7 @@ from fastapi.responses import (
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import config, crawler, agnes, github_service, mods, auth
+from . import config, crawler, agnes, github_service, mods, auth, uploader
 
 
 # ---------------------------------------------------------------------------
@@ -136,7 +136,16 @@ STATE = AutofetchState()
 # Autofetch worker (background thread)
 # ---------------------------------------------------------------------------
 def _autofetch_worker(state: AutofetchState, count: int) -> None:
-    """Runs in a daemon thread; mutates ``state`` as it progresses."""
+    """Runs in a daemon thread; mutates ``state`` as it progresses.
+
+    For each discovered MCPEDL URL the worker:
+      1. Crawls the mod page (JSON API + HTML enrichment)
+      2. Generates Persian content via Agnes AI
+      3. Builds a mod record (in the website's Mod shape)
+      4. Mirrors cover/gallery/mod-file to HuggingFace (so Iranian users
+         aren't dependent on MCPEDL's CDN)
+      5. Enqueues the enriched record for review
+    """
     try:
         state.append_log("init", f"Auto-Fetch started for {count} mods")
         # 1. Discover URLs
@@ -173,6 +182,23 @@ def _autofetch_worker(state: AutofetchState, count: int) -> None:
                 state.append_log("ai", f"  → generating Persian content …")
                 ai = agnes.generate_mod_content(page, on_progress=progress)
                 record = mods.build_mod_record(page, ai)
+
+                # Mirror assets to HuggingFace (non-fatal on failure)
+                if config.HF_TOKEN and uploader.HF_AVAILABLE:
+                    state.append_log("upload",
+                                     f"  → mirroring assets to HuggingFace …")
+                    try:
+                        record = uploader.process_mod_assets(
+                            record, on_progress=progress,
+                        )
+                    except Exception as ue:
+                        state.append_log("upload",
+                                         f"  ! asset mirror failed: {ue}")
+                else:
+                    state.append_log("upload",
+                                     "  ~ HuggingFace not configured — "
+                                     "keeping MCPEDL URLs")
+
                 state.enqueue(record)
                 state.append_log("ai",
                                  f"  ✓ queued «{record.get('nameFa')}» "
@@ -256,6 +282,8 @@ class SettingsUpdate(BaseModel):
     GITHUB_REPO: Optional[str] = None
     GITHUB_BRANCH: Optional[str] = None
     HF_TOKEN: Optional[str] = None
+    HF_REPO_ID: Optional[str] = None
+    ADMIN_SECRET: Optional[str] = None
     ASTRO_DATA_PATH: Optional[str] = None
     MODS_JSON_PATH: Optional[str] = None
 
@@ -335,19 +363,39 @@ def dashboard() -> dict:
     agnes_status = agnes.test_connection()
     gh_status = github_service.test_connection()
 
-    # Seeds: if a seeds.json exists in the same dir, count it
+    # Seeds: if a seeds.json exists in the same dir, count it.
+    # The Astro website stores seeds as ``{"seeds": [...]}`` (same shape
+    # as mods.json), so we have to unwrap the wrapper before counting.
     seeds_path = config.MODS_JSON_PATH.parent / "seeds.json"
     seeds_count = 0
     if seeds_path.exists():
         try:
-            seeds_count = len(json.loads(seeds_path.read_text("utf-8")))
+            raw = json.loads(seeds_path.read_text("utf-8"))
+            if isinstance(raw, dict):
+                seeds_count = len(raw.get("seeds") or raw.get("data") or [])
+            elif isinstance(raw, list):
+                seeds_count = len(raw)
         except Exception:
             seeds_count = 0
+
+    # Versions count (same wrapper pattern)
+    versions_path = config.MODS_JSON_PATH.parent / "versions.json"
+    versions_count = 0
+    if versions_path.exists():
+        try:
+            raw = json.loads(versions_path.read_text("utf-8"))
+            if isinstance(raw, dict):
+                versions_count = len(raw.get("versions") or raw.get("data") or [])
+            elif isinstance(raw, list):
+                versions_count = len(raw)
+        except Exception:
+            versions_count = 0
 
     return {
         "mods_count": len(all_mods),
         "ai_mods_count": ai_count,
         "seeds_count": seeds_count,
+        "versions_count": versions_count,
         "services": {
             "agnes": {
                 "ok": agnes_status.get("ok", False),
@@ -356,6 +404,11 @@ def dashboard() -> dict:
             "github": {
                 "ok": gh_status.get("ok", False),
                 "detail": gh_status,
+            },
+            "huggingface": {
+                "ok": bool(config.HF_TOKEN),
+                "detail": {"configured": bool(config.HF_TOKEN),
+                           "repo": os.getenv("HF_REPO_ID", "")},
             },
         },
         "data_path": str(config.MODS_JSON_PATH),
@@ -467,6 +520,8 @@ def settings_get() -> dict:
     masked["AGNES_API_KEY"] = config.mask(cfg["AGNES_API_KEY"])
     masked["GITHUB_TOKEN"] = config.mask(cfg["GITHUB_TOKEN"])
     masked["HF_TOKEN"] = config.mask(cfg["HF_TOKEN"])
+    masked["ADMIN_SECRET"] = config.mask(cfg["ADMIN_SECRET"])
+    masked["HF_REPO_ID"] = cfg["HF_REPO_ID"] if "HF_REPO_ID" in cfg else os.getenv("HF_REPO_ID", "")
     return {
         "settings": masked,
         "env_path": str(config.ENV_PATH),

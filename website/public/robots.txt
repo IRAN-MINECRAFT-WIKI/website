@@ -1,11 +1,25 @@
+# ============================================================
+# MineBed Farsi — robots.txt
+# ============================================================
+# Live site: https://iran-minecraft-wiki.github.io/website/
+# Sitemap: same URL + sitemap-index.xml
+
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
 Disallow: /pagefind/
 
-# Sitemap
-Sitemap: https://iran-minecraft-wiki.github.io/website/sitemap-index.xml
+# Allow Google's rich-results crawler to fetch everything
+User-agent: Googlebot
+Allow: /
 
-# OpenSearch description
-# (linked from <link rel="search"> in HTML head instead)
+# Allow Bing + Yandex (Yandex is widely used in Iran / CIS)
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+# Sitemap — note the /website/ base path (GitHub project page)
+Sitemap: https://iran-minecraft-wiki.github.io/website/sitemap-index.xml
