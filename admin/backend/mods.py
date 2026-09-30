@@ -131,6 +131,88 @@ def export_json() -> str:
     return json.dumps({"mods": _load()}, ensure_ascii=False, indent=2)
 
 
+# ---------------------------------------------------------------------------
+# Canonical category map (cat_id -> Persian catName)
+# ---------------------------------------------------------------------------
+CAT_NAME_MAP = {
+    "gameplay": "گیم\u200cپلی",
+    "graphics": "گرافیک",
+    "maps": "مپ",
+    "mobs": "موجودات",
+    "decoration": "دکوراسیون",
+    "world": "دنیا",
+    "utility": "ابزار",
+}
+
+
+def normalize_mod(mod: dict) -> dict:
+    """Coerce a mod record to the website's canonical ``Mod`` shape.
+
+    This is the safety net for the approve endpoint: it prevents
+    accidentally storing a mod with ``keywords`` as a list (the website
+    expects a space-separated string), ``catName`` that doesn't match
+    ``category``, or missing required fields.
+
+    The original ``mod`` is not mutated.
+    """
+    out = dict(mod)  # shallow copy
+
+    # id / slug — ensure ``id`` is always set
+    mid = str(out.get("id") or out.get("slug") or "").strip()
+    if not mid:
+        mid = (str(out.get("url", "")).rsplit("/", 1)[-1]
+               or out.get("name", "").lower().replace(" ", "-")
+               or f"mod-{int(time.time())}")
+    out["id"] = mid
+    # keep slug in sync if it was already set, else copy from id
+    if not out.get("slug"):
+        out["slug"] = mid
+
+    # keywords — must be a space-separated string per the website's Mod type
+    kw = out.get("keywords")
+    if isinstance(kw, list):
+        out["keywords"] = " ".join(str(k) for k in kw if k).strip()
+    elif kw is None:
+        out["keywords"] = ""
+    else:
+        out["keywords"] = str(kw).strip()
+
+    # category — must be a known cat ID; fall back to "gameplay"
+    cat = str(out.get("category") or "").strip().lower()
+    if cat not in CAT_NAME_MAP:
+        cat = "gameplay"
+    out["category"] = cat
+    # catName derived from cat ID (always — never trust AI's free text)
+    out["catName"] = CAT_NAME_MAP[cat]
+
+    # Required string fields — never empty (the website's Mod type requires them)
+    out["name"] = str(out.get("name") or out.get("nameFa") or mid).strip() or mid
+    out["nameFa"] = str(out.get("nameFa") or out.get("name") or mid).strip() or mid
+    out["tagline"] = str(out.get("tagline") or "").strip()
+    out["desc"] = str(out.get("desc") or out.get("description") or "").strip()
+    out["downloadUrl"] = str(out.get("downloadUrl") or "").strip()
+
+    # Optional fields — sensible defaults
+    out.setdefault("icon", "🎮")
+    out.setdefault("version", "")
+    out.setdefault("size", "")
+    out.setdefault("downloads", "0")
+    out.setdefault("cover", None)
+    out.setdefault("gallery", [])
+    out.setdefault("featured", False)
+    out.setdefault("isNew", True)
+    out.setdefault("author", "")
+    out.setdefault("updated", "")
+    out.setdefault("source", "")
+    out.setdefault("aiGenerated", False)
+
+    # If we created this mod record just now, stamp its creation time
+    if not out.get("createdAt"):
+        out["createdAt"] = int(time.time())
+
+    return out
+
+
 def build_mod_record(crawled: dict, ai: dict) -> dict:
     """
     Combine crawled page data + Agnes AI content into a single mod record
@@ -148,18 +230,9 @@ def build_mod_record(crawled: dict, ai: dict) -> dict:
     # The AI prompt asks for one of the seven canonical IDs, but be
     # defensive: if the model returns a Persian name or an unknown
     # string, fall back to gameplay (the largest category).
-    cat_name_map = {
-        "gameplay": "گیم\u200cپلی",
-        "graphics": "گرافیک",
-        "maps": "مپ",
-        "mobs": "موجودات",
-        "decoration": "دکوراسیون",
-        "world": "دنیا",
-        "utility": "ابزار",
-    }
     raw_cat = (ai.get("category") or "").strip().lower()
-    cat_id = raw_cat if raw_cat in cat_name_map else "gameplay"
-    cat_name = cat_name_map[cat_id]
+    cat_id = raw_cat if raw_cat in CAT_NAME_MAP else "gameplay"
+    cat_name = CAT_NAME_MAP[cat_id]
 
     # Keywords — must be a space-separated string, not a list
     keywords = ai.get("keywords") or ""
@@ -199,6 +272,12 @@ def build_mod_record(crawled: dict, ai: dict) -> dict:
             except Exception:
                 size = str(first_size)
 
+    # Real download count from the crawler (was hardcoded "0" before)
+    try:
+        dl_count = int(crawled.get("downloadCount") or 0)
+    except (TypeError, ValueError):
+        dl_count = 0
+
     return {
         "id": slug,
         "name": crawled.get("title") or ai.get("nameFa") or slug,
@@ -211,7 +290,7 @@ def build_mod_record(crawled: dict, ai: dict) -> dict:
         "icon": "🎮",
         "version": crawled.get("version") or "",
         "size": size,
-        "downloads": "0",
+        "downloads": str(dl_count) if dl_count else "0",
         "downloadUrl": download_url,
         "cover": crawled.get("cover"),
         "gallery": crawled.get("gallery") or [],

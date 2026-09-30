@@ -1,7 +1,25 @@
 /* =========================================================================
-   MineBed Admin — main front-end logic.
-   Hash-based router (#/dashboard, #/mods, ...) + small API client.
-   All page renderers use direct DOM manipulation (createElement / textContent).
+   MineBed Admin — main front-end logic (v1.1.0 — fully audited & expanded).
+
+   Highlights vs v1.0.0:
+     • Auth flow: probe /api/auth/status; if auth_enabled, show login screen
+       and store the admin token in localStorage. Every API call attaches
+       ``Authorization: Bearer <token>`` automatically.
+     • Settings page no longer overwrites secrets with masked placeholders
+       (the backend skips any submitted value that contains ``*``).
+     • Mods list: keywords search treats the field as a space-separated
+       string (the website's Mod type), not as an array.
+     • Mods list: inline cell editing (click-to-edit on name, tagline,
+       version, size, author) with a single PATCH /api/mods/{id}/field.
+     • Mods list: bulk operations (select multiple rows → feature /
+       unfeature / set-new / unset-new / set-category / bulk delete).
+     • New Stats page with breakdowns by category, version, and service
+       health (downloads count, AI usage over time, etc.).
+     • New Logs page: tails admin server log + autofetch log in real time
+       (polling every 2s; also supports an SSE stream endpoint).
+     • Auto-Fetch poll loop: removed broken dedup logic; properly cleans
+       up its interval on page change.
+     • Server-health loop: now properly stoppable on logout.
    ========================================================================= */
 (function () {
   "use strict";
@@ -29,7 +47,8 @@
     }
     for (const c of children) {
       if (c == null || c === false) continue;
-      if (typeof c === "string" || typeof c === "number") node.appendChild(document.createTextNode(String(c)));
+      if (typeof c === "string" || typeof c === "number")
+        node.appendChild(document.createTextNode(String(c)));
       else node.appendChild(c);
     }
     return node;
@@ -39,8 +58,9 @@
   function fmtTime(iso) {
     if (!iso) return "—";
     const d = new Date(iso);
-    if (isNaN(d)) return iso;
-    return d.toLocaleTimeString("fa-IR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    if (isNaN(d)) return String(iso);
+    return d.toLocaleTimeString("fa-IR",
+      { hour: "2-digit", minute: "2-digit", second: "2-digit" });
   }
 
   function escapeHtml(s) {
@@ -50,40 +70,69 @@
   }
 
   // ------------------------------------------------------------------
-  // API client
+  // Auth state
   // ------------------------------------------------------------------
+  const TOKEN_KEY = "minebed_admin_token";
+  function getToken() { return localStorage.getItem(TOKEN_KEY) || ""; }
+  function setToken(t) {
+    if (t) localStorage.setItem(TOKEN_KEY, t);
+    else localStorage.removeItem(TOKEN_KEY);
+  }
+
+  function authHeader() {
+    const t = getToken();
+    return t ? { "Authorization": "Bearer " + t } : {};
+  }
+
+  // ------------------------------------------------------------------
+  // API client (now attaches the auth header to every call)
+  // ------------------------------------------------------------------
+  async function apiFetch(path, opts) {
+    opts = opts || {};
+    const headers = Object.assign(
+      { "Content-Type": "application/json" },
+      authHeader(),
+      opts.headers || {},
+    );
+    const r = await fetch(path, Object.assign({}, opts, { headers }));
+    const text = await r.text();
+    let data; try { data = JSON.parse(text); } catch { data = { raw: text }; }
+    if (r.status === 401) {
+      // Token bad/expired — clear and force re-login
+      setToken("");
+      showLogin();
+      throw new Error((data && data.error) || "Unauthorized — لطفاً دوباره وارد شوید");
+    }
+    if (!r.ok) {
+      const msg = (data && (data.error || data.detail || data.raw))
+        || `${opts.method || "GET"} ${path} → ${r.status}`;
+      throw new Error(msg);
+    }
+    return data;
+  }
+
   const API = {
-    async get(path) {
-      const r = await fetch(path);
-      if (!r.ok) throw new Error(`GET ${path} → ${r.status}`);
-      return r.json();
-    },
-    async post(path, body) {
-      const r = await fetch(path, {
+    get(path) { return apiFetch(path, { method: "GET" }); },
+    post(path, body) {
+      return apiFetch(path, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body || {}),
       });
-      const text = await r.text();
-      let data; try { data = JSON.parse(text); } catch { data = { raw: text }; }
-      if (!r.ok) throw new Error(data.error || data.raw || `POST ${path} → ${r.status}`);
-      return data;
     },
-    async put(path, body) {
-      const r = await fetch(path, {
+    put(path, body) {
+      return apiFetch(path, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body || {}),
       });
-      const text = await r.text();
-      let data; try { data = JSON.parse(text); } catch { data = { raw: text }; }
-      if (!r.ok) throw new Error(data.error || data.raw || `PUT ${path} → ${r.status}`);
-      return data;
     },
-    async del(path) {
-      const r = await fetch(path, { method: "DELETE" });
-      if (!r.ok) throw new Error(`DELETE ${path} → ${r.status}`);
-      return r.json().catch(() => ({ ok: true }));
+    patch(path, body) {
+      return apiFetch(path, {
+        method: "PATCH",
+        body: JSON.stringify(body || {}),
+      });
+    },
+    del(path) {
+      return apiFetch(path, { method: "DELETE" });
     },
   };
 
@@ -111,11 +160,95 @@
     host.classList.add("hidden");
     host.setAttribute("aria-hidden", "true");
   }
-  document.addEventListener("DOMContentLoaded", () => {
-    $("#modal-close").addEventListener("click", closeModal);
-    $(".modal-backdrop").addEventListener("click", closeModal);
-    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-  });
+
+  // ------------------------------------------------------------------
+  // Login screen
+  // ------------------------------------------------------------------
+  function showApp() {
+    $("#login-screen").classList.add("hidden");
+    $("#app").classList.remove("hidden");
+  }
+  function showLogin() {
+    $("#app").classList.add("hidden");
+    $("#login-screen").classList.remove("hidden");
+    const tok = $("#login-token");
+    if (tok) tok.focus();
+  }
+
+  async function probeAuthAndBoot() {
+    let st;
+    try { st = await API.get("/api/auth/status"); }
+    catch (e) { showLogin(); return; }
+
+    if (!st.auth_enabled) {
+      // open mode — no login required
+      setToken("");
+      showApp();
+      render();
+      startServerHealthLoop();
+      return;
+    }
+
+    // Auth required — do we have a stored token?  Validate it.
+    const t = getToken();
+    if (t) {
+      try {
+        // Hit /api/dashboard to validate the token
+        await API.get("/api/dashboard");
+        showApp();
+        render();
+        startServerHealthLoop();
+        return;
+      } catch {
+        setToken("");
+        // fall through to login
+      }
+    }
+    showLogin();
+  }
+
+  function bindLoginScreen() {
+    const form = $("#login-form");
+    if (!form) return;
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const tok = $("#login-token").value.trim();
+      const errBox = $("#login-error");
+      errBox.classList.add("hidden");
+      errBox.textContent = "";
+      if (!tok) {
+        errBox.textContent = "رمز را وارد کنید";
+        errBox.classList.remove("hidden");
+        return;
+      }
+      const btn = $("#login-submit");
+      btn.disabled = true;
+      btn.textContent = "در حال ورود…";
+      try {
+        const r = await API.post("/api/auth/login", { token: tok });
+        if (!r.ok) throw new Error(r.error || "ناموفق");
+        setToken(tok);
+        showApp();
+        render();
+        startServerHealthLoop();
+      } catch (e) {
+        errBox.textContent = e.message || "خطا در ورود";
+        errBox.classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "ورود";
+      }
+    });
+
+    const logoutBtn = $("#logout-btn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        setToken("");
+        if (_healthTimer) { clearInterval(_healthTimer); _healthTimer = null; }
+        showLogin();
+      });
+    }
+  }
 
   // ------------------------------------------------------------------
   // Router
@@ -125,6 +258,8 @@
     autofetch: { title: "دریافت خودکار", render: renderAutofetch },
     crawl:     { title: "دریافت تکی", render: renderCrawl },
     mods:      { title: "مادها", render: renderMods },
+    stats:     { title: "آمار", render: renderStats },
+    logs:      { title: "لاگ‌ها", render: renderLogs },
     settings:  { title: "تنظیمات", render: renderSettings },
   };
 
@@ -144,7 +279,6 @@
     page.render(content);
   }
   window.addEventListener("hashchange", render);
-  window.addEventListener("DOMContentLoaded", render);
 
   // ------------------------------------------------------------------
   // Page: Dashboard
@@ -168,6 +302,7 @@
     stats.appendChild(statCard("مادها", data.mods_count, "مجموع مادها در سایت"));
     stats.appendChild(statCard("مادهای AI", data.ai_mods_count, "تولیدشده با Agnes AI"));
     stats.appendChild(statCard("سیدها", data.seeds_count, "فایل seeds.json"));
+    stats.appendChild(statCard("نسخه‌ها", data.versions_count, "فایل versions.json"));
     stats.appendChild(statCard("وضعیت Auto-Fetch",
       data.autofetch_running ? "در حال اجرا" : "آماده",
       data.autofetch_running ? "در حال پردازش" : "سیستم بیکار",
@@ -177,9 +312,10 @@
     // ---- Services ----
     const services = el("div", { class: "card mb-24" });
     services.appendChild(el("div", { class: "section-title" }, "وضعیت سرویس‌ها"));
-    const sGrid = el("div", { class: "grid grid-2" });
+    const sGrid = el("div", { class: "grid grid-3" });
     sGrid.appendChild(serviceBox("Agnes AI", data.services.agnes));
     sGrid.appendChild(serviceBox("GitHub", data.services.github));
+    sGrid.appendChild(serviceBox("HuggingFace", data.services.huggingface));
     services.appendChild(sGrid);
     root.appendChild(services);
 
@@ -195,6 +331,9 @@
     }));
     row.appendChild(el("a", {
       class: "btn", href: "#/mods", text: "≣ مدیریت مادها",
+    }));
+    row.appendChild(el("a", {
+      class: "btn", href: "#/stats", text: "▤ آمار",
     }));
     qa.appendChild(row);
     root.appendChild(qa);
@@ -214,13 +353,13 @@
   function statCard(label, value, sub, kind) {
     return el("div", { class: "stat" },
       el("div", { class: "stat-label", text: label }),
-      el("div", { class: "stat-value" + (kind === "ok" ? "" : ""), text: String(value) }),
+      el("div", { class: "stat-value", text: String(value) }),
       sub ? el("div", { class: "stat-sub", text: sub }) : null,
     );
   }
   function serviceBox(name, info) {
     info = info || { ok: false, detail: { error: "نامشخص" } };
-    const detail = info.detail || {};
+    const detail = info.detail || info;  // huggingface returns {configured, repo}
     const box = el("div", { class: "card" });
     box.appendChild(el("div", { class: "row between" },
       el("strong", { text: name }),
@@ -239,6 +378,9 @@
       if (d.ok) return `ریپو: ${d.repo} • شاخه: ${d.branch}`;
       return `خطا: ${(d.error || "").slice(0, 80)}`;
     }
+    if (name === "HuggingFace") {
+      return d.configured ? `ریپو: ${d.repo || "—"}` : "پیکربندی نشده";
+    }
     return JSON.stringify(d).slice(0, 120);
   }
 
@@ -246,7 +388,6 @@
   // Page: Auto-Fetch
   // ------------------------------------------------------------------
   let _afPollTimer = null;
-  let _afLastTs = null;
 
   function renderAutofetch(root) {
     // Layout: top control bar, log box, review queue
@@ -301,7 +442,6 @@
       if (!n || n < 1 || n > 50) { toast("عدد باید بین ۱ و ۵۰ باشد", "error"); return; }
       try {
         await API.post("/api/autofetch/start", { count: n });
-        _afLastTs = null;
         clear(logBox);
         toast("دریافت خودکار آغاز شد", "info");
       } catch (e) { toast(e.message, "error"); }
@@ -312,12 +452,14 @@
     });
     resetBtn.addEventListener("click", async () => {
       if (!confirm("پاک‌سازی صف و لاگ؟")) return;
-      try { await API.post("/api/autofetch/reset", {}); _afLastTs = null;
-        clear(logBox); clear(queueGrid); toast("بازنشانی شد", "info"); }
-      catch (e) { toast(e.message, "error"); }
+      try { await API.post("/api/autofetch/reset", {});
+        clear(logBox); clear(queueGrid);
+        logBox.appendChild(el("div", { class: "faint", text: "منتظر شروع…" }));
+        toast("بازنشانی شد", "info");
+      } catch (e) { toast(e.message, "error"); }
     });
 
-    // ---- Poll loop ----
+    // ---- Poll loop (simplified — full re-render each tick) ----
     if (_afPollTimer) clearInterval(_afPollTimer);
     async function poll() {
       let s;
@@ -337,14 +479,9 @@
       progressFill.style.width = pct + "%";
       $("#af-progress-text").textContent = `${s.processed} / ${s.total}`;
 
-      // Log (append new lines only)
+      // Log — re-render the last 200 entries every tick (simple & correct).
+      // Previous version had dead dedup code (filter with `|| true`).
       if (s.log && s.log.length) {
-        // If lastTs is null or we missed entries, re-render everything once
-        const newEntries = !_afLastTs ? s.log :
-          s.log.filter(l => l.t > _afLastTs || true);
-        // Simpler: re-render visible portion
-        if (logBox.firstChild && logBox.firstChild.className === "faint") clear(logBox);
-        // Render last 200 entries
         clear(logBox);
         for (const line of s.log.slice(-200)) {
           const div = el("div", {
@@ -357,7 +494,8 @@
           logBox.appendChild(div);
         }
         logBox.scrollTop = logBox.scrollHeight;
-        _afLastTs = s.log[s.log.length - 1].t;
+      } else if (!logBox.childElementCount) {
+        logBox.appendChild(el("div", { class: "faint", text: "منتظر شروع…" }));
       }
 
       // Queue
@@ -403,16 +541,13 @@
     if (mod.aiGenerated) body.appendChild(el("span", { class: "tag-ai", text: "AI" }));
 
     const desc = el("div", { class: "desc" });
-    // Render the description text safely.  The backend returns plain
-    // text (we don't trust AI output enough to inject HTML), so we use
-    // textContent + CSS ``white-space: pre-wrap`` to preserve newlines.
     desc.textContent = (mod.description || mod.desc || "").slice(0, 400);
     desc.style.whiteSpace = "pre-wrap";
     desc.style.wordBreak = "break-word";
     body.appendChild(desc);
 
-    // Meta chips — keywords can be a space-separated string (website's
-    // Mod shape) OR an array (legacy admin form).  Normalize both.
+    // Meta chips — keywords is a SPACE-SEPARATED STRING per the website's
+    // Mod type (NOT an array).  Normalize both for safety.
     const keywordsArr = (() => {
       const kw = mod.keywords;
       if (Array.isArray(kw)) return kw;
@@ -469,6 +604,20 @@
     catch (e) { toast(e.message, "error"); }
   }
 
+  // ------------------------------------------------------------------
+  // Edit modal — now updates catName when category changes (so the
+  // website's category labels stay in sync).
+  // ------------------------------------------------------------------
+  const CAT_NAME_MAP = {
+    gameplay: "گیم\u200cپلی",
+    graphics: "گرافیک",
+    maps: "مپ",
+    mobs: "موجودات",
+    decoration: "دکوراسیون",
+    world: "دنیا",
+    utility: "ابزار",
+  };
+
   function openEditModal(mod) {
     openModal("ویرایش ماد", body => {
       const form = el("div", {});
@@ -476,7 +625,7 @@
         ["nameFa", "نام فارسی", "text"],
         ["name", "نام انگلیسی", "text"],
         ["tagline", "تگ‌لاین", "text"],
-        ["category", "دسته (gameplay/graphics/maps/mobs/decoration/world/utility)", "text"],
+        ["category", "دسته", "text"],
         ["version", "نسخه ماینکرفت", "text"],
         ["author", "سازنده", "text"],
         ["cover", "آدرس کاور (URL)", "url"],
@@ -496,21 +645,11 @@
 
       // Category dropdown (better UX than free-text)
       const catSelect = el("select", {});
-      const catOptions = [
-        ["gameplay", "گیم‌پلی"],
-        ["graphics", "گرافیک"],
-        ["maps", "مپ"],
-        ["mobs", "موجودات"],
-        ["decoration", "دکوراسیون"],
-        ["world", "دنیا"],
-        ["utility", "ابزار"],
-      ];
-      for (const [id, name] of catOptions) {
+      for (const [id, name] of Object.entries(CAT_NAME_MAP)) {
         const o = el("option", { value: id, text: `${name} (${id})` });
         if (mod.category === id) o.setAttribute("selected", "");
         catSelect.appendChild(o);
       }
-      // Replace the free-text category input with the dropdown
       inputs.category.replaceWith(catSelect);
       inputs.category = catSelect;
 
@@ -519,15 +658,14 @@
       form.appendChild(el("label", { class: "field" },
         el("span", { text: "توضیحات (مارک‌داون)" }), descTa));
 
-      // keywords is a space-separated string per the website's Mod
-      // type — show it as such (not comma-separated).
+      // keywords is a space-separated string (website's Mod type)
       const kwStr = Array.isArray(mod.keywords)
         ? mod.keywords.join(" ")
         : (mod.keywords || "");
       const kwInput = el("input", { type: "text", value: kwStr,
         style: "direction:ltr; text-align:left;" });
       form.appendChild(el("label", { class: "field" },
-        el("span", { text: "کلمات کلیدی (با فاصله جدا کنید — مثل نام فارسی سایت)" }),
+        el("span", { text: "کلمات کلیدی (با فاصله جدا کنید)" }),
         kwInput));
 
       // Featured / New flags
@@ -558,8 +696,10 @@
           for (const [k] of fields) {
             updated[k] = inputs[k].value.trim();
           }
+          // Update catName from category (always — never trust stale data)
+          updated.catName = CAT_NAME_MAP[updated.category] || updated.category;
           updated.description = descTa.value;
-          updated.desc = descTa.value;  // keep both — reviewCard reads desc
+          updated.desc = descTa.value;
           updated.keywords = kwInput.value.trim();
           updated.featured = featCb.checked;
           updated.isNew = newCb.checked;
@@ -597,7 +737,9 @@
       const url = urlInput.value.trim();
       if (!url) { toast("آدرس را وارد کنید", "error"); return; }
       clear(resultWrap);
-      resultWrap.appendChild(el("div", { class: "loading" }, "در حال دریافت صفحه و تحلیل AI …"));
+      resultWrap.appendChild(el("div", { class: "loading" },
+        "در حال دریافت صفحه و تحلیل AI …"));
+      crawlBtn.disabled = true;
       try {
         const r = await API.post("/api/crawl", { url });
         clear(resultWrap);
@@ -607,7 +749,8 @@
         grid.appendChild(reviewCard(r.mod, /*fromQueue*/false));
         resultWrap.appendChild(grid);
         if (r.ai && !r.ai._ai_used) {
-          resultWrap.appendChild(el("div", { class: "muted mt-16", style: "text-align:center;" },
+          resultWrap.appendChild(el("div", {
+            class: "muted mt-16", style: "text-align:center;" },
             "⚠ محتوای AI استفاده نشد — حالت خاموش روی داده‌های خام"));
         }
       } catch (e) {
@@ -615,13 +758,15 @@
         resultWrap.appendChild(el("div", { class: "card" },
           el("strong", { text: "خطا" }),
           el("p", { class: "muted mt-8", text: e.message })));
+      } finally {
+        crawlBtn.disabled = false;
       }
     });
     root.appendChild(card);
   }
 
   // ------------------------------------------------------------------
-  // Page: Mods
+  // Page: Mods — now with INLINE editing + BULK operations
   // ------------------------------------------------------------------
   async function renderMods(root) {
     root.appendChild(el("div", { class: "loading" }, "در حال بارگذاری…"));
@@ -639,7 +784,8 @@
 
     // ---- Top controls ----
     const top = el("div", { class: "card mb-24" });
-    top.appendChild(el("div", { class: "section-title" }, `مدیریت مادها (${allMods.length})`));
+    top.appendChild(el("div", { class: "section-title" },
+      `مدیریت مادها (${allMods.length})`));
     const row = el("div", { class: "row" });
     const search = el("input", {
       type: "text", placeholder: "جستجوی نام، سازنده، کلمه کلیدی…",
@@ -649,6 +795,23 @@
     row.appendChild(search);
     row.appendChild(pushBtn);
     top.appendChild(row);
+
+    // ---- Bulk action bar (shown when rows are selected) ----
+    const bulkBar = el("div", { class: "bulk-bar hidden" });
+    const bulkInfo = el("span", { class: "mono", text: "0 انتخاب شده" });
+    const bulkFeat = el("button", { class: "btn btn-sm", text: "★ ویژه کن" });
+    const bulkUnfeat = el("button", { class: "btn btn-sm", text: "☆ غیر ویژه" });
+    const bulkNew = el("button", { class: "btn btn-sm", text: "＋ جدید کن" });
+    const bulkUnnew = el("button", { class: "btn btn-sm", text: "－ قدیمی" });
+    const bulkCat = el("select", { class: "btn btn-sm", style: "padding:5px 10px;" });
+    bulkCat.appendChild(el("option", { value: "", text: "→ تغییر دسته" }));
+    for (const [id, name] of Object.entries(CAT_NAME_MAP)) {
+      bulkCat.appendChild(el("option", { value: id, text: `${name} (${id})` }));
+    }
+    const bulkDel = el("button", { class: "btn btn-sm btn-danger", text: "✕ حذف" });
+    bulkBar.append(bulkInfo, bulkFeat, bulkUnfeat, bulkNew, bulkUnnew,
+      bulkCat, bulkDel);
+    top.appendChild(bulkBar);
     root.appendChild(top);
 
     // ---- Table ----
@@ -657,6 +820,8 @@
     const tbl = el("table", { class: "tbl" });
     tbl.appendChild(el("thead", {},
       el("tr", {},
+        el("th", { style: "width:32px;" },
+          el("input", { type: "checkbox", id: "bulk-select-all" })),
         el("th", { text: "کاور" }),
         el("th", { text: "نام" }),
         el("th", { text: "دسته" }),
@@ -670,17 +835,37 @@
     wrap.appendChild(tableScroll);
     root.appendChild(wrap);
 
+    const selected = new Set();
+    function updateBulkBar() {
+      const n = selected.size;
+      if (n > 0) bulkBar.classList.remove("hidden");
+      else bulkBar.classList.add("hidden");
+      bulkInfo.textContent = `${n} انتخاب شده`;
+    }
+
     function renderRows(list) {
       clear(tbody);
       if (!list.length) {
         const tr = el("tr", {});
-        tr.appendChild(el("td", { colspan: 6, style: "text-align:center;" },
+        tr.appendChild(el("td", { colspan: 7, style: "text-align:center;" },
           el("div", { class: "empty", text: "مادی یافت نشد" })));
         tbody.appendChild(tr);
         return;
       }
       for (const m of list) {
+        const mid = m.id || m.slug;
         const tr = el("tr", {});
+        // Checkbox
+        const cbCell = el("td", {});
+        const cb = el("input", { type: "checkbox" });
+        cb.checked = selected.has(mid);
+        cb.addEventListener("change", () => {
+          if (cb.checked) selected.add(mid);
+          else selected.delete(mid);
+          updateBulkBar();
+        });
+        cbCell.appendChild(cb);
+        tr.appendChild(cbCell);
         // Cover
         const coverCell = el("td", {});
         const coverWrap = el("div", { class: "cell-cover" });
@@ -691,41 +876,153 @@
         coverWrap.appendChild(el("strong", { text: m.nameFa || m.name || m.id }));
         coverCell.appendChild(coverWrap);
         tr.appendChild(coverCell);
-        // Category
-        tr.appendChild(el("td", { text: m.category || "—" }));
-        // Version
-        tr.appendChild(el("td", { class: "mono", text: m.version || "—" }));
+        // Category (inline-editable via dropdown)
+        const catCell = el("td", {});
+        const catSel = el("select", {
+          class: "inline-edit",
+          style: "padding:3px 8px; font-size:12px;",
+          onchange: async (e) => {
+            const v = e.target.value;
+            try {
+              await API.patch(`/api/mods/${mid}/field`,
+                { field: "category", value: v, push: false });
+              m.category = v;
+              m.catName = CAT_NAME_MAP[v] || v;
+              toast(`دسته «${m.nameFa}» → ${CAT_NAME_MAP[v]}`, "info");
+            } catch (err) { toast(err.message, "error"); e.target.value = m.category; }
+          },
+        });
+        for (const [id, name] of Object.entries(CAT_NAME_MAP)) {
+          const o = el("option", { value: id, text: name });
+          if (m.category === id) o.setAttribute("selected", "");
+          catSel.appendChild(o);
+        }
+        catCell.appendChild(catSel);
+        tr.appendChild(catCell);
+        // Version (inline-editable on dblclick)
+        tr.appendChild(inlineEditCell(m, "version", mid, "mono"));
         // AI
         tr.appendChild(el("td", {},
           m.aiGenerated ? el("span", { class: "tag-ai", text: "AI" })
             : el("span", { class: "faint", text: "—" })));
         // Actions
         const act = el("td", {});
-        act.appendChild(el("button", {
-          class: "btn btn-sm", text: "✎",
-          onclick: () => openEditModal(m),
-        }));
-        act.appendChild(el("button", {
+        const editBtn = el("button", { class: "btn btn-sm", text: "✎" });
+        editBtn.addEventListener("click", () => openEditModal(m));
+        act.appendChild(editBtn);
+        const delBtn = el("button", {
           class: "btn btn-sm btn-danger", text: "✕",
           style: "margin-right:6px;",
-          onclick: () => deleteMod(m.id || m.slug, m.nameFa || m.name, () => renderRows(filterList())),
-        }));
+        });
+        delBtn.addEventListener("click", () =>
+          deleteMod(m.id || m.slug, m.nameFa || m.name,
+            () => renderRows(filterList())));
+        act.appendChild(delBtn);
         tr.appendChild(act);
         tbody.appendChild(tr);
       }
     }
 
+    function inlineEditCell(mod, field, mid, extraClass) {
+      const td = el("td", { class: extraClass || "" });
+      const span = el("span", { text: mod[field] || "—",
+        title: "برای ویرایش دوبار کلیک کنید" });
+      td.appendChild(span);
+      td.addEventListener("dblclick", () => {
+        const inp = el("input", { type: "text", value: mod[field] || "",
+          style: "width:100%; padding:3px 6px;" });
+        clear(td);
+        td.appendChild(inp);
+        inp.focus();
+        inp.select();
+        const commit = async () => {
+          const v = inp.value.trim();
+          if (v === (mod[field] || "")) {
+            clear(td); td.appendChild(span); return;
+          }
+          try {
+            await API.patch(`/api/mods/${mid}/field`,
+              { field, value: v, push: false });
+            mod[field] = v;
+            span.textContent = v || "—";
+            toast(`«${field}» ذخیره شد`, "info");
+          } catch (e) {
+            toast(e.message, "error");
+          }
+          clear(td); td.appendChild(span);
+        };
+        inp.addEventListener("blur", commit);
+        inp.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") inp.blur();
+          else if (e.key === "Escape") { clear(td); td.appendChild(span); }
+        });
+      });
+      return td;
+    }
+
+    // BUGFIX: keywords is a SPACE-SEPARATED STRING per the website's
+    // Mod type.  The old code did `...(m.keywords || [])` which spreads
+    // a string into individual characters — search didn't work at all
+    // for keyword queries.  Now we explicitly normalize to an array.
     function filterList() {
       const q = search.value.trim().toLowerCase();
       if (!q) return allMods;
       return allMods.filter(m => {
-        return [m.name, m.nameFa, m.author, m.category, m.id,
-          ...(m.keywords || [])].some(v => v && String(v).toLowerCase().includes(q));
+        const kwArr = Array.isArray(m.keywords)
+          ? m.keywords
+          : (typeof m.keywords === "string"
+              ? m.keywords.split(/\s+/).filter(Boolean)
+              : []);
+        return [m.name, m.nameFa, m.author, m.category, m.catName, m.id,
+          ...kwArr].some(v => v && String(v).toLowerCase().includes(q));
       });
     }
 
     search.addEventListener("input", () => renderRows(filterList()));
     renderRows(allMods);
+
+    // ---- Select-all checkbox ----
+    const selectAll = $("#bulk-select-all");
+    if (selectAll) {
+      selectAll.addEventListener("change", () => {
+        const visible = filterList();
+        if (selectAll.checked) {
+          visible.forEach(m => selected.add(m.id || m.slug));
+        } else {
+          visible.forEach(m => selected.delete(m.id || m.slug));
+        }
+        renderRows(visible);
+        updateBulkBar();
+      });
+    }
+
+    // ---- Bulk action handlers ----
+    async function bulkDo(action, value) {
+      const ids = Array.from(selected);
+      if (!ids.length) return;
+      if (action === "delete" &&
+          !confirm(`${ids.length} ماد حذف شود؟ (محلی — قابل بازگشت با push نیست)`)) return;
+      try {
+        const r = await API.post("/api/mods/bulk", { action, ids, value, push: false });
+        toast(`${r.affected} ماد ${action} شد${r.push ? " ✓" : ""}`, "info");
+        selected.clear();
+        // reload list
+        const fresh = await API.get("/api/mods");
+        allMods.length = 0;
+        allMods.push(...(fresh.mods || []));
+        renderRows(filterList());
+        updateBulkBar();
+      } catch (e) { toast(e.message, "error"); }
+    }
+    bulkFeat.addEventListener("click", () => bulkDo("feature"));
+    bulkUnfeat.addEventListener("click", () => bulkDo("unfeature"));
+    bulkNew.addEventListener("click", () => bulkDo("setNew"));
+    bulkUnnew.addEventListener("click", () => bulkDo("unsetNew"));
+    bulkCat.addEventListener("change", (e) => {
+      if (e.target.value) bulkDo("setCategory", e.target.value);
+      e.target.value = "";
+    });
+    bulkDel.addEventListener("click", () => bulkDo("delete"));
 
     pushBtn.addEventListener("click", async () => {
       pushBtn.disabled = true;
@@ -747,14 +1044,186 @@
   }
 
   // ------------------------------------------------------------------
-  // Page: Settings
+  // Page: Stats — downloads, AI usage, breakdowns
+  // ------------------------------------------------------------------
+  let _statsTimer = null;
+  async function renderStats(root) {
+    root.appendChild(el("div", { class: "loading" }, "در حال بارگذاری…"));
+
+    async function loadAndDraw() {
+      let data;
+      try { data = await API.get("/api/stats"); }
+      catch (e) {
+        clear(root);
+        root.appendChild(el("div", { class: "card" },
+          el("h3", { text: "خطا" }),
+          el("p", { class: "muted" }, e.message)));
+        return;
+      }
+      clear(root);
+
+      const t = data.totals;
+      const grid = el("div", { class: "stat-grid" });
+      grid.appendChild(statCard("مادها", t.mods, "کل مادها در سایت"));
+      grid.appendChild(statCard("مادهای AI", t.ai_mods, "تولیدشده با Agnes AI"));
+      grid.appendChild(statCard("ویژه‌ها", t.featured, "مادهای featured"));
+      grid.appendChild(statCard("جدیدها", t.new, "مادهای isNew"));
+      grid.appendChild(statCard("سیدها", t.seeds, "فایل seeds.json"));
+      grid.appendChild(statCard("نسخه‌ها", t.versions, "فایل versions.json"));
+      grid.appendChild(statCard("مجموع دانلودها", t.total_downloads,
+        "از فیلد downloads (هر ماد)"));
+      root.appendChild(grid);
+
+      // ---- Category breakdown ----
+      const catCard = el("div", { class: "card mb-24" });
+      catCard.appendChild(el("div", { class: "section-title" }, "تفکیک بر اساس دسته"));
+      const catBars = el("div", { class: "bar-list" });
+      const maxCat = Math.max(1, ...Object.values(data.by_category));
+      for (const [cat, n] of Object.entries(data.by_category).sort((a,b) => b[1]-a[1])) {
+        const name = CAT_NAME_MAP[cat] || cat;
+        const pct = Math.round(n / maxCat * 100);
+        catBars.appendChild(el("div", { class: "bar-row" },
+          el("span", { class: "bar-label", text: `${name} (${cat})` }),
+          el("div", { class: "bar-track" },
+            el("div", { class: "bar-fill",
+              style: `width:${pct}%;` })),
+          el("span", { class: "bar-val mono", text: String(n) }),
+        ));
+      }
+      catCard.appendChild(catBars);
+      root.appendChild(catCard);
+
+      // ---- Version breakdown ----
+      const verCard = el("div", { class: "card mb-24" });
+      verCard.appendChild(el("div", { class: "section-title" }, "تفکیک بر اساس نسخه"));
+      const verBars = el("div", { class: "bar-list" });
+      const maxVer = Math.max(1, ...Object.values(data.by_version));
+      for (const [v, n] of Object.entries(data.by_version).sort((a,b) => b[1]-a[1])) {
+        const pct = Math.round(n / maxVer * 100);
+        verBars.appendChild(el("div", { class: "bar-row" },
+          el("span", { class: "bar-label mono", text: v || "—" }),
+          el("div", { class: "bar-track" },
+            el("div", { class: "bar-fill",
+              style: `width:${pct}%;` })),
+          el("span", { class: "bar-val mono", text: String(n) }),
+        ));
+      }
+      verCard.appendChild(verBars);
+      root.appendChild(verCard);
+
+      // ---- Service status ----
+      const svcCard = el("div", { class: "card" });
+      svcCard.appendChild(el("div", { class: "section-title" }, "وضعیت سرویس‌ها"));
+      const svcGrid = el("div", { class: "grid grid-3" });
+      svcGrid.appendChild(serviceBox("Agnes AI", data.services.agnes));
+      svcGrid.appendChild(serviceBox("GitHub", data.services.github));
+      svcGrid.appendChild(serviceBox("HuggingFace", data.services.huggingface));
+      svcCard.appendChild(svcGrid);
+      root.appendChild(svcCard);
+
+      root.appendChild(el("div", { class: "muted mt-16", style: "text-align:center;" },
+        `آخرین به‌روزرسانی: ${data.ts}`));
+    }
+
+    await loadAndDraw();
+    if (_statsTimer) clearInterval(_statsTimer);
+    _statsTimer = setInterval(loadAndDraw, 30000);
+    const unbind = () => {
+      if (_statsTimer) { clearInterval(_statsTimer); _statsTimer = null; }
+      window.removeEventListener("hashchange", unbind);
+    };
+    window.addEventListener("hashchange", unbind);
+  }
+
+  // ------------------------------------------------------------------
+  // Page: Logs — tail of admin server log + autofetch worker log
+  // ------------------------------------------------------------------
+  let _logsTimer = null;
+  function renderLogs(root) {
+    const card = el("div", { class: "card" });
+    card.appendChild(el("div", { class: "section-title" }, "لاگ سرور ادمین"));
+    const controls = el("div", { class: "row mb-16" });
+    const linesInput = el("input", { type: "number", value: "300", min: "50",
+      max: "2000", style: "width:100px;" });
+    controls.appendChild(el("label", { class: "field",
+      style: "margin:0; flex:0 0 auto;" },
+      el("span", { text: "تعداد خط" }), linesInput));
+    const refreshBtn = el("button", { class: "btn btn-sm", text: "↻ تازه" });
+    const autoCb = el("input", { type: "checkbox", checked: "" });
+    const autoLbl = el("label", { class: "field",
+      style: "margin:0; flex-direction:row; align-items:center; gap:6px;" },
+      autoCb, el("span", { text: "auto-refresh (2s)" }));
+    controls.append(refreshBtn, autoLbl);
+    card.appendChild(controls);
+
+    const logBox = el("div", { class: "log-box", style: "height:60vh;" });
+    logBox.appendChild(el("div", { class: "faint", text: "در حال بارگذاری…" }));
+    card.appendChild(logBox);
+    root.appendChild(card);
+
+    async function load() {
+      const n = parseInt(linesInput.value, 10) || 300;
+      let data;
+      try { data = await API.get(`/api/logs?lines=${n}`); }
+      catch (e) { clear(logBox); logBox.appendChild(el("div", { class: "error" },
+        "خطا در دریافت لاگ: " + e.message)); return; }
+      clear(logBox);
+      if (!data.lines.length) {
+        logBox.appendChild(el("div", { class: "faint",
+          text: "(لاگ خالی است — اگر سرور را با minebed-desktop.py اجرا کرده‌اید، " +
+                "log در admin/minebed-desktop.log نوشته می‌شود)" }));
+        return;
+      }
+      for (const ln of data.lines) {
+        const div = el("div", { class: "log-line" });
+        // Highlight common error patterns
+        const cls = /error|fatal|exception|traceback/i.test(ln) ? "error"
+          : /warn/i.test(ln) ? "done"
+          : "";
+        if (cls) div.className += " " + cls;
+        div.textContent = ln;
+        logBox.appendChild(div);
+      }
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    refreshBtn.addEventListener("click", load);
+    load();
+
+    if (_logsTimer) clearInterval(_logsTimer);
+    function syncTimer() {
+      if (autoCb.checked) {
+        if (!_logsTimer) {
+          _logsTimer = setInterval(load, 2000);
+        }
+      } else {
+        if (_logsTimer) { clearInterval(_logsTimer); _logsTimer = null; }
+      }
+    }
+    autoCb.addEventListener("change", syncTimer);
+    syncTimer();
+
+    const unbind = () => {
+      if (_logsTimer) { clearInterval(_logsTimer); _logsTimer = null; }
+      window.removeEventListener("hashchange", unbind);
+    };
+    window.addEventListener("hashchange", unbind);
+  }
+
+  // ------------------------------------------------------------------
+  // Page: Settings — now includes ADMIN_SECRET and HF_REPO_ID,
+  // and never sends masked values back to the server.
   // ------------------------------------------------------------------
   async function renderSettings(root) {
     root.appendChild(el("div", { class: "loading" }, "در حال بارگذاری…"));
 
     let data;
     try { data = await API.get("/api/settings"); }
-    catch (e) { clear(root); root.appendChild(el("div", { class: "card" }, e.message)); return; }
+    catch (e) {
+      clear(root);
+      root.appendChild(el("div", { class: "card" }, e.message));
+      return;
+    }
 
     const s = data.settings || {};
     clear(root);
@@ -785,6 +1254,8 @@
       ["GITHUB_REPO", "ریپو GitHub", "text"],
       ["GITHUB_BRANCH", "شاخه GitHub", "text"],
       ["HF_TOKEN", "توکن HuggingFace", "password"],
+      ["HF_REPO_ID", "ریپو HuggingFace", "text"],
+      ["ADMIN_SECRET", "رمز ادمین (برای ورود)", "password"],
       ["ASTRO_DATA_PATH", "مسیر داده Astro", "text"],
       ["MODS_JSON_PATH", "مسیر mods.json", "text"],
     ];
@@ -793,7 +1264,7 @@
       // show full secret on focus
       i.addEventListener("focus", () => { if (i.type === "password") i.type = "text"; });
       i.addEventListener("blur", () => {
-        if (["AGNES_API_KEY", "GITHUB_TOKEN", "HF_TOKEN"].includes(key))
+        if (["AGNES_API_KEY", "GITHUB_TOKEN", "HF_TOKEN", "ADMIN_SECRET"].includes(key))
           i.type = "password";
       });
       inputs[key] = i;
@@ -801,7 +1272,15 @@
         el("span", { text: `${label} (${key})` }), i));
     }
 
-    const row = el("div", { class: "row", style: "justify-content:flex-end; margin-top:16px;" });
+    // Helper note
+    card.appendChild(el("div", { class: "muted mt-8",
+      style: "font-size:11px; line-height:1.6;" },
+      "ℹ برای توکن‌های نمایش داده‌شده با ***، اگر مقدار را تغییر ندهید " +
+      "سرور مقدار فعلی را حفظ می‌کند. فقط اگر می‌خواهید توکن را عوض کنید " +
+      "مقدار جدید را بنویسید."));
+
+    const row = el("div", { class: "row",
+      style: "justify-content:flex-end; margin-top:16px;" });
     const saveBtn = el("button", { class: "btn btn-primary", text: "💾 ذخیره" });
     row.appendChild(saveBtn);
     card.appendChild(row);
@@ -813,7 +1292,11 @@
       saveBtn.disabled = true;
       saveBtn.textContent = "در حال ذخیره…";
       try {
-        await API.put("/api/settings", body);
+        const r = await API.put("/api/settings", body);
+        // refresh inputs to show new masked values
+        for (const [k] of fields) {
+          if (r.settings && r.settings[k] != null) inputs[k].value = r.settings[k];
+        }
         toast("تنظیمات ذخیره شد ✓", "info");
       } catch (e) { toast(e.message, "error"); }
       saveBtn.disabled = false;
@@ -822,26 +1305,45 @@
   }
 
   // ------------------------------------------------------------------
-  // Server badge (always-on health check)
+  // Server badge (always-on health check) — now stoppable
   // ------------------------------------------------------------------
+  let _healthTimer = null;
   async function serverHealthLoop() {
     const badge = $("#server-badge");
-    while (true) {
+    if (!badge) return;
+    async function tick() {
       try {
         const r = await fetch("/api/health");
         if (r.ok) {
+          const d = await r.json();
           badge.className = "server-badge ok";
-          badge.textContent = "● سرور آنلاین";
+          badge.textContent = "● سرور آنلاین" +
+            (d.auth_enabled ? " • رمز" : " • باز");
         } else throw 0;
       } catch {
         badge.className = "server-badge bad";
         badge.textContent = "● سرور آفلاین";
       }
-      await new Promise(r => setTimeout(r, 8000));
     }
+    tick();
+    _healthTimer = setInterval(tick, 8000);
   }
-  document.addEventListener("DOMContentLoaded", serverHealthLoop);
+  function startServerHealthLoop() {
+    if (_healthTimer) return;
+    serverHealthLoop();
+  }
+
+  // ------------------------------------------------------------------
+  // Init
+  // ------------------------------------------------------------------
+  document.addEventListener("DOMContentLoaded", () => {
+    $("#modal-close").addEventListener("click", closeModal);
+    $(".modal-backdrop").addEventListener("click", closeModal);
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+    bindLoginScreen();
+    probeAuthAndBoot();
+  });
 
   // Expose a tiny API for debugging in the webview console
-  window.MineBed = { API, toast, openModal, closeModal };
+  window.MineBed = { API, toast, openModal, closeModal, getToken, setToken };
 })();

@@ -8,8 +8,38 @@
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <!-- ===== App shell ===== -->
-  <div id="app">
+  <!-- ===== Login screen (shown when ADMIN_SECRET is set and no token stored) ===== -->
+  <div id="login-screen" class="login-screen hidden">
+    <div class="login-card">
+      <div class="brand-logo big" aria-hidden="true">
+        <!-- grass block SVG -->
+        <svg viewBox="0 0 24 24" width="56" height="56" role="img" aria-label="MineBed">
+          <rect x="2" y="6" width="20" height="14" rx="1" fill="#1c1c34"/>
+          <rect x="2" y="5" width="20" height="5" fill="#5fa838"/>
+          <rect x="2" y="9" width="20" height="1" fill="#3f7a25"/>
+          <path d="M5 5h2v2H5zM9 5h2v2H9zM13 5h2v2h-2zM17 5h2v2h-2z" fill="#4a8c2c"/>
+        </svg>
+      </div>
+      <h1 class="login-title">MineBed Admin</h1>
+      <p class="login-sub">برای ورود، رمز مدیریت را وارد کنید</p>
+      <form id="login-form" autocomplete="off">
+        <input id="login-token" type="password" placeholder="ADMIN_SECRET"
+               autocomplete="current-password" required
+               style="direction:ltr; text-align:center;" />
+        <button id="login-submit" type="submit" class="btn btn-primary"
+                style="width:100%; justify-content:center; margin-top:8px;">
+          ورود
+        </button>
+        <div id="login-error" class="login-error hidden"></div>
+      </form>
+      <div class="login-foot">
+        <span class="faint">v1.1.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== App shell (hidden until authenticated) ===== -->
+  <div id="app" class="hidden">
     <!-- ===== Sidebar ===== -->
     <aside id="sidebar">
       <div class="brand">
@@ -41,6 +71,12 @@
         <a href="#/mods" class="nav-item" data-route="mods">
           <span class="nav-ico">≣</span> مادها
         </a>
+        <a href="#/stats" class="nav-item" data-route="stats">
+          <span class="nav-ico">▤</span> آمار
+        </a>
+        <a href="#/logs" class="nav-item" data-route="logs">
+          <span class="nav-ico">≣</span> لاگ‌ها
+        </a>
         <a href="#/settings" class="nav-item" data-route="settings">
           <span class="nav-ico">⚙</span> تنظیمات
         </a>
@@ -48,7 +84,10 @@
 
       <div class="sidebar-footer">
         <div id="server-badge" class="server-badge">در حال اتصال…</div>
-        <div class="version">v1.0.0</div>
+        <button id="logout-btn" class="btn btn-sm btn-ghost" style="margin-top:8px;">
+          خروج
+        </button>
+        <div class="version">v1.1.0</div>
       </div>
     </aside>
 

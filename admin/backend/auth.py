@@ -66,6 +66,7 @@ PUBLIC_PATHS = (
     "/", "/style.css", "/app.js", "/favicon.ico",
     "/api/health",       # basic liveness probe
     "/api/auth/login",   # token exchange
+    "/api/auth/status",  # let the login screen probe auth state before login
 )
 PUBLIC_PATH_PREFIXES = (
     "/fonts/",           # static fonts

@@ -233,9 +233,10 @@ def process_mod_assets(
         else:
             log("  ! cover download failed — keeping original URL")
 
-    # 2. Gallery images (up to 8)
+    # 2. Gallery images (mirror up to 8, keep ALL original URLs)
     gallery = list(mod_record.get("gallery") or [])
     new_gallery = []
+    # Process the first 8 with HuggingFace mirroring
     for i, img_url in enumerate(gallery[:8]):
         if not img_url or not isinstance(img_url, str) \
                 or not img_url.startswith("http") \
@@ -254,6 +255,9 @@ def process_mod_assets(
                     pass
         else:
             new_gallery.append(img_url)
+    # Preserve any gallery items beyond the first 8 (don't drop them!)
+    if len(gallery) > 8:
+        new_gallery.extend(gallery[8:])
     updated["gallery"] = new_gallery
 
     # 3. Mod file (.mcpack / .mcaddon / .mcworld)
