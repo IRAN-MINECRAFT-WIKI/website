@@ -194,22 +194,38 @@ for (const item of nav) {
     border-color: var(--grass-3);
   }
 
-  /* Desktop: show all nav items */
-  @media (min-width: 1024px) {
+  /* Desktop: show all nav items.
+     Raise the breakpoint to 1280px — on 1024–1279px viewports the
+     full nav (10 items) + brand + search + QuickAccess button
+     overflowed and pushed the QA button off the left edge of the
+     viewport. Now the hamburger menu shows until 1280px. */
+  @media (min-width: 1280px) {
     .main-nav { display: flex; }
     .menu-toggle { display: none; }
     .mobile-nav { display: none !important; }
   }
 
-  /* Mobile/tablet: hide main nav, show hamburger */
-  @media (max-width: 1023px) {
+  /* Tablet / small desktop: hide main nav, show hamburger */
+  @media (max-width: 1279px) {
     .main-nav { display: none; }
     .menu-toggle { display: flex; }
+  }
+
+  /* Slightly tighten nav spacing on 1280–1440px so the QA button
+     always stays inside the viewport. */
+  @media (min-width: 1280px) and (max-width: 1440px) {
+    .nav-link {
+      padding: 0.5rem 0.625rem;
+      font-size: 0.75rem;
+    }
+    .main-nav { gap: 0.125rem; }
+    .header-inner { gap: 0.75rem; padding: 0.625rem 0.875rem; }
   }
 
   @media (max-width: 480px) {
     .brand-text { font-size: 0.75rem; }
     .header-inner { padding: 0.5rem; }
+    .header-actions { gap: 0.375rem; }
   }
 </style>
 

@@ -125,22 +125,27 @@ const links = [
     inset: 0;
     z-index: 2147483647;
     display: flex;
-    align-items: center;
+    /* safe center → falls back to flex-start if cards overflow,
+       so the top row is never clipped by the viewport edge. */
+    align-items: safe center;
     justify-content: center;
-    padding: 2rem;
+    padding: 5rem 2rem 2rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .qa-overlay[hidden] { display: none !important; }
 
   /* ─── Backdrop ─── */
   .qa-bg {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.8);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     opacity: 0;
     transition: opacity 0.3s ease-out;
+    pointer-events: none;
   }
 
   .qa-overlay:not([hidden]) .qa-bg { opacity: 1; }
@@ -156,6 +161,10 @@ const links = [
     gap: 1rem;
     max-width: 700px;
     width: 100%;
+    /* Ensure the container never overflows the viewport —
+       even on very short screens (e.g. landscape phones). */
+    max-height: 80vh;
+    margin: auto;
   }
 
   /* ─── Each card (pops out from center) ─── */
@@ -171,14 +180,19 @@ const links = [
     text-decoration: none;
     color: #e0e0f0;
     opacity: 0;
-    transform: scale(0) translateY(40px);
+    /* Use opacity + visibility instead of scale(0) — scale(0) collapses
+       the layout box and on some browsers the layout shifts upward,
+       causing the top row to be clipped. */
+    visibility: hidden;
+    transform: translateY(20px);
     transition:
-      opacity 0.4s cubic-bezier(0.16,1,0.3,1),
-      transform 0.4s cubic-bezier(0.16,1,0.3,1),
+      opacity 0.35s cubic-bezier(0.16,1,0.3,1),
+      transform 0.35s cubic-bezier(0.16,1,0.3,1),
+      visibility 0s linear 0.35s,
       background 0.2s,
       box-shadow 0.2s;
     /* Stagger: each card delayed */
-    transition-delay: calc(var(--i, 0) * 0.06s + 0.1s);
+    transition-delay: calc(var(--i, 0) * 0.05s + 0.05s);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
@@ -186,26 +200,35 @@ const links = [
   /* When overlay is visible, cards pop out */
   .qa-overlay:not([hidden]) .qa-card {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+      opacity 0.35s cubic-bezier(0.16,1,0.3,1),
+      transform 0.35s cubic-bezier(0.16,1,0.3,1),
+      visibility 0s linear 0s,
+      background 0.2s,
+      box-shadow 0.2s;
+    transition-delay: calc(var(--i, 0) * 0.05s + 0.05s);
   }
 
   /* Closing: cards shrink back */
   .qa-overlay.closing .qa-card {
     opacity: 0;
-    transform: scale(0) translateY(40px);
+    visibility: hidden;
+    transform: translateY(20px);
     transition-delay: 0s;
     transition-duration: 0.15s;
   }
 
   .qa-card:hover {
     background: var(--c, #4a8a2c);
-    transform: scale(1.1) translateY(-4px) !important;
+    transform: translateY(-4px) !important;
     box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 24px var(--c, #4a8a2c);
     border-color: var(--c, #4a8a2c);
   }
 
   .qa-card:active {
-    transform: scale(0.95) !important;
+    transform: scale(0.96) !important;
     transition: transform 0.08s;
   }
 
@@ -267,9 +290,13 @@ const links = [
 
   /* ─── Responsive ─── */
   @media (max-width: 640px) {
+    .qa-overlay {
+      padding: 4.5rem 1rem 1.5rem;
+    }
     .qa-cards {
       grid-template-columns: repeat(3, 1fr);
       gap: 0.625rem;
+      max-height: 75vh;
     }
     .qa-card {
       padding: 0.875rem 0.375rem;
@@ -289,10 +316,29 @@ const links = [
     }
   }
 
+  /* Short viewports (landscape phones, short desktop windows) */
+  @media (max-height: 600px) {
+    .qa-overlay {
+      padding: 4rem 1.5rem 1rem;
+      align-items: flex-start;
+    }
+    .qa-cards {
+      max-height: 85vh;
+    }
+    .qa-card {
+      padding: 0.625rem 0.375rem;
+    }
+    .qa-card-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .qa-card, .qa-bg, .qa-close {
-      transition: none;
+      transition: none !important;
       opacity: 1;
+      visibility: visible;
       transform: none;
     }
   }
