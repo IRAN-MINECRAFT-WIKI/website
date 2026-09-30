@@ -8,16 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        // MineBed palette (kept consistent with original site)
+        // MineBed palette — text colors brightened for better contrast
+        // (WCAG AA: text-2 was #9a9ab8 → #b8b8d0, text-3 was #5c5c7a → #8585a3)
         mc: {
           bg: '#0d0d18',
           'bg-2': '#14142a',
           panel: '#1c1c34',
           'panel-2': '#242445',
           line: '#2e2e4a',
-          text: '#e6e6f2',
-          'text-2': '#9a9ab8',
-          'text-3': '#5c5c7a',
+          text: '#f0f0fa',        // brighter primary text
+          'text-2': '#b8b8d0',    // brighter secondary text (was #9a9ab8)
+          'text-3': '#8585a3',    // brighter tertiary text (was #5c5c7a)
           grass: '#5fa838',
           'grass-2': '#7cc84a',
           'grass-3': '#3d7521',

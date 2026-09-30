@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
+import '@components/pixel-sprites.astro';
 import { versions } from '@/lib/data';
+import { breadcrumbJsonLd } from '@/lib/seo';
 
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
@@ -10,6 +12,8 @@ const breadcrumb = [
   { name: 'خانه', url: '/' },
   { name: 'نسخه‌ها', url: '/versions' },
 ];
+
+const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
 ---
 
 <BaseLayout
@@ -17,6 +21,7 @@ const breadcrumb = [
   title="راهنمای نسخه‌های ماینکرفت بدراک"
   description="راهنمای کامل نسخه‌های ماینکرفت بدراک: 1.21, 1.20, 1.19 و... هر نسخه با توضیحات کامل، ویژگی‌های جدید و افزونه‌های سازگار."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(ldBreadcrumb)} />
   <Breadcrumbs items={breadcrumb} />
 
   <div class="mb-6">
@@ -28,7 +33,21 @@ const breadcrumb = [
     {versions.map((v) => (
       <a href={base(`/versions/${v.id}`)} class="mc-panel hoverable group block p-5">
         <div class="flex items-start gap-4">
-          <span class="text-4xl shrink-0">{v.icon}</span>
+          <span class="shrink-0 inline-flex items-center justify-center w-12 h-12">
+            <img
+              src={`${BASE}textures/blocks/${v.icon.replace('px-', '')}.png`}
+              alt={v.nameFa}
+              width="40"
+              height="40"
+              loading="lazy"
+              decoding="async"
+              class="pixel-img"
+              onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
+            />
+            <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+              <use href={`#${v.icon}`} />
+            </svg>
+          </span>
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-3 mb-1 flex-wrap">
               <h2 class="text-xl font-extrabold text-mc-text group-hover:text-mc-grass-2">{v.nameFa}</h2>
@@ -36,7 +55,7 @@ const breadcrumb = [
                 <span class="bg-mc-grass text-white text-[10px] font-pixel px-2 py-1">جدیدترین</span>
               )}
             </div>
-            <p class="text-xs text-mc-text-3 mb-2">
+            <p class="text-xs text-mc-text-3 mb-2" dir="ltr" style="text-align: right;">
               {v.releaseDate} • {v.codename}
             </p>
             <p class="text-sm text-mc-text-2 leading-relaxed mb-3 line-clamp-2">{v.summary}</p>
