@@ -4,6 +4,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import BackButton from "@components/BackButton.astro";
 import StructuredData from '@components/StructuredData.astro';
+import RelatedContent from '@components/RelatedContent.astro';
+import PrevNextNav from '@components/PrevNextNav.astro';
+import ReadingTime from '@components/ReadingTime.astro';
 import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 
 const BASE = import.meta.env.BASE_URL;
@@ -38,6 +41,7 @@ const ldArticle = articleJsonLd({
   authorName: entry.data.author,
   url: base(`/wiki/${entry.id}`),
 });
+const ldBread = breadcrumbJsonLd(breadcrumb);
 ---
 
 <BaseLayout
@@ -50,18 +54,33 @@ const ldArticle = articleJsonLd({
   <Breadcrumbs items={breadcrumb} />
   <BackButton />
   <StructuredData data={ldArticle} />
+  <StructuredData data={ldBread} />
 
   <article class="mc-panel p-5 lg:p-8">
     <header class="mb-6 pb-6 border-b border-mc-line">
       <h1 class="text-2xl lg:text-4xl font-extrabold mb-2">{entry.data.title}</h1>
       <p class="text-sm text-mc-text-2 mb-3 leading-loose">{entry.data.description}</p>
-      <div class="text-xs text-mc-text-3">
-        📅 {entry.data.pubDate.toLocaleDateString('fa-IR')} • MC {entry.data.mcVersion}
+      <div class="flex flex-wrap items-center gap-3 text-xs text-mc-text-3">
+        <span>📅 {entry.data.pubDate.toLocaleDateString('fa-IR')}</span>
+        <span>🎮 MC {entry.data.mcVersion}</span>
+        <ReadingTime text={entry.body} />
       </div>
+      {entry.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-3">
+          {entry.data.tags.map((t) => <span class="mc-chip">#{t}</span>)}
+        </div>
+      )}
     </header>
+
+    {entry.data.cover && (
+      <img src={coverUrl} alt={entry.data.title} class="w-full aspect-video object-cover mb-6" />
+    )}
 
     <div class="prose prose-invert max-w-none">
       <Content />
     </div>
   </article>
+
+  <PrevNextNav kind="wiki" currentId={entry.id} />
+  <RelatedContent kind="wiki" tags={entry.data.tags} exclude={entry.id} />
 </BaseLayout>

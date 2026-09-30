@@ -4,6 +4,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import BackButton from "@components/BackButton.astro";
 import StructuredData from '@components/StructuredData.astro';
+import RelatedContent from '@components/RelatedContent.astro';
+import PrevNextNav from '@components/PrevNextNav.astro';
+import ReadingTime from '@components/ReadingTime.astro';
 import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 
 const BASE = import.meta.env.BASE_URL;
@@ -60,7 +63,7 @@ const ldBread = breadcrumbJsonLd(breadcrumb);
       <div class="flex flex-wrap items-center gap-3 text-xs text-mc-text-3">
         <span>📅 {post.data.pubDate.toLocaleDateString('fa-IR')}</span>
         <span>👤 {post.data.author}</span>
-        <span>⏱️ {post.data.readingTime || 5} دقیقه مطالعه</span>
+        <ReadingTime text={post.body} />
       </div>
       {post.data.tags.length > 0 && (
         <div class="flex flex-wrap gap-2 mt-3">
@@ -77,4 +80,7 @@ const ldBread = breadcrumbJsonLd(breadcrumb);
       <Content />
     </div>
   </article>
+
+  <PrevNextNav kind="blog" currentId={post.id} />
+  <RelatedContent kind="blog" tags={post.data.tags} exclude={post.id} />
 </BaseLayout>
