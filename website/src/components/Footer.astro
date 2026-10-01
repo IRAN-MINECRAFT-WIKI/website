@@ -86,9 +86,54 @@ const quickLinks = [
       <p>این سایت یک پروژه‌ی مستقل است و هیچ ارتباطی با Mojang یا Microsoft ندارد.</p>
       <p>تمام تکسچرها، اسپرایت‌ها و نشان‌های ماینکرفت متعلق به © Mojang Studios هستند و تحت استفاده‌ی منصفانه (fair use) برای ویکی فارسی هواداران استفاده می‌شوند.</p>
       <p class="footer-copyright">© {year} MINEBED FARSI — ساخته شده برای جامعه ماینکرفت فارسی</p>
+      <button id="footerMusicToggle" class="footer-music-toggle" title="فعال‌سازی موسیقی پس‌زمینه" aria-label="فعال‌سازی موسیقی">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13"/>
+          <circle cx="6" cy="18" r="3"/>
+          <circle cx="18" cy="16" r="3"/>
+        </svg>
+        <span>فعال‌سازی موسیقی</span>
+      </button>
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  (function () {
+    function setupFooterMusic() {
+      var btn = document.getElementById('footerMusicToggle');
+      if (!btn) return;
+
+      // Hide the button if music is NOT dismissed (player already visible)
+      if (localStorage.getItem('musicDismissed') !== 'true') {
+        btn.style.display = 'none';
+      }
+
+      btn.addEventListener('click', function () {
+        // Clear the dismiss flag so the player re-appears
+        localStorage.removeItem('musicDismissed');
+        localStorage.removeItem('musicUserPaused');
+        btn.style.display = 'none';
+        // Force a page reload so the player re-initializes
+        window.location.reload();
+      });
+
+      // After a View Transition, re-check if the button should show
+      document.addEventListener('astro:page-load', function () {
+        var b = document.getElementById('footerMusicToggle');
+        if (b) {
+          b.style.display = (localStorage.getItem('musicDismissed') === 'true') ? '' : 'none';
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupFooterMusic);
+    } else {
+      setupFooterMusic();
+    }
+  })();
+</script>
 
 <style>
   .site-footer {
@@ -189,6 +234,28 @@ const quickLinks = [
     font-size: 0.7rem !important;
     color: var(--text-3) !important;
     margin-top: 0.25rem !important;
+  }
+
+  .footer-music-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    background: rgba(124, 200, 74, 0.1);
+    border: 1px solid rgba(124, 200, 74, 0.3);
+    color: var(--grass-2);
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: inherit;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .footer-music-toggle:hover {
+    background: rgba(124, 200, 74, 0.2);
+    border-color: var(--grass-2);
   }
 
   @media (max-width: 768px) {
