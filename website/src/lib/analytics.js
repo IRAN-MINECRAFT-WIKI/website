@@ -129,6 +129,21 @@ export function trackVisit(pagePath) {
 
   // 3. Page hits
   const pageHits = safeGet(K_PAGE_HITS, {});
+  // One-time migration: collapse any legacy `/website/foo/` keys into
+  // the bare `/foo` form so the Top Pages chart doesn't show duplicate
+  // rows after the path-normalization fix. Only runs when there's at
+  // least one legacy key — cheap on hot path.
+  let migrated = false;
+  for (const k of Object.keys(pageHits)) {
+    if (k.startsWith('/website/')) {
+      const nk = normalizePath(k);
+      if (nk !== k) {
+        pageHits[nk] = (pageHits[nk] || 0) + pageHits[k];
+        delete pageHits[k];
+        migrated = true;
+      }
+    }
+  }
   pageHits[path] = (pageHits[path] || 0) + 1;
   safeSet(K_PAGE_HITS, pageHits);
 
