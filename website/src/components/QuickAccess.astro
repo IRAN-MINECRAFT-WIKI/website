@@ -17,19 +17,19 @@ const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 
 const links = [
-  { href: base('/'), label: 'خانه', icon: 'grass-block', type: 'block', color: '#5fa838' },
-  { href: base('/mods'), label: 'افزونه‌ها', icon: 'chest', type: 'block', color: '#9c7b4e' },
-  { href: base('/crafting'), label: 'کرافت + ۳D', icon: 'crafting-table-top', type: 'block', color: '#9c7b4e' },
-  { href: base('/wiki'), label: 'ویکی', icon: 'book', type: 'item', color: '#7cc84a' },
-  { href: base('/wiki/blocks'), label: 'بلاک‌ها', icon: 'stone', type: 'block', color: '#7e7e7e' },
-  { href: base('/wiki/mobs'), label: 'ماب‌ها', icon: 'creeper', type: 'block', color: '#5fa838' },
-  { href: base('/speedrun'), label: 'سرعت‌رانی', icon: 'clock', type: 'item', color: '#fcb32b' },
-  { href: base('/versions'), label: 'نسخه‌ها', icon: 'grass-block', type: 'block', color: '#5fa838' },
-  { href: base('/seeds'), label: 'سیدها', icon: 'grass-block', type: 'block', color: '#5fa838' },
-  { href: base('/videos'), label: 'ویدیوها', icon: 'book', type: 'item', color: '#ff3b3b' },
-  { href: base('/blog'), label: 'وبلاگ', icon: 'book', type: 'item', color: '#fcb32b' },
-  { href: base('/guide'), label: 'آموزش', icon: 'stick', type: 'item', color: '#9c7b4e' },
-  { href: base('/about'), label: 'درباره', icon: 'apple', type: 'item', color: '#ff3b3b' },
+  { href: base('/'), label: 'خانه', icon: 'grass_block', type: 'ui', color: '#5fa838' },
+  { href: base('/mods'), label: 'افزونه‌ها', icon: 'chest', type: 'ui', color: '#9c7b4e' },
+  { href: base('/crafting'), label: 'کرافت + ۳D', icon: 'crafting_table', type: 'ui', color: '#9c7b4e' },
+  { href: base('/wiki'), label: 'ویکی', icon: 'bookshelf', type: 'ui', color: '#7cc84a' },
+  { href: base('/wiki/blocks'), label: 'بلاک‌ها', icon: 'stone', type: 'ui', color: '#7e7e7e' },
+  { href: base('/wiki/mobs'), label: 'ماب‌ها', icon: 'creeper_head', type: 'ui', color: '#5fa838' },
+  { href: base('/speedrun'), label: 'سرعت‌رانی', icon: 'clock', type: 'ui', color: '#fcb32b' },
+  { href: base('/versions'), label: 'نسخه‌ها', icon: 'command_block', type: 'ui', color: '#5fa838' },
+  { href: base('/seeds'), label: 'سیدها', icon: 'map', type: 'ui', color: '#5fa838' },
+  { href: base('/videos'), label: 'ویدیوها', icon: 'painting', type: 'ui', color: '#ff3b3b' },
+  { href: base('/blog'), label: 'وبلاگ', icon: 'book', type: 'ui', color: '#fcb32b' },
+  { href: base('/guide'), label: 'آموزش', icon: 'knowledge_book', type: 'ui', color: '#9c7b4e' },
+  { href: base('/about'), label: 'درباره', icon: 'player_head', type: 'ui', color: '#ff3b3b' },
 ];
 ---
 
@@ -64,7 +64,7 @@ const links = [
         >
           <div class="qa-card-icon">
             <img
-              src={`${BASE}textures/${link.type === 'block' ? 'blocks' : 'items'}/${link.icon}.png`}
+              src={`${BASE}textures/${link.type === 'ui' ? 'ui' : link.type === 'block' ? 'blocks' : 'items'}/${link.icon}.png`}
               alt=""
               width="56"
               height="56"
