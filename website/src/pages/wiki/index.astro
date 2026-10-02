@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd } from '@/lib/seo';
 
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
@@ -10,15 +12,16 @@ const breadcrumb = [
   { name: 'خانه', url: '/' },
   { name: 'ویکی', url: '/wiki' },
 ];
+const ldBread = breadcrumbJsonLd(breadcrumb);
 
 const entries = (await getCollection('wiki', ({ data }) => !data.draft)).sort(
-  (a, b) => a.data.title.localeCompare(b.data.title, 'fa')
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
 // Group by topic
 const topics: Record<string, typeof entries> = {};
 entries.forEach((e) => {
-  const t = e.data.topic;
+  const t = e.data.topic || 'misc';
   if (!topics[t]) topics[t] = [];
   topics[t].push(e);
 });
@@ -28,52 +31,291 @@ const topicNames: Record<string, string> = {
   blocks: 'بلوک‌ها',
   mobs: 'موجودات',
   mechanics: 'مکانیک‌ها و راهنماها',
-  biomes: 'بیوم‌ها',
-  structures: 'ساختارها',
+  redstone: 'رد‌استون',
+  combat: 'مبارزه',
+  farming: 'کشاورزی',
+  exploration: 'کاوش',
+  brewing: 'جوش‌سازی',
+  dimensions: 'ابعاد',
+  survival: 'بقا',
+  commands: 'دستورات',
+  misc: 'متفرقه',
 };
+
+const topicIcons: Record<string, string> = {
+  items: '📦',
+  blocks: '🧱',
+  mobs: '💀',
+  mechanics: '⚙️',
+  redstone: '🔴',
+  combat: '⚔️',
+  farming: '🌾',
+  exploration: '🧭',
+  brewing: '⚗️',
+  dimensions: '🌌',
+  survival: '🔥',
+  commands: '💻',
+  misc: '📚',
+};
+
+const topicColors: Record<string, string> = {
+  items: '#9c7b4e',
+  blocks: '#7e7e7e',
+  mobs: '#5fa838',
+  mechanics: '#4aedd9',
+  redstone: '#ff3b3b',
+  combat: '#c63b3b',
+  farming: '#7cc84a',
+  exploration: '#fcb32b',
+  brewing: '#9b6dd9',
+  dimensions: '#3b7ac6',
+  survival: '#ff6b35',
+  commands: '#6db3f0',
+  misc: '#8585a3',
+};
+
+// Featured article (most recent)
+const featured = entries[0];
+
+// Recent 6 articles
+const recent = entries.slice(0, 6);
 ---
 
 <BaseLayout
   path="/wiki"
-  title="ویکی فارسی ماینکرفت — راهنمای آیتم‌ها، بلوک‌ها و مکانیک‌ها"
-  description="ویکی فارسی ماینکرفت بدراک: راهنمای کامل آیتم‌ها، بلوک‌ها، موجودات، بیوم‌ها، ساختارها و مکانیک‌های بازی."
+  title="ویکی ماینکرفت — راهنمای کامل فارسی"
+  description="ویکی کامل ماینکرفت به فارسی — بلاک‌ها، ماب‌ها، آیتم‌ها، مکانیک‌ها، مبارزه و بقا."
 >
+  <StructuredData data={ldBread} />
   <Breadcrumbs items={breadcrumb} />
 
-  <div class="mb-6">
-    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">ویکی ماینکرفت</h1>
-    <p class="text-sm text-mc-text-2">{entries.length} مقاله در {Object.keys(topics).length} دسته</p>
+  <!-- Hero -->
+  <div class="wiki-hero">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">📚 ویکی ماینکرفت</h1>
+    <p class="text-sm text-mc-text-2">راهنمای کامل فارسی — {entries.length} مقاله در {Object.keys(topics).length} دسته</p>
   </div>
 
-  {Object.entries(topics).map(([topic, items]) => (
-    <section class="mb-8">
-      <h2 class="text-lg font-extrabold text-mc-gold mb-3">{topicNames[topic] || topic}</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {items.map((entry) => (
-          <a href={base(`/wiki/${entry.id}`)} class="mc-panel hoverable group p-4">
-            <h3 class="font-bold text-mc-text group-hover:text-mc-grass-2 mb-1">{entry.data.title}</h3>
-            <p class="text-xs text-mc-text-2 line-clamp-2">{entry.data.description}</p>
-            <div class="text-[10px] text-mc-text-3 mt-2">MC {entry.data.mcVersion}</div>
+  <!-- Stats bar -->
+  <div class="wiki-stats-bar">
+    <div class="wiki-stat">
+      <span class="wiki-stat-num">{entries.length}</span>
+      <span class="wiki-stat-lbl">مقاله</span>
+    </div>
+    <div class="wiki-stat">
+      <span class="wiki-stat-num">{Object.keys(topics).length}</span>
+      <span class="wiki-stat-lbl">دسته</span>
+    </div>
+    <div class="wiki-stat">
+      <span class="wiki-stat-num">{Object.keys(topicNames).length}</span>
+      <span class="wiki-stat-lbl">موضوع</span>
+    </div>
+    <div class="wiki-stat">
+      <span class="wiki-stat-num">۲۱</span>
+      <span class="wiki-stat-lbl">ماب</span>
+    </div>
+    <div class="wiki-stat">
+      <span class="wiki-stat-num">۱۱۲</span>
+      <span class="wiki-stat-lbl">بلاک</span>
+    </div>
+    <div class="wiki-stat">
+      <span class="wiki-stat-num">۵۲</span>
+      <span class="wiki-stat-lbl">موجود</span>
+    </div>
+  </div>
+
+  <!-- Featured article -->
+  {featured && (
+    <a href={base(`/wiki/${featured.id}`)} class="wiki-featured">
+      <div class="wiki-featured-badge">⭐ مقاله‌ی ویژه</div>
+      <div class="wiki-featured-content">
+        <h2 class="wiki-featured-title">{featured.data.title}</h2>
+        <p class="wiki-featured-desc">{featured.data.description}</p>
+        <div class="wiki-featured-meta">
+          <span>📅 {featured.data.pubDate.toLocaleDateString('fa-IR')}</span>
+          <span>📂 {topicNames[featured.data.topic] || 'متفرقه'}</span>
+          <span>📖 خواندن →</span>
+        </div>
+      </div>
+    </a>
+  )}
+
+  <!-- Quick links to blocks + mobs wiki -->
+  <div class="wiki-quick-links">
+    <a href={base('/wiki/blocks')} class="wiki-quick-card" style="--qc:#7e7e7e">
+      <span class="wiki-quick-icon">🧱</span>
+      <span class="wiki-quick-name">بلاک‌ها</span>
+      <span class="wiki-quick-count">۱۱۲ بلاک</span>
+    </a>
+    <a href={base('/wiki/mobs')} class="wiki-quick-card" style="--qc:#5fa838">
+      <span class="wiki-quick-icon">💀</span>
+      <span class="wiki-quick-name">ماب‌ها</span>
+      <span class="wiki-quick-count">۵۲ ماب</span>
+    </a>
+  </div>
+
+  <!-- Category cards -->
+  <h2 class="text-lg font-bold text-mc-text mb-4">📂 دسته‌بندی‌ها</h2>
+  <div class="wiki-categories">
+    {Object.entries(topics).map(([topic, arts]) => (
+      <a href={`#topic-${topic}`} class="wiki-cat-card" style={`--cc:${topicColors[topic] || '#8585a3'}`}>
+        <span class="wiki-cat-icon">{topicIcons[topic] || '📚'}</span>
+        <div class="wiki-cat-body">
+          <h3 class="wiki-cat-name">{topicNames[topic] || topic}</h3>
+          <span class="wiki-cat-count">{arts.length} مقاله</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Recent articles -->
+  <h2 class="text-lg font-bold text-mc-text mb-4 mt-6">🆕 جدیدترین مقالات</h2>
+  <div class="wiki-recent">
+    {recent.map((entry) => (
+      <a href={base(`/wiki/${entry.id}`)} class="wiki-recent-card">
+        <span class="wiki-recent-topic">{topicIcons[entry.data.topic] || '📚'}</span>
+        <div>
+          <h3 class="wiki-recent-title">{entry.data.title}</h3>
+          <p class="wiki-recent-desc">{entry.data.description?.slice(0, 80)}…</p>
+        </div>
+        <span class="wiki-recent-date">{entry.data.pubDate.toLocaleDateString('fa-IR')}</span>
+      </a>
+    ))}
+  </div>
+
+  <!-- Full article list by topic -->
+  <h2 class="text-lg font-bold text-mc-text mb-4 mt-6">📖 همه‌ی مقالات</h2>
+  {Object.entries(topics).map(([topic, arts]) => (
+    <section class="wiki-topic-section" id={`topic-${topic}`}>
+      <h3 class="wiki-topic-title">
+        {topicIcons[topic] || '📚'} {topicNames[topic] || topic}
+        <span class="wiki-topic-count">({arts.length})</span>
+      </h3>
+      <div class="wiki-topic-list">
+        {arts.map((entry) => (
+          <a href={base(`/wiki/${entry.id}`)} class="wiki-article-link">
+            <span class="wiki-article-title">{entry.data.title}</span>
+            <span class="wiki-article-desc">{entry.data.description?.slice(0, 100)}</span>
           </a>
         ))}
       </div>
     </section>
   ))}
 
-  {entries.length === 0 && (
-    <div class="mc-panel text-center py-12">
-      <div class="text-5xl mb-4">📚</div>
-      <h3 class="text-xl font-bold text-mc-text-2 mb-2">هنوز مقاله‌ای نیست</h3>
-      <p class="text-sm text-mc-text-3">به‌زودی مقاله‌های ویکی اضافه می‌شه!</p>
-    </div>
-  )}
+  <!-- CTA -->
+  <div class="wiki-cta">
+    <p>مقاله‌ای رو پیشنهاد کن یا سوال بپرس!</p>
+    <a href={base('/about')} class="mc-btn ghost small">📞 تماس با ما</a>
+  </div>
 </BaseLayout>
 
-<style>
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+<style is:global>
+  .wiki-hero { padding-bottom: 1rem; border-bottom: 2px solid var(--line); margin-bottom: 1rem; }
+  
+  .wiki-stats-bar {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
+  .wiki-stat {
+    display: flex; flex-direction: column; align-items: center;
+    background: rgba(28, 28, 52, 0.4);
+    border: 1px solid var(--line);
+    border-radius: 8px; padding: 0.5rem 0.875rem;
+    min-width: 60px;
+  }
+  .wiki-stat-num { font-size: 1.25rem; font-weight: 800; color: var(--grass-2); }
+  .wiki-stat-lbl { font-size: 0.625rem; color: var(--text-3); }
+
+  .wiki-featured {
+    display: flex; flex-direction: column;
+    background: linear-gradient(135deg, rgba(124,200,74,0.08), rgba(252,179,43,0.05));
+    border: 2px solid rgba(124,200,74,0.2);
+    border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .wiki-featured:hover { border-color: var(--grass-2); box-shadow: 0 4px 20px rgba(124,200,74,0.15); }
+  .wiki-featured-badge {
+    font-size: 0.625rem; font-weight: 700; color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .wiki-featured-title { font-size: 1.25rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+  .wiki-featured-desc { font-size: 0.8125rem; color: var(--text-2); line-height: 1.6; margin-bottom: 0.75rem; }
+  .wiki-featured-meta {
+    display: flex; gap: 1rem; font-size: 0.6875rem; color: var(--text-3);
+  }
+
+  .wiki-quick-links {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .wiki-quick-card {
+    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+    padding: 1.25rem; border-radius: 10px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--qc, #888) 15%, transparent), transparent);
+    border: 1px solid color-mix(in srgb, var(--qc, #888) 30%, transparent);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .wiki-quick-card:hover { border-color: var(--qc); box-shadow: 0 2px 12px color-mix(in srgb, var(--qc) 20%, transparent); }
+  .wiki-quick-icon { font-size: 2rem; }
+  .wiki-quick-name { font-weight: 700; color: var(--text); }
+  .wiki-quick-count { font-size: 0.625rem; color: var(--text-3); }
+
+  .wiki-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.75rem; margin-bottom: 1.5rem;
+  }
+  .wiki-cat-card {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.875rem; border-radius: 8px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--cc, #888) 10%, transparent), transparent);
+    border: 1px solid color-mix(in srgb, var(--cc, #888) 25%, transparent);
+    text-decoration: none; transition: all 0.15s;
+  }
+  .wiki-cat-card:hover { border-color: var(--cc); }
+  .wiki-cat-icon { font-size: 1.5rem; }
+  .wiki-cat-name { font-size: 0.875rem; font-weight: 700; color: var(--text); }
+  .wiki-cat-count { font-size: 0.625rem; color: var(--text-3); }
+
+  .wiki-recent {
+    display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;
+  }
+  .wiki-recent-card {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.625rem 0.875rem; border-radius: 8px;
+    background: rgba(28,28,52,0.4); border: 1px solid var(--line);
+    text-decoration: none; transition: all 0.15s;
+  }
+  .wiki-recent-card:hover { border-color: var(--grass-2); background: rgba(28,28,52,0.6); }
+  .wiki-recent-topic { font-size: 1.5rem; }
+  .wiki-recent-title { font-size: 0.875rem; font-weight: 700; color: var(--text); }
+  .wiki-recent-desc { font-size: 0.6875rem; color: var(--text-3); margin-top: 0.125rem; }
+  .wiki-recent-date { font-size: 0.625rem; color: var(--text-3); margin-right: auto; }
+
+  .wiki-topic-section { margin-bottom: 1.5rem; }
+  .wiki-topic-title {
+    font-size: 1rem; font-weight: 700; color: var(--text);
+    margin-bottom: 0.75rem; padding-bottom: 0.375rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .wiki-topic-count { font-size: 0.75rem; color: var(--text-3); font-weight: 400; }
+  .wiki-topic-list {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+  }
+  @media (max-width: 640px) { .wiki-topic-list { grid-template-columns: 1fr; } }
+  .wiki-article-link {
+    display: flex; flex-direction: column; gap: 0.125rem;
+    padding: 0.5rem 0.75rem; border-radius: 6px;
+    background: rgba(28,28,52,0.3); border: 1px solid transparent;
+    text-decoration: none; transition: all 0.15s;
+  }
+  .wiki-article-link:hover { border-color: var(--grass-3); background: rgba(28,28,52,0.5); }
+  .wiki-article-title { font-size: 0.8125rem; font-weight: 600; color: var(--text); }
+  .wiki-article-desc { font-size: 0.625rem; color: var(--text-3); line-height: 1.4; }
+
+  .wiki-cta {
+    text-align: center; padding: 1.5rem;
+    background: rgba(28,28,52,0.3); border: 1px dashed var(--line);
+    border-radius: 8px; margin-top: 1.5rem;
+  }
+  .wiki-cta p { font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.75rem; }
 </style>

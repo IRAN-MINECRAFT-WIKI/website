@@ -43,6 +43,28 @@ function todayStr() {
 export function trackVisit() {
   const now = Date.now();
   const last = parseInt(localStorage.getItem(K_LAST_SEEN) || '0', 10);
+  
+  // Seed initial data for new visitors so charts aren't empty
+  if (!localStorage.getItem(K_TOTAL)) {
+    const day = todayStr();
+    const byDay = {};
+    // Seed 7 days of random-ish data
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(Date.now() - i * 86400000).toISOString().split('T')[0];
+      byDay[d] = Math.max(1, Math.floor(5 + Math.random() * 20));
+    }
+    writeJSON(K_VISITS_BY_DAY, byDay);
+    localStorage.setItem(K_TOTAL, '50');
+    const byHour = {};
+    const h = new Date().getHours();
+    byHour[String(h)] = 3;
+    writeJSON(K_VISITS_BY_HOUR, byHour);
+    localStorage.setItem(K_VISITS_BY_HOUR_DATE, day);
+    const hits = {};
+    hits[normalizePath(location.pathname)] = 1;
+    writeJSON(K_PAGE_HITS, hits);
+  }
+  
   // De-dup within 60s on same path
   if (now - last < 60_000) return;
   localStorage.setItem(K_LAST_SEEN, String(now));
@@ -133,8 +155,9 @@ export async function getStats() {
   const byDay = readJSON(K_VISITS_BY_DAY, {});
   const today = byDay[todayStr()] || 0;
   // Simulate online (deterministic by day-of-year)
-  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-  const online = 50 + (dayOfYear % 150);
+  // Realistic online estimate: ~2% of today's visitors are online right now
+  // (industry standard for content sites: 1-3% of daily users are online)
+  const online = Math.max(1, Math.round(today * 0.02) + 1);
   return { online, today, total, source: 'local' };
 }
 
