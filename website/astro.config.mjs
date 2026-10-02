@@ -17,6 +17,19 @@ export default defineConfig({
     inlineStylesheets: 'auto',
     assets: '_assets',
   },
+  redirects: {
+    // Backwards-compat for old version URLs (pre Task 21 used unprefixed IDs).
+    // Astro static output renders these as HTML meta-refresh stubs.
+    // The base `/website/` prefix is required because this is a GitHub
+    // Pages project site (astro.config `base`). Without it, the meta
+    // refresh would 404 on the production URL.
+    '/versions/1-21': '/website/versions/java-1-21',
+    '/versions/1-20': '/website/versions/java-1-20',
+    '/versions/1-19': '/website/versions/java-1-19',
+    '/versions/1-18': '/website/versions/java-1-18',
+    '/versions/1-17': '/website/versions/java-1-17',
+    '/versions/1-16': '/website/versions/java-1-16',
+  },
   integrations: [
     mdx(),
     tailwind({ applyBaseStyles: true }),

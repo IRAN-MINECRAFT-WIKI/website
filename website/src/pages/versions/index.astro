@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
-import '@components/pixel-sprites.astro';
-import { versions } from '@/lib/data';
+import { javaVersions, bedrockVersions, versions } from '@/lib/data';
 import { breadcrumbJsonLd } from '@/lib/seo';
 
 const BASE = import.meta.env.BASE_URL;
@@ -14,65 +13,269 @@ const breadcrumb = [
 ];
 
 const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
+
+// Persian digit conversion helper for inline use
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
 ---
 
 <BaseLayout
   path="/versions"
-  title="راهنمای نسخه‌های ماینکرفت بدراک"
-  description="راهنمای کامل نسخه‌های ماینکرفت بدراک: 1.21, 1.20, 1.19 و... هر نسخه با توضیحات کامل، ویژگی‌های جدید و افزونه‌های سازگار."
+  title="راهنمای کامل نسخه‌های ماینکرفت Java و Bedrock"
+  description="راهنمای کامل نسخه‌های ماینکرفت Java و Bedrock: از نسخه‌ی 1.0 تا جدیدترین آپدیت‌های 26.x. هر نسخه با توضیحات کامل، ویژگی‌های جدید، تاریخ انتشار و لینک به Minecraft Wiki."
 >
   <script type="application/ld+json" set:html={JSON.stringify(ldBreadcrumb)} />
   <Breadcrumbs items={breadcrumb} />
 
   <div class="mb-6">
     <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">راهنمای نسخه‌های ماینکرفت</h1>
-    <p class="text-sm text-mc-text-2">{versions.length} نسخه ماینکرفت بدراک با توضیحات کامل</p>
+    <p class="text-sm text-mc-text-2">
+      {faNum(versions.length)} نسخه ماینکرفت — {faNum(javaVersions.length)} Java + {faNum(bedrockVersions.length)} Bedrock
+    </p>
   </div>
 
-  <div class="space-y-4">
-    {versions.map((v) => (
-      <a href={base(`/versions/${v.id}`)} class="mc-panel hoverable group block p-5">
-        <div class="flex items-start gap-4">
-          <span class="shrink-0 inline-flex items-center justify-center w-12 h-12">
-            <img
-              src={`${BASE}textures/blocks/${v.icon.replace('px-', '')}.png`}
-              alt={v.nameFa}
-              width="40"
-              height="40"
-              loading="lazy"
-              decoding="async"
-              class="pixel-img"
-              onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
-            />
-            <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
-              <use href={`#${v.icon}`} />
-            </svg>
-          </span>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-3 mb-1 flex-wrap">
-              <h2 class="text-xl font-extrabold text-mc-text group-hover:text-mc-grass-2">{v.nameFa}</h2>
-              {v.isLatest && (
-                <span class="bg-mc-grass text-white text-[10px] font-pixel px-2 py-1">جدیدترین</span>
-              )}
-            </div>
-            <p class="text-xs text-mc-text-3 mb-2" dir="ltr" style="text-align: right;">
-              {v.releaseDate} • {v.codename}
-            </p>
-            <p class="text-sm text-mc-text-2 leading-relaxed mb-3 line-clamp-2">{v.summary}</p>
-            <div class="flex flex-wrap gap-1.5">
-              {v.highlights.slice(0, 3).map((h) => (
-                <span class="text-[10px] bg-mc-bg-2 border border-mc-line px-2 py-0.5 text-mc-text-2">{h}</span>
-              ))}
-              <span class="text-[10px] text-mc-text-3">+ {v.highlights.length - 3} مورد دیگر</span>
+  <!-- Filter toolbar -->
+  <div class="mc-panel p-3 mb-5 flex flex-wrap items-center gap-3">
+    <div class="flex flex-wrap gap-2" id="verChips">
+      <button class="mc-chip active" data-platform="all">همه ({faNum(versions.length)})</button>
+      <button class="mc-chip" data-platform="java">Java ({faNum(javaVersions.length)})</button>
+      <button class="mc-chip" data-platform="bedrock">Bedrock ({faNum(bedrockVersions.length)})</button>
+    </div>
+    <div class="mr-auto flex items-center gap-2">
+      <label for="verSearch" class="text-xs text-mc-text-3 font-bold">جستجو:</label>
+      <input
+        id="verSearch"
+        type="search"
+        placeholder="مثلا 1.21 یا Nether..."
+        class="sw-input text-xs py-1.5 px-3"
+        dir="rtl"
+      />
+    </div>
+  </div>
+
+  <!-- Java Edition section -->
+  <section class="mb-10" id="java-section" data-platform-section="java">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="text-3xl">☕</span>
+      <div>
+        <h2 class="text-xl font-extrabold">Java Edition (نسخه‌ی کامپیوتر)</h2>
+        <p class="text-xs text-mc-text-3">{faNum(javaVersions.length)} نسخه از Classic تا 26.3</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {javaVersions.map((v) => (
+        <a
+          href={base(`/versions/${v.id}`)}
+          class="mc-panel hoverable group block p-5"
+          data-platform="java"
+          data-version={v.version || ''}
+          data-codename={v.codename}
+          data-name={v.nameFa}
+          data-summary={v.summary}
+        >
+          <div class="flex items-start gap-3 mb-3">
+            <span class="shrink-0 inline-flex items-center justify-center w-12 h-12">
+              <img
+                src={`${BASE}textures/blocks/${v.icon.replace('px-', '')}.png`}
+                alt={v.nameFa}
+                width="40"
+                height="40"
+                loading="lazy"
+                decoding="async"
+                class="pixel-img"
+                onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
+              />
+              <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+                <use href={`#${v.icon}`} />
+              </svg>
+            </span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <h3 class="text-lg font-extrabold text-mc-text group-hover:text-mc-grass-2">{v.nameFa}</h3>
+                {v.isLatest && (
+                  <span class="bg-mc-grass text-white text-[10px] font-pixel px-2 py-0.5">جدیدترین</span>
+                )}
+                {v.featured && !v.isLatest && (
+                  <span class="bg-mc-gold text-[#21160a] text-[10px] font-pixel px-2 py-0.5">ویژه</span>
+                )}
+              </div>
+              <p class="text-xs text-mc-text-3" dir="ltr" style="text-align: right;">
+                {v.version} • {v.codename}
+              </p>
             </div>
           </div>
-        </div>
-      </a>
-    ))}
-  </div>
+          <p class="text-xs text-mc-text-2 mb-3 line-clamp-2">{v.summary}</p>
+          <div class="flex items-center justify-between text-[10px] text-mc-text-3 border-t border-mc-line pt-2">
+            <span>📅 {v.releaseDate}</span>
+            <span>🍵 Java Edition</span>
+            {v.wikiLink && (
+              <span class="text-mc-grass-2 hover:underline">Wiki ↗</span>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Bedrock Edition section -->
+  <section class="mb-10" id="bedrock-section" data-platform-section="bedrock">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="text-3xl">🪨</span>
+      <div>
+        <h2 class="text-xl font-extrabold">Bedrock Edition (موبایل/کنسول/Win10)</h2>
+        <p class="text-xs text-mc-text-3">{faNum(bedrockVersions.length)} نسخه از 0.9.0 تا 26.50</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {bedrockVersions.map((v) => (
+        <a
+          href={base(`/versions/${v.id}`)}
+          class="mc-panel hoverable group block p-5"
+          data-platform="bedrock"
+          data-version={v.version || ''}
+          data-codename={v.codename}
+          data-name={v.nameFa}
+          data-summary={v.summary}
+        >
+          <div class="flex items-start gap-3 mb-3">
+            <span class="shrink-0 inline-flex items-center justify-center w-12 h-12">
+              <img
+                src={`${BASE}textures/blocks/${v.icon.replace('px-', '')}.png`}
+                alt={v.nameFa}
+                width="40"
+                height="40"
+                loading="lazy"
+                decoding="async"
+                class="pixel-img"
+                onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
+              />
+              <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+                <use href={`#${v.icon}`} />
+              </svg>
+            </span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <h3 class="text-lg font-extrabold text-mc-text group-hover:text-mc-grass-2">{v.nameFa}</h3>
+                {v.isLatest && (
+                  <span class="bg-mc-grass text-white text-[10px] font-pixel px-2 py-0.5">جدیدترین</span>
+                )}
+                {v.featured && !v.isLatest && (
+                  <span class="bg-mc-gold text-[#21160a] text-[10px] font-pixel px-2 py-0.5">ویژه</span>
+                )}
+              </div>
+              <p class="text-xs text-mc-text-3" dir="ltr" style="text-align: right;">
+                {v.version} • {v.codename}
+              </p>
+            </div>
+          </div>
+          <p class="text-xs text-mc-text-2 mb-3 line-clamp-2">{v.summary}</p>
+          <div class="flex items-center justify-between text-[10px] text-mc-text-3 border-t border-mc-line pt-2">
+            <span>📅 {v.releaseDate}</span>
+            <span>📱 Bedrock</span>
+            {v.wikiLink && (
+              <span class="text-mc-grass-2 hover:underline">Wiki ↗</span>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Empty state shown when filters exclude everything -->
+  <p class="mc-panel text-center py-8 text-sm text-mc-text-2 hidden" id="noResults">
+    هیچ نسخه‌ای با این فیلتر پیدا نشد. 🔍
+  </p>
 </BaseLayout>
 
+<script is:inline>
+  (function () {
+    const chips = document.querySelectorAll('#verChips .mc-chip');
+    const javaSec = document.getElementById('java-section');
+    const bedSec = document.getElementById('bedrock-section');
+    const searchInput = document.getElementById('verSearch');
+    const noResults = document.getElementById('noResults');
+    if (!chips.length || !javaSec || !bedSec) return;
+
+    let curPlatform = 'all';
+    let curQuery = '';
+
+    function applyFilter() {
+      const javaCards = javaSec.querySelectorAll('[data-platform="java"]');
+      const bedCards = bedSec.querySelectorAll('[data-platform="bedrock"]');
+      let visibleCount = 0;
+
+      function showCard(card) {
+        const q = curQuery.trim().toLowerCase();
+        if (q) {
+          const haystack = [
+            card.dataset.name || '',
+            card.dataset.codename || '',
+            card.dataset.version || '',
+            card.dataset.summary || '',
+          ].join(' ').toLowerCase();
+          if (!haystack.includes(q)) {
+            card.style.display = 'none';
+            return;
+          }
+        }
+        card.style.display = '';
+        visibleCount++;
+      }
+
+      if (curPlatform === 'java') {
+        javaSec.style.display = '';
+        bedSec.style.display = 'none';
+        javaCards.forEach(showCard);
+      } else if (curPlatform === 'bedrock') {
+        javaSec.style.display = 'none';
+        bedSec.style.display = '';
+        bedCards.forEach(showCard);
+      } else {
+        javaSec.style.display = '';
+        bedSec.style.display = '';
+        javaCards.forEach(showCard);
+        bedCards.forEach(showCard);
+      }
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      }
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        curPlatform = chip.dataset.platform || 'all';
+        applyFilter();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        curQuery = searchInput.value;
+        applyFilter();
+      });
+    }
+  })();
+</script>
+
 <style>
+  .sw-input {
+    background: var(--bg-2, #0d0d18);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    border-radius: 4px;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sw-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+    background: #141428;
+  }
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;

@@ -8,6 +8,7 @@
 import modsRaw from '@/data/mods.json';
 import seedsRaw from '@/data/seeds.json';
 import versionsRaw from '@/data/versions.json';
+import seedsTestedRaw from '@/data/seeds-tested.json';
 import categoriesRaw from '@/data/categories.json';
 import musicRaw from '@/data/music.json';
 
@@ -57,6 +58,7 @@ export type Seed = {
 
 export type MCVersion = {
   id: string;
+  version?: string;
   name: string;
   nameFa: string;
   releaseDate: string;
@@ -68,8 +70,32 @@ export type MCVersion = {
   description: string;
   highlights: string[];
   compatibleMods: number;
+  platform?: 'java' | 'bedrock';
   isLatest?: boolean;
   featured?: boolean;
+  wikiLink?: string;
+};
+
+export type TestedSeedCoordinate = {
+  name: string;
+  x: number | string;
+  y?: number | string;
+  z?: number | string;
+};
+
+export type TestedSeed = {
+  id: string;
+  seed: string;
+  version: string;
+  platform: 'java' | 'bedrock';
+  category: 'survival' | 'speedrun' | 'beautiful' | 'rare' | 'island' | 'challenge';
+  name: string;
+  description: string;
+  coordinates?: TestedSeedCoordinate[];
+  features?: string[];
+  rating: number;
+  source?: string;
+  chunkbaseLink?: string;
 };
 
 export type Category = {
@@ -88,7 +114,23 @@ export type MusicTrack = {
 
 export const mods: Mod[] = (modsRaw as { mods: Mod[] }).mods;
 export const seeds: Seed[] = (seedsRaw as { seeds: Seed[] }).seeds;
-export const versions: MCVersion[] = (versionsRaw as { versions: MCVersion[] }).versions;
+export const testedSeeds: TestedSeed[] = (seedsTestedRaw as { seeds?: TestedSeed[] }).seeds ?? [];
+
+// Versions are stored in two arrays (java + bedrock). The flat `versions`
+// export keeps backwards-compatibility with existing pages that iterate
+// over a single list — newest-first by release date.
+type VersionsFile = { java: MCVersion[]; bedrock: MCVersion[] };
+const parsedVersions = versionsRaw as unknown as VersionsFile;
+
+export const javaVersions: MCVersion[] = parsedVersions.java ?? [];
+export const bedrockVersions: MCVersion[] = parsedVersions.bedrock ?? [];
+
+export const versions: MCVersion[] = [...javaVersions, ...bedrockVersions].sort((a, b) => {
+  if (a.releaseDate < b.releaseDate) return 1;
+  if (a.releaseDate > b.releaseDate) return -1;
+  return 0;
+});
+
 export const categories: Category[] = (categoriesRaw as { categories: Category[] }).categories;
 export const musicTracks: MusicTrack[] = (musicRaw as { tracks?: MusicTrack[] }).tracks ?? [];
 
@@ -103,9 +145,19 @@ export function getModsByCategory(catId: string): Mod[] {
 }
 
 export function getModsByVersion(verId: string): Mod[] {
-  // Match by major.minor string, e.g. "1.21" → "1-21"
-  const v = verId.replace('-', '.');
-  return mods.filter((m) => (m.version || '').startsWith(v));
+  // New versions have a `version` field (e.g. "1.21", "1.21.50", "26.3").
+  // To match mods, we strip to the first two numeric parts (e.g. "1.21.50"
+  // → "1.21") so Bedrock minor releases match the major Java release.
+  const v = getVersionById(verId);
+  let prefix = '';
+  if (v && v.version) {
+    const m = v.version.match(/^(\d+\.\d+)/);
+    prefix = m ? m[1] : v.version;
+  } else {
+    // Backwards-compat fallback: legacy IDs like "1-21"
+    prefix = verId.replace('-', '.');
+  }
+  return mods.filter((m) => (m.version || '').startsWith(prefix));
 }
 
 export function getFeaturedMods(): Mod[] {
@@ -130,6 +182,41 @@ export function getVersionById(id: string): MCVersion | undefined {
 
 export function getLatestVersion(): MCVersion | undefined {
   return versions.find((v) => v.isLatest) || versions[0];
+}
+
+// Returns the latest version for a specific platform
+export function getLatestVersionByPlatform(platform: 'java' | 'bedrock'): MCVersion | undefined {
+  return (
+    versions.find((v) => v.platform === platform && v.isLatest) ||
+    versions.find((v) => v.platform === platform)
+  );
+}
+
+export function getTestedSeedsByPlatform(platform: 'java' | 'bedrock'): TestedSeed[] {
+  return testedSeeds.filter((s) => s.platform === platform);
+}
+
+export function getTestedSeedsByCategory(category: string): TestedSeed[] {
+  return testedSeeds.filter((s) => s.category === category);
+}
+
+export function getTestedSeedsByVersion(version: string): TestedSeed[] {
+  return testedSeeds.filter((s) => s.version === version);
+}
+
+export function getTestedSeedById(id: string): TestedSeed | undefined {
+  return testedSeeds.find((s) => s.id === id);
+}
+
+export function searchTestedSeeds(query: string): TestedSeed[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return testedSeeds;
+  return testedSeeds.filter((s) =>
+    [s.seed, s.name, s.description, s.version, ...(s.features || [])]
+      .join(' ')
+      .toLowerCase()
+      .includes(q)
+  );
 }
 
 export function getRelatedMods(mod: Mod, limit = 4): Mod[] {

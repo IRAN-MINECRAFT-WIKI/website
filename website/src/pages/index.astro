@@ -162,7 +162,7 @@ const heroStats = [
             <h3 class="font-extrabold text-mc-text group-hover:text-mc-diamond">{v.nameFa}</h3>
             <p class="text-xs text-mc-text-2 mt-1 line-clamp-2">{v.summary}</p>
             <span class="text-[10px] font-pixel text-mc-grass-2 mt-2 block">
-              {v.isLatest ? 'جدیدترین' : `1.${v.minor}`}
+              {v.isLatest ? 'جدیدترین' : (v.version || `1.${v.minor}`)}
             </span>
           </div>
         </a>

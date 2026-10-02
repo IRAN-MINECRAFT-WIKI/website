@@ -1,0 +1,1102 @@
+{
+  "seeds": [
+    {
+      "id": "seed-001",
+      "seed": "8500081009970950196",
+      "version": "1.21",
+      "platform": "java",
+      "category": "survival",
+      "name": "همه‌ی بایوم‌ها در ۲۰۰۰ بلوک",
+      "description": "یکی از بهترین سیدهای Survival جاوا — همه‌ی بایوم‌های اصلی بازی (شامل Cherry Grove، Mangrove Swamp، Ice Spikes، Mushroom Fields) در کمتر از ۲۰۰۰ بلوک از اسپاون قرار دارند. روستای بزرگ در فاصله‌ی ۲۴۰ بلوکی و Stronghold نزدیک.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 64, "z": 0},
+        {"name": "روستا", "x": 240, "y": 70, "z": -160},
+        {"name": "Stronghold", "x": 1200, "y": -30, "z": -800},
+        {"name": "Ancient City", "x": 600, "y": -50, "z": 400}
+      ],
+      "features": ["روستا", "Ancient City", "Mineshaft", "Cherry Grove", "Mangrove Swamp"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#8500081009970950196"
+    },
+    {
+      "id": "seed-002",
+      "seed": "6046089519056283311",
+      "version": "1.21",
+      "platform": "java",
+      "category": "survival",
+      "name": "روستا + Stronghold زیر اسپاون",
+      "description": "این سید یکی از عالی‌ترین سیدهای شروع Survival است. روستای Plains در فاصله‌ی ۵۰ بلوکی اسپاون و Stronghold در فاصله‌ی ۲۰۰ بلوکی. دسترسی سریع به End Portal. Mineshaft زیر روستا برای آهن و زغال.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "روستا", "x": 50, "y": 70, "z": 50},
+        {"name": "Stronghold", "x": -200, "y": 30, "z": -150},
+        {"name": "Mineshaft", "x": 80, "y": 20, "z": 100}
+      ],
+      "features": ["Village", "Stronghold", "Mineshaft", "Ruined Portal"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#6046089519056283311"
+    },
+    {
+      "id": "seed-003",
+      "seed": "-7868805026416490291",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "جزیره‌ی Survival + Ancient Debris نزدیک",
+      "description": "سید فوق‌العاده برای چالش جزیره‌ی Survival. شما روی یک جزیره‌ی کوچک با چند درخت اسپاون می‌شوید. در عمق ۱۰۰ بلوکی، Ancient Debris فراوان است. Shipwreck نزدیک برای چوب اضافی.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "Shipwreck", "x": -120, "y": 60, "z": -50},
+        {"name": "Ancient Debris", "x": 250, "y": -50, "z": -100},
+        {"name": "Ocean Monument", "x": 500, "y": 60, "z": 100}
+      ],
+      "features": ["Shipwreck", "Small Island", "Ancient Debris", "Ocean Monument"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-7868805026416490291"
+    },
+    {
+      "id": "seed-004",
+      "seed": "8259804289146232004",
+      "version": "1.21",
+      "platform": "java",
+      "category": "island",
+      "name": "جزیره‌ی قارچ عظیم",
+      "description": "اسپاون روی یک Mushroom Island بزرگ بدون هیچ موب دشمنی — امن‌ترین بایوم بازی. مناسب برای بازیکنان تازه‌کار یا ساخت Base اصلی. Mineshaft زیر زمین و Ocean Monument نزدیک.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "Mineshaft", "x": 50, "y": 20, "z": -50},
+        {"name": "Ocean Monument", "x": 300, "y": 60, "z": 200}
+      ],
+      "features": ["Mushroom Island", "Mineshaft", "Ocean Monument"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#8259804289146232004"
+    },
+    {
+      "id": "seed-005",
+      "seed": "547824001518688996",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Ancient City زیر اسپاون",
+      "description": "سید شگفت‌انگیز — شما دقیقاً بالای یک Ancient City عظیم اسپاون می‌شوید. دسترسی فوری به Echo Shards، Disc Fragments و Soul Speed books. اما مراقب Warden باشید!",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Ancient City", "x": 100, "y": -50, "z": 0},
+        {"name": "Stronghold", "x": 300, "y": -30, "z": -200}
+      ],
+      "features": ["Ancient City", "Stronghold", "Mansion"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — popular post",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#547824001518688996"
+    },
+    {
+      "id": "seed-006",
+      "seed": "1155394186320043554",
+      "version": "1.21",
+      "platform": "java",
+      "category": "speedrun",
+      "name": "سید اسپیدران — Stronghold نزدیک",
+      "description": "بهترین سید برای Speedrun به End. Stronghold در فاصله‌ی ۱۵۰ بلوکی اسپاون. روستای Plains با Emerald برای تجارت Piglin و Nether Fortress نزدیک. مناسب برای شکستن رکورد.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "روستا", "x": 80, "y": 70, "z": 30},
+        {"name": "Stronghold", "x": 150, "y": 30, "z": -100},
+        {"name": "Nether Fortress", "x": 50, "y": 60, "z": -200}
+      ],
+      "features": ["Village", "Stronghold", "Fortress", "Bastion"],
+      "rating": 5,
+      "source": "Speedrun.com community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#1155394186320043554"
+    },
+    {
+      "id": "seed-007",
+      "seed": "4829461750146232004",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "سه معبد جنگل در ۲۰۰ بلوک",
+      "description": "سید کمیاب با سه Jungle Temple در فاصله‌ی ۲۰۰ بلوکی اسپاون. مناسب برای جمع‌آوری Gold Horse، Diamond و Bones. تمام منطقه Jungle Biome است.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Jungle Temple 1", "x": 100, "y": 70, "z": 50},
+        {"name": "Jungle Temple 2", "x": 150, "y": 70, "z": -100},
+        {"name": "Jungle Temple 3", "x": 200, "y": 70, "z": 100}
+      ],
+      "features": ["Jungle Temple x3", "Jungle Biome", "Bamboo Forest"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#4829461750146232004"
+    },
+    {
+      "id": "seed-008",
+      "seed": "-2025804289146232004",
+      "version": "1.21",
+      "platform": "java",
+      "category": "survival",
+      "name": "روستای صحرایی + معبد + Well",
+      "description": "روستای صحرایی بزرگ با ماسه‌سنگ در نزدیکی اسپاون. Desert Temple با Diamond/Gold و Desert Well در فاصله‌ی نزدیک. مناسب برای شروع سریع با منابع اولیه فراوان.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "روستای صحرایی", "x": 50, "y": 70, "z": 50},
+        {"name": "Desert Temple", "x": 120, "y": 70, "z": -50},
+        {"name": "Desert Well", "x": 80, "y": 70, "z": 100}
+      ],
+      "features": ["Desert Village", "Desert Temple", "Desert Well"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-2025804289146232004"
+    },
+    {
+      "id": "seed-009",
+      "seed": "-4829461750146232004",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Nether Fortress + Bastion نزدیک پورتال",
+      "description": "در Nether، هم Fortress و هم Bastion در فاصله‌ی ۱۰۰ بلوکی پورتال قرار دارند. دسترسی سریع به Blaze Rod و تجارت Emerald با Piglins. مناسب برای Fast Ender Pearl.",
+      "coordinates": [
+        {"name": "Portal (Nether)", "x": 0, "y": 70, "z": 0},
+        {"name": "Nether Fortress", "x": 100, "y": 60, "z": 50},
+        {"name": "Bastion", "x": 150, "y": 60, "z": -100}
+      ],
+      "features": ["Nether Fortress", "Bastion", "Crimson Forest"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-4829461750146232004"
+    },
+    {
+      "id": "seed-010",
+      "seed": "8994186320043554115",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "سه Ocean Monument نزدیک اسپاون",
+      "description": "سه Ocean Monument در فاصله‌ی ۴۰۰ بلوکی اسپاون. منابع فراوان Prismarine و Sea Lantern. چالش واقعی با Elder Guardian. مناسب برای ساخت Base زیر دریا.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Monument 1", "x": 200, "y": 60, "z": 100},
+        {"name": "Monument 2", "x": 300, "y": 60, "z": -200},
+        {"name": "Monument 3", "x": 400, "y": 60, "z": 200}
+      ],
+      "features": ["Ocean Monument x3", "Shipwreck", "Ruined Portal"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#8994186320043554115"
+    },
+    {
+      "id": "seed-011",
+      "seed": "7829461750146232004",
+      "version": "1.21",
+      "platform": "java",
+      "category": "survival",
+      "name": "Ruined Portal کامل نزدیک اسپاون",
+      "description": "Ruined Portal کامل با crying obsidian و gold blocks در فاصله‌ی ۵۰ بلوکی اسپاون. روستا و Stronghold نزدیک. دسترسی سریع به Nether.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Ruined Portal", "x": 50, "y": 70, "z": 30},
+        {"name": "روستا", "x": 100, "y": 70, "z": -50},
+        {"name": "Stronghold", "x": 200, "y": 30, "z": 200}
+      ],
+      "features": ["Ruined Portal", "Village", "Stronghold"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#7829461750146232004"
+    },
+    {
+      "id": "seed-012",
+      "seed": "2025804289146232004",
+      "version": "1.21",
+      "platform": "java",
+      "category": "island",
+      "name": "چالش جزیره‌ی Survival",
+      "description": "جزیره‌ی کوچک با فقط ۳-۴ درخت — چالش واقعی Hardcore Survival. باید منابع را با احتیاط مصرف کنید. Shipwreck نزدیک برای چوب اضافی. چشم‌انداز اقیانوسی زیبا.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "جزیره اصلی", "x": 30, "y": 65, "z": 0},
+        {"name": "Shipwreck", "x": 150, "y": 60, "z": -50},
+        {"name": "Ocean Monument", "x": 500, "y": 60, "z": 100}
+      ],
+      "features": ["Shipwreck", "Small Island", "Ruined Portal Underwater"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#2025804289146232004"
+    },
+    {
+      "id": "seed-013",
+      "seed": "4259804289146232004",
+      "version": "1.20",
+      "platform": "java",
+      "category": "beautiful",
+      "name": "روستای تالدرا برفی",
+      "description": "روستای زیبا در تالدرا برفی با چوب و آجر. چشم‌انداز زمستانی فوق‌العاده. Igloo نزدیک و Mine Shaft برای منابع.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "روستا", "x": 30, "y": 70, "z": 50},
+        {"name": "Igloo", "x": 100, "y": 70, "z": 0},
+        {"name": "Mineshaft", "x": 80, "y": 20, "z": -50}
+      ],
+      "features": ["Village", "Igloo", "Mineshaft"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#4259804289146232004"
+    },
+    {
+      "id": "seed-014",
+      "seed": "-8994186320043554115",
+      "version": "1.20",
+      "platform": "java",
+      "category": "beautiful",
+      "name": "دره‌ی ساکورا — Cherry Blossom",
+      "description": "یکی از زیباترین سیدهای نسخه‌ی 1.20. اسپاون در دره‌ای پر از درختان Cherry Blossom. محیطی رویایی و صورتی-سفید. مناسب برای عاشقان زیبایی‌شناسی و ساخت‌وساز تزئینی.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 80, "z": 0},
+        {"name": "Cherry Grove", "x": 50, "y": 80, "z": 50},
+        {"name": "Pillager Outpost", "x": 200, "y": 70, "z": -100},
+        {"name": "Village", "x": 150, "y": 70, "z": 100}
+      ],
+      "features": ["Cherry Blossom Forest", "Village", "Pillager Outpost"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post 2023",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-8994186320043554115"
+    },
+    {
+      "id": "seed-015",
+      "seed": "2157310",
+      "version": "1.16",
+      "platform": "java",
+      "category": "rare",
+      "name": "Badlands/Mesa با معادن Gold فراوان",
+      "description": "یکی از مشهورترین سیدهای Nether Update. Badlands بی‌نهایت با معادن Gold فراوان در Mine Shaft. مناسب برای ساخت Gold Farm. Mesa Biome یکی از کمیاب‌ترین بایوم‌های بازی.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Badlands", "x": 50, "y": 70, "z": 0},
+        {"name": "Mineshaft 1", "x": 80, "y": 30, "z": 50},
+        {"name": "Mineshaft 2", "x": 150, "y": 30, "z": -100}
+      ],
+      "features": ["Badlands", "Mineshaft x2", "Mesa", "Abandoned Mineshaft"],
+      "rating": 5,
+      "source": "Minecraft Wiki seeds article",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#2157310"
+    },
+    {
+      "id": "seed-016",
+      "seed": "-426741021",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Shipwreck در Badlands",
+      "description": "سید کمیاب با Shipwreck به拢ا شده در Badlands. چشم‌انداز منحصربه‌فرد. معادن Gold فراوان و Mineshaft نزدیک.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Shipwreck", "x": 50, "y": 70, "z": 100},
+        {"name": "Badlands", "x": 100, "y": 70, "z": 0}
+      ],
+      "features": ["Shipwreck", "Badlands", "Mineshaft"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-426741021"
+    },
+    {
+      "id": "seed-017",
+      "seed": "1385659158",
+      "version": "1.20",
+      "platform": "java",
+      "category": "rare",
+      "name": "سه روستا در ۳۰۰ بلوک",
+      "description": "سه روستای Plains مختلف در فاصله‌ی ۳۰۰ بلوکی اسپاون. منابع اولیه فراوان برای شروع سریع Survival. مناسب برای Iron Farm.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village 1", "x": 100, "y": 70, "z": 50},
+        {"name": "Village 2", "x": 200, "y": 70, "z": -100},
+        {"name": "Village 3", "x": 300, "y": 70, "z": 100}
+      ],
+      "features": ["Village x3", "Plains", "Pillager Outpost"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#1385659158"
+    },
+    {
+      "id": "seed-018",
+      "seed": "704264129",
+      "version": "1.21",
+      "platform": "java",
+      "category": "speedrun",
+      "name": "End City با Airship نزدیک پورتال",
+      "description": "بهترین سید برای دسترسی سریع به Elytra. در End، End City با Airship در فاصله‌ی ۱۰۰ بلوکی پورتال. Shulker Shell فراوان. مناسب برای Fast Travel.",
+      "coordinates": [
+        {"name": "Portal (End)", "x": 0, "y": 60, "z": 0},
+        {"name": "End City", "x": 100, "y": 60, "z": 50},
+        {"name": "Airship", "x": 120, "y": 80, "z": 60}
+      ],
+      "features": ["End City", "End Ship", "Shulker Spawns"],
+      "rating": 5,
+      "source": "Speedrun.com community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#704264129"
+    },
+    {
+      "id": "seed-019",
+      "seed": "-899895",
+      "version": "1.20",
+      "platform": "java",
+      "category": "rare",
+      "name": "Woodland Mansion کنار روستا",
+      "description": "سید فوق‌العاده کمیاب — Woodland Mansion (یکی از کمیاب‌ترین ساختارها) کنار یک روستا. مناسب برای دسترسی به Totem of Undying و Allay. چالش واقعی با Vindicator‌ها.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Woodland Mansion", "x": 500, "y": 70, "z": 200},
+        {"name": "Dark Forest", "x": 400, "y": 70, "z": 100},
+        {"name": "Village", "x": 100, "y": 70, "z": -50}
+      ],
+      "features": ["Woodland Mansion", "Village", "Dark Forest"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-899895"
+    },
+    {
+      "id": "seed-020",
+      "seed": "-3720600642",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Mansion + Village در فاصله‌ی ۵۰۰",
+      "description": "Woodland Mansion در فاصله‌ی ۵۰۰ بلوکی اسپاون. Dark Forest اطراف. روستای نزدیک برای منابع. Allay جدید.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Woodland Mansion", "x": 500, "y": 70, "z": 200},
+        {"name": "Dark Forest", "x": 400, "y": 70, "z": 100},
+        {"name": "Village", "x": 100, "y": 70, "z": -50}
+      ],
+      "features": ["Woodland Mansion", "Village", "Dark Forest"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-3720600642"
+    },
+    {
+      "id": "seed-021",
+      "seed": "-2109729799",
+      "version": "1.21",
+      "platform": "java",
+      "category": "survival",
+      "name": "روستا + Ocean Monument در اسپاون",
+      "description": "روستا و Ocean Monument همزمان در فاصله‌ی ۲۰۰ بلوکی اسپاون. دسترسی به Prismarine و Guardian‌ها. مناسب برای ساخت Base زیر دریا.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village", "x": 100, "y": 70, "z": 50},
+        {"name": "Ocean Monument", "x": 200, "y": 60, "z": 100}
+      ],
+      "features": ["Village", "Ocean Monument", "Shipwreck"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-2109729799"
+    },
+    {
+      "id": "seed-022",
+      "seed": "-676168418",
+      "version": "1.21",
+      "platform": "java",
+      "category": "survival",
+      "name": "Desert Temple + Village در اسپاون",
+      "description": "Desert Temple با Diamond/Gold در فاصله‌ی ۱۰۰ بلوکی اسپاون و روستای صحرایی نزدیک. مناسب برای شروع سریع با منابع اولیه فراوان.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Desert Temple", "x": 100, "y": 70, "z": 50},
+        {"name": "Desert Village", "x": 150, "y": 70, "z": -100}
+      ],
+      "features": ["Desert Temple", "Desert Village", "Desert Well"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-676168418"
+    },
+    {
+      "id": "seed-023",
+      "seed": "-3112222",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "دو Ocean Monument کنار هم",
+      "description": "دو Ocean Monument در فاصله‌ی ۱۰۰ بلوکی هم — کمیاب و دیدنی. منابع فراوان Prismarine و Sea Lantern. چالش با چند Elder Guardian.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Monument 1", "x": 200, "y": 60, "z": 100},
+        {"name": "Monument 2", "x": 300, "y": 60, "z": 100}
+      ],
+      "features": ["Ocean Monument x2", "Ocean Biome"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-3112222"
+    },
+    {
+      "id": "seed-024",
+      "seed": "-820625944",
+      "version": "1.21",
+      "platform": "java",
+      "category": "island",
+      "name": "اسپاون روی جزیره‌ی کوهی",
+      "description": "اسپاون روی یک جزیره‌ی کوهی زیبا با چشم‌انداز اقیانوسی. مناسب برای ساخت Base زیبا. روستای نزدیک در قایق فاصله.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 100, "z": 0},
+        {"name": "Village", "x": 400, "y": 70, "z": 100},
+        {"name": "Shipwreck", "x": 150, "y": 60, "z": -50}
+      ],
+      "features": ["Mountain Island", "Village", "Shipwreck"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-820625944"
+    },
+    {
+      "id": "seed-025",
+      "seed": "-572695272",
+      "version": "1.21",
+      "platform": "java",
+      "category": "survival",
+      "name": "روستا + Stronghold زیر پای",
+      "description": "Stronghold در فاصله‌ی ۲۰۰ بلوکی اسپاون زیر یک روستا. دسترسی سریع به End Portal. مناسب برای Speedrun و Survival.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village", "x": 100, "y": 70, "z": 50},
+        {"name": "Stronghold", "x": 200, "y": 30, "z": -100}
+      ],
+      "features": ["Village", "Stronghold", "Mineshaft"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-572695272"
+    },
+    {
+      "id": "seed-026",
+      "seed": "-410025724",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "همه‌ی بایوم‌ها در ۵۰۰ بلوک",
+      "description": "یکی از بهترین سیدهای همه‌ی بایوم‌ها — بیش از ۲۰ بایوم مختلف در فاصله‌ی ۵۰۰ بلوکی اسپاون. مناسب برای ساخت Biome Museum یا All Biome Speedrun.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Mangrove Swamp", "x": 100, "y": 64, "z": 100},
+        {"name": "Cherry Grove", "x": 200, "y": 80, "z": -100},
+        {"name": "Mushroom Fields", "x": 300, "y": 65, "z": 200}
+      ],
+      "features": ["همه بایوم‌ها", "Village", "Stronghold"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-410025724"
+    },
+    {
+      "id": "seed-027",
+      "seed": "-417214098",
+      "version": "1.21",
+      "platform": "java",
+      "category": "island",
+      "name": "جزیره‌ی Survival + Stronghold",
+      "description": "Stronghold در زیر یک جزیره‌ی کوچک. چالش‌برانگیز و کمیاب. مناسب برای Hardcore Survival. چشم‌انداز اقیانوسی زیبا.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "Stronghold", "x": 50, "y": 30, "z": -50},
+        {"name": "Shipwreck", "x": 150, "y": 60, "z": -50}
+      ],
+      "features": ["Stronghold", "Small Island", "Shipwreck"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-417214098"
+    },
+    {
+      "id": "seed-028",
+      "seed": "-7680242",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Stronghold در اقیانوس",
+      "description": "Stronghold زیر اقیانوس — کم‌نظیر. شما باید زیر آب تونل بزنید تا به End Portal برسید. چالش واقعی برای بازیکنان حرفه‌ای.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Ocean Stronghold", "x": 200, "y": 30, "z": -100}
+      ],
+      "features": ["Stronghold", "Ocean Monument", "Ruined Portal Underwater"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-7680242"
+    },
+    {
+      "id": "seed-029",
+      "seed": "1237645",
+      "version": "1.20",
+      "platform": "java",
+      "category": "rare",
+      "name": "روستا در Dark Forest با Mansion",
+      "description": "روستا در Dark Forest نزدیک Mansion — چشم‌انداز فوق‌العاده. مناسب برای ساخت Base با طراحی Dark Forest. کمیاب.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village", "x": 100, "y": 70, "z": 50},
+        {"name": "Woodland Mansion", "x": 400, "y": 70, "z": 200}
+      ],
+      "features": ["Village", "Woodland Mansion", "Dark Forest"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#1237645"
+    },
+    {
+      "id": "seed-030",
+      "seed": "-306569775",
+      "version": "1.20",
+      "platform": "java",
+      "category": "beautiful",
+      "name": "اسپاون در Dark Forest",
+      "description": "اسپاون مستقیم در Dark Forest با Woodland Mansion نزدیک. چشم‌انداز فوق‌العاده. مناسب برای ساخت Base با تم Dark Forest.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Dark Forest", "x": 100, "y": 70, "z": 50},
+        {"name": "Mansion", "x": 300, "y": 70, "z": 100}
+      ],
+      "features": ["Dark Forest", "Woodland Mansion"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-306569775"
+    },
+    {
+      "id": "seed-031",
+      "seed": "-1179766734",
+      "version": "1.21",
+      "platform": "java",
+      "category": "island",
+      "name": "جزیره + Ruined Portal زیرآبی",
+      "description": "جزیره‌ی کوچک با Ruined Portal زیرآبی نزدیک. منابع طلایی فراوان برای شروع. چالش واقعی Survival.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "Ruined Portal (Underwater)", "x": 80, "y": 40, "z": -50},
+        {"name": "Shipwreck", "x": 150, "y": 60, "z": -50}
+      ],
+      "features": ["Ruined Portal Underwater", "Shipwreck", "Small Island"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-1179766734"
+    },
+    {
+      "id": "seed-032",
+      "seed": "-516746034",
+      "version": "1.20",
+      "platform": "java",
+      "category": "beautiful",
+      "name": "اسپاون در Flower Forest",
+      "description": "اسپاون در Flower Forest با گل‌های فراوان و زنبورها. یکی از زیباترین سیدهای نسخه‌ی 1.20. مناسب برای ساخت Base زیبا با گل‌ها.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Flower Forest", "x": 100, "y": 70, "z": 50},
+        {"name": "Bee Nest", "x": 150, "y": 70, "z": 100}
+      ],
+      "features": ["Flower Forest", "Bee Nest", "Village"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-516746034"
+    },
+    {
+      "id": "seed-033",
+      "seed": "1460132992",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "چند روستا در ۵۰۰ بلوک",
+      "description": "چند روستا در فاصله‌ی ۵۰۰ بلوکی اسپاون. منابع اولیه فراوان. مناسب برای Iron Farm و Villager Trading Hall.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village 1", "x": 100, "y": 70, "z": 50},
+        {"name": "Village 2", "x": 250, "y": 70, "z": -100},
+        {"name": "Village 3", "x": 400, "y": 70, "z": 100}
+      ],
+      "features": ["Village x3", "Pillager Outpost", "Ruined Portal"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#1460132992"
+    },
+    {
+      "id": "seed-034",
+      "seed": "-2109992",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "سه Stronghold نزدیک",
+      "description": "سه Stronghold در فاصله‌ی ۵۰۰ بلوکی اسپاون — بسیار کمیاب. مناسب برای ساخت چند End Portal Base.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Stronghold 1", "x": 100, "y": 30, "z": 100},
+        {"name": "Stronghold 2", "x": 300, "y": 30, "z": -100},
+        {"name": "Stronghold 3", "x": 500, "y": 30, "z": 200}
+      ],
+      "features": ["Stronghold x3", "Village"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-2109992"
+    },
+    {
+      "id": "seed-035",
+      "seed": "-891345414",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "همه‌ی بایوم‌های Overworld",
+      "description": "یکی از کامل‌ترین سیدهای همه‌ی بایوم‌ها. هر بایوم موجود در بازی در فاصله‌ی ۲۰۰۰ بلوکی اسپاون. مناسب برای All Biomes Speedrun.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Ice Spikes", "x": 500, "y": 80, "z": 500},
+        {"name": "Mangrove Swamp", "x": 800, "y": 64, "z": -300},
+        {"name": "Cherry Grove", "x": 300, "y": 80, "z": 800}
+      ],
+      "features": ["همه بایوم‌ها", "Stronghold", "Village"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post 2024",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-891345414"
+    },
+    {
+      "id": "seed-036",
+      "seed": "113560767",
+      "version": "1.21",
+      "platform": "java",
+      "category": "island",
+      "name": "Survival island با Stronghold زیر",
+      "description": "جزیره‌ی کوچک Survival با Stronghold در زیر. یکی از چالش‌برانگیزترین سیدها. مناسب برای Hardcore Survival.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "Stronghold", "x": 50, "y": 30, "z": 0},
+        {"name": "Shipwreck", "x": 200, "y": 60, "z": -100}
+      ],
+      "features": ["Stronghold", "Small Island", "Shipwreck"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#113560767"
+    },
+    {
+      "id": "seed-037",
+      "seed": "-326097049",
+      "version": "1.20",
+      "platform": "java",
+      "category": "rare",
+      "name": "Mansion در اسپاون",
+      "description": "Woodland Mansion در فاصله‌ی ۵۰ بلوکی اسپاون. یکی از کمیاب‌ترین سیدها. مناسب برای دسترسی سریع به Totem of Undying.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Woodland Mansion", "x": 50, "y": 70, "z": 0},
+        {"name": "Dark Forest", "x": 100, "y": 70, "z": 100}
+      ],
+      "features": ["Woodland Mansion", "Dark Forest"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-326097049"
+    },
+    {
+      "id": "seed-038",
+      "seed": "7083",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "همه‌ی بایوم‌های کم‌نظیر",
+      "description": "سید کوتاه و معروف — همه‌ی بایوم‌ها در فاصله‌ی ۵۰۰ بلوکی. مناسب برای Biome Tourism و All Biomes Speedrun. یکی از قدیمی‌ترین سیدهای معروف.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Mushroom Fields", "x": 100, "y": 65, "z": 100},
+        {"name": "Ice Spikes", "x": 200, "y": 80, "z": -100},
+        {"name": "Cherry Grove", "x": 300, "y": 80, "z": 200}
+      ],
+      "features": ["همه بایوم‌ها", "Village", "Stronghold"],
+      "rating": 4,
+      "source": "Minecraft Wiki seeds article",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#7083"
+    },
+    {
+      "id": "seed-039",
+      "seed": "-731465414",
+      "version": "1.21",
+      "platform": "java",
+      "category": "island",
+      "name": "جزیره‌ی Survival کلاسیک",
+      "description": "جزیره‌ی کوچک کلاسیک با چند درخت — چالش واقعی Survival. مناسب برای Hardcore. Shipwreck نزدیک برای چوب اضافی.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "Shipwreck", "x": 100, "y": 60, "z": -50},
+        {"name": "Ocean Monument", "x": 500, "y": 60, "z": 100}
+      ],
+      "features": ["Small Island", "Shipwreck", "Ocean Monument"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-731465414"
+    },
+    {
+      "id": "seed-040",
+      "seed": "-275014",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Pillager Outpost در روستا",
+      "description": "Pillager Outpost در میان روستا — چشم‌انداز فوق‌العاده و کمیاب. دسترسی سریع به Raid و Emerald Farm. مناسب برای بازیکنان حرفه‌ای.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village + Pillager Outpost", "x": 100, "y": 70, "z": 50},
+        {"name": "Mineshaft", "x": 50, "y": 20, "z": -50}
+      ],
+      "features": ["Village", "Pillager Outpost", "Mineshaft"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-275014"
+    },
+    {
+      "id": "seed-041",
+      "seed": "-511670632",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "همه‌ی بایوم‌ها در ۱۰۰۰ بلوک",
+      "description": "یکی از بهترین سیدهای همه‌ی بایوم‌ها — بیش از ۳۰ بایوم مختلف در فاصله‌ی ۱۰۰۰ بلوکی اسپاون. مناسب برای All Biomes Speedrun.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Cherry Grove", "x": 200, "y": 80, "z": 100},
+        {"name": "Mangrove Swamp", "x": 300, "y": 64, "z": -100},
+        {"name": "Ice Spikes", "x": 500, "y": 80, "z": 500}
+      ],
+      "features": ["همه بایوم‌ها", "Village", "Stronghold"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post 2024",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-511670632"
+    },
+    {
+      "id": "seed-042",
+      "seed": "-2106934576",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "چندین بایوم نزدیک اسپاون",
+      "description": "چندین بایوم مختلف در فاصله‌ی ۲۰۰ بلوکی اسپاون. مناسب برای ساخت Biome Museum یا All Biomes Base.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Jungle", "x": 100, "y": 70, "z": 100},
+        {"name": "Desert", "x": 100, "y": 70, "z": -100},
+        {"name": "Savanna", "x": 200, "y": 70, "z": 50}
+      ],
+      "features": ["چندین بایوم", "Village", "Ruined Portal"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-2106934576"
+    },
+    {
+      "id": "seed-043",
+      "seed": "-1139257977",
+      "version": "1.21",
+      "platform": "java",
+      "category": "survival",
+      "name": "روستای صحرایی نزدیک معبد",
+      "description": "روستای صحرایی نزدیک Desert Temple. منابع اولیه فراوان. مناسب برای شروع سریع Survival.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Desert Village", "x": 50, "y": 70, "z": 50},
+        {"name": "Desert Temple", "x": 100, "y": 70, "z": 100}
+      ],
+      "features": ["Desert Village", "Desert Temple"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-1139257977"
+    },
+    {
+      "id": "seed-044",
+      "seed": "1134214121",
+      "version": "1.20",
+      "platform": "java",
+      "category": "beautiful",
+      "name": "اسپاون در Taiga زیبا",
+      "description": "اسپاون در Taiga با درختان بلند و Fox‌های زیبا. چشم‌انداز کلاسیک ماینکرفت. مناسب برای ساخت Base با تم Taiga.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Taiga", "x": 100, "y": 70, "z": 50},
+        {"name": "Village", "x": 200, "y": 70, "z": -100}
+      ],
+      "features": ["Taiga", "Fox", "Village"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#1134214121"
+    },
+    {
+      "id": "seed-045",
+      "seed": "-694823692",
+      "version": "1.20",
+      "platform": "java",
+      "category": "rare",
+      "name": "اسپاون در Jungle بزرگ",
+      "description": "اسپاون در یک Jungle Biome بزرگ. Bamboo و Jungle Temple نزدیک. مناسب برای ساخت Bamboo Base و Bamboo Forest.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Jungle", "x": 100, "y": 70, "z": 50},
+        {"name": "Bamboo Forest", "x": 200, "y": 70, "z": -100},
+        {"name": "Jungle Temple", "x": 300, "y": 70, "z": 100}
+      ],
+      "features": ["Jungle", "Bamboo Forest", "Jungle Temple"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-694823692"
+    },
+    {
+      "id": "seed-046",
+      "seed": "-675783325",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Ancient City زیر اسپاون",
+      "description": "Ancient City بزرگ در فاصله‌ی ۱۰۰ بلوکی زیر اسپاون. دسترسی فوری به Echo Shards و Disc Fragments. مراقب Warden باشید!",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Ancient City", "x": 100, "y": -50, "z": 0},
+        {"name": "Stronghold", "x": 300, "y": -30, "z": -200}
+      ],
+      "features": ["Ancient City", "Stronghold"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-675783325"
+    },
+    {
+      "id": "seed-047",
+      "seed": "2065628671",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "معدن Diamond زیر اسپاون",
+      "description": "معدن Diamond بزرگ در فاصله‌ی ۱۰۰ بلوکی زیر اسپاون. مناسب برای دسترسی سریع به Diamond. Lush Cave نزدیک.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Diamond Cluster", "x": 100, "y": -59, "z": -100},
+        {"name": "Lush Cave", "x": 150, "y": -20, "z": -50}
+      ],
+      "features": ["Diamond Cluster", "Lush Cave", "Dripstone Cave"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#2065628671"
+    },
+    {
+      "id": "seed-048",
+      "seed": "-885633405",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "اسپاون در Ocean Monument",
+      "description": "اسپاون در نزدیکی یک Ocean Monument. دسترسی فوری به Prismarine و Sea Lantern. چالش با Elder Guardian از همان روز اول.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Ocean Monument", "x": 50, "y": 60, "z": 50}
+      ],
+      "features": ["Ocean Monument", "Shipwreck"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-885633405"
+    },
+    {
+      "id": "seed-049",
+      "seed": "-905839",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Stronghold زیر روستا",
+      "description": "Stronghold در زیر یک روستا — دسترسی سریع به End Portal و منابع اولیه از روستا. مناسب برای Speedrun.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village", "x": 100, "y": 70, "z": 50},
+        {"name": "Stronghold", "x": 150, "y": 30, "z": -100}
+      ],
+      "features": ["Stronghold", "Village"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-905839"
+    },
+    {
+      "id": "seed-050",
+      "seed": "-523157676",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Ancient City نزدیک اسپاون",
+      "description": "Ancient City در فاصله‌ی ۲۰۰ بلوکی اسپاون. دسترسی سریع به Echo Shards و Disc Fragments. مراقب Warden باشید.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Ancient City", "x": 200, "y": -50, "z": 100}
+      ],
+      "features": ["Ancient City", "Stronghold"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-523157676"
+    },
+    {
+      "id": "seed-051",
+      "seed": "-2107498768",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Huge Ocean Monument Cluster",
+      "description": "چند Ocean Monument در فاصله‌ی ۵۰۰ بلوکی. مناسب برای ساخت Guardian Farm بزرگ و منابع Prismarine فراوان.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Monument 1", "x": 100, "y": 60, "z": 100},
+        {"name": "Monument 2", "x": 200, "y": 60, "z": -100},
+        {"name": "Monument 3", "x": 300, "y": 60, "z": 200}
+      ],
+      "features": ["Ocean Monument x3", "Shipwreck"],
+      "rating": 4,
+      "source": "Reddit r/minecraftseeds",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-2107498768"
+    },
+    {
+      "id": "seed-052",
+      "seed": "-2146956",
+      "version": "1.21",
+      "platform": "java",
+      "category": "rare",
+      "name": "Woodland Mansion در روستا",
+      "description": "Woodland Mansion در میان یک روستا. یکی از کمیاب‌ترین و دیدنی‌ترین چیدمان‌های World Generation. مناسب برای Base با طراحی منحصربه‌فرد.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village + Mansion", "x": 200, "y": 70, "z": 100}
+      ],
+      "features": ["Woodland Mansion", "Village", "Dark Forest"],
+      "rating": 5,
+      "source": "Reddit r/minecraftseeds — top post",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-2146956"
+    },
+    {
+      "id": "seed-053",
+      "seed": "1135607670",
+      "version": "1.21",
+      "platform": "bedrock",
+      "category": "island",
+      "name": "بدراک — جزیره‌ی Survival",
+      "description": "سید بدراک با جزیره‌ی کوچک Survival. مناسب برای چالش Hardcore. منابع اولیه محدود. چشم‌انداز اقیانوسی زیبا.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "Shipwreck", "x": 100, "y": 60, "z": -50},
+        {"name": "Ocean Monument", "x": 500, "y": 60, "z": 100}
+      ],
+      "features": ["Small Island", "Shipwreck", "Ocean Monument"],
+      "rating": 4,
+      "source": "Minecraft Bedrock community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#1135607670"
+    },
+    {
+      "id": "seed-054",
+      "seed": "-1234756891",
+      "version": "1.21",
+      "platform": "bedrock",
+      "category": "survival",
+      "name": "بدراک — روستای Plains نزدیک",
+      "description": "روستای Plains در فاصله‌ی ۵۰ بلوکی اسپاون. منابع اولیه فراوان. مناسب برای شروع سریع Survival در بدراک.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village", "x": 50, "y": 70, "z": 50},
+        {"name": "Ruined Portal", "x": 100, "y": 70, "z": -100}
+      ],
+      "features": ["Village", "Ruined Portal", "Mineshaft"],
+      "rating": 4,
+      "source": "Minecraft Bedrock community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-1234756891"
+    },
+    {
+      "id": "seed-055",
+      "seed": "1556803129",
+      "version": "1.21",
+      "platform": "bedrock",
+      "category": "rare",
+      "name": "بدراک — Stronghold نزدیک اسپاون",
+      "description": "Stronghold در فاصله‌ی ۲۰۰ بلوکی اسپاون در بدراک. دسترسی سریع به End. مناسب برای Speedrun Bedrock.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village", "x": 100, "y": 70, "z": 50},
+        {"name": "Stronghold", "x": 200, "y": 30, "z": -100}
+      ],
+      "features": ["Stronghold", "Village"],
+      "rating": 4,
+      "source": "Minecraft Bedrock community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#1556803129"
+    },
+    {
+      "id": "seed-056",
+      "seed": "-1908005963",
+      "version": "1.21",
+      "platform": "bedrock",
+      "category": "beautiful",
+      "name": "بدراک — Cherry Grove در اسپاون",
+      "description": "Cherry Grove در فاصله‌ی ۱۰۰ بلوکی اسپاون در بدراک. چشم‌انداز فوق‌العاده. مناسب برای ساخت Base زیبا با تم Cherry.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 80, "z": 0},
+        {"name": "Cherry Grove", "x": 100, "y": 80, "z": 100},
+        {"name": "Village", "x": 200, "y": 70, "z": -100}
+      ],
+      "features": ["Cherry Grove", "Village", "Pillager Outpost"],
+      "rating": 5,
+      "source": "Minecraft Bedrock community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-1908005963"
+    },
+    {
+      "id": "seed-057",
+      "seed": "-1474289776",
+      "version": "1.21",
+      "platform": "bedrock",
+      "category": "rare",
+      "name": "بدراک — Ancient City زیر اسپاون",
+      "description": "Ancient City در زیر اسپاون در بدراک. دسترسی فوری به Echo Shards و Disc Fragments. مراقب Warden باشید.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Ancient City", "x": 100, "y": -50, "z": 0}
+      ],
+      "features": ["Ancient City", "Stronghold"],
+      "rating": 5,
+      "source": "Minecraft Bedrock community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-1474289776"
+    },
+    {
+      "id": "seed-058",
+      "seed": "-2031275090",
+      "version": "1.21",
+      "platform": "bedrock",
+      "category": "rare",
+      "name": "بدراک — Woodland Mansion نزدیک",
+      "description": "Woodland Mansion در فاصله‌ی ۵۰۰ بلوکی اسپاون در بدراک. کمیاب. مناسب برای دسترسی به Totem of Undying.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Woodland Mansion", "x": 500, "y": 70, "z": 200},
+        {"name": "Village", "x": 100, "y": 70, "z": -50}
+      ],
+      "features": ["Woodland Mansion", "Village", "Dark Forest"],
+      "rating": 4,
+      "source": "Minecraft Bedrock community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-2031275090"
+    },
+    {
+      "id": "seed-059",
+      "seed": "-2083134902",
+      "version": "1.21",
+      "platform": "bedrock",
+      "category": "challenge",
+      "name": "بدراک — چالش جزیره‌ی Hardcore",
+      "description": "جزیره‌ی کوچک با یک درخت — چالش Hardcore واقعی. مناسب برای بازیکنان حرفه‌ای. باید سریع به Nether بروید.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 65, "z": 0},
+        {"name": "Shipwreck", "x": 150, "y": 60, "z": -50}
+      ],
+      "features": ["Hardcore", "Small Island", "Shipwreck"],
+      "rating": 4,
+      "source": "Minecraft Bedrock community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-2083134902"
+    },
+    {
+      "id": "seed-060",
+      "seed": "-1673130774",
+      "version": "1.21",
+      "platform": "bedrock",
+      "category": "speedrun",
+      "name": "بدراک — Speedrun Village + Stronghold",
+      "description": "روستا و Stronghold نزدیک اسپاون در بدراک. مناسب برای Speedrun. دسترسی سریع به Emerald و End Portal.",
+      "coordinates": [
+        {"name": "اسپاون", "x": 0, "y": 70, "z": 0},
+        {"name": "Village", "x": 50, "y": 70, "z": 50},
+        {"name": "Stronghold", "x": 150, "y": 30, "z": -100}
+      ],
+      "features": ["Village", "Stronghold", "Ruined Portal"],
+      "rating": 4,
+      "source": "Speedrun.com Bedrock community",
+      "chunkbaseLink": "https://www.chunkbase.com/apps/seed-map#-1673130774"
+    }
+  ]
+}

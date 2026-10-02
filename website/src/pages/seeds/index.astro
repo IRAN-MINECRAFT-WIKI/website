@@ -40,7 +40,10 @@ const versionCounts = versions.map((v) => ({ id: v, count: seeds.filter((s) => s
       <p class="text-sm text-mc-text-2">{seeds.length} سید دست‌چین شده با توضیحات کامل · یا خودت یک سید بساز</p>
     </div>
     <div class="flex flex-wrap gap-2">
-      <a href={base('/seeds/create')} class="mc-btn">
+      <a href={base('/seeds/tested')} class="mc-btn">
+        <span aria-hidden="true">🧪</span> سیدهای تست‌شده
+      </a>
+      <a href={base('/seeds/create')} class="mc-btn ghost">
         <span aria-hidden="true">🎲</span> ساخت سید
       </a>
       <a href={base('/seeds/my')} class="mc-btn ghost">

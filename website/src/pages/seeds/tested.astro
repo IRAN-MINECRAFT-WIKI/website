@@ -1,0 +1,356 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { testedSeeds } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'سیدها', url: '/seeds' },
+  { name: 'سیدهای تست‌شده', url: '/seeds/tested' },
+];
+
+// Category metadata
+const catMeta: Record<string, { name: string; icon: string }> = {
+  survival: { name: 'Survival', icon: '🌲' },
+  speedrun: { name: 'Speedrun', icon: '🏁' },
+  beautiful: { name: 'زیبا', icon: '🌸' },
+  rare: { name: 'کمیاب', icon: '💎' },
+  island: { name: 'جزیره', icon: '🏝️' },
+  challenge: { name: 'چالش', icon: '⚔️' },
+};
+
+const catCounts = Object.keys(catMeta).map((c) => ({
+  id: c,
+  count: testedSeeds.filter((s) => s.category === c).length,
+  name: catMeta[c]!.name,
+  icon: catMeta[c]!.icon,
+}));
+
+const javaCount = testedSeeds.filter((s) => s.platform === 'java').length;
+const bedrockCount = testedSeeds.filter((s) => s.platform === 'bedrock').length;
+
+const versions = Array.from(new Set(testedSeeds.map((s) => s.version))).sort((a, b) => b.localeCompare(a));
+const versionCounts = versions.map((v) => ({ id: v, count: testedSeeds.filter((s) => s.version === v).length }));
+
+// Render an array of star characters based on rating (0-5)
+function stars(rating: number): string {
+  const full = Math.max(0, Math.min(5, Math.round(rating)));
+  return '★'.repeat(full) + '☆'.repeat(5 - full);
+}
+---
+
+<BaseLayout
+  path="/seeds/tested"
+  title="سیدهای تست‌شده‌ی ماینکرفت — Reddit و Chunkbase"
+  description="بیشتر از ۵۰ سید واقعی و تست‌شده‌ی ماینکرفت از جامعه‌ی Reddit و Chunkbase با مختصات دقیق، ویژگی‌ها و لینک Chunkbase. شامل Java و Bedrock، Survival، Speedrun و چالش."
+>
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="flex items-start justify-between gap-4 mb-6 flex-wrap">
+    <div>
+      <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">سیدهای تست‌شده‌ی ماینکرفت</h1>
+      <p class="text-sm text-mc-text-2">
+        {testedSeeds.length} سید واقعی و دست‌چین شده از جامعه‌ی Reddit، Chunkbase و Speedrun.com
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <a href={base('/seeds/create')} class="mc-btn ghost">
+        <span aria-hidden="true">🎲</span> ساخت سید
+      </a>
+      <a href={base('/seeds')} class="mc-btn ghost">
+        <span aria-hidden="true">📦</span> همه‌ی سیدها
+      </a>
+    </div>
+  </div>
+
+  <!-- Filter toolbar -->
+  <div class="mc-panel p-3 mb-5 space-y-3">
+    <div class="flex flex-wrap items-center gap-3">
+      <div class="flex flex-wrap gap-2" id="tcatChips">
+        <button class="mc-chip active" data-cat="all">همه ({testedSeeds.length})</button>
+        {catCounts.map((c) => (
+          <button class="mc-chip" data-cat={c.id}>
+            <span aria-hidden="true">{c.icon}</span> {c.name} ({c.count})
+          </button>
+        ))}
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center gap-3">
+      <div class="flex items-center gap-2">
+        <label class="text-xs text-mc-text-3 font-bold">پلتفرم:</label>
+        <select id="tplatform" class="sw-input text-xs py-1.5 px-2">
+          <option value="all">همه ({testedSeeds.length})</option>
+          <option value="java">Java ({javaCount})</option>
+          <option value="bedrock">Bedrock ({bedrockCount})</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="text-xs text-mc-text-3 font-bold">نسخه:</label>
+        <select id="tversion" class="sw-input text-xs py-1.5 px-2">
+          <option value="all">همه نسخه‌ها</option>
+          {versionCounts.map((v) => (
+            <option value={v.id}>MC {v.id} ({v.count})</option>
+          ))}
+        </select>
+      </div>
+      <div class="mr-auto flex items-center gap-2">
+        <label for="tsearch" class="text-xs text-mc-text-3 font-bold">جستجو:</label>
+        <input
+          id="tsearch"
+          type="search"
+          placeholder="کد سید یا نام..."
+          class="sw-input text-xs py-1.5 px-3 font-mono"
+          dir="ltr"
+          style="min-width: 200px;"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="tseedsGrid">
+    {testedSeeds.map((seed) => (
+      <article
+        class="mc-panel p-5 flex flex-col"
+        data-cat={seed.category}
+        data-platform={seed.platform}
+        data-version={seed.version}
+        data-seed={seed.seed}
+        data-name={seed.name}
+        data-desc={seed.description}
+      >
+        <!-- Header: name + rating -->
+        <div class="flex items-start justify-between gap-2 mb-2">
+          <h3 class="text-lg font-extrabold text-mc-text">{seed.name}</h3>
+          <span class="text-mc-gold text-sm font-bold" aria-label={`امتیاز ${seed.rating} از ۵`}>
+            {stars(seed.rating)}
+          </span>
+        </div>
+
+        <!-- Badges: platform + version + category -->
+        <div class="flex items-center gap-1.5 mb-3 flex-wrap">
+          <span class={`text-[10px] font-pixel px-2 py-0.5 ${seed.platform === 'java' ? 'bg-mc-grass text-white' : 'bg-mc-bg-2 border border-mc-line text-mc-text-2'}`}>
+            {seed.platform === 'java' ? '☕ Java' : '🪨 Bedrock'}
+          </span>
+          <span class="bg-mc-bg-2 border border-mc-line text-[10px] font-pixel px-2 py-0.5 text-mc-text-2">
+            MC {seed.version}
+          </span>
+          <span class="bg-mc-bg-2 border border-mc-line text-[10px] font-pixel px-2 py-0.5 text-mc-text-2">
+            {catMeta[seed.category]?.icon} {catMeta[seed.category]?.name}
+          </span>
+        </div>
+
+        <!-- Seed code with copy button -->
+        <div class="relative mb-3">
+          <code class="block bg-mc-bg-2 border-2 border-mc-line p-2 pr-10 font-mono text-xs text-mc-diamond break-all" dir="ltr">
+            {seed.seed}
+          </code>
+          <button
+            class="copy-btn absolute top-1 left-1 bg-mc-grass text-white text-[10px] font-pixel px-2 py-1 hover:bg-mc-grass-2"
+            data-seed={seed.seed}
+            aria-label={`کپی سید ${seed.seed}`}
+          >
+            کپی
+          </button>
+        </div>
+
+        <!-- Description -->
+        <p class="text-xs text-mc-text-2 mb-3 leading-relaxed line-clamp-3">{seed.description}</p>
+
+        <!-- Features -->
+        {seed.features && seed.features.length > 0 && (
+          <div class="flex flex-wrap gap-1 mb-3">
+            {seed.features.slice(0, 5).map((f) => (
+              <span class="text-[10px] bg-mc-bg-2 border border-mc-line px-2 py-0.5 text-mc-text-2">{f}</span>
+            ))}
+          </div>
+        )}
+
+        <!-- Coordinates -->
+        {seed.coordinates && seed.coordinates.length > 0 && (
+          <div class="mb-3 text-xs">
+            <p class="text-mc-text-3 font-bold mb-1">📍 مختصات:</p>
+            <ul class="space-y-0.5">
+              {seed.coordinates.slice(0, 4).map((c) => (
+                <li class="text-mc-text-2" dir="ltr" style="text-align: right;">
+                  {c.name}: {c.x}{c.y !== undefined ? `, ${c.y}` : ''}{c.z !== undefined ? `, ${c.z}` : ''}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Footer: source + chunkbase link -->
+        <div class="mt-auto pt-3 border-t border-mc-line flex items-center justify-between gap-2 text-[10px]">
+          {seed.source && (
+            <span class="text-mc-text-3 truncate" title={seed.source}>📚 {seed.source}</span>
+          )}
+          {seed.chunkbaseLink && (
+            <a
+              href={seed.chunkbaseLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-mc-grass-2 hover:underline whitespace-nowrap"
+            >
+              Chunkbase ↗
+            </a>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- Empty state -->
+  <p class="mc-panel text-center py-12 text-sm text-mc-text-2 hidden" id="tnoResults">
+    هیچ سیدی با این فیلتر پیدا نشد. 🔍 فیلترها را تغییر دهید.
+  </p>
+
+  <!-- Toast for copy confirmation -->
+  <div id="tcopyToast" class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-mc-grass text-white text-sm font-pixel px-4 py-2 rounded shadow-lg hidden z-50" role="status" aria-live="polite">
+    ✓ سید کپی شد
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const grid = document.getElementById('tseedsGrid');
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll('[data-cat]'));
+    const catChips = document.querySelectorAll('#tcatChips .mc-chip');
+    const platformSel = document.getElementById('tplatform');
+    const versionSel = document.getElementById('tversion');
+    const searchInput = document.getElementById('tsearch');
+    const noResults = document.getElementById('tnoResults');
+    const toast = document.getElementById('tcopyToast');
+
+    let curCat = 'all';
+    let curPlatform = 'all';
+    let curVersion = 'all';
+    let curQuery = '';
+
+    function faNum(n) {
+      const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      return String(n).replace(/\d/g, function (d) { return map[+d]; });
+    }
+
+    function applyFilters() {
+      let visible = 0;
+      cards.forEach(function (card) {
+        const catOK = curCat === 'all' || card.dataset.cat === curCat;
+        const platOK = curPlatform === 'all' || card.dataset.platform === curPlatform;
+        const verOK = curVersion === 'all' || card.dataset.version === curVersion;
+        let queryOK = true;
+        if (curQuery) {
+          const q = curQuery.toLowerCase();
+          const haystack = [
+            card.dataset.seed || '',
+            card.dataset.name || '',
+            card.dataset.desc || '',
+            card.dataset.version || '',
+          ].join(' ').toLowerCase();
+          queryOK = haystack.includes(q);
+        }
+        if (catOK && platOK && verOK && queryOK) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      if (noResults) {
+        noResults.classList.toggle('hidden', visible > 0);
+      }
+    }
+
+    catChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        catChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        curCat = chip.dataset.cat || 'all';
+        applyFilters();
+      });
+    });
+
+    if (platformSel) {
+      platformSel.addEventListener('change', function () {
+        curPlatform = platformSel.value;
+        applyFilters();
+      });
+    }
+    if (versionSel) {
+      versionSel.addEventListener('change', function () {
+        curVersion = versionSel.value;
+        applyFilters();
+      });
+    }
+    if (searchInput) {
+      let debounce;
+      searchInput.addEventListener('input', function () {
+        clearTimeout(debounce);
+        debounce = setTimeout(function () {
+          curQuery = searchInput.value.trim();
+          applyFilters();
+        }, 150);
+      });
+    }
+
+    // Copy button logic
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', async function (e) {
+        e.preventDefault();
+        const code = btn.getAttribute('data-seed') || '';
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(code);
+          } else {
+            // Fallback for older browsers
+            const ta = document.createElement('textarea');
+            ta.value = code;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          }
+          if (toast) {
+            toast.classList.remove('hidden');
+            toast.textContent = '✓ سید ' + code + ' کپی شد';
+            setTimeout(function () { toast.classList.add('hidden'); }, 2200);
+          }
+        } catch (err) {
+          if (toast) {
+            toast.classList.remove('hidden');
+            toast.textContent = '✗ کپی ناموفق — دستی کپی کنید';
+            setTimeout(function () { toast.classList.add('hidden'); }, 2200);
+          }
+        }
+      });
+    });
+  })();
+</script>
+
+<style>
+  .sw-input {
+    background: var(--bg-2, #0d0d18);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    border-radius: 4px;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sw-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+    background: #141428;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

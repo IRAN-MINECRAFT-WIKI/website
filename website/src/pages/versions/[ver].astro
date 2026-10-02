@@ -4,7 +4,7 @@ import Breadcrumbs from '@components/Breadcrumbs.astro';
 import BackButton from "@components/BackButton.astro";
 import ModCard from '@components/ModCard.astro';
 import StructuredData from '@components/StructuredData.astro';
-import { versions, getModsByVersion, getModsByCategory } from '@/lib/data';
+import { versions, getModsByVersion } from '@/lib/data';
 import { breadcrumbJsonLd, articleJsonLd } from '@/lib/seo';
 
 export async function getStaticPaths() {
@@ -16,6 +16,8 @@ export async function getStaticPaths() {
 
 const { version } = Astro.props;
 const compatibleMods = getModsByVersion(version.id);
+const platformLabel = version.platform === 'java' ? 'Java Edition' : 'Bedrock Edition';
+const platformFa = version.platform === 'java' ? 'جاوا (کامپیوتر)' : 'بدراک (موبایل/کنسول)';
 
 const breadcrumb = [
   { name: 'خانه', url: '/' },
@@ -34,7 +36,7 @@ const ldArticle = articleJsonLd({
 
 <BaseLayout
   path={`/versions/${version.id}`}
-  title={`${version.nameFa} — راهنمای کامل ${version.name} ماینکرفت بدراک`}
+  title={`${version.nameFa} — راهنمای کامل ${version.name} ماینکرفت`}
   description={version.summary}
   type="article"
 >
@@ -44,16 +46,37 @@ const ldArticle = articleJsonLd({
   <StructuredData data={ldBread} />
 
   <div class="mb-6 flex items-start gap-4">
-    <span class="text-6xl shrink-0">{version.icon}</span>
+    <span class="shrink-0 inline-flex items-center justify-center w-16 h-16">
+      <img
+        src={`${import.meta.env.BASE_URL}textures/blocks/${version.icon.replace('px-', '')}.png`}
+        alt={version.nameFa}
+        width="56"
+        height="56"
+        loading="eager"
+        decoding="async"
+        class="pixel-img"
+        onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
+      />
+      <svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+        <use href={`#${version.icon}`} />
+      </svg>
+    </span>
     <div>
       <div class="flex items-center gap-3 mb-1 flex-wrap">
         <h1 class="text-2xl lg:text-4xl font-extrabold">{version.nameFa}</h1>
         {version.isLatest && (
           <span class="bg-mc-grass text-white text-xs font-pixel px-2 py-1">جدیدترین</span>
         )}
+        {version.featured && (
+          <span class="bg-mc-gold text-[#21160a] text-xs font-pixel px-2 py-1">ویژه</span>
+        )}
+        <span class="bg-mc-bg-2 border-2 border-mc-line text-[10px] font-pixel px-2 py-1 text-mc-text-2">
+          {platformLabel}
+        </span>
       </div>
       <p class="text-sm text-mc-text-2 mb-2">
         📅 {version.releaseDate} • 🏷️ {version.codename}
+        {version.version && <span> • 🔢 نسخه‌ی {version.version}</span>}
       </p>
       <p class="text-base text-mc-text-2 leading-loose">{version.summary}</p>
     </div>
@@ -78,9 +101,49 @@ const ldArticle = articleJsonLd({
     <p set:html={version.description.replace(/\n/g, '<br>')} class="leading-loose text-mc-text-2" />
   </section>
 
+  <!-- Wiki link + metadata -->
+  <section class="mc-panel mb-6 p-5">
+    <h2 class="text-xl font-extrabold mb-3">منابع و مرجع</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+      <div class="flex items-start gap-2">
+        <span class="text-mc-text-3 mt-0.5">🍪 پلتفرم:</span>
+        <span class="text-mc-text-2">{platformFa}</span>
+      </div>
+      <div class="flex items-start gap-2">
+        <span class="text-mc-text-3 mt-0.5">📅 تاریخ انتشار:</span>
+        <span class="text-mc-text-2" dir="ltr">{version.releaseDate}</span>
+      </div>
+      <div class="flex items-start gap-2">
+        <span class="text-mc-text-3 mt-0.5">🏷️ نام آپدیت:</span>
+        <span class="text-mc-text-2">{version.codename}</span>
+      </div>
+      <div class="flex items-start gap-2">
+        <span class="text-mc-text-3 mt-0.5">📦 نسخه‌ی عددی:</span>
+        <span class="text-mc-text-2" dir="ltr">{version.version}</span>
+      </div>
+      {version.wikiLink && (
+        <div class="sm:col-span-2 flex items-start gap-2 mt-2 pt-3 border-t border-mc-line">
+          <span class="text-mc-text-3 mt-0.5">📚 ویکی:</span>
+          <a
+            href={version.wikiLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-mc-grass-2 hover:underline break-all"
+            dir="ltr"
+          >
+            {version.wikiLink} ↗
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
   <!-- Compatible mods -->
   <section class="mb-6">
-    <h2 class="text-xl font-extrabold mb-4">افزونه‌های سازگار با این نسخه</h2>
+    <h2 class="text-xl font-extrabold mb-4">
+      افزونه‌های سازگار با این نسخه
+      <span class="text-sm text-mc-text-3 font-normal">({compatibleMods.length} مورد)</span>
+    </h2>
     {compatibleMods.length > 0 ? (
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {compatibleMods.map((mod) => <ModCard mod={mod} />)}
