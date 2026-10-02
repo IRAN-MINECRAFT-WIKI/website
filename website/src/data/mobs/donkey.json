@@ -3,7 +3,7 @@
   "nameEn": "Donkey",
   "nameFa": "الاغ",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "donkey",
   "health": 30,
   "damage": {
     "contact": 0
@@ -27,5 +27,6 @@
   "combat": [
     "با چند ضربه بزن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Donkey"
+  "wikiLink": "https://minecraft.wiki/w/Donkey",
+  "hasRealTexture": true
 }

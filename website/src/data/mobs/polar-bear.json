@@ -3,7 +3,7 @@
   "nameEn": "Polar Bear",
   "nameFa": "خرس قطبی",
   "category": "neutral",
-  "icon": "px-cow-face",
+  "icon": "polar-bear",
   "health": 30,
   "damage": {
     "contact": 6
@@ -33,5 +33,6 @@
     "با کمان از دور",
     "از بچه‌ها دور باش"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Polar_Bear"
+  "wikiLink": "https://minecraft.wiki/w/Polar_Bear",
+  "hasRealTexture": true
 }

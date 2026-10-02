@@ -3,7 +3,7 @@
   "nameEn": "Turtle",
   "nameFa": "لاک‌پشت",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "turtle",
   "health": 30,
   "damage": {
     "contact": 0
@@ -33,5 +33,6 @@
   "combat": [
     "با چند ضربه بزن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Turtle"
+  "wikiLink": "https://minecraft.wiki/w/Turtle",
+  "hasRealTexture": true
 }

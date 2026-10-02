@@ -3,7 +3,7 @@
   "nameEn": "Dolphin",
   "nameFa": "دلفین",
   "category": "neutral",
-  "icon": "px-cow-face",
+  "icon": "dolphin",
   "health": 10,
   "damage": {
     "contact": 3
@@ -29,5 +29,6 @@
     "با کمان از دور",
     "زیر آب بزن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Dolphin"
+  "wikiLink": "https://minecraft.wiki/w/Dolphin",
+  "hasRealTexture": true
 }

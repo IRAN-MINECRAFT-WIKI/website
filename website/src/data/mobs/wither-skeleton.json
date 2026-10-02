@@ -3,7 +3,7 @@
   "nameEn": "Wither Skeleton",
   "nameFa": "اسکلت ویدر",
   "category": "boss",
-  "icon": "px-skeleton-face",
+  "icon": "wither-skeleton",
   "health": 20,
   "damage": {
     "contact": 7,
@@ -116,5 +116,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

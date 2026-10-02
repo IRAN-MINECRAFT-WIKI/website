@@ -10,6 +10,7 @@
         "@astrojs/sitemap": "^3.4.1",
         "@astrojs/tailwind": "^6.0.2",
         "astro": "^5.6.1",
+        "mc-seedlocator": "^0.0.2",
         "skinview3d": "^3.4.2",
         "tailwindcss": "^3.4.17",
         "three": "^0.186.1",
@@ -991,6 +992,8 @@
     "markdown-table": ["markdown-table@3.0.4", "", {}, "sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw=="],
 
     "math-intrinsics": ["math-intrinsics@1.1.0", "", {}, "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="],
+
+    "mc-seedlocator": ["mc-seedlocator@0.0.2", "", {}, "sha512-isHlavolcnzx/xp4DM38jod/QcJL5vkrQWUmhxeuoN9gLZEa8s5Q4YeuQweMmfAVvS+e6HWcgWztvsnHFg3wZw=="],
 
     "mdast-util-definitions": ["mdast-util-definitions@6.0.0", "", { "dependencies": { "@types/mdast": "^4.0.0", "@types/unist": "^3.0.0", "unist-util-visit": "^5.0.0" } }, "sha512-scTllyX6pnYNZH/AIp/0ePz6s4cZtARxImwoPJ7kS42n+MnVsI4XbnG6d4ibehRIldYMWM2LD7ImQblVhUejVQ=="],
 

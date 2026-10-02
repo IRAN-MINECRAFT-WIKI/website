@@ -3,7 +3,7 @@
   "nameEn": "Zombified Piglin",
   "nameFa": "پیگلین زامبی",
   "category": "neutral",
-  "icon": "px-pig-face",
+  "icon": "zombified-piglin",
   "health": 20,
   "damage": {
     "contact": 8,
@@ -117,5 +117,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

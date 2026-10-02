@@ -186,7 +186,8 @@
       "nameEn": "Donkey",
       "nameFa": "الاغ",
       "category": "passive",
-      "icon": "px-cow-face"
+      "icon": "donkey",
+      "hasRealTexture": true
     },
     {
       "id": "rabbit",
@@ -208,7 +209,8 @@
       "nameEn": "Turtle",
       "nameFa": "لاک‌پشت",
       "category": "passive",
-      "icon": "px-cow-face"
+      "icon": "turtle",
+      "hasRealTexture": true
     },
     {
       "id": "parrot",
@@ -282,28 +284,32 @@
       "nameEn": "Zombified Piglin",
       "nameFa": "پیگلین زامبی",
       "category": "neutral",
-      "icon": "px-pig-face"
+      "icon": "zombified-piglin",
+      "hasRealTexture": true
     },
     {
       "id": "polar-bear",
       "nameEn": "Polar Bear",
       "nameFa": "خرس قطبی",
       "category": "neutral",
-      "icon": "px-cow-face"
+      "icon": "polar-bear",
+      "hasRealTexture": true
     },
     {
       "id": "panda",
       "nameEn": "Panda",
       "nameFa": "پاندا",
       "category": "neutral",
-      "icon": "px-cow-face"
+      "icon": "panda",
+      "hasRealTexture": true
     },
     {
       "id": "dolphin",
       "nameEn": "Dolphin",
       "nameFa": "دلفین",
       "category": "neutral",
-      "icon": "px-cow-face"
+      "icon": "dolphin",
+      "hasRealTexture": true
     },
     {
       "id": "bee",
@@ -347,7 +353,8 @@
       "nameEn": "Wither Skeleton",
       "nameFa": "اسکلت ویدر",
       "category": "boss",
-      "icon": "px-skeleton-face"
+      "icon": "wither-skeleton",
+      "hasRealTexture": true
     },
     {
       "id": "elder-guardian",
