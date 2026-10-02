@@ -32,6 +32,12 @@ export default defineConfig({
       // of the lastmod signal.  When omitted, the sitemap integration
       // falls back to per-URL lastmod from the build's last-modified
       // time of each page's source file, which is what we want.
+
+      // ⛔ Exclude the hidden admin panel URL from the sitemap. The
+      // panel is also covered by a `noindex` meta tag (set via the
+      // `noindex: true` prop on BaseLayout) and a `Disallow:` rule in
+      // public/robots.txt. Belt + braces + a third belt.
+      filter: (page) => !page.includes('/admin-minebed-control'),
     }),
   ],
   image: {

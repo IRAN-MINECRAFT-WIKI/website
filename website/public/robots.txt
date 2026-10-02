@@ -8,6 +8,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /admin-minebed-control
 Disallow: /pagefind/
 
 # Allow Google's rich-results crawler to fetch everything

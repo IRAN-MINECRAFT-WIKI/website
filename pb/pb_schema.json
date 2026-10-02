@@ -1,0 +1,400 @@
+{
+  "$schema": "https://pocketbase.io/schema.json",
+  "name": "minebed",
+  "collections": [
+    {
+      "id": "seeds_queue_collection",
+      "name": "seeds_queue",
+      "type": "base",
+      "description": "User-submitted Minecraft seeds awaiting admin review. Records are rate-limited per IP (5/day, enforced by pb_hooks/main.pb.js) and auto-tagged with the submitter's IP. Approved rows are copied to seeds_published by the onRecordAfterUpdate hook when status flips to 'approved'.",
+      "listRule": null,
+      "viewRule": "@request.auth.id != ''",
+      "createRule": null,
+      "updateRule": "@request.auth.id != ''",
+      "deleteRule": "@request.auth.id != ''",
+      "options": {
+        "allowEmailAuth": false,
+        "allowOAuth2Auth": false,
+        "allowUsernameAuth": false,
+        "minPasswordLength": 12,
+        "requireEmail": false
+      },
+      "fields": [
+        {
+          "name": "seed_value",
+          "type": "text",
+          "required": true,
+          "options": {
+            "max": 64,
+            "min": 1
+          }
+        },
+        {
+          "name": "version",
+          "type": "text",
+          "required": true,
+          "options": {
+            "max": 16
+          }
+        },
+        {
+          "name": "platform",
+          "type": "select",
+          "required": true,
+          "options": {
+            "maxSelect": 1,
+            "values": ["Java", "Bedrock"]
+          }
+        },
+        {
+          "name": "features",
+          "type": "json",
+          "required": false,
+          "options": {
+            "maxSize": 8192
+          }
+        },
+        {
+          "name": "coordinates",
+          "type": "json",
+          "required": false,
+          "options": {
+            "maxSize": 16384
+          }
+        },
+        {
+          "name": "user_uuid",
+          "type": "text",
+          "required": false,
+          "options": {
+            "max": 64
+          }
+        },
+        {
+          "name": "ip_address",
+          "type": "text",
+          "required": false,
+          "options": {
+            "max": 64
+          }
+        },
+        {
+          "name": "status",
+          "type": "select",
+          "required": true,
+          "options": {
+            "maxSelect": 1,
+            "values": ["pending", "approved", "rejected"]
+          }
+        },
+        {
+          "name": "reject_reason",
+          "type": "text",
+          "required": false,
+          "options": {
+            "max": 500
+          }
+        },
+        {
+          "name": "tested_by_admin",
+          "type": "bool",
+          "required": false,
+          "options": {}
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "options": {
+            "onCreate": true,
+            "onUpdate": false
+          }
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "options": {
+            "onCreate": true,
+            "onUpdate": true
+          }
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX `idx_seeds_queue_status` ON `seeds_queue` (`status`)",
+        "CREATE INDEX `idx_seeds_queue_ip` ON `seeds_queue` (`ip_address`)",
+        "CREATE INDEX `idx_seeds_queue_user_uuid` ON `seeds_queue` (`user_uuid`)",
+        "CREATE INDEX `idx_seeds_queue_created` ON `seeds_queue` (`created`)",
+        "CREATE INDEX `idx_seeds_queue_version_platform` ON `seeds_queue` (`version`, `platform`)"
+      ]
+    },
+    {
+      "id": "seeds_published_collection",
+      "name": "seeds_published",
+      "type": "base",
+      "description": "Approved seeds that have passed admin review. Rows here are read by the daily GitHub Action (.github/workflows/publish-seeds.yml) which writes them to website/src/data/seeds-published.json — the static Astro site reads from this JSON, so the published site never depends on the PocketBase server being up at request time.",
+      "listRule": null,
+      "viewRule": null,
+      "createRule": "@request.auth.id != ''",
+      "updateRule": "@request.auth.id != ''",
+      "deleteRule": "@request.auth.id != ''",
+      "options": {
+        "allowEmailAuth": false,
+        "allowOAuth2Auth": false,
+        "allowUsernameAuth": false,
+        "minPasswordLength": 12,
+        "requireEmail": false
+      },
+      "fields": [
+        {
+          "name": "seed_value",
+          "type": "text",
+          "required": true,
+          "options": {
+            "max": 64,
+            "min": 1
+          }
+        },
+        {
+          "name": "version",
+          "type": "text",
+          "required": true,
+          "options": {
+            "max": 16
+          }
+        },
+        {
+          "name": "platform",
+          "type": "select",
+          "required": true,
+          "options": {
+            "maxSelect": 1,
+            "values": ["Java", "Bedrock"]
+          }
+        },
+        {
+          "name": "features",
+          "type": "json",
+          "required": false,
+          "options": {
+            "maxSize": 8192
+          }
+        },
+        {
+          "name": "coordinates",
+          "type": "json",
+          "required": false,
+          "options": {
+            "maxSize": 16384
+          }
+        },
+        {
+          "name": "user_uuid",
+          "type": "text",
+          "required": false,
+          "options": {
+            "max": 64
+          }
+        },
+        {
+          "name": "ip_address",
+          "type": "text",
+          "required": false,
+          "options": {
+            "max": 64
+          }
+        },
+        {
+          "name": "reject_reason",
+          "type": "text",
+          "required": false,
+          "options": {
+            "max": 500
+          }
+        },
+        {
+          "name": "tested_by_admin",
+          "type": "bool",
+          "required": false,
+          "options": {}
+        },
+        {
+          "name": "published_at",
+          "type": "date",
+          "required": true,
+          "options": {}
+        },
+        {
+          "name": "published_by",
+          "type": "text",
+          "required": true,
+          "options": {
+            "max": 64
+          }
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "options": {
+            "onCreate": true,
+            "onUpdate": false
+          }
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "options": {
+            "onCreate": true,
+            "onUpdate": true
+          }
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX `idx_seeds_published_version` ON `seeds_published` (`version`)",
+        "CREATE INDEX `idx_seeds_published_platform` ON `seeds_published` (`platform`)",
+        "CREATE INDEX `idx_seeds_published_published_at` ON `seeds_published` (`published_at`)",
+        "CREATE INDEX `idx_seeds_published_seed_value` ON `seeds_published` (`seed_value`)"
+      ]
+    },
+    {
+      "id": "online_users_collection",
+      "name": "online_users",
+      "type": "base",
+      "description": "Heartbeat table — the front-end /admin-minebed-control panel pings POST /api/collections/online_users/records every 30s with { user_uuid, page } and the admin panel polls the live count to show 'X online right now'. Rows older than ~5 minutes are pruned by the nightly cron hook in main.pb.js. There is no update endpoint exposed; clients just re-insert with the same UUID key (handled by the upsert hook).",
+      "listRule": null,
+      "viewRule": null,
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": "@request.auth.id != ''",
+      "options": {
+        "allowEmailAuth": false,
+        "allowOAuth2Auth": false,
+        "allowUsernameAuth": false,
+        "minPasswordLength": 12,
+        "requireEmail": false
+      },
+      "fields": [
+        {
+          "name": "user_uuid",
+          "type": "text",
+          "required": true,
+          "options": {
+            "max": 64
+          }
+        },
+        {
+          "name": "last_seen",
+          "type": "date",
+          "required": true,
+          "options": {}
+        },
+        {
+          "name": "page",
+          "type": "text",
+          "required": false,
+          "options": {
+            "max": 256
+          }
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "options": {
+            "onCreate": true,
+            "onUpdate": false
+          }
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "options": {
+            "onCreate": true,
+            "onUpdate": true
+          }
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX `idx_online_users_user_uuid` ON `online_users` (`user_uuid`)",
+        "CREATE INDEX `idx_online_users_last_seen` ON `online_users` (`last_seen`)"
+      ]
+    },
+    {
+      "id": "visits_collection",
+      "name": "visits",
+      "type": "base",
+      "description": "Per-page visit log for the admin dashboard. The front-end /admin-minebed-control page does NOT write here directly — instead, a single pageview is logged on each Astro page load via a fire-and-forget POST from a small inline script in BaseLayout. The ip_address column is set server-side by the pb_hooks onRecordBeforeCreateRequest hook (clients cannot spoof it). This is the only table that lets the admin see aggregate traffic in real time without third-party trackers like Google Analytics.",
+      "listRule": null,
+      "viewRule": "@request.auth.id != ''",
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": "@request.auth.id != ''",
+      "options": {
+        "allowEmailAuth": false,
+        "allowOAuth2Auth": false,
+        "allowUsernameAuth": false,
+        "minPasswordLength": 12,
+        "requireEmail": false
+      },
+      "fields": [
+        {
+          "name": "user_uuid",
+          "type": "text",
+          "required": true,
+          "options": {
+            "max": 64
+          }
+        },
+        {
+          "name": "page",
+          "type": "text",
+          "required": true,
+          "options": {
+            "max": 256
+          }
+        },
+        {
+          "name": "visited_at",
+          "type": "date",
+          "required": true,
+          "options": {}
+        },
+        {
+          "name": "ip_address",
+          "type": "text",
+          "required": false,
+          "options": {
+            "max": 64
+          }
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "options": {
+            "onCreate": true,
+            "onUpdate": false
+          }
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "options": {
+            "onCreate": true,
+            "onUpdate": true
+          }
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX `idx_visits_user_uuid` ON `visits` (`user_uuid`)",
+        "CREATE INDEX `idx_visits_page` ON `visits` (`page`)",
+        "CREATE INDEX `idx_visits_visited_at` ON `visits` (`visited_at`)",
+        "CREATE INDEX `idx_visits_ip_address` ON `visits` (`ip_address`)"
+      ]
+    }
+  ]
+}

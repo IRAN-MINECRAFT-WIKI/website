@@ -1,0 +1,62 @@
+name: Daily Seed Publish
+
+# Pulls approved seeds from PocketBase every night at 03:00 Iran
+# Standard Time (IRST = UTC+03:30 → 23:30 UTC the previous day),
+# writes them to website/src/data/seeds-published.json, and commits
+# with [skip ci] so the deploy workflow isn't triggered in a loop.
+#
+# Why: the static Astro site reads seeds from a JSON file (no
+# PocketBase fetch at page render time), so the published site stays
+# fast + works even if the PB server is briefly unreachable. The
+# trade-off is a 24-hour lag between an admin approving a seed and
+# that seed showing up on the public site. For a wiki that's fine.
+#
+# The same script (scripts/fetch-approved-seeds.mjs) is also runnable
+# locally: `node scripts/fetch-approved-seeds.mjs` with PB_URL +
+# PB_ADMIN_TOKEN in your env.
+
+on:
+  schedule:
+    - cron: '30 23 * * *'   # 23:30 UTC == 03:00 IRST
+  workflow_dispatch:
+  repository_dispatch:
+    types: [publish-seeds]
+
+permissions:
+  contents: write           # required for the bot to push commits
+
+concurrency:
+  group: seed-publish
+  cancel-in-progress: false
+
+jobs:
+  fetch-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch approved seeds
+        run: node scripts/fetch-approved-seeds.mjs
+        env:
+          PB_URL: ${{ secrets.PB_URL }}
+          PB_ADMIN_TOKEN: ${{ secrets.PB_ADMIN_TOKEN }}
+          OUTPUT_PATH: website/src/data/seeds-published.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "MineBed Bot"
+          git config user.email "bot@minebed.users.noreply.github.com"
+          git add website/src/data/seeds-published.json
+          if git diff --staged --quiet; then
+            echo "No changes — skipping commit"
+          else
+            git commit -m "chore: daily seed publish [skip ci]"
+            git push
+          fi

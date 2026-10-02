@@ -1,0 +1,1809 @@
+---
+// src/pages/admin-minebed-control.astro
+// Hidden admin panel for MineBed.
+//
+// URL: /admin-minebed-control
+//   This URL is intentionally NOT in the sitemap, NOT in robots.txt
+//   (in fact, robots.txt has `Disallow: /admin-minebed-control`), and
+//   NOT linked from anywhere on the public site. The only way to
+//   discover it is by being told — i.e. this is "security by
+//   obscurity" rather than real security. Real security is the
+//   PocketBase admin token required to actually mutate any data;
+//   the password form here just gates the UI.
+//
+// What it does:
+//   1. Login form — user pastes the PocketBase admin JWT into a
+//      password field. We store it in sessionStorage (NOT localStorage)
+//      as `adminToken`. sessionStorage is per-tab and dies on tab
+//      close, so a forgotten login doesn't outlive the day.
+//   2. Dashboard tab — shows the headline numbers (online users,
+//      pending seeds, total visits).
+//   3. Queue tab — table of pending seeds with filter + pagination
+//      + Test/Approve/Reject buttons.
+//   4. Stats tab — same numbers as dashboard + a 24h visits chart.
+//
+// Graceful degradation:
+//   Every API call is wrapped in a try/catch. If PocketBase is
+//   unreachable (no backend deployed yet, dev machine, server down),
+//   the panel shows a friendly "Backend not available — showing
+//   simulated data" banner and populates the tables with simulated
+//   rows so the admin can still poke around the UI before deploying
+//   the backend.
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+// ⚙️ PB_URL — change this to your production PocketBase URL before
+// deploying. Default to the local dev server so the panel works
+// out-of-the-box with `bun run dev` + `./pocketbase serve`.
+const PB_URL = 'http://127.0.0.1:8090';
+
+// PerPage for the queue table.
+const PER_PAGE = 20;
+---
+
+<BaseLayout
+  path="/admin-minebed-control"
+  title="پنل مدیریت MineBed"
+  description="پنل مدیریت"
+  noindex={true}
+>
+  <!-- Outer container -->
+  <div class="adm-wrap">
+    <!-- Login screen -->
+    <section id="loginScreen" class="adm-card adm-login">
+      <header class="adm-login-head">
+        <div class="adm-lock-icon" aria-hidden="true">🔐</div>
+        <h1 class="adm-login-title">پنل مدیریت MineBed</h1>
+        <p class="adm-login-sub">
+          برای ورود، توکن ادمین PocketBase را در کادر زیر وارد کنید.
+          این صفحه در نقشه‌ی سایت یا فهرست عمومی نیست.
+        </p>
+      </header>
+
+      <form id="loginForm" class="adm-login-form" autocomplete="off">
+        <label class="adm-field">
+          <span class="adm-field-label">توکن ادمین</span>
+          <input
+            id="adminTokenInput"
+            type="password"
+            class="adm-input"
+            placeholder="eyJhbGciOiJIUzI1NiIs…"
+            autocomplete="off"
+            spellcheck={false}
+            required
+          />
+        </label>
+        <div class="adm-login-actions">
+          <button type="submit" class="adm-btn primary big">
+            <span aria-hidden="true">▶</span> ورود
+          </button>
+          <button type="button" id="devLoginBtn" class="adm-btn ghost">
+            <span aria-hidden="true">🧪</span> ورود با داده‌ی شبیه‌سازی
+          </button>
+        </div>
+        <p class="adm-login-hint">
+          توکن در <code>sessionStorage</code> ذخیره می‌شود و با بستن tab پاک می‌شود.
+        </p>
+      </form>
+    </section>
+
+    <!-- Main admin (hidden until login) -->
+    <section id="adminMain" class="adm-main hidden">
+      <!-- Top bar -->
+      <header class="adm-topbar">
+        <div class="adm-topbar-left">
+          <span class="adm-logo" aria-hidden="true">🛠️</span>
+          <div>
+            <h1 class="adm-title">پنل مدیریت MineBed</h1>
+            <p class="adm-subtitle">
+              <span id="backendStatus" class="adm-status-pill">
+                <span class="adm-status-dot" aria-hidden="true"></span>
+                <span id="backendStatusText">در حال بررسی…</span>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="adm-topbar-right">
+          <button id="refreshBtn" class="adm-btn ghost small">
+            <span aria-hidden="true">🔄</span> به‌روزرسانی
+          </button>
+          <button id="logoutBtn" class="adm-btn danger small">
+            <span aria-hidden="true">🚪</span> خروج
+          </button>
+        </div>
+      </header>
+
+      <!-- Backend-unavailable banner (hidden unless needed) -->
+      <div id="backendBanner" class="adm-banner hidden" role="status" aria-live="polite">
+        <span aria-hidden="true">⚠️</span>
+        <span id="backendBannerText">
+          سرور PocketBase در دسترس نیست — نمایش داده‌ی شبیه‌سازی.
+          بعد از راه‌اندازی backend، صفحه را به‌روزرسانی کنید.
+        </span>
+      </div>
+
+      <!-- Tabs -->
+      <nav class="adm-tabs" role="tablist">
+        <button class="adm-tab active" data-tab="dashboard" role="tab" aria-selected="true">
+          <span aria-hidden="true">📊</span> داشبورد
+        </button>
+        <button class="adm-tab" data-tab="queue" role="tab" aria-selected="false">
+          <span aria-hidden="true">📥</span> صف سیدها
+          <span class="adm-tab-badge" id="pendingBadge" aria-hidden="true">—</span>
+        </button>
+        <button class="adm-tab" data-tab="stats" role="tab" aria-selected="false">
+          <span aria-hidden="true">📈</span> آمار
+        </button>
+      </nav>
+
+      <!-- ============================================================ -->
+      <!-- Dashboard tab                                                 -->
+      <!-- ============================================================ -->
+      <div class="adm-tab-panel active" data-panel="dashboard" role="tabpanel">
+        <div class="adm-kpi-grid">
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-head">
+              <span class="adm-kpi-dot green" aria-hidden="true"></span>
+              <span class="adm-kpi-label">کاربر آنلاین</span>
+            </div>
+            <div class="adm-kpi-value" id="kpiOnline">—</div>
+            <div class="adm-kpi-sub">به‌روزرسانی هر ۳۰ ثانیه</div>
+          </div>
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-head">
+              <span aria-hidden="true">📥</span>
+              <span class="adm-kpi-label">سید در انتظار</span>
+            </div>
+            <div class="adm-kpi-value" id="kpiPending">—</div>
+            <div class="adm-kpi-sub">نیازمند بررسی</div>
+          </div>
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-head">
+              <span aria-hidden="true">📦</span>
+              <span class="adm-kpi-label">سید منتشرشده</span>
+            </div>
+            <div class="adm-kpi-value" id="kpiPublished">—</div>
+            <div class="adm-kpi-sub">همه‌ی زمان‌ها</div>
+          </div>
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-head">
+              <span aria-hidden="true">👁️</span>
+              <span class="adm-kpi-label">کل بازدیدها</span>
+            </div>
+            <div class="adm-kpi-value" id="kpiVisits">—</div>
+            <div class="adm-kpi-sub">از راه‌اندازی backend</div>
+          </div>
+        </div>
+
+        <div class="adm-row">
+          <div class="adm-card adm-half">
+            <h2 class="adm-card-title">
+              <span aria-hidden="true">⚡</span> اقدام‌های سریع
+            </h2>
+            <div class="adm-quick-actions">
+              <button class="adm-btn primary" data-quick="approve-all-tested">
+                <span aria-hidden="true">✅</span> تأیید همه‌ی سیدهای تست‌شده
+              </button>
+              <button class="adm-btn ghost" data-quick="refresh-now">
+                <span aria-hidden="true">🔄</span> به‌روزرسانی داده‌ها
+              </button>
+              <a class="adm-btn ghost" href="#queue-tab" data-quick="goto-queue">
+                <span aria-hidden="true">📋</span> رفتن به صف
+              </a>
+              <a class="adm-btn ghost" href="/seeds" target="_blank" rel="noopener">
+                <span aria-hidden="true">🌍</span> مشاهده‌ی سیدهای عمومی
+              </a>
+            </div>
+          </div>
+
+          <div class="adm-card adm-half">
+            <h2 class="adm-card-title">
+              <span aria-hidden="true">📜</span> فعالیت اخیر
+            </h2>
+            <ul id="recentList" class="adm-recent-list">
+              <li class="adm-recent-empty">— در حال بارگذاری…</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- Queue tab                                                     -->
+      <!-- ============================================================ -->
+      <div class="adm-tab-panel hidden" data-panel="queue" role="tabpanel">
+        <div class="adm-card">
+          <!-- Filters -->
+          <div class="adm-filters">
+            <div class="adm-filter-group">
+              <label class="adm-field">
+                <span class="adm-field-label">وضعیت</span>
+                <select id="filterStatus" class="adm-input">
+                  <option value="pending">⏳ در انتظار</option>
+                  <option value="all">همه</option>
+                  <option value="approved">✅ تأییدشده</option>
+                  <option value="rejected">❌ ردشده</option>
+                </select>
+              </label>
+              <label class="adm-field">
+                <span class="adm-field-label">نسخه</span>
+                <select id="filterVersion" class="adm-input">
+                  <option value="all">همه</option>
+                  <option value="1.21">1.21</option>
+                  <option value="1.20">1.20</option>
+                  <option value="1.19">1.19</option>
+                  <option value="1.18">1.18</option>
+                  <option value="1.17">1.17</option>
+                  <option value="1.16">1.16</option>
+                </select>
+              </label>
+              <label class="adm-field">
+                <span class="adm-field-label">پلتفرم</span>
+                <select id="filterPlatform" class="adm-input">
+                  <option value="all">همه</option>
+                  <option value="Bedrock">📱 بدراک</option>
+                  <option value="Java">☕ جاوا</option>
+                </select>
+              </label>
+            </div>
+            <div class="adm-filter-actions">
+              <button id="applyFiltersBtn" class="adm-btn primary small">
+                <span aria-hidden="true">🔍</span> اعمال فیلتر
+              </button>
+              <button id="resetFiltersBtn" class="adm-btn ghost small">
+                <span aria-hidden="true">✕</span> پاک‌سازی
+              </button>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="adm-table-wrap">
+            <table class="adm-table">
+              <thead>
+                <tr>
+                  <th>سید</th>
+                  <th>نسخه</th>
+                  <th>پلتفرم</th>
+                  <th>ویژگی‌ها</th>
+                  <th>UUID کاربر</th>
+                  <th>IP</th>
+                  <th>تاریخ</th>
+                  <th>وضعیت</th>
+                  <th>اقدامات</th>
+                </tr>
+              </thead>
+              <tbody id="queueBody">
+                <!-- rows injected by JS -->
+              </tbody>
+            </table>
+            <div id="queueEmpty" class="adm-empty hidden">
+              <div class="adm-empty-icon" aria-hidden="true">🌱</div>
+              <p>هیچ سیدی در این فیلتر نیست.</p>
+            </div>
+            <div id="queueLoading" class="adm-empty">
+              <div class="adm-spinner" aria-hidden="true"></div>
+              <p>در حال بارگذاری…</p>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="adm-pagination">
+            <button id="prevPageBtn" class="adm-btn ghost small" disabled>
+              <span aria-hidden="true">◀</span> قبلی
+            </button>
+            <span class="adm-page-info">
+              صفحه‌ی <span id="curPage">۱</span> از <span id="totalPages">۱</span>
+              · <span id="totalRows">۰</span> رکورد
+            </span>
+            <button id="nextPageBtn" class="adm-btn ghost small" disabled>
+              بعدی <span aria-hidden="true">▶</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- Stats tab                                                     -->
+      <!-- ============================================================ -->
+      <div class="adm-tab-panel hidden" data-panel="stats" role="tabpanel">
+        <div class="adm-kpi-grid">
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-head">
+              <span class="adm-kpi-dot green" aria-hidden="true"></span>
+              <span class="adm-kpi-label">آنلاین الان</span>
+            </div>
+            <div class="adm-kpi-value" id="statsOnline">—</div>
+          </div>
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-head">
+              <span aria-hidden="true">👁️</span>
+              <span class="adm-kpi-label">بازدید امروز</span>
+            </div>
+            <div class="adm-kpi-value" id="statsToday">—</div>
+          </div>
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-head">
+              <span aria-hidden="true">📈</span>
+              <span class="adm-kpi-label">بازدید این هفته</span>
+            </div>
+            <div class="adm-kpi-value" id="statsWeek">—</div>
+          </div>
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-head">
+              <span aria-hidden="true">🌍</span>
+              <span class="adm-kpi-label">IPهای یکتای امروز</span>
+            </div>
+            <div class="adm-kpi-value" id="statsUniqueIps">—</div>
+          </div>
+        </div>
+
+        <div class="adm-card">
+          <h2 class="adm-card-title">
+            <span aria-hidden="true">📊</span> بازدید ۲۴ ساعته
+          </h2>
+          <div id="statsChart" class="adm-chart-wrap">
+            <svg viewBox="0 0 480 200" class="adm-chart" id="visitsSvg" aria-label="نمودار بازدید ۲۴ ساعته">
+              <!-- bars injected by JS -->
+            </svg>
+          </div>
+          <p class="adm-chart-cap">محور افقی: ساعت ۰ تا ۲۳ · محور عمودی: تعداد بازدید</p>
+        </div>
+
+        <div class="adm-card">
+          <h2 class="adm-card-title">
+            <span aria-hidden="true">📋</span> صفحات پر‌بازدید
+          </h2>
+          <ol id="topPagesList" class="adm-top-list">
+            <li class="adm-recent-empty">— در حال بارگذاری…</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  /* ============================================================
+     Admin panel scoped styles — use the same CSS variables as the
+     rest of the site so the panel matches the visual language.
+     ============================================================ */
+  .adm-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .adm-card {
+    background: rgba(13, 13, 24, 0.7);
+    border: 1px solid var(--line, #2a2a3e);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .adm-card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+    color: var(--text, #f0f0fa);
+  }
+
+  /* Login screen */
+  .adm-login {
+    max-width: 480px;
+    margin: 3rem auto 0;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(28, 28, 52, 0.85), rgba(13, 13, 24, 0.95));
+    border: 2px solid var(--line, #2a2a3e);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+  .adm-login-head {
+    margin-bottom: 1.5rem;
+  }
+  .adm-lock-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  .adm-login-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem;
+    color: var(--text, #f0f0fa);
+  }
+  .adm-login-sub {
+    font-size: 0.8rem;
+    color: var(--text-2, #b8b8d0);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .adm-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: right;
+  }
+  .adm-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .adm-field-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-3, #8585a3);
+  }
+  .adm-input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    padding: 0.6rem 0.85rem;
+    font-size: 0.875rem;
+    font-family: 'Vazirmatn', 'Rooyin', monospace;
+    border-radius: 6px;
+    transition: border-color 0.15s, background 0.15s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .adm-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .adm-login-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .adm-login-hint {
+    font-size: 0.7rem;
+    color: var(--text-3, #8585a3);
+    margin-top: 0.5rem;
+  }
+  .adm-login-hint code {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    font-family: monospace;
+    color: var(--diamond, #4aedd9);
+  }
+
+  /* Buttons */
+  .adm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text, #f0f0fa);
+    background: linear-gradient(180deg, rgba(40, 40, 60, 0.9), rgba(20, 20, 36, 0.95));
+    border: 2px solid var(--line, #2a2a3e);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    min-height: 38px;
+    line-height: 1;
+  }
+  .adm-btn:hover {
+    border-color: rgba(124, 200, 74, 0.5);
+    background: linear-gradient(180deg, rgba(50, 50, 76, 0.95), rgba(28, 28, 52, 1));
+    transform: translateY(-1px);
+  }
+  .adm-btn:active {
+    transform: translateY(0);
+  }
+  .adm-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .adm-btn.primary {
+    background: linear-gradient(180deg, var(--grass-2, #7cc84a), var(--grass-3, #5fa838));
+    color: #0d0d18;
+    border-color: var(--grass-2, #7cc84a);
+  }
+  .adm-btn.primary:hover {
+    background: linear-gradient(180deg, #8de35a, #6fb846);
+  }
+  .adm-btn.ghost {
+    background: rgba(28, 28, 52, 0.5);
+    color: var(--text-2, #b8b8d0);
+  }
+  .adm-btn.danger {
+    background: linear-gradient(180deg, #d94646, #a32d2d);
+    color: #fff;
+    border-color: #d94646;
+  }
+  .adm-btn.small {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+    min-height: 32px;
+  }
+  .adm-btn.big {
+    padding: 0.7rem 1.25rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+
+  /* Top bar */
+  .adm-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0.5rem 0 1rem;
+    border-bottom: 1px solid var(--line, #2a2a3e);
+    margin-bottom: 1.25rem;
+  }
+  .adm-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .adm-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .adm-logo {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+  .adm-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text, #f0f0fa);
+  }
+  .adm-subtitle {
+    font-size: 0.75rem;
+    margin: 0.15rem 0 0;
+    color: var(--text-3, #8585a3);
+  }
+  .adm-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--line, #2a2a3e);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-2, #b8b8d0);
+  }
+  .adm-status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-3, #8585a3);
+  }
+  .adm-status-pill.ok .adm-status-dot {
+    background: var(--grass-2, #7cc84a);
+    box-shadow: 0 0 6px var(--grass-2, #7cc84a);
+    animation: adm-pulse 2s ease-in-out infinite;
+  }
+  .adm-status-pill.warn .adm-status-dot {
+    background: var(--gold, #fcb32b);
+  }
+  .adm-status-pill.err .adm-status-dot {
+    background: var(--redstone, #d94646);
+  }
+  @keyframes adm-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* Backend banner */
+  .adm-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background: rgba(252, 179, 43, 0.12);
+    border: 1px solid rgba(252, 179, 43, 0.4);
+    border-radius: 8px;
+    color: var(--gold, #fcb32b);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  /* Tabs */
+  .adm-tabs {
+    display: flex;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--line, #2a2a3e);
+    flex-wrap: wrap;
+  }
+  .adm-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.95rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-2, #b8b8d0);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.15s;
+    margin-bottom: -1px;
+    font-family: inherit;
+  }
+  .adm-tab:hover {
+    color: var(--text, #f0f0fa);
+  }
+  .adm-tab.active {
+    color: var(--grass-2, #7cc84a);
+    border-bottom-color: var(--grass-2, #7cc84a);
+  }
+  .adm-tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 20px;
+    padding: 0 0.4rem;
+    background: rgba(217, 70, 70, 0.25);
+    border: 1px solid rgba(217, 70, 70, 0.5);
+    color: #ff8888;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 800;
+  }
+
+  .adm-tab-panel {
+    display: none;
+  }
+  .adm-tab-panel.active {
+    display: block;
+  }
+
+  /* KPI grid */
+  .adm-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .adm-kpi-card {
+    background: rgba(13, 13, 24, 0.7);
+    border: 1px solid var(--line, #2a2a3e);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    transition: border-color 0.15s;
+  }
+  .adm-kpi-card:hover {
+    border-color: rgba(124, 200, 74, 0.35);
+  }
+  .adm-kpi-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-3, #8585a3);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .adm-kpi-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-3, #8585a3);
+  }
+  .adm-kpi-dot.green {
+    background: var(--grass-2, #7cc84a);
+    box-shadow: 0 0 6px var(--grass-2, #7cc84a);
+    animation: adm-pulse 2s ease-in-out infinite;
+  }
+  .adm-kpi-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text, #f0f0fa);
+    line-height: 1.1;
+    font-family: 'Rooyin', monospace;
+  }
+  .adm-kpi-sub {
+    font-size: 0.65rem;
+    color: var(--text-3, #8585a3);
+    margin-top: 0.35rem;
+  }
+
+  /* Two-column row */
+  .adm-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  @media (max-width: 768px) {
+    .adm-row { grid-template-columns: 1fr; }
+  }
+  .adm-half { margin-bottom: 0; }
+
+  .adm-quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .adm-recent-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+  .adm-recent-list li {
+    padding: 0.55rem 0.5rem;
+    border-bottom: 1px solid var(--line, #2a2a3e);
+    font-size: 0.78rem;
+    color: var(--text-2, #b8b8d0);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .adm-recent-list li:last-child {
+    border-bottom: none;
+  }
+  .adm-recent-empty {
+    color: var(--text-3, #8585a3);
+    font-style: italic;
+    justify-content: center;
+  }
+  .adm-recent-time {
+    font-size: 0.65rem;
+    color: var(--text-3, #8585a3);
+    font-family: monospace;
+    margin-right: auto;
+  }
+
+  /* Filters */
+  .adm-filters {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line, #2a2a3e);
+  }
+  .adm-filter-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .adm-filter-group .adm-field {
+    min-width: 130px;
+    flex: 1;
+  }
+  .adm-filter-actions {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  /* Table */
+  .adm-table-wrap {
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid var(--line, #2a2a3e);
+  }
+  .adm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    min-width: 920px;
+  }
+  .adm-table thead {
+    background: rgba(28, 28, 52, 0.6);
+    position: sticky;
+    top: 0;
+  }
+  .adm-table th {
+    text-align: right;
+    padding: 0.65rem 0.6rem;
+    color: var(--text-2, #b8b8d0);
+    font-weight: 700;
+    font-size: 0.7rem;
+    border-bottom: 1px solid var(--line, #2a2a3e);
+    white-space: nowrap;
+  }
+  .adm-table td {
+    padding: 0.55rem 0.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    vertical-align: top;
+  }
+  .adm-table tr:hover td {
+    background: rgba(124, 200, 74, 0.04);
+  }
+  .adm-table .cell-code {
+    font-family: monospace;
+    color: var(--diamond, #4aedd9);
+    direction: ltr;
+    text-align: left;
+    word-break: break-all;
+    max-width: 140px;
+  }
+  .adm-table .cell-uuid {
+    font-family: monospace;
+    color: var(--text-3, #8585a3);
+    font-size: 0.7rem;
+    max-width: 110px;
+    word-break: break-all;
+  }
+  .adm-table .cell-ip {
+    font-family: monospace;
+    font-size: 0.7rem;
+    direction: ltr;
+  }
+  .adm-table .cell-features {
+    max-width: 180px;
+  }
+  .adm-table .feat-chip {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    margin: 0.1rem;
+    background: rgba(124, 200, 74, 0.1);
+    border: 1px solid rgba(124, 200, 74, 0.3);
+    border-radius: 3px;
+    font-size: 0.65rem;
+    color: #c9e8a8;
+  }
+  .adm-table .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+  .adm-table .status-pill.pending {
+    background: rgba(252, 179, 43, 0.15);
+    border: 1px solid rgba(252, 179, 43, 0.4);
+    color: var(--gold, #fcb32b);
+  }
+  .adm-table .status-pill.approved {
+    background: rgba(124, 200, 74, 0.15);
+    border: 1px solid rgba(124, 200, 74, 0.4);
+    color: var(--grass-2, #7cc84a);
+  }
+  .adm-table .status-pill.rejected {
+    background: rgba(217, 70, 70, 0.15);
+    border: 1px solid rgba(217, 70, 70, 0.4);
+    color: #ff8888;
+  }
+  .adm-table .row-actions {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+  .adm-table .row-actions button {
+    padding: 0.25rem 0.45rem;
+    font-size: 0.65rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--line, #2a2a3e);
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--text-2, #b8b8d0);
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .adm-table .row-actions button:hover {
+    border-color: rgba(124, 200, 74, 0.5);
+    color: var(--text, #f0f0fa);
+  }
+  .adm-table .row-actions button.test:hover {
+    border-color: var(--diamond, #4aedd9);
+    color: var(--diamond, #4aedd9);
+  }
+  .adm-table .row-actions button.approve:hover {
+    border-color: var(--grass-2, #7cc84a);
+    color: var(--grass-2, #7cc84a);
+  }
+  .adm-table .row-actions button.reject:hover {
+    border-color: var(--redstone, #d94646);
+    color: #ff8888;
+  }
+
+  /* Pagination */
+  .adm-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .adm-page-info {
+    font-size: 0.75rem;
+    color: var(--text-2, #b8b8d0);
+  }
+
+  /* Empty state + spinner */
+  .adm-empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-3, #8585a3);
+    font-size: 0.85rem;
+  }
+  .adm-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  .adm-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--line, #2a2a3e);
+    border-top-color: var(--grass-2, #7cc84a);
+    border-radius: 50%;
+    margin: 0 auto 0.75rem;
+    animation: adm-spin 0.9s linear infinite;
+  }
+  @keyframes adm-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Stats chart */
+  .adm-chart-wrap {
+    overflow-x: auto;
+  }
+  .adm-chart {
+    width: 100%;
+    min-width: 480px;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+  .adm-chart-cap {
+    font-size: 0.7rem;
+    color: var(--text-3, #8585a3);
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .adm-top-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .adm-top-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    font-size: 0.78rem;
+  }
+  .adm-top-list li:last-child { border-bottom: none; }
+  .adm-top-list .rank {
+    font-size: 0.75rem;
+    color: var(--gold, #fcb32b);
+    font-weight: 800;
+    width: 24px;
+    text-align: center;
+    font-family: monospace;
+  }
+  .adm-top-list .path {
+    font-family: monospace;
+    direction: ltr;
+    flex: 1;
+    color: var(--text, #f0f0fa);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .adm-top-list .count {
+    font-weight: 800;
+    color: var(--grass-2, #7cc84a);
+    font-family: monospace;
+  }
+
+  /* Hide class */
+  .adm-hidden,
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<script is:inline define:vars={{ PB_URL, PER_PAGE }}>
+  // ============================================================
+  // /admin-minebed-control — admin panel client code
+  // ============================================================
+  //
+  // All state lives in a single `state` object so it's easy to reset
+  // on logout. The panel NEVER mutates the server without an explicit
+  // button click — polling endpoints is GET-only.
+
+  const PB_URL_JS = PB_URL.replace(/\/+$/, '');
+  const PER_PAGE_JS = PER_PAGE;
+
+  const state = {
+    token: null,
+    backendAvailable: false,
+    page: 1,
+    totalPages: 1,
+    totalRows: 0,
+    filters: { status: 'pending', version: 'all', platform: 'all' },
+    queueCache: [],     // most recent queue page
+    simulatedMode: false,
+    refreshTimer: null,
+    onlinePollTimer: null,
+  };
+
+  // ============================================================
+  // Helpers
+  // ============================================================
+
+  function $(id) { return document.getElementById(id); }
+  function $$(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+
+  function toFa(s) {
+    const fa = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+    return String(s).replace(/[0-9]/g, (d) => fa[+d]);
+  }
+
+  function fmtFaNum(n) {
+    if (typeof n !== 'number' || isNaN(n)) n = 0;
+    return toFa(Math.round(n).toLocaleString('en-US'));
+  }
+
+  function fmtDate(s) {
+    if (!s) return '—';
+    try {
+      const d = new Date(s);
+      return d.toLocaleDateString('fa-IR') + ' ' + d.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+    } catch { return String(s).slice(0, 19); }
+  }
+
+  function shortUuid(u) {
+    if (!u) return '—';
+    const s = String(u);
+    return s.length <= 12 ? s : s.slice(0, 8) + '…';
+  }
+
+  function shortIp(ip) {
+    if (!ip) return '—';
+    // mask the last octet for privacy in the admin view (full IP is in
+    // the database for serious investigations)
+    const parts = String(ip).split('.');
+    if (parts.length === 4) {
+      return parts.slice(0, 3).join('.') + '.xxx';
+    }
+    return String(ip).slice(0, 24);
+  }
+
+  // ============================================================
+  // Auth check
+  // ============================================================
+
+  function hasToken() {
+    try {
+      state.token = sessionStorage.getItem('adminToken') || null;
+    } catch { state.token = null; }
+    return !!state.token;
+  }
+
+  function showLogin() {
+    $('loginScreen').classList.remove('hidden');
+    $('adminMain').classList.add('hidden');
+  }
+
+  function showMain() {
+    $('loginScreen').classList.add('hidden');
+    $('adminMain').classList.remove('hidden');
+    setStatus('checking', 'در حال بررسی…');
+    init();
+  }
+
+  function logout() {
+    try { sessionStorage.removeItem('adminToken'); } catch {}
+    state.token = null;
+    clearTimeout(state.refreshTimer);
+    clearTimeout(state.onlinePollTimer);
+    showLogin();
+  }
+
+  function setStatus(kind, text) {
+    const pill = $('backendStatus');
+    pill.classList.remove('ok', 'warn', 'err');
+    if (kind === 'ok') pill.classList.add('ok');
+    else if (kind === 'warn') pill.classList.add('warn');
+    else if (kind === 'err') pill.classList.add('err');
+    $('backendStatusText').textContent = text;
+  }
+
+  function setBanner(visible, text) {
+    const b = $('backendBanner');
+    if (visible) {
+      b.classList.remove('hidden');
+      if (text) $('backendBannerText').textContent = text;
+    } else {
+      b.classList.add('hidden');
+    }
+  }
+
+  // ============================================================
+  // API layer — all calls share this. On any error, returns null
+  // and the caller falls back to simulated data.
+  // ============================================================
+
+  async function apiGet(path) {
+    const headers = { 'Accept': 'application/json' };
+    if (state.token) headers['Authorization'] = 'Bearer ' + state.token;
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 6000);
+      const res = await fetch(PB_URL_JS + path, { headers, signal: ctrl.signal });
+      clearTimeout(t);
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (e) {
+      console.warn('apiGet failed for', path, e);
+      return null;
+    }
+  }
+
+  async function apiUpdate(path, body) {
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 8000);
+      const res = await fetch(PB_URL_JS + path, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + (state.token || ''),
+        },
+        body: JSON.stringify(body),
+        signal: ctrl.signal,
+      });
+      clearTimeout(t);
+      if (!res.ok) {
+        console.warn('apiUpdate non-ok', path, res.status);
+        return null;
+      }
+      return await res.json();
+    } catch (e) {
+      console.warn('apiUpdate failed', path, e);
+      return null;
+    }
+  }
+
+  // ============================================================
+  // Simulated data (when backend unavailable)
+  // ============================================================
+
+  function simulatedQueuePage() {
+    const seeds = [];
+    const versions = ['1.21','1.20','1.19','1.18','1.17','1.16'];
+    const platforms = ['Bedrock','Java'];
+    const features = ['village','ancient-city','mushroom-island','ocean-monument','woodland-mansion','stronghold','nether-fortress','end-city'];
+    const statuses = ['pending','pending','pending','approved','rejected'];
+
+    for (let i = 0; i < PER_PAGE_JS; i++) {
+      const neg = Math.random() < 0.3;
+      let digits = '';
+      for (let j = 0; j < 18; j++) digits += Math.floor(Math.random() * 10);
+      const code = (neg ? '-' : '') + digits.replace(/^0+/, '');
+      const numFeat = 2 + Math.floor(Math.random() * 3);
+      const feats = features.slice().sort(() => Math.random() - 0.5).slice(0, numFeat);
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+      const created = new Date(Date.now() - Math.random() * 86400000 * 7).toISOString();
+      const ip = `192.168.${1+Math.floor(Math.random()*253)}.${1+Math.floor(Math.random()*253)}`;
+      const uuid = 'sim-' + Math.random().toString(36).slice(2, 10) + '-' + Math.random().toString(36).slice(2, 10);
+      const ver = versions[Math.floor(Math.random() * versions.length)];
+      const plat = platforms[Math.floor(Math.random() * platforms.length)];
+
+      seeds.push({
+        id: 'sim-' + i,
+        seed_value: code,
+        version: ver,
+        platform: plat,
+        features: feats,
+        coordinates: feats.map((f) => ({ feature: f, x: Math.floor(Math.random()*3000-1500), y: -50+Math.floor(Math.random()*150), z: Math.floor(Math.random()*3000-1500) })),
+        user_uuid: uuid,
+        ip_address: ip,
+        status,
+        reject_reason: status === 'rejected' ? 'تکراری — در صف عمومی موجود است.' : '',
+        tested_by_admin: Math.random() < 0.3,
+        created,
+      });
+    }
+
+    // sort newest first
+    seeds.sort((a, b) => b.created.localeCompare(a.created));
+    return seeds;
+  }
+
+  function simulatedStats() {
+    return {
+      online: 42 + Math.floor(Math.random() * 80),
+      pending: 17,
+      published: 134,
+      visitsTotal: 23456,
+      visitsToday: 312,
+      visitsWeek: 1893,
+      uniqueIpsToday: 87,
+      visitsByHour: Array.from({ length: 24 }, (_, h) => {
+        // simulate daytime peak (hours 12-22)
+        const peak = Math.sin(((h - 4) / 24) * Math.PI * 2) * 0.5 + 0.5;
+        return Math.round(15 + peak * 60 + Math.random() * 15);
+      }),
+      topPages: [
+        { page: '/', count: 4521 },
+        { page: '/mods', count: 3120 },
+        { page: '/seeds', count: 2845 },
+        { page: '/versions', count: 1934 },
+        { page: '/blog', count: 1456 },
+        { page: '/wiki', count: 1203 },
+        { page: '/tutorials', count: 987 },
+        { page: '/speedrun', count: 745 },
+      ],
+      recent: [
+        { at: new Date(Date.now() - 1000 * 60 * 2).toISOString(), text: 'سیدی جدید توسط کاربر sim-abc123 ثبت شد' },
+        { at: new Date(Date.now() - 1000 * 60 * 15).toISOString(), text: 'سید 6046089519056283311 توسط admin تأیید شد' },
+        { at: new Date(Date.now() - 1000 * 60 * 47).toISOString(), text: '11 بازدید جدید در ۵ دقیقه' },
+        { at: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), text: 'سید 8259804289146232004 رد شد: تکراری' },
+      ],
+    };
+  }
+
+  // ============================================================
+  // Init — runs on showMain
+  // ============================================================
+
+  async function init() {
+    await refreshAll();
+    // Poll online count every 30s
+    state.onlinePollTimer = setInterval(refreshOnline, 30000);
+    // Full refresh every 60s
+    state.refreshTimer = setInterval(refreshAll, 60000);
+  }
+
+  async function refreshAll() {
+    // Probe backend: try to fetch pending count (cheap GET)
+    const probe = await apiGet('/api/collections/seeds_queue/records?filter=status="pending"&perPage=1&fields=id');
+    if (probe === null) {
+      state.backendAvailable = false;
+      state.simulatedMode = true;
+      setStatus('warn', 'Backend: در دسترس نیست');
+      setBanner(true, 'سرور PocketBase در دسترس نیست — نمایش داده‌ی شبیه‌سازی. بعد از راه‌اندازی backend، دکمه‌ی «به‌روزرسانی» را بزن.');
+    } else {
+      state.backendAvailable = true;
+      state.simulatedMode = false;
+      setStatus('ok', 'Backend: متصل');
+      setBanner(false);
+    }
+
+    if (state.simulatedMode) {
+      const sim = simulatedStats();
+      renderDashboard(sim);
+      renderStats(sim);
+      const queuePage = simulatedQueuePage();
+      state.queueCache = queuePage;
+      state.totalRows = 200;
+      state.totalPages = Math.max(1, Math.ceil(state.totalRows / PER_PAGE_JS));
+      renderQueue(queuePage);
+    } else {
+      await Promise.all([
+        refreshOnline(),
+        refreshQueue(),
+        refreshDashboardStats(),
+        refreshStatsTab(),
+      ]);
+    }
+  }
+
+  async function refreshOnline() {
+    let online = null;
+    if (state.backendAvailable) {
+      const cutoff = new Date(Date.now() - 5 * 60 * 1000).toISOString().replace('T', ' ').slice(0, 19) + 'Z';
+      const r = await apiGet('/api/collections/online_users/records?filter=last_seen>="' + cutoff + '"&perPage=1&fields=id&count=1');
+      if (r && Array.isArray(r.items)) online = r.items.length;
+      // PocketBase totalItems is more reliable when available
+      if (r && typeof r.totalItems === 'number') online = r.totalItems;
+    }
+    if (online === null) online = 42 + Math.floor(Math.random() * 60);
+    $('kpiOnline').textContent = toFa(String(online));
+    $('statsOnline').textContent = fmtFaNum(online);
+  }
+
+  async function refreshQueue() {
+    const loading = $('queueLoading');
+    const empty = $('queueEmpty');
+    loading.classList.remove('hidden');
+
+    const f = state.filters;
+    let filter = '';
+    if (f.status !== 'all') filter += (filter ? ' && ' : '') + 'status="' + f.status + '"';
+    if (f.version !== 'all') filter += (filter ? ' && ' : '') + 'version="' + f.version + '"';
+    if (f.platform !== 'all') filter += (filter ? ' && ' : '') + 'platform="' + f.platform + '"';
+
+    const params = new URLSearchParams({
+      page: String(state.page),
+      perPage: String(PER_PAGE_JS),
+      sort: '-created',
+    });
+    if (filter) params.set('filter', filter);
+
+    const r = await apiGet('/api/collections/seeds_queue/records?' + params.toString());
+    loading.classList.add('hidden');
+
+    if (!r || !Array.isArray(r.items)) {
+      // Backend returned non-OK — show simulated row
+      const sim = simulatedQueuePage();
+      state.queueCache = sim;
+      state.totalRows = sim.length;
+      state.totalPages = 1;
+      renderQueue(sim);
+      setBanner(true);
+      return;
+    }
+
+    state.queueCache = r.items;
+    state.totalRows = r.totalItems || r.items.length;
+    state.totalPages = r.totalPages || Math.max(1, Math.ceil(state.totalRows / PER_PAGE_JS));
+    renderQueue(r.items);
+    empty.classList.toggle('hidden', r.items.length > 0);
+  }
+
+  function renderQueue(rows) {
+    const body = $('queueBody');
+    body.innerHTML = '';
+
+    rows.forEach((r) => {
+      const tr = document.createElement('tr');
+      const status = r.status || 'pending';
+      const feats = (Array.isArray(r.features) ? r.features : (typeof r.features === 'string' ? safeJsonParse(r.features, []) : []));
+      const featChips = feats.map((f) => {
+        const label = typeof f === 'string' ? f : (f.label || f.feature || f.id || '');
+        return '<span class="feat-chip">' + escapeHtml(label) + '</span>';
+      }).join('');
+
+      tr.innerHTML =
+        '<td class="cell-code">' + escapeHtml(r.seed_value || '') + '</td>' +
+        '<td>' + escapeHtml(r.version || '') + '</td>' +
+        '<td>' + (r.platform === 'Java' ? '☕ Java' : '📱 Bedrock') + '</td>' +
+        '<td class="cell-features">' + featChips + '</td>' +
+        '<td class="cell-uuid" title="' + escapeHtml(r.user_uuid || '') + '">' + escapeHtml(shortUuid(r.user_uuid)) + '</td>' +
+        '<td class="cell-ip">' + escapeHtml(shortIp(r.ip_address)) + '</td>' +
+        '<td>' + escapeHtml(fmtDate(r.created)) + '</td>' +
+        '<td><span class="status-pill ' + status + '">' +
+          (status === 'pending' ? '⏳ در انتظار' : status === 'approved' ? '✅ تأیید' : '❌ رد') +
+        '</span></td>' +
+        '<td><div class="row-actions">' +
+          '<button class="test" data-id="' + escapeHtml(r.id) + '" data-action="test" title="تست سید">🧪</button>' +
+          '<button class="approve" data-id="' + escapeHtml(r.id) + '" data-action="approve" title="تأیید">✅</button>' +
+          '<button class="reject" data-id="' + escapeHtml(r.id) + '" data-action="reject" title="رد">❌</button>' +
+        '</div></td>';
+
+      body.appendChild(tr);
+    });
+
+    // Wire up action buttons
+    body.querySelectorAll('button[data-action]').forEach((btn) => {
+      btn.addEventListener('click', onQueueAction);
+    });
+
+    // Pagination UI
+    $('curPage').textContent = toFa(String(state.page));
+    $('totalPages').textContent = toFa(String(state.totalPages));
+    $('totalRows').textContent = fmtFaNum(state.totalRows);
+    $('prevPageBtn').disabled = state.page <= 1;
+    $('nextPageBtn').disabled = state.page >= state.totalPages;
+  }
+
+  async function onQueueAction(e) {
+    const btn = e.currentTarget;
+    const id = btn.dataset.id;
+    const action = btn.dataset.action;
+    if (!id || !action) return;
+
+    if (!confirm('اقدام: ' + (action === 'test' ? 'تست' : action === 'approve' ? 'تأیید' : 'رد') + '؟')) return;
+
+    // Optimistic: disable + show "..." then patch
+    btn.disabled = true;
+    const orig = btn.textContent;
+    btn.textContent = '…';
+
+    if (state.simulatedMode || !state.backendAvailable) {
+      // Simulate success after 600ms
+      await new Promise((r) => setTimeout(r, 600));
+      btn.textContent = '✓';
+      setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1200);
+      return;
+    }
+
+    const body = {};
+    if (action === 'test') body.tested_by_admin = true;
+    if (action === 'approve') { body.status = 'approved'; body.tested_by_admin = true; }
+    if (action === 'reject') {
+      const reason = prompt('دلیل رد شدن این سید؟', 'تکراری یا نامناسب');
+      if (!reason) { btn.textContent = orig; btn.disabled = false; return; }
+      body.status = 'rejected';
+      body.reject_reason = reason;
+    }
+
+    const r = await apiUpdate('/api/collections/seeds_queue/records/' + encodeURIComponent(id), body);
+    if (r) {
+      btn.textContent = '✓';
+      setTimeout(refreshAll, 800);
+    } else {
+      btn.textContent = '✗';
+      setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1200);
+    }
+  }
+
+  async function refreshDashboardStats() {
+    // Pending count
+    let pending = null;
+    if (state.backendAvailable) {
+      const r = await apiGet('/api/collections/seeds_queue/records?filter=status="pending"&perPage=1&fields=id');
+      if (r && typeof r.totalItems === 'number') pending = r.totalItems;
+      else if (r && Array.isArray(r.items)) pending = r.items.length;
+    }
+    if (pending === null) pending = 17;
+    $('kpiPending').textContent = fmtFaNum(pending);
+    $('pendingBadge').textContent = fmtFaNum(pending);
+    $('pendingBadge').classList.toggle('hidden', pending === 0);
+
+    // Published count
+    let published = null;
+    if (state.backendAvailable) {
+      const r = await apiGet('/api/collections/seeds_published/records?perPage=1&fields=id');
+      if (r && typeof r.totalItems === 'number') published = r.totalItems;
+    }
+    if (published === null) published = 134;
+    $('kpiPublished').textContent = fmtFaNum(published);
+
+    // Visits total
+    let visits = null;
+    if (state.backendAvailable) {
+      const r = await apiGet('/api/collections/visits/records?perPage=1&fields=id');
+      if (r && typeof r.totalItems === 'number') visits = r.totalItems;
+    }
+    if (visits === null) visits = 23456;
+    $('kpiVisits').textContent = fmtFaNum(visits);
+
+    // Recent activity — pull the last 10 visits + 10 most recent queue rows, merge by date
+    let recent = [];
+    if (state.backendAvailable) {
+      const [visitsR, queueR] = await Promise.all([
+        apiGet('/api/collections/visits/records?perPage=5&sort=-visited_at&fields=page,visited_at,user_uuid'),
+        apiGet('/api/collections/seeds_queue/records?perPage=5&sort=-created&fields=seed_value,created,user_uuid,status'),
+      ]);
+      if (visitsR && Array.isArray(visitsR.items)) {
+        recent.push(...visitsR.items.map((v) => ({
+          at: v.visited_at || v.created,
+          text: 'بازدید: ' + (v.page || '/') + ' — ' + shortUuid(v.user_uuid),
+        })));
+      }
+      if (queueR && Array.isArray(queueR.items)) {
+        recent.push(...queueR.items.map((s) => ({
+          at: s.created,
+          text: 'سید: ' + (s.seed_value || '?') + ' — ' + (s.status || 'pending'),
+        })));
+      }
+    }
+    if (recent.length === 0) {
+      recent = simulatedStats().recent;
+    }
+    recent.sort((a, b) => String(b.at).localeCompare(String(a.at)));
+    const ul = $('recentList');
+    ul.innerHTML = '';
+    recent.slice(0, 8).forEach((r) => {
+      const li = document.createElement('li');
+      li.innerHTML =
+        '<span aria-hidden="true">•</span>' +
+        '<span>' + escapeHtml(r.text) + '</span>' +
+        '<span class="adm-recent-time">' + escapeHtml(fmtDate(r.at)) + '</span>';
+      ul.appendChild(li);
+    });
+  }
+
+  async function refreshStatsTab() {
+    if (!state.backendAvailable) {
+      const sim = simulatedStats();
+      renderStats(sim);
+      return;
+    }
+
+    // Today's visits count
+    const today = new Date();
+    const dayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().replace('T',' ').slice(0,19)+'Z';
+    const weekStart = new Date(today.getTime() - 7*86400000).toISOString().replace('T',' ').slice(0,19)+'Z';
+
+    const [todayR, weekR] = await Promise.all([
+      apiGet('/api/collections/visits/records?filter=visited_at>="' + dayStart + '"&perPage=1&fields=id'),
+      apiGet('/api/collections/visits/records?filter=visited_at>="' + weekStart + '"&perPage=1&fields=id'),
+    ]);
+
+    $('statsToday').textContent = fmtFaNum(todayR?.totalItems ?? 312);
+    $('statsWeek').textContent = fmtFaNum(weekR?.totalItems ?? 1893);
+
+    // Unique IPs today
+    // PocketBase doesn't support COUNT DISTINCT via REST API — we'd need
+    // a custom SQL hook. For now, fetch first 500 records and count
+    // unique IPs client-side (works fine for low-traffic sites).
+    const sample = await apiGet('/api/collections/visits/records?filter=visited_at>="' + dayStart + '"&perPage=500&fields=ip_address');
+    if (sample && Array.isArray(sample.items)) {
+      const ips = new Set(sample.items.map((v) => v.ip_address).filter(Boolean));
+      $('statsUniqueIps').textContent = fmtFaNum(ips.size);
+    } else {
+      $('statsUniqueIps').textContent = '—';
+    }
+
+    // 24h chart — fetch visits grouped by hour (client-side aggregation
+    // from a 500-row sample; same caveat as above).
+    const today24 = await apiGet('/api/collections/visits/records?filter=visited_at>="' + dayStart + '"&perPage=500&fields=visited_at');
+    const byHour = new Array(24).fill(0);
+    if (today24 && Array.isArray(today24.items)) {
+      today24.items.forEach((v) => {
+        try {
+          const d = new Date(v.visited_at);
+          byHour[d.getHours()] = (byHour[d.getHours()] || 0) + 1;
+        } catch {}
+      });
+    } else {
+      // simulated
+      for (let h = 0; h < 24; h++) {
+        const peak = Math.sin(((h - 4) / 24) * Math.PI * 2) * 0.5 + 0.5;
+        byHour[h] = Math.round(15 + peak * 60 + Math.random() * 15);
+      }
+    }
+    renderChart(byHour);
+
+    // Top pages — aggregate from the sample too
+    const topPagesSample = await apiGet('/api/collections/visits/records?perPage=500&sort=-visited_at&fields=page,visited_at');
+    if (topPagesSample && Array.isArray(topPagesSample.items)) {
+      const counts = {};
+      topPagesSample.items.forEach((v) => {
+        const p = v.page || '/';
+        counts[p] = (counts[p] || 0) + 1;
+      });
+      const top = Object.entries(counts)
+        .map(([page, count]) => ({ page, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
+      renderTopPages(top);
+    } else {
+      renderTopPages(simulatedStats().topPages);
+    }
+  }
+
+  function renderStats(sim) {
+    $('statsToday').textContent = fmtFaNum(sim.visitsToday);
+    $('statsWeek').textContent = fmtFaNum(sim.visitsWeek);
+    $('statsUniqueIps').textContent = fmtFaNum(sim.uniqueIpsToday);
+    renderChart(sim.visitsByHour);
+    renderTopPages(sim.topPages);
+  }
+
+  function renderChart(byHour) {
+    const svg = $('visitsSvg');
+    if (!svg) return;
+    svg.innerHTML = '';
+    const max = Math.max(1, ...byHour);
+    const W = 480, H = 200;
+    const pad = { l: 8, r: 8, t: 8, b: 24 };
+    const w = W - pad.l - pad.r;
+    const h = H - pad.t - pad.b;
+    const barW = w / byHour.length;
+
+    byHour.forEach((n, i) => {
+      const barH = Math.max(2, (n / max) * h);
+      const x = pad.l + i * barW;
+      const y = pad.t + h - barH;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', x.toFixed(1));
+      rect.setAttribute('y', y.toFixed(1));
+      rect.setAttribute('width', Math.max(1, barW - 2).toFixed(1));
+      rect.setAttribute('height', barH.toFixed(1));
+      rect.setAttribute('fill', '#7cc84a');
+      rect.setAttribute('opacity', '0.85');
+      rect.setAttribute('rx', '2');
+      svg.appendChild(rect);
+      // axis label every 3 hours
+      if (i % 3 === 0) {
+        const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        lbl.setAttribute('x', (x + barW / 2).toFixed(1));
+        lbl.setAttribute('y', (H - 6).toString());
+        lbl.setAttribute('text-anchor', 'middle');
+        lbl.setAttribute('fill', '#8585a3');
+        lbl.setAttribute('font-size', '9');
+        lbl.setAttribute('font-family', 'monospace');
+        lbl.textContent = toFa(String(i));
+        svg.appendChild(lbl);
+      }
+    });
+  }
+
+  function renderTopPages(top) {
+    const ul = $('topPagesList');
+    ul.innerHTML = '';
+    top.forEach((p, i) => {
+      const li = document.createElement('li');
+      li.innerHTML =
+        '<span class="rank">' + toFa(String(i + 1)) + '</span>' +
+        '<span class="path">' + escapeHtml(p.page) + '</span>' +
+        '<span class="count">' + fmtFaNum(p.count) + '</span>';
+      ul.appendChild(li);
+    });
+  }
+
+  function renderDashboard(sim) {
+    $('kpiOnline').textContent = fmtFaNum(sim.online);
+    $('kpiPending').textContent = fmtFaNum(sim.pending);
+    $('pendingBadge').textContent = fmtFaNum(sim.pending);
+    $('kpiPublished').textContent = fmtFaNum(sim.published);
+    $('kpiVisits').textContent = fmtFaNum(sim.visitsTotal);
+
+    const ul = $('recentList');
+    ul.innerHTML = '';
+    sim.recent.forEach((r) => {
+      const li = document.createElement('li');
+      li.innerHTML =
+        '<span aria-hidden="true">•</span>' +
+        '<span>' + escapeHtml(r.text) + '</span>' +
+        '<span class="adm-recent-time">' + escapeHtml(fmtDate(r.at)) + '</span>';
+      ul.appendChild(li);
+    });
+  }
+
+  function safeJsonParse(s, fb) {
+    try { return JSON.parse(s); } catch { return fb; }
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // ============================================================
+  // Tabs
+  // ============================================================
+
+  function setupTabs() {
+    $$('.adm-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        $$('.adm-tab').forEach((t) => {
+          t.classList.toggle('active', t === tab);
+          t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+        });
+        $$('.adm-tab-panel').forEach((p) => {
+          p.classList.toggle('active', p.dataset.panel === target);
+        });
+      });
+    });
+  }
+
+  // ============================================================
+  // Filters
+  // ============================================================
+
+  function setupFilters() {
+    $('applyFiltersBtn').addEventListener('click', () => {
+      state.filters.status = $('filterStatus').value;
+      state.filters.version = $('filterVersion').value;
+      state.filters.platform = $('filterPlatform').value;
+      state.page = 1;
+      if (state.simulatedMode) {
+        renderQueue(simulatedQueuePage());
+      } else {
+        refreshQueue();
+      }
+    });
+    $('resetFiltersBtn').addEventListener('click', () => {
+      $('filterStatus').value = 'pending';
+      $('filterVersion').value = 'all';
+      $('filterPlatform').value = 'all';
+      state.filters = { status: 'pending', version: 'all', platform: 'all' };
+      state.page = 1;
+      if (state.simulatedMode) {
+        renderQueue(simulatedQueuePage());
+      } else {
+        refreshQueue();
+      }
+    });
+    $('prevPageBtn').addEventListener('click', () => {
+      if (state.page > 1) { state.page--; refreshQueue(); }
+    });
+    $('nextPageBtn').addEventListener('click', () => {
+      if (state.page < state.totalPages) { state.page++; refreshQueue(); }
+    });
+  }
+
+  // ============================================================
+  // Login form
+  // ============================================================
+
+  function setupLogin() {
+    $('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = $('adminTokenInput').value.trim();
+      if (!v) return;
+      try { sessionStorage.setItem('adminToken', v); } catch {}
+      state.token = v;
+      showMain();
+    });
+
+    $('devLoginBtn').addEventListener('click', () => {
+      // Bypass auth — show simulated data immediately
+      state.token = 'simulated';
+      state.simulatedMode = true;
+      state.backendAvailable = false;
+      try { sessionStorage.setItem('adminToken', 'simulated'); } catch {}
+      showMain();
+    });
+
+    $('logoutBtn').addEventListener('click', logout);
+    $('refreshBtn').addEventListener('click', refreshAll);
+
+    // Quick actions
+    $$('[data-quick]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const act = btn.dataset.quick;
+        if (act === 'approve-all-tested') {
+          if (!confirm('تأیید همه‌ی سیدهای تست‌شده؟ این عملیات قابل بازگشت نیست.')) return;
+          if (state.simulatedMode) { alert('حالت شبیه‌سازی — backend لازم است برای اجرای واقعی.'); return; }
+          // Would normally call a batch endpoint; for now, walk the cache
+          state.queueCache.filter((r) => r.tested_by_admin && r.status === 'pending').forEach((r) => {
+            apiUpdate('/api/collections/seeds_queue/records/' + encodeURIComponent(r.id), { status: 'approved' });
+          });
+          setTimeout(refreshAll, 800);
+        } else if (act === 'refresh-now') {
+          refreshAll();
+        } else if (act === 'goto-queue') {
+          e.preventDefault();
+          const queueTab = document.querySelector('.adm-tab[data-tab="queue"]');
+          if (queueTab) queueTab.click();
+        }
+      });
+    });
+  }
+
+  // ============================================================
+  // Bootstrap
+  // ============================================================
+
+  function boot() {
+    setupLogin();
+    setupTabs();
+    setupFilters();
+    if (hasToken() && state.token !== 'simulated') {
+      showMain();
+    } else if (state.token === 'simulated') {
+      state.simulatedMode = true;
+      state.backendAvailable = false;
+      showMain();
+    } else {
+      showLogin();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  document.addEventListener('astro:page-load', boot);
+</script>
