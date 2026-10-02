@@ -65,6 +65,12 @@ def fetch_remote_mods() -> tuple[Optional[list], Optional[str]]:
     """Fetch current mods.json from GitHub + the blob SHA.
 
     Returns (mods_list, sha). Either may be None on failure.
+
+    SAFETY: if the remote file exists but has 0 mods (empty array),
+    we treat it as a SUSPICIOUS state and return (None, None) to
+    ABORT the pipeline — this prevents the pipeline from wiping
+    the entire mods.json if there's a transient auth/network issue
+    that makes the fetch return an empty list.
     """
     if not config.GITHUB_TOKEN:
         print("❌  GITHUB_TOKEN not set — cannot fetch remote mods.json")
@@ -83,7 +89,7 @@ def fetch_remote_mods() -> tuple[Optional[list], Optional[str]]:
                          params={"ref": config.GITHUB_BRANCH},
                          timeout=20)
         if r.status_code == 404:
-            return [], None  # file doesn't exist yet — that's OK
+            return [], None  # file doesn't exist yet — that's OK (first run)
         if r.status_code != 200:
             print(f"❌  GET mods.json → HTTP {r.status_code}: {r.text[:200]}")
             return None, None
@@ -94,13 +100,26 @@ def fetch_remote_mods() -> tuple[Optional[list], Optional[str]]:
         try:
             data = json.loads(content)
         except Exception:
-            data = []
+            print(f"❌  Remote mods.json is not valid JSON — aborting to prevent data loss")
+            return None, None
         if isinstance(data, dict):
             mods_list = data.get("mods") or []
         elif isinstance(data, list):
+            # Legacy bare-array format — unwrap
             mods_list = data
         else:
-            mods_list = []
+            print(f"❌  Remote mods.json has unexpected type: {type(data).__name__}")
+            return None, None
+
+        # SAFETY CHECK: if the remote file exists (has a SHA) but has 0 mods,
+        # this is almost certainly a mistake (a previous broken pipeline
+        # wiped them). Don't proceed — we'd just push another empty array.
+        if sha and len(mods_list) == 0:
+            print(f"⚠️  Remote mods.json exists (sha={sha[:7]}) but has 0 mods!")
+            print(f"   This is suspicious — aborting to prevent data loss.")
+            print(f"   If you really want to start fresh, delete the file on GitHub first.")
+            return None, None
+
         return mods_list, sha
     except Exception as e:
         print(f"❌  Fetch mods.json failed: {e}")
@@ -283,6 +302,20 @@ async def main(args):
     print(f"\n📊  Merging {len(new_mods)} new mods into existing {len(existing)}…")
     merged, added, updated = merge_new_mods(existing, new_mods)
     print(f"    +{added} new, ~{updated} updated → {len(merged)} total")
+
+    # SAFETY CHECK: if the merge produced FEWER mods than we started
+    # with, something is very wrong. Abort to prevent data loss.
+    if len(merged) < len(existing):
+        print(f"\n🚨  SAFETY ABORT: merge produced {len(merged)} mods, but we")
+        print(f"   started with {len(existing)} existing. Refusing to push")
+        print(f"   — this would LOSE {len(existing) - len(merged)} mods.")
+        print(f"   Investigate the merge_new_mods() function.")
+        return 1
+
+    if len(merged) == 0:
+        print(f"\n🚨  SAFETY ABORT: merge produced 0 mods. Refusing to push")
+        print(f"   an empty mods.json — this would wipe the website.")
+        return 1
 
     # 5. Push back to GitHub
     if args.push:
