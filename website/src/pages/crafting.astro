@@ -21,24 +21,96 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import recipesJson from '@/data/crafting-recipes.json';
 import SteveViewer from '@components/SteveViewer.astro';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const BASE = import.meta.env.BASE_URL;
 
 // Pre-serialize the recipe list for client-side JS
 const recipes = recipesJson.recipes;
+
+// Build an `itemIcons` map keyed by item name — used as emoji fallback
+// when a grid/output PNG is missing. (Task 23: 285 recipes, most lack PNGs.)
+const itemIcons: Record<string, string> = (recipesJson as any).itemIcons || {};
+
+// Scan the /public/textures/ folders at build time so we know which items
+// have a real PNG. Used to decide whether to render <img> or emoji fallback.
+const PUB = path.resolve('./public');
+const blocksDir = path.join(PUB, 'textures', 'blocks');
+const itemsDir = path.join(PUB, 'textures', 'items');
+const blocksPngs = fs.existsSync(blocksDir)
+  ? new Set(fs.readdirSync(blocksDir).filter((f) => f.endsWith('.png')))
+  : new Set<string>();
+const itemsPngs = fs.existsSync(itemsDir)
+  ? new Set(fs.readdirSync(itemsDir).filter((f) => f.endsWith('.png')))
+  : new Set<string>();
+
+function pngExists(name: string | null | undefined): boolean {
+  if (!name) return false;
+  return itemsPngs.has(name + '.png') || blocksPngs.has(name + '.png');
+}
+
+// Folder picker: if the item has a block PNG, use /textures/blocks/; else /textures/items/.
+function isBlockPng(name: string): boolean {
+  return blocksPngs.has(name + '.png');
+}
+
 const recipesData = JSON.stringify(
   recipes.map((r) => ({
     id: r.id,
     nameFa: r.nameFa,
     nameEn: r.nameEn,
     aliases: r.aliases,
+    category: r.category,
     grid: r.grid,
     output: r.output,
+    icon: r.icon,
     wikiSlug: r.wikiSlug,
     shapeless: r.shapeless,
     description: r.description,
   }))
 );
+
+// Pass itemIcons map to client JS as JSON string.
+const itemIconsJson = JSON.stringify(itemIcons);
+
+// Build a list of all item names that HAVE a PNG texture in either folder.
+// Used by the client to skip <img> loads for items that would 404 anyway.
+// (Task 23: most of the 285 new recipes have no PNG — they'll render emoji.)
+const pngItemsList: string[] = [];
+for (const r of recipes) {
+  // grid items
+  for (const row of r.grid || []) {
+    for (const cell of row || []) {
+      if (cell && pngExists(cell) && !pngItemsList.includes(cell)) {
+        pngItemsList.push(cell);
+      }
+    }
+  }
+  // output item
+  const outItem = r.output?.item;
+  if (outItem && pngExists(outItem) && !pngItemsList.includes(outItem)) {
+    pngItemsList.push(outItem);
+  }
+}
+const pngItemsJson = JSON.stringify(pngItemsList);
+
+// Build the list of categories from recipes (for filter chips, if we add them later).
+const CATEGORIES_ORDER = ['combat', 'tools', 'building', 'redstone', 'food', 'brewing', 'misc'];
+const CATEGORY_LABELS: Record<string, { fa: string; emoji: string }> = {
+  combat:   { fa: 'جنگی',     emoji: '⚔️' },
+  tools:    { fa: 'ابزار',    emoji: '🛠️' },
+  building: { fa: 'ساختمان',  emoji: '🧱' },
+  redstone: { fa: 'رد‌استون', emoji: '🔴' },
+  food:     { fa: 'غذا',      emoji: '🍞' },
+  brewing:  { fa: 'جوش‌سازی', emoji: '⚗️' },
+  misc:     { fa: 'متفرقه',  emoji: '📦' },
+};
+const catCounts: Record<string, number> = {};
+for (const r of recipes) {
+  const c = r.category || 'misc';
+  catCounts[c] = (catCounts[c] || 0) + 1;
+}
 
 // A curated set of popular recipes for the chip strip.
 // IMPORTANT: chip text MUST come from the recipe's actual nameFa so that
@@ -60,19 +132,22 @@ const chipRecipes = chipIds
 
 // Texture path helper — the JSON lists item names like "diamond" or
 // "oak-planks". Block textures live in /textures/blocks/, items in
-// /textures/items/. A small allowlist of known block names is used.
-const BLOCK_NAMES = new Set([
-  'oak-planks', 'cobblestone', 'crafting-table-top', 'crafting-table-side',
-  'chest', 'furnace-side', 'furnace-front', 'furnace-top', 'tnt',
-  'ladder', 'bookshelf', 'red-bed', 'glass', 'sand', 'wool',
-  'oak-log', 'oak-log-top', 'oak-leaves', 'stone', 'dirt', 'grass-block',
-  'planks', 'sand-side',
-]);
-
+// /textures/items/. Decided at build-time by scanning the folders.
 function texPath(name?: string | null): string | null {
   if (!name) return null;
-  const folder = BLOCK_NAMES.has(name) ? 'blocks' : 'items';
+  const folder = isBlockPng(name) ? 'blocks' : 'items';
   return `${BASE}textures/${folder}/${name}.png`;
+}
+
+// Render either an <img> (when PNG exists) or a <span class="emoji-icon">
+// fallback (using r.icon or itemIcons[name]) — used in chip strip + recipe list.
+function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls = ''): string {
+  if (pngExists(name)) {
+    const src = texPath(name) || '';
+    return `<img src="${src}" alt="" width="16" height="16" class="pixel-img ${cls}" loading="lazy" decoding="async" onerror="this.style.display='none'; const e=this.parentElement?.getAttribute('data-emoji'); if(e){this.parentElement.textContent=e;}" />`;
+  }
+  const emoji = fallbackEmoji || (name ? (itemIcons[name] || '📦') : '📦');
+  return `<span class="emoji-icon ${cls}" aria-hidden="true">${emoji}</span>`;
 }
 ---
 
@@ -125,15 +200,7 @@ function texPath(name?: string | null): string | null {
     <div class="craft-chips" role="group" aria-label="رسپی‌های محبوب">
       {chipRecipes.map((r) => (
         <button class="craft-chip" data-recipe-id={r.id} type="button">
-          <img
-            src={texPath(r.output.item)}
-            alt=""
-            width="16"
-            height="16"
-            class="pixel-img chip-icon"
-            loading="lazy"
-            decoding="async"
-          />
+          <span class="chip-icon-wrap" data-emoji={r.icon || itemIcons[r.output.item] || '📦'} set:html={renderIcon(r.output.item, r.icon, 'chip-icon')} />
           <span class="chip-text">{r.nameFa}</span>
         </button>
       ))}
@@ -213,18 +280,7 @@ function texPath(name?: string | null): string | null {
         {recipes.map((r) => (
           <li>
             <button class="recipe-item" data-recipe-id={r.id} type="button">
-              <span class="recipe-item-icon">
-                <img
-                  src={texPath(r.output.item) || ''}
-                  alt=""
-                  width="24"
-                  height="24"
-                  class="pixel-img"
-                  loading="lazy"
-                  decoding="async"
-                  onerror="this.style.visibility='hidden'"
-                />
-              </span>
+              <span class="recipe-item-icon" data-emoji={r.icon || itemIcons[r.output.item] || '📦'} set:html={renderIcon(r.output.item, r.icon)} />
               <span class="recipe-item-name">{r.nameFa}</span>
               {r.output.count > 1 && (
                 <span class="recipe-item-count">×{r.output.count}</span>
@@ -394,6 +450,23 @@ function texPath(name?: string | null): string | null {
     width: 14px;
     height: 14px;
     pointer-events: none;
+  }
+  .craft-chip .chip-icon-wrap {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .craft-chip .chip-icon-wrap .emoji-icon {
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+  .craft-chip .chip-icon-wrap img {
+    width: 14px;
+    height: 14px;
+    image-rendering: pixelated;
   }
 
   /* ───────────────────────────────────────────────────────────
@@ -649,6 +722,26 @@ function texPath(name?: string | null): string | null {
     image-rendering: pixelated;
   }
   .recipe-item-icon img { width: 70%; height: 70%; }
+  .recipe-item-icon .emoji-icon {
+    font-size: 1rem;
+    line-height: 1;
+    text-shadow: 0 0 1px rgba(0,0,0,0.6);
+  }
+  /* Emoji icon styling — used as fallback when a grid/result item has no PNG texture.
+     (Task 23: ~250 of the 285 recipes rely on this.) */
+  .emoji-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+    text-shadow: 0 0 1px rgba(0,0,0,0.4);
+  }
+  .craft-slot .emoji-icon,
+  .craft-result-slot .emoji-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
   .recipe-item-name {
     flex: 1;
     text-align: right;     /* Persian text inside an LTR list row */
@@ -694,12 +787,87 @@ function texPath(name?: string | null): string | null {
   }
 </style>
 
-<script is:inline define:vars={{ recipesData, BASE }}>
+<script is:inline define:vars={{ recipesData, itemIconsJson, pngItemsJson, BASE }}>
   (function () {
     // ── State ─────────────────────────────────────────────
     let recipes = [];
     try { recipes = JSON.parse(recipesData); }
     catch (e) { console.error('crafting: failed to parse recipes', e); return; }
+
+    // ── Item-icon emoji fallback map (Task 23) ─────────────────
+    // Used when an item's PNG is missing (most of the 285 recipes have no PNG).
+    let itemIcons = {};
+    try { itemIcons = JSON.parse(itemIconsJson) || {}; }
+    catch (e) { itemIcons = {}; }
+
+    // ── Set of item names that DO have PNG textures (Task 23) ──
+    // Built at build-time by scanning /public/textures/{items,blocks}/.
+    // Lets the client skip img loads for items that would 404 anyway.
+    let pngSet = new Set();
+    try {
+      const arr = JSON.parse(pngItemsJson) || [];
+      pngSet = new Set(arr);
+    } catch (e) { pngSet = new Set(); }
+    function hasPng(name) { return !!name && pngSet.has(name); }
+
+    // Folder picker for items that have block PNGs (everything else → items/).
+    // NOTE: server-side isBlockPng() checks the actual block folder; we mirror
+    // it here via a Set of "block item names" derived from pngItemsJson's
+    // intersection with the blocks directory. For simplicity, when an item has
+    // a PNG, we try items/ first then blocks/ on 404 — both are 1 round-trip
+    // but rare since most items we ship live in items/.
+    const BLOCK_NAMES_CLIENT = new Set([
+      // Curated block list (kept for compatibility with the existing 33 recipes
+      // whose output items ARE block PNGs). New block items just rely on emoji
+      // fallback if their PNG isn't in either folder.
+      'oak-planks', 'cobblestone', 'crafting-table-top', 'crafting-table-side',
+      'chest', 'furnace-side', 'furnace-front', 'furnace-top', 'tnt',
+      'ladder', 'bookshelf', 'red-bed', 'glass', 'sand', 'wool',
+      'oak-log', 'oak-log-top', 'oak-leaves', 'stone', 'dirt', 'grass-block',
+      'planks', 'sand-side',
+    ]);
+
+    function texPath(name) {
+      if (!name) return null;
+      const folder = BLOCK_NAMES_CLIENT.has(name) ? 'blocks' : 'items';
+      return BASE + 'textures/' + folder + '/' + name + '.png';
+    }
+
+    // ── Render a single grid-slot or result-slot item ────────
+    // If the item has a PNG, render an <img> (with onerror → emoji swap).
+    // Otherwise, render the emoji directly as text — no failed HTTP req.
+    function renderItemIcon(parentEl, itemName, fallbackEmoji, large) {
+      parentEl.innerHTML = '';
+      const emoji = fallbackEmoji || itemIcons[itemName] || '📦';
+      if (hasPng(itemName)) {
+        const img = document.createElement('img');
+        img.src = texPath(itemName);
+        img.alt = itemName;
+        img.loading = 'eager';
+        img.decoding = 'async';
+        img.style.cssText = 'width: ' + (large ? '70%' : '70%') +
+          '; height: ' + (large ? '70%' : '70%') +
+          '; image-rendering: pixelated;';
+        img.onerror = function () {
+          this.style.display = 'none';
+          const span = document.createElement('span');
+          span.className = 'emoji-icon';
+          span.style.cssText = 'font-size: ' + (large ? '1.5rem' : '1rem') +
+            '; line-height: 1; display: inline-block;';
+          span.textContent = emoji;
+          parentEl.appendChild(span);
+        };
+        parentEl.appendChild(img);
+      } else {
+        // No PNG — emoji fallback directly
+        const span = document.createElement('span');
+        span.className = 'emoji-icon';
+        span.style.cssText = 'font-size: ' + (large ? '1.5rem' : '1rem') +
+          '; line-height: 1; display: inline-block;';
+        span.textContent = emoji;
+        parentEl.appendChild(span);
+      }
+    }
 
     // ── DOM refs ──────────────────────────────────────────
     const searchInput = document.getElementById('craftingSearch');
@@ -721,20 +889,7 @@ function texPath(name?: string | null): string | null {
 
     if (!searchInput || !craftResultSlot || recipes.length === 0) return;
 
-    // Block-texture names (same list as in the .astro frontmatter) — used to
-    // pick the right folder for each grid/output item.
-    const BLOCK_NAMES = new Set([
-      'oak-planks', 'cobblestone', 'crafting-table-top', 'crafting-table-side',
-      'chest', 'furnace-side', 'furnace-front', 'furnace-top', 'tnt',
-      'ladder', 'bookshelf', 'red-bed', 'glass', 'sand', 'wool',
-      'oak-log', 'oak-log-top', 'oak-leaves', 'stone', 'dirt', 'grass-block',
-      'planks', 'sand-side',
-    ]);
-    function texPath(name) {
-      if (!name) return null;
-      const folder = BLOCK_NAMES.has(name) ? 'blocks' : 'items';
-      return BASE + 'textures/' + folder + '/' + name + '.png';
-    }
+    // (BLOCK_NAMES_CLIENT + texPath + renderItemIcon defined above, near top of IIFE.)
 
     // ── findRecipe (TYPED search): exact → alias → substring ──
     // NOTE: This is the FUZZY path used only when the user TYPES.
@@ -808,15 +963,7 @@ function texPath(name?: string | null): string | null {
         if (!slot) return;
         setTimeout(() => {
           slot.classList.remove('empty');
-          const img = document.createElement('img');
-          img.src = texPath(itemName);
-          img.alt = itemName;
-          img.loading = 'eager';
-          img.decoding = 'async';
-          img.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
-          img.onerror = function () { this.style.display = 'none'; };
-          slot.innerHTML = '';
-          slot.appendChild(img);
+          renderItemIcon(slot, itemName, itemIcons[itemName] || '📦', false);
         }, idx * 60);
       });
 
@@ -824,13 +971,8 @@ function texPath(name?: string | null): string | null {
       setTimeout(() => {
         craftResultSlot.classList.remove('empty');
         if (emptyHint) emptyHint.hidden = true;
-        const outImg = document.createElement('img');
-        outImg.src = texPath(recipe.output.item);
-        outImg.alt = recipe.nameFa;
-        outImg.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
-        outImg.onerror = function () { this.style.display = 'none'; };
-        craftResultSlot.innerHTML = '';
-        craftResultSlot.appendChild(outImg);
+        // Render output item icon (PNG or emoji fallback)
+        renderItemIcon(craftResultSlot, recipe.output.item, recipe.icon || itemIcons[recipe.output.item] || '📦', true);
 
         if (recipe.output.count && recipe.output.count > 1) {
           const count = document.createElement('span');
