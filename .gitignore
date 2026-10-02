@@ -67,3 +67,10 @@ website/pipeline/music.json
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Phase 3: cleanup — test screenshots, logs, temp files
+*.tmp
+*.log
+audit/screenshots/
+audit/reports/
+public/screenshots/

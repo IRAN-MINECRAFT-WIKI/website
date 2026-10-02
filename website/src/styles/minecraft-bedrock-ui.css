@@ -1,0 +1,188 @@
+/* ============================================================
+   minecraft-bedrock-ui.css — Bedrock Edition Ore UI theme
+   ============================================================
+   Inspired by Mojang's Ore UI design language.
+   Dark panels with 3D button effect (light top border, dark bottom).
+   Green accent for interactive elements.
+   ============================================================ */
+
+:root {
+  /* Ore UI color palette */
+  --ore-bg-dark: #1a1a1a;
+  --ore-bg-panel: #2d2d2d;
+  --ore-bg-panel-hover: #333333;
+  --ore-border-light: #4a4a4a;
+  --ore-border-dark: #0f0f0f;
+  --ore-text-primary: #ffffff;
+  --ore-text-secondary: #a0a0a0;
+  --ore-accent-green: #55ff55;
+  --ore-accent-hover: #66ff66;
+  --ore-accent-pressed: #44dd44;
+}
+
+/* ─── Bedrock-style button ─── */
+.ore-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ore-text-primary);
+  background: linear-gradient(180deg, #3d3d3d 0%, #2a2a2a 100%);
+  border: none;
+  border-top: 2px solid var(--ore-border-light);
+  border-bottom: 2px solid var(--ore-border-dark);
+  border-left: 2px solid #2a2a2a;
+  border-right: 2px solid #2a2a2a;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  text-decoration: none;
+  position: relative;
+  min-height: 36px;
+  line-height: 1;
+}
+
+.ore-btn:hover {
+  background: linear-gradient(180deg, #4a4a4a 0%, #333333 100%);
+  border-top-color: #5a5a5a;
+  border-bottom-color: #1a1a1a;
+  box-shadow: 0 0 8px rgba(85, 255, 85, 0.15);
+}
+
+.ore-btn:active {
+  background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+  border-top-color: #1a1a1a;
+  border-bottom-color: #1a1a1a;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: translateY(1px);
+}
+
+.ore-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary (green) variant */
+.ore-btn-primary {
+  background: linear-gradient(180deg, #5fa838 0%, #3d7521 100%);
+  border-top-color: #7cc84a;
+  border-bottom-color: #2a5a15;
+  border-left-color: #4a8a2c;
+  border-right-color: #4a8a2c;
+  color: #fff;
+}
+
+.ore-btn-primary:hover {
+  background: linear-gradient(180deg, #7cc84a 0%, #5fa838 100%);
+  border-top-color: #9ed968;
+  box-shadow: 0 0 12px rgba(124, 200, 74, 0.4);
+}
+
+.ore-btn-primary:active {
+  background: linear-gradient(180deg, #3d7521 0%, #2a5a15 100%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ─── Bedrock-style panel ─── */
+.ore-panel {
+  background: var(--ore-bg-panel);
+  border-top: 2px solid var(--ore-border-light);
+  border-bottom: 2px solid var(--ore-border-dark);
+  border-left: 2px solid #252525;
+  border-right: 2px solid #252525;
+  border-radius: 2px;
+  padding: 1rem;
+}
+
+.ore-panel-hoverable {
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ore-panel-hoverable:hover {
+  background: var(--ore-bg-panel-hover);
+  border-top-color: #5a5a5a;
+  box-shadow: 0 0 10px rgba(85, 255, 85, 0.1);
+}
+
+/* ─── Bedrock-style dialog/modal ─── */
+.ore-dialog {
+  background: var(--ore-bg-dark);
+  border-top: 3px solid var(--ore-border-light);
+  border-bottom: 3px solid var(--ore-border-dark);
+  border-left: 2px solid #252525;
+  border-right: 2px solid #252525;
+  border-radius: 2px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* ─── Bedrock-style card ─── */
+.ore-card {
+  background: linear-gradient(180deg, #2d2d2d 0%, #252525 100%);
+  border-top: 2px solid var(--ore-border-light);
+  border-bottom: 2px solid var(--ore-border-dark);
+  border-left: 2px solid #252525;
+  border-right: 2px solid #252525;
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all 0.15s ease;
+}
+
+.ore-card:hover {
+  border-top-color: #5a5a5a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ─── Bedrock-style input ─── */
+.ore-input {
+  background: var(--ore-bg-dark);
+  border-top: 2px solid var(--ore-border-dark);
+  border-bottom: 2px solid var(--ore-border-light);
+  border-left: 2px solid #1a1a1a;
+  border-right: 2px solid #1a1a1a;
+  border-radius: 2px;
+  padding: 0.5rem 0.75rem;
+  color: var(--ore-text-primary);
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.ore-input:focus {
+  outline: none;
+  border-bottom-color: var(--ore-accent-green);
+  box-shadow: 0 2px 8px rgba(85, 255, 85, 0.15);
+}
+
+/* ─── Bedrock-style badge ─── */
+.ore-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  border-radius: 2px;
+  border: 1px solid;
+}
+
+.ore-badge-green {
+  background: rgba(85, 255, 85, 0.15);
+  border-color: rgba(85, 255, 85, 0.3);
+  color: var(--ore-accent-green);
+}
+
+.ore-badge-gold {
+  background: rgba(252, 179, 43, 0.15);
+  border-color: rgba(252, 179, 43, 0.3);
+  color: #fcb32b;
+}
+
+.ore-badge-red {
+  background: rgba(255, 59, 59, 0.15);
+  border-color: rgba(255, 59, 59, 0.3);
+  color: #ff8b8b;
+}

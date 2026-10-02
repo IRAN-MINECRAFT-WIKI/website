@@ -14,7 +14,11 @@ export interface Props {
 const { slotId = 'mediaad-default', format = 'banner', class: cls = '' } = Astro.props;
 ---
 
-<div class={`ad-slot ${format} ${cls}`} data-ad-slot={slotId}>
+{/* P2-1 fix: ad links should NOT be in the Tab order. tabindex=-1
+    removes them from keyboard navigation so screen-reader/keyboard
+    users don't accidentally land on external ad links. aria-hidden
+    also hides the container from screen readers (ads are decorative). */}
+<div class={`ad-slot ${format} ${cls}`} data-ad-slot={slotId} tabindex="-1" aria-hidden="true">
   <div id={slotId} class="ad-slot-content">
     <!-- Ad network will inject content here -->
   </div>

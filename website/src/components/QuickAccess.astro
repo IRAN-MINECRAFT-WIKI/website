@@ -509,14 +509,33 @@ const links = [
 
         if (!ANIM_ENABLED) return; // skip animation for reduced-motion
 
-        // Phase 2, Step 1: Button glow (0-150ms)
+        // ─── Phase 1 fix: PRECISE TIMELINE ──────────────────
+        // 0ms:     click
+        // 0-150ms: button glow (scale 1→1.15→1.08)
+        // 150ms:   blur backdrop STARTS fade-in (not 0ms)
+        // 150-500ms: title slides down from top
+        // 500ms:   blur backdrop FULLY visible (opacity 1)
+        // 500+i×120ms: card i starts emerging from button position
+        // 1500ms:  all cards settled
+
+        // Step 1: Button glow (0-150ms) — scale 1.0 → 1.15 → 1.08
         btn.animate([
           { transform: 'scale(1)', boxShadow: '0 0 0 rgba(124,200,74,0)' },
           { transform: 'scale(1.15)', boxShadow: '0 0 20px rgba(124,200,74,0.4)', offset: 0.5 },
           { transform: 'scale(1.08)', boxShadow: '0 0 12px rgba(124,200,74,0.2)' }
         ], { duration: 150, easing: 'ease-out', fill: 'forwards' });
 
-        // Phase 2, Step 2: Title slides from top (150-500ms)
+        // Step 2: Backdrop blur STARTS at 150ms (coordinated with button settle)
+        // Uses cubic-bezier(0.4, 0, 0.2, 1) — smooth material design easing
+        // Duration: 350ms (150→500ms) → fully visible at 500ms
+        if (bg) {
+          bg.animate([
+            { opacity: 0, backdropFilter: 'blur(0px)' },
+            { opacity: 1, backdropFilter: 'blur(8px)' }
+          ], { duration: 350, delay: 150, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
+        }
+
+        // Step 3: Title slides from top (150-500ms) — spring easing
         var header = overlay.querySelector('.qa-header');
         if (header) {
           header.animate([
@@ -525,7 +544,7 @@ const links = [
           ], { duration: 350, delay: 150, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' });
         }
 
-        // Phase 2, Step 3: Cards emerge from button position (500-1500ms)
+        // Step 4: Cards emerge from button position (500ms + i×120ms each)
         var cards = overlay.querySelectorAll('.qa-card');
         var btnRect = btn.getBoundingClientRect();
         var btnCenterX = btnRect.left + btnRect.width / 2;
@@ -552,21 +571,13 @@ const links = [
           };
         });
 
-        // Backdrop fade-in
-        if (bg) {
-          bg.animate([
-            { opacity: 0 },
-            { opacity: 1 }
-          ], { duration: 300, easing: 'ease-out', fill: 'forwards' });
-        }
-
-        // Footer fade-in
+        // Footer fade-in (after all cards)
         var footer = overlay.querySelector('.qa-footer');
         if (footer) {
           footer.animate([
             { opacity: 0 },
             { opacity: 1 }
-          ], { duration: 300, delay: 1200, easing: 'ease-out', fill: 'forwards' });
+          ], { duration: 300, delay: 1500, easing: 'ease-out', fill: 'forwards' });
         }
       }
 
@@ -600,12 +611,17 @@ const links = [
 
         overlay.classList.add('closing');
 
-        // Close: cards sucked back to button position in REVERSE order
+        // ─── Phase 1 fix: CLOSE = reverse of open ──────────
+        // 1. Cards sucked back to button position in REVERSE order (0-300ms)
+        // 2. Title slides up (200-500ms)
+        // 3. Blur fades out LAST (300-600ms) — after all content is gone
+
         var cards = Array.from(overlay.querySelectorAll('.qa-card'));
         var btnRect = btn.getBoundingClientRect();
         var btnCenterX = btnRect.left + btnRect.width / 2;
         var btnCenterY = btnRect.top + btnRect.height / 2;
 
+        // Reverse order: last card first
         cards.reverse().forEach(function (card, i) {
           var cardRect = card.getBoundingClientRect();
           var cardCenterX = cardRect.left + cardRect.width / 2;
@@ -619,7 +635,7 @@ const links = [
           ], { duration: 300, delay: i * 40, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
         });
 
-        // Title slides up
+        // Title slides up (starts at 200ms)
         var header = overlay.querySelector('.qa-header');
         if (header) {
           header.animate([
@@ -628,18 +644,29 @@ const links = [
           ], { duration: 300, delay: 200, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
         }
 
-        // Backdrop fade-out
+        // BLUR fades out LAST (starts at 300ms, ends at 600ms)
+        // This ensures the backdrop stays visible until all content is gone
         if (bg) {
           bg.animate([
-            { opacity: 1 },
-            { opacity: 0 }
-          ], { duration: 300, easing: 'ease-in', fill: 'forwards' });
+            { opacity: 1, backdropFilter: 'blur(8px)' },
+            { opacity: 0, backdropFilter: 'blur(0px)' }
+          ], { duration: 300, delay: 300, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
         }
 
+        // Footer fade-out (immediately)
+        var footer = overlay.querySelector('.qa-footer');
+        if (footer) {
+          footer.animate([
+            { opacity: 1 },
+            { opacity: 0 }
+          ], { duration: 150, easing: 'ease-in', fill: 'forwards' });
+        }
+
+        // Final: hide overlay after all animations complete (600ms)
         setTimeout(function () {
           overlay.hidden = true;
           overlay.classList.remove('closing');
-        }, 500);
+        }, 600);
       }
 
       // ─── Wire up ────────────────────────────────────────
