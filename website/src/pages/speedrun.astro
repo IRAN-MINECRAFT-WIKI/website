@@ -648,22 +648,21 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
     var data = null;
     var srInited = false;
     function init() {
-      // Guard against double-init (DOMContentLoaded + astro:page-load both fire on first load)
+      // Guard against double-init (DOMContentLoaded + astro:page-load both fire on first load).
+      // Without this guard, two click listeners attach to #srList on first page load.
+      // On a row click, the first listener expands the row via outerHTML swap,
+      // the second listener sees the same click and immediately un-expands it
+      // (because state.expanded has just been toggled back to empty).
       if (srInited) return;
       srInited = true;
-      window.__SR_DEBUG = window.__SR_DEBUG || [];
-      window.__SR_DEBUG.push('init-start');
+      cacheDom();
+      if (!el.tabs.length || !el.list) {
+        srInited = false;
+        return;
+      }
       try {
-        cacheDom();
-        if (!el.tabs.length || !el.list) {
-          window.__SR_DEBUG.push('no-dom');
-          srInited = false;
-          return;
-        }
         data = loadData();
-        window.__SR_DEBUG.push('data-loaded');
       } catch (e) {
-        window.__SR_DEBUG.push('init-err: ' + e.message);
         console.error('Speedrun data load failed:', e);
         if (el.loading) {
           el.loading.innerHTML =
@@ -671,53 +670,45 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
         }
         return;
       }
-      try {
-        populateVersions();
-        // Wire events
-        el.tabs.forEach(function (tab) {
-          tab.addEventListener('click', function () {
-            switchTab(tab.dataset.platform);
-          });
+      populateVersions();
+      // Wire events
+      el.tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          switchTab(tab.dataset.platform);
         });
-        el.search.addEventListener('input', onSearchInput);
-        el.category.addEventListener('change', function () {
-          state.category = el.category.value;
-          applyFilters();
-        });
-        el.version.addEventListener('change', function () {
-          state.version = el.version.value;
-          applyFilters();
-        });
-        el.seedOnly.addEventListener('change', function () {
-          state.seedOnly = el.seedOnly.checked;
-          applyFilters();
-        });
-        el.reset.addEventListener('click', resetFilters);
-        el.emptyReset.addEventListener('click', resetFilters);
-        el.loadMore.addEventListener('click', loadMore);
-        // Event delegation for row clicks
-        el.list.addEventListener('click', function (e) {
-          window.__SR_DEBUG.push('row-click-fired');
-          var target = e.target;
-          // Don't toggle when clicking external link inside row
-          if (target.closest('.sr-ext-link') || target.closest('.sr-detail-link')) return;
-          var row = target.closest('.sr-row');
-          if (row) {
-            var idx = +row.dataset.idx;
-            if (!isNaN(idx)) toggleExpand(idx);
-          }
-        });
-        window.__SR_DEBUG.push('listeners-attached');
-        // Hide loading, show results
-        el.loading.classList.add('hidden');
-        el.results.classList.remove('hidden');
-        // Initial platform = java
-        switchTab('java');
-        window.__SR_DEBUG.push('init-done');
-      } catch (e) {
-        window.__SR_DEBUG.push('wire-err: ' + e.message);
-        console.error('Speedrun init wiring failed:', e);
-      }
+      });
+      el.search.addEventListener('input', onSearchInput);
+      el.category.addEventListener('change', function () {
+        state.category = el.category.value;
+        applyFilters();
+      });
+      el.version.addEventListener('change', function () {
+        state.version = el.version.value;
+        applyFilters();
+      });
+      el.seedOnly.addEventListener('change', function () {
+        state.seedOnly = el.seedOnly.checked;
+        applyFilters();
+      });
+      el.reset.addEventListener('click', resetFilters);
+      el.emptyReset.addEventListener('click', resetFilters);
+      el.loadMore.addEventListener('click', loadMore);
+      // Event delegation for row clicks (single listener for all rows)
+      el.list.addEventListener('click', function (e) {
+        var target = e.target;
+        // Don't toggle when clicking external link inside row
+        if (target.closest('.sr-ext-link') || target.closest('.sr-detail-link')) return;
+        var row = target.closest('.sr-row');
+        if (row) {
+          var idx = +row.dataset.idx;
+          if (!isNaN(idx)) toggleExpand(idx);
+        }
+      });
+      // Hide loading, show results
+      el.loading.classList.add('hidden');
+      el.results.classList.remove('hidden');
+      // Initial platform = java
+      switchTab('java');
     }
 
     // ---------- Boot ----------
