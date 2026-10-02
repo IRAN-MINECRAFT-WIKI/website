@@ -21,6 +21,7 @@ const links = [
   { href: base('/mods'), label: 'افزونه‌ها', icon: 'chest', type: 'block', color: '#9c7b4e' },
   { href: base('/crafting'), label: 'کرافت', icon: 'crafting-table-top', type: 'block', color: '#9c7b4e' },
   { href: base('/wiki'), label: 'ویکی', icon: 'book', type: 'item', color: '#7cc84a' },
+  { href: base('/speedrun'), label: 'سرعت‌رانی', icon: 'clock', type: 'item', color: '#fcb32b' },
   { href: base('/versions'), label: 'نسخه‌ها', icon: 'grass-block', type: 'block', color: '#5fa838' },
   { href: base('/seeds'), label: 'سیدها', icon: 'grass-block', type: 'block', color: '#5fa838' },
   { href: base('/categories'), label: 'دسته‌ها', icon: 'cobblestone', type: 'block', color: '#7e7e7e' },
@@ -144,6 +145,13 @@ const links = [
        so the top row is never clipped by the viewport edge. */
     align-items: safe center;
     justify-content: center;
+    /* Phase 1 fix: use dvh (dynamic viewport height) instead of vh.
+       On mobile, 100vh includes the browser address bar, causing
+       the overlay to be taller than the visible area → buttons
+       clipped. 100dvh adapts when the address bar shows/hides.
+       Fallback: 100vh for browsers without dvh support. */
+    height: 100vh;
+    height: 100dvh;
     padding: 4rem 1.5rem 2rem;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -363,14 +371,15 @@ const links = [
 
   /* ─── Responsive ─── */
   /* P1-4 fix: mobile — smaller cards so all 10 fit within viewport.
-     Was: 3-col grid with 48×48 icons → cards too tall, last 4
-     cards clipped below fold. Now: smaller icon, smaller padding,
-     and the overlay is scrollable as a fallback. */
+     Phase 1: also use dvh for max-height so mobile address bar
+     doesn't cause clipping. */
   @media (max-width: 640px) {
     .qa-overlay {
       padding: 3rem 0.75rem 1rem;
       align-items: flex-start;
       overflow-y: auto;
+      height: 100vh;
+      height: 100dvh;
     }
     .qa-content {
       gap: 1rem;
@@ -423,18 +432,31 @@ const links = [
   /* Short viewports (landscape phones, short desktop windows) */
   @media (max-height: 600px) {
     .qa-overlay {
-      padding: 4rem 1.5rem 1rem;
+      padding: 3rem 1rem 0.5rem;
       align-items: flex-start;
+      height: 100vh;
+      height: 100dvh;
     }
     .qa-cards {
       max-height: 85vh;
+      max-height: 85dvh;
     }
     .qa-card {
-      padding: 0.625rem 0.375rem;
+      padding: 0.5rem 0.25rem;
     }
     .qa-card-icon {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  /* iOS safe area — respect notch / home indicator */
+  @supports (padding: env(safe-area-inset-top)) {
+    .qa-overlay {
+      padding-top: max(4rem, env(safe-area-inset-top));
+      padding-bottom: max(2rem, env(safe-area-inset-bottom));
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
     }
   }
 
@@ -449,7 +471,12 @@ const links = [
 </style>
 
 <script is:inline>
+  // ============================================================
+  // QuickAccess / Control Center — Phase 1 (portal fix) + Phase 2 (cinematic animation)
+  // ============================================================
   (function () {
+    var PORTED = false;
+
     function setupQA() {
       var btn = document.getElementById('qaBtn');
       var overlay = document.getElementById('qaOverlay');
@@ -457,21 +484,167 @@ const links = [
       var bg = document.getElementById('qaBg');
       if (!btn || !overlay) return;
 
-      btn.onclick = function () {
+      // ─── Phase 1: PORTAL FIX ─────────────────────────────
+      // The overlay is inside <header> which has backdrop-filter:blur.
+      // backdrop-filter creates a NEW containing block for position:fixed
+      // descendants → the overlay was constrained to the header's ~84px
+      // height instead of the viewport. Move it to document.body so
+      // position:fixed works correctly.
+      if (!PORTED && overlay.parentNode !== document.body) {
+        document.body.appendChild(overlay);
+        PORTED = true;
+      }
+
+      // ─── Phase 2: CINEMATIC ANIMATION ────────────────────
+      // Uses Web Animations API for precise timeline control.
+      // Sequence: button glow → title slides in → cards emerge from
+      // button position one-by-one → sparkles. Close = reverse.
+
+      var ANIM_ENABLED = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function openCinematic() {
         overlay.hidden = false;
         overlay.classList.remove('closing');
-      };
 
-      function close() {
+        if (!ANIM_ENABLED) return; // skip animation for reduced-motion
+
+        // Phase 2, Step 1: Button glow (0-150ms)
+        btn.animate([
+          { transform: 'scale(1)', boxShadow: '0 0 0 rgba(124,200,74,0)' },
+          { transform: 'scale(1.15)', boxShadow: '0 0 20px rgba(124,200,74,0.4)', offset: 0.5 },
+          { transform: 'scale(1.08)', boxShadow: '0 0 12px rgba(124,200,74,0.2)' }
+        ], { duration: 150, easing: 'ease-out', fill: 'forwards' });
+
+        // Phase 2, Step 2: Title slides from top (150-500ms)
+        var header = overlay.querySelector('.qa-header');
+        if (header) {
+          header.animate([
+            { transform: 'translateY(-100%)', opacity: 0 },
+            { transform: 'translateY(0)', opacity: 1 }
+          ], { duration: 350, delay: 150, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' });
+        }
+
+        // Phase 2, Step 3: Cards emerge from button position (500-1500ms)
+        var cards = overlay.querySelectorAll('.qa-card');
+        var btnRect = btn.getBoundingClientRect();
+        var btnCenterX = btnRect.left + btnRect.width / 2;
+        var btnCenterY = btnRect.top + btnRect.height / 2;
+
+        cards.forEach(function (card, i) {
+          var cardRect = card.getBoundingClientRect();
+          var cardCenterX = cardRect.left + cardRect.width / 2;
+          var cardCenterY = cardRect.top + cardRect.height / 2;
+          var dx = btnCenterX - cardCenterX;
+          var dy = btnCenterY - cardCenterY;
+
+          var delay = 500 + (i * 120);
+
+          var anim = card.animate([
+            { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(0.3) rotate(-15deg)', opacity: 0 },
+            { transform: 'translate(' + (dx * 0.1) + 'px,' + (dy * 0.1) + 'px) scale(1.1) rotate(5deg)', opacity: 1, offset: 0.7 },
+            { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1 }
+          ], { duration: 600, delay: delay, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' });
+
+          // Sparkle effect when card arrives
+          anim.onfinish = function () {
+            createSparkle(card);
+          };
+        });
+
+        // Backdrop fade-in
+        if (bg) {
+          bg.animate([
+            { opacity: 0 },
+            { opacity: 1 }
+          ], { duration: 300, easing: 'ease-out', fill: 'forwards' });
+        }
+
+        // Footer fade-in
+        var footer = overlay.querySelector('.qa-footer');
+        if (footer) {
+          footer.animate([
+            { opacity: 0 },
+            { opacity: 1 }
+          ], { duration: 300, delay: 1200, easing: 'ease-out', fill: 'forwards' });
+        }
+      }
+
+      function createSparkle(card) {
+        if (!ANIM_ENABLED) return;
+        var rect = card.getBoundingClientRect();
+        var sparkle = document.createElement('div');
+        sparkle.style.cssText =
+          'position:fixed;' +
+          'left:' + (rect.left + rect.width / 2 - 4) + 'px;' +
+          'top:' + (rect.top + rect.height / 2 - 4) + 'px;' +
+          'width:8px;height:8px;' +
+          'background:radial-gradient(circle, rgba(124,200,74,0.9), transparent);' +
+          'border-radius:50%;' +
+          'pointer-events:none;' +
+          'z-index:2147483648;' +
+          'box-shadow:0 0 12px rgba(124,200,74,0.6);';
+        document.body.appendChild(sparkle);
+        sparkle.animate([
+          { transform: 'scale(0)', opacity: 1 },
+          { transform: 'scale(2.5)', opacity: 0 }
+        ], { duration: 400, easing: 'ease-out', fill: 'forwards' });
+        setTimeout(function () { sparkle.remove(); }, 450);
+      }
+
+      function closeCinematic() {
+        if (!ANIM_ENABLED) {
+          overlay.hidden = true;
+          return;
+        }
+
         overlay.classList.add('closing');
+
+        // Close: cards sucked back to button position in REVERSE order
+        var cards = Array.from(overlay.querySelectorAll('.qa-card'));
+        var btnRect = btn.getBoundingClientRect();
+        var btnCenterX = btnRect.left + btnRect.width / 2;
+        var btnCenterY = btnRect.top + btnRect.height / 2;
+
+        cards.reverse().forEach(function (card, i) {
+          var cardRect = card.getBoundingClientRect();
+          var cardCenterX = cardRect.left + cardRect.width / 2;
+          var cardCenterY = cardRect.top + cardRect.height / 2;
+          var dx = btnCenterX - cardCenterX;
+          var dy = btnCenterY - cardCenterY;
+
+          card.animate([
+            { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1 },
+            { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(0.3) rotate(15deg)', opacity: 0 }
+          ], { duration: 300, delay: i * 40, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
+        });
+
+        // Title slides up
+        var header = overlay.querySelector('.qa-header');
+        if (header) {
+          header.animate([
+            { transform: 'translateY(0)', opacity: 1 },
+            { transform: 'translateY(-100%)', opacity: 0 }
+          ], { duration: 300, delay: 200, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
+        }
+
+        // Backdrop fade-out
+        if (bg) {
+          bg.animate([
+            { opacity: 1 },
+            { opacity: 0 }
+          ], { duration: 300, easing: 'ease-in', fill: 'forwards' });
+        }
+
         setTimeout(function () {
           overlay.hidden = true;
           overlay.classList.remove('closing');
-        }, 250);
+        }, 500);
       }
 
-      if (closeBtn) closeBtn.onclick = close;
-      if (bg) bg.onclick = close;
+      // ─── Wire up ────────────────────────────────────────
+      btn.onclick = function () { openCinematic(); };
+      if (closeBtn) closeBtn.onclick = function () { closeCinematic(); };
+      if (bg) bg.onclick = function () { closeCinematic(); };
 
       if (!window.__qaKb) {
         window.__qaKb = true;
@@ -479,11 +652,7 @@ const links = [
           if (e.key === 'Escape') {
             var o = document.getElementById('qaOverlay');
             if (o && !o.hidden) {
-              o.classList.add('closing');
-              setTimeout(function () {
-                o.hidden = true;
-                o.classList.remove('closing');
-              }, 250);
+              closeCinematic();
             }
           }
         });

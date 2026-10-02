@@ -1,0 +1,328 @@
+---
+/**
+ * /speedrun — Speedrun leaderboard page
+ *
+ * Shows Minecraft speedrun records from Speedrun.com, fetched
+ * nightly by pipeline/speedrun_fetch.py. Two tabs: Java + Bedrock.
+ * Each tab shows a table of runs with filter + search.
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
+import summary from '@/data/speedrun/summary.json';
+import javaAnyGlitchless from '@/data/speedrun/java/any-glitchless.json';
+import javaAny from '@/data/speedrun/java/any.json';
+import javaAllAdv from '@/data/speedrun/java/all-advancements.json';
+import bedrockAnyGlitchless from '@/data/speedrun/bedrock/any-glitchless.json';
+import bedrockAny from '@/data/speedrun/bedrock/any.json';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const allFiles = {
+  java: {
+    'any-glitchless': javaAnyGlitchless,
+    'any': javaAny,
+    'all-advancements': javaAllAdv,
+  },
+  bedrock: {
+    'any-glitchless': bedrockAnyGlitchless,
+    'any': bedrockAny,
+  },
+};
+
+// Build a unified list of all runs for each platform
+function buildRuns(platform: 'java' | 'bedrock') {
+  const files = allFiles[platform];
+  const runs: any[] = [];
+  for (const [catSlug, file] of Object.entries(files)) {
+    const fileRuns = (file as any).runs || [];
+    for (const r of fileRuns) {
+      runs.push({ ...r, categorySlug: catSlug });
+    }
+  }
+  // Sort by time ascending (fastest first)
+  runs.sort((a, b) => (a.time_primary || 0) - (b.time_primary || 0));
+  return runs;
+}
+
+const javaRuns = buildRuns('java');
+const bedrockRuns = buildRuns('bedrock');
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'سرعت‌رانی', url: '/speedrun' },
+];
+const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
+---
+
+<BaseLayout
+  path="/speedrun"
+  title="رکوردهای سرعت‌رانی ماینکرفت — Speedrun"
+  description="رکوردهای کامل سرعت‌رانی ماینکرفت Java و Bedrock از Speedrun.com — همه بازیکنان، نسخه‌ها، پلتفرم‌ها و دسته‌بندی‌ها."
+>
+  <StructuredData data={ldBreadcrumb} />
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">🏆 رکوردهای سرعت‌رانی ماینکرفت</h1>
+    <p class="text-sm text-mc-text-2">
+      {javaRuns.length + bedrockRuns.length} رکورد از Speedrun.com — هر شب ساعت ۳ بامداد ایران به‌روزرسانی می‌شه
+    </p>
+  </div>
+
+  <!-- Stats summary -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+    <div class="mc-panel p-3 text-center">
+      <div class="text-2xl font-extrabold text-mc-grass-2">{javaRuns.length}</div>
+      <div class="text-xs text-mc-text-3">رکورد Java</div>
+    </div>
+    <div class="mc-panel p-3 text-center">
+      <div class="text-2xl font-extrabold text-mc-diamond">{bedrockRuns.length}</div>
+      <div class="text-xs text-mc-text-3">رکورد Bedrock</div>
+    </div>
+    <div class="mc-panel p-3 text-center">
+      <div class="text-2xl font-extrabold text-mc-gold">{Object.keys(allFiles.java).length + Object.keys(allFiles.bedrock).length}</div>
+      <div class="text-xs text-mc-text-3">دسته‌بندی</div>
+    </div>
+    <div class="mc-panel p-3 text-center">
+      <div class="text-2xl font-extrabold text-mc-emerald">
+        {new Date(summary.fetched_at).toLocaleDateString('fa-IR')}
+      </div>
+      <div class="text-xs text-mc-text-3">آخرین به‌روزرسانی</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex gap-2 mb-4" id="srTabs">
+    <button class="mc-btn sr-tab active" data-platform="java">☕ Java Edition</button>
+    <button class="mc-btn ghost sr-tab" data-platform="bedrock">📱 Bedrock Edition</button>
+  </div>
+
+  <!-- Filters + Search -->
+  <div class="mc-panel p-4 mb-4">
+    <div class="flex flex-col md:flex-row gap-3">
+      <div class="flex-1 relative">
+        <input
+          type="text"
+          id="srSearch"
+          placeholder="جستجو بر اساس نام بازیکن…"
+          class="w-full bg-mc-bg-2 border border-mc-line px-4 py-2.5 pr-10 text-sm text-mc-text focus:border-mc-grass-2 outline-none"
+        />
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-mc-text-3">
+          <svg width="16" height="16"><use href="#icon-search" /></svg>
+        </span>
+      </div>
+      <select id="srCategory" class="bg-mc-bg-2 border border-mc-line px-3 py-2.5 text-sm text-mc-text">
+        <option value="all">همه دسته‌ها</option>
+        <option value="any-glitchless">Any% Glitchless</option>
+        <option value="any">Any%</option>
+        <option value="all-advancements">All Advancements</option>
+      </select>
+      <label class="flex items-center gap-2 text-sm text-mc-text-2 cursor-pointer">
+        <input type="checkbox" id="srSeedOnly" class="w-4 h-4" />
+        فقط با سید
+      </label>
+    </div>
+  </div>
+
+  <!-- Java table -->
+  <div id="srTable-java" class="sr-table-container">
+    <div class="table-wrap mc-panel">
+      <div style="max-height:70vh; overflow:auto;" class="sr-scroll">
+        <table class="w-full text-sm" id="srTableJava">
+          <thead class="sticky top-0 bg-mc-panel-2 z-10">
+            <tr class="text-xs text-mc-text-3 border-b border-mc-line">
+              <th class="px-3 py-2 text-right">#</th>
+              <th class="px-3 py-2 text-right">بازیکن</th>
+              <th class="px-3 py-2 text-right">زمان</th>
+              <th class="px-3 py-2 text-right hidden sm:table-cell">دسته</th>
+              <th class="px-3 py-2 text-right hidden md:table-cell">نسخه</th>
+              <th class="px-3 py-2 text-right hidden lg:table-cell">سید</th>
+              <th class="px-3 py-2 text-right hidden sm:table-cell">تاریخ</th>
+              <th class="px-3 py-2 text-right">لینک</th>
+            </tr>
+          </thead>
+          <tbody id="srBodyJava">
+            {javaRuns.map((r, i) => {
+              const rank = i + 1;
+              const rankColor = rank === 1 ? 'text-mc-gold font-extrabold' : rank === 2 ? 'text-slate-300 font-bold' : rank === 3 ? 'text-amber-600 font-bold' : 'text-mc-text-3';
+              return (
+                <tr class="border-b border-mc-line hover:bg-mc-bg-2/50 sr-row" data-platform="java"
+                  data-player={r.players.join(' ').toLowerCase()}
+                  data-category={r.categorySlug}
+                  data-has-seed={r.seed ? 'true' : 'false'}
+                >
+                  <td class="px-3 py-2 {rankColor}">{rank}</td>
+                  <td class="px-3 py-2 text-mc-text">{r.players.join(', ')}</td>
+                  <td class="px-3 py-2 text-mc-grass-2 font-bold font-mono" dir="ltr">{r.time_display}</td>
+                  <td class="px-3 py-2 text-mc-text-2 text-xs hidden sm:table-cell">{r.category}</td>
+                  <td class="px-3 py-2 text-mc-text-3 text-xs hidden md:table-cell" dir="ltr">{r.version || '—'}</td>
+                  <td class="px-3 py-2 text-mc-text-3 text-xs font-mono hidden lg:table-cell" dir="ltr">{r.seed || '—'}</td>
+                  <td class="px-3 py-2 text-mc-text-3 text-xs hidden sm:table-cell" dir="ltr">{r.date}</td>
+                  <td class="px-3 py-2">
+                    <a href={r.weblink} target="_blank" rel="noopener" class="text-mc-diamond hover:underline text-xs">↗</a>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="text-xs text-mc-text-3 mt-2 text-center">
+      {javaRuns.length} رکورد — داده‌ها از Speedrun.com
+    </p>
+  </div>
+
+  <!-- Bedrock table (hidden by default) -->
+  <div id="srTable-bedrock" class="sr-table-container hidden">
+    <div class="table-wrap mc-panel">
+      <div style="max-height:70vh; overflow:auto;" class="sr-scroll">
+        <table class="w-full text-sm" id="srTableBedrock">
+          <thead class="sticky top-0 bg-mc-panel-2 z-10">
+            <tr class="text-xs text-mc-text-3 border-b border-mc-line">
+              <th class="px-3 py-2 text-right">#</th>
+              <th class="px-3 py-2 text-right">بازیکن</th>
+              <th class="px-3 py-2 text-right">زمان</th>
+              <th class="px-3 py-2 text-right hidden sm:table-cell">دسته</th>
+              <th class="px-3 py-2 text-right hidden md:table-cell">نسخه</th>
+              <th class="px-3 py-2 text-right hidden lg:table-cell">سید</th>
+              <th class="px-3 py-2 text-right hidden sm:table-cell">تاریخ</th>
+              <th class="px-3 py-2 text-right">لینک</th>
+            </tr>
+          </thead>
+          <tbody id="srBodyBedrock">
+            {bedrockRuns.map((r, i) => {
+              const rank = i + 1;
+              const rankColor = rank === 1 ? 'text-mc-gold font-extrabold' : rank === 2 ? 'text-slate-300 font-bold' : rank === 3 ? 'text-amber-600 font-bold' : 'text-mc-text-3';
+              return (
+                <tr class="border-b border-mc-line hover:bg-mc-bg-2/50 sr-row" data-platform="bedrock"
+                  data-player={r.players.join(' ').toLowerCase()}
+                  data-category={r.categorySlug}
+                  data-has-seed={r.seed ? 'true' : 'false'}
+                >
+                  <td class="px-3 py-2 {rankColor}">{rank}</td>
+                  <td class="px-3 py-2 text-mc-text">{r.players.join(', ')}</td>
+                  <td class="px-3 py-2 text-mc-grass-2 font-bold font-mono" dir="ltr">{r.time_display}</td>
+                  <td class="px-3 py-2 text-mc-text-2 text-xs hidden sm:table-cell">{r.category}</td>
+                  <td class="px-3 py-2 text-mc-text-3 text-xs hidden md:table-cell" dir="ltr">{r.version || '—'}</td>
+                  <td class="px-3 py-2 text-mc-text-3 text-xs font-mono hidden lg:table-cell" dir="ltr">{r.seed || '—'}</td>
+                  <td class="px-3 py-2 text-mc-text-3 text-xs hidden sm:table-cell" dir="ltr">{r.date}</td>
+                  <td class="px-3 py-2">
+                    <a href={r.weblink} target="_blank" rel="noopener" class="text-mc-diamond hover:underline text-xs">↗</a>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="text-xs text-mc-text-3 mt-2 text-center">
+      {bedrockRuns.length} رکورد — داده‌ها از Speedrun.com
+    </p>
+  </div>
+
+  <!-- Empty state -->
+  <div id="srEmpty" class="mc-panel text-center py-12 hidden">
+    <div class="text-5xl mb-4 text-mc-text-3">🔍</div>
+    <h3 class="text-xl font-bold text-mc-text-2 mb-2">هیچ رکوردی پیدا نشد</h3>
+    <p class="text-sm text-mc-text-3">فیلتر یا جستجوی دیگری امتحان کن</p>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    function setupSpeedrun() {
+      var tabs = document.querySelectorAll('.sr-tab');
+      var tableJava = document.getElementById('srTable-java');
+      var tableBedrock = document.getElementById('srTable-bedrock');
+      var search = document.getElementById('srSearch');
+      var catFilter = document.getElementById('srCategory');
+      var seedOnly = document.getElementById('srSeedOnly');
+      var empty = document.getElementById('srEmpty');
+      if (!tabs.length || !tableJava || !tableBedrock) return;
+
+      var currentPlatform = 'java';
+
+      function switchTab(platform) {
+        currentPlatform = platform;
+        tabs.forEach(function (t) {
+          var isActive = t.dataset.platform === platform;
+          t.classList.toggle('active', isActive);
+          t.classList.toggle('ghost', !isActive);
+        });
+        tableJava.classList.toggle('hidden', platform !== 'java');
+        tableBedrock.classList.toggle('hidden', platform !== 'bedrock');
+        applyFilter();
+      }
+
+      function applyFilter() {
+        var q = (search.value || '').trim().toLowerCase();
+        var cat = catFilter.value;
+        var seedOnlyChecked = seedOnly.checked;
+        var container = currentPlatform === 'java' ? tableJava : tableBedrock;
+        var rows = container.querySelectorAll('.sr-row');
+        var visible = 0;
+        rows.forEach(function (row) {
+          var show = true;
+          if (q) {
+            var player = row.dataset.player || '';
+            if (player.indexOf(q) === -1) show = false;
+          }
+          if (cat !== 'all' && row.dataset.category !== cat) show = false;
+          if (seedOnlyChecked && row.dataset.hasSeed !== 'true') show = false;
+          row.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        if (empty) empty.classList.toggle('hidden', visible > 0);
+      }
+
+      tabs.forEach(function (tab) {
+        tab.onclick = function () { switchTab(tab.dataset.platform); };
+      });
+      if (search) search.oninput = applyFilter;
+      if (catFilter) catFilter.onchange = applyFilter;
+      if (seedOnly) seedOnly.onchange = applyFilter;
+
+      // Initial
+      switchTab('java');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupSpeedrun);
+    } else {
+      setupSpeedrun();
+    }
+    document.addEventListener('astro:page-load', setupSpeedrun);
+  })();
+</script>
+
+<style>
+  .sr-tab {
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  .sr-tab.active {
+    background: var(--grass, #5fa838);
+    color: #fff;
+    border-color: var(--grass-3, #3d7521);
+  }
+  .sr-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--grass-3, #3d7521) var(--bg-2, #14142a);
+  }
+  .sr-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .sr-scroll::-webkit-scrollbar-track {
+    background: var(--bg-2, #14142a);
+  }
+  .sr-scroll::-webkit-scrollbar-thumb {
+    background: var(--grass-3, #3d7521);
+    border-radius: 4px;
+  }
+</style>
