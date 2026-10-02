@@ -98,16 +98,16 @@ for (const c of MOB_CATEGORIES) {
             >
               <div class="mx-auto mb-2 inline-flex items-center justify-center w-12 h-12">
                 <img
-                  src={`${BASE}textures/blocks/${m.icon.replace('px-', '').replace('-face', '')}.png`}
+                  src={`${BASE}textures/mobs/${m.icon.replace('px-', '').replace('-face', '')}.png`}
                   alt={m.nameFa}
-                  width="40"
-                  height="40"
+                  width="80"
+                  height="80"
                   loading="lazy"
                   decoding="async"
                   class="pixel-img"
                   onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
                 />
-                <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+                <svg width="80" height="80" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display:none;image-rendering:pixelated;width:80px;height:80px;">
                   <use href={`#${m.icon.startsWith('px-') ? m.icon : 'px-' + m.icon}`} />
                 </svg>
               </div>
