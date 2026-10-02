@@ -20,6 +20,7 @@
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
 import recipesJson from '@/data/crafting-recipes.json';
+import SteveViewer from '@components/SteveViewer.astro';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -236,6 +237,22 @@ function texPath(name?: string | null): string | null {
         هیچ رسپی پیدا نشد. کلمه‌ی دیگه‌ای امتحان کن.
       </p>
     </aside>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       Steve 3D Viewer (Phase 6: merged from /3d/ into /crafting/)
+       Uses Three.js + skinview3d with real Minecraft skin texture
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="craft-steve-section" aria-label="استیو سه‌بعدی">
+    <div class="craft-steve-header">
+      <h2 class="craft-steve-title">
+        <span>🧍</span> استیو کنار میز کار
+      </h2>
+      <p class="craft-steve-sub">با درگ بچرخون، با اسکرول زوم کن</p>
+    </div>
+    <div class="craft-steve-wrap">
+      <SteveViewer />
+    </div>
   </section>
 </BaseLayout>
 
@@ -983,5 +1000,39 @@ function texPath(name?: string | null): string | null {
     40% { transform: translateX(4px); }
     60% { transform: translateX(-2px); }
     80% { transform: translateX(2px); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     STEVE 3D SECTION (merged from /3d/)
+     ═══════════════════════════════════════════════════════════ */
+  .craft-steve-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px dashed var(--line, #2e2e4a);
+  }
+
+  .craft-steve-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .craft-steve-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text, #f0f0fa);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .craft-steve-sub {
+    font-size: 0.75rem;
+    color: var(--text-2, #b8b8d0);
+  }
+
+  .craft-steve-wrap {
+    max-width: 500px;
+    margin: 0 auto;
   }
 </style>

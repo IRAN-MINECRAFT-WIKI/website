@@ -19,8 +19,7 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
 const links = [
   { href: base('/'), label: 'خانه', icon: 'grass-block', type: 'block', color: '#5fa838' },
   { href: base('/mods'), label: 'افزونه‌ها', icon: 'chest', type: 'block', color: '#9c7b4e' },
-  { href: base('/crafting'), label: 'کرافت', icon: 'crafting-table-top', type: 'block', color: '#9c7b4e' },
-  { href: base('/3d'), label: 'دنیای سه‌بعدی', icon: 'grass-block', type: 'block', color: '#4aedd9' },
+  { href: base('/crafting'), label: 'کرافت + ۳D', icon: 'crafting-table-top', type: 'block', color: '#9c7b4e' },
   { href: base('/wiki'), label: 'ویکی', icon: 'book', type: 'item', color: '#7cc84a' },
   { href: base('/speedrun'), label: 'سرعت‌رانی', icon: 'clock', type: 'item', color: '#fcb32b' },
   { href: base('/versions'), label: 'نسخه‌ها', icon: 'grass-block', type: 'block', color: '#5fa838' },
@@ -73,7 +72,7 @@ const links = [
             />
           </div>
           <span class="qa-card-label">{link.label}</span>
-          <span class="qa-card-sub">{link.label === 'خانه' ? 'صفحه اصلی' : link.label === 'افزونه‌ها' ? 'ماد‌ها' : link.label === 'کرافت' ? 'Crafting' : link.label === 'دنیای سه‌بعدی' ? '3D World' : link.label === 'ویکی' ? 'Wiki' : link.label === 'نسخه‌ها' ? 'Versions' : link.label === 'سیدها' ? 'Seeds' : link.label === 'دسته‌ها' ? 'Categories' : link.label === 'وبلاگ' ? 'Blog' : link.label === 'آموزش' ? 'Tutorials' : 'About'}</span>
+          <span class="qa-card-sub">{link.label === 'خانه' ? 'صفحه اصلی' : link.label === 'افزونه‌ها' ? 'ماد‌ها' : link.label === 'کرافت + ۳D' ? 'Crafting + Steve' : link.label === 'ویکی' ? 'Wiki' : link.label === 'سرعت‌رانی' ? 'Speedrun' : link.label === 'نسخه‌ها' ? 'Versions' : link.label === 'سیدها' ? 'Seeds' : link.label === 'دسته‌ها' ? 'Categories' : link.label === 'وبلاگ' ? 'Blog' : link.label === 'آموزش' ? 'Tutorials' : 'About'}</span>
         </a>
       ))}
     </div>
