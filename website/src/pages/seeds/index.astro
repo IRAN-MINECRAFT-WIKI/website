@@ -21,34 +21,59 @@ const catCounts = ['spawn', 'resources', 'structures', 'speedrun'].map((c) => ({
     speedrun: 'اسپیدران',
   }[c] || c,
 }));
+
+// Distinct versions, newest-first
+const versions = Array.from(new Set(seeds.map((s) => s.version))).sort((a, b) => b.localeCompare(a));
+const versionCounts = versions.map((v) => ({ id: v, count: seeds.filter((s) => s.version === v).length }));
 ---
 
 <BaseLayout
   path="/seeds"
   title="بهترین سیدهای ماینکرفت بدراک"
-  description="لیست بهترین سیدهای ماینکرفت بدراک با منابع فراوان، Stronghold، Ancient City و Diamond Mine. مناسب برای Survival، Speedrun و ساخت‌وساز."
+  description="لیست بهترین سیدهای ماینکرفت بدراک با منابع فراوان، Stronghold، Ancient City و Diamond Mine. مناسب برای Survival، Speedrun و ساخت‌وساز. ابزار ساخت سید هم موجود است."
 >
   <Breadcrumbs items={breadcrumb} />
 
-  <div class="mb-6">
-    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">بهترین سیدهای ماینکرفت</h1>
-    <p class="text-sm text-mc-text-2">{seeds.length} سید دست‌چین شده با توضیحات کامل</p>
+  <div class="flex items-start justify-between gap-4 mb-6 flex-wrap">
+    <div>
+      <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">بهترین سیدهای ماینکرفت</h1>
+      <p class="text-sm text-mc-text-2">{seeds.length} سید دست‌چین شده با توضیحات کامل · یا خودت یک سید بساز</p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <a href={base('/seeds/create')} class="mc-btn">
+        <span aria-hidden="true">🎲</span> ساخت سید
+      </a>
+      <a href={base('/seeds/my')} class="mc-btn ghost">
+        <span aria-hidden="true">📥</span> سیدهای من
+      </a>
+    </div>
   </div>
 
-  <!-- Filter chips -->
-  <div class="flex flex-wrap gap-2 mb-6" id="seedChips">
-    <button class="mc-chip active" data-cat="all">همه ({seeds.length})</button>
-    {catCounts.map((c) => (
-      <button class="mc-chip" data-cat={c.id}>
-        {c.name} ({c.count})
-      </button>
-    ))}
+  <!-- Filter toolbar: category chips + version dropdown -->
+  <div class="mc-panel p-3 mb-5 flex flex-wrap items-center gap-3">
+    <div class="flex flex-wrap gap-2" id="seedChips">
+      <button class="mc-chip active" data-cat="all">همه ({seeds.length})</button>
+      {catCounts.map((c) => (
+        <button class="mc-chip" data-cat={c.id}>
+          {c.name} ({c.count})
+        </button>
+      ))}
+    </div>
+    <div class="mr-auto flex items-center gap-2">
+      <label for="versionFilter" class="text-xs text-mc-text-3 font-bold">نسخه:</label>
+      <select id="versionFilter" class="sw-input text-xs py-1.5 px-2">
+        <option value="all">همه نسخه‌ها</option>
+        {versionCounts.map((v) => (
+          <option value={v.id}>MC {v.id} ({v.count})</option>
+        ))}
+      </select>
+    </div>
   </div>
 
   <!-- Seeds grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="seedsGrid">
     {seeds.map((seed) => (
-      <a href={base(`/seeds/${seed.id}`)} class="mc-card group flex flex-col" data-cat={seed.category}>
+      <a href={base(`/seeds/${seed.id}`)} class="mc-card group flex flex-col" data-cat={seed.category} data-ver={seed.version}>
         <div class="p-5">
           <div class="flex items-start justify-between gap-2 mb-3">
             <span class="text-4xl">{seed.icon}</span>
@@ -79,24 +104,56 @@ const catCounts = ['spawn', 'resources', 'structures', 'speedrun'].map((c) => ({
   (function () {
     const chips = document.querySelectorAll('#seedChips .mc-chip');
     const items = document.querySelectorAll('#seedsGrid > [data-cat]');
+    const verSel = document.getElementById('versionFilter');
+    if (!chips.length || !items.length) return;
+
+    let curCat = 'all';
+    let curVer = 'all';
+
+    function apply() {
+      items.forEach((item) => {
+        const catOK = curCat === 'all' || item.dataset.cat === curCat;
+        const verOK = curVer === 'all' || item.dataset.ver === curVer;
+        item.style.display = (catOK && verOK) ? '' : 'none';
+      });
+      // Update visible count
+      const visible = Array.from(items).filter((i) => i.style.display !== 'none').length;
+      const counter = document.getElementById('visibleCount');
+      if (counter) counter.textContent = String(visible);
+    }
+
     chips.forEach((chip) => {
       chip.addEventListener('click', () => {
         chips.forEach((c) => c.classList.remove('active'));
         chip.classList.add('active');
-        const cat = chip.dataset.cat;
-        items.forEach((item) => {
-          if (cat === 'all' || item.dataset.cat === cat) {
-            item.style.display = '';
-          } else {
-            item.style.display = 'none';
-          }
-        });
+        curCat = chip.dataset.cat;
+        apply();
       });
     });
+
+    if (verSel) {
+      verSel.addEventListener('change', () => {
+        curVer = verSel.value;
+        apply();
+      });
+    }
   })();
 </script>
 
 <style>
+  .sw-input {
+    background: var(--bg-2, #0d0d18);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    border-radius: 4px;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sw-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+    background: #141428;
+  }
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;

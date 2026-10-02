@@ -1,0 +1,196 @@
+---
+// src/components/StatsWidget.astro
+// Floating stats widget shown on every page — bottom-center, above the
+// footer. Three numbers: 🟢 online  📈 today  🔥 total. Click → /stats.
+//
+// All numbers come from src/lib/analytics.js (client-side only).
+// Online is simulated; today & total are locally-tracked visit counts.
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+---
+
+<a
+  id="statsWidget"
+  class="stats-widget"
+  href={base('/stats')}
+  aria-label="آمار سایت — کلیک برای مشاهده نمودار کامل"
+  title="آمار بازدید سایت"
+>
+  <span class="sw-dot" aria-hidden="true"></span>
+  <span class="sw-pill" id="swOnline" aria-live="polite">— آنلاین</span>
+  <span class="sw-sep" aria-hidden="true"></span>
+  <span class="sw-pill">
+    <span class="sw-icon" aria-hidden="true">📈</span>
+    <span id="swToday">—</span>
+    <span class="sw-pill-label">امروز</span>
+  </span>
+  <span class="sw-sep" aria-hidden="true"></span>
+  <span class="sw-pill">
+    <span class="sw-icon" aria-hidden="true">🔥</span>
+    <span id="swTotal">—</span>
+    <span class="sw-pill-label">کل</span>
+  </span>
+</a>
+
+<style>
+  .stats-widget {
+    position: fixed;
+    bottom: 0.75rem;
+    /* RTL: anchor to the left edge so the widget hugs the same side as
+       the BackToTop + MusicPlayer (which are on the left in RTL layout). */
+    left: 0.75rem;
+    z-index: 45;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.7rem;
+    background: rgba(13, 13, 24, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(124, 200, 74, 0.25);
+    border-radius: 999px;
+    color: #e8e8f4;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    user-select: none;
+    line-height: 1;
+    /* RTL: numbers stay LTR inside the Persian pills */
+    direction: ltr;
+  }
+
+  .stats-widget:hover {
+    background: rgba(28, 28, 52, 0.9);
+    border-color: rgba(124, 200, 74, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6),
+      0 0 16px rgba(124, 200, 74, 0.18);
+  }
+
+  .stats-widget:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .sw-dot {
+    width: 8px;
+    height: 8px;
+    background: #7cc84a;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(124, 200, 74, 0.8);
+    animation: swPulse 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes swPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(0.75); }
+  }
+
+  .sw-pill {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    white-space: nowrap;
+  }
+
+  .sw-pill-label {
+    color: #b8b8d0;
+    font-weight: 600;
+    font-size: 0.65rem;
+    /* Persian label inside LTR pills stays RTL */
+    direction: rtl;
+    unicode-bidi: plaintext;
+  }
+
+  .sw-icon {
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  .sw-sep {
+    width: 1px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+  }
+
+  /* Mobile: collapse to a single compact pill — show only online + today */
+  @media (max-width: 540px) {
+    .stats-widget {
+      font-size: 0.62rem;
+      padding: 0.35rem 0.55rem;
+      gap: 0.3rem;
+      bottom: 0.5rem;
+      left: 0.5rem;
+    }
+    .stats-widget .sw-pill:last-child {
+      display: none;
+    }
+    .stats-widget .sw-sep:last-of-type {
+      display: none;
+    }
+    .sw-pill-label {
+      font-size: 0.6rem;
+    }
+  }
+
+  /* When the BackToTop is visible (scrolled past 600px), lift the widget
+     above it so they don't overlap on mobile. */
+  body.bt-visible .stats-widget {
+    bottom: 4rem;
+  }
+  @media (min-width: 541px) {
+    body.bt-visible .stats-widget {
+      bottom: 0.75rem; /* desktop: BT is on the opposite side, no overlap */
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sw-dot {
+      animation: none;
+    }
+    .stats-widget {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { trackVisit, getStats, heartbeat, fmtFa } from '@/lib/analytics.js';
+
+  function paintWidget() {
+    const s = getStats();
+    const elOnline = document.getElementById('swOnline');
+    const elToday = document.getElementById('swToday');
+    const elTotal = document.getElementById('swTotal');
+    if (elOnline) elOnline.textContent = `${fmtFa(s.online)} آنلاین`;
+    if (elToday) elToday.textContent = fmtFa(s.today);
+    if (elTotal) elTotal.textContent = fmtFa(s.total, { short: true });
+  }
+
+  function setupStatsWidget() {
+    // Track this visit (de-dupes within 60s for the same path).
+    trackVisit();
+    // Paint initial values
+    paintWidget();
+    // Re-paint on View Transitions
+    document.addEventListener('astro:page-load', paintWidget);
+    // Heartbeat every 30s — refreshes "online" pulse + last-seen.
+    if (!window.__mbStatsHB) {
+      window.__mbStatsHB = setInterval(() => {
+        heartbeat();
+        paintWidget();
+      }, 30_000);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupStatsWidget);
+  } else {
+    setupStatsWidget();
+  }
+</script>

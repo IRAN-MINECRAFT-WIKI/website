@@ -6,6 +6,7 @@ import Footer from '@components/Footer.astro';
 import StructuredData from '@components/StructuredData.astro';
 import MusicPlayer from '@components/MusicPlayer.astro';
 import BackToTop from '@components/BackToTop.astro';
+import StatsWidget from '@components/StatsWidget.astro';
 import Preloader from '@components/Preloader.astro';
 import ParticleEffects from '@components/ParticleEffects.astro';
 import Icons from '@components/icons.astro';
@@ -189,8 +190,9 @@ const orgLd = organizationJsonLd();
     </main>
     <Footer />
 
-    <!-- Floating UI: music player + back-to-top -->
+    <!-- Floating UI: music player + back-to-top + stats widget -->
     <MusicPlayer />
     <BackToTop />
+    <StatsWidget />
   </body>
 </html>

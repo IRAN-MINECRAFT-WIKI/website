@@ -1,0 +1,473 @@
+---
+// src/pages/seeds/my.astro
+// Personal saved seeds — backed by IndexedDB.
+// All seeds the user has saved via /seeds/create live here.
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import BackButton from '@components/BackButton.astro';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'سیدها', url: '/seeds' },
+  { name: 'سیدهای من', url: '/seeds/my' },
+];
+---
+
+<BaseLayout
+  path="/seeds/my"
+  title="سیدهای من — سیدهای ذخیره‌شده"
+  description="مجموعه‌ی شخصی سیدهای ماینکرفت که ساخته‌ای. سیدها در مرورگر شما ذخیره می‌شوند (IndexedDB) — بدون حساب کاربری."
+>
+  <Breadcrumbs items={breadcrumb} />
+  <BackButton />
+
+  <div class="mb-6 flex items-start justify-between gap-3 flex-wrap">
+    <div>
+      <h1 class="text-2xl lg:text-3xl font-extrabold mb-1">📥 سیدهای من</h1>
+      <p class="text-sm text-mc-text-2">
+        سیدهایی که ساخته‌ای اینجا ذخیره می‌شن. داده‌ها فقط روی همین مرورگر نگه‌داری می‌شن — بدون نیاز به حساب کاربری.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <a href={base('/seeds/create')} class="mc-btn">
+        <span aria-hidden="true">🎲</span> ساخت سید جدید
+      </a>
+      <a href={base('/seeds')} class="mc-btn ghost">
+        <span aria-hidden="true">🌍</span> سیدهای عمومی
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div id="myStatsStrip" class="mc-panel p-3 mb-5 hidden">
+    <div class="flex flex-wrap items-center gap-4 text-sm">
+      <span class="flex items-center gap-2">
+        <span aria-hidden="true">📦</span>
+        <span>تعداد سیدها:</span>
+        <strong id="msCount" class="text-mc-grass-2">۰</strong>
+      </span>
+      <span class="flex items-center gap-2">
+        <span aria-hidden="true">🗓️</span>
+        <span>آخرین ذخیره:</span>
+        <strong id="msLast" class="text-mc-text-2">—</strong>
+      </span>
+      <button id="clearAllBtn" class="mc-btn small danger ml-auto">
+        <span aria-hidden="true">🗑️</span> حذف همه
+      </button>
+    </div>
+  </div>
+
+  <!-- Seeds grid (populated by JS) -->
+  <div id="seedsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+  <!-- Empty state (before any seed is loaded) -->
+  <section id="emptyState" class="mc-panel p-10 text-center">
+    <div class="text-6xl mb-4" aria-hidden="true">🌱</div>
+    <h2 class="text-xl font-extrabold mb-2">هنوز سیدی ذخیره نکردی</h2>
+    <p class="text-sm text-mc-text-2 mb-5">
+      با ابزار «ساخت سید» می‌تونی سید دلخواهت رو با ویژگی‌های انتخابی بسازی و اینجا ذخیره کنی.
+    </p>
+    <a href={base('/seeds/create')} class="mc-btn big">
+      <span aria-hidden="true">🎲</span> شروع ساخت سید
+    </a>
+  </section>
+
+  <!-- Loading state -->
+  <section id="loadingState" class="mc-panel p-10 text-center hidden">
+    <div class="spinner-big mx-auto mb-3" aria-hidden="true"></div>
+    <p class="text-mc-text-2 text-sm">در حال بارگذاری سیدهای ذخیره‌شده…</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .my-card {
+    background: rgba(13, 13, 24, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.2s ease-out;
+    display: flex;
+    flex-direction: column;
+  }
+  .my-card:hover {
+    border-color: rgba(124, 200, 74, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+  .my-card-head {
+    background: linear-gradient(135deg, rgba(124, 200, 74, 0.12), rgba(124, 200, 74, 0.02));
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .my-card-code {
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: #4aedd9;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(74, 237, 217, 0.3);
+    padding: 0.4rem 0.55rem;
+    border-radius: 4px;
+    word-break: break-all;
+    direction: ltr;
+    margin-top: 0.4rem;
+    cursor: pointer;
+  }
+  .my-card-code:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .my-card-body {
+    padding: 0.85rem 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .my-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+  }
+  .my-meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: rgba(28, 28, 52, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    color: #b8b8d0;
+  }
+  .my-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.25rem;
+  }
+  .my-feature-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.65rem;
+    background: rgba(124, 200, 74, 0.08);
+    border: 1px solid rgba(124, 200, 74, 0.25);
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    color: #c9e8a8;
+  }
+  .my-coords {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    padding: 0.45rem 0.55rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    color: #b8b8d0;
+    margin-top: 0.25rem;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+  .my-coord-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.1rem 0;
+    direction: ltr;
+  }
+  .my-card-foot {
+    padding: 0.55rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .my-time {
+    font-size: 0.65rem;
+    color: #8585a3;
+  }
+  .my-actions {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .my-action-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #b8b8d0;
+    padding: 0.3rem 0.55rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .my-action-btn:hover {
+    border-color: rgba(124, 200, 74, 0.5);
+    color: #fff;
+  }
+  .my-action-btn.danger:hover {
+    border-color: rgba(255, 100, 100, 0.5);
+    color: #ff8b8b;
+  }
+
+  .spinner-big {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(124, 200, 74, 0.15);
+    border-top-color: #7cc84a;
+    border-radius: 50%;
+    animation: spinBig 0.8s linear infinite;
+  }
+  @keyframes spinBig {
+    to { transform: rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .spinner-big { animation: none; }
+  }
+</style>
+
+<script>
+  // ============================================================
+  // /seeds/my — render saved seeds from IndexedDB
+  // ============================================================
+  import { getAllSeeds, deleteSeed, countSeeds, openDB } from '@/lib/seeddb.js';
+
+  const FEATURE_DEFS = {
+    'village':          { label: 'روستا',            icon: '🏠' },
+    'ancient-city':     { label: 'شهر باستانی',      icon: '🏛️' },
+    'mushroom-island':  { label: 'جزیره قارچ',       icon: '🍄' },
+    'ocean-monument':  { label: 'بنای اقیانوسی',     icon: '🌊' },
+    'woodland-mansion': { label: 'عمارت جنگلی',      icon: '🏰' },
+    'stronghold':       { label: 'Stronghold',       icon: '🌋' },
+    'nether-fortress':  { label: 'قلعه‌ی ندر',         icon: '🔥' },
+    'end-city':         { label: 'شهر End',          icon: '🚢' },
+  };
+
+  let allSeeds = [];
+
+  async function setupMySeedsPage() {
+    const grid = document.getElementById('seedsGrid');
+    const empty = document.getElementById('emptyState');
+    const loading = document.getElementById('loadingState');
+    const stats = document.getElementById('myStatsStrip');
+    if (!grid) return;
+
+    // Show loading
+    empty.classList.add('hidden');
+    grid.classList.add('hidden');
+    stats.classList.add('hidden');
+    loading.classList.remove('hidden');
+
+    // Check IndexedDB support
+    try {
+      await openDB();
+    } catch (e) {
+      loading.classList.add('hidden');
+      grid.innerHTML = '<div class="mc-panel p-6 text-center col-span-full">' +
+        '<div class="text-4xl mb-2">⚠️</div>' +
+        '<p class="text-mc-text-2 mb-2">مرورگر شما از IndexedDB پشتیبانی نمی‌کنه.</p>' +
+        '<p class="text-xs text-mc-text-3">برای ذخیره‌ی سیدها از مرورگر مدرن (Chrome / Firefox / Edge) استفاده کن.</p>' +
+        '</div>';
+      grid.classList.remove('hidden');
+      return;
+    }
+
+    try {
+      allSeeds = await getAllSeeds();
+    } catch (e) {
+      console.error('Failed to load seeds:', e);
+      allSeeds = [];
+    }
+
+    loading.classList.add('hidden');
+
+    if (allSeeds.length === 0) {
+      empty.classList.remove('hidden');
+      return;
+    }
+
+    // Stats strip
+    const countEl = document.getElementById('msCount');
+    const lastEl = document.getElementById('msLast');
+    if (countEl) countEl.textContent = toFa(String(allSeeds.length));
+    if (lastEl && allSeeds[0]) {
+      const d = new Date(allSeeds[0].createdAt);
+      lastEl.textContent = d.toLocaleDateString('fa-IR', {
+        year: 'numeric', month: 'long', day: 'numeric',
+      });
+    }
+    stats.classList.remove('hidden');
+
+    // Render cards
+    grid.innerHTML = '';
+    allSeeds.forEach((seed) => {
+      grid.appendChild(renderCard(seed));
+    });
+    grid.classList.remove('hidden');
+
+    // Wire up clear-all
+    const clearBtn = document.getElementById('clearAllBtn');
+    if (clearBtn && !clearBtn.dataset.wired) {
+      clearBtn.dataset.wired = '1';
+      clearBtn.addEventListener('click', async () => {
+        if (!confirm('همه‌ی سیدهای ذخیره‌شده حذف بشن؟ این عمل قابل بازگشت نیست.')) return;
+        for (const s of allSeeds) {
+          try { await deleteSeed(s.id); } catch {}
+        }
+        location.reload();
+      });
+    }
+  }
+
+  function renderCard(seed) {
+    const card = document.createElement('article');
+    card.className = 'my-card';
+    card.dataset.id = seed.id;
+
+    // Head: seed code
+    const head = document.createElement('div');
+    head.className = 'my-card-head';
+    head.innerHTML =
+      '<div class="text-xs text-mc-text-3 mb-1">سید:</div>' +
+      '<div class="my-card-code" title="کلیک برای کپی">' + escapeHtml(seed.code) + '</div>';
+    card.appendChild(head);
+
+    // Body: meta + features + coords
+    const body = document.createElement('div');
+    body.className = 'my-card-body';
+
+    const meta = document.createElement('div');
+    meta.className = 'my-meta-row';
+    const platFa = seed.platform === 'java' ? '☕ Java' : '📱 Bedrock';
+    meta.innerHTML =
+      '<span class="my-meta-pill">MC ' + escapeHtml(seed.version) + '</span>' +
+      '<span class="my-meta-pill">' + platFa + '</span>' +
+      '<span class="my-meta-pill">' + (seed.features || []).length + ' ویژگی</span>';
+    body.appendChild(meta);
+
+    // Features
+    const featWrap = document.createElement('div');
+    featWrap.className = 'my-features';
+    (seed.features || []).forEach((fId) => {
+      const def = FEATURE_DEFS[fId] || { label: fId, icon: '❓' };
+      const chip = document.createElement('span');
+      chip.className = 'my-feature-chip';
+      chip.innerHTML = '<span>' + def.icon + '</span><span>' + escapeHtml(def.label) + '</span>';
+      featWrap.appendChild(chip);
+    });
+    body.appendChild(featWrap);
+
+    // Coords
+    if (seed.coords && seed.coords.length > 0) {
+      const coords = document.createElement('div');
+      coords.className = 'my-coords';
+      seed.coords.forEach((c) => {
+        const def = FEATURE_DEFS[c.feature] || { label: c.feature, icon: '📍' };
+        const line = document.createElement('div');
+        line.className = 'my-coord-line';
+        line.innerHTML =
+          '<span style="color:#c9e8a8">' + def.icon + ' ' + escapeHtml(c.label || def.label) + '</span>' +
+          '<span class="font-mono" style="color:#4aedd9">X:' + toFa(String(c.x)) + ' Y:' + toFa(String(c.y)) + ' Z:' + toFa(String(c.z)) + '</span>';
+        coords.appendChild(line);
+      });
+      body.appendChild(coords);
+    }
+
+    card.appendChild(body);
+
+    // Foot: created time + actions
+    const foot = document.createElement('div');
+    foot.className = 'my-card-foot';
+    const d = new Date(seed.createdAt);
+    foot.innerHTML =
+      '<span class="my-time">' + d.toLocaleDateString('fa-IR') + ' ' + d.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' }) + '</span>' +
+      '<div class="my-actions">' +
+        '<button class="my-action-btn" data-act="copy" data-code="' + escapeHtml(seed.code) + '">' +
+          '<span>📋</span> کپی' +
+        '</button>' +
+        '<button class="my-action-btn danger" data-act="delete" data-id="' + escapeHtml(seed.id) + '">' +
+          '<span>🗑️</span> حذف' +
+        '</button>' +
+      '</div>';
+    card.appendChild(foot);
+
+    // Wire up action buttons
+    foot.querySelectorAll('.my-action-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const act = btn.dataset.act;
+        if (act === 'copy') {
+          navigator.clipboard.writeText(btn.dataset.code).then(() => {
+            const original = btn.innerHTML;
+            btn.innerHTML = '<span>✓</span> کپی شد';
+            setTimeout(() => { btn.innerHTML = original; }, 1500);
+          });
+        } else if (act === 'delete') {
+          onDelete(btn.dataset.id, card);
+        }
+      });
+    });
+
+    // Click seed code to copy
+    head.querySelector('.my-card-code').addEventListener('click', (e) => {
+      e.stopPropagation();
+      navigator.clipboard.writeText(seed.code).then(() => {
+        const codeEl = head.querySelector('.my-card-code');
+        const original = codeEl.style.borderColor;
+        codeEl.style.borderColor = '#7cc84a';
+        setTimeout(() => { codeEl.style.borderColor = original; }, 800);
+      });
+    });
+
+    return card;
+  }
+
+  async function onDelete(id, card) {
+    if (!confirm('این سید حذف بشه؟')) return;
+    try {
+      await deleteSeed(id);
+      card.style.transition = 'opacity 0.2s, transform 0.2s';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(-8px) scale(0.96)';
+      setTimeout(() => {
+        card.remove();
+        // If no cards remain, show empty state again
+        const grid = document.getElementById('seedsGrid');
+        if (grid && grid.children.length === 0) {
+          grid.classList.add('hidden');
+          document.getElementById('myStatsStrip').classList.add('hidden');
+          document.getElementById('emptyState').classList.remove('hidden');
+        }
+      }, 200);
+    } catch (e) {
+      console.error('Failed to delete seed:', e);
+      alert('خطا در حذف سید. کنسول را ببین.');
+    }
+  }
+
+  // Helpers
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function toFa(s) {
+    const fa = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return String(s).replace(/[0-9]/g, (d) => fa[+d]).replace(/-/g, '−');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupMySeedsPage);
+  } else {
+    setupMySeedsPage();
+  }
+  document.addEventListener('astro:page-load', setupMySeedsPage);
+</script>

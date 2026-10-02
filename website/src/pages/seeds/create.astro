@@ -1,0 +1,487 @@
+---
+// src/pages/seeds/create.astro
+// Seed Finder UI — let the user pick version / platform / features,
+// then "generate" a random seed with simulated coordinates for each
+// feature.
+//
+// Why simulated coords:
+//   The full seed finder uses Cubiomes WASM (~600KB) which is too heavy
+//   to ship as a default page weight. For the v1 we ship a simulation
+//   (random 19-digit seed + plausible block coords for each selected
+//   feature). The UX is identical — copy the seed, paste into the
+//   in-game "Create New World" dialog. The simulation will be replaced
+//   with a real Cubiomes fetch in a later phase.
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import BackButton from '@components/BackButton.astro';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'سیدها', url: '/seeds' },
+  { name: 'ساخت سید', url: '/seeds/create' },
+];
+
+const versions = ['1.21', '1.20', '1.19', '1.18', '1.17', '1.16'];
+
+const features = [
+  { id: 'village',        label: 'روستا',                icon: '🏠', dim: 'overworld' },
+  { id: 'ancient-city',   label: 'شهر باستانی',          icon: '🏛️', dim: 'overworld' },
+  { id: 'mushroom-island', label: 'جزیره قارچ',           icon: '🍄', dim: 'overworld' },
+  { id: 'ocean-monument', label: 'بنای اقیانوسی',        icon: '🌊', dim: 'overworld' },
+  { id: 'woodland-mansion', label: 'عمارت جنگلی',        icon: '🏰', dim: 'overworld' },
+  { id: 'stronghold',     label: 'پناهگاه (Stronghold)', icon: '🌋', dim: 'overworld' },
+  { id: 'nether-fortress', label: 'قلعه‌ی ندر',           icon: '🔥', dim: 'nether' },
+  { id: 'end-city',       label: 'شهر End',               icon: '🚢', dim: 'end' },
+];
+---
+
+<BaseLayout
+  path="/seeds/create"
+  title="ساخت سید ماینکرفت — Seed Finder"
+  description="با انتخاب ویژگی‌های دلخواه (روستا، Stronghold، Ancient City و...) یک سید ماینکرفت تصادفی با مختصات شبیه‌سازی‌شده تولید کن و در مجموعه‌ی خودت ذخیره کن."
+>
+  <Breadcrumbs items={breadcrumb} />
+  <BackButton />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">🌾 ساخت سید ماینکرفت</h1>
+    <p class="text-sm text-mc-text-2">
+      نسخه و پلتفرم را انتخاب کن، ویژگی‌های مدنظرت را تیک بزن و روی «تولید سید» بزن.
+      سید و مختصات هر ویژگی نمایش داده می‌شود. می‌تونی سید را کپی کنی یا در «سیدهای من» ذخیره کنی.
+    </p>
+  </div>
+
+  <!-- Configuration -->
+  <section class="mc-panel p-5 mb-5">
+    <h2 class="text-lg font-extrabold mb-4 flex items-center gap-2">
+      <span>⚙️</span> پیکربندی
+    </h2>
+
+    <div class="grid sm:grid-cols-2 gap-4 mb-5">
+      <label class="block">
+        <span class="text-xs font-bold text-mc-text-3 mb-1 block">نسخه بازی</span>
+        <select id="versionSelect" class="sw-input w-full">
+          {versions.map((v) => <option value={v}>Minecraft {v}</option>)}
+        </select>
+      </label>
+      <label class="block">
+        <span class="text-xs font-bold text-mc-text-3 mb-1 block">پلتفرم</span>
+        <select id="platformSelect" class="sw-input w-full">
+          <option value="bedrock">📱 بدراک (Bedrock)</option>
+          <option value="java">☕ جاوا (Java)</option>
+        </select>
+      </label>
+    </div>
+
+    <h3 class="text-sm font-extrabold mb-3 text-mc-text-2">ویژگی‌های مورد نظر</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="featureGrid">
+      {features.map((f) => (
+        <label class="feature-card" data-feature={f.id} data-dim={f.dim}>
+          <input type="checkbox" class="feature-cb" value={f.id} />
+          <span class="feature-icon" aria-hidden="true">{f.icon}</span>
+          <span class="feature-label">{f.label}</span>
+        </label>
+      ))}
+    </div>
+  </section>
+
+  <!-- Generate button -->
+  <div class="flex flex-wrap gap-3 mb-5">
+    <button id="genBtn" class="mc-btn big">
+      <span aria-hidden="true">🔍</span>
+      <span>تولید سید</span>
+    </button>
+    <a href={base('/seeds/my')} class="mc-btn ghost">
+      <span aria-hidden="true">📥</span>
+      <span>سیدهای من</span>
+    </a>
+    <a href={base('/seeds')} class="mc-btn ghost">
+      <span aria-hidden="true">🌍</span>
+      <span>سیدهای عمومی</span>
+    </a>
+  </div>
+
+  <!-- Result -->
+  <section id="resultPanel" class="mc-panel p-5 hidden" aria-live="polite">
+    <header class="flex items-start justify-between gap-3 mb-4 flex-wrap">
+      <h2 class="text-lg font-extrabold flex items-center gap-2">
+        <span>🎯</span> سید تولیدشده
+      </h2>
+      <div class="flex gap-2">
+        <button id="saveBtn" class="mc-btn small">
+          <span aria-hidden="true">💾</span> ذخیره در سیدهای من
+        </button>
+        <button id="copyBtn" class="mc-btn small ghost">
+          <span aria-hidden="true">📋</span> کپی سید
+        </button>
+      </div>
+    </header>
+
+    <!-- Seed value -->
+    <div class="bg-mc-bg-2 border-2 border-mc-gold p-3 mb-4 cursor-pointer" id="seedCodeWrap">
+      <div class="text-xs text-mc-text-3 mb-1">سید (برای کپی کلیک کنید):</div>
+      <div class="font-mono text-lg text-mc-diamond break-all" id="seedCode">—</div>
+    </div>
+
+    <!-- Meta -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 text-xs">
+      <div class="meta-cell">
+        <span class="meta-label">نسخه</span>
+        <span class="meta-value" id="metaVersion">—</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">پلتفرم</span>
+        <span class="meta-value" id="metaPlatform">—</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">تعداد ویژگی</span>
+        <span class="meta-value" id="metaCount">—</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">زمان تولید</span>
+        <span class="meta-value" id="metaTime">—</span>
+      </div>
+    </div>
+
+    <!-- Coords table -->
+    <h3 class="text-sm font-extrabold mb-2 text-mc-text-2">مختصات ویژگی‌ها</h3>
+    <div id="coordsList" class="space-y-2">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- Footer actions -->
+    <div class="flex flex-wrap gap-2 mt-5 pt-4 border-t border-mc-line">
+      <button id="newBtn" class="mc-btn">
+        <span aria-hidden="true">🎲</span> ساخت سید جدید
+      </button>
+      <a href={base('/seeds/my')} class="mc-btn ghost">
+        <span aria-hidden="true">📥</span> مشاهده سیدهای من
+      </a>
+    </div>
+  </section>
+
+  <!-- Empty state (before any generation) -->
+  <section id="emptyState" class="mc-panel p-8 text-center">
+    <div class="text-5xl mb-3" aria-hidden="true">🎲</div>
+    <p class="text-mc-text-2 mb-1">هنوز سیدی تولید نشده.</p>
+    <p class="text-xs text-mc-text-3">نسخه و پلتفرم را انتخاب کن، ویژگی‌ها را تیک بزن و «تولید سید» را بزن.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .sw-input {
+    background: var(--bg-2, #0d0d18);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.875rem;
+    font-family: inherit;
+    border-radius: 4px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sw-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+    background: #141428;
+  }
+
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.85rem 0.5rem;
+    background: rgba(28, 28, 52, 0.5);
+    border: 2px solid var(--line, #2a2a3e);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s ease-out;
+    text-align: center;
+    user-select: none;
+  }
+  .feature-card:hover {
+    border-color: rgba(124, 200, 74, 0.5);
+    background: rgba(28, 28, 52, 0.8);
+  }
+  .feature-card:has(.feature-cb:checked) {
+    border-color: var(--grass-2, #7cc84a);
+    background: linear-gradient(135deg, rgba(124, 200, 74, 0.18), rgba(124, 200, 74, 0.05));
+    box-shadow: 0 0 0 1px rgba(124, 200, 74, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
+  }
+  .feature-cb {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .feature-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  }
+  .feature-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-2, #b8b8d0);
+    line-height: 1.2;
+  }
+  .feature-card:has(.feature-cb:checked) .feature-label {
+    color: #fff;
+  }
+
+  .meta-cell {
+    background: rgba(13, 13, 24, 0.6);
+    border: 1px solid var(--line, #2a2a3e);
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .meta-label {
+    font-size: 0.65rem;
+    color: var(--text-3, #8585a3);
+    font-weight: 700;
+  }
+  .meta-value {
+    font-size: 0.85rem;
+    color: var(--text, #f0f0fa);
+    font-weight: 700;
+    font-family: 'Rooyin', monospace;
+  }
+
+  .coord-row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 0.65rem;
+    align-items: center;
+    background: rgba(13, 13, 24, 0.5);
+    border: 1px solid var(--line, #2a2a3e);
+    padding: 0.55rem 0.75rem;
+    border-radius: 6px;
+  }
+  .coord-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    text-align: center;
+  }
+  .coord-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text, #f0f0fa);
+  }
+  .coord-dim {
+    font-size: 0.65rem;
+    color: var(--text-3, #8585a3);
+    font-weight: 600;
+  }
+  .coord-xyz {
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: var(--diamond, #4aedd9);
+    letter-spacing: 0.5px;
+    /* LTR even in RTL pages */
+    direction: ltr;
+  }
+</style>
+
+<script>
+  // ============================================================
+  // /seeds/create — seed finder simulation
+  // ============================================================
+  import { addSeed } from '@/lib/seeddb.js';
+  import { getOrCreateUUID } from '@/lib/uuid.js';
+
+  const FEATURE_DEFS = {
+    'village':          { label: 'روستا',                icon: '🏠', dim: 'overworld', dimFa: 'اورلرد' },
+    'ancient-city':     { label: 'شهر باستانی',          icon: '🏛️', dim: 'overworld', dimFa: 'اورلرد' },
+    'mushroom-island':  { label: 'جزیره قارچ',           icon: '🍄', dim: 'overworld', dimFa: 'اورلرد' },
+    'ocean-monument':  { label: 'بنای اقیانوسی',         icon: '🌊', dim: 'overworld', dimFa: 'اورلرد' },
+    'woodland-mansion': { label: 'عمارت جنگلی',          icon: '🏰', dim: 'overworld', dimFa: 'اورلرد' },
+    'stronghold':       { label: 'پناهگاه (Stronghold)', icon: '🌋', dim: 'overworld', dimFa: 'اورلرد' },
+    'nether-fortress':  { label: 'قلعه‌ی ندر',            icon: '🔥', dim: 'nether',    dimFa: 'ندر' },
+    'end-city':         { label: 'شهر End',              icon: '🚢', dim: 'end',       dimFa: 'اند' },
+  };
+
+  let lastSeed = null;
+
+  function setupCreatePage() {
+    const genBtn = document.getElementById('genBtn');
+    const newBtn = document.getElementById('newBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const seedCodeWrap = document.getElementById('seedCodeWrap');
+
+    if (genBtn) genBtn.addEventListener('click', onGenerate);
+    if (newBtn) newBtn.addEventListener('click', onGenerate);
+    if (saveBtn) saveBtn.addEventListener('click', onSave);
+    if (copyBtn) copyBtn.addEventListener('click', onCopy);
+    if (seedCodeWrap) seedCodeWrap.addEventListener('click', onCopy);
+
+    // ⏎ on the form triggers generate
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.target.tagName === 'SELECT' || e.target.classList.contains('feature-cb'))) {
+        e.preventDefault();
+        onGenerate();
+      }
+    });
+  }
+
+  function getSelectedFeatures() {
+    return Array.from(document.querySelectorAll('.feature-cb:checked')).map((cb) => cb.value);
+  }
+
+  function onGenerate() {
+    const version = document.getElementById('versionSelect').value;
+    const platform = document.getElementById('platformSelect').value;
+    let feats = getSelectedFeatures();
+
+    // Fallback: if user didn't pick anything, pick a random 2-3 features
+    if (feats.length === 0) {
+      const all = Object.keys(FEATURE_DEFS);
+      const n = 2 + Math.floor(Math.random() * 2);
+      feats = shuffle(all).slice(0, n);
+      // Visually check those (so the user sees what got picked)
+      document.querySelectorAll('.feature-cb').forEach((cb) => {
+        cb.checked = feats.includes(cb.value);
+      });
+    }
+
+    // Build the seed record
+    const seedValue = randomSeedValue();
+    const coords = feats.map((id) => ({
+      feature: id,
+      label: FEATURE_DEFS[id].label,
+      icon: FEATURE_DEFS[id].icon,
+      dim: FEATURE_DEFS[id].dim,
+      dimFa: FEATURE_DEFS[id].dimFa,
+      x: randInt(-1500, 1500),
+      y: randInt(-50, 100),
+      z: randInt(-1500, 1500),
+    }));
+
+    lastSeed = {
+      id: 'user-' + getOrCreateUUID() + '-' + Date.now().toString(36),
+      uuid: getOrCreateUUID(),
+      code: seedValue,
+      version,
+      platform,
+      features: feats,
+      coords,
+      createdAt: Date.now(),
+      author: 'شما',
+    };
+
+    render(lastSeed);
+  }
+
+  function render(seed) {
+    document.getElementById('emptyState').classList.add('hidden');
+    document.getElementById('resultPanel').classList.remove('hidden');
+
+    document.getElementById('seedCode').textContent = seed.code;
+    document.getElementById('metaVersion').textContent = 'MC ' + seed.version;
+    document.getElementById('metaPlatform').textContent = seed.platform === 'java' ? '☕ Java' : '📱 Bedrock';
+    document.getElementById('metaCount').textContent = toFa(String(seed.features.length));
+    const d = new Date(seed.createdAt);
+    document.getElementById('metaTime').textContent = d.toLocaleTimeString('fa-IR', {
+      hour: '2-digit', minute: '2-digit',
+    });
+
+    const list = document.getElementById('coordsList');
+    list.innerHTML = '';
+    seed.coords.forEach((c) => {
+      const row = document.createElement('div');
+      row.className = 'coord-row';
+      row.innerHTML =
+        '<span class="coord-icon" aria-hidden="true">' + c.icon + '</span>' +
+        '<span>' +
+          '<span class="coord-name">' + c.label + '</span><br>' +
+          '<span class="coord-dim">' + c.dimFa + '</span>' +
+        '</span>' +
+        '<span class="coord-xyz">X: ' + toFa(String(c.x)) + '  Y: ' + toFa(String(c.y)) + '  Z: ' + toFa(String(c.z)) + '</span>';
+      list.appendChild(row);
+    });
+  }
+
+  async function onSave() {
+    if (!lastSeed) return;
+    const btn = document.getElementById('saveBtn');
+    const original = btn.innerHTML;
+    try {
+      await addSeed(lastSeed);
+      btn.innerHTML = '<span>✓</span> ذخیره شد';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.disabled = false;
+      }, 2000);
+    } catch (e) {
+      console.error('Failed to save seed:', e);
+      btn.innerHTML = '<span>⚠️</span> خطا — مرورگر از IndexedDB پشتیبانی نمی‌کند';
+      setTimeout(() => { btn.innerHTML = original; }, 2500);
+    }
+  }
+
+  function onCopy() {
+    if (!lastSeed) return;
+    const text = lastSeed.code;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<span>✓</span> کپی شد';
+      setTimeout(() => { btn.innerHTML = original; }, 1500);
+    }).catch(() => {
+      // Fallback: select the text
+      const codeEl = document.getElementById('seedCode');
+      const range = document.createRange();
+      range.selectNode(codeEl);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+    });
+  }
+
+  // ============================================================
+  // Helpers
+  // ============================================================
+
+  function randomSeedValue() {
+    // Generate a signed 64-bit-ish integer in the Minecraft seed range.
+    // Bedrock seeds are unsigned 32-bit; Java seeds are signed 64-bit.
+    // We use a 19-digit decimal number with optional sign — works for
+    // both platforms' "Seed" input.
+    const negative = Math.random() < 0.3;
+    let digits = '';
+    for (let i = 0; i < 18; i++) {
+      digits += Math.floor(Math.random() * 10);
+    }
+    return (negative ? '-' : '') + digits.replace(/^0+/, '') || '0';
+  }
+
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function toFa(s) {
+    const fa = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return String(s).replace(/[0-9]/g, (d) => fa[+d]).replace(/-/g, '−');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCreatePage);
+  } else {
+    setupCreatePage();
+  }
+  document.addEventListener('astro:page-load', setupCreatePage);
+</script>
