@@ -266,8 +266,10 @@ const breadcrumb = [
   // ============================================================
   import {
     getStats,
+    getLocalStats,
     resetAnalytics,
     trackVisit,
+    heartbeat,
     fmtFa,
   } from '@/lib/analytics.js';
   import { resetUUID, getOrCreateUUID } from '@/lib/uuid.js';
@@ -281,8 +283,26 @@ const breadcrumb = [
     }
   }
 
-  function render() {
-    const s = getStats();
+  async function render() {
+    // Fetch real stats from Cloudflare Worker (async)
+    const remote = await getStats();
+    // Get local chart data from localStorage (sync)
+    const local = getLocalStats();
+
+    // Merge: remote (online/today/total) + local (charts)
+    const s = {
+      online: remote.online || 0,
+      today: remote.today || 0,
+      total: remote.total || 0,
+      source: remote.source || 'local',
+      uuid: getOrCreateUUID(),
+      lastSeen: Date.now(),
+      // Transform byDay object → last30 array of {date, count}
+      last30: Object.entries(local.byDay || {}).map(([date, count]) => ({ date, count })),
+      byHour: local.byHour || {},
+      hits: local.hits || {},
+    };
+
     paintKpis(s);
     paintChart30(s);
     paintChart24(s);
