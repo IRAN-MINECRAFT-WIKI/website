@@ -29,5 +29,81 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Furnace"
+  "wikiLink": "https://minecraft.wiki/w/Furnace",
+  "intro": [
+    "کوره (Furnace) یک بلاک کاربردی است که از ۸ Cobblestone در Crafting Table ساخته می‌شود. این بلاک امکان Smelting (پخت) را فراهم می‌کند — تبدیل ore به ingot، raw food به cooked food، و دیگر کاربردها.",
+    "Furnace اولین بلاک کاربردی است که بازیکن می‌سازد. بدون آن، نمی‌توان Iron Ore را به Iron Ingot تبدیل کرد، نان پخت، شیشه ساخت یا دیگر کاربردهای Smelting را انجام داد.",
+    "این بلاک سختی ۳.۵ دارد و با پیکه‌ی چوبی قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند."
+  ],
+  "behavior": [
+    "سختی Furnace ۳.۵ است. با دستِ خالی ۵.۲۵ ثانیه و با پیکه‌ی چوبی ۰.۸ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱۷.۵ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Furnace با کلیک راست، رابطه‌ی Smelting را باز می‌کند. این رابطه دارای ۲ اسلات: ورودی (متریال به‌پخته‌شونده) و سوخت (Coal، Wood، Lava Bucket و...). در نسخه‌ی ۱.۱۴، Blast Furnace و Smoker به‌عنوان انواع تخصصی اضافه شدند."
+  ],
+  "trivia": [
+    "Furnace اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۴ به‌همراه Blast Furnace و Smoker گسترش یافت.",
+    "Furnace با Lava Bucket به‌عنوان سوخت، ۲۰۰ ثانیه سوختن می‌دهد — معادل ۲۰ Coal.",
+    "در نسخه‌ی ۱.۲۱، Furnace با ۸ Cobblestone (یا ۸ دیگر Stone variants) ساخته می‌شود.",
+    "Furnace در ساخت Blast Furnace (۱ Furnace + ۵ Iron Ingot + ۳ Smooth Stone) و Smoker (۱ Furnace + ۴ Logs + ۱ Furnace) به‌کار می‌رود."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Furnace به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.2 (2011)",
+      "change": "افزایش سرعت Smelting با Coal."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Furnace با رندر جدید."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "Blast Furnace و Smoker به‌عنوان انواع تخصصی اضافه شدند."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Furnace در ساخت‌وسازهای روستایی."
+    }
+  ],
+  "differences": [
+    "در Java، Furnace با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Furnace با توزیع کمی متفاوت در ساخت‌وسازهای روستایی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "cobblestone",
+      "nameEn": "Cobblestone",
+      "nameFa": "کوب‌استون",
+      "type": "block"
+    },
+    {
+      "id": "blast-furnace",
+      "nameEn": "Blast Furnace",
+      "nameFa": "کوره ذوب",
+      "type": "block"
+    },
+    {
+      "id": "smoker",
+      "nameEn": "Smoker",
+      "nameFa": "دودکوش",
+      "type": "block"
+    },
+    {
+      "id": "crafting-table",
+      "nameEn": "Crafting Table",
+      "nameFa": "میز ساخت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 17.5,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 13
+  }
 }

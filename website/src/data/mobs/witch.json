@@ -50,5 +50,78 @@
     "نزدیک نرو که پاتن می‌زنه",
     "با شیر حلیب"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Witch"
+  "wikiLink": "https://minecraft.wiki/w/Witch",
+  "intro": [
+    "جادوگر (Witch) یک هیولای متخاصم ماینکرفت است که در بایوم‌های Witch Hut (در Swamp) و در غارها اسپاون می‌شود. این هیولا با معجون‌های مختلف به بازیکن حمله می‌کند.",
+    "جادوگر در نسخه‌ی Java 1.4 (۲۰۱۲) اضافه شد. این هیولا ۲۸ سلامتی دارد و آسیب معجون ۸ (در Normal) وارد می‌کند. جادوگر با کشته‌شدن، معجون‌های مختلف (Glass Bottle، Sugar، Redstone، Spider Eye، Stick و Gunpowder) دراپ می‌کند.",
+    "جادوگر می‌تواند معجون‌های مختلف را به بازیکن پرتاب کند: Potion of Poison، Potion of Slowness، Potion of Weakness و Potion of Harming. این هیولا در نسخه‌ی ۱.۱۴ با Raid (در Village) نیز شناخته می‌شود."
+  ],
+  "behavior": [
+    "جادوگر در تاریکی (روشنایی < ۷) اسپاون می‌شود — در بایوم‌های Swamp (در Witch Hut) و در غارها. این هیولا در روز آفتاب نمی‌گیرد (برخلاف زامبی و اسکلت).",
+    "وقتی جادوگر بازیکن را در شعاع ۱۰ بلاک تشخیص می‌دهد، شروع به پرتاب‌کردن معجون می‌کند. جادوگر می‌تواند معجون‌های مختلف را به بازیکن پرتاب کند: Potion of Poison، Potion of Slowness، Potion of Weakness و Potion of Harming.",
+    "جادوگر می‌تواند خودش را با Potion of Healing (با احتمال ۸.٪) درمان کند. این هیولا در نسخه‌ی ۱.۱۴ با Raid (در Village) نیز شناخته می‌شود. در نسخه‌ی ۱.۲۱، جادوگر با ضربه‌ی شمشیر Knockback به‌عقب هل داده می‌شود."
+  ],
+  "trivia": [
+    "جادوگر در نسخه‌ی ۱.۴ (۲۰۱۲) اضافه شد — همراه با Witch Hut.",
+    "این هیولا در نسخه‌ی ۱.۱۴ به‌علت اضافه‌شدن Raid، گسترش یافت.",
+    "جادوگر تنها هیولاست که می‌تواند معجون پرتاب کند — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، جادوگر با Potion of Healing می‌تواند خودش را درمان کند.",
+    "جادوگر با کشته‌شدن، معجون‌های مختلف (Glass Bottle، Sugar، Redstone، Spider Eye، Stick و Gunpowder) دراپ می‌کند."
+  ],
+  "history": [
+    {
+      "version": "Java 1.4 (2012)",
+      "change": "جادوگر به بازی اضافه شد — همراه با Witch Hut."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش آسیب معجون جادوگر."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود رفتار جادوگر در آب — اکنون می‌تواند شنا کند."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزودن جادوگر به Raid (در Village)."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزایش توانایی Knockback جادوگر."
+    }
+  ],
+  "differences": [
+    "در Java، جادوگر شعاع تشخیص بازیکن ۱۰ بلاک دارد؛ در Bedrock ۱۲ بلاک.",
+    "در Java، جادوگر در روز آفتاب نمی‌گیرد؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، جادوگر می‌تواند درب چوبی را بشکند (در Hard)؛ در Java این رفتار وجود ندارد."
+  ],
+  "related": [
+    {
+      "id": "pillager",
+      "nameEn": "Pillager",
+      "nameFa": "پیلجر",
+      "type": "mob"
+    },
+    {
+      "id": "evoker",
+      "nameEn": "Evoker",
+      "nameFa": "احضارکننده",
+      "type": "mob"
+    },
+    {
+      "id": "villager",
+      "nameEn": "Villager",
+      "nameFa": "روستایی",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.95,
+    "width": 0.6,
+    "spawnLightLevel": "<=7",
+    "xp": 5,
+    "boss": false,
+    "spawnGroup": "monster"
+  }
 }

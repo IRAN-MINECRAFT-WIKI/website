@@ -29,5 +29,75 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Soul_Sand"
+  "wikiLink": "https://minecraft.wiki/w/Soul_Sand",
+  "intro": [
+    "سند سول (Soul Sand) یک بلاک طبیعی در Nether است که در Nether Wastes و Soul Sand Valley بایوم‌ها یافت می‌شود. این بلاک سرعت حرکت بازیکن را کم می‌کند و باعث غرق‌شدن در آب می‌شود.",
+    "Soul Sand در لایه‌های تحتانی Nether به‌صورت نوارهای کوچک تولید می‌شود و در Nether Fortress نیز یافت می‌شود. این بلاک برای ساخت Wither (با ۴ Soul Sand + ۳ Wither Skeleton Skull) ضروری است.",
+    "این بلاک سختی ۰.۵ دارد و با هر ابزاری قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. Soul Sand در ساخت Soul Campfire، Soul Torch و Soul Lantern نیز به‌کار می‌رود."
+  ],
+  "behavior": [
+    "سختی Soul Sand ۰.۵ است. با دستِ خالی ۰.۷۵ ثانیه و با هر ابزاری ۰.۴ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۰.۵ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Soul Sand سرعت حرکت بازیکن را کم می‌کند (به ۵۰٪) و باعث غرق‌شدن در آب می‌شود (اگر زیر آب قرار گیرد). این بلاک برای ساخت Wither (با ۴ Soul Sand + ۳ Wither Skeleton Skull) ضروری است. در نسخه‌ی ۱.۱۶، Soul Sand Valley بایوم اضافه شد که در آن Soul Sand به‌وفور یافت می‌شود."
+  ],
+  "trivia": [
+    "Soul Sand اولین بار در نسخه‌ی Java Beta 1.9 (۲۰۱۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۶ به‌علت اضافه‌شدن Soul Sand Valley، گسترش یافت.",
+    "Soul Sand تنها بلاکی است که هم سرعت حرکت را کم می‌کند و هم باعث غرق‌شدن در آب می‌شود.",
+    "در نسخه‌ی ۱.۲۱، Soul Sand با ۴ Soul Sand + ۳ Wither Skeleton Skull برای ساخت Wither ضروری است.",
+    "Soul Sand در ساخت Soul Campfire، Soul Torch و Soul Lantern نیز به‌کار می‌رود."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.9 (2011)",
+      "change": "Soul Sand به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "Soul Sand Valley به‌عنوان بایوم جدید اضافه شد."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود بافت Soul Sand با رندر جدید."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Soul Sand در Nether."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Soul Sand با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Soul Sand با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Soul Sand با توزیع کمی متفاوت در Nether تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "wither",
+      "nameEn": "Wither",
+      "nameFa": "ویدر",
+      "type": "mob"
+    },
+    {
+      "id": "wither-skeleton",
+      "nameEn": "Wither Skeleton",
+      "nameFa": "اسکلت ویدر",
+      "type": "mob"
+    },
+    {
+      "id": "netherrack",
+      "nameEn": "Netherrack",
+      "nameFa": "نثرَک",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.5,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0
+  }
 }

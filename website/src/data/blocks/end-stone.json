@@ -27,5 +27,76 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/End_Stone"
+  "wikiLink": "https://minecraft.wiki/w/End_Stone",
+  "intro": [
+    "سنگ اِند (End Stone) یک بلاک طبیعی است که در The End به‌صورت طبیعی تولید می‌شود. این بلاک در جزیره‌ی مرکزی The End و در جزیره‌های اطراف به‌وفور یافت می‌شود.",
+    "End Stone سختی ۳.۰ دارد و با پیکه‌ی چوبی قابل‌شکستن است. این بلاک مقاومت انفجاری ۹.۰ دارد و در برابر آتش نمی‌سوزد. End Stone در ساخت End Stone Bricks و End Rod به‌کار می‌رود.",
+    "این بلاک در نسخه‌ی Beta 1.9 (۲۰۱۱) اضافه شد — همراه با The End. End Stone یکی از کمیاب‌ترین بلاک‌های ماینکرفت است (تنها در The End یافت می‌شود)."
+  ],
+  "behavior": [
+    "سختی End Stone ۳.۰ است. با دستِ خالی ۴.۵ ثانیه و با پیکه‌ی چوبی ۰.۷۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۹.۰ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "End Stone در ساخت End Stone Bricks (۴ End Stone در Crafting Table) و End Rod به‌کار می‌رود. این بلاک در جزیره‌ی مرکزی The End به‌وفور یافت می‌شود و در ساخت‌وسازهای دکوراتیو به‌علت رنگ زرد-کرمی، کاربرد فراوان دارد."
+  ],
+  "trivia": [
+    "End Stone اولین بار در نسخه‌ی Java Beta 1.9 (۲۰۱۱) اضافه شد — همراه با The End.",
+    "این بلاک در نسخه‌ی ۱.۹ به‌علت اضافه‌شدن End City، گسترش یافت.",
+    "End Stone تنها بلاکی است که در The End به‌صورت طبیعی یافت می‌شود (به‌جز Obsidian و Bedrock).",
+    "در نسخه‌ی ۱.۲۱، End Stone با ۴ End Stone در Crafting Table به ۴ End Stone Bricks تبدیل می‌شود.",
+    "End Stone در جزیره‌ی مرکزی The End به‌وفور یافت می‌شود — ماده‌ی اصلی ساخت‌وساز در The End."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.9 (2011)",
+      "change": "End Stone به بازی اضافه شد — همراه با The End."
+    },
+    {
+      "version": "Java 1.9 (2016)",
+      "change": "افزایش تولید End Stone در End City."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت End Stone با رندر جدید."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "افزایش تولید End Stone در جزیره‌های اطراف The End."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی End Stone با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، End Stone با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، End Stone با توزیع کمی متفاوت در The End تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "netherrack",
+      "nameEn": "Netherrack",
+      "nameFa": "نثرَک",
+      "type": "block"
+    },
+    {
+      "id": "ender-dragon",
+      "nameEn": "Ender Dragon",
+      "nameFa": "اژدهای اِند",
+      "type": "mob"
+    },
+    {
+      "id": "obsidian",
+      "nameEn": "Obsidian",
+      "nameFa": "اوبسیدین",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 9.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "wood"
+  }
 }

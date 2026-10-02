@@ -29,5 +29,82 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Ancient_Debris"
+  "wikiLink": "https://minecraft.wiki/w/Ancient_Debris",
+  "intro": [
+    "خرده‌سنگ باستانی (Ancient Debris) کمیاب‌ترین و باارزش‌ترین رگه‌ی معدنی ماینکرفت است که در Nether یافت می‌شود و تنها منبع Netherite است.",
+    "این بلاک در لایه‌های y=۱۵ تا y=-۴ در Nether تولید می‌شود، با تمرکز بیشتر در y=۱۵. به‌دلیل سختیِ بالا (۳۰.۰)، باید با Diamond Pickaxe یا Netherite Pickaxe استخراج شود.",
+    "Ancient Debris به Netherite Scrap تبدیل می‌شود و با ترکیب ۴ Netherite Scrap + ۴ Gold Ingot در Crafting Table، یک Netherite Ingot تولید می‌کند. Netherite برای ارتقا ابزار و زره الماسی به نیدِرایتی استفاده می‌شود — سطح بالاتر از الماس."
+  ],
+  "behavior": [
+    "سختی Ancient Debris ۳۰.۰ است — بسیار سخت‌تر از Obsidian (۵۰.۰ را ندارد، ولی برای یک رگه‌ی معدنی فوق‌العاده سختی است). با دستِ خالی ۱۵۰ ثانیه و با Diamond Pickaxe ۲.۲۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت بالایی در برابر انفجار دارد (۱۲۰۰) و حتی TNT هم نمی‌تواند آن را نابود کند. به همین دلیل، تکنیک Bed Explosion برای استخراج آن به‌کار می‌رود — TNT به‌جای بازیکن، بلاک‌های اطراف را نابود می‌کند و Ancient Debris سالم می‌ماند.",
+    "Ancient Debris با Silk Touch خودش را می‌دهد؛ بدون Silk Touch هم خودش را می‌دهد (همان رفتار). جادوی Fortune تأثیری ندارد — فقط یک Netherite Scrap می‌دهد (بعد از کوره‌کردن)."
+  ],
+  "trivia": [
+    "Ancient Debris در نسخه‌ی Java 1.16 (۲۰۲۰) اضافه شد — همراه با Netherite.",
+    "این بلاک مقاومت انفجاری ۱۲۰۰ دارد — یکی از مقاوم‌ترین بلاک‌های ماینکرفت.",
+    "تکنیک Bed Explosion: در Nether، Bed سعی می‌کند به‌عنوان «Home» کار کند، چون Nether جای خانه نیست، منفجر می‌شود. این انفجار می‌تواند برای استخراج Ancient Debris به‌کار رود.",
+    "در نسخه‌ی ۱.۲۰، Ancient Debris با TNT استخراج می‌شود — روشی سریع ولی خطرناک.",
+    "Netherite ابزار، دوام ۲۰۳۱ دارد — بسیار بیشتر از Diamond (۱۵۶۱). به همین دلیل، ارتقا به Netherite یک قدم بزرگ در پیشرفت بازیکن است."
+  ],
+  "history": [
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "Ancient Debris به Nether اضافه شد — همراه با Netherite."
+    },
+    {
+      "version": "Java 1.16.1",
+      "change": "اصلاح تولید Ancient Debris با تمرکز در y=۱۵."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود راندمان رندر Ancient Debris."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزایش کمی تولید Ancient Debris در Nether."
+    },
+    {
+      "version": "Bedrock 1.16.0",
+      "change": "افزودن Ancient Debris به Bedrock."
+    }
+  ],
+  "differences": [
+    "در Java، Ancient Debris در لایه‌های y=۱۵ تا y=-۴ تولید می‌شود؛ در Bedrock توزیع کمی متفاوت است.",
+    "تکنیک Bed Explosion در دو نسخه کار می‌کند ولی آسیب انفجار در Bedrock کمی متفاوت محاسبه می‌شود.",
+    "در Java، استخراج Ancient Debris با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است."
+  ],
+  "related": [
+    {
+      "id": "netherrack",
+      "nameEn": "Netherrack",
+      "nameFa": "نثرَک",
+      "type": "block"
+    },
+    {
+      "id": "obsidian",
+      "nameEn": "Obsidian",
+      "nameFa": "اوبسیدین",
+      "type": "block"
+    },
+    {
+      "id": "diamond-ore",
+      "nameEn": "Diamond Ore",
+      "nameFa": "سنگ الماس",
+      "type": "block"
+    },
+    {
+      "id": "beacon",
+      "nameEn": "Beacon",
+      "nameFa": "فانوس دریایی",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 1200.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "diamond"
+  }
 }

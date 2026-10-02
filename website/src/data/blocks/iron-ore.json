@@ -35,5 +35,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Iron_Ore"
+  "wikiLink": "https://minecraft.wiki/w/Iron_Ore",
+  "intro": [
+    "سنگ آهن (Iron Ore) یکی از فراوان‌ترین و کاربردی‌ترین رگه‌های معدنی ماینکرفت است. با استخراج آن با پیکه‌ی سنگی یا بالاتر، Raw Iron (آهن خام) به‌دست می‌آید که در کوره به Iron Ingot تبدیل می‌شود.",
+    "این بلاک در لایه‌های y=۸ تا y=۷۲ فراوان‌ترین است، ولی در y=۲۵۴ تا y=-۶۴ نیز یافت می‌شود. در عمق زیر y=۰ به Deepslate Iron Ore تبدیل می‌شود که سختی بیشتری دارد.",
+    "آهن یکی از حیاتی‌ترین منابع ماینکرفت است؛ بدون آن نمی‌توان پیکه، شمشیر، زره، سطل، قاب سطل‌بندی، ریل و صدها ابزار دیگر ساخت. استخراج آهن معمولاً اولین قدمِ بازیکن در امر پیشرفت است."
+  ],
+  "behavior": [
+    "سختی Iron Ore ۳.۰ و Deepslate Iron Ore ۴.۵ است. با دستِ خالی ۱۵ ثانیه و با پیکه‌ی سنگی ۱.۱۵ ثانیه زمان لازم است. جادوی Fortune می‌تواند تا ۴ آهن خام برای هر بلاک تولید کند.",
+    "این بلاک با Silk Touch خودش را می‌دهد، در حالی که بدون Silk Touch آهن خام می‌دهد. آهن خام در کوره با ۲۰۰ تیک (۱۰ ثانیه) به Iron Ingot تبدیل می‌شود.",
+    "Iron Ore معمولاً در رگه‌های ۱ تا ۹ بلاک تولید می‌شود و در بایوم‌های زیرین به‌وفور یافت می‌شود. در بایوم‌های Extreme Hills، آن را در ارتفاعات نیز می‌توان یافت."
+  ],
+  "trivia": [
+    "Iron Ore اولین رگه‌ی معدنی بود که به بازی اضافه شد (Java 0.26).",
+    "در نسخه‌ی ۱.۱۷، تفکیک Raw Iron از Iron Ore صورت گرفت — قبلاً مستقیماً Iron Ingot دراپ می‌شد.",
+    "آهن پرکاربردترین متریال معدنی ماینکرفت است؛ بدون آن نمی‌توان به سطح Diamond یا Netherite رسید.",
+    "در نسخه‌ی ۱.۲۱، Iron Ore در بایوم‌های کوهستانی با چگالی بالاتری تولید می‌شود.",
+    "Deepslate Iron Ore آهنی است که در تاریکی مطلق عمق‌ها یافت می‌شود؛ رنگ آن تیره‌تر و بافتش عمیق‌تر است."
+  ],
+  "history": [
+    {
+      "version": "Java 0.26 (2009)",
+      "change": "Iron Ore به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.2",
+      "change": "نیاز به پیکه‌ی سنگی برای استخراج اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزودن Iron Ore به قابلیت تولید در بایوم‌های Extreme Hills."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "Raw Iron به‌جای Iron Ingot به‌عنوان دراپ اضافه شد."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "Deepslate Iron Ore در عمق زیر y=۰ اضافه شد."
+    }
+  ],
+  "differences": [
+    "در Java، Iron Ore با Fortune می‌تواند تا ۴ آهن خام بدهد؛ در Bedrock رفتار Fortune یکسان است ولی شمار بلاک‌های تولیدی در هر رگه کمی متفاوت است.",
+    "توزیع Iron Ore در دو نسخه به‌دلیل تفاوت نویزِ تولید، کمی متفاوت است؛ Bedrock در لایه‌های بالاتر آهن بیشتری دارد.",
+    "Deepslate Iron Ore در Java در زیر y=۰ اضافه می‌شود؛ در Bedrock ممکن است در زیر y=-۱۰ اضافه شود."
+  ],
+  "related": [
+    {
+      "id": "deepslate-iron-ore",
+      "nameEn": "Deepslate Iron Ore",
+      "nameFa": "سنگ آهنِ عمیق",
+      "type": "block"
+    },
+    {
+      "id": "coal-ore",
+      "nameEn": "Coal Ore",
+      "nameFa": "سنگ زغال",
+      "type": "block"
+    },
+    {
+      "id": "diamond-ore",
+      "nameEn": "Diamond Ore",
+      "nameFa": "سنگ الماس",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "stone"
+  }
 }

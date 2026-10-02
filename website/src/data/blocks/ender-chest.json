@@ -34,5 +34,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Ender_Chest"
+  "wikiLink": "https://minecraft.wiki/w/Ender_Chest",
+  "intro": [
+    "صندوق اِند (Ender Chest) یک بلاک ذخیره‌سازی خاص است که از ۸ Obsidian + ۱ Eye of Ender در Crafting Table ساخته می‌شود. این بلاک یک رابطه‌ی ذخیره‌سازی مشترک را در تمام جهان بازی فراهم می‌کند.",
+    "Ender Chest در همه‌ی جهان، محتویاتش را به‌اشتراک می‌گذارد — یعنی اگر دو Ender Chest بسازید، هر دو به یک رابطه‌ی ذخیره‌سازی دسترسی دارند. این رفتار، آن را برای انتقال آیتم‌ها بین بایوم‌ها و ابعاد بسیار کاربردی می‌کند.",
+    "این بلاک سختی ۲۲.۵ دارد و فقط با پیکه‌ی الماسی یا Netherite قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، فقط ۸ Obsidian بازمی‌گردد (Eye of Ender از بین می‌رود)."
+  ],
+  "behavior": [
+    "سختی Ender Chest ۲۲.۵ است. با دستِ خالی ۱۶۷.۵ ثانیه و با Diamond Pickaxe ۳.۴ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۶۰۰ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، فقط ۸ Obsidian بازمی‌گردد.",
+    "Ender Chest با کلیک راست، رابطه‌ی ۲۷ اسلات ذخیره‌سازی را باز می‌کند. این رابطه مشترک است — یعنی هر Ender Chest در جهان به همان رابطه دسترسی دارد. این رفتار، انتقال آیتم‌ها بین ابعاد و بایوم‌ها را فراهم می‌کند."
+  ],
+  "trivia": [
+    "Ender Chest اولین بار در نسخه‌ی Java 1.3 (۲۰۱۲) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۸ به‌علت تغییرات Obsidian، مقاومت انفجاری ۶۰۰ گرفت.",
+    "Ender Chest تنها بلاک ذخیره‌سازی است که محتویاتش بین بازیکنان به اشتراک گذاشته نمی‌شود (هر بازیکن محتویاتش را دارد).",
+    "در نسخه‌ی ۱.۲۱، Ender Chest با ۸ Obsidian + ۱ Eye of Ender ساخته می‌شود — بدون تغییر.",
+    "اگر دو بازیکن به یک Ender Chest دسترسی داشته باشند، هر کدام رابطه‌ی خودشان را می‌بینند — نه مشترک."
+  ],
+  "history": [
+    {
+      "version": "Java 1.3 (2012)",
+      "change": "Ender Chest به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش مقاومت انفجاری Ender Chest به ۶۰۰."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Ender Chest با رندر جدید."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "افزایش تولید Ender Chest در ساخت‌وسازهای Stronghold."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی ذخیره‌سازی Ender Chest با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Ender Chest با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch ۸ Obsidian بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Ender Chest با توزیع کمی متفاوت در ساخت‌وسازهای Stronghold تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "chest",
+      "nameEn": "Chest",
+      "nameFa": "صندوق",
+      "type": "block"
+    },
+    {
+      "id": "obsidian",
+      "nameEn": "Obsidian",
+      "nameFa": "اوبسیدین",
+      "type": "block"
+    },
+    {
+      "id": "ender-dragon",
+      "nameEn": "Ender Dragon",
+      "nameFa": "اژدهای اِند",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 600.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 7,
+    "minPickaxe": "diamond"
+  }
 }

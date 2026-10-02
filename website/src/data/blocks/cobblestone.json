@@ -29,5 +29,76 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Cobblestone"
+  "wikiLink": "https://minecraft.wiki/w/Cobblestone",
+  "intro": [
+    "کوب‌استون (Cobblestone) یک بلاک ساختمانی پایه‌ای است که از استخراج Stone با پیکه (بدون Silk Touch) به‌دست می‌آید. این بلاک اولین متریال ساختمانی بازیکن است و در ساخت‌وسازهای اولیه به‌کار می‌رود.",
+    "Cobblestone در لایه‌های زیرین به‌صورت طبیعی نیز تولید می‌شود — در Wilderness، Dungeon و Stronghold. این بلاک در ساخت Furnace، Stone Tools و Brewing Stand کاربرد دارد.",
+    "این بلاک سختی ۲.۰ دارد و با پیکه‌ی چوبی قابل‌شکستن است. در ساخت‌وسازهای ساختمانی، Cobblestone به‌علت دوام متعادل و فراوانی، یکی از پرکاربردترین متریال‌ها است."
+  ],
+  "behavior": [
+    "سختی Cobblestone ۲.۰ است. با دستِ خالی ۱۰ ثانیه و با پیکه‌ی چوبی ۱.۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۶.۰ دارد — مانند Stone. در برابر آتش نمی‌سوزد و در برابر TNT کمی مقاوم است.",
+    "Cobblestone در Smelting به Stone تبدیل می‌شود (در Furnace). هم‌چنین در ساخت Furnace، Dispenser، Dropper، Brewing Stand، Lever و Stone Tools (با Cobblestone) به‌کار می‌رود."
+  ],
+  "trivia": [
+    "Cobblestone اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک در نسخه‌های قدیمی ماینکرفت بافتِ مشابه Stone داشت — تفاوت در نسخه‌ی ۱.۰ مشخص شد.",
+    "Mossy Cobblestone نسخه‌ای با خزه از Cobblestone است که در Dungeon و Jungle Temple یافت می‌شود.",
+    "Cobblestone در Stronghold و Dungeon به‌صورت طبیعی یافت می‌شود — اکنون در Mine Shaft نیز تولید می‌شود.",
+    "در نسخه‌ی ۱.۲۱، Cobblestone به‌علت تولییدِ پایدار، یک منبعِ تجدیدپذیر است (با استخراج Stone و تولید مجدد آن)."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Cobblestone به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.7 (2011)",
+      "change": "افزایش تولید Mossy Cobblestone در Dungeon."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزودن Cobblestone Wall و Mossy Cobblestone Wall."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Cobblestone با راندمان بالاتر."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "افزایش تولید Cobblestone در Mine Shaft."
+    }
+  ],
+  "differences": [
+    "در Java، Cobblestone در Dungeon با توزیع کمی متفاوت تولید می‌شود؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Java، استخراج Stone با Silk Touch خودِ Stone را می‌دهد (نه Cobblestone)؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، بافت Cobblestone کمی متفاوت است؛ رنگ آن متمایل به قهوه‌ای است."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "furnace",
+      "nameEn": "Furnace",
+      "nameFa": "کوره",
+      "type": "block"
+    },
+    {
+      "id": "mossy-cobblestone",
+      "nameEn": "Mossy Cobblestone",
+      "nameFa": "کوب‌استونِ خزه‌دار",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 6.0,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "wood"
+  }
 }

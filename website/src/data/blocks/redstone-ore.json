@@ -35,5 +35,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Redstone_Ore"
+  "wikiLink": "https://minecraft.wiki/w/Redstone_Ore",
+  "intro": [
+    "سنگ رداستون (Redstone Ore) منبع اصلی رداستون در ماینکرفت است و در لایه‌های y=-۶۴ تا y=۱۵ یافت می‌شود، با تمرکز بیشتر در y=-۵۹.",
+    "با استخراج Redstone Ore با پیکه‌ی آهنی یا بالاتر، ۴ تا ۵ Redstone دراپ می‌شود. این متریال پایه‌ی سیستم‌های رداستونی، مدارها و ماشین‌های ماینکرفت است.",
+    "Redstone Ore وقتی کلیک شود، برای چند ثانیه روشن می‌شود و نور ضعیفی تولید می‌کند. این رفتار، آن را به‌عنوان یک «سنسور نوری/لمسی» در مدارهای رداستونی قابل‌استفاده می‌کند."
+  ],
+  "behavior": [
+    "سختی Redstone Ore ۳.۰ و Deepslate Redstone Ore ۴.۵ است. با دستِ خالی ۱۵ ثانیه و با پیکه‌ی آهنی ۱.۱۵ ثانیه زمان لازم است.",
+    "این بلاک وقتی کلیک شود، از حالت تیره به حالت روشن تبدیل می‌شود و نور ضعیف (سطح ۹) تولید می‌کند. هم‌چنین یک پالس رداستون ضعیف می‌دهد که می‌تواند در مدارها به‌کار رود.",
+    "Redstone Ore با Silk Touch خودش را می‌دهد؛ بدون آن، ۴-۵ Redstone می‌دهد. جادوی Fortune می‌تواند تا ۸ Redstone برای هر بلاک تولید کند."
+  ],
+  "trivia": [
+    "Redstone Ore اولین بار در نسخه‌ی Java Alpha 1.0.1 (۲۰۱۰) اضافه شد.",
+    "این تنها بلاکی است که وقتی کلیک می‌شود، نور ضعیف تولید می‌کند — مکانیکی منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، Redstone Ore به‌همراه Deepslate Redstone Ore در عمق زیر y=۰ نیز یافت می‌شود.",
+    "روی Redstone Ore، اثر پارتیکل قرمز تولید می‌شود که از نظر بصری زیباست؛ لذا در ساختمان‌های تزئینی کاربرد دارد.",
+    "Deepslate Redstone Ore در نسخه‌ی ۱.۱۷ اضافه شد و سختی بیشتری دارد."
+  ],
+  "history": [
+    {
+      "version": "Java Alpha 1.0.1 (2010)",
+      "change": "Redstone Ore به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.2",
+      "change": "نیاز به پیکه‌ی آهنی برای استخراج اضافه شد."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزایش تولید Redstone Ore در عمق زیرین."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "Deepslate Redstone Ore در عمق زیر y=۰ اضافه شد."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "توزیع جدید Redstone Ore با تمرکز در y=-۵۹."
+    }
+  ],
+  "differences": [
+    "در Java، Redstone Ore وقتی کلیک می‌شود، یک پالس رداستون تولید می‌کند؛ در Bedrock همین رفتار اجرا می‌شود ولی تایمینگ کمی متفاوت است.",
+    "تعداد دراپ Redstone در Java ۴-۵ و در Bedrock ۴-۵ است، ولی محاسبات احتمالی کمی متفاوت‌اند.",
+    "Deepslate Redstone Ore در دو نسخه با نرخ کمی متفاوت تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "deepslate-redstone-ore",
+      "nameEn": "Deepslate Redstone Ore",
+      "nameFa": "سنگ رداستونِ عمیق",
+      "type": "block"
+    },
+    {
+      "id": "redstone-block",
+      "nameEn": "Block of Redstone",
+      "nameFa": "بلوک رداستون",
+      "type": "block"
+    },
+    {
+      "id": "redstone-wire",
+      "nameEn": "Redstone Wire",
+      "nameFa": "سیم رداستون",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 9,
+    "minPickaxe": "iron"
+  }
 }

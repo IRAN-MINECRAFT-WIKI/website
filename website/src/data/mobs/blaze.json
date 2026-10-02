@@ -30,5 +30,78 @@
     "با سپر فایربال رو بلاک کن",
     "با Snowball خنک کن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Blaze"
+  "wikiLink": "https://minecraft.wiki/w/Blaze",
+  "intro": [
+    "بلیز (Blaze) یک هیولای متخاصم ماینکرفت است که در Nether Fortress اسپاون می‌شود. این هیولا با شلیک‌کردن Fire Charge به بازیکن حمله می‌کند و می‌تواند پرواز کند.",
+    "بلیز در نسخه‌ی Java Beta 1.9 (۲۰۱۱) اضافه شد. این هیولا ۲۰ سلامتی دارد و آسیب دور ۶ (با Fire Charge) وارد می‌کند. بلیز با کشته‌شدن، Blaze Rod (با احتمال ۵۰٪) دراپ می‌کند — آیتمی برای ساخت Brewing Stand و Eye of Ender.",
+    "بلیز می‌تواند پرواز کند و با شلیک‌کردن Fire Charge به بازیکن حمله می‌کند. این هیولا در نسخه‌ی ۱.۱۴ با Spawner (در Nether Fortress) نیز شناخته می‌شود."
+  ],
+  "behavior": [
+    "بلیز در Nether Fortress اسپاون می‌شود — در Spawner (با تاریکی کافی). این هیولا می‌تواند پرواز کند و در هوا حرکت کند.",
+    "وقتی بلیز بازیکن را در شعاع ۴۸ بلاک تشخیص می‌دهد، شروع به شلیک‌کردن Fire Charge می‌کند. بلیز می‌تواند ۳ Fire Charge هم‌زمان شلیک کند و هر کدام ۶ آسیب (در Normal) وارد می‌کنند.",
+    "بلیز با کشته‌شدن، Blaze Rod (با احتمال ۵۰٪) دراپ می‌کند. این هیولا در نسخه‌ی ۱.۲۱ با ضربه‌ی شمشیر Knockback به‌عقب هل داده می‌شود."
+  ],
+  "trivia": [
+    "بلیز در نسخه‌ی Beta 1.9 (۲۰۱۱) اضافه شد — همراه با Nether Fortress.",
+    "این هیولا در نسخه‌ی ۱.۱۴ به‌علت اضافه‌شدن Spawner، گسترش یافت.",
+    "بلیز تنها هیولاست که می‌تواند پرواز کند و Fire Charge شلیک کند — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، بلیز با Blaze Rod می‌تواند به‌عنوان متریال برای ساخت Brewing Stand و Eye of Ender به‌کار رود.",
+    "بلیز با آب آسیب می‌بیند (در صورت مواجه) — مکانیکی منحصر‌به‌فرد."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.9 (2011)",
+      "change": "بلیز به بازی اضافه شد — همراه با Nether Fortress."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش آسیب Fire Charge بلیز."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود رفتار بلیز در Nether."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزودن Spawner برای بلیز در Nether Fortress."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزایش توانایی Knockback بلیز."
+    }
+  ],
+  "differences": [
+    "در Java، بلیز شعاع تشخیص بازیکن ۴۸ بلاک دارد؛ در Bedrock ۳۲ بلاک.",
+    "در Java، بلیز می‌تواند پرواز کند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، بلیز با آب آسیب می‌بیند؛ در Java رفتار یکسان است."
+  ],
+  "related": [
+    {
+      "id": "ghast",
+      "nameEn": "Ghast",
+      "nameFa": "غاست",
+      "type": "mob"
+    },
+    {
+      "id": "wither-skeleton",
+      "nameEn": "Wither Skeleton",
+      "nameFa": "اسکلت ویدر",
+      "type": "mob"
+    },
+    {
+      "id": "magma-cube",
+      "nameEn": "Magma Cube",
+      "nameFa": "مكعب ماگما",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.8,
+    "width": 0.6,
+    "spawnLightLevel": "any",
+    "xp": 10,
+    "boss": false,
+    "spawnGroup": "monster"
+  }
 }

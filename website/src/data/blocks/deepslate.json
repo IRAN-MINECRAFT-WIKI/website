@@ -33,5 +33,81 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Deepslate"
+  "wikiLink": "https://minecraft.wiki/w/Deepslate",
+  "intro": [
+    "اسلیت عمیق (Deepslate) یک بلاک طبیعی است که در عمق زیر y=۰ به‌جای Stone تولید می‌شود. این بلاک سختی بیشتری از Stone دارد و رگه‌های معدنی در آن به‌صورت Deepslate Ore یافت می‌شوند.",
+    "Deepslate در لایه‌های y=-۶۴ تا y=۰ تولید می‌شود و در بایوم‌های زیرین به‌وفور یافت می‌شود. این بلاک در کوره به Deepslate Cobbled تبدیل می‌شود و در ساخت Polished Deepslate و Deepslate Bricks به‌کار می‌رود.",
+    "این بلاک سختی ۳.۰ دارد و با پیکه‌ی چوبی قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، Cobbled Deepslate بازمی‌گردد. Deepslate در نسخه‌ی ۱.۱۷ اضافه شد."
+  ],
+  "behavior": [
+    "سختی Deepslate ۳.۰ است. با دستِ خالی ۴.۵ ثانیه و با پیکه‌ی چوبی ۰.۷۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۶.۰ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، Cobbled Deepslate بازمی‌گردد.",
+    "Deepslate در کوره به Deepslate Cobbled تبدیل می‌شود. با ۴ Cobbled Deepslate در Crafting Table به ۴ Polished Deepslate تبدیل می‌شود. Deepslate Bricks و Deepslate Tiles نیز از Deepslate ساخته می‌شوند. این بلاک در نسخه‌ی ۱.۱۷ اضافه شد و در عمق زیر y=۰ به‌جای Stone تولید می‌شود."
+  ],
+  "trivia": [
+    "Deepslate اولین بار در نسخه‌ی Java 1.17 (۲۰۲۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۸ به‌علت تغییرات توزیع رگه‌ها، گسترش یافت.",
+    "Deepslate تنها بلاکی است که در عمق زیر y=۰ به‌جای Stone تولید می‌شود — متمایز با Stone.",
+    "در نسخه‌ی ۱.۲۱، Deepslate در عمق زیر y=۰ به‌وفور یافت می‌شود — ماده‌ی اصلی ساخت‌وساز در عمق.",
+    "Deepslate با رگه‌های معدنیِ تیره‌تر (Deepslate Ore) همراه است — رنگ تیره‌تر و سختی بیشتر."
+  ],
+  "history": [
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "Deepslate به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Deepslate در عمق زیر y=۰."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "بهبود بافت Deepslate با رندر جدید."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزایش تولید Deepslate در بایوم‌های زیرین."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "بهبود رابطه‌ی Deepslate با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Deepslate با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch Cobbled Deepslate بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Deepslate با توزیع کمی متفاوت در عمق زیر y=۰ تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "deepslate-diamond-ore",
+      "nameEn": "Deepslate Diamond Ore",
+      "nameFa": "سنگ الماسِ عمیق",
+      "type": "block"
+    },
+    {
+      "id": "deepslate-iron-ore",
+      "nameEn": "Deepslate Iron Ore",
+      "nameFa": "سنگ آهنِ عمیق",
+      "type": "block"
+    },
+    {
+      "id": "deepslate-bricks",
+      "nameEn": "Deepslate Bricks",
+      "nameFa": "آجرهای اسلیت عمیق",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 6.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0
+  }
 }

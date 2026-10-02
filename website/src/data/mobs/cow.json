@@ -32,5 +32,78 @@
   "combat": [
     "با یک ضربه بزن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Cow"
+  "wikiLink": "https://minecraft.wiki/w/Cow",
+  "intro": [
+    "گاو (Cow) یک مابِ صلح‌جو ماینکرفت است که در بایوم‌های Plains، Forest و Extreme Hills اسپاون می‌شود. این ماب با ۱۰ سلامتی شناخته می‌شود و با کشته‌شدن، Raw Beef و Leather دراپ می‌کند.",
+    "گاو در نسخه‌ی Java Alpha 1.0.8 (۲۰۱۰) اضافه شد. این ماب با Milk Bucket (با کلیک راست با Bucket) قابل‌دوشیدن است. گاو با کشته‌شدن، Raw Beef (۱-۳) و Leather (۰-۲) دراپ می‌کند.",
+    "گاو با کشته‌شدن، Raw Beef و Leather دراپ می‌کند. این ماب در نسخه‌ی ۱.۲۱ با Milk Bucket و Leather نیز شناخته می‌شود."
+  ],
+  "behavior": [
+    "گاو در بایوم‌های Plains، Forest و Extreme Hills اسپاون می‌شود. این ماب با ۱۰ سلامتی شناخته می‌شود و آسیب تماسی ۰ وارد می‌کند.",
+    "گاو با Milk Bucket (با کلیک راست با Bucket) قابل‌دوشیدن است. گاو با کشته‌شدن، Raw Beef (۱-۳) و Leather (۰-۲) دراپ می‌کند.",
+    "گاو در نسخه‌ی ۱.۲۱ با Milk Bucket و Leather نیز شناخته می‌شود. در نسخه‌ی ۱.۲۱، گاو با ضربه‌ی شمشیر Knockback به‌عقب هل داده می‌شود."
+  ],
+  "trivia": [
+    "گاو در نسخه‌ی Alpha 1.0.8 (۲۰۱۰) اضافه شد.",
+    "این ماب در نسخه‌ی ۱.۸ به‌علت اضافه‌شدن Leather، گسترش یافت.",
+    "گاو تنها مابِ قابل‌دوشیدن ماینکرفت است — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، گاو با Milk Bucket می‌تواند به‌عنوان متریال برای ساخت Cake به‌کار رود.",
+    "گاو با Leather می‌تواند به‌عنوان متریال برای ساخت Book و Leather Armor به‌کار رود."
+  ],
+  "history": [
+    {
+      "version": "Java Alpha 1.0.8 (2010)",
+      "change": "گاو به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش رفتار Leather با گاو."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود رفتار گاو در آب — اکنون می‌تواند شنا کند."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزایش تولید گاو در بایوم‌های Plains."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزایش توانایی Knockback گاو."
+    }
+  ],
+  "differences": [
+    "در Java، گاو با ۱۰ سلامتی شناخته می‌شود؛ در Bedrock ۱۰.",
+    "در Java، گاو با Milk Bucket شناخته می‌شود؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، گاو با توزیع کمی متفاوت در اسپاون کار می‌کند."
+  ],
+  "related": [
+    {
+      "id": "pig",
+      "nameEn": "Pig",
+      "nameFa": "خوک",
+      "type": "mob"
+    },
+    {
+      "id": "sheep",
+      "nameEn": "Sheep",
+      "nameFa": "گوسفند",
+      "type": "mob"
+    },
+    {
+      "id": "mooshroom",
+      "nameEn": "Mooshroom",
+      "nameFa": "موشروم",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.4,
+    "width": 0.9,
+    "spawnLightLevel": ">=9",
+    "xp": 1,
+    "boss": false,
+    "spawnGroup": "creature"
+  }
 }

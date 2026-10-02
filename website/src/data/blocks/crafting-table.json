@@ -29,5 +29,75 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Crafting_Table"
+  "wikiLink": "https://minecraft.wiki/w/Crafting_Table",
+  "intro": [
+    "میز ساخت (Crafting Table) یک بلاک کاربردی است که از ۴ Oak Planks در رابطه‌ی ۲×۲ ساخته می‌شود. این بلاک دسترسی به شبکه‌ی ۳×۳ ساخت را فراهم می‌کند — بزرگ‌تر از رابطه‌ی دستی ۲×۲.",
+    "Crafting Table اولین بلاکی است که بازیکن می‌سازد و پایه‌ی پیشرفت در ماینکرفت است. بدون آن، نمی‌توان ابزار پیکه، شمشیر، زره، تورچ، کوره و صدها آیتم دیگر ساخت.",
+    "این بلاک سختی ۲.۵ دارد و با Axe قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند."
+  ],
+  "behavior": [
+    "سختی Crafting Table ۲.۵ است. با دستِ خالی ۳.۷۵ ثانیه و با Axe ۱.۹ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱۲.۵ دارد و در برابر آتش می‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Crafting Table با کلیک راست، رابطه‌ی ۳×۳ ساخت را باز می‌کند. این رابطه بزرگ‌تر از رابطه‌ی دستی ۲×۲ است و امکان ساخت ابزار پیکه، شمشیر، زره و دیگر آیتم‌های پیچیده را فراهم می‌کند."
+  ],
+  "trivia": [
+    "Crafting Table اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۴ به‌علت ساخت‌وسازهای متفاوت، ۶ نوع چوب شد (Oak، Spruce، Birch، Jungle، Acacia، Dark Oak).",
+    "Crafting Table اولین بلاکی است که بازیکن می‌سازد — معمولاً پس از درخت کردن اولین Oak Log.",
+    "در نسخه‌ی ۱.۲۱، Crafting Table با ۶ نوع چوب + Bamboo + Cherry موجود است.",
+    "Crafting Table در ساخت Tools و سایر آیتم‌های ابتدایی پایه‌ی اصلی پیشرفت بازیکن است."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Crafting Table به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.3 (2011)",
+      "change": "افزایش قدرت ساخت به ۳×۳ (با کلیک راست)."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Crafting Table با راندمان بالاتر."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "افزودن Bamboo Crafting Table."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزودن Cherry Crafting Table."
+    }
+  ],
+  "differences": [
+    "در Java، Crafting Table با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Crafting Table با توزیع کمی متفاوت در ساخت‌وسازهای روستایی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "oak-planks",
+      "nameEn": "Oak Planks",
+      "nameFa": "تخته‌های بلوط",
+      "type": "block"
+    },
+    {
+      "id": "furnace",
+      "nameEn": "Furnace",
+      "nameFa": "کوره",
+      "type": "block"
+    },
+    {
+      "id": "chest",
+      "nameEn": "Chest",
+      "nameFa": "صندوق",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 12.5,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0
+  }
 }

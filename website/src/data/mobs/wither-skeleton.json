@@ -37,5 +37,84 @@
     "با شمشیر و سپر",
     "با Looting III احتمال Skull بیشتر"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Wither_Skeleton"
+  "wikiLink": "https://minecraft.wiki/w/Wither_Skeleton",
+  "intro": [
+    "اسکلت ویدر (Wither Skeleton) یک هیولای متخاصم ماینکرفت است که در Nether Fortress اسپاون می‌شود. این هیولا با شمشیر سنگی به بازیکن حمله می‌کند و با اثر Withers، بازیکن را آسیب می‌زند.",
+    "اسکلت ویدر در نسخه‌ی Java 1.4 (۲۰۱۲) اضافه شد. این هیولا ۲۰ سلامتی دارد و آسیب تماسی ۸ (در Normal) وارد می‌کند. اسکلت ویدر با کشته‌شدن، Coal، Bone و (با احتمال ۲.۵٪) Wither Skeleton Skull دراپ می‌کند.",
+    "اسکلت ویدر با اثر Withers، بازیکن را با سم آسیب می‌زند (با احتمال ۱۰۰٪ در Normal). این هیولا برای ساخت Wither (با ۴ Soul Sand + ۳ Wither Skeleton Skull) ضروری است."
+  ],
+  "behavior": [
+    "اسکلت ویدر در Nether Fortress اسپاون می‌شود — در تاریکی کافی. این هیولا در روز آفتاب نمی‌گیرد (برخلاف اسکلت معمولی).",
+    "وقتی اسکلت ویدر بازیکن را در شعاع ۱۶ بلاک تشخیص می‌دهد، به‌سوی او می‌دود (با سرعت ۰.۳) و با شمشیر سنگی حمله می‌کند. اسکلت ویدر با اثر Withers، بازیکن را با سم آسیب می‌زند.",
+    "اسکلت ویدر با کشته‌شدن، Coal (با احتمال ۳۳٪)، Bone (با احتمال ۳۳٪) و (با احتمال ۲.۵٪) Wither Skeleton Skull دراپ می‌کند. این هیولا برای ساخت Wither (با ۴ Soul Sand + ۳ Wither Skeleton Skull) ضروری است. در نسخه‌ی ۱.۲۱، اسکلت ویدر با ضربه‌ی شمشیر Knockback به‌عقب هل داده می‌شود."
+  ],
+  "trivia": [
+    "اسکلت ویدر در نسخه‌ی ۱.۴ (۲۰۱۲) اضافه شد — همراه با Nether Fortress.",
+    "این هیولا در نسخه‌ی ۱.۱۶ به‌علت اضافه‌شدن بایوم‌های جدید Nether، گسترش یافت.",
+    "اسکلت ویدر تنها هیولاست که اثر Withers دارد — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، اسکلت ویدر با Wither Skeleton Skull می‌تواند به‌عنوان متریال برای ساخت Wither به‌کار رود.",
+    "اسکلت ویدر با ۲.۵٪ احتمال Skull دراپ می‌کند — یکی از کمیاب‌ترین دراپ‌های ماینکرفت."
+  ],
+  "history": [
+    {
+      "version": "Java 1.4 (2012)",
+      "change": "اسکلت ویدر به بازی اضافه شد — همراه با Nether Fortress."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش آسیب تماسی اسکلت ویدر."
+    },
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "افزودن اسکلت ویدر به بایوم‌های جدید Nether."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود رفتار اسکلت ویدر در Nether."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزایش توانایی Knockback اسکلت ویدر."
+    }
+  ],
+  "differences": [
+    "در Java، اسکلت ویدر شعاع تشخیص بازیکن ۱۶ بلاک دارد؛ در Bedrock ۱۵ بلاک.",
+    "در Java، اسکلت ویدر اثر Withers دارد؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، اسکلت ویدر با توزیع کمی متفاوت در Nether تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "wither",
+      "nameEn": "Wither",
+      "nameFa": "ویدر",
+      "type": "mob"
+    },
+    {
+      "id": "skeleton",
+      "nameEn": "Skeleton",
+      "nameFa": "اسکلت",
+      "type": "mob"
+    },
+    {
+      "id": "soul-sand",
+      "nameEn": "Soul Sand",
+      "nameFa": "سند سول",
+      "type": "block"
+    },
+    {
+      "id": "blaze",
+      "nameEn": "Blaze",
+      "nameFa": "بلیز",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 2.4,
+    "width": 0.6,
+    "spawnLightLevel": "<=7",
+    "xp": 5,
+    "boss": false,
+    "spawnGroup": "monster"
+  }
 }

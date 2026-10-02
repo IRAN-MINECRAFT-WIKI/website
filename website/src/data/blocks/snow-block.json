@@ -28,5 +28,75 @@
       "count": "4"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Snow_Block"
+  "wikiLink": "https://minecraft.wiki/w/Snow_Block",
+  "intro": [
+    "بلوک برف (Snow Block) یک بلاک طبیعی است که در بایوم‌های Snowy Tundra، Ice Spikes و کوه‌های برفی به‌وفور یافت می‌شود. این بلاک با شکستن، ۴ Snowball می‌دهد.",
+    "Snow Block در لایه‌های سطحی بایوم‌های برفی تولید می‌شود. این بلاک با ۴ Snowball در Crafting Table ساخته می‌شود و در ساخت Snow Golem (با ۲ Snow Block + ۱ Carved Pumpkin) ضروری است.",
+    "این بلاک سختی ۰.۲ دارد و با Shovel قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، ۴ Snowball بازمی‌گردد. Snow Block در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت."
+  ],
+  "behavior": [
+    "سختی Snow Block ۰.۲ است. با دستِ خالی ۰.۳ ثانیه و با Shovel ۰.۲ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۰.۲ دارد و در برابر آتش می‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، ۴ Snowball بازمی‌گردد.",
+    "Snow Block در ساخت Snow Golem (با ۲ Snow Block + ۱ Carved Pumpkin) و Snow Layer (با ۳ Snow Block در Crafting Table → ۶ Snow Layer) به‌کار می‌رود. این بلاک در بایوم‌های Snowy Tundra، Ice Spikes و کوه‌های برفی به‌وفور یافت می‌شود. در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت."
+  ],
+  "trivia": [
+    "Snow Block اولین بار در نسخه‌ی Java Beta 1.9 (۲۰۱۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت.",
+    "Snow Block تنها بلاک طبیعی است که در ساخت Snow Golem به‌کار می‌رود — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، Snow Block با ۴ Snowball در Crafting Table ساخته می‌شود.",
+    "Snow Block در بایوم‌های Snowy Tundra به‌وفور یافت می‌شود — یکی از بلاک‌های زیبای برفی."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.9 (2011)",
+      "change": "Snow Block به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزایش تولید Snow Block در بایوم‌های Snowy Tundra."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود بافت Snow Block با رندر جدید."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Snow Block در کوه‌های برفی."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Snow Block با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Snow Block با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch ۴ Snowball بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Snow Block با توزیع کمی متفاوت در بایوم‌های برفی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "ice",
+      "nameEn": "Ice",
+      "nameFa": "یخ",
+      "type": "block"
+    },
+    {
+      "id": "packed-ice",
+      "nameEn": "Packed Ice",
+      "nameFa": "یخ فشرده",
+      "type": "block"
+    },
+    {
+      "id": "snow-golem",
+      "nameEn": "Snow Golem",
+      "nameFa": "گلوم برفی",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.2,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0
+  }
 }

@@ -27,5 +27,76 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Respawn_Anchor"
+  "wikiLink": "https://minecraft.wiki/w/Respawn_Anchor",
+  "intro": [
+    "لنگرگاه تولد (Respawn Anchor) یک بلاک کاربردی است که از ۳ Crying Obsidian + ۶ Glowstone در Crafting Table ساخته می‌شود. این بلاک امکان تنظیم نقطه‌ی تولد در Nether را فراهم می‌کند.",
+    "Respawn Anchor با کلیک راست با Glowstone (تا ۴ بار)، شارژ می‌شود و نقطه‌ی تولد بازیکن را در Nether تنظیم می‌کند. این بلاک در نسخه‌ی ۱.۱۶ اضافه شد و یکی از بلاک‌های کاربردی Nether است.",
+    "این بلاک سختی ۵۰.۰ دارد و فقط با Diamond Pickaxe یا Netherite Pickaxe قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. Respawn Anchor در ساخت‌وسازهای Nether به‌کار می‌رود."
+  ],
+  "behavior": [
+    "سختی Respawn Anchor ۵۰.۰ است. با دستِ خالی ۲۵۰ ثانیه و با Diamond Pickaxe ۹.۴ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱۲۰۰ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Respawn Anchor با کلیک راست با Glowstone (تا ۴ بار)، شارژ می‌شود و نقطه‌ی تولد بازیکن را در Nether تنظیم می‌کند. این بلاک در صورت استفاده در Overworld یا End، منفجر می‌شود (با شعاع ۵ بلاک) و می‌تواند به بازیکن آسیب برساند. در نسخه‌ی ۱.۱۶ اضافه شد."
+  ],
+  "trivia": [
+    "Respawn Anchor اولین بار در نسخه‌ی Java 1.16 (۲۰۲۰) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۷ به‌علت تغییرات Crying Obsidian، گسترش یافت.",
+    "Respawn Anchor تنها بلاکی است که می‌تواند نقطه‌ی تولد در Nether را تنظیم کند — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، Respawn Anchor با ۳ Crying Obsidian + ۶ Glowstone ساخته می‌شود.",
+    "Respawn Anchor در Overworld یا End، منفجر می‌شود — محدودیت مهم در استفاده."
+  ],
+  "history": [
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "Respawn Anchor به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود بافت Respawn Anchor با رندر جدید."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Respawn Anchor در ساخت‌وسازهای Nether."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Respawn Anchor با راندمان بالاتر."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش سرعت شارژ با Glowstone."
+    }
+  ],
+  "differences": [
+    "در Java، Respawn Anchor با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Respawn Anchor با توزیع کمی متفاوت در آسیب انفجار کار می‌کند."
+  ],
+  "related": [
+    {
+      "id": "obsidian",
+      "nameEn": "Obsidian",
+      "nameFa": "اوبسیدین",
+      "type": "block"
+    },
+    {
+      "id": "glowstone",
+      "nameEn": "Glowstone",
+      "nameFa": "گلاستون",
+      "type": "block"
+    },
+    {
+      "id": "bed",
+      "nameEn": "Bed",
+      "nameFa": "تخت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 1200.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 15,
+    "minPickaxe": "diamond"
+  }
 }

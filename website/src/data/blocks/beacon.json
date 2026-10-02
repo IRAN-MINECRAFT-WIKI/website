@@ -28,5 +28,81 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Beacon"
+  "wikiLink": "https://minecraft.wiki/w/Beacon",
+  "intro": [
+    "فانوس دریایی (Beacon) یک بلاک کاربردی-تزئینی است که از ۵ Glass + ۳ Obsidian + ۱ Nether Star در Crafting Table ساخته می‌شود. این بلاک با ساخت یک هرم زیرش، بونوس‌های مختلفی به بازیکن می‌دهد.",
+    "Beacon برای ساخت، نیاز به یک هرم زیرش دارد: یک هرم ۱-۴ لایه از بلوک‌های قیمت‌مند (Iron، Diamond، Gold، Emerald یا Netherite). هرچه لایه‌های بیشتر، توانایی‌های بیشتر Beacon فراهم می‌شود.",
+    "این بلاک سختی ۳.۰ دارد و با هر ابزاری قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. Beacon بونوس‌های Speed، Haste، Resistance، Jump Boost و Strength را می‌دهد."
+  ],
+  "behavior": [
+    "سختی Beacon ۳.۰ است. با دستِ خالی ۴.۵ ثانیه و با هر ابزاری ۰.۷۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱۵.۰ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Beacon با ساخت یک هرم زیرش (۱-۴ لایه از Iron Block، Diamond Block، Gold Block، Emerald Block یا Netherite Block) فعال می‌شود. بونوس‌ها در شعاع ۱۰ تا ۵۰ بلاک (بسته به اندازه‌ی هرم) اعمال می‌شوند. بازیکن می‌تواند بین Speed، Haste، Resistance، Jump Boost یا Strength یکی را انتخاب کند، و در لایه‌ی ۴، Regeneration را نیز می‌افزاید."
+  ],
+  "trivia": [
+    "Beacon اولین بار در نسخه‌ی Java 1.4 (۲۰۱۲) اضافه شد — همراه با Nether Star.",
+    "این بلاک در نسخه‌ی ۱.۸ به‌علت افزایش بونوس‌ها، گسترش یافت.",
+    "Beacon تنها بلاکی است که بونوس Status Effect به بازیکن می‌دهد — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، Beacon با ۵ Glass + ۳ Obsidian + ۱ Nether Star ساخته می‌شود — بدون تغییر.",
+    "Beacon نور سفید رنگ تولید می‌کند که می‌تواند به‌عنوان نشانه‌ی محل دیده شود — حتی از فاصله‌ی دور."
+  ],
+  "history": [
+    {
+      "version": "Java 1.4 (2012)",
+      "change": "Beacon به بازی اضافه شد — همراه با Nether Star."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش بونوس‌های Beacon با لایه‌ی ۴."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Beacon با رندر جدید."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "افزایش تولید Beacon در ساخت‌وسازهای دکوراتیو."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Beacon با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Beacon با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Beacon با توزیع کمی متفاوت در بونوس‌ها کار می‌کند — شعاع و مدت‌زمان کمی متفاوت."
+  ],
+  "related": [
+    {
+      "id": "obsidian",
+      "nameEn": "Obsidian",
+      "nameFa": "اوبسیدین",
+      "type": "block"
+    },
+    {
+      "id": "wither",
+      "nameEn": "Wither",
+      "nameFa": "ویدر",
+      "type": "mob"
+    },
+    {
+      "id": "glass",
+      "nameEn": "Glass",
+      "nameFa": "شیشه",
+      "type": "block"
+    },
+    {
+      "id": "emerald-ore",
+      "nameEn": "Emerald Ore",
+      "nameFa": "سنگ زمرد",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 15.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 15
+  }
 }

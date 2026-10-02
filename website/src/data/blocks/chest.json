@@ -30,5 +30,75 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Chest"
+  "wikiLink": "https://minecraft.wiki/w/Chest",
+  "intro": [
+    "صندوق (Chest) یک بلاک ذخیره‌سازی است که از ۸ Oak Planks در Crafting Table ساخته می‌شود. این بلاک ۲۷ اسلات ذخیره‌سازی را فراهم می‌کند — همان اندازه‌ی رابطه‌ی بازیکن.",
+    "Chest اولین بلاک ذخیره‌سازی است که بازیکن می‌سازد. با قرار دادن دو Chest کنار هم، یک Large Chest (با ۵۴ اسلات) ساخته می‌شود. این بلاک در ساخت Trapped Chest، Ender Chest و Shulker Box نیز به‌کار می‌رود.",
+    "این بلاک سختی ۲.۵ دارد و با Axe قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش + محتویاتش را بازمی‌گرداند."
+  ],
+  "behavior": [
+    "سختی Chest ۲.۵ است. با دستِ خالی ۳.۷۵ ثانیه و با Axe ۱.۹ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱۲.۵ دارد و در برابر آتش می‌سوزد. در استخراج با Silk Touch خودش + محتویاتش را می‌دهد؛ بدون آن نیز خودش + محتویاتش را بازمی‌گرداند.",
+    "Chest با کلیک راست، رابطه‌ی ۲۷ اسلات ذخیره‌سازی را باز می‌کند. با قرار دادن دو Chest کنار هم (در یک راستا)، یک Large Chest ساخته می‌شود با ۵۴ اسلات. در نسخه‌ی ۱.۲۱، Chest در ساخت Trapped Chest، Ender Chest و Shulker Box نیز به‌کار می‌رود."
+  ],
+  "trivia": [
+    "Chest اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۰ به‌همراه Ender Chest گسترش یافت.",
+    "Trapped Chest نسخه‌ای از Chest است که وقتی باز می‌شود، یک سیگنال رداستون تولید می‌کند (نسخه‌ی ۱.۵).",
+    "Shulker Box نسخه‌ای از Chest است که محتویاتش را در استخراج نگه می‌دارد (نسخه‌ی ۱.۱۱).",
+    "در نسخه‌ی ۱.۱۴، Chest در ساخت‌وسازهای روستایی با توزیع متفاوت تولید می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Chest به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.8 (2011)",
+      "change": "افزایش اندازه‌ی Large Chest به ۵۴ اسلات."
+    },
+    {
+      "version": "Java 1.5 (2013)",
+      "change": "Trapped Chest به‌عنوان نوع جدید اضافه شد."
+    },
+    {
+      "version": "Java 1.11 (2016)",
+      "change": "Shulker Box به‌عنوان نوع جدید اضافه شد."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزایش تولید Chest در ساخت‌وسازهای روستایی."
+    }
+  ],
+  "differences": [
+    "در Java، Chest با Silk Touch خودش + محتویاتش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش + محتویاتش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Chest با توزیع کمی متفاوت در ساخت‌وسازهای روستایی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "ender-chest",
+      "nameEn": "Ender Chest",
+      "nameFa": "صندوق اِند",
+      "type": "block"
+    },
+    {
+      "id": "trapped-chest",
+      "nameEn": "Trapped Chest",
+      "nameFa": "صندوق تله‌دار",
+      "type": "block"
+    },
+    {
+      "id": "shulker-box",
+      "nameEn": "Shulker Box",
+      "nameFa": "جعبه شولکر",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 12.5,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0
+  }
 }

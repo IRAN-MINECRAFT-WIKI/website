@@ -29,5 +29,76 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Oak_Planks"
+  "wikiLink": "https://minecraft.wiki/w/Oak_Planks",
+  "intro": [
+    "تخته‌های بلوط (Oak Planks) یکی از اولین متریال‌های ساختمانی ماینکرفت است که از ۱ Oak Log در Crafting Table به ۴ Oak Planks تبدیل می‌شود. این بلاک پایه‌ی ساخت‌وساز ابتدایی بازیکن است.",
+    "Oak Planks در ساخت Crafting Table، Chest، Stick، Boat، Wooden Tools و صدها آیتم دیگر به‌کار می‌رود. این بلاک در بایوم‌های جنگل بلوط فراوان است و به‌رنگ قهوه‌ای روشن است.",
+    "این بلاک سختی ۲.۰ دارد و با تبر قابل‌شکستن است. Oak Planks قابل‌سوختن است و به‌عنوان سوخت کوره (۱۵ ثانیه به‌ازای هر Plank) به‌کار می‌رود — نصف Coal."
+  ],
+  "behavior": [
+    "سختی Oak Planks ۲.۰ است. با دستِ خالی ۳ ثانیه و با Axe ۱.۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱۵.۰ دارد — بیشتر از Cobblestone. در برابر آتش می‌سوزد و می‌تواند به‌عنوان سوخت کوره به‌کار رود.",
+    "Oak Planks در ساخت Crafting Table (۴ Planks)، Chest (۸ Planks)، Stick (۲ Planks → ۴ Sticks)، Boat (۵ Planks) و Wooden Tools به‌کار می‌رود. در نسخه‌ی ۱.۱۳، ۶ Planks + ۱ Wool → Bed."
+  ],
+  "trivia": [
+    "Oak Planks اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک بافت یکسان در تمام نسخه‌ها داشته است — کمی تغییر در نسخه‌ی ۱.۱۴.",
+    "Oak Planks به‌علت قابلیت سوخت‌بودن، به‌عنوان سوخت کوره اولیه به‌کار می‌رود (۱۵ ثانیه).",
+    "در نسخه‌ی ۱.۲۱، Oak Planks در ۶ نوع چوب (Oak، Spruce، Birch، Jungle، Acacia، Dark Oak) موجود است.",
+    "Oak Planks در ساخت Sign، Door، Fence، Fence Gate، Trapdoor، Button، Pressure Plate نیز به‌کار می‌رود."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Oak Planks به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.3 (2011)",
+      "change": "افزودن Planks برای ساخت Bed."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Oak Planks با راندمان بالاتر."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزودن Sign و Door برای Oak Planks."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "افزودن Bamboo Planks به‌عنوان نوع جدید."
+    }
+  ],
+  "differences": [
+    "در Java، Oak Planks بافت مشابه در تمام بایوم‌ها دارد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج Oak Planks با Axe سریع‌تر است؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، Oak Planks با توزیع کمی متفاوت در ساخت‌وسازهای روستایی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "oak-log",
+      "nameEn": "Oak Log",
+      "nameFa": "تنه‌ی درخت بلوط",
+      "type": "block"
+    },
+    {
+      "id": "crafting-table",
+      "nameEn": "Crafting Table",
+      "nameFa": "میز ساخت",
+      "type": "block"
+    },
+    {
+      "id": "chest",
+      "nameEn": "Chest",
+      "nameFa": "صندوق",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 15.0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "burnTime": 15
+  }
 }

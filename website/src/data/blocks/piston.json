@@ -28,5 +28,75 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Piston"
+  "wikiLink": "https://minecraft.wiki/w/Piston",
+  "intro": [
+    "پیستون (Piston) یک بلاک رداستونی است که از ۳ Wood Planks + ۴ Cobblestone + ۱ Iron Ingot + ۱ Redstone در Crafting Table ساخته می‌شود. این بلاک می‌تواند بلاک‌ها را هل دهد (Push).",
+    "Piston با دریافت سیگنال رداستون، ۱۲ بلاک را در جهت رو به جلو هل می‌دهد. Sticky Piston نسخه‌ای از Piston است که بلاک را پس از قطع سیگنال، به‌عقب می‌کشد (با ۱ Slimeball اضافه).",
+    "این بلاک سختی ۱.۵ دارد و با هر ابزاری قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. Piston در ساخت ماشین‌های رداستونی، درب‌های مخفی و ایبوهای مختلف به‌کار می‌رود."
+  ],
+  "behavior": [
+    "سختی Piston ۱.۵ است. با دستِ خالی ۲.۲۵ ثانیه و با هر ابزاری ۰.۷۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۰.۵ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Piston با دریافت سیگنال رداستون، ۱۲ بلاک را در جهت رو به جلو هل می‌دهد. Sticky Piston نسخه‌ای از Piston است که بلاک را پس از قطع سیگنال، به‌عقب می‌کشد. این بلاک نمی‌تواند بلاک‌های ثبت‌شده (به‌علت خاصیت Block Entity) را هل دهد — مثل Chest، Furnace، Hopper."
+  ],
+  "trivia": [
+    "Piston اولین بار در نسخه‌ی Java Beta 1.7 (۲۰۱۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۷ به‌علت اضافه‌شدن Sticky Piston، گسترش یافت.",
+    "Piston تنها بلاکی است که می‌تواند بلاک‌ها را هل دهد — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، Piston با ۳ Wood Planks + ۴ Cobblestone + ۱ Iron Ingot + ۱ Redstone ساخته می‌شود.",
+    "Piston نمی‌تواند بلاک‌های Block Entity (Chest، Furnace، Hopper) را هل دهد — محدودیت مهم در اتوماسیون."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.7 (2011)",
+      "change": "Piston به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.7 (2013)",
+      "change": "Sticky Piston به‌عنوان نوع جدید اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Piston با رندر جدید."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزایش سرعت Piston با رداستون."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Piston با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Piston با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Piston با توزیع کمی متفاوت در سرعت هل‌دادن کار می‌کند."
+  ],
+  "related": [
+    {
+      "id": "sticky-piston",
+      "nameEn": "Sticky Piston",
+      "nameFa": "پیستون چسبناک",
+      "type": "block"
+    },
+    {
+      "id": "redstone-ore",
+      "nameEn": "Redstone Ore",
+      "nameFa": "سنگ رداستون",
+      "type": "block"
+    },
+    {
+      "id": "observer",
+      "nameEn": "Observer",
+      "nameFa": "اُبزرور",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.5,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0
+  }
 }

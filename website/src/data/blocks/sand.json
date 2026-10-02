@@ -30,5 +30,82 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Sand"
+  "wikiLink": "https://minecraft.wiki/w/Sand",
+  "intro": [
+    "ماسه (Sand) یکی از بلاک‌های طبیعی ماینکرفت است که در بایوم‌های沙漠 (Desert)، ساحل (Beach) و رودخانه یافت می‌شود. این بلاک تحت تأثیر جاذبه است و اگر زیرش بلاکی نباشد، می‌افتد.",
+    "Sand در لایه‌های سطحی بایوم‌های Desert و Beach تولید می‌شود، معمولاً در عمق ۳-۵ بلاک. در بایوم‌های Desert، Sand ستونی تا عمق ۵-۷ بلاک قرار دارد.",
+    "این بلاک با استخراج با دست یا Shovel به‌دست می‌آید و در کوره به Glass تبدیل می‌شود. Sand برای ساخت Glass، TNT، Sandstone و Concrete Powder کاربرد دارد."
+  ],
+  "behavior": [
+    "سختی Sand ۰.۵ است. با دستِ خالی ۰.۷۵ ثانیه و با Shovel ۰.۴ ثانیه زمان لازم است.",
+    "این بلاک تحت تأثیر جاذبه است (Gravity)؛ اگر بلاک زیرش حذف شود، Sand می‌افتد و در لایه‌ی زیرین قرار می‌گیرد. همین رفتار می‌تواند باعث مرگ بازیکن در حفر زیرِ شن‌ها شود (خفگی).",
+    "Sand در مجاورت Bone Meal می‌تواند Cactus رشد کند (در بایوم Desert). با کلیک راست با Shovel به Sand Path تبدیل نمی‌شود؛ ولی با Smelting به Glass تبدیل می‌شود."
+  ],
+  "trivia": [
+    "Sand اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک یکی از معدود بلاک‌های تحت‌جاذبه است (همراه با Gravel، Anvil، Dragon Egg، Concrete Powder).",
+    "در نسخه‌های قدیمی، Sand می‌توانست بی‌نهایت بیفتد — اکنون پس از رسیدن به بلاک سفت متوقف می‌شود.",
+    "Red Sand نسخه‌ای قرمز از Sand است که در بایوم‌های Badlands یافت می‌شود (نسخه‌ی ۱.۷).",
+    "Sand در ساختمان‌های XP Farm به‌عنوان «سقفِ متحرک» به‌کار می‌رود (با استفاده از duplication bug یا تکنیک‌های مکانیکی)."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Sand به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.2",
+      "change": "افزودن Sand به Smelting (تبدیل به Glass)."
+    },
+    {
+      "version": "Java 1.7.2 (2014)",
+      "change": "Red Sand به‌عنوان نوع جدید اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود رفتار Sand در آب — اکنون به‌جای فرو رفتن، شناور می‌شود."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "افزایش تولید Sand در بایوم‌های Beach."
+    }
+  ],
+  "differences": [
+    "در Java، Sand تحت جاذبه است و می‌افتد؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Java، استخراج Sand با Shovel سریع‌تر است؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، Sand در بایوم‌های Desert با توزیع کمی متفاوت تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "red-sand",
+      "nameEn": "Red Sand",
+      "nameFa": "ماسه سرخ",
+      "type": "block"
+    },
+    {
+      "id": "gravel",
+      "nameEn": "Gravel",
+      "nameFa": "شن و ماسه",
+      "type": "block"
+    },
+    {
+      "id": "glass",
+      "nameEn": "Glass",
+      "nameFa": "شیشه",
+      "type": "block"
+    },
+    {
+      "id": "sandstone",
+      "nameEn": "Sandstone",
+      "nameFa": "سنگ ماسه",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.5,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "gravity": true
+  }
 }

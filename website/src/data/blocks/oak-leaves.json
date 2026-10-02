@@ -38,5 +38,69 @@
       "condition": "با Shears"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Oak_Leaves"
+  "wikiLink": "https://minecraft.wiki/w/Oak_Leaves",
+  "intro": [
+    "برگ‌های بلوط (Oak Leaves) یک بلاک طبیعی است که در درختان بلوط به‌وفور یافت می‌شود. این بلاک در استخراج با Shears یا Silk Touch خودش را می‌دهد؛ بدون آن، با احتمال ۵٪ Apple یا ۲٪ Sticks/Sapling بازمی‌گردد.",
+    "Oak Leaves در بایوم‌های Plains، Forest و Extreme Hills به‌صورت طبیعی تولید می‌شود. این بلاک در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت.",
+    "این بلاک سختی ۰.۲ دارد و با Shears یا Silk Touch قابل‌استخراج است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، با احتمال ۵٪ Apple بازمی‌گردد. Oak Leaves در ساخت‌وسازهای دکوراتیو به‌کار می‌رود."
+  ],
+  "behavior": [
+    "سختی Oak Leaves ۰.۲ است. با دستِ خالی ۰.۳ ثانیه و با Shears ۰.۲ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۰.۲ دارد و در برابر آتش می‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، با احتمال ۵٪ Apple یا ۲٪ Sticks/Sapling بازمی‌گردد.",
+    "Oak Leaves در استخراج با Shears یا Silk Touch خودش را می‌دهد؛ بدون آن، با احتمال ۵٪ Apple بازمی‌گردد. این بلاک در بایوم‌های Plains، Forest و Extreme Hills به‌صورت طبیعی تولید می‌شود. در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت."
+  ],
+  "trivia": [
+    "Oak Leaves اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت.",
+    "Oak Leaves تنها بلاک طبیعی است که در استخراج با احتمال ۵٪ Apple می‌دهد — روشی برای کسب غذا.",
+    "در نسخه‌ی ۱.۲۱، Oak Leaves با Shears یا Silk Touch قابل‌استخراج است.",
+    "Oak Leaves در ساخت‌وسازهای دکوراتیو به‌علت رنگ سبز روشن، کاربرد فراوان دارد."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Oak Leaves به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزایش تولید Oak Leaves در بایوم‌های Forest."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود بافت Oak Leaves با رندر جدید."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Oak Leaves در بایوم‌های Plains."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Oak Leaves با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Oak Leaves با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch با احتمال ۵٪ Apple بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Oak Leaves با توزیع کمی متفاوت در بایوم‌های Plains تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "oak-log",
+      "nameEn": "Oak Log",
+      "nameFa": "تنه‌ی درخت بلوط",
+      "type": "block"
+    },
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.2,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0
+  }
 }

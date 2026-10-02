@@ -28,5 +28,77 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Anvil"
+  "wikiLink": "https://minecraft.wiki/w/Anvil",
+  "intro": [
+    "آنویل (Anvil) یک بلاک کاربردی است که از ۴ Iron Ingot + ۳ Block of Iron + ۱ Iron Ingot (مجموعاً ۳۱ Iron Ingot) در Crafting Table ساخته می‌شود. این بلاک امکان ترکیب ابزار/زره جادو، تعمیر ابزار/زره، و تغییر نام ابزار/زره را فراهم می‌کند.",
+    "Anvil در هر بار استفاده، کمی آسیب می‌بیند و پس از ۲۵ استفاده (به‌طور متوسط) خراب می‌شود. این بلاک در نسخه‌ی ۱.۱۴ با ۳ نوع اضافه شد: Anvil، Slightly Damaged Anvil و Very Damaged Anvil.",
+    "این بلاک سختی ۵.۰ دارد و با پیکه‌ی الماسی قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. آنویل تحت‌جاذبه است و می‌افتد — می‌تواند به بازیکن زیرش آسیب برساند."
+  ],
+  "behavior": [
+    "سختی Anvil ۵.۰ است. با دستِ خالی ۷.۵ ثانیه و با Diamond Pickaxe ۱.۱۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱۲۰۰ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Anvil تحت‌جاذبه است و می‌افتد — اگر زیرش بلاکی نباشد، می‌افتد و می‌تواند به بازیکن زیرش آسیب برساند (تا ۴۰ آسیب از ارتفاع ۲۰ بلاک). در نسخه‌ی ۱.۱۴، ۳ نوع اضافه شد: Anvil (۲۵ استفاده)، Slightly Damaged Anvil (تعویض پس از ۲۵ استفاده) و Very Damaged Anvil (تعویض پس از ۲۵ استفاده دیگر)."
+  ],
+  "trivia": [
+    "Anvil اولین بار در نسخه‌ی Java 1.4 (۲۰۱۲) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۴ به‌علت اضافه‌شدن ۳ نوع، گسترش یافت.",
+    "Anvil تنها بلاکِ تحت‌جاذبه است که می‌تواند به بازیکن آسیب برساند — تا ۴۰ آسیب از ارتفاع ۲۰ بلاک.",
+    "در نسخه‌ی ۱.۲۱، Anvil با ۳۱ Iron Ingot ساخته می‌شود — قیمت بالایی برای یک بلاک!",
+    "Anvil می‌تواند برای تعمیر ابزار با همان ابزار (بدون Enchant)، یا با Enchant (با هزینه‌ی XP)، یا ترکیب دو ابزار جادو استفاده شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.4 (2012)",
+      "change": "Anvil به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش تعداد استفاده‌های Anvil از ۱۲ به ۲۵."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Anvil با رندر جدید."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزودن ۳ نوع Anvil (Slightly Damaged، Very Damaged)."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Anvil با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Anvil با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Anvil با توزیع کمی متفاوت در ساخت‌وسازهای روستایی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "enchanting-table",
+      "nameEn": "Enchanting Table",
+      "nameFa": "میز جادو",
+      "type": "block"
+    },
+    {
+      "id": "iron-ore",
+      "nameEn": "Iron Ore",
+      "nameFa": "سنگ آهن",
+      "type": "block"
+    },
+    {
+      "id": "grindstone",
+      "nameEn": "Grindstone",
+      "nameFa": "سنگ خردکن",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 1200.0,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "diamond",
+    "gravity": true
+  }
 }

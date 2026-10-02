@@ -35,5 +35,76 @@
       "condition": "۹۰٪ احتمال"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Gravel"
+  "wikiLink": "https://minecraft.wiki/w/Gravel",
+  "intro": [
+    "شن و ماسه (Gravel) یکی از بلاک‌های تحت‌جاذبه ماینکرفت است که در بایوم‌های زیرین، رودخانه، ساحل و Mountain Edge یافت می‌شود. این بلاک در استخراج می‌تواند Flint دراپ کند.",
+    "Gravel در لایه‌های y=-۶۴ تا y=۲۵۶ یافت می‌شود، با تمرکز بیشتر در لایه‌های سطحی رودخانه‌ها و در عمق زیرین (در لایه‌های y=-۶۴ تا y=-۵۰).",
+    "این بلاک با استخراج با دست یا Shovel به‌دست می‌آید و ۱۰٪ احتمال دراپ Flint (به‌جای خودِ Gravel) دارد. با جادوی Fortune، این احتمال تا ۱۰۰٪ افزایش می‌یابد."
+  ],
+  "behavior": [
+    "سختی Gravel ۰.۶ است. با دستِ خالی ۰.۹ ثانیه و با Shovel ۰.۴۵ ثانیه زمان لازم است.",
+    "این بلاک تحت‌جاذبه است و می‌افتد. اگر بازیکن زیرِ آن قرار گیرد، می‌تواند از خفگی بمیرد — اتفاقی که در حفر زیرِ شن‌های زیرین رخ می‌دهد.",
+    "Gravel در استخراج ۱۰٪ احتمال Flint دراپ می‌کند (به‌جای خودش). با Fortune III، این احتمال به ۱۰۰٪ می‌رسد. Flint برای ساخت Flint and Steel و Arrow ضروری است."
+  ],
+  "trivia": [
+    "Gravel اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک یکی از معدود بلاک‌های تحت‌جاذبه است (Sand، Anvil، Dragon Egg، Concrete Powder).",
+    "با جادوی Fortune III، Gravel همیشه Flint دراپ می‌کند — روشی مفید برای تولید Arrow.",
+    "در نسخه‌های قدیمی، Gravel می‌توانست در عمق زیرین به‌صورت ستونی تا بی‌نهایت بیفتد.",
+    "Gravel در Nether نیز تولید می‌شود — در لایه‌های تحتانی Nether به‌صورت نوارهای کوچک."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Gravel به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.3",
+      "change": "افزایش احتمال دراپ Flint از ۱۰٪ به ۱۰٪ (اصلاح محاسبات)."
+    },
+    {
+      "version": "Java 1.7.2 (2014)",
+      "change": "افزایش تولید Gravel در بایوم‌های Extreme Hills."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود رفتار Gravel در آب — شناور می‌شود."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "توزیع جدید Gravel در لایه‌های زیرین."
+    }
+  ],
+  "differences": [
+    "در Java، Gravel تحت جاذبه است و می‌افتد؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Java، استخراج با Fortune III همیشه Flint می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، Gravel در Nether با توزیع کمی متفاوت تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "sand",
+      "nameEn": "Sand",
+      "nameFa": "ماسه",
+      "type": "block"
+    },
+    {
+      "id": "dirt",
+      "nameEn": "Dirt",
+      "nameFa": "خاک",
+      "type": "block"
+    },
+    {
+      "id": "flint",
+      "nameEn": "Flint",
+      "nameFa": "چخماق",
+      "type": "item"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.6,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "gravity": true
+  }
 }

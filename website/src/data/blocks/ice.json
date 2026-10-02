@@ -29,5 +29,76 @@
       "condition": "فقط با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Ice"
+  "wikiLink": "https://minecraft.wiki/w/Ice",
+  "intro": [
+    "یخ (Ice) یک بلاک طبیعی است که در بایوم‌های Snowy Tundra، Ice Spikes و کوه‌های برفی به‌وفور یافت می‌شود. این بلاک شفاف است و در حالت شکل‌گرفته از Water در دما‌ی پایین تولید می‌شود.",
+    "Ice در لایه‌های سطحی بایوم‌های برفی تولید می‌شود. این بلاک با Silk Touch قابل‌استخراج است؛ بدون آن، شکسته می‌شود (تبدیل به Water). Ice در ساخت Packed Ice و Blue Ice به‌کار می‌رود.",
+    "این بلاک سختی ۰.۵ دارد و با هر ابزاری قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، شکسته می‌شود. Ice در نسخه‌ی ۱.۱۳ با ۹ Ice در Crafting Table به Packed Ice تبدیل شد."
+  ],
+  "behavior": [
+    "سختی Ice ۰.۵ است. با دستِ خالی ۰.۷۵ ثانیه و با هر ابزاری ۰.۴ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۰.۵ دارد و در برابر آتش می‌سوزد (در نسخه‌ی ۱.۲۱، Ice می‌تواند به Water تبدیل شود). در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، شکسته می‌شود.",
+    "Ice در ساخت Packed Ice (۹ Ice در Crafting Table) و Blue Ice (۹ Packed Ice در Crafting Table) به‌کار می‌رود. این بلاک در بایوم‌های Snowy Tundra، Ice Spikes و کوه‌های برفی به‌وفور یافت می‌شود. Ice با Silk Touch قابل‌استخراج است؛ بدون آن، شکسته می‌شود (تبدیل به Water)."
+  ],
+  "trivia": [
+    "Ice اولین بار در نسخه‌ی Java Beta 1.9 (۲۰۱۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت.",
+    "Ice تنها بلاک شفاف طبیعی است که از Water در دما‌ی پایین تولید می‌شود — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، Ice با ۹ Ice در Crafting Table به Packed Ice تبدیل می‌شود.",
+    "Blue Ice نسخه‌ی فشرده‌تر از Ice است که سرعت حرکت قایق را به‌شدت افزایش می‌دهد."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.9 (2011)",
+      "change": "Ice به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزایش تولید Ice در بایوم‌های Ice Spikes."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود بافت Ice با رندر جدید."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Ice در کوه‌های برفی."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Ice با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Ice با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch شکسته می‌شود (تبدیل به Water)؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Ice با توزیع کمی متفاوت در بایوم‌های برفی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "packed-ice",
+      "nameEn": "Packed Ice",
+      "nameFa": "یخ فشرده",
+      "type": "block"
+    },
+    {
+      "id": "water",
+      "nameEn": "Water",
+      "nameFa": "آب",
+      "type": "block"
+    },
+    {
+      "id": "snow-block",
+      "nameEn": "Snow Block",
+      "nameFa": "بلوک برف",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.5,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "silktouch": true
+  }
 }

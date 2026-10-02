@@ -34,5 +34,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Glass"
+  "wikiLink": "https://minecraft.wiki/w/Glass",
+  "intro": [
+    "شیشه (Glass) یک بلاک شفاف ساختمانی است که از Smelting Sand در کوره به‌دست می‌آید. این بلاک در ساخت‌وسازهای زیبا، پنجره‌ها و گنبدها به‌کار می‌رود.",
+    "Glass سختی ۰.۳ دارد — بسیار شکننده. این بلاک در استخراج، بدون Silk Touch، هیچ‌چیز دراپ نمی‌کند؛ با Silk Touch خودش را می‌دهد. در نسخه‌ی ۱.۸، Stained Glass (۱۶ رنگ) نیز اضافه شد.",
+    "Glass در ساخت Beacon، Daylight Detector، Glass Pane و Glass Bottle به‌کار می‌رود. این بلاک نور را عبور می‌دهد ولی تصویر را محو می‌کند — کاربرد آن در پنجره‌ها و سقف‌های شیشه‌ای است."
+  ],
+  "behavior": [
+    "سختی Glass ۰.۳ است. با دستِ خالی ۰.۴۵ ثانیه و با هر ابزاری ۰.۳ ثانیه زمان لازم است — ولی استخراج آن بدون Silk Touch هیچ‌چیز دراپ نمی‌کند.",
+    "این بلاک مقاومت انفجاری ۱.۵ دارد — بسیار ضعیف. در برابر آتش نمی‌سوزد، ولی در برابر TNT شکسته می‌شود.",
+    "Glass در ساخت Beacon (۵ Glass + ۳ Obsidian + ۱ Nether Star)، Daylight Detector (۳ Glass + ۳ Nether Quartz + ۳ Wood) و Glass Bottle (۳ Glass در شکل V) به‌کار می‌رود. در نسخه‌ی ۱.۸، ۱۶ رنگ Stained Glass اضافه شد."
+  ],
+  "trivia": [
+    "Glass اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۸ به‌همراه ۱۶ رنگ Stained Glass گسترش یافت.",
+    "Glass در نسخه‌های قدیمی بدون Silk Touch قابل‌بازگشت نبود؛ اکنون با Silk Touch قابل‌استخراج است.",
+    "Tinted Glass نسخه‌ای نیمه‌شفاف از Glass است که نور را کاملاً مسدود می‌کند (نسخه‌ی ۱.۱۷).",
+    "Glass در ساختمان‌های زیبا به‌علت شفافیت و زیبایی، کاربرد فراوان دارد — پنجره‌ها، گنبدها، آکواریوم‌ها."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Glass به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.2 (2011)",
+      "change": "افزایش تولید Glass در Smelting Sand."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "Stained Glass با ۱۶ رنگ اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Glass با راندمان بالاتر."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "Tinted Glass به‌عنوان نوع جدید اضافه شد."
+    }
+  ],
+  "differences": [
+    "در Java، Glass با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج Glass بدون Silk Touch هیچ‌چیز دراپ نمی‌کند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Glass با توزیع کمی متفاوت در ساخت‌وسازهای روستایی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "sand",
+      "nameEn": "Sand",
+      "nameFa": "ماسه",
+      "type": "block"
+    },
+    {
+      "id": "glass-pane",
+      "nameEn": "Glass Pane",
+      "nameFa": "ورقه شیشه",
+      "type": "block"
+    },
+    {
+      "id": "beacon",
+      "nameEn": "Beacon",
+      "nameFa": "فانوس دریایی",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 1.5,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "silktouch": true
+  }
 }

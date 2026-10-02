@@ -165,6 +165,31 @@ export type BlockDrop = {
   condition?: string;
 };
 
+export type HistoryEntry = {
+  version: string;
+  change: string;
+};
+
+export type RelatedEntry = {
+  id: string;
+  nameEn: string;
+  nameFa: string;
+  type?: 'block' | 'mob' | 'item';
+};
+
+export type ExtraStats = {
+  blastResistance?: number;
+  renewable?: boolean;
+  flammable?: boolean;
+  luminance?: number;
+  slipperiness?: number;
+  gravity?: boolean;
+  silktouch?: boolean;
+  minPickaxe?: string;
+  burnTime?: number;
+  [key: string]: unknown;
+};
+
 export type BlockInfo = {
   id: string;
   nameEn: string;
@@ -182,6 +207,14 @@ export type BlockInfo = {
   locations: string[];
   drops: BlockDrop[];
   wikiLink: string;
+  // Rich content (optional — only on priority blocks)
+  intro?: string[];
+  behavior?: string[];
+  trivia?: string[];
+  history?: HistoryEntry[];
+  differences?: string[];
+  related?: RelatedEntry[];
+  extraStats?: ExtraStats;
 };
 
 type BlocksIndexFile = {
@@ -263,6 +296,22 @@ export type MobInfo = {
   locations: string[];
   combat: string[];
   wikiLink: string;
+  // Rich content (optional — only on priority mobs)
+  intro?: string[];
+  behavior?: string[];
+  trivia?: string[];
+  history?: HistoryEntry[];
+  differences?: string[];
+  related?: RelatedEntry[];
+  extraStats?: ExtraStats & {
+    armor?: number;
+    height?: number;
+    width?: number;
+    spawnLightLevel?: string;
+    xp?: number;
+    boss?: boolean;
+    spawnGroup?: string;
+  };
 };
 
 type MobsIndexFile = {

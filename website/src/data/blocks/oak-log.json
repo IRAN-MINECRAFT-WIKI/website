@@ -28,5 +28,76 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Oak_Log"
+  "wikiLink": "https://minecraft.wiki/w/Oak_Log",
+  "intro": [
+    "تنه‌ی درخت بلوط (Oak Log) بلاک چوب طبیعی است که با شکستن تنه‌ی درختان بلوط به‌دست می‌آید. این بلاک در بایوم‌های جنگل بلوط به‌وفور یافت می‌شود.",
+    "Oak Log در ساخت ۴ Oak Planks، به‌عنوان سوخت کوره (۱۵ ثانیه به‌ازای هر Log) و در ساخت Stripped Oak Log (با Axe) به‌کار می‌رود. این بلاک در تمام بایوم‌های جنگل تولید می‌شود.",
+    "تنه‌ی درخت بلوط یکی از اولین متریال‌های بازیکن است و پایه‌ی ساخت‌وسازهای چوبی است. در نسخه‌ی ۱.۲۱، ۶ نوع چوب (Oak، Spruce، Birch، Jungle، Acacia، Dark Oak) + Bamboo موجود است."
+  ],
+  "behavior": [
+    "سختی Oak Log ۲.۰ است. با دستِ خالی ۳ ثانیه و با Axe ۱.۵ ثانیه زمان لازم است.",
+    "این بلاک قابل‌سوختن است و به‌عنوان سوخت کوره به‌کار می‌رود (۱۵ ثانیه — معادل ۱.۵ Coal). در ساخت Smoker و Campfire نیز به‌کار می‌رود.",
+    "Oak Log در ساخت ۴ Oak Planks (در Crafting Table) به‌کار می‌رود. با کلیک راست با Axe، به Stripped Oak Log تبدیل می‌شود (بافت بدون پوست)."
+  ],
+  "trivia": [
+    "Oak Log اولین بار در نسخه‌ی Java 0.0.11a (۲۰۰۹) اضافه شد.",
+    "این بلاک در تمام درختان طبیعی ماینکرفت به‌عنوان «تنه» به‌کار می‌رود — هر نوع درخت یک نوع Log دارد.",
+    "Stripped Oak Log نسخه‌ای بدون پوست است که در نسخه‌ی ۱.۱۳ اضافه شد.",
+    "Oak Log با Silk Touch با خودِ تنه قابل‌انتقال است؛ ولی بدون آن فقط خودش را می‌دهد (همان رفتار).",
+    "در نسخه‌ی ۱.۲۱، Oak Wood (نسخه‌ی تمام‌چوب، بدون حفره) نیز اضافه شده است."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.11a (2009)",
+      "change": "Oak Log به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.2 (2011)",
+      "change": "افزودن Planks برای ساخت Oak Log."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "Stripped Oak Log به‌عنوان نوع جدید اضافه شد."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "افزودن Bamboo به‌عنوان نوع جدید چوب."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزودن Cherry Log به‌عنوان نوع جدید چوب."
+    }
+  ],
+  "differences": [
+    "در Java، Oak Log با توزیع یکسان در تمام بایوم‌ها تولید می‌شود؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج Oak Log با Axe سریع‌تر است؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، Oak Log در ساخت‌وسازهای روستایی با توزیع کمی متفاوت تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "oak-planks",
+      "nameEn": "Oak Planks",
+      "nameFa": "تخته‌های بلوط",
+      "type": "block"
+    },
+    {
+      "id": "oak-leaves",
+      "nameEn": "Oak Leaves",
+      "nameFa": "برگ‌های بلوط",
+      "type": "block"
+    },
+    {
+      "id": "spruce-log",
+      "nameEn": "Spruce Log",
+      "nameFa": "تنه‌ی درخت spruce",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 15.0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "burnTime": 15
+  }
 }

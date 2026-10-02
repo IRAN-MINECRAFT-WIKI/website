@@ -35,5 +35,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Gold_Ore"
+  "wikiLink": "https://minecraft.wiki/w/Gold_Ore",
+  "intro": [
+    "سنگ طلا (Gold Ore) یکی از منابع معدنی باارزش ماینکرفت است که در دو جا یافت می‌شود: در دنیای زیرینِ معمولی در لایه‌های y=-۶۴ تا y=۳۲، و در Nether به‌صورت Nether Gold Ore.",
+    "با استخراج Gold Ore با پیکه‌ی آهنی یا بالاتر، Raw Gold به‌دست می‌آید که در کوره به Gold Ingot تبدیل می‌شود. این ingot برای ساخت ساعت، ساعت مچی، Apple Gold، ریل‌های توانمند و تجهیزات زیرین کاربرد دارد.",
+    "ابزار طلایی، با وجود سرعت بالای استخراج و کارایی بالا، سختی کم و دوامِ پایینی دارند (تنها ۳۲ باار استخدام). به همین دلیل، بیشتر ابزار طلایی برای ساخت‌وسازهای خاص یا Enchanted Golden Apple استفاده می‌شود."
+  ],
+  "behavior": [
+    "سختی Gold Ore ۳.۰ و Deepslate Gold Ore ۴.۵ است. با دستِ خالی ۱۵ ثانیه و با پیکه‌ی آهنی ۱.۱۵ ثانیه زمان لازم است.",
+    "Gold Ore معمولاً در رگه‌های ۱ تا ۹ بلاک در لایه‌های y=-۶۴ تا y=۳۲ یافت می‌شود، با تمرکز بیشتر در y=-۱۶. در عمق زیر y=۰ به Deepslate Gold Ore تبدیل می‌شود.",
+    "در Nether، Nether Gold Ore در لایه‌های y=۱۰ تا y=۱۱۷ یافت می‌شود و با هر پیکه‌ای شکسته می‌شود؛ ۲ تا ۶ Gold Nugget دراپ می‌کند. Piglins به آن علاقه‌مندند و در صورت استخراج در حضورشان، حمله می‌کنند."
+  ],
+  "trivia": [
+    "Gold Ore اولین بار در نسخه‌ی Java 0.0.20 (۲۰۰۹) اضافه شد.",
+    "در نسخه‌ی ۱.۱۷، Raw Gold به‌جای مستقیم‌سازی Gold Ingot به‌عنوان دراپ اضافه شد.",
+    "Nether Gold Ore در نسخه‌ی ۱.۱۶ به Nether اضافه شد و یکی از منابع قابل‌تجدیدِ Gold است.",
+    "ابزار طلایی سرعت استخراجِ بالاتری از الماس دارند، ولی دوامشان فقط ۳۲ است — به‌عنوان انتخاب اکسترم برای سرعت.",
+    "در نسخه‌ی Bedrock، Gold Ore در بایوم‌های Mesca و Badlands با چگالی بیشتر تولید می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 0.0.20 (2009)",
+      "change": "Gold Ore به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.2",
+      "change": "نیاز به پیکه‌ی آهنی برای استخراج اضافه شد."
+    },
+    {
+      "version": "Java 1.10 (2016)",
+      "change": "افزایش تولید Gold Ore در بایوم‌های Mesca."
+    },
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "Nether Gold Ore به Nether اضافه شد."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "Raw Gold به‌جای Gold Ingot به‌عنوان دراپ اضافه شد."
+    }
+  ],
+  "differences": [
+    "در Java، تولید Gold Ore در بایوم‌های Badlands با نرخ بیشتر است؛ در Bedrock این تفاوت کمتر است.",
+    "Nether Gold Ore در دو نسخه تعداد Gold Nugget دراپ متفاوتی دارد: Java ۲-۶، Bedrock ۲-۶ (با محاسبات احتمالی متفاوت).",
+    "در Bedrock، استخراج Nether Gold Ore با پیکه‌ی چوبی مقداری Gold Nugget می‌دهد؛ در Java این رفتار یکسان است."
+  ],
+  "related": [
+    {
+      "id": "deepslate-gold-ore",
+      "nameEn": "Deepslate Gold Ore",
+      "nameFa": "سنگ طلا‌ی عمیق",
+      "type": "block"
+    },
+    {
+      "id": "nether-gold-ore",
+      "nameEn": "Nether Gold Ore",
+      "nameFa": "سنگ طلا‌ی ندر",
+      "type": "block"
+    },
+    {
+      "id": "iron-ore",
+      "nameEn": "Iron Ore",
+      "nameFa": "سنگ آهن",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3.0,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "iron"
+  }
 }

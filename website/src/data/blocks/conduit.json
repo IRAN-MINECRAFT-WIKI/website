@@ -29,5 +29,75 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Conduit"
+  "wikiLink": "https://minecraft.wiki/w/Conduit",
+  "intro": [
+    "رساند (Conduit) یک بلاک کاربردی است که از ۱ Heart of the Sea + ۸ Nautilus Shell در Crafting Table ساخته می‌شود. این بلاک امکان تنفس زیر آب، افزایش سرعت زیر آب و آسیب به حیوانات در دریا را فراهم می‌کند.",
+    "Conduit با ساخت یک قاب از Prismarine، Prismarine Bricks یا Sea Lantern (با ۱۶ بلاک در شکل خاص)، فعال می‌شود. این بلاک در نسخه‌ی ۱.۱۳ اضافه شد — همراه با Update Aquatic.",
+    "این بلاک سختی ۳.۰ دارد و با پیکه‌ی چوبی قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. Conduit در ساخت‌وسازهای زیر‌دریایی به‌کار می‌رود."
+  ],
+  "behavior": [
+    "سختی Conduit ۳.۰ است. با دستِ خالی ۴.۵ ثانیه و با پیکه‌ی چوبی ۰.۷۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۳.۰ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Conduit با ساخت یک قاب از Prismarine، Prismarine Bricks یا Sea Lantern (با ۱۶ بلاک در شکل خاص)، فعال می‌شود. این بلاک امکان تنفس زیر آب (در شعاع ۴۲ بلاک)، افزایش سرعت زیر آب و آسیب به حیوانات در دریا (در شعاع ۸ بلاک) را فراهم می‌کند. در نسخه‌ی ۱.۱۳ اضافه شد."
+  ],
+  "trivia": [
+    "Conduit اولین بار در نسخه‌ی Java 1.13 (۲۰۱۸) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۷ به‌علت تغییرات Sea Lantern، گسترش یافت.",
+    "Conduit تنها بلاکی است که می‌تواند تنفس زیر آب را فراهم کند — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، Conduit با ۱ Heart of the Sea + ۸ Nautilus Shell ساخته می‌شود — یک بلاک گران.",
+    "Conduit در ساخت‌وسازهای زیر‌دریایی به‌علت قابلیت تنفس، کاربرد فراوان دارد."
+  ],
+  "history": [
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "Conduit به بازی اضافه شد — همراه با Update Aquatic."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود بافت Conduit با رندر جدید."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Conduit در بایوم‌های زیر‌دریایی."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Conduit با راندمان بالاتر."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش سرعت تنفس زیر آب."
+    }
+  ],
+  "differences": [
+    "در Java، Conduit با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Conduit با توزیع کمی متفاوت در شعاع تنفس کار می‌کند."
+  ],
+  "related": [
+    {
+      "id": "sea-lantern",
+      "nameEn": "Sea Lantern",
+      "nameFa": "فانوس دریایی",
+      "type": "block"
+    },
+    {
+      "id": "elder-guardian",
+      "nameEn": "Elder Guardian",
+      "nameFa": "نگهبان کهنه",
+      "type": "mob"
+    },
+    {
+      "id": "glowstone",
+      "nameEn": "Glowstone",
+      "nameFa": "گلاستون",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 15
+  }
 }

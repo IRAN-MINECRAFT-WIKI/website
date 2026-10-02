@@ -27,5 +27,84 @@
   "combat": [
     "با یک ضربه بزن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Pig"
+  "wikiLink": "https://minecraft.wiki/w/Pig",
+  "intro": [
+    "خوک (Pig) یک مابِ صلح‌جو ماینکرفت است که در بایوم‌های Plains، Forest و Extreme Hills اسپاون می‌شود. این ماب با ۱۰ سلامتی شناخته می‌شود و با کشته‌شدن، Raw Porkchop دراپ می‌کند.",
+    "خوک در نسخه‌ی Java 0.24 (۲۰۰۹) اضافه شد — یکی از اولین ماب‌های ماینکرفت. این ماب با Saddle قابل‌سوار شدن است و با Carrot روی Stick می‌توان آن را هدایت کرد.",
+    "خوک با کشته‌شدن، Raw Porkchop (۱-۳) دراپ می‌کند. این ماب در نسخه‌ی ۱.۲۱ با Saddle و Carrot on a Stick نیز شناخته می‌شود."
+  ],
+  "behavior": [
+    "خوک در بایوم‌های Plains، Forest و Extreme Hills اسپاون می‌شود. این ماب با ۱۰ سلامتی شناخته می‌شود و آسیب تماسی ۰ وارد می‌کند.",
+    "خوک با Saddle قابل‌سوار شدن است. با Carrot on a Stick می‌توان خوک را هدایت کرد (با سرعت ۰.۲۵). خوک با کشته‌شدن، Raw Porkchop (۱-۳) دراپ می‌کند.",
+    "خوک با Lightning (در صورت مواجه) می‌تواند تبدیل به Zombified Piglin شود (در نسخه‌ی ۱.۲۱). این ماب در نسخه‌ی ۱.۲۱ با Saddle و Carrot on a Stick نیز شناخته می‌شود. در نسخه‌ی ۱.۲۱، خوک با ضربه‌ی شمشیر Knockback به‌عقب هل داده می‌شود."
+  ],
+  "trivia": [
+    "خوک در نسخه‌ی ۰.۲۴ (۲۰۰۹) اضافه شد — یکی از اولین ماب‌های ماینکرفت.",
+    "این ماب در نسخه‌ی ۱.۲.۱ به‌علت اضافه‌شدن Saddle، گسترش یافت.",
+    "خوک تنها مابِ قابل‌سوار شدن ماینکرفت است (با Horse) — رفتاری منحصر‌به‌فرد.",
+    "در نسخه‌ی ۱.۲۱، خوک با Saddle می‌تواند به‌عنوان متریال برای ساخت Carrot on a Stick به‌کار رود.",
+    "خوک با Lightning می‌تواند تبدیل به Zombified Piglin شود — مکانیکی منحصر‌به‌فرد."
+  ],
+  "history": [
+    {
+      "version": "Java 0.24 (2009)",
+      "change": "خوک به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.2.1 (2012)",
+      "change": "افزایش رفتار Saddle با خوک."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش آسیب تماسی خوک به ۰."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود رفتار خوک در آب — اکنون می‌تواند شنا کند."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزایش توانایی Knockback خوک."
+    }
+  ],
+  "differences": [
+    "در Java، خوک با ۱۰ سلامتی شناخته می‌شود؛ در Bedrock ۱۰.",
+    "در Java، خوک با Saddle شناخته می‌شود؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، خوک با توزیع کمی متفاوت در اسپاون کار می‌کند."
+  ],
+  "related": [
+    {
+      "id": "cow",
+      "nameEn": "Cow",
+      "nameFa": "گاو",
+      "type": "mob"
+    },
+    {
+      "id": "sheep",
+      "nameEn": "Sheep",
+      "nameFa": "گوسفند",
+      "type": "mob"
+    },
+    {
+      "id": "chicken",
+      "nameEn": "Chicken",
+      "nameFa": "مرغ",
+      "type": "mob"
+    },
+    {
+      "id": "zombified-piglin",
+      "nameEn": "Zombified Piglin",
+      "nameFa": "پیگلین زامبی",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 0.9,
+    "width": 0.9,
+    "spawnLightLevel": ">=9",
+    "xp": 1,
+    "boss": false,
+    "spawnGroup": "creature"
+  }
 }

@@ -30,5 +30,82 @@
       "condition": "فقط با Diamond Pickaxe"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Obsidian"
+  "wikiLink": "https://minecraft.wiki/w/Obsidian",
+  "intro": [
+    "اوبسیدین (Obsidian) یکی از سخت‌ترین و مقاوم‌ترین بلاک‌های ماینکرفت است که از ترکیب آب و لاوا به‌دست می‌آید. این بلاک برای ساخت Nether Portal، Ender Chest و Enchanting Table ضروری است.",
+    "وقتی آب جاری روی لاوای جاری بریزد، لاوا به Obsidian تبدیل می‌شود. این بلاک سختی ۵۰.۰ دارد و فقط با Diamond Pickaxe یا Netherite Pickaxe قابل‌شکستن است.",
+    "Obsidian در عالم ندر (Nether) به‌صورت طبیعی نیز یافت می‌شود — در ستون‌های Nether Fortress و در لایه‌های تحتانی Nether. در دنیای End، ستون‌های مرکزی جزیره از Obsidian ساخته شده‌اند."
+  ],
+  "behavior": [
+    "سختی Obsidian ۵۰.۰ است. با دستِ خالی ۲۵۰ ثانیه و با Diamond Pickaxe ۹.۴ ثانیه زمان لازم است. با هر پیکه‌ای دیگر، هیچ‌چیز دراپ نمی‌کند.",
+    "این بلاک مقاومت انفجاری ۱۲۰۰ دارد — نزدیک به Ancient Debris. TNT نمی‌تواند آن را نابود کند، ولی Wither و Ender Dragon می‌توانند آن را بشکنند (در برخی نسخه‌ها).",
+    "Obsidian در ساخت Nether Portal به‌کار می‌رود: یک قاب ۴×۵ (یا ۲×۳ تا ۲۳×۲۳) از Obsidian، و سپس فعال‌سازی با Flint and Steel. هم‌چنین برای ساخت Ender Chest (با ۸ Obsidian + 1 Eye of Ender) و Enchanting Table (با ۴ Obsidian + ۲ Diamond + ۱ Book) ضروری است."
+  ],
+  "trivia": [
+    "Obsidian اولین بار در نسخه‌ی Java Alpha 1.0.1 (۲۰۱۰) اضافه شد.",
+    "این بلاک مقاومت انفجاری ۱۲۰۰ دارد — دومین بلاکِ مقاوم در ماینکرفت (بعد از Bedrock).",
+    "در نسخه‌های قدیمی، Obsidian با ساخت‌های پیچیده از آب و لاوا تولید می‌شد؛ اکنون به‌صورت طبیعی نیز یافت می‌شود.",
+    "Crying Obsidian نسخه‌ای ارغوانی از Obsidian است که در نسخه‌ی ۱.۱۶ اضافه شد و در ساخت Respawn Anchor استفاده می‌شود.",
+    "Obsidian در دنیای واقعی نیز یک سنگ آتشفشانی است که از سردشدن سریع لاوا به‌دست می‌آید — تناظر با ماینکرفت!"
+  ],
+  "history": [
+    {
+      "version": "Java Alpha 1.0.1 (2010)",
+      "change": "Obsidian به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.8 (2011)",
+      "change": "افزودن Obsidian به Ender Chest ساخت."
+    },
+    {
+      "version": "Java 1.4 (2012)",
+      "change": "Obsidian به Enchanting Table ساخت اضافه شد."
+    },
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "Crying Obsidian و Respawn Anchor اضافه شد."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید طبیعی Obsidian در Nether."
+    }
+  ],
+  "differences": [
+    "در Java، Wither می‌تواند Obsidian را بشکند؛ در Bedrock نیز همین رفتار اجرا می‌شود ولی با آسیب متفاوت.",
+    "در Java، Ender Dragon می‌تواند Obsidian را بشکند؛ در Bedrock رفتار یکسان است ولی ناحیه‌ی تحت‌حمله متفاوت است.",
+    "در Bedrock، Obsidian در ستون‌های Nether Fortress با توزیع کمی متفاوت تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "ender-chest",
+      "nameEn": "Ender Chest",
+      "nameFa": "صندوق اِند",
+      "type": "block"
+    },
+    {
+      "id": "enchanting-table",
+      "nameEn": "Enchanting Table",
+      "nameFa": "میز جادو",
+      "type": "block"
+    },
+    {
+      "id": "ancient-debris",
+      "nameEn": "Ancient Debris",
+      "nameFa": "خرده‌سنگ باستانی",
+      "type": "block"
+    },
+    {
+      "id": "bedrock",
+      "nameEn": "Bedrock",
+      "nameFa": "بدراک",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 1200.0,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "diamond"
+  }
 }

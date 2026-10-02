@@ -36,19 +36,54 @@ const ldArticle = articleJsonLd({
 // Tool label translation
 const toolLabels: Record<string, string> = {
   none: '—',
-  wooden_pickaxe: '岔ب چوبی',
-  stone_pickaxe: '岔ب سنگی',
-  iron_pickaxe: '岔ب آهنی',
-  diamond_pickaxe: '岔ب الماسی',
+  wooden_pickaxe: 'پیکه‌ی چوبی',
+  stone_pickaxe: 'پیکه‌ی سنگی',
+  iron_pickaxe: 'پیکه‌ی آهنی',
+  diamond_pickaxe: 'پیکه‌ی الماسی',
   axe: 'تبر',
   shovel: 'بیل',
-  pickaxe: '岔ب',
+  pickaxe: 'پیکه',
 };
 
-function faNum(n: number | string): string {
+function faNum(n: number | string | undefined): string {
+  if (n === undefined || n === null) return '—';
   const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
   return String(n).replace(/\d/g, (d) => map[+d]!);
 }
+
+// Extra stats label translation
+const extraLabels: Record<string, string> = {
+  blastResistance: 'مقاومت در برابر انفجار',
+  renewable: 'قابل‌تجدید',
+  flammable: 'قابل‌سوختن',
+  luminance: 'روشنایی',
+  slipperiness: 'لغزندگی',
+  gravity: 'تحت‌جاذبه',
+  silktouch: 'نیاز به Silk Touch',
+  minPickaxe: 'حداقل پیکه',
+  burnTime: 'زمان سوخت (ثانیه)',
+};
+
+// Skip these from infobox extra-stats (they overlap with main stats grid)
+const skipKeys = new Set(['luminance']);
+
+const extraEntries = block.extraStats
+  ? Object.entries(block.extraStats).filter(
+      ([k, v]) => !skipKeys.has(k) && v !== undefined && v !== null
+    )
+  : [];
+
+// Build related links with hrefs
+const relatedLinks = (block.related || []).map((r) => {
+  let href = '#';
+  if (r.type === 'mob' || (!r.type && r.id && getBlockById(r.id) === undefined)) {
+    // If not found in blocks, assume mob
+    href = `/wiki/mobs/${r.id}`;
+  } else {
+    href = `/wiki/blocks/${r.id}`;
+  }
+  return { ...r, href };
+});
 ---
 
 <BaseLayout
@@ -93,118 +128,272 @@ function faNum(n: number | string): string {
     </div>
   </div>
 
-  <!-- Properties -->
-  <section class="mc-panel mb-6 p-5">
-    <h2 class="text-xl font-extrabold mb-3">ویژگی‌های بلاک</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
-        <div class="text-[10px] text-mc-text-3 mb-1">سختی</div>
-        <div class="text-lg font-bold text-mc-text" dir="ltr">{faNum(block.hardness)}</div>
-      </div>
-      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
-        <div class="text-[10px] text-mc-text-3 mb-1">ابزار لازم</div>
-        <div class="text-sm font-bold text-mc-text">{toolLabels[block.tool] || block.tool}</div>
-      </div>
-      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
-        <div class="text-[10px] text-mc-text-3 mb-1">شفاف</div>
-        <div class="text-sm font-bold text-mc-text">{block.transparent ? 'بله' : 'خیر'}</div>
-      </div>
-      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
-        <div class="text-[10px] text-mc-text-3 mb-1">سطح نور</div>
-        <div class="text-lg font-bold text-mc-text" dir="ltr">{faNum(block.lightLevel)}</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Uses + Locations -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-    <section class="mc-panel p-5">
-      <h2 class="text-lg font-extrabold mb-3">🎯 کاربردها</h2>
-      {block.uses.length > 0 ? (
-        <ul class="space-y-2">
-          {block.uses.map((u) => (
-            <li class="flex items-start gap-2">
-              <span class="text-mc-grass-2 mt-1">✓</span>
-              <span class="text-sm text-mc-text-2">{u}</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="text-sm text-mc-text-3">کاربرد خاصی ثبت نشده.</p>
-      )}
-    </section>
-    <section class="mc-panel p-5">
-      <h2 class="text-lg font-extrabold mb-3">📍 محل یافتن</h2>
-      {block.locations.length > 0 ? (
-        <ul class="space-y-2">
-          {block.locations.map((l) => (
-            <li class="flex items-start gap-2">
-              <span class="text-mc-gold mt-1">→</span>
-              <span class="text-sm text-mc-text-2">{l}</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="text-sm text-mc-text-3">محل خاصی ثبت نشده.</p>
-      )}
-    </section>
-  </div>
-
-  <!-- Drops -->
-  <section class="mc-panel mb-6 p-5">
-    <h2 class="text-lg font-extrabold mb-3">🎁 دراپ‌ها (Loot)</h2>
-    {block.drops.length > 0 ? (
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        {block.drops.map((d) => (
-          <div class="flex items-center gap-3 p-3 bg-mc-bg-2 border border-mc-line rounded">
-            <div class="flex-1">
-              <div class="text-sm font-bold text-mc-text" dir="ltr">{d.item}</div>
-              {d.count && <div class="text-xs text-mc-text-3" dir="ltr">تعداد: {d.count}</div>}
-              {d.condition && <div class="text-[10px] text-mc-text-3 mt-1">{d.condition}</div>}
-            </div>
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
+    <!-- MAIN CONTENT -->
+    <div class="space-y-6 min-w-0">
+      <!-- Intro (معرفی) -->
+      {block.intro && block.intro.length > 0 && (
+        <section class="mc-panel p-5">
+          <h2 class="text-xl font-extrabold mb-3 flex items-center gap-2">
+            <span>📖</span>
+            <span>معرفی</span>
+          </h2>
+          <div class="space-y-3 text-sm text-mc-text-2 leading-loose">
+            {block.intro.map((p) => <p>{p}</p>)}
           </div>
-        ))}
-      </div>
-    ) : (
-      <p class="text-sm text-mc-text-3">این بلاک چیزی دراپ نمی‌کند.</p>
-    )}
-  </section>
-
-  <!-- Versions + Wiki link -->
-  <section class="mc-panel mb-6 p-5">
-    <h2 class="text-lg font-extrabold mb-3">📚 نسخه‌ها و مرجع</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-      <div class="flex items-start gap-2">
-        <span class="text-mc-text-3 mt-0.5">☕ جاوا:</span>
-        <span class="text-mc-text-2" dir="ltr">{block.versions.java}</span>
-      </div>
-      <div class="flex items-start gap-2">
-        <span class="text-mc-text-3 mt-0.5">🪨 بدراک:</span>
-        <span class="text-mc-text-2" dir="ltr">{block.versions.bedrock}</span>
-      </div>
-      {block.wikiLink && (
-        <div class="sm:col-span-2 flex items-start gap-2 mt-2 pt-3 border-t border-mc-line">
-          <span class="text-mc-text-3 mt-0.5">📖 ویکی:</span>
-          <a
-            href={block.wikiLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-mc-grass-2 hover:underline break-all"
-            dir="ltr"
-          >
-            {block.wikiLink} ↗
-          </a>
-        </div>
+        </section>
       )}
-    </div>
-  </section>
 
-  <!-- Back to blocks -->
-  <a
-    href={`/wiki/blocks`}
-    class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-2 text-sm font-bold text-mc-text-2 hover:text-mc-grass-2"
-  >
-    <svg width="14" height="14"><use href="#icon-chevron-right" /></svg>
-    بازگشت به فهرست بلاک‌ها
-  </a>
+      <!-- Locations (محل یافت) -->
+      <section class="mc-panel p-5">
+        <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+          <span>📍</span>
+          <span>محل یافتن</span>
+        </h2>
+        {block.locations.length > 0 ? (
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {block.locations.map((l) => (
+              <li class="flex items-start gap-2">
+                <span class="text-mc-gold mt-1">→</span>
+                <span class="text-sm text-mc-text-2">{l}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="text-sm text-mc-text-3">محل خاصی ثبت نشده.</p>
+        )}
+      </section>
+
+      <!-- Drops (دراپ‌ها) -->
+      <section class="mc-panel p-5">
+        <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+          <span>🎁</span>
+          <span>دراپ‌ها (Loot)</span>
+        </h2>
+        {block.drops.length > 0 ? (
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {block.drops.map((d) => (
+              <div class="flex items-center gap-3 p-3 bg-mc-bg-2 border border-mc-line rounded">
+                <div class="flex-1">
+                  <div class="text-sm font-bold text-mc-text" dir="ltr">{d.item}</div>
+                  {d.count && <div class="text-xs text-mc-text-3" dir="ltr">تعداد: {d.count}</div>}
+                  {d.condition && <div class="text-[10px] text-mc-text-3 mt-1">{d.condition}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="text-sm text-mc-text-3">این بلاک چیزی دراپ نمی‌کند.</p>
+        )}
+      </section>
+
+      <!-- Uses / Behavior (کاربردها و رفتار) -->
+      {(block.uses.length > 0 || (block.behavior && block.behavior.length > 0)) && (
+        <section class="mc-panel p-5">
+          <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+            <span>🎯</span>
+            <span>کاربردها و رفتار</span>
+          </h2>
+          {block.uses.length > 0 && (
+            <div class="mb-4">
+              <h3 class="text-sm font-bold text-mc-text mb-2">کاربردها:</h3>
+              <ul class="space-y-2">
+                {block.uses.map((u) => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-mc-grass-2 mt-1">✓</span>
+                    <span class="text-sm text-mc-text-2">{u}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {block.behavior && block.behavior.length > 0 && (
+            <div class="space-y-3 text-sm text-mc-text-2 leading-loose border-t border-mc-line pt-3">
+              <h3 class="text-sm font-bold text-mc-text">رفتار و مکانیک:</h3>
+              {block.behavior.map((p) => <p>{p}</p>)}
+            </div>
+          )}
+        </section>
+      )}
+
+      <!-- Java vs Bedrock differences -->
+      {block.differences && block.differences.length > 0 && (
+        <section class="mc-panel p-5">
+          <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+            <span>🔀</span>
+            <span>تفاوت Java و Bedrock</span>
+          </h2>
+          <ul class="space-y-2">
+            {block.differences.map((d) => (
+              <li class="flex items-start gap-2">
+                <span class="text-mc-redstone mt-1">▸</span>
+                <span class="text-sm text-mc-text-2">{d}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- History -->
+      {block.history && block.history.length > 0 && (
+        <section class="mc-panel p-5">
+          <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+            <span>📚</span>
+            <span>تاریخچه نسخه‌ها</span>
+          </h2>
+          <ol class="space-y-3 relative pr-4 border-r-2 border-mc-line">
+            {block.history.map((h, idx) => (
+              <li class="relative">
+                <span class="absolute -right-[1.4rem] top-1 w-2 h-2 rounded-full bg-mc-grass-2"></span>
+                <div class="text-sm font-bold text-mc-gold" dir="ltr">{h.version}</div>
+                <div class="text-sm text-mc-text-2 mt-0.5">{h.change}</div>
+                {idx < block.history!.length - 1 && <div class="text-[10px] text-mc-text-3 mt-1">↓</div>}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      <!-- Trivia -->
+      {block.trivia && block.trivia.length > 0 && (
+        <section class="mc-panel p-5">
+          <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+            <span>💡</span>
+            <span>نکات جالب</span>
+          </h2>
+          <ul class="space-y-2">
+            {block.trivia.map((t, idx) => (
+              <li class="flex items-start gap-2">
+                <span class="text-mc-gold mt-1 font-pixel text-xs">{faNum(idx + 1)}.</span>
+                <span class="text-sm text-mc-text-2">{t}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- Related items -->
+      {relatedLinks.length > 0 && (
+        <section class="mc-panel p-5">
+          <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+            <span>🔗</span>
+            <span>آیتم‌های مرتبط</span>
+          </h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {relatedLinks.map((r) => (
+              <a
+                href={r.href}
+                class="flex flex-col gap-1 p-3 bg-mc-bg-2 border border-mc-line rounded hover:border-mc-grass-2 hover:text-mc-grass-2 transition-colors"
+              >
+                <span class="text-[10px] text-mc-text-3">
+                  {r.type === 'mob' ? 'ماب' : r.type === 'item' ? 'آیتم' : 'بلاک'}
+                </span>
+                <span class="text-sm font-bold text-mc-text">{r.nameFa}</span>
+                <span class="text-[10px] text-mc-text-3" dir="ltr">{r.nameEn}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Wiki link button -->
+      {block.wikiLink && (
+        <a
+          href={block.wikiLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-3 text-sm font-bold text-mc-grass-2 hover:text-mc-grass-2"
+        >
+          <span>📖</span>
+          <span>مشاهده در Minecraft Wiki</span>
+          <span class="text-xs text-mc-text-3" dir="ltr">↗</span>
+        </a>
+      )}
+
+      <!-- Back to blocks -->
+      <a
+        href={`/wiki/blocks`}
+        class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-2 text-sm font-bold text-mc-text-2 hover:text-mc-grass-2"
+      >
+        <svg width="14" height="14"><use href="#icon-chevron-right" /></svg>
+        بازگشت به فهرست بلاک‌ها
+      </a>
+    </div>
+
+    <!-- INFOBOX SIDEBAR -->
+    <aside class="lg:sticky lg:top-20 lg:self-start space-y-4">
+      <!-- Main properties grid (smaller version) -->
+      <section class="mc-panel p-4">
+        <h2 class="text-sm font-extrabold mb-3 text-center border-b border-mc-line pb-2">
+          ویژگی‌های بلاک
+        </h2>
+        <div class="grid grid-cols-2 gap-2 text-center">
+          <div class="p-2 bg-mc-bg-2 border border-mc-line rounded">
+            <div class="text-[9px] text-mc-text-3 mb-0.5">سختی</div>
+            <div class="text-sm font-bold text-mc-text" dir="ltr">{faNum(block.hardness)}</div>
+          </div>
+          <div class="p-2 bg-mc-bg-2 border border-mc-line rounded">
+            <div class="text-[9px] text-mc-text-3 mb-0.5">ابزار</div>
+            <div class="text-[10px] font-bold text-mc-text">{toolLabels[block.tool] || block.tool}</div>
+          </div>
+          <div class="p-2 bg-mc-bg-2 border border-mc-line rounded">
+            <div class="text-[9px] text-mc-text-3 mb-0.5">شفاف</div>
+            <div class="text-sm font-bold text-mc-text">{block.transparent ? 'بله' : 'خیر'}</div>
+          </div>
+          <div class="p-2 bg-mc-bg-2 border border-mc-line rounded">
+            <div class="text-[9px] text-mc-text-3 mb-0.5">سطح نور</div>
+            <div class="text-sm font-bold text-mc-text" dir="ltr">{faNum(block.lightLevel)}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Extra stats infobox -->
+      {extraEntries.length > 0 && (
+        <section class="mc-panel p-4">
+          <h2 class="text-sm font-extrabold mb-3 text-center border-b border-mc-line pb-2">
+            آمار کامل
+          </h2>
+          <dl class="space-y-1.5 text-xs">
+            {extraEntries.map(([key, val]) => (
+              <div class="flex items-start justify-between gap-2 py-1 border-b border-mc-line/30 last:border-0">
+                <dt class="text-mc-text-3">{extraLabels[key] || key}</dt>
+                <dd class="text-mc-text font-bold text-left" dir="ltr">
+                  {typeof val === 'boolean' ? (val ? 'بله' : 'خیر') : faNum(val as any)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
+
+      <!-- Versions -->
+      <section class="mc-panel p-4">
+        <h2 class="text-sm font-extrabold mb-3 text-center border-b border-mc-line pb-2">
+          نسخه‌ها
+        </h2>
+        <div class="space-y-2 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-mc-text-3">☕ Java:</span>
+            <span class="text-mc-text-2 font-bold" dir="ltr">{block.versions.java}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-mc-text-3">🪨 Bedrock:</span>
+            <span class="text-mc-text-2 font-bold" dir="ltr">{block.versions.bedrock}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wiki reference button (sidebar) -->
+      {block.wikiLink && (
+        <a
+          href={block.wikiLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block text-center mc-panel hoverable p-3 text-xs font-bold text-mc-grass-2 hover:text-mc-grass-2"
+        >
+          📖 Minecraft Wiki ↗
+        </a>
+      )}
+    </aside>
+  </div>
 </BaseLayout>

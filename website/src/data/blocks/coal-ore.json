@@ -35,5 +35,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Coal_Ore"
+  "wikiLink": "https://minecraft.wiki/w/Coal_Ore",
+  "intro": [
+    "سنگ زغال (Coal Ore) فراوان‌ترین رگه‌ی معدنی ماینکرفت است و تقریباً در هر ارتفاعی از سطحِ زمین تا عمق y=-۶۴ یافت می‌شود. با استخراج آن با پیکه‌ی چوبی یا بالاتر، Coal می‌رسد.",
+    "Coal Ore در لایه‌های y=۰ تا y=۳۲۰ فراوان‌ترین است؛ با دو تمرکز در y=۹۶ و y=۱۳۶. در عمق زیر y=۰ به Deepslate Coal Ore تبدیل می‌شود.",
+    "زغال برای ساخت مشعل (Torch)، Furnace سوخت، Campfire و آیتم‌های Fire Star به‌کار می‌رود و یکی از حیاتی‌ترین منابع اولیه‌ی بازیکن است. مشعل‌ها برای روشنایی و جلوگیری از اسپاون هیولاها ضروری‌اند."
+  ],
+  "behavior": [
+    "سختی Coal Ore ۳.۰ و Deepslate Coal Ore ۴.۵ است. با دستِ خالی ۱۵ ثانیه و با پیکه‌ی چوبی ۱.۱۵ ثانیه زمان لازم است.",
+    "این بلاک به‌طور معمول Coal دراپ می‌کند؛ اما با Silk Touch خودِ بلاک را می‌دهد. جادوی Fortune می‌تواند تا ۴ Coal برای هر بلاک تولید کند.",
+    "Coal Ore در رگه‌های ۱ تا ۱۷ بلاک تولید می‌شود — یکی از بزرگ‌ترین رگه‌های معدنی. این بلاک در بایوم‌های کوهستانی و دشت‌ها به‌وفور یافت می‌شود."
+  ],
+  "trivia": [
+    "Coal Ore اولین رگه‌ی معدنی بود که به بازی اضافه شد (Java 0.26).",
+    "زغال به‌عنوان سوخت کوره، ۸ آیتم در هر Coal می‌سوزاند — برای بازیکن اولیه، منبع اصلی انرژی.",
+    "در نسخه‌ی ۱.۲۱، Coal Ore با Bone Meal نمی‌تواند مجدداً تولید شود؛ منبعِ تجدیدپذیر نیست.",
+    "Deepslate Coal Ore یکی از کمیاب‌ترین انواع Deepslate است، چون Coal در ارتفاعات فراوان‌تر است.",
+    "Block of Coal می‌تواند به‌عنوان سوخت در کوره ۸۰ آیتم را بسوزاند — معادل ۹ Coal تکی."
+  ],
+  "history": [
+    {
+      "version": "Java 0.26 (2009)",
+      "change": "Coal Ore به بازی اضافه شد."
+    },
+    {
+      "version": "Java Beta 1.2",
+      "change": "نیاز به پیکه‌ی چوبی برای استخراج اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزایش چگالی Coal Ore در ارتفاعات کوهستانی."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "Deepslate Coal Ore در عمق زیر y=۰ اضافه شد."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "توزیع جدید Coal Ore با دو تمرکز در y=۹۶ و y=۱۳۶."
+    }
+  ],
+  "differences": [
+    "در Java، Coal Ore در ارتفاعات فراوان‌تر است؛ در Bedrock توزیع آن کمی متفاوت است.",
+    "Deepslate Coal Ore در دو نسخه با نرخ کمی متفاوت تولید می‌شود.",
+    "در Bedrock، استخراج Coal Ore با Silk Touch خودِ بلاک را می‌دهد؛ رفتار در Java یکسان است ولی بافت Deepslate کمی متفاوت است."
+  ],
+  "related": [
+    {
+      "id": "deepslate-coal-ore",
+      "nameEn": "Deepslate Coal Ore",
+      "nameFa": "سنگ زغالِ عمیق",
+      "type": "block"
+    },
+    {
+      "id": "iron-ore",
+      "nameEn": "Iron Ore",
+      "nameFa": "سنگ آهن",
+      "type": "block"
+    },
+    {
+      "id": "redstone-ore",
+      "nameEn": "Redstone Ore",
+      "nameFa": "سنگ رداستون",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "wood"
+  }
 }

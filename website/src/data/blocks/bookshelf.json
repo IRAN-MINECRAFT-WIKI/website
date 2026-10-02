@@ -28,5 +28,75 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Bookshelf"
+  "wikiLink": "https://minecraft.wiki/w/Bookshelf",
+  "intro": [
+    "کتابخانه (Bookshelf) یک بلاک تزئینی-کاربردی است که از ۶ Planks + ۳ Books در Crafting Table ساخته می‌شود. این بلاک در افزایش قدرت Enchanting Table به‌کار می‌رود.",
+    "Bookshelf در مجاورت Enchanting Table (با فاصله‌ی ۲ بلاک، با یک Air در بین)، سطح جادو را افزایش می‌دهد. ۱۵ Bookshelf در اطراف Enchanting Table، سطح جادو را به ۳۰ می‌رساند.",
+    "این بلاک سختی ۱.۵ دارد و با Axe قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، ۳ Books بازمی‌گردد (در نسخه‌ی ۱.۱۴+)."
+  ],
+  "behavior": [
+    "سختی Bookshelf ۱.۵ است. با دستِ خالی ۲.۲۵ ثانیه و با Axe ۱.۱۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۷.۵ دارد و در برابر آتش می‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، ۳ Books بازمی‌گردد.",
+    "Bookshelf در افزایش قدرت Enchanting Table به‌کار می‌رود: ۱۵ Bookshelf در اطراف Enchanting Table (با فاصله‌ی ۲ بلاک + ۱ Air)، سطح جادو را به ۳۰ می‌رساند. این سطح، بالاترین سطح جادو در ماینکرفت است."
+  ],
+  "trivia": [
+    "Bookshelf اولین بار در نسخه‌ی Java Alpha 1.0.1 (۲۰۱۰) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۳ به‌عنوان عنصر Enchanting Table گسترش یافت.",
+    "در نسخه‌ی ۱.۲۱، Bookshelf با ۳ Books (نه ۳ Written Books) ساخته می‌شود.",
+    "Chiseled Bookshelf نسخه‌ای جدید از Bookshelf است که می‌تواند کتاب‌ها را ذخیره کند (نسخه‌ی ۱.۲۰).",
+    "Lectern یک بلاک مرتبط است که می‌تواند کتاب‌های نوشته‌شده را نمایش دهد (نسخه‌ی ۱.۱۴)."
+  ],
+  "history": [
+    {
+      "version": "Java Alpha 1.0.1 (2010)",
+      "change": "Bookshelf به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.3 (2012)",
+      "change": "افزایش قدرت Enchanting Table با Bookshelf."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "بهبود بافت Bookshelf با رندر جدید."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزودن Lectern به‌عنوان بلاک مرتبط."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "Chiseled Bookshelf به‌عنوان نوع جدید اضافه شد."
+    }
+  ],
+  "differences": [
+    "در Java، Bookshelf با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch ۳ Books بازمی‌گرداند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، Bookshelf با توزیع کمی متفاوت در ساخت‌وسازهای روستایی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "enchanting-table",
+      "nameEn": "Enchanting Table",
+      "nameFa": "میز جادو",
+      "type": "block"
+    },
+    {
+      "id": "oak-planks",
+      "nameEn": "Oak Planks",
+      "nameFa": "تخته‌های بلوط",
+      "type": "block"
+    },
+    {
+      "id": "lectern",
+      "nameEn": "Lectern",
+      "nameFa": "読书台",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 7.5,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0
+  }
 }

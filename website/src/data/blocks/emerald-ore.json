@@ -34,5 +34,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Emerald_Ore"
+  "wikiLink": "https://minecraft.wiki/w/Emerald_Ore",
+  "intro": [
+    "سنگ زمرد (Emerald Ore) کمیاب‌ترین رگه‌ی معدنی ماینکرفت در دنیای زیرین است و به‌صورت رگه‌های ۱ بلاکی در بایوم‌های کوهستانی تولید می‌شود.",
+    "Emerald Ore تنها در بایوم‌های Mountains، Windswept Hills و Extreme Hills تولید می‌شود، در لایه‌های y=-۱۶ تا y=۳۲۰، با تمرکز بیشتر در y=۲۳۶. در عمق زیر y=۰ به Deepslate Emerald Ore تبدیل می‌شود.",
+    "با استخراج Emerald Ore با پیکه‌ی آهنی یا بالاتر، Emerald می‌رسد که برای تجارت با روستاییان و ساخت پایه‌ی Beacon استفاده می‌شود. Emerald Ore یکی از نادرترین بلاک‌های معدنی است و پیدا کردن آن به‌معنای یک موفقیت بزرگ است."
+  ],
+  "behavior": [
+    "سختی Emerald Ore ۳.۰ و Deepslate Emerald Ore ۴.۵ است. با دستِ خالی ۱۵ ثانیه و با پیکه‌ی آهنی ۱.۱۵ ثانیه زمان لازم است.",
+    "این بلاک به‌طور معمول Emerald دراپ می‌کند؛ با Silk Touch خودِ بلاک را می‌دهد. جادوی Fortune می‌تواند تا ۴ Emerald برای هر بلاک تولید کند.",
+    "Emerald Ore در رگه‌های ۱ بلاکی تولید می‌شود (مستقلاً «رگه» به‌معنای کلاسیک نیست، بلکه به‌صورت نقطه‌ای تولید می‌شود). این رفتار، آن را به‌یکی از نادرترین بلاک‌های معدنی تبدیل می‌کند."
+  ],
+  "trivia": [
+    "Emerald Ore در نسخه‌ی Java 1.3.1 (۲۰۱۲) اضافه شد — برای پشتیبانی از سیستم تجارت روستاییان.",
+    "Emerald Ore نادرترین رگه‌ی معدنی دنیای زیرین است، زیرا فقط در بایوم‌های کوهستانی تولید می‌شود.",
+    "به‌دلیل کمیابی، بهترین راه برای کسب Emerald، تجارت با روستاییان است (نه استخراج).",
+    "Deepslate Emerald Ore یکی از کمیاب‌ترین بلاک‌های کل ماینکرفت است — پیدا کردن آن شانس‌آوری است.",
+    "در نسخه‌ی Bedrock، Emerald Ore در بایوم‌های Extreme Hills با نرخ کمی متفاوت تولید می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.3.1 (2012)",
+      "change": "Emerald Ore به بازی اضافه شد (همراه با سیستم تجارت روستاییان)."
+    },
+    {
+      "version": "Java 1.7.2 (2014)",
+      "change": "افزایش چگالی Emerald Ore در بایوم‌های Extreme Hills."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "Deepslate Emerald Ore در عمق زیر y=۰ اضافه شد."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "توزیع جدید Emerald Ore با تمرکز در y=۲۳۶."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود راندمان رندر Emerald Ore در ارتفاعات کوهستانی."
+    }
+  ],
+  "differences": [
+    "در Java، Emerald Ore در بایوم‌های Extreme Hills تولید می‌شود؛ در Bedrock نام بایوم‌ها کمی متفاوت است ولی رفتار یکسان است.",
+    "در Java، استخراج با Fortune می‌تواند تا ۴ Emerald بدهد؛ در Bedrock رفتار یکسان است.",
+    "Deepslate Emerald Ore در دو نسخه با نرخ کمی متفاوت تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "deepslate-emerald-ore",
+      "nameEn": "Deepslate Emerald Ore",
+      "nameFa": "سنگ زمردِ عمیق",
+      "type": "block"
+    },
+    {
+      "id": "diamond-ore",
+      "nameEn": "Diamond Ore",
+      "nameFa": "سنگ الماس",
+      "type": "block"
+    },
+    {
+      "id": "villager",
+      "nameEn": "Villager",
+      "nameFa": "روستایی",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "iron"
+  }
 }

@@ -27,5 +27,81 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Hopper"
+  "wikiLink": "https://minecraft.wiki/w/Hopper",
+  "intro": [
+    "هوپر (Hopper) یک بلاک کاربردی است که از ۵ Iron Ingot + ۱ Chest در Crafting Table ساخته می‌شود. این بلاک امکان انتقال آیتم‌ها را از بالا به پایین (یا کنار) فراهم می‌کند — پایه‌ی سیستم‌های اتوماسیون.",
+    "Hopper آیتم‌ها را از بالای خود جمع می‌کند و به بلاک زیرین یا کناری (در جهت کلیک راست) منتقل می‌کند. این بلاک در ساخت Item Sorter، Auto-Smelter، Storage System و دیگر ماشین‌های اتوماسیون به‌کار می‌رود.",
+    "این بلاک سختی ۳.۰ دارد و با پیکه‌ی چوبی قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. Hopper در ساخت اتوماسیون، یکی از حیاتی‌ترین بلاک‌ها در ماینکرفت است."
+  ],
+  "behavior": [
+    "سختی Hopper ۳.۰ است. با دستِ خالی ۴.۵ ثانیه و با پیکه‌ی چوبی ۰.۷۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۴.۸ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Hopper آیتم‌ها را از بالای خود (یا از بلاک بالایش) جمع می‌کند و به بلاک زیرین یا کناری (در جهت کلیک راست) منتقل می‌کند. این بلاک در ساخت Item Sorter، Auto-Smelter، Storage System و دیگر ماشین‌های اتوماسیون به‌کار می‌رود. در نسخه‌ی ۱.۱۳، Hopper با Silk Touch قابل‌استخراج شد."
+  ],
+  "trivia": [
+    "Hopper اولین بار در نسخه‌ی Java 1.5 (۲۰۱۳) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۳ به‌علت تغییرات Silk Touch، گسترش یافت.",
+    "Hopper پایه‌ی اتوماسیون ماینکرفت است — بدون آن، نمی‌توان Item Sorter، Auto-Smelter و Storage System ساخت.",
+    "در نسخه‌ی ۱.۲۱، Hopper با ۵ Iron Ingot + ۱ Chest ساخته می‌شود — یک بلاک نسبتاً گران.",
+    "Hopper با کلیک راست + Sneak، در جهت کلیک قرار می‌گیرد — به‌جای پایین، می‌تواند به کنار نیز آیتم بفرستد."
+  ],
+  "history": [
+    {
+      "version": "Java 1.5 (2013)",
+      "change": "Hopper به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزایش سرعت انتقال آیتم با Hopper."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "بهبود بافت Hopper با رندر جدید."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "افزایش تولید Hopper در ساخت‌وسازهای روستایی."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Hopper با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Hopper با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Hopper با توزیع کمی متفاوت در سرعت انتقال آیتم کار می‌کند."
+  ],
+  "related": [
+    {
+      "id": "chest",
+      "nameEn": "Chest",
+      "nameFa": "صندوق",
+      "type": "block"
+    },
+    {
+      "id": "iron-ore",
+      "nameEn": "Iron Ore",
+      "nameFa": "سنگ آهن",
+      "type": "block"
+    },
+    {
+      "id": "dropper",
+      "nameEn": "Dropper",
+      "nameFa": "دراپر",
+      "type": "block"
+    },
+    {
+      "id": "dispenser",
+      "nameEn": "Dispenser",
+      "nameFa": "دیسپنسر",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 4.8,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0
+  }
 }

@@ -28,5 +28,82 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Enchanting_Table"
+  "wikiLink": "https://minecraft.wiki/w/Enchanting_Table",
+  "intro": [
+    "میز جادو (Enchanting Table) یک بلاک کاربردی است که از ۴ Obsidian + ۲ Diamond + ۱ Book در Crafting Table ساخته می‌شود. این بلاک امکان جادو کردن ابزار، شمشیر و زره را فراهم می‌کند.",
+    "Enchanting Table با کلیک راست، رابطه‌ی جادو کردن را باز می‌کند. این رابطه ۳ گزینه‌ی جادو را نشان می‌دهد، که هر کدام به یک سطح از XP و ۱-۳ Lapis Lazuli نیاز دارد. برای دسترسی به جادوهای سطح بالا، باید ۱۵ Bookshelf در اطراف Enchanting Table (با فاصله‌ی ۲ بلاک + ۱ Air) قرار دهید.",
+    "این بلاک سختی ۵.۰ دارد و با پیکه‌ی الماسی قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند."
+  ],
+  "behavior": [
+    "سختی Enchanting Table ۵.۰ است. با دستِ خالی ۷.۵ ثانیه و با Diamond Pickaxe ۱.۱۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱۲۰۰ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Enchanting Table با کلیک راست، رابطه‌ی جادو کردن را باز می‌کند. این رابطه ۳ گزینه‌ی جادو را نشان می‌دهد، که هر کدام به XP و Lapis Lazuli نیاز دارد. با ۱۵ Bookshelf در اطراف، سطح جادو به ۳۰ می‌رسد — بالاترین سطح جادو در ماینکرفت."
+  ],
+  "trivia": [
+    "Enchanting Table اولین بار در نسخه‌ی Java 1.0 (۲۰۱۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۳ به‌علت افزایش Bookshelf، گسترش یافت.",
+    "Enchanting Table تنها راه برای جادو کردن ابزار در ماینکرفت است (با Anvil و Grindstone مرتبط است).",
+    "در نسخه‌ی ۱.۲۱، Enchanting Table با ۴ Obsidian + ۲ Diamond + ۱ Book ساخته می‌شود — بدون تغییر.",
+    "Bookshelf با فاصله‌ی ۲ بلاک + ۱ Air، سطح جادو را به ۳۰ می‌رساند — به همین دلیل، هر Bookshelf بیشتر از فاصله‌ی ۲، تأثیری ندارد."
+  ],
+  "history": [
+    {
+      "version": "Java 1.0 (2011)",
+      "change": "Enchanting Table به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.3 (2012)",
+      "change": "افزایش قدرت Bookshelf با Enchanting Table."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "بهبود رابطه‌ی جادو کردن با Lapis Lazuli."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Enchanting Table با رندر جدید."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی جادو کردن با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Enchanting Table با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Enchanting Table با توزیع کمی متفاوت در ساخت‌وسازهای روستایی تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "bookshelf",
+      "nameEn": "Bookshelf",
+      "nameFa": "کتابخانه",
+      "type": "block"
+    },
+    {
+      "id": "obsidian",
+      "nameEn": "Obsidian",
+      "nameFa": "اوبسیدین",
+      "type": "block"
+    },
+    {
+      "id": "anvil",
+      "nameEn": "Anvil",
+      "nameFa": "آنویل",
+      "type": "block"
+    },
+    {
+      "id": "lapis-ore",
+      "nameEn": "Lapis Ore",
+      "nameFa": "سنگ لاپیس",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 1200.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 7,
+    "minPickaxe": "diamond"
+  }
 }

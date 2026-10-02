@@ -28,5 +28,69 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Pumpkin"
+  "wikiLink": "https://minecraft.wiki/w/Pumpkin",
+  "intro": [
+    "کدو (Pumpkin) یک بلاک طبیعی است که در بایوم‌های Plains، Forest و Extreme Hills به‌صورت طبیعی تولید می‌شود. این بلاک با شکستن، خودش را می‌دهد و در ساخت Pumpkin Pie و Jack o'Lantern به‌کار می‌رود.",
+    "Pumpkin در لایه‌های سطحی بایوم‌های معمولی تولید می‌شود. این بلاک با Silk Touch قابل‌استخراج است؛ بدون آن نیز خودش را بازمی‌گرداند. Pumpkin در ساخت Pumpkin Pie (۱ Pumpkin + ۱ Sugar + ۱ Egg) و Jack o'Lantern (۱ Pumpkin + ۱ Torch) به‌کار می‌رود.",
+    "این بلاک سختی ۱.۰ دارد و با Axe قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. Pumpkin در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت."
+  ],
+  "behavior": [
+    "سختی Pumpkin ۱.۰ است. با دستِ خالی ۱.۵ ثانیه و با Axe ۰.۷۵ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۱.۰ دارد و در برابر آتش می‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "Pumpkin در ساخت Pumpkin Pie (۱ Pumpkin + ۱ Sugar + ۱ Egg)، Jack o'Lantern (۱ Pumpkin + ۱ Torch) و Pumpkin Seeds (۱ Pumpkin در Crafting Table → ۴ Pumpkin Seeds) به‌کار می‌رود. این بلاک در بایوم‌های Plains، Forest و Extreme Hills به‌صورت طبیعی تولید می‌شود."
+  ],
+  "trivia": [
+    "Pumpkin اولین بار در نسخه‌ی Java Beta 1.8 (۲۰۱۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت.",
+    "Pumpkin تنها بلاک طبیعی است که در ساخت Jack o'Lantern به‌کار می‌رود — روشی برای نوران‌کردن خانه‌ها.",
+    "در نسخه‌ی ۱.۲۱، Pumpkin با ۱ Pumpkin + ۱ Sugar + ۱ Egg به Pumpkin Pie تبدیل می‌شود.",
+    "Carved Pumpkin نسخه‌ای از Pumpkin است که با کلیک راست با Shears ساخته می‌شود — با چهره‌ی کنده‌شده."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.8 (2011)",
+      "change": "Pumpkin به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزایش تولید Pumpkin در بایوم‌های Plains."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود بافت Pumpkin با رندر جدید."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Pumpkin در بایوم‌های Forest."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Pumpkin با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Pumpkin با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Pumpkin با توزیع کمی متفاوت در بایوم‌های Plains تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "jack-o-lantern",
+      "nameEn": "Jack o'Lantern",
+      "nameFa": "فانوس کدو",
+      "type": "block"
+    },
+    {
+      "id": "cake",
+      "nameEn": "Cake",
+      "nameFa": "کیک",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 1.0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0
+  }
 }

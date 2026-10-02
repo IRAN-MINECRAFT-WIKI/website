@@ -29,5 +29,76 @@
       "count": "2-4"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Glowstone"
+  "wikiLink": "https://minecraft.wiki/w/Glowstone",
+  "intro": [
+    "گلاستون (Glowstone) یک بلاک نور‌دهنده است که در Nether به‌صورت طبیعی تولید می‌شود. این بلاک با شکستن، ۲-۴ Glowstone Dust می‌دهد و با ترکیب ۴ Glowstone Dust در Crafting Table ساخته می‌شود.",
+    "Glowstone در لایه‌ی تحتانی Nether (یعنی «سقفِ» Nether) به‌صورت کریستال‌های نورانی یافت می‌شود. این بلاک نور سطح ۱۵ تولید می‌کند — بالاترین سطح نور در ماینکرفت (با Sun، Lava و Fire).",
+    "این بلاک سختی ۰.۳ دارد و با هر ابزاری قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، ۲-۴ Glowstone Dust بازمی‌گردد. Glowstone در ساخت Redstone Lamp، Respawn Anchor و Underwater TNT به‌کار می‌رود."
+  ],
+  "behavior": [
+    "سختی Glowstone ۰.۳ است. با دستِ خالی ۰.۴۵ ثانیه و با هر ابزاری ۰.۳ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۰.۳ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، ۲-۴ Glowstone Dust بازمی‌گردد.",
+    "Glowstone نور سطح ۱۵ تولید می‌کند — بالاترین سطح نور در ماینکرفت. این بلاک در ساخت Redstone Lamp (۱ Glowstone + ۱ Redstone)، Respawn Anchor (۳ Glowstone + ۳ Crying Obsidian) و Underwater TNT به‌کار می‌رود."
+  ],
+  "trivia": [
+    "Glowstone اولین بار در نسخه‌ی Java Beta 1.2 (۲۰۱۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۸ به‌علت تغییرات Silk Touch، گسترش یافت.",
+    "Glowstone تنها بلاک نور‌دهنده طبیعی در Nether است — بدراک، Netherrack و Lava هم نور دارند ولی Glowstone روشن‌تر است.",
+    "در نسخه‌ی ۱.۲۱، Glowstone با ۴ Glowstone Dust ساخته می‌شود — نسبت ۱:۱ با استخراج.",
+    "Glowstone در بایوم‌های Nether به‌صورت کریستال‌های نورانی در سقفِ Nether یافت می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.2 (2011)",
+      "change": "Glowstone به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزایش تولید Glowstone در Nether."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت Glowstone با رندر جدید."
+    },
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "افزایش تولید Glowstone در ساخت‌وسازهای Nether Fortress."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Glowstone با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Glowstone با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch ۲-۴ Glowstone Dust بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Glowstone با توزیع کمی متفاوت در Nether تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "sea-lantern",
+      "nameEn": "Sea Lantern",
+      "nameFa": "فانوس دریایی",
+      "type": "block"
+    },
+    {
+      "id": "redstone-lamp",
+      "nameEn": "Redstone Lamp",
+      "nameFa": "لامپ رداستون",
+      "type": "block"
+    },
+    {
+      "id": "respawn-anchor",
+      "nameEn": "Respawn Anchor",
+      "nameFa": "لنگرگاه تولد",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.3,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 15,
+    "silktouch": true
+  }
 }

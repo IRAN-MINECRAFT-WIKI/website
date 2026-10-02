@@ -34,5 +34,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Lapis_Lazuli_Ore"
+  "wikiLink": "https://minecraft.wiki/w/Lapis_Lazuli_Ore",
+  "intro": [
+    "سنگ لاپیس (Lapis Lazuli Ore) منبع اصلی Lapis Lazuli در ماینکرفت است و در لایه‌های y=-۶۴ تا y=۶۴ یافت می‌شود، با تمرکز در y=-۱.",
+    "با استخراج Lapis Ore با پیکه‌ی سنگی یا بالاتر، ۴ تا ۸ Lapis Lazuli دراپ می‌شود. این متریال برای جادو کردن (Enchanting) و رنگ‌آمیزی آبی ضروری است.",
+    "Lapis Ore یکی از معدود رگه‌های معدنی است که چند آیتم دراپ می‌دهد (۴-۸ Lapis Lazuli). در عمق زیر y=۰ به Deepslate Lapis Ore تبدیل می‌شود که سختی بیشتری دارد."
+  ],
+  "behavior": [
+    "سختی Lapis Ore ۳.۰ و Deepslate Lapis Ore ۴.۵ است. با دستِ خالی ۱۵ ثانیه و با پیکه‌ی سنگی ۱.۱۵ ثانیه زمان لازم است.",
+    "این بلاک با Silk Touch خودش را می‌دهد؛ بدون آن، ۴-۸ Lapis Lazuli می‌دهد. جادوی Fortune می‌تواند تا ۳۲ Lapis برای هر بلاک تولید کند.",
+    "Lapis Lazuli برای جادو کردن در Enchanting Table لازم است — هر جادو به ۱ تا ۳ Lapis Lazuli نیاز دارد. این متریال پایه‌ی پیشرفت در ماینکرفت است."
+  ],
+  "trivia": [
+    "Lapis Ore اولین بار در نسخه‌ی Java Beta 1.2 (۲۰۱۱) اضافه شد.",
+    "این تنها رگه‌ی معدنی است که چند آیتم دراپ می‌دهد — حداقل ۴ تا حداکثر ۸ Lapis Lazuli.",
+    "در نسخه‌ی ۱.۲۱، Lapis Ore در عمق زیر y=۰ به Deepslate Lapis Ore تبدیل می‌شود.",
+    "Block of Lapis به‌عنوان بلوک ساختمانی تزئینی آبی، در ساخت‌وسازهای دکوراتیو کاربرد دارد.",
+    "Lapis Lazuli در دنیای واقعی نیز یک سنگ رنگی است که در افغانستان و دیگر کشورها یافت می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.2 (2011)",
+      "change": "Lapis Ore به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزایش تولید Lapis Ore در عمق زیرین."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "Deepslate Lapis Ore در عمق زیر y=۰ اضافه شد."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "توزیع جدید Lapis Ore با تمرکز در y=-۱."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود راندمان رندر Lapis Ore در عمق زیرین."
+    }
+  ],
+  "differences": [
+    "در Java، استخراج Lapis Ore با Fortune می‌تواند تا ۳۲ Lapis بدهد؛ در Bedrock رفتار یکسان است.",
+    "توزیع Lapis Ore در دو نسخه کمی متفاوت است؛ Bedrock در عمق کمتری Lapis تولید می‌کند.",
+    "Deepslate Lapis Ore در دو نسخه با نرخ کمی متفاوت تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "deepslate-iron-ore",
+      "nameEn": "Deepslate Iron Ore",
+      "nameFa": "سنگ آهنِ عمیق",
+      "type": "block"
+    },
+    {
+      "id": "enchanting-table",
+      "nameEn": "Enchanting Table",
+      "nameFa": "میز جادو",
+      "type": "block"
+    },
+    {
+      "id": "redstone-ore",
+      "nameEn": "Redstone Ore",
+      "nameFa": "سنگ رداستون",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "minPickaxe": "stone"
+  }
 }

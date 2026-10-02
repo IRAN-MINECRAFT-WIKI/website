@@ -28,5 +28,75 @@
       "count": "1"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/TNT"
+  "wikiLink": "https://minecraft.wiki/w/TNT",
+  "intro": [
+    "تی‌ان‌تی (TNT) یک بلاک انفجاری است که از ۵ Gunpowder + ۴ Sand (یا Red Sand) در Crafting Table ساخته می‌شود. این بلاک می‌تواند با Flint and Steel، Fire Charge، Redstone یا Arrow آتش‌بار شود و منفجر شود.",
+    "TNT پس از فعال‌شدن، ۸۰ تیک (۴ ثانیه) فوز می‌کند و سپس منفجر می‌شود. انفجار TNT می‌تواند بلاک‌های اطراف را نابود کند و به بازیکنان آسیب برساند. این بلاک در استخراج Ancient Debris و در ساخت‌وسازهای اتوماسیون به‌کار می‌رود.",
+    "این بلاک سختی ۰.۰ دارد و با دستِ خالی قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. TNT در نسخه‌ی ۱.۴ با ۸ منبع آتش‌سوز قابل‌فعال شد."
+  ],
+  "behavior": [
+    "سختی TNT ۰.0 است. با دستِ خالی ۰ ثانیه و با هر ابزاری ۰ ثانیه زمان لازم است — یعنی فوراً شکسته می‌شود.",
+    "این بلاک مقاومت انفجاری ۰.0 دارد و در برابر آتش می‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند.",
+    "TNT با فعال‌شدن (با Flint and Steel، Fire Charge، Redstone یا Arrow)، ۸۰ تیک (۴ ثانیه) فوز می‌کند و سپس منفجر می‌شود. انفجار TNT می‌تواند بلاک‌های اطراف (شعاع ۴ بلاک) را نابود کند و به بازیکنان آسیب برساند (تا ۳۶ آسیب در مرکز)."
+  ],
+  "trivia": [
+    "TNT اولین بار در نسخه‌ی Java Beta 1.6 (۲۰۱۱) اضافه شد.",
+    "این بلاک در نسخه‌ی ۱.۴ به‌علت اضافه‌شدن Fire Charge، گسترش یافت.",
+    "TNT تنها بلاک قابل‌انفجار در ماینکرفت است (به‌جز Bed، End Crystal و Underwater TNT).",
+    "در نسخه‌ی ۱.۲۱، TNT با ۵ Gunpowder + ۴ Sand ساخته می‌شود — نسبت‌های مشابه نسخه‌ی اولیه.",
+    "TNT در استخراج Ancient Debris به‌کار می‌رود — تکنیک Bed Explosion برای استخراج سریع آن."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.6 (2011)",
+      "change": "TNT به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.4 (2012)",
+      "change": "افزایش منابع فعال‌کردن TNT با Fire Charge."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "بهبود بافت TNT با رندر جدید."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "افزایش تولید TNT در ساخت‌وسازهای دکوراتیو."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی TNT با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، TNT با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch خودش را بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، TNT با توزیع کمی متفاوت در آسیب انفجار کار می‌کند."
+  ],
+  "related": [
+    {
+      "id": "ancient-debris",
+      "nameEn": "Ancient Debris",
+      "nameFa": "خرده‌سنگ باستانی",
+      "type": "block"
+    },
+    {
+      "id": "sand",
+      "nameEn": "Sand",
+      "nameFa": "ماسه",
+      "type": "block"
+    },
+    {
+      "id": "redstone-ore",
+      "nameEn": "Redstone Ore",
+      "nameFa": "سنگ رداستون",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0
+  }
 }

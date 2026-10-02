@@ -33,5 +33,76 @@
       "condition": "با Silk Touch"
     }
   ],
-  "wikiLink": "https://minecraft.wiki/w/Sea_Lantern"
+  "wikiLink": "https://minecraft.wiki/w/Sea_Lantern",
+  "intro": [
+    "فانوس دریایی (Sea Lantern) یک بلاک نور‌دهنده است که در Ocean Monument و Ocean Ruin به‌صورت طبیعی تولید می‌شود. این بلاک از ۵ Prismarine Crystals + ۴ Prismarine Shards در Crafting Table ساخته می‌شود.",
+    "Sea Lantern نور سطح ۱۵ تولید می‌کند — همانند Glowstone، با ظاهر آبی-سفید. این بلاک در بایوم‌های Ocean Monument به‌وفور یافت می‌شود و یکی از بلاک‌های نور‌دهنده‌ی زیر آب است.",
+    "این بلاک سختی ۰.۳ دارد و با هر ابزاری قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، ۲-۳ Prismarine Crystals بازمی‌گردد. Sea Lantern در ساخت‌وسازهای زیر‌دریایی و دکوراتیو به‌کار می‌رود."
+  ],
+  "behavior": [
+    "سختی Sea Lantern ۰.۳ است. با دستِ خالی ۰.۴۵ ثانیه و با هر ابزاری ۰.۳ ثانیه زمان لازم است.",
+    "این بلاک مقاومت انفجاری ۰.۳ دارد و در برابر آتش نمی‌سوزد. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن، ۲-۳ Prismarine Crystals بازمی‌گردد.",
+    "Sea Lantern نور سطح ۱۵ تولید می‌کند — همانند Glowstone، با ظاهر آبی-سفید. این بلاک در ساخت‌وسازهای زیر‌دریایی به‌علت مقاومت در برابر آب و نور، کاربرد فراوان دارد."
+  ],
+  "trivia": [
+    "Sea Lantern اولین بار در نسخه‌ی Java 1.8 (۲۰۱۴) اضافه شد — همراه با Ocean Monument.",
+    "این بلاک در نسخه‌ی ۱.۱۳ به‌علت Update Aquatic، گسترش یافت.",
+    "Sea Lantern تنها بلاک نور‌دهنده‌ی زیر‌دریایی است که در Ocean Monument به‌صورت طبیعی یافت می‌شود.",
+    "در نسخه‌ی ۱.۲۱، Sea Lantern با ۵ Prismarine Crystals + ۴ Prismarine Shards ساخته می‌شود.",
+    "Sea Lantern در بایوم‌های Ocean Monument به‌وفور یافت می‌شود — یکی از بلاک‌های زیبای زیر‌دریایی."
+  ],
+  "history": [
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "Sea Lantern به بازی اضافه شد — همراه با Ocean Monument."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "افزایش تولید Sea Lantern در Ocean Ruin."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود بافت Sea Lantern با رندر جدید."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "افزایش تولید Sea Lantern در بایوم‌های زیر‌دریایی."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رابطه‌ی Sea Lantern با راندمان بالاتر."
+    }
+  ],
+  "differences": [
+    "در Java، Sea Lantern با Silk Touch خودش را می‌دهد؛ در Bedrock رفتار یکسان است.",
+    "در Java، استخراج بدون Silk Touch ۲-۳ Prismarine Crystals بازمی‌گرداند؛ در Bedrock همین رفتار اجرا می‌شود.",
+    "در Bedrock، Sea Lantern با توزیع کمی متفاوت در Ocean Monument تولید می‌شود."
+  ],
+  "related": [
+    {
+      "id": "glowstone",
+      "nameEn": "Glowstone",
+      "nameFa": "گلاستون",
+      "type": "block"
+    },
+    {
+      "id": "conduit",
+      "nameEn": "Conduit",
+      "nameFa": "رساند",
+      "type": "block"
+    },
+    {
+      "id": "elder-guardian",
+      "nameEn": "Elder Guardian",
+      "nameFa": "نگهبان کهنه",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.3,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 15,
+    "silktouch": true
+  }
 }
