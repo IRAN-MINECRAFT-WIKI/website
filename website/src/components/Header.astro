@@ -62,18 +62,23 @@ for (const item of nav) {
       </button>
     </div>
   </div>
-
-  <div id="mobileNav" class="mobile-nav hidden">
-    {
-      nav.map((item) => (
-        <a href={item.href} class={`mobile-nav-link ${item.active ? 'active' : ''}`}>
-          <svg class="nav-icon" width="18" height="18"><use href={`#${item.icon}`} /></svg>
-          <span>{item.label}</span>
-        </a>
-      ))
-    }
-  </div>
 </header>
+
+<!-- P0-1 fix: mobileNav MUST be a sibling of <header>, NOT a child.
+     The header has backdrop-filter:blur which creates a containing
+     block for position:fixed descendants — so #mobileNav was being
+     constrained to the header's ~84px height instead of the viewport.
+     Moving it outside the header fixes the 24px-height bug. -->
+<div id="mobileNav" class="mobile-nav hidden">
+  {
+    nav.map((item) => (
+      <a href={item.href} class={`mobile-nav-link ${item.active ? 'active' : ''}`}>
+        <svg class="nav-icon" width="18" height="18"><use href={`#${item.icon}`} /></svg>
+        <span>{item.label}</span>
+      </a>
+    ))
+  }
+</div>
 
 <style>
   .site-header {
@@ -234,14 +239,22 @@ for (const item of nav) {
     const toggle = document.getElementById('menuToggle');
     const nav = document.getElementById('mobileNav');
     if (!toggle || !nav) return;
+    // P4-3: sync aria-expanded so screen readers announce state.
+    toggle.setAttribute('aria-expanded', 'false');
     toggle.addEventListener('click', () => {
+      const willOpen = nav.classList.contains('hidden');
       nav.classList.toggle('hidden');
+      toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     });
     nav.querySelectorAll('a').forEach((a) => {
-      a.addEventListener('click', () => nav.classList.add('hidden'));
+      a.addEventListener('click', () => {
+        nav.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
     });
     document.addEventListener('astro:after-swap', () => {
       nav.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
     });
   })();
 </script>

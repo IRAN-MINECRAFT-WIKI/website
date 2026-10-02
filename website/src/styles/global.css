@@ -500,7 +500,12 @@ img.pixel-img {
     transition: opacity 0.2s;
   }
 
+  /* Mobile nav — hidden state.
+     P0-1: also set display:none when hidden, so the fixed overlay
+     truly collapses (was only opacity:0 + pointer-events:none,
+     which left a 24px invisible strip on screen). */
   .mobile-nav.hidden {
+    display: none;
     opacity: 0;
     pointer-events: none;
   }

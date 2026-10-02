@@ -57,7 +57,7 @@ const ldItemList = itemListJsonLd(
       <div class="flex-1 relative">
         <input
           type="text"
-          id="searchInput"
+          id="modsSearchInput"
           placeholder="جستجوی افزونه (مثلاً: لکی بلاک، شیدر، تفنگ)..."
           class="w-full bg-mc-bg-2 border border-mc-line px-4 py-2.5 pr-10 text-sm text-mc-text focus:border-mc-grass-2 outline-none"
         />
@@ -112,7 +112,11 @@ const ldItemList = itemListJsonLd(
   // This fixes the bug where search only worked once or not at all after navigation.
   (function () {
     function setupModsSearch() {
-      var input = document.getElementById("searchInput");
+      // P1-2 fix: use a unique ID instead of "searchInput" (which also
+      // exists in the global SearchBox modal — getElementById was
+      // grabbing the wrong input, so typing in the mods filter did
+      // nothing).
+      var input = document.getElementById("modsSearchInput");
       var grid = document.getElementById("modsGrid");
       var empty = document.getElementById("emptyState");
       var sort = document.getElementById("sortSelect");

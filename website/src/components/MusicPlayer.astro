@@ -255,9 +255,17 @@ const tracksJson = JSON.stringify(musicTracks);
       tracks = JSON.parse(player.dataset.tracks || '[]');
     } catch (e) { tracks = []; }
 
-    if (!tracks.length || localStorage.getItem('musicDismissed') === 'true') {
+    if (!tracks.length) {
       player.classList.add('hidden');
       return;
+    }
+
+    // P1-1 fix: if musicDismissed is true, hide the player, BUT
+    // still attach the toggle click handler so the user can click
+    // the (visible-after-dismiss) footer "فعال‌سازی موسیقی" button
+    // to bring the player back without a page reload.
+    if (localStorage.getItem('musicDismissed') === 'true') {
+      player.classList.add('hidden');
     }
 
     let current = 0;
@@ -342,6 +350,11 @@ const tracksJson = JSON.stringify(musicTracks);
       pause();
       player.classList.add('hidden');
       localStorage.setItem('musicDismissed', 'true');
+      // P2-3 fix: immediately show the footer "فعال‌سازی موسیقی"
+      // button via a custom event (Footer.astro listens for this).
+      document.dispatchEvent(new CustomEvent('music:dismissed'));
+      var footerBtn = document.getElementById('footerMusicToggle');
+      if (footerBtn) footerBtn.style.display = '';
     }
 
     loadTrack(0);

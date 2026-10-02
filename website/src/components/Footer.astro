@@ -118,6 +118,14 @@ const quickLinks = [
         window.location.reload();
       });
 
+      // P2-3 fix: also listen for the custom 'music:dismissed' event
+      // dispatched by the MusicPlayer's dismiss() function, so the
+      // footer button shows up IMMEDIATELY (no page reload needed).
+      document.addEventListener('music:dismissed', function () {
+        var b = document.getElementById('footerMusicToggle');
+        if (b) b.style.display = '';
+      });
+
       // After a View Transition, re-check if the button should show
       document.addEventListener('astro:page-load', function () {
         var b = document.getElementById('footerMusicToggle');
