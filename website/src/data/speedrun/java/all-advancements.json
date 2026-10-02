@@ -1,0 +1,1612 @@
+{
+  "game": "java",
+  "game_label": "Java",
+  "category_id": "xk9gz16d",
+  "category_name": "All Advancements",
+  "category_slug": "all-advancements",
+  "miscellaneous": false,
+  "fetched_at": "2026-10-02T11:03:41.404399+00:00",
+  "count": 100,
+  "runs": [
+    {
+      "id": "z048x5oy",
+      "weblink": "https://www.speedrun.com/mc/runs/z048x5oy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 12260.735,
+      "time_display": "3h 24m 20s 735ms",
+      "date": "2026-09-30",
+      "players": [
+        "nisoc"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ydxvd8xz",
+      "weblink": "https://www.speedrun.com/mc/runs/ydxvd8xz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 10858.695,
+      "time_display": "3h 58s 695ms",
+      "date": "2026-09-29",
+      "players": [
+        "zurtletif"
+      ],
+      "seed": "795117962277403476",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z048ogoy",
+      "weblink": "https://www.speedrun.com/mc/runs/z048ogoy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 17351.46,
+      "time_display": "4h 49m 11s 460ms",
+      "date": "2026-09-29",
+      "players": [
+        "kittymmeow"
+      ],
+      "seed": "3036220586528006625",
+      "verified": true,
+      "version": "1.16",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yogq7p7m",
+      "weblink": "https://www.speedrun.com/mc/runs/yogq7p7m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 16669.701,
+      "time_display": "4h 37m 49s 701ms",
+      "date": "2026-09-26",
+      "players": [
+        "FourthDylan"
+      ],
+      "seed": "74929769378395063",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z04q2xjy",
+      "weblink": "https://www.speedrun.com/mc/runs/z04q2xjy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 17901.438,
+      "time_display": "4h 58m 21s 438ms",
+      "date": "2026-09-25",
+      "players": [
+        "Boodog9"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y242xe6z",
+      "weblink": "https://www.speedrun.com/mc/runs/y242xe6z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 44119.7,
+      "time_display": "12h 15m 19s 700ms",
+      "date": "2026-09-16",
+      "players": [
+        "InFect_Dilu"
+      ],
+      "seed": "8273880130921376908",
+      "verified": true,
+      "version": "26.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z04d9koy",
+      "weblink": "https://www.speedrun.com/mc/runs/z04d9koy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 21698.052,
+      "time_display": "6h 1m 38s 52ms",
+      "date": "2026-09-14",
+      "players": [
+        "SheepAreFine"
+      ],
+      "seed": "1208660353668354852",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y84kp51z",
+      "weblink": "https://www.speedrun.com/mc/runs/y84kp51z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 13275.146,
+      "time_display": "3h 41m 15s 146ms",
+      "date": "2026-09-12",
+      "players": [
+        "reiper"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z54k0gnm",
+      "weblink": "https://www.speedrun.com/mc/runs/z54k0gnm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 15226.018,
+      "time_display": "4h 13m 46s 18ms",
+      "date": "2026-09-09",
+      "players": [
+        "GuardianDan"
+      ],
+      "seed": "-2841807470426085023",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y24g2pjz",
+      "weblink": "https://www.speedrun.com/mc/runs/y24g2pjz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 826.37,
+      "time_display": "13m 46s 370ms",
+      "date": "2026-09-05",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "m34q57wz",
+      "weblink": "https://www.speedrun.com/mc/runs/m34q57wz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 28080.02,
+      "time_display": "7h 48m 0s 20ms",
+      "date": "2026-09-01",
+      "players": [
+        "FourthDylan"
+      ],
+      "seed": "6978007728393603526",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zg0e72dm",
+      "weblink": "https://www.speedrun.com/mc/runs/zg0e72dm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 11226.951,
+      "time_display": "3h 7m 6s 951ms",
+      "date": "2026-09-02",
+      "players": [
+        "mebuki117"
+      ],
+      "seed": "-7343532859323988398",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zpegxkry",
+      "weblink": "https://www.speedrun.com/mc/runs/zpegxkry",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 10312.561,
+      "time_display": "2h 51m 52s 561ms",
+      "date": "2026-08-26",
+      "players": [
+        "westernorange_"
+      ],
+      "seed": "-1794578331867537083",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zxrnl05z",
+      "weblink": "https://www.speedrun.com/mc/runs/zxrnl05z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 17468.4,
+      "time_display": "4h 51m 8s 400ms",
+      "date": "2026-08-29",
+      "players": [
+        "reiper"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yw76lxnz",
+      "weblink": "https://www.speedrun.com/mc/runs/yw76lxnz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 15838.17,
+      "time_display": "4h 23m 58s 170ms",
+      "date": "2026-08-27",
+      "players": [
+        "elaqtpi"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ylw1pl2z",
+      "weblink": "https://www.speedrun.com/mc/runs/ylw1pl2z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 36631.375,
+      "time_display": "10h 10m 31s 375ms",
+      "date": "2026-08-26",
+      "players": [
+        "sissmile123"
+      ],
+      "seed": "6889556986899313230",
+      "verified": true,
+      "version": "1.21.6",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y9qx8gvz",
+      "weblink": "https://www.speedrun.com/mc/runs/y9qx8gvz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 27955.543,
+      "time_display": "7h 45m 55s 543ms",
+      "date": "2026-08-23",
+      "players": [
+        "SheepAreFine"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "m746njwm",
+      "weblink": "https://www.speedrun.com/mc/runs/m746njwm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 11362.946,
+      "time_display": "3h 9m 22s 946ms",
+      "date": "2026-08-19",
+      "players": [
+        "magnissima"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y6406gpm",
+      "weblink": "https://www.speedrun.com/mc/runs/y6406gpm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 39478.459,
+      "time_display": "10h 57m 58s 459ms",
+      "date": "2026-08-16",
+      "players": [
+        "Torin06"
+      ],
+      "seed": "3607647897947550424",
+      "verified": true,
+      "version": "26.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y848q1wz",
+      "weblink": "https://www.speedrun.com/mc/runs/y848q1wz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 13849.039,
+      "time_display": "3h 50m 49s 39ms",
+      "date": "2026-08-17",
+      "players": [
+        "nisoc"
+      ],
+      "seed": "4031068899129152022",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z1420k7z",
+      "weblink": "https://www.speedrun.com/mc/runs/z1420k7z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 23852.897,
+      "time_display": "6h 37m 32s 897ms",
+      "date": "2026-08-16",
+      "players": [
+        "ttkuilei"
+      ],
+      "seed": "-2319346047905221295",
+      "verified": true,
+      "version": "26.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z14277jz",
+      "weblink": "https://www.speedrun.com/mc/runs/z14277jz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 18029.645,
+      "time_display": "5h 29s 645ms",
+      "date": "2026-08-15",
+      "players": [
+        "kittymmeow"
+      ],
+      "seed": "-1845169946418193172",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zpe898vy",
+      "weblink": "https://www.speedrun.com/mc/runs/zpe898vy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 15181.712,
+      "time_display": "4h 13m 1s 712ms",
+      "date": "2026-08-09",
+      "players": [
+        "nisoc"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zpe89ngy",
+      "weblink": "https://www.speedrun.com/mc/runs/zpe89ngy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 19869.011,
+      "time_display": "5h 31m 9s 11ms",
+      "date": "2026-08-07",
+      "players": [
+        "reiper"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ylwr03xz",
+      "weblink": "https://www.speedrun.com/mc/runs/ylwr03xz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 51397.35,
+      "time_display": "14h 16m 37s 350ms",
+      "date": "2026-08-07",
+      "players": [
+        "InFect_Dilu"
+      ],
+      "seed": "-6740393275595514734",
+      "verified": true,
+      "version": "26.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "mkngej1m",
+      "weblink": "https://www.speedrun.com/mc/runs/mkngej1m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 13189.425,
+      "time_display": "3h 39m 49s 425ms",
+      "date": "2026-08-03",
+      "players": [
+        "sissmile123"
+      ],
+      "seed": "6434709458980229959",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "mrp19k8z",
+      "weblink": "https://www.speedrun.com/mc/runs/mrp19k8z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 26244.748,
+      "time_display": "7h 17m 24s 748ms",
+      "date": "2026-08-02",
+      "players": [
+        "Tolkin"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ylwo832z",
+      "weblink": "https://www.speedrun.com/mc/runs/ylwo832z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 48838.439,
+      "time_display": "13h 33m 58s 439ms",
+      "date": "2026-08-01",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.21.3",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zxr6xxkz",
+      "weblink": "https://www.speedrun.com/mc/runs/zxr6xxkz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 48792.25,
+      "time_display": "13h 33m 12s 250ms",
+      "date": "2026-07-30",
+      "players": [
+        "InFect_Dilu"
+      ],
+      "seed": "-8551207315058196832",
+      "verified": true,
+      "version": "1.21.5",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zxr68xgz",
+      "weblink": "https://www.speedrun.com/mc/runs/zxr68xgz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 26403.981,
+      "time_display": "7h 20m 3s 981ms",
+      "date": "2026-07-28",
+      "players": [
+        "Avocat"
+      ],
+      "seed": "-1495003146030562951",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z540xxjm",
+      "weblink": "https://www.speedrun.com/mc/runs/z540xxjm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 14605.075,
+      "time_display": "4h 3m 25s 75ms",
+      "date": "2026-07-29",
+      "players": [
+        "wasa374"
+      ],
+      "seed": "-6760903195335850551",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zpe39dvy",
+      "weblink": "https://www.speedrun.com/mc/runs/zpe39dvy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 19584.903,
+      "time_display": "5h 26m 24s 903ms",
+      "date": "2026-07-29",
+      "players": [
+        "Ludovik"
+      ],
+      "seed": "-1673235373867281648",
+      "verified": true,
+      "version": "1.12.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zpe32ngy",
+      "weblink": "https://www.speedrun.com/mc/runs/zpe32ngy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 876.456,
+      "time_display": "14m 36s 456ms",
+      "date": "2026-07-29",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "zqogvo5y",
+      "weblink": "https://www.speedrun.com/mc/runs/zqogvo5y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 925.795,
+      "time_display": "15m 25s 795ms",
+      "date": "2026-07-28",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "m34nnddz",
+      "weblink": "https://www.speedrun.com/mc/runs/m34nnddz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 927.219,
+      "time_display": "15m 27s 219ms",
+      "date": "2026-07-28",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "z1481prz",
+      "weblink": "https://www.speedrun.com/mc/runs/z1481prz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 894.69,
+      "time_display": "14m 54s 690ms",
+      "date": "2026-07-27",
+      "players": [
+        "Keima"
+      ],
+      "seed": "-7967279053397139517",
+      "verified": true,
+      "version": "1.3.2",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "z0490vjy",
+      "weblink": "https://www.speedrun.com/mc/runs/z0490vjy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 41208.996,
+      "time_display": "11h 26m 48s 996ms",
+      "date": "2026-07-26",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.20.6",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zqo44e9y",
+      "weblink": "https://www.speedrun.com/mc/runs/zqo44e9y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 17835.086,
+      "time_display": "4h 57m 15s 86ms",
+      "date": "2026-07-23",
+      "players": [
+        "wasa374"
+      ],
+      "seed": "-4924229340812620505",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "mrp9q14z",
+      "weblink": "https://www.speedrun.com/mc/runs/mrp9q14z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1014.147,
+      "time_display": "16m 54s 147ms",
+      "date": "2026-07-22",
+      "players": [
+        "Keima"
+      ],
+      "seed": "-7967279053397139517",
+      "verified": true,
+      "version": "1.3.2",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "ydx5k4jz",
+      "weblink": "https://www.speedrun.com/mc/runs/ydx5k4jz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 43137.578,
+      "time_display": "11h 58m 57s 578ms",
+      "date": "2026-07-22",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.20.4",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zqowlw9y",
+      "weblink": "https://www.speedrun.com/mc/runs/zqowlw9y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 23082.144,
+      "time_display": "6h 24m 42s 144ms",
+      "date": "2026-07-16",
+      "players": [
+        "Jakub1k"
+      ],
+      "seed": "-5546677712316701910",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ydx5opxz",
+      "weblink": "https://www.speedrun.com/mc/runs/ydx5opxz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 15394.467,
+      "time_display": "4h 16m 34s 467ms",
+      "date": "2026-07-21",
+      "players": [
+        "nisoc"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z54j8gjm",
+      "weblink": "https://www.speedrun.com/mc/runs/z54j8gjm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 954.29,
+      "time_display": "15m 54s 290ms",
+      "date": "2026-07-20",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "ylwkq4rz",
+      "weblink": "https://www.speedrun.com/mc/runs/ylwkq4rz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 18597.322,
+      "time_display": "5h 9m 57s 322ms",
+      "date": "2026-07-18",
+      "players": [
+        "sissmile123"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.15.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y842d91z",
+      "weblink": "https://www.speedrun.com/mc/runs/y842d91z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 14643.222,
+      "time_display": "4h 4m 3s 222ms",
+      "date": "2026-07-18",
+      "players": [
+        "sissmile123"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zg0w38vm",
+      "weblink": "https://www.speedrun.com/mc/runs/zg0w38vm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 13887.439,
+      "time_display": "3h 51m 27s 439ms",
+      "date": "2026-06-07",
+      "players": [
+        "the_xiaohan"
+      ],
+      "seed": "-4825690269686918808",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ydx580qz",
+      "weblink": "https://www.speedrun.com/mc/runs/ydx580qz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 15018.238,
+      "time_display": "4h 10m 18s 238ms",
+      "date": "2026-06-18",
+      "players": [
+        "the_xiaohan"
+      ],
+      "seed": "-3294725893620991126",
+      "verified": true,
+      "version": "1.17.1",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "yvk3eq4m",
+      "weblink": "https://www.speedrun.com/mc/runs/yvk3eq4m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 33909.991,
+      "time_display": "9h 25m 9s 991ms",
+      "date": "2026-07-11",
+      "players": [
+        "Zesskyo"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.1.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "m341kwgz",
+      "weblink": "https://www.speedrun.com/mc/runs/m341kwgz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 15722.635,
+      "time_display": "4h 22m 2s 635ms",
+      "date": "2026-07-14",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yvk3ooom",
+      "weblink": "https://www.speedrun.com/mc/runs/yvk3ooom",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 3782.763,
+      "time_display": "1h 3m 2s 763ms",
+      "date": "2026-07-11",
+      "players": [
+        "DrGuy"
+      ],
+      "seed": "-3140941153359455747",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ydx60kjz",
+      "weblink": "https://www.speedrun.com/mc/runs/ydx60kjz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1000.144,
+      "time_display": "16m 40s 144ms",
+      "date": "2026-07-12",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "z043j14y",
+      "weblink": "https://www.speedrun.com/mc/runs/z043j14y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 20747.393,
+      "time_display": "5h 45m 47s 393ms",
+      "date": "2026-07-07",
+      "players": [
+        "nisoc"
+      ],
+      "seed": "-3163255675501711796",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yog241dm",
+      "weblink": "https://www.speedrun.com/mc/runs/yog241dm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 28546.354,
+      "time_display": "7h 55m 46s 354ms",
+      "date": "2026-07-05",
+      "players": [
+        "nisoc"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ylw49wrz",
+      "weblink": "https://www.speedrun.com/mc/runs/ylw49wrz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 52234.35,
+      "time_display": "14h 30m 34s 350ms",
+      "date": "2026-07-04",
+      "players": [
+        "InFect_Dilu"
+      ],
+      "seed": "-220900823322395385",
+      "verified": true,
+      "version": "26.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y443513y",
+      "weblink": "https://www.speedrun.com/mc/runs/y443513y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 9415.482,
+      "time_display": "2h 36m 55s 482ms",
+      "date": "2026-06-30",
+      "players": [
+        "poeaz_91740"
+      ],
+      "seed": "5359737925911604209",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "me5ke22m",
+      "weblink": "https://www.speedrun.com/mc/runs/me5ke22m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 54021.8,
+      "time_display": "15h 21s 800ms",
+      "date": "2026-07-02",
+      "players": [
+        "InFect_Dilu"
+      ],
+      "seed": "8130187040826605639",
+      "verified": true,
+      "version": "26.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z54ox5em",
+      "weblink": "https://www.speedrun.com/mc/runs/z54ox5em",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 13299.353,
+      "time_display": "3h 41m 39s 353ms",
+      "date": "2026-05-23",
+      "players": [
+        "poeaz_91740"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.15.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y9grp6vm",
+      "weblink": "https://www.speedrun.com/mc/runs/y9grp6vm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 22619.29,
+      "time_display": "6h 16m 59s 290ms",
+      "date": "2026-06-18",
+      "players": [
+        "AndyFum"
+      ],
+      "seed": "272683302537996898",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z10ep8gm",
+      "weblink": "https://www.speedrun.com/mc/runs/z10ep8gm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 26413.558,
+      "time_display": "7h 20m 13s 558ms",
+      "date": "2026-06-14",
+      "players": [
+        "macnotsaw"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.17.1",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "zn6lj89y",
+      "weblink": "https://www.speedrun.com/mc/runs/zn6lj89y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 20657.744,
+      "time_display": "5h 44m 17s 744ms",
+      "date": "2026-06-11",
+      "players": [
+        "Akairo"
+      ],
+      "seed": "8012662387842589475",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yvekox8m",
+      "weblink": "https://www.speedrun.com/mc/runs/yvekox8m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1068.843,
+      "time_display": "17m 48s 843ms",
+      "date": "2026-05-26",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "z024roem",
+      "weblink": "https://www.speedrun.com/mc/runs/z024roem",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 12487.766,
+      "time_display": "3h 28m 7s 766ms",
+      "date": "2026-06-10",
+      "players": [
+        "mebuki117"
+      ],
+      "seed": "7879784548847548625",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zxpp3w5y",
+      "weblink": "https://www.speedrun.com/mc/runs/zxpp3w5y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 12785.469,
+      "time_display": "3h 33m 5s 469ms",
+      "date": "2026-06-06",
+      "players": [
+        "otter_315"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "meddx58y",
+      "weblink": "https://www.speedrun.com/mc/runs/meddx58y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 13143.925,
+      "time_display": "3h 39m 3s 925ms",
+      "date": "2026-06-04",
+      "players": [
+        "otter_315"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "mkxx281z",
+      "weblink": "https://www.speedrun.com/mc/runs/mkxx281z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 11239.25,
+      "time_display": "3h 7m 19s 250ms",
+      "date": "2026-06-03",
+      "players": [
+        "Zesskyo"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "medp9qqy",
+      "weblink": "https://www.speedrun.com/mc/runs/medp9qqy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 8030.619,
+      "time_display": "2h 13m 50s 619ms",
+      "date": "2026-05-30",
+      "players": [
+        "CroProYT"
+      ],
+      "seed": "8258091261415371737",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zxp02qky",
+      "weblink": "https://www.speedrun.com/mc/runs/zxp02qky",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 3237.171,
+      "time_display": "53m 57s 171ms",
+      "date": "2026-05-24",
+      "players": [
+        "Erchamion"
+      ],
+      "seed": "-4016420045639672172",
+      "verified": true,
+      "version": "1.11.2",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "m38wrwdy",
+      "weblink": "https://www.speedrun.com/mc/runs/m38wrwdy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 3551.912,
+      "time_display": "59m 11s 912ms",
+      "date": "2026-05-19",
+      "players": [
+        "Erchamion"
+      ],
+      "seed": "-4016420045639672172",
+      "verified": true,
+      "version": "1.11.2",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "mrw04k7y",
+      "weblink": "https://www.speedrun.com/mc/runs/mrw04k7y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1096.484,
+      "time_display": "18m 16s 484ms",
+      "date": "2026-04-29",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "zpvklxvz",
+      "weblink": "https://www.speedrun.com/mc/runs/zpvklxvz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1188.384,
+      "time_display": "19m 48s 384ms",
+      "date": "2026-05-18",
+      "players": [
+        "Zesskyo"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "yo8xn91z",
+      "weblink": "https://www.speedrun.com/mc/runs/yo8xn91z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1130.169,
+      "time_display": "18m 50s 169ms",
+      "date": "2026-05-16",
+      "players": [
+        "Erchamion"
+      ],
+      "seed": "-619559134183837125",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "y26w7n5m",
+      "weblink": "https://www.speedrun.com/mc/runs/y26w7n5m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 19523.158,
+      "time_display": "5h 25m 23s 158ms",
+      "date": "2026-05-15",
+      "players": [
+        "wasa374"
+      ],
+      "seed": "-87188897338794275",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ywoxk09m",
+      "weblink": "https://www.speedrun.com/mc/runs/ywoxk09m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 10089.609,
+      "time_display": "2h 48m 9s 609ms",
+      "date": "2026-05-15",
+      "players": [
+        "SuperC"
+      ],
+      "seed": "8673121098741326232",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yo8xvn5z",
+      "weblink": "https://www.speedrun.com/mc/runs/yo8xvn5z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 16056.205,
+      "time_display": "4h 27m 36s 205ms",
+      "date": "2026-05-12",
+      "players": [
+        "GuardianDan"
+      ],
+      "seed": "-2280765332666351577",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ydpnp8jy",
+      "weblink": "https://www.speedrun.com/mc/runs/ydpnp8jy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 11207.567,
+      "time_display": "3h 6m 47s 567ms",
+      "date": "2026-05-11",
+      "players": [
+        "ItsJustLenny"
+      ],
+      "seed": "2097073063227928717",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yjrox47z",
+      "weblink": "https://www.speedrun.com/mc/runs/yjrox47z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 31859.263,
+      "time_display": "8h 50m 59s 263ms",
+      "date": "2026-05-09",
+      "players": [
+        "AndyFum"
+      ],
+      "seed": "-7764836824466852150",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z10kwqwm",
+      "weblink": "https://www.speedrun.com/mc/runs/z10kwqwm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1198.436,
+      "time_display": "19m 58s 436ms",
+      "date": "2026-05-06",
+      "players": [
+        "Erchamion"
+      ],
+      "seed": "-619559134183837125",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "ydp2p2qy",
+      "weblink": "https://www.speedrun.com/mc/runs/ydp2p2qy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 14385.181,
+      "time_display": "3h 59m 45s 181ms",
+      "date": "2026-05-05",
+      "players": [
+        "otter_315"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zn6epx3y",
+      "weblink": "https://www.speedrun.com/mc/runs/zn6epx3y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 11079.808,
+      "time_display": "3h 4m 39s 808ms",
+      "date": "2026-05-03",
+      "players": [
+        "SuperC"
+      ],
+      "seed": "-145992939335373421",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zn6e4k8y",
+      "weblink": "https://www.speedrun.com/mc/runs/zn6e4k8y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 17743.37,
+      "time_display": "4h 55m 43s 370ms",
+      "date": "2026-04-30",
+      "players": [
+        "sissmile123"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zxpw9kqy",
+      "weblink": "https://www.speedrun.com/mc/runs/zxpw9kqy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 29880.734,
+      "time_display": "8h 18m 0s 734ms",
+      "date": "2026-05-01",
+      "players": [
+        "FrannCano"
+      ],
+      "seed": "2131137642343340694",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zxp3e8ey",
+      "weblink": "https://www.speedrun.com/mc/runs/zxp3e8ey",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1343.668,
+      "time_display": "22m 23s 668ms",
+      "date": "2026-05-01",
+      "players": [
+        "Erchamion"
+      ],
+      "seed": "-619559134183837125",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "y26g66wm",
+      "weblink": "https://www.speedrun.com/mc/runs/y26g66wm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1370.749,
+      "time_display": "22m 50s 749ms",
+      "date": "2026-04-30",
+      "players": [
+        "Erchamion"
+      ],
+      "seed": "-619559134183837125",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "yl26j3rz",
+      "weblink": "https://www.speedrun.com/mc/runs/yl26j3rz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1160.07,
+      "time_display": "19m 20s 70ms",
+      "date": "2026-04-29",
+      "players": [
+        "SuperC"
+      ],
+      "seed": "-619559134183837125",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "ydpjjxjy",
+      "weblink": "https://www.speedrun.com/mc/runs/ydpjjxjy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 12186.917,
+      "time_display": "3h 23m 6s 917ms",
+      "date": "2026-04-27",
+      "players": [
+        "marieee"
+      ],
+      "seed": "-1175713463608337289",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ywor6j9m",
+      "weblink": "https://www.speedrun.com/mc/runs/ywor6j9m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1402.086,
+      "time_display": "23m 22s 86ms",
+      "date": "2026-04-27",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "y9g8v8vm",
+      "weblink": "https://www.speedrun.com/mc/runs/y9g8v8vm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1630.082,
+      "time_display": "27m 10s 82ms",
+      "date": "2026-04-27",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "yo8n9w5z",
+      "weblink": "https://www.speedrun.com/mc/runs/yo8n9w5z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1701.438,
+      "time_display": "28m 21s 438ms",
+      "date": "2026-04-26",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "mrwogndy",
+      "weblink": "https://www.speedrun.com/mc/runs/mrwogndy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 5037.213,
+      "time_display": "1h 23m 57s 213ms",
+      "date": "2026-04-24",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "z02n0djm",
+      "weblink": "https://www.speedrun.com/mc/runs/z02n0djm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1473.399,
+      "time_display": "24m 33s 399ms",
+      "date": "2026-04-23",
+      "players": [
+        "Erchamion"
+      ],
+      "seed": "-619559134183837125",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "yl2n14xz",
+      "weblink": "https://www.speedrun.com/mc/runs/yl2n14xz",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 5631.585,
+      "time_display": "1h 33m 51s 585ms",
+      "date": "2026-04-21",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yve893xm",
+      "weblink": "https://www.speedrun.com/mc/runs/yve893xm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 6091.594,
+      "time_display": "1h 41m 31s 594ms",
+      "date": "2026-04-19",
+      "players": [
+        "1imb"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "ywo6np3m",
+      "weblink": "https://www.speedrun.com/mc/runs/ywo6np3m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 4769.666,
+      "time_display": "1h 19m 29s 666ms",
+      "date": "2026-04-16",
+      "players": [
+        "Erchamion"
+      ],
+      "seed": "6584833722991272806",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "zxp7e0ky",
+      "weblink": "https://www.speedrun.com/mc/runs/zxp7e0ky",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 56173.999,
+      "time_display": "15h 36m 13s 999ms",
+      "date": "2026-04-12",
+      "players": [
+        "InFect_Dilu"
+      ],
+      "seed": "-8952196761540693413",
+      "verified": true,
+      "version": "26.1.2",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "zn6pq3vy",
+      "weblink": "https://www.speedrun.com/mc/runs/zn6pq3vy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 8987.765,
+      "time_display": "2h 29m 47s 765ms",
+      "date": "2026-04-10",
+      "players": [
+        "3emis"
+      ],
+      "seed": "-4016420045639672172",
+      "verified": true,
+      "version": "1.12.2",
+      "seed_type": "SSG"
+    },
+    {
+      "id": "z10p5dwm",
+      "weblink": "https://www.speedrun.com/mc/runs/z10p5dwm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 2216.061,
+      "time_display": "36m 56s 61ms",
+      "date": "2026-04-09",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "-149289094859724373",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "RS"
+    },
+    {
+      "id": "ydpwg9xy",
+      "weblink": "https://www.speedrun.com/mc/runs/ydpwg9xy",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 1154.722,
+      "time_display": "19m 14s 722ms",
+      "date": "2026-04-05",
+      "players": [
+        "zelario12"
+      ],
+      "seed": "3762760186278426446",
+      "verified": true,
+      "version": "1.6.4",
+      "seed_type": "SS"
+    },
+    {
+      "id": "yveqg6em",
+      "weblink": "https://www.speedrun.com/mc/runs/yveqg6em",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 11227.092,
+      "time_display": "3h 7m 7s 92ms",
+      "date": "2026-04-03",
+      "players": [
+        "Zesskyo"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.15.2",
+      "seed_type": "RS"
+    },
+    {
+      "id": "zn60n4ly",
+      "weblink": "https://www.speedrun.com/mc/runs/zn60n4ly",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 21105.59,
+      "time_display": "5h 51m 45s 590ms",
+      "date": "2026-04-03",
+      "players": [
+        "Zesskyo"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.14.4",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y8le045m",
+      "weblink": "https://www.speedrun.com/mc/runs/y8le045m",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 58842.999,
+      "time_display": "16h 20m 42s 999ms",
+      "date": "2026-03-31",
+      "players": [
+        "InFect_Dilu"
+      ],
+      "seed": "7305993846884266372",
+      "verified": true,
+      "version": "26.1",
+      "seed_type": "RSG"
+    }
+  ]
+}

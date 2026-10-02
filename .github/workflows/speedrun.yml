@@ -1,0 +1,55 @@
+name: Daily Speedrun Sync
+
+# Runs nightly at 03:00 Iran Standard Time (IRST = UTC+03:30),
+# i.e. 23:30 UTC the previous day. Pulls the top 100 verified runs
+# per Minecraft Java + Bedrock category from Speedrun.com, writes
+# JSON files to website/src/data/speedrun/, and commits them with
+# [skip ci] so the deploy workflow isn't triggered in a loop.
+
+on:
+  schedule:
+    - cron: '30 23 * * *'   # 23:30 UTC == 03:00 IRST
+  workflow_dispatch:
+
+permissions:
+  contents: write           # required for the bot to push commits
+
+concurrency:
+  group: speedrun-sync
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python deps
+        run: pip install requests python-dotenv
+
+      - name: Fetch speedrun records
+        run: |
+          python website/pipeline/speedrun_fetch.py \
+            --output website/src/data/speedrun/ \
+            --top 100
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "MineBed Bot"
+          git config user.email "bot@minebed.users.noreply.github.com"
+          git add website/src/data/speedrun/
+          if git diff --staged --quiet; then
+            echo "No changes — skipping commit"
+          else
+            git commit -m "chore: daily speedrun sync [skip ci]"
+            git push
+          fi

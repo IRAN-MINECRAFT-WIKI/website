@@ -1,0 +1,164 @@
+{
+  "fetched_at": "2026-10-02T11:03:41.404399+00:00",
+  "top_per_cat": 100,
+  "status_filter": "verified",
+  "include_misc": false,
+  "games": {
+    "java": {
+      "label": "Java",
+      "game_id": "j1npme6p",
+      "categories_count": 13,
+      "categories_processed": 7,
+      "runs_collected": 300,
+      "files_written": 7,
+      "files_preserved": 0
+    },
+    "bedrock": {
+      "label": "Bedrock",
+      "game_id": "yd4ovvg1",
+      "categories_count": 14,
+      "categories_processed": 9,
+      "runs_collected": 887,
+      "files_written": 9,
+      "files_preserved": 0
+    }
+  },
+  "categories": {
+    "java": [
+      {
+        "id": "mkeyl926",
+        "name": "Any% Glitchless",
+        "slug": "any-glitchless",
+        "misc": false,
+        "runs_file": "java/any-glitchless.json",
+        "runs_count": 100
+      },
+      {
+        "id": "wkpn0vdr",
+        "name": "Any%",
+        "slug": "any",
+        "misc": false,
+        "runs_file": "java/any.json",
+        "runs_count": 100
+      },
+      {
+        "id": "xk9gz16d",
+        "name": "All Advancements",
+        "slug": "all-advancements",
+        "misc": false,
+        "runs_file": "java/all-advancements.json",
+        "runs_count": 100
+      },
+      {
+        "id": "n2yzmeko",
+        "name": "Set Seed",
+        "slug": "set-seed",
+        "misc": false,
+        "runs_file": "java/set-seed.json",
+        "runs_count": 0
+      },
+      {
+        "id": "7kjw7gd3",
+        "name": "Set Seed Glitchless",
+        "slug": "set-seed-glitchless",
+        "misc": false,
+        "runs_file": "java/set-seed-glitchless.json",
+        "runs_count": 0
+      },
+      {
+        "id": "xk979xd0",
+        "name": "Random Seed",
+        "slug": "random-seed",
+        "misc": false,
+        "runs_file": "java/random-seed.json",
+        "runs_count": 0
+      },
+      {
+        "id": "zd3re8dn",
+        "name": "Random Seed Glitchless",
+        "slug": "random-seed-glitchless",
+        "misc": false,
+        "runs_file": "java/random-seed-glitchless.json",
+        "runs_count": 0
+      }
+    ],
+    "bedrock": [
+      {
+        "id": "ndx9l1jd",
+        "name": "Any% Glitchless",
+        "slug": "any-glitchless",
+        "misc": false,
+        "runs_file": "bedrock/any-glitchless.json",
+        "runs_count": 100
+      },
+      {
+        "id": "9kv7jy8k",
+        "name": "Set Seed Solo",
+        "slug": "set-seed-solo",
+        "misc": false,
+        "runs_file": "bedrock/set-seed-solo.json",
+        "runs_count": 100
+      },
+      {
+        "id": "9kv7jyok",
+        "name": "Any%",
+        "slug": "any",
+        "misc": false,
+        "runs_file": "bedrock/any.json",
+        "runs_count": 100
+      },
+      {
+        "id": "w20gmyzk",
+        "name": "Co-op Any% Glitchless",
+        "slug": "co-op-any-glitchless",
+        "misc": false,
+        "runs_file": "bedrock/co-op-any-glitchless.json",
+        "runs_count": 100
+      },
+      {
+        "id": "zdn07092",
+        "name": "Co-op Any%",
+        "slug": "co-op-any",
+        "misc": false,
+        "runs_file": "bedrock/co-op-any.json",
+        "runs_count": 94
+      },
+      {
+        "id": "zdnlyne2",
+        "name": "100%",
+        "slug": "100",
+        "misc": false,
+        "runs_file": "bedrock/100.json",
+        "runs_count": 100
+      },
+      {
+        "id": "mke4xy62",
+        "name": "Random Seed Solo",
+        "slug": "random-seed-solo",
+        "misc": false,
+        "runs_file": "bedrock/random-seed-solo.json",
+        "runs_count": 100
+      },
+      {
+        "id": "5dwg1nlk",
+        "name": "Set Seed Coop",
+        "slug": "set-seed-coop",
+        "misc": false,
+        "runs_file": "bedrock/set-seed-coop.json",
+        "runs_count": 100
+      },
+      {
+        "id": "wk68w3x2",
+        "name": "Random Seed Coop",
+        "slug": "random-seed-coop",
+        "misc": false,
+        "runs_file": "bedrock/random-seed-coop.json",
+        "runs_count": 93
+      }
+    ]
+  },
+  "runs_total": 1187,
+  "files_written": 16,
+  "files_preserved": 0,
+  "errors": []
+}
