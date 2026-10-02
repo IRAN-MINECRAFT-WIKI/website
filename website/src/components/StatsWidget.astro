@@ -162,8 +162,8 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
 <script>
   import { trackVisit, getStats, heartbeat, fmtFa } from '@/lib/analytics.js';
 
-  function paintWidget() {
-    const s = getStats();
+  async function paintWidget() {
+    const s = await getStats();
     const elOnline = document.getElementById('swOnline');
     const elToday = document.getElementById('swToday');
     const elTotal = document.getElementById('swTotal');
@@ -173,18 +173,22 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   }
 
   function setupStatsWidget() {
-    // Track this visit (de-dupes within 60s for the same path).
+    // Track this visit (sends heartbeat to Cloudflare Worker)
     trackVisit();
-    // Paint initial values
+    // Paint initial values (async — fetches from Worker)
     paintWidget();
     // Re-paint on View Transitions
-    document.addEventListener('astro:page-load', paintWidget);
-    // Heartbeat every 30s — refreshes "online" pulse + last-seen.
+    document.addEventListener('astro:page-load', () => paintWidget());
+    // Heartbeat every 30s + refresh display
     if (!window.__mbStatsHB) {
       window.__mbStatsHB = setInterval(() => {
         heartbeat();
         paintWidget();
       }, 30_000);
+    }
+    // Also refresh display every 10s (fetches latest online count from Worker)
+    if (!window.__mbStatsRefresh) {
+      window.__mbStatsRefresh = setInterval(() => paintWidget(), 10_000);
     }
   }
 
