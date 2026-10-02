@@ -3,7 +3,7 @@
   "nameEn": "Squid",
   "nameFa": "هشت‌پا",
   "category": "ambient",
-  "icon": "px-cow-face",
+  "icon": "squid",
   "health": 10,
   "damage": {
     "contact": 0
@@ -27,5 +27,6 @@
   "combat": [
     "با یک ضربه بزن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Squid"
+  "wikiLink": "https://minecraft.wiki/w/Squid",
+  "hasRealTexture": true
 }

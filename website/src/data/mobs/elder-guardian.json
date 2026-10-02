@@ -3,7 +3,7 @@
   "nameEn": "Elder Guardian",
   "nameFa": "نگهبان کهنه",
   "category": "boss",
-  "icon": "px-creeper-face",
+  "icon": "elder-guardian",
   "health": 80,
   "damage": {
     "ranged": 5,
@@ -117,5 +117,6 @@
     "xp": 10,
     "boss": true,
     "spawnGroup": "boss"
-  }
+  },
+  "hasRealTexture": true
 }

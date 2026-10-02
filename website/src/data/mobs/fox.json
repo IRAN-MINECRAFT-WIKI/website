@@ -3,7 +3,7 @@
   "nameEn": "Fox",
   "nameFa": "روباه",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "fox",
   "health": 20,
   "damage": {
     "contact": 2
@@ -101,5 +101,6 @@
     "xp": 1,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }

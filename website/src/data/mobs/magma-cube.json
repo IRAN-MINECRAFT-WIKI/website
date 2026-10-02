@@ -3,7 +3,7 @@
   "nameEn": "Magma Cube",
   "nameFa": "مکعب ماگما",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "magma-cube",
   "health": 16,
   "damage": {
     "contact": 4,
@@ -30,5 +30,6 @@
     "با شمشیر بزن",
     "با کمان از دور"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Magma_Cube"
+  "wikiLink": "https://minecraft.wiki/w/Magma_Cube",
+  "hasRealTexture": true
 }

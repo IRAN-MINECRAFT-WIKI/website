@@ -3,7 +3,7 @@
   "nameEn": "Allay",
   "nameFa": "آلِی",
   "category": "passive",
-  "icon": "px-creeper-face",
+  "icon": "allay",
   "health": 20,
   "damage": {
     "contact": 0
@@ -93,5 +93,6 @@
     "xp": 0,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }

@@ -37,7 +37,8 @@
       "nameEn": "Cave Spider",
       "nameFa": "عنکبوت غار",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "cave-spider",
+      "hasRealTexture": true
     },
     {
       "id": "witch",
@@ -76,14 +77,16 @@
       "nameEn": "Magma Cube",
       "nameFa": "مکعب ماگما",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "magma-cube",
+      "hasRealTexture": true
     },
     {
       "id": "silverfish",
       "nameEn": "Silverfish",
       "nameFa": "ماهی نقره",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "silverfish",
+      "hasRealTexture": true
     },
     {
       "id": "stray",
@@ -122,7 +125,8 @@
       "nameEn": "Pillager",
       "nameFa": "غارتگر",
       "category": "hostile",
-      "icon": "px-creeper-face"
+      "icon": "pillager",
+      "hasRealTexture": true
     },
     {
       "id": "warden",
@@ -196,7 +200,8 @@
       "nameEn": "Fox",
       "nameFa": "روباه",
       "category": "passive",
-      "icon": "px-cow-face"
+      "icon": "fox",
+      "hasRealTexture": true
     },
     {
       "id": "turtle",
@@ -245,7 +250,8 @@
       "nameEn": "Allay",
       "nameFa": "آلِی",
       "category": "passive",
-      "icon": "px-creeper-face"
+      "icon": "allay",
+      "hasRealTexture": true
     },
     {
       "id": "enderman",
@@ -348,14 +354,16 @@
       "nameEn": "Elder Guardian",
       "nameFa": "نگهبان کهنه",
       "category": "boss",
-      "icon": "px-creeper-face"
+      "icon": "elder-guardian",
+      "hasRealTexture": true
     },
     {
       "id": "snow-golem",
       "nameEn": "Snow Golem",
       "nameFa": "گلولم برفی",
       "category": "utility",
-      "icon": "px-cow-face"
+      "icon": "snow-golem",
+      "hasRealTexture": true
     },
     {
       "id": "villager",
@@ -369,7 +377,8 @@
       "nameEn": "Bat",
       "nameFa": "خفاش",
       "category": "ambient",
-      "icon": "px-cow-face"
+      "icon": "bat",
+      "hasRealTexture": true
     },
     {
       "id": "pufferfish",
@@ -390,7 +399,8 @@
       "nameEn": "Squid",
       "nameFa": "هشت‌پا",
       "category": "ambient",
-      "icon": "px-cow-face"
+      "icon": "squid",
+      "hasRealTexture": true
     }
   ]
 }

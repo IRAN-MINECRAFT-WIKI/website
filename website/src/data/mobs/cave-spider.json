@@ -3,7 +3,7 @@
   "nameEn": "Cave Spider",
   "nameFa": "عنکبوت غار",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "cave-spider",
   "health": 12,
   "damage": {
     "contact": 2,
@@ -34,5 +34,6 @@
     "از دور بکش",
     "با سپر"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Cave_Spider"
+  "wikiLink": "https://minecraft.wiki/w/Cave_Spider",
+  "hasRealTexture": true
 }

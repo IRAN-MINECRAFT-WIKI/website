@@ -3,7 +3,7 @@
   "nameEn": "Silverfish",
   "nameFa": "ماهی نقره",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "silverfish",
   "health": 8,
   "damage": {
     "contact": 1
@@ -30,5 +30,6 @@
     "با کمان از دور",
     "رو دربان و فرار کن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Silverfish"
+  "wikiLink": "https://minecraft.wiki/w/Silverfish",
+  "hasRealTexture": true
 }

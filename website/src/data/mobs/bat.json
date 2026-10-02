@@ -3,7 +3,7 @@
   "nameEn": "Bat",
   "nameFa": "خفاش",
   "category": "ambient",
-  "icon": "px-cow-face",
+  "icon": "bat",
   "health": 6,
   "damage": {
     "contact": 0
@@ -28,5 +28,6 @@
   "combat": [
     "با یک ضربه بزن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Bat"
+  "wikiLink": "https://minecraft.wiki/w/Bat",
+  "hasRealTexture": true
 }

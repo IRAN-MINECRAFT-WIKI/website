@@ -1,0 +1,88 @@
+---
+/**
+ * /videos — Aparat video page
+ * Channel: https://www.aparat.com/MineBedFarsi
+ * When videos exist, they'll be fetched from Aparat API and displayed.
+ * For now, shows an empty state + subscribe button.
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd } from '@/lib/seo';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'ویدیوها', url: '/videos' },
+];
+const ldBread = breadcrumbJsonLd(breadcrumb);
+
+const APARAT_CHANNEL = 'https://www.aparat.com/MineBedFarsi';
+---
+
+<BaseLayout
+  path="/videos"
+  title="ویدیوهای ماین‌بد — آموزش و بررسی ماینکرفت"
+  description="ویدیوهای آموزشی و بررسی ماینکرفت از کانال اپارات ماین‌بد فارسی."
+>
+  <StructuredData data={ldBread} />
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">🎬 ویدیوهای ماین‌بد</h1>
+    <p class="text-sm text-mc-text-2">آموزش، بررسی و گیم‌پلی ماینکرفت</p>
+  </div>
+
+  <!-- Channel subscribe banner -->
+  <div class="mc-panel p-5 mb-6 flex items-center gap-4 flex-wrap">
+    <div class="flex-1 min-w-[200px]">
+      <h2 class="text-lg font-bold text-mc-text mb-1">کانال اپارات ماین‌بد فارسی</h2>
+      <p class="text-xs text-mc-text-2">آموزش‌های نصب مود، بررسی نسخه‌ها، گیم‌پلی و ترفندهای ماینکرفت</p>
+    </div>
+    <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn">
+      <span>📺</span> دنبال‌کردن کانال
+    </a>
+  </div>
+
+  <!-- Empty state -->
+  <div class="mc-panel text-center py-16">
+    <div class="text-6xl mb-4">🎬</div>
+    <h3 class="text-xl font-bold text-mc-text-2 mb-2">ویدیوها به‌زودی اضافه می‌شن!</h3>
+    <p class="text-sm text-mc-text-3 mb-6 max-w-md mx-auto leading-relaxed">
+      ما در حال آماده‌سازی ویدیوهای آموزشی ماینکرفت هستیم. به‌زودی آموزش‌های نصب مود،
+      بررسی نسخه‌های جدید و گیم‌پلی‌های جذاب رو توی کانال اپارات منتشر می‌کنیم.
+    </p>
+    <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn ghost small">
+      📺 مشاهده‌ی کانال اپارات
+    </a>
+  </div>
+
+  <!-- Coming soon categories -->
+  <div class="mt-8">
+    <h2 class="text-lg font-bold text-mc-text mb-4">دسته‌بندی‌های پیش‌رو</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="mc-panel p-4 text-center opacity-60">
+        <div class="text-3xl mb-2">📚</div>
+        <h3 class="text-sm font-bold text-mc-text-2">آموزش نصب</h3>
+        <p class="text-xs text-mc-text-3 mt-1">نصب مودها و ریسورس‌پک</p>
+      </div>
+      <div class="mc-panel p-4 text-center opacity-60">
+        <div class="text-3xl mb-2">🔍</div>
+        <h3 class="text-sm font-bold text-mc-text-2">بررسی نسخه</h3>
+        <p class="text-xs text-mc-text-3 mt-1">قابلیت‌های نسخه‌های جدید</p>
+      </div>
+      <div class="mc-panel p-4 text-center opacity-60">
+        <div class="text-3xl mb-2">🎮</div>
+        <h3 class="text-sm font-bold text-mc-text-2">گیم‌پلی</h3>
+        <p class="text-xs text-mc-text-3 mt-1">بازی و چالش‌های ماینکرفت</p>
+      </div>
+      <div class="mc-panel p-4 text-center opacity-60">
+        <div class="text-3xl mb-2">📰</div>
+        <h3 class="text-sm font-bold text-mc-text-2">اخبار</h3>
+        <p class="text-xs text-mc-text-3 mt-1">آخرین خبرهای ماینکرفت</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -3,7 +3,7 @@
   "nameEn": "Pillager",
   "nameFa": "غارتگر",
   "category": "hostile",
-  "icon": "px-creeper-face",
+  "icon": "pillager",
   "health": 24,
   "damage": {
     "ranged": 5,
@@ -112,5 +112,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

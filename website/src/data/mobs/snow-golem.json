@@ -3,7 +3,7 @@
   "nameEn": "Snow Golem",
   "nameFa": "گلولم برفی",
   "category": "utility",
-  "icon": "px-cow-face",
+  "icon": "snow-golem",
   "health": 4,
   "damage": {
     "contact": 0,
@@ -104,5 +104,6 @@
     "xp": 0,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }
