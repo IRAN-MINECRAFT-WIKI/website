@@ -3,7 +3,7 @@
   "nameEn": "Warden",
   "nameFa": "واردن",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "warden",
   "health": 500,
   "damage": {
     "contact": 30,
@@ -95,5 +95,6 @@
     "xp": 5,
     "boss": true,
     "spawnGroup": "boss"
-  }
+  },
+  "hasRealTexture": true
 }

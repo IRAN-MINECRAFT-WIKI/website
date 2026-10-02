@@ -3,7 +3,7 @@
   "nameEn": "Cow",
   "nameFa": "گاو",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "cow",
   "health": 10,
   "damage": {
     "contact": 0
@@ -105,5 +105,6 @@
     "xp": 1,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }

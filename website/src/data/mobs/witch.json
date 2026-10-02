@@ -3,7 +3,7 @@
   "nameEn": "Witch",
   "nameFa": "جادوگر",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "witch",
   "health": 26,
   "damage": {
     "ranged": 3,
@@ -123,5 +123,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

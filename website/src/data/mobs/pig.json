@@ -3,7 +3,7 @@
   "nameEn": "Pig",
   "nameFa": "خوک",
   "category": "passive",
-  "icon": "px-pig-face",
+  "icon": "pig",
   "health": 10,
   "damage": {
     "contact": 0
@@ -106,5 +106,6 @@
     "xp": 1,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }

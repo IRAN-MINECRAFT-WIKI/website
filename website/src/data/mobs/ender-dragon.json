@@ -3,7 +3,7 @@
   "nameEn": "Ender Dragon",
   "nameFa": "اژدهای اِند",
   "category": "boss",
-  "icon": "px-creeper-face",
+  "icon": "ender-dragon",
   "health": 200,
   "damage": {
     "contact": 10,
@@ -113,5 +113,6 @@
     "xp": 12000,
     "boss": true,
     "spawnGroup": "boss"
-  }
+  },
+  "hasRealTexture": true
 }

@@ -3,7 +3,7 @@
   "nameEn": "Phantom",
   "nameFa": "فانتوم",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "phantom",
   "health": 12,
   "damage": {
     "contact": 3
@@ -102,5 +102,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

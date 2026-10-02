@@ -3,7 +3,7 @@
   "nameEn": "Slime",
   "nameFa": "اسلایم",
   "category": "hostile",
-  "icon": "px-creeper-face",
+  "icon": "slime",
   "health": 16,
   "damage": {
     "contact": 2,
@@ -31,5 +31,6 @@
     "با کمان از دور",
     "رو زمین سفت بایست"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Slime"
+  "wikiLink": "https://minecraft.wiki/w/Slime",
+  "hasRealTexture": true
 }

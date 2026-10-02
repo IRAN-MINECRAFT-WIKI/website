@@ -5,28 +5,32 @@
       "nameEn": "Creeper",
       "nameFa": "کریپر",
       "category": "hostile",
-      "icon": "px-creeper-face"
+      "icon": "creeper",
+      "hasRealTexture": true
     },
     {
       "id": "zombie",
       "nameEn": "Zombie",
       "nameFa": "زامبی",
       "category": "hostile",
-      "icon": "px-creeper-face"
+      "icon": "zombie",
+      "hasRealTexture": true
     },
     {
       "id": "skeleton",
       "nameEn": "Skeleton",
       "nameFa": "اسکلت",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "skeleton",
+      "hasRealTexture": true
     },
     {
       "id": "spider",
       "nameEn": "Spider",
       "nameFa": "عنکبوت",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "spider",
+      "hasRealTexture": true
     },
     {
       "id": "cave-spider",
@@ -40,14 +44,16 @@
       "nameEn": "Witch",
       "nameFa": "جادوگر",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "witch",
+      "hasRealTexture": true
     },
     {
       "id": "slime",
       "nameEn": "Slime",
       "nameFa": "اسلایم",
       "category": "hostile",
-      "icon": "px-creeper-face"
+      "icon": "slime",
+      "hasRealTexture": true
     },
     {
       "id": "blaze",
@@ -84,28 +90,32 @@
       "nameEn": "Stray",
       "nameFa": "ولگرد",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "stray",
+      "hasRealTexture": true
     },
     {
       "id": "husk",
       "nameEn": "Husk",
       "nameFa": "هاسک",
       "category": "hostile",
-      "icon": "px-creeper-face"
+      "icon": "husk",
+      "hasRealTexture": true
     },
     {
       "id": "drowned",
       "nameEn": "Drowned",
       "nameFa": "غرق‌شده",
       "category": "hostile",
-      "icon": "px-creeper-face"
+      "icon": "drowned",
+      "hasRealTexture": true
     },
     {
       "id": "phantom",
       "nameEn": "Phantom",
       "nameFa": "فانتوم",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "phantom",
+      "hasRealTexture": true
     },
     {
       "id": "pillager",
@@ -119,21 +129,24 @@
       "nameEn": "Warden",
       "nameFa": "واردن",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "warden",
+      "hasRealTexture": true
     },
     {
       "id": "pig",
       "nameEn": "Pig",
       "nameFa": "خوک",
       "category": "passive",
-      "icon": "px-pig-face"
+      "icon": "pig",
+      "hasRealTexture": true
     },
     {
       "id": "cow",
       "nameEn": "Cow",
       "nameFa": "گاو",
       "category": "passive",
-      "icon": "px-cow-face"
+      "icon": "cow",
+      "hasRealTexture": true
     },
     {
       "id": "sheep",
@@ -147,7 +160,8 @@
       "nameEn": "Chicken",
       "nameFa": "مرغ",
       "category": "passive",
-      "icon": "px-cow-face"
+      "icon": "chicken",
+      "hasRealTexture": true
     },
     {
       "id": "mooshroom",
@@ -238,7 +252,8 @@
       "nameEn": "Enderman",
       "nameFa": "اِندرمن",
       "category": "neutral",
-      "icon": "px-creeper-face"
+      "icon": "enderman",
+      "hasRealTexture": true
     },
     {
       "id": "wolf",
@@ -310,7 +325,8 @@
       "nameEn": "Ender Dragon",
       "nameFa": "اژدهای اِند",
       "category": "boss",
-      "icon": "px-creeper-face"
+      "icon": "ender-dragon",
+      "hasRealTexture": true
     },
     {
       "id": "wither",

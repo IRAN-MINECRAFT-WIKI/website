@@ -3,7 +3,7 @@
   "nameEn": "Spider",
   "nameFa": "عنکبوت",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "spider",
   "health": 16,
   "damage": {
     "contact": 2,
@@ -109,5 +109,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

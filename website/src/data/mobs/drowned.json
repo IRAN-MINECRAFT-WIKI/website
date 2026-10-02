@@ -3,7 +3,7 @@
   "nameEn": "Drowned",
   "nameFa": "غرق‌شده",
   "category": "hostile",
-  "icon": "px-creeper-face",
+  "icon": "drowned",
   "health": 20,
   "damage": {
     "contact": 3,
@@ -114,5 +114,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

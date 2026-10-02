@@ -3,7 +3,7 @@
   "nameEn": "Skeleton",
   "nameFa": "اسکلت",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "skeleton",
   "health": 20,
   "damage": {
     "contact": 0,
@@ -108,5 +108,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

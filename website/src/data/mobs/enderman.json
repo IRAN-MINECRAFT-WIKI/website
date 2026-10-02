@@ -3,7 +3,7 @@
   "nameEn": "Enderman",
   "nameFa": "اِندرمن",
   "category": "neutral",
-  "icon": "px-creeper-face",
+  "icon": "enderman",
   "health": 40,
   "damage": {
     "contact": 7,
@@ -105,5 +105,6 @@
     "xp": 5,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

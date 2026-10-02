@@ -3,7 +3,7 @@
   "nameEn": "Stray",
   "nameFa": "ولگرد",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "stray",
   "health": 20,
   "damage": {
     "ranged": 4,
@@ -38,5 +38,6 @@
     "با سپر تیر رو بلاک کن",
     "نزدیک شو و بزن"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Stray"
+  "wikiLink": "https://minecraft.wiki/w/Stray",
+  "hasRealTexture": true
 }

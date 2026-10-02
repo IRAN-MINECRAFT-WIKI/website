@@ -3,7 +3,7 @@
   "nameEn": "Husk",
   "nameFa": "هاسک",
   "category": "hostile",
-  "icon": "px-creeper-face",
+  "icon": "husk",
   "health": 20,
   "damage": {
     "contact": 3,
@@ -38,5 +38,6 @@
     "با شمشیر بزن",
     "از دور بکش"
   ],
-  "wikiLink": "https://minecraft.wiki/w/Husk"
+  "wikiLink": "https://minecraft.wiki/w/Husk",
+  "hasRealTexture": true
 }

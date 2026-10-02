@@ -3,7 +3,7 @@
   "nameEn": "Chicken",
   "nameFa": "مرغ",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "chicken",
   "health": 4,
   "damage": {
     "contact": 0
@@ -104,5 +104,6 @@
     "xp": 1,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }
