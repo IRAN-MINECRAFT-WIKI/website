@@ -646,9 +646,16 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
 
     // ---------- Init ----------
     var data = null;
+    var srInited = false;
     function init() {
+      // Guard against double-init (DOMContentLoaded + astro:page-load both fire on first load)
+      if (srInited) return;
+      srInited = true;
       cacheDom();
-      if (!el.tabs.length || !el.list) return;
+      if (!el.tabs.length || !el.list) {
+        srInited = false;
+        return;
+      }
       try {
         data = loadData();
       } catch (e) {
@@ -706,7 +713,11 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
     } else {
       init();
     }
-    document.addEventListener('astro:page-load', init);
+    // On Astro view-transition navigations back to this page, the IIFE
+    // has already run; re-init via astro:page-load only if not already inited.
+    document.addEventListener('astro:page-load', function () {
+      if (!srInited) init();
+    });
   })();
 </script>
 
