@@ -3,7 +3,7 @@
   "nameEn": "Sheep",
   "nameFa": "گوسفند",
   "category": "passive",
-  "icon": "px-pig-face",
+  "icon": "sheep",
   "health": 8,
   "damage": {
     "contact": 0
@@ -106,5 +106,6 @@
     "xp": 1,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }

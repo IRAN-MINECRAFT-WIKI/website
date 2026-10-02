@@ -157,7 +157,8 @@
       "nameEn": "Sheep",
       "nameFa": "گوسفند",
       "category": "passive",
-      "icon": "px-pig-face"
+      "icon": "sheep",
+      "hasRealTexture": true
     },
     {
       "id": "chicken",

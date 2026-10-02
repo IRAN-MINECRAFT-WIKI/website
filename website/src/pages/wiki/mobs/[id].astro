@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
-import BackButton from '@components/BackButton.astro';
+import BackButton from "@components/BackButton.astro";
 import StructuredData from '@components/StructuredData.astro';
-import { mobs, MOB_CATEGORIES, type MobInfo, type MobDamage } from '@/lib/data';
+import { mobs, MOB_CATEGORIES, getMobById, type MobInfo } from '@/lib/data';
 import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 
 export async function getStaticPaths() {
@@ -33,33 +33,16 @@ const ldArticle = articleJsonLd({
   url: `/wiki/mobs/${mob.id}`,
 });
 
-function faNum(n: number | string): string {
+function faNum(n: number | string | undefined): string {
+  if (n === undefined || n === null) return '—';
   const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-  return String(n).replace(/\d/g, (d) => map[+d]!);
+  return String(n).replace(/[0-9]/g, d => map[parseInt(d)]);
 }
-
-// Translate damage types to Persian labels
-const damageLabelsFa: Record<string, string> = {
-  contact: 'تماسی',
-  explosion: 'انفجاری',
-  ranged: 'دور',
-  trident: 'سه‌شاخه',
-  poison: 'سم',
-  fling: 'پرت‌کردن',
-  knockback: 'هل‌دادن',
-  wither: 'خشک‌سازی',
-  'mining_fatigue': 'خستگی معدن',
-  splash_potion: 'معجون',
-  snowball: 'گلوله برف',
-};
-
-// Convert damage object to list of {label, value}
-const damageEntries = Object.entries(mob.damage || {}).filter(([_, v]) => v !== undefined && v !== 0);
 ---
 
 <BaseLayout
   path={`/wiki/mobs/${mob.id}`}
-  title={`${mob.nameFa} — ماب ماینکرفت (${mob.nameEn})`}
+  title={`${mob.nameFa} — ماب ماینکرفت`}
   description={mob.description}
   type="article"
 >
@@ -68,154 +51,442 @@ const damageEntries = Object.entries(mob.damage || {}).filter(([_, v]) => v !== 
   <StructuredData data={ldArticle} />
   <StructuredData data={ldBread} />
 
-  <!-- Header -->
-  <div class="mb-6 flex items-start gap-4">
-    <span class="shrink-0 inline-flex items-center justify-center w-20 h-20 mc-block-panel p-2">
-      <img
-        src={`${BASE}textures/mobs/${mob.icon.replace('px-', '').replace('-face', '')}.png`}
-        alt={mob.nameFa}
-        width="56"
-        height="56"
-        loading="eager"
-        decoding="async"
-        class="pixel-img"
-        onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
-      />
-      <svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
-        <use href={`#${mob.icon.startsWith('px-') ? mob.icon : 'px-' + mob.icon}`} />
-      </svg>
-    </span>
-    <div class="flex-1">
-      <div class="flex items-center gap-3 mb-1 flex-wrap">
-        <h1 class="text-2xl lg:text-4xl font-extrabold">{mob.nameFa}</h1>
-        <span class="bg-mc-bg-2 border-2 border-mc-line text-xs font-pixel px-2 py-1 text-mc-text-2" dir="ltr">{mob.nameEn}</span>
+  <div class="mob-wiki-page">
+    <!-- ═══════════════════════════════════════════════════════════════
+         HEADER: Title + English name + Category badge
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="mob-header mb-6">
+      <h1 class="text-2xl lg:text-4xl font-extrabold mb-2">{mob.nameFa}</h1>
+      <div class="flex items-center gap-3 flex-wrap">
+        <span class="text-sm text-mc-text-2" dir="ltr">{mob.nameEn}</span>
+        {cat && (
+          <span class="mob-cat-badge">{cat.icon} {cat.nameFa}</span>
+        )}
       </div>
-      <p class="text-sm text-mc-text-2 mb-3">
-        {cat && <span>{cat.icon} {cat.nameFa}</span>}
-        <span> • 🆔 <code dir="ltr" class="text-mc-text">{mob.id}</code></span>
-        <span> • 🏃 سرعت: <span dir="ltr" class="text-mc-text">{faNum(mob.speed)}</span></span>
-      </p>
-      <p class="text-base text-mc-text-2 leading-loose">{mob.description}</p>
     </div>
-  </div>
 
-  <!-- Stats -->
-  <section class="mc-panel mb-6 p-5">
-    <h2 class="text-xl font-extrabold mb-3">آمار و ویژگی‌ها</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
-        <div class="text-[10px] text-mc-text-3 mb-1">سلامت (Health)</div>
-        <div class="text-lg font-bold text-mc-redstone" dir="ltr">❤ {faNum(mob.health)}</div>
-      </div>
-      {damageEntries.length > 0 ? (
-        damageEntries.slice(0, 3).map(([key, val]) => (
-          <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
-            <div class="text-[10px] text-mc-text-3 mb-1">آسیب {damageLabelsFa[key] || key}</div>
-            <div class="text-lg font-bold text-mc-gold" dir="ltr">{faNum(val as number)}</div>
+    <!-- ═══════════════════════════════════════════════════════════════
+         LAYOUT: 2 columns — Infobox (sticky, left) + Content (right)
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="mob-layout">
+      <!-- ═══════════════════════════════════════════════════════════════
+           INFOBOX (sticky sidebar)
+           ═══════════════════════════════════════════════════════════════ -->
+      <aside class="mob-infobox">
+        <!-- Image 1: Main mob render (full body) -->
+        <div class="infobox-image-main">
+          <img
+            src={`${BASE}textures/mobs/${mob.icon.replace('px-', '').replace('-face', '')}.png`}
+            alt={mob.nameFa}
+            width="200" height="300"
+            loading="eager"
+            decoding="async"
+            class="pixel-img"
+            onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='flex';}`}
+          />
+          <div class="infobox-image-fallback" style="display:none;">
+            <svg width="120" height="120" viewBox="0 0 16 16" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+              <use href={`#${mob.icon.startsWith('px-') ? mob.icon : 'px-' + mob.icon}`} />
+            </svg>
           </div>
-        ))
-      ) : (
-        <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
-          <div class="text-[10px] text-mc-text-3 mb-1">آسیب</div>
-          <div class="text-lg font-bold text-mc-grass-2">۰</div>
+          <p class="infobox-image-caption">{mob.nameFa}</p>
         </div>
-      )}
-    </div>
-    {damageEntries.length === 0 && (
-      <p class="text-xs text-mc-text-3 mt-3 text-center">این ماب آسیبی به بازیکن وارد نمی‌کند.</p>
-    )}
-  </section>
 
-  <!-- Drops + Locations + Combat -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-    <section class="mc-panel p-5">
-      <h2 class="text-lg font-extrabold mb-3">🎁 دراپ‌ها</h2>
-      {mob.drops.length > 0 ? (
-        <ul class="space-y-2">
-          {mob.drops.map((d, idx) => (
-            <li class="flex items-start gap-2 text-sm">
-              <span class="text-mc-gold mt-0.5">▸</span>
-              <div class="flex-1">
-                <div class="font-bold text-mc-text" dir="ltr">{d.item}</div>
-                {d.count && <div class="text-xs text-mc-text-3" dir="ltr">تعداد: {d.count}</div>}
-                {d.condition && <div class="text-[10px] text-mc-text-3 mt-0.5">{d.condition}</div>}
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="text-sm text-mc-text-3">این ماب چیزی دراپ نمی‌کند.</p>
-      )}
-    </section>
+        <!-- Image 2: Face/head icon (32×32) -->
+        <div class="infobox-image-row">
+          <div class="infobox-image-small">
+            <img
+              src={`${BASE}textures/mobs/${mob.icon.replace('px-', '').replace('-face', '')}.png`}
+              alt={`سر ${mob.nameFa}`}
+              width="32" height="32"
+              loading="lazy"
+              class="pixel-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            />
+            <div style="display:none;">
+              <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges" style="image-rendering: pixelated;">
+                <use href={`#${mob.icon.startsWith('px-') ? mob.icon : 'px-' + mob.icon}`} />
+              </svg>
+            </div>
+            <span class="infobox-small-label">سر</span>
+          </div>
+        </div>
 
-    <section class="mc-panel p-5">
-      <h2 class="text-lg font-extrabold mb-3">📍 محل یافتن</h2>
-      {mob.locations.length > 0 ? (
-        <ul class="space-y-2">
-          {mob.locations.map((l) => (
-            <li class="flex items-start gap-2">
-              <span class="text-mc-grass-2 mt-1">→</span>
-              <span class="text-sm text-mc-text-2">{l}</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="text-sm text-mc-text-3">محل خاصی ثبت نشده.</p>
-      )}
-    </section>
+        <!-- Stats table -->
+        <div class="infobox-section">
+          <h3 class="infobox-title">📊 اطلاعات</h3>
+          <table class="infobox-table">
+            <tr><td>❤️ سلامتی</td><td>{faNum(mob.health)}</td></tr>
+            {mob.extraStats && mob.extraStats.armor && (
+              <tr><td>🛡️ زره</td><td>{faNum(mob.extraStats.armor)}</td></tr>
+            )}
+            {mob.speed && (
+              <tr><td>🏃 سرعت</td><td dir="ltr">{faNum(mob.speed)}</td></tr>
+            )}
+            {mob.extraStats && mob.extraStats.size && (
+              <tr><td>📏 ابعاد</td><td dir="ltr">{mob.extraStats.size}</td></tr>
+            )}
+            {mob.damage && (
+              <tr><td>⚔️ آسیب</td><td dir="ltr">{faNum(mob.damage)}</td></tr>
+            )}
+            {mob.extraStats && mob.extraStats.spawning && (
+              <tr><td>🎯 نوع</td><td>{mob.extraStats.spawning}</td></tr>
+            )}
+          </table>
+        </div>
 
-    <section class="mc-panel p-5">
-      <h2 class="text-lg font-extrabold mb-3">⚔️ راه‌های مبارزه</h2>
-      {mob.combat.length > 0 ? (
-        <ul class="space-y-2">
-          {mob.combat.map((c) => (
-            <li class="flex items-start gap-2">
-              <span class="text-mc-redstone mt-1">★</span>
-              <span class="text-sm text-mc-text-2">{c}</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="text-sm text-mc-text-3">این ماب نیاز به مبارزه ندارد.</p>
-      )}
-    </section>
-  </div>
+        <!-- Versions -->
+        <div class="infobox-section">
+          <h3 class="infobox-title">📅 نسخه‌ها</h3>
+          <table class="infobox-table">
+            {mob.versions && mob.versions.java && (
+              <tr><td>☕ Java</td><td dir="ltr">{mob.versions.java}</td></tr>
+            )}
+            {mob.versions && mob.versions.bedrock && (
+              <tr><td>📱 Bedrock</td><td dir="ltr">{mob.versions.bedrock}</td></tr>
+            )}
+          </table>
+        </div>
 
-  <!-- Versions + Wiki link -->
-  <section class="mc-panel mb-6 p-5">
-    <h2 class="text-lg font-extrabold mb-3">📚 نسخه‌ها و مرجع</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-      <div class="flex items-start gap-2">
-        <span class="text-mc-text-3 mt-0.5">☕ جاوا:</span>
-        <span class="text-mc-text-2" dir="ltr">{mob.versions.java}</span>
-      </div>
-      <div class="flex items-start gap-2">
-        <span class="text-mc-text-3 mt-0.5">🪨 بدراک:</span>
-        <span class="text-mc-text-2" dir="ltr">{mob.versions.bedrock}</span>
-      </div>
-      {mob.wikiLink && (
-        <div class="sm:col-span-2 flex items-start gap-2 mt-2 pt-3 border-t border-mc-line">
-          <span class="text-mc-text-3 mt-0.5">📖 ویکی:</span>
-          <a
-            href={mob.wikiLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-mc-grass-2 hover:underline break-all"
-            dir="ltr"
-          >
-            {mob.wikiLink} ↗
+        <!-- Wiki link -->
+        {mob.wikiLink && (
+          <a href={mob.wikiLink} target="_blank" rel="noopener" class="infobox-wiki-link">
+            📖 Minecraft Wiki ↗
           </a>
-        </div>
-      )}
-    </div>
-  </section>
+        )}
+      </aside>
 
-  <!-- Back to mobs -->
-  <a
-    href={`/wiki/mobs`}
-    class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-2 text-sm font-bold text-mc-text-2 hover:text-mc-grass-2"
-  >
-    <svg width="14" height="14"><use href="#icon-chevron-right" /></svg>
-    بازگشت به فهرست ماب‌ها
-  </a>
+      <!-- ═══════════════════════════════════════════════════════════════
+           CONTENT (main column)
+           ═══════════════════════════════════════════════════════════════ -->
+      <div class="mob-content">
+        <!-- Intro (3-5 paragraphs) -->
+        {mob.intro && mob.intro.length > 0 && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">📝 معرفی</h2>
+            <div class="mob-intro-text">
+              {mob.intro.map((p) => <p>{p}</p>)}
+            </div>
+          </section>
+        )}
+
+        <!-- Fallback intro if no rich content -->
+        {(!mob.intro || mob.intro.length === 0) && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">📝 معرفی</h2>
+            <p class="mob-intro-basic">{mob.description}</p>
+          </section>
+        )}
+
+        <!-- Behavior -->
+        {mob.behavior && mob.behavior.length > 0 && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">🎯 رفتار</h2>
+            <div class="mob-intro-text">
+              {mob.behavior.map((p) => <p>{p}</p>)}
+            </div>
+          </section>
+        )}
+
+        <!-- Uses/Combat -->
+        {(mob.combat && mob.combat.length > 0) || (mob.uses && mob.uses.length > 0) && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">{mob.category === 'hostile' || mob.category === 'boss' ? '⚔️ مبارزه' : '🔧 کاربردها'}</h2>
+            <ul class="mob-list">
+              {(mob.combat || mob.uses || []).map((item) => <li>{item}</li>)}
+            </ul>
+          </section>
+        )}
+
+        <!-- Drops -->
+        {mob.drops && mob.drops.length > 0 && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">🎁 دراپ‌ها</h2>
+            <table class="mob-drops-table">
+              <thead>
+                <tr><th>آیتم</th><th>تعداد</th><th>شرط</th></tr>
+              </thead>
+              <tbody>
+                {mob.drops.map((d) => (
+                  <tr>
+                    <td>{d.item || d.name || '—'}</td>
+                    <td dir="ltr">{faNum(d.count || '—')}</td>
+                    <td>{d.condition || '۱۰۰٪'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        )}
+
+        <!-- Locations -->
+        {mob.locations && mob.locations.length > 0 && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">📍 مکان‌های یافت</h2>
+            <ul class="mob-list">
+              {mob.locations.map((l) => <li>{l}</li>)}
+            </ul>
+          </section>
+        )}
+
+        <!-- Java vs Bedrock differences -->
+        {mob.differences && mob.differences.length > 0 && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">🔄 تفاوت Java و Bedrock</h2>
+            <ul class="mob-list">
+              {mob.differences.map((d) => <li>{d}</li>)}
+            </ul>
+          </section>
+        )}
+
+        <!-- Trivia -->
+        {mob.trivia && mob.trivia.length > 0 && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">💡 نکات جالب</h2>
+            <ul class="mob-list">
+              {mob.trivia.map((t) => <li>{t}</li>)}
+            </ul>
+          </section>
+        )}
+
+        <!-- History -->
+        {mob.history && mob.history.length > 0 && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">📚 تاریخچه</h2>
+            <div class="mob-history">
+              {mob.history.map((h, idx) => (
+                <div class="history-entry">
+                  <span class="history-version" dir="ltr">{h.version}</span>
+                  <span class="history-change">{h.change}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- Related mobs -->
+        {mob.related && mob.related.length > 0 && (
+          <section class="mob-section">
+            <h2 class="mob-section-title">🔗 ماب‌های مرتبط</h2>
+            <div class="mob-related-grid">
+              {mob.related.map((r) => (
+                <a href={`${BASE}wiki/mobs/${r.id}`} class="mob-related-card">
+                  <img
+                    src={`${BASE}textures/mobs/${r.id}.png`}
+                    alt={r.name}
+                    width="32" height="32"
+                    loading="lazy"
+                    class="pixel-img"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
+                  />
+                  <span style="display:none;">📦</span>
+                  <span class="mob-related-name">{r.name}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- Wiki source link -->
+        {mob.wikiLink && (
+          <section class="mob-section">
+            <a href={mob.wikiLink} target="_blank" rel="noopener" class="mc-btn ghost small">
+              📖 مطالعه‌ی بیشتر در Minecraft Wiki ↗
+            </a>
+          </section>
+        )}
+      </div>
+    </div>
+  </div>
 </BaseLayout>
+
+<style is:global>
+  .mob-wiki-page { max-width: 100%; }
+  .mob-header { padding-bottom: 1rem; border-bottom: 2px solid var(--line); }
+  .mob-cat-badge {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.75rem; font-weight: 700;
+    background: rgba(124, 200, 74, 0.1);
+    border: 1px solid rgba(124, 200, 74, 0.3);
+    padding: 0.25rem 0.625rem; border-radius: 999px;
+    color: var(--grass-2, #7cc84a);
+  }
+
+  .mob-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .mob-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  .mob-infobox {
+    position: sticky; top: 5rem;
+    background: rgba(28, 28, 52, 0.6);
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow: hidden;
+  }
+  @media (max-width: 768px) {
+    .mob-infobox { position: static; }
+  }
+
+  .infobox-image-main {
+    text-align: center; margin-bottom: 1rem;
+    background: linear-gradient(135deg, rgba(13,13,24,0.6), rgba(28,28,52,0.4));
+    border-radius: 8px; padding: 1rem;
+  }
+  .infobox-image-main img, .infobox-image-main svg {
+    max-width: 200px; max-height: 300px;
+    image-rendering: pixelated;
+  }
+  .infobox-image-fallback {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 120px;
+  }
+  .infobox-image-caption {
+    font-size: 0.75rem; color: var(--text-3);
+    margin-top: 0.5rem; text-align: center;
+  }
+
+  .infobox-image-row {
+    display: flex; gap: 0.5rem; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .infobox-image-small {
+    text-align: center;
+    background: rgba(13,13,24,0.4);
+    border: 1px solid var(--line);
+    border-radius: 4px; padding: 0.5rem;
+  }
+  .infobox-small-label {
+    display: block; font-size: 0.625rem;
+    color: var(--text-3); margin-top: 0.25rem;
+  }
+
+  .infobox-section { margin-bottom: 1rem; }
+  .infobox-title {
+    font-size: 0.8125rem; font-weight: 700;
+    color: var(--gold, #fcb32b);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .infobox-table { width: 100%; font-size: 0.75rem; }
+  .infobox-table td { padding: 0.25rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .infobox-table td:first-child { color: var(--text-2); }
+  .infobox-table td:last-child { color: var(--text); font-weight: 600; }
+
+  .infobox-wiki-link {
+    display: block; text-align: center;
+    font-size: 0.75rem; font-weight: 700;
+    padding: 0.5rem; margin-top: 0.5rem;
+    background: rgba(124, 200, 74, 0.08);
+    border: 1px solid rgba(124, 200, 74, 0.2);
+    border-radius: 4px;
+    color: var(--grass-2, #7cc84a);
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .infobox-wiki-link:hover {
+    background: rgba(124, 200, 74, 0.15);
+    border-color: var(--grass-2, #7cc84a);
+  }
+
+  .mob-content { min-width: 0; }
+  .mob-section { margin-bottom: 2rem; }
+  .mob-section-title {
+    font-size: 1.125rem; font-weight: 800;
+    color: var(--text);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--line);
+  }
+  .mob-intro-text p {
+    font-size: 0.9375rem;
+    line-height: 1.85;
+    color: var(--text-2);
+    margin-bottom: 1rem;
+  }
+  .mob-intro-basic {
+    font-size: 0.9375rem;
+    line-height: 1.85;
+    color: var(--text-2);
+  }
+  .mob-list {
+    list-style: none; padding: 0;
+  }
+  .mob-list li {
+    position: relative;
+    padding-right: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+  .mob-list li::before {
+    content: '●';
+    position: absolute; right: 0;
+    color: var(--grass-2, #7cc84a);
+    font-size: 0.625rem;
+    top: 0.25rem;
+  }
+
+  .mob-drops-table {
+    width: 100%; font-size: 0.8125rem;
+    border-collapse: collapse;
+  }
+  .mob-drops-table th {
+    text-align: right; padding: 0.5rem;
+    border-bottom: 2px solid var(--line);
+    color: var(--text-3); font-weight: 700;
+  }
+  .mob-drops-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text-2);
+  }
+
+  .mob-history { display: flex; flex-direction: column; gap: 0.5rem; }
+  .history-entry {
+    display: flex; gap: 0.75rem; align-items: baseline;
+    font-size: 0.8125rem;
+  }
+  .history-version {
+    color: var(--grass-2, #7cc84a);
+    font-weight: 700; flex-shrink: 0;
+    min-width: 120px;
+  }
+  .history-change { color: var(--text-2); }
+
+  .mob-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+  .mob-related-card {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0.375rem;
+    padding: 0.75rem;
+    background: rgba(28, 28, 52, 0.4);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .mob-related-card:hover {
+    border-color: var(--grass-2, #7cc84a);
+    background: rgba(28, 28, 52, 0.6);
+  }
+  .mob-related-card img {
+    image-rendering: pixelated;
+    width: 32px; height: 32px;
+  }
+  .mob-related-name {
+    font-size: 0.6875rem; font-weight: 600;
+    color: var(--text-2); text-align: center;
+  }
+</style>
