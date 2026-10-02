@@ -1,55 +1,163 @@
 ---
 /**
- * /speedrun — Speedrun leaderboard page
+ * /speedrun — PaceMan.gg-style Speedrun leaderboard
  *
- * Shows Minecraft speedrun records from Speedrun.com, fetched
- * nightly by pipeline/speedrun_fetch.py. Two tabs: Java + Bedrock.
- * Each tab shows a table of runs with filter + search.
+ * Phase 7 rebuild:
+ *   - Stats bar (records / players / files / last-update) with Persian numerals
+ *   - Filter bar: platform tabs + category dropdown + version dropdown +
+ *     "فقط با سید" checkbox + player search + reset button
+ *   - Server-side renders ALL 1,187 runs as a JSON blob; client-side
+ *     filters + paginates + expands rows. No re-fetch from Speedrun.com.
+ *   - Rank colors: 🏆 gold (#fcb32b), 🥈 silver (#c0c0c0), 🥉 bronze (#cd7f32)
+ *   - Sticky header, hover highlight, click-row-to-expand details
+ *   - Responsive: desktop = full grid table, tablet = hide seed+date,
+ *     mobile (≤768px) = card layout per run
+ *   - "بارگذاری بیشتر" button loads 50 more rows at a time (lazy pagination)
+ *   - Empty state + loading state + result count
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import StructuredData from '@components/StructuredData.astro';
-import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
+import { breadcrumbJsonLd } from '@/lib/seo';
 import summary from '@/data/speedrun/summary.json';
+
+// Import all 16 speedrun data files (Java + Bedrock)
 import javaAnyGlitchless from '@/data/speedrun/java/any-glitchless.json';
 import javaAny from '@/data/speedrun/java/any.json';
 import javaAllAdv from '@/data/speedrun/java/all-advancements.json';
+import javaSetSeed from '@/data/speedrun/java/set-seed.json';
+import javaSetSeedGl from '@/data/speedrun/java/set-seed-glitchless.json';
+import javaRandomSeed from '@/data/speedrun/java/random-seed.json';
+import javaRandomSeedGl from '@/data/speedrun/java/random-seed-glitchless.json';
 import bedrockAnyGlitchless from '@/data/speedrun/bedrock/any-glitchless.json';
 import bedrockAny from '@/data/speedrun/bedrock/any.json';
+import bedrockSetSeedSolo from '@/data/speedrun/bedrock/set-seed-solo.json';
+import bedrockSetSeedCoop from '@/data/speedrun/bedrock/set-seed-coop.json';
+import bedrockRandomSeedSolo from '@/data/speedrun/bedrock/random-seed-solo.json';
+import bedrockRandomSeedCoop from '@/data/speedrun/bedrock/random-seed-coop.json';
+import bedrock100 from '@/data/speedrun/bedrock/100.json';
+import bedrockCoopAnyGl from '@/data/speedrun/bedrock/co-op-any-glitchless.json';
+import bedrockCoopAny from '@/data/speedrun/bedrock/co-op-any.json';
 
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 
-const allFiles = {
+// ---------- Map of all 16 data files ----------
+type RunFile = { runs: any[] };
+const allFiles: Record<'java' | 'bedrock', Record<string, { meta: RunFile; label: string }>> = {
   java: {
-    'any-glitchless': javaAnyGlitchless,
-    'any': javaAny,
-    'all-advancements': javaAllAdv,
+    'any-glitchless': { meta: javaAnyGlitchless as RunFile, label: 'Any% Glitchless' },
+    any: { meta: javaAny as RunFile, label: 'Any%' },
+    'all-advancements': { meta: javaAllAdv as RunFile, label: 'All Advancements' },
+    'set-seed': { meta: javaSetSeed as RunFile, label: 'Set Seed' },
+    'set-seed-glitchless': { meta: javaSetSeedGl as RunFile, label: 'Set Seed Glitchless' },
+    'random-seed': { meta: javaRandomSeed as RunFile, label: 'Random Seed' },
+    'random-seed-glitchless': { meta: javaRandomSeedGl as RunFile, label: 'Random Seed Glitchless' },
   },
   bedrock: {
-    'any-glitchless': bedrockAnyGlitchless,
-    'any': bedrockAny,
+    'any-glitchless': { meta: bedrockAnyGlitchless as RunFile, label: 'Any% Glitchless' },
+    any: { meta: bedrockAny as RunFile, label: 'Any%' },
+    'set-seed-solo': { meta: bedrockSetSeedSolo as RunFile, label: 'Set Seed Solo' },
+    'set-seed-coop': { meta: bedrockSetSeedCoop as RunFile, label: 'Set Seed Coop' },
+    'random-seed-solo': { meta: bedrockRandomSeedSolo as RunFile, label: 'Random Seed Solo' },
+    'random-seed-coop': { meta: bedrockRandomSeedCoop as RunFile, label: 'Random Seed Coop' },
+    '100': { meta: bedrock100 as RunFile, label: '100%' },
+    'co-op-any-glitchless': { meta: bedrockCoopAnyGl as RunFile, label: 'Co-op Any% Glitchless' },
+    'co-op-any': { meta: bedrockCoopAny as RunFile, label: 'Co-op Any%' },
   },
 };
 
-// Build a unified list of all runs for each platform
+// ---------- Build unified run list per platform ----------
 function buildRuns(platform: 'java' | 'bedrock') {
   const files = allFiles[platform];
   const runs: any[] = [];
   for (const [catSlug, file] of Object.entries(files)) {
-    const fileRuns = (file as any).runs || [];
+    const fileRuns = file.meta.runs || [];
     for (const r of fileRuns) {
-      runs.push({ ...r, categorySlug: catSlug });
+      runs.push({
+        id: r.id,
+        player: (r.players || []).join(', '),
+        players: r.players || [],
+        time: r.time_primary || 0,
+        timeDisplay: r.time_display || '',
+        category: r.category || '',
+        categorySlug: catSlug,
+        categoryLabel: file.label,
+        version: r.version || '',
+        seed: r.seed || '',
+        seedType: r.seed_type || '',
+        date: r.date || '',
+        weblink: r.weblink || '',
+        verified: !!r.verified,
+        platform,
+      });
     }
   }
-  // Sort by time ascending (fastest first)
-  runs.sort((a, b) => (a.time_primary || 0) - (b.time_primary || 0));
+  // Sort by primary time ascending (fastest first)
+  runs.sort((a, b) => a.time - b.time);
   return runs;
 }
 
 const javaRuns = buildRuns('java');
 const bedrockRuns = buildRuns('bedrock');
 
+// ---------- Aggregate stats ----------
+const allPlayers = new Set<string>();
+const allVersions = new Set<string>();
+[...javaRuns, ...bedrockRuns].forEach((r) => {
+  r.players.forEach((p: string) => allPlayers.add(p));
+  if (r.version) allVersions.add(r.version);
+});
+
+// Sort versions newest-first by numeric components
+const sortedVersions = Array.from(allVersions).sort((a, b) => {
+  const av = a.split(/[.\-]/).map((n) => parseInt(n, 10) || 0);
+  const bv = b.split(/[.\-]/).map((n) => parseInt(n, 10) || 0);
+  for (let i = 0; i < Math.max(av.length, bv.length); i++) {
+    const avv = av[i] || 0;
+    const bvv = bv[i] || 0;
+    if (avv !== bvv) return bvv - avv;
+  }
+  return a < b ? 1 : -1;
+});
+
+const totalRecords = javaRuns.length + bedrockRuns.length;
+const totalPlayers = allPlayers.size;
+const totalFiles = Object.keys(allFiles.java).length + Object.keys(allFiles.bedrock).length;
+const lastUpdate = new Date(summary.fetched_at);
+
+const faLastUpdate = lastUpdate.toLocaleDateString('fa-IR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+const faRecords = totalRecords.toLocaleString('fa-IR');
+const faPlayers = totalPlayers.toLocaleString('fa-IR');
+const faFiles = totalFiles.toLocaleString('fa-IR');
+const faJavaCount = javaRuns.length.toLocaleString('fa-IR');
+const faBedrockCount = bedrockRuns.length.toLocaleString('fa-IR');
+
+// Category dropdown options per platform
+const javaCats = Object.entries(allFiles.java).map(([slug, f]) => ({ slug, label: f.label, count: (f.meta.runs || []).length }));
+const bedrockCats = Object.entries(allFiles.bedrock).map(([slug, f]) => ({ slug, label: f.label, count: (f.meta.runs || []).length }));
+
+// ---------- Embed JSON for client-side rendering ----------
+// Escape </script>, <, >, &, U+2028/2029 so the JSON is safe inside a <script> tag.
+function safeJson(json: string): string {
+  return json
+    .replace(/\\/g, '\\\\')
+    .replace(/<\//g, '<\\/')
+    .replace(/<!--/g, '<\\!--')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+}
+
+const javaRunsJSON = safeJson(JSON.stringify(javaRuns));
+const bedrockRunsJSON = safeJson(JSON.stringify(bedrockRuns));
+const catsJSON = safeJson(JSON.stringify({ java: javaCats, bedrock: bedrockCats }));
+const versionsJSON = safeJson(JSON.stringify(sortedVersions));
+
+// ---------- SEO / Breadcrumbs ----------
 const breadcrumb = [
   { name: 'خانه', url: '/' },
   { name: 'سرعت‌رانی', url: '/speedrun' },
@@ -59,270 +167,1203 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
 
 <BaseLayout
   path="/speedrun"
-  title="رکوردهای سرعت‌رانی ماینکرفت — Speedrun"
-  description="رکوردهای کامل سرعت‌رانی ماینکرفت Java و Bedrock از Speedrun.com — همه بازیکنان، نسخه‌ها، پلتفرم‌ها و دسته‌بندی‌ها."
+  title="رکوردهای سرعت‌رانی ماینکرفت — Speedrun Leaderboard"
+  description="۱٬۱۸۷ رکورد کامل سرعت‌رانی ماینکرفت Java و Bedrock از Speedrun.com — فیلتر بر اساس دسته، نسخه، پلتفرم و بازیکن، رتبه‌بندی زنده، جستجوی بازیکن."
 >
   <StructuredData data={ldBreadcrumb} />
   <Breadcrumbs items={breadcrumb} />
 
+  <!-- ===== Title ===== -->
   <div class="mb-6">
-    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">🏆 رکوردهای سرعت‌رانی ماینکرفت</h1>
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2 flex items-center gap-3">
+      <span class="text-3xl">🏆</span>
+      <span>رکوردهای سرعت‌رانی ماینکرفت</span>
+    </h1>
     <p class="text-sm text-mc-text-2">
-      {javaRuns.length + bedrockRuns.length} رکورد از Speedrun.com — هر شب ساعت ۳ بامداد ایران به‌روزرسانی می‌شه
+      کامل‌ترین لیست رکوردهای Speedrun.com برای Java و Bedrock — هر شب ساعت ۳ بامداد ایران به‌روزرسانی می‌شه.
     </p>
   </div>
 
-  <!-- Stats summary -->
-  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-    <div class="mc-panel p-3 text-center">
-      <div class="text-2xl font-extrabold text-mc-grass-2">{javaRuns.length}</div>
-      <div class="text-xs text-mc-text-3">رکورد Java</div>
-    </div>
-    <div class="mc-panel p-3 text-center">
-      <div class="text-2xl font-extrabold text-mc-diamond">{bedrockRuns.length}</div>
-      <div class="text-xs text-mc-text-3">رکورد Bedrock</div>
-    </div>
-    <div class="mc-panel p-3 text-center">
-      <div class="text-2xl font-extrabold text-mc-gold">{Object.keys(allFiles.java).length + Object.keys(allFiles.bedrock).length}</div>
-      <div class="text-xs text-mc-text-3">دسته‌بندی</div>
-    </div>
-    <div class="mc-panel p-3 text-center">
-      <div class="text-2xl font-extrabold text-mc-emerald">
-        {new Date(summary.fetched_at).toLocaleDateString('fa-IR')}
+  <!-- ===== Stats bar (PaceMan.gg-style) ===== -->
+  <div class="sr-stats mc-panel mb-6">
+    <div class="sr-stats-grid">
+      <div class="sr-stat">
+        <div class="sr-stat-num text-mc-grass-2">{faRecords}</div>
+        <div class="sr-stat-lbl">رکورد</div>
       </div>
-      <div class="text-xs text-mc-text-3">آخرین به‌روزرسانی</div>
+      <div class="sr-stat">
+        <div class="sr-stat-num text-mc-diamond">{faPlayers}</div>
+        <div class="sr-stat-lbl">بازیکن</div>
+      </div>
+      <div class="sr-stat">
+        <div class="sr-stat-num text-mc-gold">{faFiles}</div>
+        <div class="sr-stat-lbl">فایل داده</div>
+      </div>
+      <div class="sr-stat">
+        <div class="sr-stat-num text-mc-emerald">{sortedVersions.length.toLocaleString('fa-IR')}</div>
+        <div class="sr-stat-lbl">نسخه</div>
+      </div>
+    </div>
+    <div class="sr-stats-date">
+      <span class="sr-stats-date-lbl">آخرین به‌روزرسانی:</span>
+      <span class="sr-stats-date-val">{faLastUpdate}</span>
     </div>
   </div>
 
-  <!-- Tabs -->
-  <div class="flex gap-2 mb-4" id="srTabs">
-    <button class="mc-btn sr-tab active" data-platform="java">☕ Java Edition</button>
-    <button class="mc-btn ghost sr-tab" data-platform="bedrock">📱 Bedrock Edition</button>
+  <!-- ===== Platform tabs ===== -->
+  <div class="sr-tabs" id="srTabs" role="tablist" aria-label="پلتفرم">
+    <button class="mc-btn sr-tab active" data-platform="java" role="tab" aria-selected="true">
+      <span class="sr-tab-icon">☕</span>
+      <span class="sr-tab-label">Java Edition</span>
+      <span class="sr-tab-cnt">{faJavaCount}</span>
+    </button>
+    <button class="mc-btn ghost sr-tab" data-platform="bedrock" role="tab" aria-selected="false">
+      <span class="sr-tab-icon">📱</span>
+      <span class="sr-tab-label">Bedrock Edition</span>
+      <span class="sr-tab-cnt">{faBedrockCount}</span>
+    </button>
   </div>
 
-  <!-- Filters + Search -->
-  <div class="mc-panel p-4 mb-4">
-    <div class="flex flex-col md:flex-row gap-3">
-      <div class="flex-1 relative">
+  <!-- ===== Filter bar ===== -->
+  <div class="mc-panel sr-filters mb-4">
+    <div class="sr-filters-row">
+      <div class="sr-search-wrap">
         <input
-          type="text"
+          type="search"
           id="srSearch"
           placeholder="جستجو بر اساس نام بازیکن…"
-          class="w-full bg-mc-bg-2 border border-mc-line px-4 py-2.5 pr-10 text-sm text-mc-text focus:border-mc-grass-2 outline-none"
+          class="sr-search"
+          autocomplete="off"
+          aria-label="جستجوی بازیکن"
         />
-        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-mc-text-3">
+        <span class="sr-search-icon" aria-hidden="true">
           <svg width="16" height="16"><use href="#icon-search" /></svg>
         </span>
       </div>
-      <select id="srCategory" class="bg-mc-bg-2 border border-mc-line px-3 py-2.5 text-sm text-mc-text">
+      <select id="srCategory" class="sr-select" aria-label="دسته‌بندی">
         <option value="all">همه دسته‌ها</option>
-        <option value="any-glitchless">Any% Glitchless</option>
-        <option value="any">Any%</option>
-        <option value="all-advancements">All Advancements</option>
       </select>
-      <label class="flex items-center gap-2 text-sm text-mc-text-2 cursor-pointer">
-        <input type="checkbox" id="srSeedOnly" class="w-4 h-4" />
-        فقط با سید
+      <select id="srVersion" class="sr-select" aria-label="نسخه بازی">
+        <option value="all">همه نسخه‌ها</option>
+      </select>
+      <label class="sr-checkbox">
+        <input type="checkbox" id="srSeedOnly" />
+        <span class="sr-checkbox-box"></span>
+        <span class="sr-checkbox-lbl">فقط با سید</span>
       </label>
+      <button id="srReset" class="mc-btn ghost small sr-reset" title="پاک کردن فیلترها" aria-label="پاک کردن فیلترها">
+        <span aria-hidden="true">↺</span>
+        <span class="sr-reset-lbl">بازنشانی</span>
+      </button>
     </div>
   </div>
 
-  <!-- Java table -->
-  <div id="srTable-java" class="sr-table-container">
-    <div class="table-wrap mc-panel">
-      <div style="max-height:70vh; overflow:auto;" class="sr-scroll">
-        <table class="w-full text-sm" id="srTableJava">
-          <thead class="sticky top-0 bg-mc-panel-2 z-10">
-            <tr class="text-xs text-mc-text-3 border-b border-mc-line">
-              <th class="px-3 py-2 text-right">#</th>
-              <th class="px-3 py-2 text-right">بازیکن</th>
-              <th class="px-3 py-2 text-right">زمان</th>
-              <th class="px-3 py-2 text-right hidden sm:table-cell">دسته</th>
-              <th class="px-3 py-2 text-right hidden md:table-cell">نسخه</th>
-              <th class="px-3 py-2 text-right hidden lg:table-cell">سید</th>
-              <th class="px-3 py-2 text-right hidden sm:table-cell">تاریخ</th>
-              <th class="px-3 py-2 text-right">لینک</th>
-            </tr>
-          </thead>
-          <tbody id="srBodyJava">
-            {javaRuns.map((r, i) => {
-              const rank = i + 1;
-              const rankColor = rank === 1 ? 'text-mc-gold font-extrabold' : rank === 2 ? 'text-slate-300 font-bold' : rank === 3 ? 'text-amber-600 font-bold' : 'text-mc-text-3';
-              return (
-                <tr class="border-b border-mc-line hover:bg-mc-bg-2/50 sr-row" data-platform="java"
-                  data-player={r.players.join(' ').toLowerCase()}
-                  data-category={r.categorySlug}
-                  data-has-seed={r.seed ? 'true' : 'false'}
-                >
-                  <td class="px-3 py-2 {rankColor}">{rank}</td>
-                  <td class="px-3 py-2 text-mc-text">{r.players.join(', ')}</td>
-                  <td class="px-3 py-2 text-mc-grass-2 font-bold font-mono" dir="ltr">{r.time_display}</td>
-                  <td class="px-3 py-2 text-mc-text-2 text-xs hidden sm:table-cell">{r.category}</td>
-                  <td class="px-3 py-2 text-mc-text-3 text-xs hidden md:table-cell" dir="ltr">{r.version || '—'}</td>
-                  <td class="px-3 py-2 text-mc-text-3 text-xs font-mono hidden lg:table-cell" dir="ltr">{r.seed || '—'}</td>
-                  <td class="px-3 py-2 text-mc-text-3 text-xs hidden sm:table-cell" dir="ltr">{r.date}</td>
-                  <td class="px-3 py-2">
-                    <a href={r.weblink} target="_blank" rel="noopener" class="text-mc-diamond hover:underline text-xs">↗</a>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+  <!-- ===== Loading state (shown until JS init) ===== -->
+  <div id="srLoading" class="sr-loading mc-panel">
+    <div class="sr-spinner" aria-hidden="true"></div>
+    <p class="sr-loading-text">در حال بارگذاری رکوردها…</p>
+  </div>
+
+  <!-- ===== Results board ===== -->
+  <div id="srResults" class="sr-results hidden">
+    <!-- Result count line -->
+    <div class="sr-result-count" id="srResultCount" aria-live="polite"></div>
+
+    <!-- Sticky header (desktop ≥769px) -->
+    <div class="sr-board mc-panel" id="srBoard">
+      <div class="sr-grid sr-grid-header" role="row" aria-hidden="true">
+        <div class="sr-c-rank">رتبه</div>
+        <div class="sr-c-player">بازیکن</div>
+        <div class="sr-c-time">زمان</div>
+        <div class="sr-c-cat">دسته</div>
+        <div class="sr-c-ver">نسخه</div>
+        <div class="sr-c-seed">سید</div>
+        <div class="sr-c-date">تاریخ</div>
+        <div class="sr-c-link">لینک</div>
       </div>
+      <!-- Runs list — rendered by JS -->
+      <div id="srList" class="sr-list" role="rowgroup"></div>
     </div>
-    <p class="text-xs text-mc-text-3 mt-2 text-center">
-      {javaRuns.length} رکورد — داده‌ها از Speedrun.com
-    </p>
+
+    <!-- Load more button -->
+    <div class="sr-loadmore-wrap" id="srLoadMoreWrap">
+      <button class="mc-btn sr-loadmore" id="srLoadMore">
+        <span aria-hidden="true">▼</span>
+        <span>بارگذاری بیشتر</span>
+        <span class="sr-loadmore-cnt" id="srLoadMoreCnt"></span>
+      </button>
+    </div>
   </div>
 
-  <!-- Bedrock table (hidden by default) -->
-  <div id="srTable-bedrock" class="sr-table-container hidden">
-    <div class="table-wrap mc-panel">
-      <div style="max-height:70vh; overflow:auto;" class="sr-scroll">
-        <table class="w-full text-sm" id="srTableBedrock">
-          <thead class="sticky top-0 bg-mc-panel-2 z-10">
-            <tr class="text-xs text-mc-text-3 border-b border-mc-line">
-              <th class="px-3 py-2 text-right">#</th>
-              <th class="px-3 py-2 text-right">بازیکن</th>
-              <th class="px-3 py-2 text-right">زمان</th>
-              <th class="px-3 py-2 text-right hidden sm:table-cell">دسته</th>
-              <th class="px-3 py-2 text-right hidden md:table-cell">نسخه</th>
-              <th class="px-3 py-2 text-right hidden lg:table-cell">سید</th>
-              <th class="px-3 py-2 text-right hidden sm:table-cell">تاریخ</th>
-              <th class="px-3 py-2 text-right">لینک</th>
-            </tr>
-          </thead>
-          <tbody id="srBodyBedrock">
-            {bedrockRuns.map((r, i) => {
-              const rank = i + 1;
-              const rankColor = rank === 1 ? 'text-mc-gold font-extrabold' : rank === 2 ? 'text-slate-300 font-bold' : rank === 3 ? 'text-amber-600 font-bold' : 'text-mc-text-3';
-              return (
-                <tr class="border-b border-mc-line hover:bg-mc-bg-2/50 sr-row" data-platform="bedrock"
-                  data-player={r.players.join(' ').toLowerCase()}
-                  data-category={r.categorySlug}
-                  data-has-seed={r.seed ? 'true' : 'false'}
-                >
-                  <td class="px-3 py-2 {rankColor}">{rank}</td>
-                  <td class="px-3 py-2 text-mc-text">{r.players.join(', ')}</td>
-                  <td class="px-3 py-2 text-mc-grass-2 font-bold font-mono" dir="ltr">{r.time_display}</td>
-                  <td class="px-3 py-2 text-mc-text-2 text-xs hidden sm:table-cell">{r.category}</td>
-                  <td class="px-3 py-2 text-mc-text-3 text-xs hidden md:table-cell" dir="ltr">{r.version || '—'}</td>
-                  <td class="px-3 py-2 text-mc-text-3 text-xs font-mono hidden lg:table-cell" dir="ltr">{r.seed || '—'}</td>
-                  <td class="px-3 py-2 text-mc-text-3 text-xs hidden sm:table-cell" dir="ltr">{r.date}</td>
-                  <td class="px-3 py-2">
-                    <a href={r.weblink} target="_blank" rel="noopener" class="text-mc-diamond hover:underline text-xs">↗</a>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="text-xs text-mc-text-3 mt-2 text-center">
-      {bedrockRuns.length} رکورد — داده‌ها از Speedrun.com
-    </p>
-  </div>
-
-  <!-- Empty state -->
-  <div id="srEmpty" class="mc-panel text-center py-12 hidden">
+  <!-- ===== Empty state ===== -->
+  <div id="srEmpty" class="sr-empty mc-panel hidden">
     <div class="text-5xl mb-4 text-mc-text-3">🔍</div>
     <h3 class="text-xl font-bold text-mc-text-2 mb-2">هیچ رکوردی پیدا نشد</h3>
-    <p class="text-sm text-mc-text-3">فیلتر یا جستجوی دیگری امتحان کن</p>
+    <p class="text-sm text-mc-text-3">فیلتر یا جستجوی دیگری امتحان کن یا فیلترها رو پاک کن.</p>
+    <button class="mc-btn small mt-4" id="srEmptyReset">پاک کردن فیلترها</button>
   </div>
+
+  <!-- ===== Hidden JSON data ===== -->
+  <script type="application/json" id="sr-data-java" set:html={javaRunsJSON} />
+  <script type="application/json" id="sr-data-bedrock" set:html={bedrockRunsJSON} />
+  <script type="application/json" id="sr-data-cats" set:html={catsJSON} />
+  <script type="application/json" id="sr-data-versions" set:html={versionsJSON} />
 </BaseLayout>
 
 <script is:inline>
   (function () {
-    function setupSpeedrun() {
-      var tabs = document.querySelectorAll('.sr-tab');
-      var tableJava = document.getElementById('srTable-java');
-      var tableBedrock = document.getElementById('srTable-bedrock');
-      var search = document.getElementById('srSearch');
-      var catFilter = document.getElementById('srCategory');
-      var seedOnly = document.getElementById('srSeedOnly');
-      var empty = document.getElementById('srEmpty');
-      if (!tabs.length || !tableJava || !tableBedrock) return;
+    'use strict';
 
-      var currentPlatform = 'java';
-
-      function switchTab(platform) {
-        currentPlatform = platform;
-        tabs.forEach(function (t) {
-          var isActive = t.dataset.platform === platform;
-          t.classList.toggle('active', isActive);
-          t.classList.toggle('ghost', !isActive);
-        });
-        tableJava.classList.toggle('hidden', platform !== 'java');
-        tableBedrock.classList.toggle('hidden', platform !== 'bedrock');
-        applyFilter();
-      }
-
-      function applyFilter() {
-        var q = (search.value || '').trim().toLowerCase();
-        var cat = catFilter.value;
-        var seedOnlyChecked = seedOnly.checked;
-        var container = currentPlatform === 'java' ? tableJava : tableBedrock;
-        var rows = container.querySelectorAll('.sr-row');
-        var visible = 0;
-        rows.forEach(function (row) {
-          var show = true;
-          if (q) {
-            var player = row.dataset.player || '';
-            if (player.indexOf(q) === -1) show = false;
-          }
-          if (cat !== 'all' && row.dataset.category !== cat) show = false;
-          if (seedOnlyChecked && row.dataset.hasSeed !== 'true') show = false;
-          row.style.display = show ? '' : 'none';
-          if (show) visible++;
-        });
-        if (empty) empty.classList.toggle('hidden', visible > 0);
-      }
-
-      tabs.forEach(function (tab) {
-        tab.onclick = function () { switchTab(tab.dataset.platform); };
+    // ---------- Helpers ----------
+    var FA_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    function faNum(n) {
+      return String(n).replace(/[0-9]/g, function (d) {
+        return FA_DIGITS[+d];
       });
-      if (search) search.oninput = applyFilter;
-      if (catFilter) catFilter.onchange = applyFilter;
-      if (seedOnly) seedOnly.onchange = applyFilter;
+    }
+    function faNumGrouped(n) {
+      return n.toLocaleString('fa-IR');
+    }
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
-      // Initial
+    // ---------- State ----------
+    var PAGE_SIZE = 50;
+    var state = {
+      platform: 'java',
+      runs: [],
+      filtered: [],
+      visible: PAGE_SIZE,
+      expanded: new Set(),
+      search: '',
+      category: 'all',
+      version: 'all',
+      seedOnly: false,
+    };
+
+    // ---------- DOM refs ----------
+    var el = {};
+    function cacheDom() {
+      el.tabs = document.querySelectorAll('.sr-tab');
+      el.tabsWrap = document.getElementById('srTabs');
+      el.search = document.getElementById('srSearch');
+      el.category = document.getElementById('srCategory');
+      el.version = document.getElementById('srVersion');
+      el.seedOnly = document.getElementById('srSeedOnly');
+      el.reset = document.getElementById('srReset');
+      el.emptyReset = document.getElementById('srEmptyReset');
+      el.loading = document.getElementById('srLoading');
+      el.results = document.getElementById('srResults');
+      el.list = document.getElementById('srList');
+      el.empty = document.getElementById('srEmpty');
+      el.loadMore = document.getElementById('srLoadMore');
+      el.loadMoreWrap = document.getElementById('srLoadMoreWrap');
+      el.loadMoreCnt = document.getElementById('srLoadMoreCnt');
+      el.resultCount = document.getElementById('srResultCount');
+    }
+
+    // ---------- Data load ----------
+    function loadData() {
+      var javaData = JSON.parse(document.getElementById('sr-data-java').textContent);
+      var bedrockData = JSON.parse(document.getElementById('sr-data-bedrock').textContent);
+      var cats = JSON.parse(document.getElementById('sr-data-cats').textContent);
+      var versions = JSON.parse(document.getElementById('sr-data-versions').textContent);
+      return { java: javaData, bedrock: bedrockData, cats: cats, versions: versions };
+    }
+
+    // ---------- Populate dropdowns ----------
+    function populateCats(platform) {
+      if (!el.category) return;
+      var cats = data.cats[platform] || [];
+      var html = '<option value="all">همه دسته‌ها (' + faNumGrouped(state.runs.length) + ')</option>';
+      for (var i = 0; i < cats.length; i++) {
+        var c = cats[i];
+        if (c.count === 0) continue;
+        html +=
+          '<option value="' +
+          escapeHtml(c.slug) +
+          '">' +
+          escapeHtml(c.label) +
+          ' (' +
+          faNumGrouped(c.count) +
+          ')</option>';
+      }
+      el.category.innerHTML = html;
+      el.category.value = 'all';
+      state.category = 'all';
+    }
+    function populateVersions() {
+      if (!el.version) return;
+      var html = '<option value="all">همه نسخه‌ها (' + faNumGrouped(data.versions.length) + ')</option>';
+      for (var i = 0; i < data.versions.length; i++) {
+        var v = data.versions[i];
+        html += '<option value="' + escapeHtml(v) + '">' + escapeHtml(v) + '</option>';
+      }
+      el.version.innerHTML = html;
+      el.version.value = 'all';
+      state.version = 'all';
+    }
+
+    // ---------- Filtering ----------
+    function applyFilters() {
+      var q = state.search.trim().toLowerCase();
+      var cat = state.category;
+      var ver = state.version;
+      var seed = state.seedOnly;
+      state.filtered = state.runs.filter(function (r) {
+        if (q && r.player.toLowerCase().indexOf(q) === -1) return false;
+        if (cat !== 'all' && r.categorySlug !== cat) return false;
+        if (ver !== 'all' && r.version !== ver) return false;
+        if (seed && !r.seed) return false;
+        return true;
+      });
+      state.visible = PAGE_SIZE;
+      state.expanded.clear();
+      render();
+    }
+
+    // ---------- Render ----------
+    function rankBadge(rank) {
+      if (rank === 1) return '<span class="sr-rank-medal sr-rank-gold">🏆</span>';
+      if (rank === 2) return '<span class="sr-rank-medal sr-rank-silver">🥈</span>';
+      if (rank === 3) return '<span class="sr-rank-medal sr-rank-bronze">🥉</span>';
+      return '';
+    }
+    function rankClass(rank) {
+      if (rank === 1) return 'sr-rank-1';
+      if (rank === 2) return 'sr-rank-2';
+      if (rank === 3) return 'sr-rank-3';
+      return '';
+    }
+
+    function rowHtml(r, rank, idx) {
+      var medal = rankBadge(rank);
+      var rcls = rankClass(rank);
+      var seedCell = r.seed
+        ? '<span class="sr-seed-val" dir="ltr" title="' + escapeHtml(r.seed) + '">' + escapeHtml(r.seed) + '</span>'
+        : '<span class="sr-seed-empty">—</span>';
+      var linkCell = r.weblink
+        ? '<a href="' + escapeHtml(r.weblink) + '" target="_blank" rel="noopener" class="sr-ext-link" aria-label="مشاهده در Speedrun.com" onclick="event.stopPropagation();">↗</a>'
+        : '<span class="sr-seed-empty">—</span>';
+      var expanded = state.expanded.has(idx);
+      var expandIcon = expanded ? '▲' : '▼';
+      var players = escapeHtml(r.player);
+      var catBadge = '<span class="sr-cat-badge">' + escapeHtml(r.categoryLabel) + '</span>';
+      var verBadge = r.version
+        ? '<span class="sr-ver-badge" dir="ltr">' + escapeHtml(r.version) + '</span>'
+        : '<span class="sr-seed-empty">—</span>';
+      var dateCell = r.date
+        ? '<span class="sr-date-val" dir="ltr">' + escapeHtml(r.date) + '</span>'
+        : '<span class="sr-seed-empty">—</span>';
+
+      var html =
+        '<div class="sr-row-wrap' + (expanded ? ' sr-row-expanded' : '') + '" data-idx="' + idx + '" role="row">';
+      html +=
+        '<button class="sr-grid sr-row ' +
+        rcls +
+        '" data-idx="' +
+        idx +
+        '" type="button" aria-expanded="' +
+        expanded +
+        '">';
+      html += '<div class="sr-c-rank">' + medal + '<span class="sr-rank-num">' + faNum(rank) + '</span></div>';
+      html += '<div class="sr-c-player">' + players + '</div>';
+      html += '<div class="sr-c-time" dir="ltr">' + escapeHtml(r.timeDisplay) + '</div>';
+      html += '<div class="sr-c-cat">' + catBadge + '</div>';
+      html += '<div class="sr-c-ver">' + verBadge + '</div>';
+      html += '<div class="sr-c-seed">' + seedCell + '</div>';
+      html += '<div class="sr-c-date">' + dateCell + '</div>';
+      html += '<div class="sr-c-link">' + linkCell + '</div>';
+      html += '<div class="sr-c-expand" aria-hidden="true">' + expandIcon + '</div>';
+      html += '</button>';
+
+      // Detail panel (shown when expanded)
+      html += '<div class="sr-detail' + (expanded ? '' : ' hidden') + '" data-detail-for="' + idx + '">';
+      html += '<div class="sr-detail-grid">';
+      html +=
+        '<div class="sr-detail-item"><span class="sr-detail-lbl">بازیکن</span><span class="sr-detail-val">' +
+        players +
+        '</span></div>';
+      html +=
+        '<div class="sr-detail-item"><span class="sr-detail-lbl">دسته</span><span class="sr-detail-val">' +
+        escapeHtml(r.categoryLabel) +
+        '</span></div>';
+      html +=
+        '<div class="sr-detail-item"><span class="sr-detail-lbl">نسخه</span><span class="sr-detail-val" dir="ltr">' +
+        escapeHtml(r.version || '—') +
+        '</span></div>';
+      html +=
+        '<div class="sr-detail-item"><span class="sr-detail-lbl">سید</span><span class="sr-detail-val sr-detail-seed" dir="ltr">' +
+        (r.seed ? escapeHtml(r.seed) : '—') +
+        '</span></div>';
+      html +=
+        '<div class="sr-detail-item"><span class="sr-detail-lbl">نوع سید</span><span class="sr-detail-val">' +
+        escapeHtml(r.seedType || '—') +
+        '</span></div>';
+      html +=
+        '<div class="sr-detail-item"><span class="sr-detail-lbl">تاریخ</span><span class="sr-detail-val" dir="ltr">' +
+        escapeHtml(r.date || '—') +
+        '</span></div>';
+      html +=
+        '<div class="sr-detail-item"><span class="sr-detail-lbl">زمان</span><span class="sr-detail-val sr-detail-time" dir="ltr">' +
+        escapeHtml(r.timeDisplay) +
+        '</span></div>';
+      html +=
+        '<div class="sr-detail-item"><span class="sr-detail-lbl">وضعیت</span><span class="sr-detail-val">' +
+        (r.verified ? '✅ تأیید شده' : '⏳ در انتظار') +
+        '</span></div>';
+      html += '</div>';
+      if (r.weblink) {
+        html +=
+          '<a href="' +
+          escapeHtml(r.weblink) +
+          '" target="_blank" rel="noopener" class="mc-btn small gold sr-detail-link">↗ مشاهده در Speedrun.com</a>';
+      }
+      html += '</div>';
+
+      html += '</div>';
+      return html;
+    }
+
+    function render() {
+      // Build HTML for visible slice
+      var total = state.filtered.length;
+      var showCount = Math.min(state.visible, total);
+      var html = '';
+      for (var i = 0; i < showCount; i++) {
+        var r = state.filtered[i];
+        html += rowHtml(r, i + 1, i);
+      }
+      el.list.innerHTML = html;
+
+      // Update result count
+      var countText =
+        'نمایش ' +
+        faNumGrouped(showCount) +
+        ' از ' +
+        faNumGrouped(total) +
+        ' رکورد' +
+        (total !== state.runs.length ? ' (از ' + faNumGrouped(state.runs.length) + ' کل)' : '');
+      el.resultCount.textContent = countText;
+
+      // Load more button visibility + count
+      if (showCount < total) {
+        el.loadMoreWrap.classList.remove('hidden');
+        var remaining = total - showCount;
+        var next = Math.min(PAGE_SIZE, remaining);
+        el.loadMoreCnt.textContent = '(' + faNumGrouped(next) + ' رکورد بعدی — ' + faNumGrouped(remaining) + ' باقی‌مانده)';
+      } else {
+        el.loadMoreWrap.classList.add('hidden');
+      }
+
+      // Empty state
+      if (total === 0) {
+        el.results.classList.add('hidden');
+        el.empty.classList.remove('hidden');
+      } else {
+        el.results.classList.remove('hidden');
+        el.empty.classList.add('hidden');
+      }
+    }
+
+    // ---------- Event handlers ----------
+    function switchTab(platform) {
+      state.platform = platform;
+      state.runs = data[platform] || [];
+      el.tabs.forEach(function (t) {
+        var isActive = t.dataset.platform === platform;
+        t.classList.toggle('active', isActive);
+        t.classList.toggle('ghost', !isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      // Reset filters
+      if (el.search) el.search.value = '';
+      if (el.seedOnly) el.seedOnly.checked = false;
+      state.search = '';
+      state.seedOnly = false;
+      populateCats(platform);
+      // Version dropdown is shared across both platforms
+      // (already populated once at init)
+      el.version.value = 'all';
+      state.version = 'all';
+      applyFilters();
+    }
+
+    function toggleExpand(idx) {
+      if (state.expanded.has(idx)) {
+        state.expanded.delete(idx);
+      } else {
+        state.expanded.add(idx);
+      }
+      // Re-render only the affected row to avoid full innerHTML rebuild
+      var wrap = el.list.querySelector('.sr-row-wrap[data-idx="' + idx + '"]');
+      if (wrap) {
+        var r = state.filtered[idx];
+        var rank = +idx + 1;
+        var newHtml = rowHtml(r, rank, idx);
+        wrap.outerHTML = newHtml;
+      }
+    }
+
+    function loadMore() {
+      state.visible += PAGE_SIZE;
+      render();
+      // Scroll into view of new content (subtle)
+      var last = el.list.lastElementChild;
+      if (last && last.scrollIntoView) {
+        var rect = last.getBoundingClientRect();
+        if (rect.bottom > window.innerHeight) {
+          last.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+
+    function resetFilters() {
+      if (el.search) el.search.value = '';
+      if (el.seedOnly) el.seedOnly.checked = false;
+      if (el.category) el.category.value = 'all';
+      if (el.version) el.version.value = 'all';
+      state.search = '';
+      state.seedOnly = false;
+      state.category = 'all';
+      state.version = 'all';
+      applyFilters();
+    }
+
+    // ---------- Debounce ----------
+    var searchDebounce = null;
+    function onSearchInput() {
+      state.search = el.search.value;
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(applyFilters, 150);
+    }
+
+    // ---------- Init ----------
+    var data = null;
+    function init() {
+      cacheDom();
+      if (!el.tabs.length || !el.list) return;
+      try {
+        data = loadData();
+      } catch (e) {
+        console.error('Speedrun data load failed:', e);
+        if (el.loading) {
+          el.loading.innerHTML =
+            '<div class="text-center text-mc-redstone">خطا در بارگذاری داده‌ها. صفحه را تازه‌سازی کنید.</div>';
+        }
+        return;
+      }
+      populateVersions();
+      // Wire events
+      el.tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          switchTab(tab.dataset.platform);
+        });
+      });
+      el.search.addEventListener('input', onSearchInput);
+      el.category.addEventListener('change', function () {
+        state.category = el.category.value;
+        applyFilters();
+      });
+      el.version.addEventListener('change', function () {
+        state.version = el.version.value;
+        applyFilters();
+      });
+      el.seedOnly.addEventListener('change', function () {
+        state.seedOnly = el.seedOnly.checked;
+        applyFilters();
+      });
+      el.reset.addEventListener('click', resetFilters);
+      el.emptyReset.addEventListener('click', resetFilters);
+      el.loadMore.addEventListener('click', loadMore);
+      // Event delegation for row clicks
+      el.list.addEventListener('click', function (e) {
+        var target = e.target;
+        // Don't toggle when clicking external link inside row
+        if (target.closest('.sr-ext-link') || target.closest('.sr-detail-link')) return;
+        var row = target.closest('.sr-row');
+        if (row) {
+          var idx = +row.dataset.idx;
+          if (!isNaN(idx)) toggleExpand(idx);
+        }
+      });
+      // Hide loading, show results
+      el.loading.classList.add('hidden');
+      el.results.classList.remove('hidden');
+      // Initial platform = java
       switchTab('java');
     }
 
+    // ---------- Boot ----------
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupSpeedrun);
+      document.addEventListener('DOMContentLoaded', init);
     } else {
-      setupSpeedrun();
+      init();
     }
-    document.addEventListener('astro:page-load', setupSpeedrun);
+    document.addEventListener('astro:page-load', init);
   })();
 </script>
 
-<style>
-  .sr-tab {
-    font-size: 0.875rem;
+<style is:global>
+  /* ===== Stats bar ===== */
+  .sr-stats {
+    padding: 1.25rem 1.5rem;
+  }
+  .sr-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .sr-stat {
+    text-align: center;
+    border-inline-end: 1px solid var(--line);
+    padding-block: 0.25rem;
+  }
+  .sr-stat:last-child {
+    border-inline-end: 0;
+  }
+  .sr-stat-num {
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+  .sr-stat-lbl {
+    font-size: 0.7rem;
+    color: var(--text-3);
+    margin-top: 0.15rem;
+  }
+  .sr-stats-date {
+    text-align: center;
+    border-top: 1px dashed var(--line);
+    padding-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-2);
+  }
+  .sr-stats-date-lbl {
+    color: var(--text-3);
+    margin-inline-end: 0.5rem;
+  }
+  .sr-stats-date-val {
+    color: var(--grass-2);
     font-weight: 700;
   }
-  .sr-tab.active {
-    background: var(--grass, #5fa838);
+
+  @media (max-width: 640px) {
+    .sr-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .sr-stat:nth-child(2) {
+      border-inline-end: 0;
+    }
+    .sr-stat-num {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* ===== Tabs ===== */
+  .sr-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .sr-tab {
+    padding: 0.55rem 1.1rem !important;
+    font-size: 0.9rem !important;
+    gap: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  .sr-tab-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+  .sr-tab-cnt {
+    background: rgba(0, 0, 0, 0.3);
+    color: inherit;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ===== Filters ===== */
+  .sr-filters {
+    padding: 1rem !important;
+  }
+  .sr-filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+  .sr-search-wrap {
+    position: relative;
+    flex: 1 1 200px;
+    min-width: 200px;
+  }
+  .sr-search {
+    width: 100%;
+    background: var(--bg-2);
+    border: 2px solid var(--line);
+    padding: 0.55rem 2.25rem 0.55rem 0.9rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    font-family: var(--font);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .sr-search:focus {
+    border-color: var(--grass-2);
+  }
+  .sr-search-icon {
+    position: absolute;
+    inset-inline-start: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-3);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+  }
+  /* For RTL search input, icon goes on left side (start) */
+  .sr-search {
+    padding-inline: 2.25rem 0.9rem;
+  }
+  .sr-select {
+    background: var(--bg-2);
+    border: 2px solid var(--line);
+    padding: 0.55rem 1.75rem 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    font-family: var(--font);
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239a9ab8' d='M6 8.5L2 4.5h8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 0.6rem center;
+    transition: border-color 0.15s;
+    min-width: 130px;
+  }
+  .sr-select:focus {
+    border-color: var(--grass-2);
+  }
+  .sr-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-2);
+    user-select: none;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .sr-checkbox:hover {
+    background: rgba(124, 200, 74, 0.08);
+  }
+  .sr-checkbox input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sr-checkbox-box {
+    width: 18px;
+    height: 18px;
+    background: var(--bg-2);
+    border: 2px solid var(--line);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.15s;
+  }
+  .sr-checkbox input:checked + .sr-checkbox-box {
+    background: var(--grass);
+    border-color: var(--grass-3);
+  }
+  .sr-checkbox input:checked + .sr-checkbox-box::after {
+    content: '✓';
     color: #fff;
-    border-color: var(--grass-3, #3d7521);
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1;
   }
-  .sr-scroll {
+  .sr-checkbox input:focus-visible + .sr-checkbox-box {
+    box-shadow: 0 0 0 3px rgba(124, 200, 74, 0.3);
+  }
+  .sr-reset {
+    gap: 0.35rem;
+  }
+  .sr-reset-lbl {
+    font-size: 0.8rem;
+  }
+
+  /* ===== Loading state ===== */
+  .sr-loading {
+    text-align: center;
+    padding: 3rem 1rem !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .sr-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--line);
+    border-top-color: var(--grass-2);
+    border-radius: 50%;
+    animation: sr-spin 0.8s linear infinite;
+  }
+  @keyframes sr-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .sr-loading-text {
+    color: var(--text-2);
+    font-size: 0.9rem;
+  }
+
+  /* ===== Result count ===== */
+  .sr-result-count {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ===== Board ===== */
+  .sr-board {
+    padding: 0 !important;
+    overflow: hidden;
+  }
+
+  /* Grid layout: rank | player | time | cat | ver | seed | date | link | expand */
+  .sr-grid {
+    display: grid;
+    grid-template-columns: 70px 1fr 150px 170px 90px minmax(160px, 220px) 110px 50px 28px;
+    gap: 0;
+    align-items: center;
+    width: 100%;
+  }
+  .sr-grid-header {
+    background: var(--panel-2);
+    border-bottom: 2px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    font-size: 0.7rem;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 700;
+  }
+  .sr-grid-header > div {
+    padding: 0.65rem 0.75rem;
+    border-inline-end: 1px solid var(--line);
+  }
+  .sr-grid-header > div:last-child {
+    border-inline-end: 0;
+  }
+
+  /* Rows */
+  .sr-list {
+    max-height: 70vh;
+    overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--grass-3, #3d7521) var(--bg-2, #14142a);
+    scrollbar-color: var(--grass-3) var(--bg-2);
   }
-  .sr-scroll::-webkit-scrollbar {
+  .sr-list::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  .sr-scroll::-webkit-scrollbar-track {
-    background: var(--bg-2, #14142a);
+  .sr-list::-webkit-scrollbar-track {
+    background: var(--bg-2);
   }
-  .sr-scroll::-webkit-scrollbar-thumb {
-    background: var(--grass-3, #3d7521);
+  .sr-list::-webkit-scrollbar-thumb {
+    background: var(--grass-3);
     border-radius: 4px;
+  }
+  .sr-row-wrap {
+    border-bottom: 1px solid var(--line);
+  }
+  .sr-row-wrap:last-child {
+    border-bottom: 0;
+  }
+  .sr-row {
+    background: transparent;
+    border: 0;
+    width: 100%;
+    text-align: start;
+    cursor: pointer;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.85rem;
+    transition: background 0.1s;
+    padding: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  .sr-row::after {
+    display: none !important;
+  }
+  .sr-row:hover {
+    background: rgba(124, 200, 74, 0.06);
+  }
+  .sr-row:focus-visible {
+    outline: 2px solid var(--grass-2);
+    outline-offset: -2px;
+    background: rgba(124, 200, 74, 0.08);
+  }
+  .sr-row > div {
+    padding: 0.6rem 0.75rem;
+    border-inline-end: 1px solid var(--line);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sr-row > div:last-child {
+    border-inline-end: 0;
+  }
+  .sr-c-rank {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-3);
+  }
+  .sr-rank-medal {
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .sr-rank-num {
+    font-size: 0.85rem;
+  }
+  .sr-c-player {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .sr-c-time {
+    color: var(--grass-2);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+  }
+  .sr-c-cat {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sr-cat-badge {
+    font-size: 0.7rem;
+    background: rgba(74, 237, 217, 0.08);
+    color: var(--diamond);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid rgba(74, 237, 217, 0.2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+  }
+  .sr-ver-badge {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: var(--text-2);
+    background: var(--bg-2);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+  }
+  .sr-c-seed {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+  .sr-seed-val {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+  .sr-seed-empty {
+    color: var(--text-3);
+    opacity: 0.6;
+  }
+  .sr-c-date {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+  .sr-c-link {
+    text-align: center;
+  }
+  .sr-ext-link {
+    color: var(--diamond);
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 0.15rem 0.3rem;
+    display: inline-block;
+  }
+  .sr-ext-link:hover {
+    text-decoration: underline;
+  }
+  .sr-c-expand {
+    text-align: center;
+    color: var(--text-3);
+    font-size: 0.65rem;
+  }
+  .sr-row-expanded .sr-c-expand {
+    color: var(--grass-2);
+  }
+
+  /* Rank colors */
+  .sr-rank-1 .sr-c-rank,
+  .sr-rank-1 .sr-rank-num {
+    color: #fcb32b;
+  }
+  .sr-rank-1 {
+    background: linear-gradient(90deg, rgba(252, 179, 43, 0.08), transparent 30%);
+  }
+  .sr-rank-1:hover {
+    background: linear-gradient(90deg, rgba(252, 179, 43, 0.15), rgba(124, 200, 74, 0.06) 30%);
+  }
+  .sr-rank-2 .sr-c-rank,
+  .sr-rank-2 .sr-rank-num {
+    color: #c0c0c0;
+  }
+  .sr-rank-2 {
+    background: linear-gradient(90deg, rgba(192, 192, 192, 0.06), transparent 30%);
+  }
+  .sr-rank-2:hover {
+    background: linear-gradient(90deg, rgba(192, 192, 192, 0.12), rgba(124, 200, 74, 0.06) 30%);
+  }
+  .sr-rank-3 .sr-c-rank,
+  .sr-rank-3 .sr-rank-num {
+    color: #cd7f32;
+  }
+  .sr-rank-3 {
+    background: linear-gradient(90deg, rgba(205, 127, 50, 0.06), transparent 30%);
+  }
+  .sr-rank-3:hover {
+    background: linear-gradient(90deg, rgba(205, 127, 50, 0.12), rgba(124, 200, 74, 0.06) 30%);
+  }
+
+  /* Expanded detail panel */
+  .sr-detail {
+    padding: 1rem 1.25rem;
+    background: var(--bg-2);
+    border-bottom: 2px solid var(--grass-3);
+    border-top: 1px solid var(--line);
+    animation: sr-detail-in 0.2s ease-out;
+  }
+  @keyframes sr-detail-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .sr-detail.hidden {
+    display: none;
+  }
+  .sr-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.65rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .sr-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .sr-detail-lbl {
+    font-size: 0.7rem;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .sr-detail-val {
+    font-size: 0.85rem;
+    color: var(--text);
+    word-break: break-all;
+  }
+  .sr-detail-seed,
+  .sr-detail-time {
+    font-family: 'Courier New', monospace;
+    color: var(--diamond);
+    font-weight: 600;
+  }
+  .sr-detail-link {
+    font-size: 0.8rem !important;
+    padding: 0.45rem 0.9rem !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.4rem;
+    width: fit-content;
+  }
+
+  /* ===== Load more button ===== */
+  .sr-loadmore-wrap {
+    text-align: center;
+    margin: 1.25rem 0;
+  }
+  .sr-loadmore {
+    gap: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  .sr-loadmore-cnt {
+    font-size: 0.75rem;
+    opacity: 0.85;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ===== Empty state ===== */
+  .sr-empty {
+    text-align: center;
+    padding: 2.5rem 1rem !important;
+  }
+
+  /* ===== Responsive: tablet (≤1024px) ===== */
+  @media (max-width: 1024px) {
+    .sr-grid {
+      grid-template-columns: 55px 1fr 130px 150px 80px 50px 28px;
+    }
+    .sr-c-seed,
+    .sr-grid-header .sr-c-seed {
+      display: none;
+    }
+  }
+
+  /* ===== Responsive: mobile (≤768px) — card layout ===== */
+  @media (max-width: 768px) {
+    /* Hide desktop header entirely on mobile */
+    .sr-grid-header {
+      display: none;
+    }
+    /* Each row becomes a card */
+    .sr-list {
+      max-height: none;
+      overflow: visible;
+    }
+    .sr-row-wrap {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .sr-row {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      grid-template-areas:
+        'rank player'
+        'rank time'
+        'cat cat'
+        'ver date';
+      gap: 0.25rem 0.5rem;
+      padding: 0.75rem 0.85rem !important;
+    }
+    .sr-row > div {
+      padding: 0 !important;
+      border: 0 !important;
+      white-space: normal;
+      text-overflow: initial;
+      overflow: visible;
+    }
+    .sr-c-rank {
+      grid-area: rank;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.15rem;
+    }
+    .sr-c-player {
+      grid-area: player;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .sr-c-time {
+      grid-area: time;
+      font-size: 0.9rem;
+      color: var(--grass-2);
+    }
+    .sr-c-cat {
+      grid-area: cat;
+    }
+    .sr-c-ver {
+      grid-area: ver;
+    }
+    .sr-c-date {
+      grid-area: date;
+      text-align: end;
+      align-self: end;
+    }
+    .sr-c-seed,
+    .sr-c-link,
+    .sr-c-expand {
+      display: none !important;
+    }
+    /* Rank-1/2/3 background already applied — also brighten the rank cell */
+    .sr-rank-1 .sr-c-rank,
+    .sr-rank-2 .sr-c-rank,
+    .sr-rank-3 .sr-c-rank {
+      font-size: 1.1rem;
+    }
+    /* Detail grid: stack tighter on mobile */
+    .sr-detail {
+      padding: 0.85rem;
+    }
+    .sr-detail-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 0.85rem;
+    }
+  }
+
+  /* ===== Responsive: very small (≤420px) ===== */
+  @media (max-width: 420px) {
+    .sr-stat-num {
+      font-size: 1.25rem;
+    }
+    .sr-detail-grid {
+      grid-template-columns: 1fr;
+    }
+    .sr-tab-label {
+      font-size: 0.8rem;
+    }
+  }
+
+  /* ===== Reduced motion ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .sr-spinner {
+      animation: none;
+      border-top-color: var(--line);
+      border-bottom-color: var(--grass-2);
+    }
+    .sr-detail {
+      animation: none;
+    }
   }
 </style>
