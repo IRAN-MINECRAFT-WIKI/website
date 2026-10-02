@@ -503,39 +503,81 @@ const links = [
       var ANIM_ENABLED = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       function openCinematic() {
+        // ─── FIX: Set cards to trigger position BEFORE showing overlay ───
+        // The old code showed the overlay first (cards in final position),
+        // then animated from trigger — causing a flash of cards in their
+        // final position. Now we pre-set each card's transform to the
+        // trigger button's position + scale(0.3) + opacity:0 BEFORE
+        // making the overlay visible.
+
+        var cards = overlay.querySelectorAll('.qa-card');
+        var btnRect = btn.getBoundingClientRect();
+        var btnCenterX = btnRect.left + btnRect.width / 2;
+        var btnCenterY = btnRect.top + btnRect.height / 2;
+
+        // Pre-set each card to trigger position (invisible, scaled down)
+        cards.forEach(function (card) {
+          var cardRect = card.getBoundingClientRect();
+          var cardCenterX = cardRect.left + cardRect.width / 2;
+          var cardCenterY = cardRect.top + cardRect.height / 2;
+          var dx = btnCenterX - cardCenterX;
+          var dy = btnCenterY - cardCenterY;
+          // Set inline style so cards start at trigger position
+          card.style.opacity = '0';
+          card.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(0.3) rotate(-15deg)';
+          card.style.willChange = 'transform, opacity';
+        });
+
+        // Hide header + footer too
+        var header = overlay.querySelector('.qa-header');
+        var footer = overlay.querySelector('.qa-footer');
+        if (header) { header.style.opacity = '0'; header.style.transform = 'translateY(-100%)'; }
+        if (footer) { footer.style.opacity = '0'; }
+
+        // NOW show overlay — cards are already at trigger position, invisible
         overlay.hidden = false;
         overlay.classList.remove('closing');
 
-        if (!ANIM_ENABLED) return; // skip animation for reduced-motion
+        // ─── FIX: trigger button goes BELOW blur backdrop ───
+        // Lower the z-index of the trigger button so it's behind the blur
+        btn.style.zIndex = '0';
 
-        // ─── Phase 1 fix: PRECISE TIMELINE ──────────────────
-        // 0ms:     click
-        // 0-150ms: button glow (scale 1→1.15→1.08)
-        // 150ms:   blur backdrop STARTS fade-in (not 0ms)
-        // 150-500ms: title slides down from top
-        // 500ms:   blur backdrop FULLY visible (opacity 1)
-        // 500+i×120ms: card i starts emerging from button position
-        // 1500ms:  all cards settled
+        // ─── FIX: set initial blur state BEFORE animating ───
+        // Prevents race condition where blur sometimes doesn't apply
+        if (bg) {
+          bg.style.opacity = '0';
+          bg.style.backdropFilter = 'blur(0px)';
+          bg.style.webkitBackdropFilter = 'blur(0px)';
+        }
 
-        // Step 1: Button glow (0-150ms) — scale 1.0 → 1.15 → 1.08
+        if (!ANIM_ENABLED) {
+          // No animation — show everything immediately
+          cards.forEach(function (card) {
+            card.style.opacity = ''; card.style.transform = ''; card.style.willChange = '';
+          });
+          if (header) { header.style.opacity = ''; header.style.transform = ''; }
+          if (footer) { footer.style.opacity = ''; }
+          if (bg) { bg.style.opacity = '1'; bg.style.backdropFilter = ''; bg.style.webkitBackdropFilter = ''; }
+          return;
+        }
+
+        // ─── Step 1: Button glow (0-150ms) ───────────────
         btn.animate([
           { transform: 'scale(1)', boxShadow: '0 0 0 rgba(124,200,74,0)' },
           { transform: 'scale(1.15)', boxShadow: '0 0 20px rgba(124,200,74,0.4)', offset: 0.5 },
           { transform: 'scale(1.08)', boxShadow: '0 0 12px rgba(124,200,74,0.2)' }
         ], { duration: 150, easing: 'ease-out', fill: 'forwards' });
 
-        // Step 2: Backdrop blur STARTS at 150ms (coordinated with button settle)
-        // Uses cubic-bezier(0.4, 0, 0.2, 1) — smooth material design easing
-        // Duration: 350ms (150→500ms) → fully visible at 500ms
+        // ─── Step 2: Backdrop blur fade-in (150-500ms) ───
+        // Set initial state explicitly, then animate
         if (bg) {
           bg.animate([
-            { opacity: 0, backdropFilter: 'blur(0px)' },
-            { opacity: 1, backdropFilter: 'blur(8px)' }
+            { opacity: 0, backdropFilter: 'blur(0px)', webkitBackdropFilter: 'blur(0px)' },
+            { opacity: 1, backdropFilter: 'blur(8px)', webkitBackdropFilter: 'blur(8px)' }
           ], { duration: 350, delay: 150, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
         }
 
-        // Step 3: Title slides from top (150-500ms) — spring easing
-        var header = overlay.querySelector('.qa-header');
+        // ─── Step 3: Title slides from top (150-500ms) ───
         if (header) {
           header.animate([
             { transform: 'translateY(-100%)', opacity: 0 },
@@ -543,12 +585,9 @@ const links = [
           ], { duration: 350, delay: 150, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' });
         }
 
-        // Step 4: Cards emerge from button position (500ms + i×120ms each)
-        var cards = overlay.querySelectorAll('.qa-card');
-        var btnRect = btn.getBoundingClientRect();
-        var btnCenterX = btnRect.left + btnRect.width / 2;
-        var btnCenterY = btnRect.top + btnRect.height / 2;
-
+        // ─── Step 4: Cards emerge from trigger position (500+i×120ms) ───
+        // Cards are ALREADY at trigger position (set above). Now animate
+        // them from there to their final position.
         cards.forEach(function (card, i) {
           var cardRect = card.getBoundingClientRect();
           var cardCenterX = cardRect.left + cardRect.width / 2;
@@ -564,14 +603,14 @@ const links = [
             { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1 }
           ], { duration: 600, delay: delay, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' });
 
-          // Sparkle effect when card arrives
+          // Clean up inline styles after animation
           anim.onfinish = function () {
+            card.style.willChange = '';
             createSparkle(card);
           };
         });
 
-        // Footer fade-in (after all cards)
-        var footer = overlay.querySelector('.qa-footer');
+        // ─── Step 5: Footer fade-in (1500ms+) ────────────
         if (footer) {
           footer.animate([
             { opacity: 0 },
@@ -665,6 +704,20 @@ const links = [
         setTimeout(function () {
           overlay.hidden = true;
           overlay.classList.remove('closing');
+
+          // ─── FIX: restore trigger button z-index + clean up inline styles ───
+          btn.style.zIndex = '';
+          // Clear inline styles on cards so they're ready for next open
+          var allCards = overlay.querySelectorAll('.qa-card');
+          allCards.forEach(function (c) {
+            c.style.opacity = '';
+            c.style.transform = '';
+            c.style.willChange = '';
+          });
+          var h = overlay.querySelector('.qa-header');
+          var f = overlay.querySelector('.qa-footer');
+          if (h) { h.style.opacity = ''; h.style.transform = ''; }
+          if (f) { f.style.opacity = ''; }
         }, 600);
       }
 
