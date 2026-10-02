@@ -1,0 +1,38 @@
+{
+  "id": "mooshroom",
+  "nameEn": "Mooshroom",
+  "nameFa": "گاو قارچی",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 10,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.2,
+  "versions": {
+    "java": "Beta 1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "گاو قارچی نسخه‌ای از گاو با قارچ روی پشتش هست که در Mushroom Island پیدا می‌شه. با Bowl stew می‌ده.",
+  "drops": [
+    {
+      "item": "raw_beef",
+      "count": "1-3"
+    },
+    {
+      "item": "leather",
+      "count": "0-2"
+    },
+    {
+      "item": "mushroom",
+      "count": "1-2"
+    }
+  ],
+  "locations": [
+    "Mushroom Island"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Mooshroom"
+}

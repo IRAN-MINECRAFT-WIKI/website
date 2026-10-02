@@ -1,0 +1,30 @@
+{
+  "id": "parrot",
+  "nameEn": "Parrot",
+  "nameFa": "طوطی",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 6,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.2,
+  "versions": {
+    "java": "1.12+",
+    "bedrock": "1.2.0+"
+  },
+  "description": "طوطی در Jungle پیدا می‌شه و می‌تونی روش شانه بذاری. می‌تونه صدای ماب‌ها رو تقلید کنه.",
+  "drops": [
+    {
+      "item": "feather",
+      "count": "1-2"
+    }
+  ],
+  "locations": [
+    "Jungle"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Parrot"
+}

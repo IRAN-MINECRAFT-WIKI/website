@@ -1,0 +1,35 @@
+{
+  "id": "snow-golem",
+  "nameEn": "Snow Golem",
+  "nameFa": "گلولم برفی",
+  "category": "utility",
+  "icon": "px-cow-face",
+  "health": 4,
+  "damage": {
+    "contact": 0,
+    "snowball": 0
+  },
+  "speed": 0.2,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "گلولم برفی با ۲ بلوک برف و Jack o'Lantern ساخته می‌شه و به ماب‌ها Snowball می‌زنه. در بایوم گرم آب می‌شه.",
+  "drops": [
+    {
+      "item": "snowball",
+      "count": "0-15"
+    },
+    {
+      "item": "carved_pumpkin",
+      "count": "1"
+    }
+  ],
+  "locations": [
+    "صنعت (دعوت‌شونده)"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Snow_Golem"
+}

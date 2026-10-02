@@ -1,0 +1,34 @@
+{
+  "id": "wither",
+  "nameEn": "Wither",
+  "nameFa": "ویدر",
+  "category": "boss",
+  "icon": "px-creeper-face",
+  "health": 300,
+  "damage": {
+    "contact": 12,
+    "ranged": 12,
+    "wither": 12
+  },
+  "speed": 0.5,
+  "versions": {
+    "java": "1.4+",
+    "bedrock": "0.16.0+"
+  },
+  "description": "ویدر بوس دعوت‌شونده هست که با ۳ Wither Skeleton Skull و ۴ Soul Sand ساخته می‌شه. وقتی می‌میره Nether Star می‌ده.",
+  "drops": [
+    {
+      "item": "nether_star",
+      "count": "1"
+    }
+  ],
+  "locations": [
+    "دعوت‌شونده با ۳ Wither Skull"
+  ],
+  "combat": [
+    "با کمان از دور",
+    "با شمشیر نزدیک",
+    "با بید تفنگ زیرش"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Wither"
+}

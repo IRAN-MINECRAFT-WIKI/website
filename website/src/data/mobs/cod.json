@@ -1,0 +1,31 @@
+{
+  "id": "cod",
+  "nameEn": "Cod",
+  "nameFa": "بادکن",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 3,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "1.13+",
+    "bedrock": "1.5.0+"
+  },
+  "description": "بادکن یک ماهی معمولی هست که در اقیانوس‌ها پیدا می‌شه و با هارپون یا قلاب صید می‌شه.",
+  "drops": [
+    {
+      "item": "raw_cod",
+      "count": "1"
+    }
+  ],
+  "locations": [
+    "Ocean",
+    "River"
+  ],
+  "combat": [
+    "با قلاب یا دست"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Cod"
+}

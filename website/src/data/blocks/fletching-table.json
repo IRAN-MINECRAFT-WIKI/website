@@ -1,0 +1,32 @@
+{
+  "id": "fletching-table",
+  "nameEn": "Fletching Table",
+  "nameFa": "میز تیرساز",
+  "category": "utility",
+  "icon": "px-crafting-table",
+  "hardness": 2.5,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.10.0+"
+  },
+  "description": "میز تیرساز از ۴ تخته و ۲ فلینت ساخته می‌شه و در نزدیکی روستایی فچر می‌سازه و به Fletchers می‌رسه.",
+  "uses": [
+    "شغل Fletching",
+    "تجارت با Fletcher"
+  ],
+  "locations": [
+    "صنعت",
+    "Village Fletcher"
+  ],
+  "drops": [
+    {
+      "item": "fletching_table",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Fletching_Table"
+}

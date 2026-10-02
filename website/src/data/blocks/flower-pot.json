@@ -1,0 +1,33 @@
+{
+  "id": "flower-pot",
+  "nameEn": "Flower Pot",
+  "nameFa": "گل‌دان",
+  "category": "decoration",
+  "icon": "px-bone",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "گل‌دان از ۳ آجر ساخته می‌شه و برای کاشت گل و قارچ استفاده می‌شه.",
+  "uses": [
+    "کاشت گل",
+    "کاشت قارچ",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "صنعت",
+    "Witch Hut"
+  ],
+  "drops": [
+    {
+      "item": "flower_pot",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Flower_Pot"
+}

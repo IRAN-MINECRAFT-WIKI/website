@@ -1,0 +1,31 @@
+{
+  "id": "pressure-plate",
+  "nameEn": "Pressure Plate",
+  "nameFa": "صفحه‌ی فشار",
+  "category": "redstone",
+  "icon": "px-stone-block",
+  "hardness": 0.5,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Alpha 1.0.1+",
+    "bedrock": "0.1+"
+  },
+  "description": "صفحه‌ی فشار وقتی بازیکن یا ماب روی آن قدم می‌ذاره، سیگنال رداستون ساطع می‌کنه.",
+  "uses": [
+    "در خودکار",
+    "تله‌ها"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "pressure_plate",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Pressure_Plate"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "packed-ice",
+  "nameEn": "Packed Ice",
+  "nameFa": "یخ فشرده",
+  "category": "natural",
+  "icon": "ice",
+  "hardness": 0.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.7+",
+    "bedrock": "0.1+"
+  },
+  "description": "یخ فشرده در Ice Spikes پیدا می‌شه و چسبندگی بسیار بالایی داره — برای سرسرخوردن عالی هست.",
+  "uses": [
+    "ساخت سرسرخوردن",
+    "Blue Ice"
+  ],
+  "locations": [
+    "Ice Spikes",
+    "تایگا برفی"
+  ],
+  "drops": [
+    {
+      "item": "packed_ice",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Packed_Ice"
+}

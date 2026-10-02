@@ -1,0 +1,31 @@
+{
+  "id": "nether-bricks",
+  "nameEn": "Nether Bricks",
+  "nameFa": "آجر نادر",
+  "category": "building",
+  "icon": "brick",
+  "hardness": 2.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "آجر نادر در Nether Fortress پیدا می‌شه و ظاهر قرمز تیره داره.",
+  "uses": [
+    "ساخت Nether Fortress",
+    "دکوراسیون تیره"
+  ],
+  "locations": [
+    "Nether Fortress"
+  ],
+  "drops": [
+    {
+      "item": "nether_bricks",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Nether_Bricks"
+}

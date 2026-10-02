@@ -1,0 +1,39 @@
+{
+  "id": "coal-ore",
+  "nameEn": "Coal Ore",
+  "nameFa": "سنگ زغال‌سنگ",
+  "category": "ore",
+  "icon": "coal-ore",
+  "hardness": 3.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "سنگ زغال‌سنگ فراوان‌ترین سنگ معدنی هست و در تمام عمق‌ها پیدا می‌شه. زغال‌سنگ برای کوره و مشعل استفاده می‌شه.",
+  "uses": [
+    "سوخت کوره",
+    "ساخت مشعل",
+    "ساخت Coal Block"
+  ],
+  "locations": [
+    "همه‌ی عمق‌ها",
+    "بیش‌ترین در y=96"
+  ],
+  "drops": [
+    {
+      "item": "coal",
+      "count": "1",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "coal_ore",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Coal_Ore"
+}

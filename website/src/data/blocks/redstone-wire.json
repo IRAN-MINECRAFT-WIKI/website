@@ -1,0 +1,31 @@
+{
+  "id": "redstone-wire",
+  "nameEn": "Redstone Wire",
+  "nameFa": "سیم رداستون",
+  "category": "redstone",
+  "icon": "px-tnt",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Alpha 1.0.1+",
+    "bedrock": "0.1+"
+  },
+  "description": "سیم رداستون از رداستون روی بلوک‌ها ساخته می‌شه و برای انتقال سیگنال استفاده می‌شه.",
+  "uses": [
+    "انتقال سیگنال",
+    "مدار رداستون"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "redstone",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Redstone_Wire"
+}

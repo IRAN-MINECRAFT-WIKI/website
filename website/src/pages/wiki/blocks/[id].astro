@@ -1,0 +1,210 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import BackButton from '@components/BackButton.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { blocks, BLOCK_CATEGORIES, getBlockById, type BlockInfo } from '@/lib/data';
+import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+
+export async function getStaticPaths() {
+  return blocks.map((b) => ({
+    params: { id: b.id },
+    props: { block: b },
+  }));
+}
+
+const { block } = Astro.props as { block: BlockInfo };
+const cat = BLOCK_CATEGORIES.find((c) => c.id === block.category);
+
+const BASE = import.meta.env.BASE_URL;
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'ویکی', url: '/wiki' },
+  { name: 'بلاک‌ها', url: '/wiki/blocks' },
+  { name: block.nameFa, url: `/wiki/blocks/${block.id}` },
+];
+
+const ldBread = breadcrumbJsonLd(breadcrumb);
+const ldArticle = articleJsonLd({
+  title: block.nameFa,
+  description: block.description,
+  datePublished: '2024-01-01',
+  url: `/wiki/blocks/${block.id}`,
+});
+
+// Tool label translation
+const toolLabels: Record<string, string> = {
+  none: '—',
+  wooden_pickaxe: '岔ب چوبی',
+  stone_pickaxe: '岔ب سنگی',
+  iron_pickaxe: '岔ب آهنی',
+  diamond_pickaxe: '岔ب الماسی',
+  axe: 'تبر',
+  shovel: 'بیل',
+  pickaxe: '岔ب',
+};
+
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+---
+
+<BaseLayout
+  path={`/wiki/blocks/${block.id}`}
+  title={`${block.nameFa} — بلاک ماینکرفت (${block.nameEn})`}
+  description={block.description}
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <BackButton />
+  <StructuredData data={ldArticle} />
+  <StructuredData data={ldBread} />
+
+  <!-- Header -->
+  <div class="mb-6 flex items-start gap-4">
+    <span class="shrink-0 inline-flex items-center justify-center w-20 h-20 mc-block-panel p-2">
+      <img
+        src={`${BASE}textures/blocks/${block.icon.replace('px-', '')}.png`}
+        alt={block.nameFa}
+        width="56"
+        height="56"
+        loading="eager"
+        decoding="async"
+        class="pixel-img"
+        onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
+      />
+      <svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+        <use href={`#${block.icon.startsWith('px-') ? block.icon : 'px-' + block.icon}`} />
+      </svg>
+    </span>
+    <div class="flex-1">
+      <div class="flex items-center gap-3 mb-1 flex-wrap">
+        <h1 class="text-2xl lg:text-4xl font-extrabold">{block.nameFa}</h1>
+        <span class="bg-mc-bg-2 border-2 border-mc-line text-xs font-pixel px-2 py-1 text-mc-text-2" dir="ltr">{block.nameEn}</span>
+      </div>
+      <p class="text-sm text-mc-text-2 mb-3">
+        {cat && <span>{cat.icon} {cat.nameFa}</span>}
+        <span> • 🆔 <code dir="ltr" class="text-mc-text">{block.id}</code></span>
+        <span> • 📦 {faNum(block.stackSize)} تایی</span>
+      </p>
+      <p class="text-base text-mc-text-2 leading-loose">{block.description}</p>
+    </div>
+  </div>
+
+  <!-- Properties -->
+  <section class="mc-panel mb-6 p-5">
+    <h2 class="text-xl font-extrabold mb-3">ویژگی‌های بلاک</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
+        <div class="text-[10px] text-mc-text-3 mb-1">سختی</div>
+        <div class="text-lg font-bold text-mc-text" dir="ltr">{faNum(block.hardness)}</div>
+      </div>
+      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
+        <div class="text-[10px] text-mc-text-3 mb-1">ابزار لازم</div>
+        <div class="text-sm font-bold text-mc-text">{toolLabels[block.tool] || block.tool}</div>
+      </div>
+      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
+        <div class="text-[10px] text-mc-text-3 mb-1">شفاف</div>
+        <div class="text-sm font-bold text-mc-text">{block.transparent ? 'بله' : 'خیر'}</div>
+      </div>
+      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
+        <div class="text-[10px] text-mc-text-3 mb-1">سطح نور</div>
+        <div class="text-lg font-bold text-mc-text" dir="ltr">{faNum(block.lightLevel)}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Uses + Locations -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+    <section class="mc-panel p-5">
+      <h2 class="text-lg font-extrabold mb-3">🎯 کاربردها</h2>
+      {block.uses.length > 0 ? (
+        <ul class="space-y-2">
+          {block.uses.map((u) => (
+            <li class="flex items-start gap-2">
+              <span class="text-mc-grass-2 mt-1">✓</span>
+              <span class="text-sm text-mc-text-2">{u}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-sm text-mc-text-3">کاربرد خاصی ثبت نشده.</p>
+      )}
+    </section>
+    <section class="mc-panel p-5">
+      <h2 class="text-lg font-extrabold mb-3">📍 محل یافتن</h2>
+      {block.locations.length > 0 ? (
+        <ul class="space-y-2">
+          {block.locations.map((l) => (
+            <li class="flex items-start gap-2">
+              <span class="text-mc-gold mt-1">→</span>
+              <span class="text-sm text-mc-text-2">{l}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-sm text-mc-text-3">محل خاصی ثبت نشده.</p>
+      )}
+    </section>
+  </div>
+
+  <!-- Drops -->
+  <section class="mc-panel mb-6 p-5">
+    <h2 class="text-lg font-extrabold mb-3">🎁 دراپ‌ها (Loot)</h2>
+    {block.drops.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {block.drops.map((d) => (
+          <div class="flex items-center gap-3 p-3 bg-mc-bg-2 border border-mc-line rounded">
+            <div class="flex-1">
+              <div class="text-sm font-bold text-mc-text" dir="ltr">{d.item}</div>
+              {d.count && <div class="text-xs text-mc-text-3" dir="ltr">تعداد: {d.count}</div>}
+              {d.condition && <div class="text-[10px] text-mc-text-3 mt-1">{d.condition}</div>}
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p class="text-sm text-mc-text-3">این بلاک چیزی دراپ نمی‌کند.</p>
+    )}
+  </section>
+
+  <!-- Versions + Wiki link -->
+  <section class="mc-panel mb-6 p-5">
+    <h2 class="text-lg font-extrabold mb-3">📚 نسخه‌ها و مرجع</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+      <div class="flex items-start gap-2">
+        <span class="text-mc-text-3 mt-0.5">☕ جاوا:</span>
+        <span class="text-mc-text-2" dir="ltr">{block.versions.java}</span>
+      </div>
+      <div class="flex items-start gap-2">
+        <span class="text-mc-text-3 mt-0.5">🪨 بدراک:</span>
+        <span class="text-mc-text-2" dir="ltr">{block.versions.bedrock}</span>
+      </div>
+      {block.wikiLink && (
+        <div class="sm:col-span-2 flex items-start gap-2 mt-2 pt-3 border-t border-mc-line">
+          <span class="text-mc-text-3 mt-0.5">📖 ویکی:</span>
+          <a
+            href={block.wikiLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-mc-grass-2 hover:underline break-all"
+            dir="ltr"
+          >
+            {block.wikiLink} ↗
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Back to blocks -->
+  <a
+    href={`/wiki/blocks`}
+    class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-2 text-sm font-bold text-mc-text-2 hover:text-mc-grass-2"
+  >
+    <svg width="14" height="14"><use href="#icon-chevron-right" /></svg>
+    بازگشت به فهرست بلاک‌ها
+  </a>
+</BaseLayout>

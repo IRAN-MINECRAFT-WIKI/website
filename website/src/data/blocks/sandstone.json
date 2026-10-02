@@ -1,0 +1,32 @@
+{
+  "id": "sandstone",
+  "nameEn": "Sandstone",
+  "nameFa": "ماسه‌سنگ",
+  "category": "building",
+  "icon": "sand",
+  "hardness": 0.8,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "ماسه‌سنگ در بایوم‌های صحرا از ماسه ساخته می‌شه. برای خانه‌های صحرایی و دکوراسیون عربی عالی هست.",
+  "uses": [
+    "ساخت خانه صحرایی",
+    "ساخت پله و دیده"
+  ],
+  "locations": [
+    "بایوم صحرا",
+    "سواحل"
+  ],
+  "drops": [
+    {
+      "item": "sandstone",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Sandstone"
+}

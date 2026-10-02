@@ -1,0 +1,34 @@
+{
+  "id": "obsidian",
+  "nameEn": "Obsidian",
+  "nameFa": "اوبسیدین",
+  "category": "building",
+  "icon": "obsidian",
+  "hardness": 50.0,
+  "tool": "diamond_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "اوبسیدین از ترکیب آب و لاوا ساخته می‌شه و بسیار سخت هست. برای ساخت پورتال نادر هم استفاده می‌شه.",
+  "uses": [
+    "ساخت Nether Portal",
+    "ساخت Enchanting Table",
+    "ساخت Ender Chest"
+  ],
+  "locations": [
+    "محل برخورد آب و لاوا",
+    "Nether"
+  ],
+  "drops": [
+    {
+      "item": "obsidian",
+      "count": "1",
+      "condition": "فقط با Diamond Pickaxe"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Obsidian"
+}

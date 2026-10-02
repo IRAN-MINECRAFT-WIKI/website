@@ -1,0 +1,32 @@
+{
+  "id": "tripwire-hook",
+  "nameEn": "Tripwire Hook",
+  "nameFa": "قلاب سیم",
+  "category": "redstone",
+  "icon": "px-stick",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.3+",
+    "bedrock": "0.1+"
+  },
+  "description": "قلاب سیم از چوب‌دست، چوب، آهن‌اولاد و چوب ساخته می‌شه و برای ساخت تله‌های سیمی استفاده می‌شه.",
+  "uses": [
+    "تله سیمی",
+    "تشخیص حرکت"
+  ],
+  "locations": [
+    "صنعت",
+    "Jungle Temple"
+  ],
+  "drops": [
+    {
+      "item": "tripwire_hook",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Tripwire_Hook"
+}

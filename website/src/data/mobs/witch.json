@@ -1,0 +1,54 @@
+{
+  "id": "witch",
+  "nameEn": "Witch",
+  "nameFa": "جادوگر",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 26,
+  "damage": {
+    "ranged": 3,
+    "splash_potion": 6
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.4+",
+    "bedrock": "0.14.0+"
+  },
+  "description": "جادوگر با Splash Potion حمله می‌کنه و خودش با شفایافت potion، شفا می‌ده. در Swamp Hut پیدا می‌شه.",
+  "drops": [
+    {
+      "item": "sugar",
+      "count": "0-2"
+    },
+    {
+      "item": "redstone",
+      "count": "0-2"
+    },
+    {
+      "item": "glass_bottle",
+      "count": "0-2"
+    },
+    {
+      "item": "gunpowder",
+      "count": "0-2"
+    },
+    {
+      "item": "spider_eye",
+      "count": "0-2"
+    },
+    {
+      "item": "stick",
+      "count": "0-2"
+    }
+  ],
+  "locations": [
+    "Swamp Hut",
+    "سطح (روشنایی < 7)"
+  ],
+  "combat": [
+    "با کمان از دور بزن",
+    "نزدیک نرو که پاتن می‌زنه",
+    "با شیر حلیب"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Witch"
+}

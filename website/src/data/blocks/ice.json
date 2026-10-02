@@ -1,0 +1,33 @@
+{
+  "id": "ice",
+  "nameEn": "Ice",
+  "nameFa": "یخ",
+  "category": "natural",
+  "icon": "ice",
+  "hardness": 0.5,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "یخ در بایوم‌های برفی از آب یخ‌زده ساخته می‌شه و با Silk Touch قابل جمع‌آوری هست.",
+  "uses": [
+    "ساخت Packed Ice",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "بایوم برفی",
+    "تایگا برفی"
+  ],
+  "drops": [
+    {
+      "item": "ice",
+      "count": "1",
+      "condition": "فقط با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Ice"
+}

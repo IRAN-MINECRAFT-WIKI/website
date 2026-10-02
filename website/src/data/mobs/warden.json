@@ -1,0 +1,34 @@
+{
+  "id": "warden",
+  "nameEn": "Warden",
+  "nameFa": "واردن",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 500,
+  "damage": {
+    "contact": 30,
+    "ranged": 10
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.19+",
+    "bedrock": "1.19.0+"
+  },
+  "description": "واردن قوی‌ترین ماب ماینکرفت هست (بعد از بوس‌ها) و در Deep Dark پیدا می‌شه. با صدا بازیکن رو پیدا می‌کنه. حمله‌اش ۳۰ درجه هست!",
+  "drops": [
+    {
+      "item": "sculk_catalyst",
+      "count": "1",
+      "condition": "اگه بازیکن بکشه"
+    }
+  ],
+  "locations": [
+    "Deep Dark (Ancient City)"
+  ],
+  "combat": [
+    "فرار کن",
+    "نزن با وردن",
+    "با Wool بدون صدا برو"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Warden"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "zombie",
+  "nameEn": "Zombie",
+  "nameFa": "زامبی",
+  "category": "hostile",
+  "icon": "px-creeper-face",
+  "health": 20,
+  "damage": {
+    "contact": 3,
+    "explosion": 0
+  },
+  "speed": 0.23,
+  "versions": {
+    "java": "0.24+",
+    "bedrock": "0.1+"
+  },
+  "description": "زامبی ماب همیشگی ماینکرفت است که شب‌ها روی سطح ظاهر می‌شه و به سمت بازیکن میاد تا اون رو بزنه.",
+  "drops": [
+    {
+      "item": "rotten_flesh",
+      "count": "0-2"
+    },
+    {
+      "item": "iron_ingot",
+      "count": "1",
+      "condition": "احتمال کم"
+    },
+    {
+      "item": "carrot",
+      "count": "1",
+      "condition": "احتمال کم"
+    },
+    {
+      "item": "potato",
+      "count": "1",
+      "condition": "احتمال کم"
+    }
+  ],
+  "locations": [
+    "سطح (روشنایی < 7)",
+    "غارها",
+    "Village (siege)"
+  ],
+  "combat": [
+    "با شمشیر بزن",
+    "از دور بکش",
+    "رو پله بایست تا برسن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Zombie"
+}

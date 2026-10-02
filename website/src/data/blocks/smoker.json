@@ -1,0 +1,31 @@
+{
+  "id": "smoker",
+  "nameEn": "Smoker",
+  "nameFa": "دودکش",
+  "category": "mechanism",
+  "icon": "px-furnace",
+  "hardness": 3.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 13,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.10.0+"
+  },
+  "description": "دودکش از ۴ چوب و ۱ کوره ساخته می‌شه و غذا رو دو بار سریع‌تر می‌پزه.",
+  "uses": [
+    "پخت سریع غذا"
+  ],
+  "locations": [
+    "صنعت",
+    "Village Butcher"
+  ],
+  "drops": [
+    {
+      "item": "smoker",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Smoker"
+}

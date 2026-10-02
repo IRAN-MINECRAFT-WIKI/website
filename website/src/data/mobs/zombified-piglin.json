@@ -1,0 +1,48 @@
+{
+  "id": "zombified-piglin",
+  "nameEn": "Zombified Piglin",
+  "nameFa": "پیگلین زامبی",
+  "category": "neutral",
+  "icon": "px-pig-face",
+  "health": 20,
+  "damage": {
+    "contact": 8,
+    "explosion": 0
+  },
+  "speed": 0.23,
+  "versions": {
+    "java": "Alpha 1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "پیگلین زامبی در نادر پیدا می‌شه. اگه یکی رو بزنی، همه‌اش فرا می‌خوان و حمله می‌کنن. قبل از 1.16 به اسم Pigman شناخته می‌شد.",
+  "drops": [
+    {
+      "item": "rotten_flesh",
+      "count": "0-1"
+    },
+    {
+      "item": "gold_nugget",
+      "count": "0-1"
+    },
+    {
+      "item": "gold_ingot",
+      "count": "1",
+      "condition": "احتمال"
+    },
+    {
+      "item": "golden_sword",
+      "count": "1",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Nether",
+    "Nether Wastes"
+  ],
+  "combat": [
+    "با کمان از دور بزن",
+    "تک‌تک بزن",
+    "با Gold Armor نزدیک شو"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Zombified_Piglin"
+}

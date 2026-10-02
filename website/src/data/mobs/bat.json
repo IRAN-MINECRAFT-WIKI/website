@@ -1,0 +1,32 @@
+{
+  "id": "bat",
+  "nameEn": "Bat",
+  "nameFa": "خفاش",
+  "category": "ambient",
+  "icon": "px-cow-face",
+  "health": 6,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "Beta 1.4+",
+    "bedrock": "0.1+"
+  },
+  "description": "خفاش در غارها و زیرزمین پیدا می‌شه و هیچ لوتی نمی‌ده. فقط برای محیطیِ محیط استفاده می‌شه.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Caves",
+    "Mineshaft",
+    "Stronghold"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Bat"
+}

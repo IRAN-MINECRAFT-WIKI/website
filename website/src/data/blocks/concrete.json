@@ -1,0 +1,31 @@
+{
+  "id": "concrete",
+  "nameEn": "Concrete",
+  "nameFa": "بتن",
+  "category": "building",
+  "icon": "px-cobblestone",
+  "hardness": 1.8,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.12+",
+    "bedrock": "1.1.0+"
+  },
+  "description": "بتن از Concrete Powder و آب ساخته می‌شه و در ۱۶ رنگ مختلف موجود هست.",
+  "uses": [
+    "ساخت خانه‌های رنگی",
+    "دکوراسیون مدرن"
+  ],
+  "locations": [
+    "صنعت (به جای خاک)"
+  ],
+  "drops": [
+    {
+      "item": "concrete",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Concrete"
+}

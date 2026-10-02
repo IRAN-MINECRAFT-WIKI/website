@@ -1,0 +1,37 @@
+{
+  "id": "turtle",
+  "nameEn": "Turtle",
+  "nameFa": "لاک‌پشت",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 30,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.13+",
+    "bedrock": "1.5.0+"
+  },
+  "description": "لاک‌پشت در Beach پیدا می‌شه و روی ساحل تخم می‌ذاره. از تخم لاک پشت بیرون میاد که برای ساخت Turtle Shell لازم هست.",
+  "drops": [
+    {
+      "item": "seagrass",
+      "count": "0-1",
+      "condition": "احتمال"
+    },
+    {
+      "item": "turtle_shell",
+      "count": "1",
+      "condition": "اگه بزرگ بمیره"
+    }
+  ],
+  "locations": [
+    "Beach",
+    "Warm Ocean"
+  ],
+  "combat": [
+    "با چند ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Turtle"
+}

@@ -1,0 +1,51 @@
+{
+  "id": "drowned",
+  "nameEn": "Drowned",
+  "nameFa": "غرق‌شده",
+  "category": "hostile",
+  "icon": "px-creeper-face",
+  "health": 20,
+  "damage": {
+    "contact": 3,
+    "ranged": 8,
+    "trident": 9
+  },
+  "speed": 0.23,
+  "versions": {
+    "java": "1.13+",
+    "bedrock": "1.5.0+"
+  },
+  "description": "غرق‌شده نسخه‌ی آبی زامبی هست که در اقیانوس‌ها و رودخانه‌ها پیدا می‌شه. با Trident حمله می‌کنه و Nautilus Shell می‌ده.",
+  "drops": [
+    {
+      "item": "rotten_flesh",
+      "count": "0-2"
+    },
+    {
+      "item": "nautilus_shell",
+      "count": "1",
+      "condition": "احتمال"
+    },
+    {
+      "item": "trident",
+      "count": "1",
+      "condition": "احتمال کم"
+    },
+    {
+      "item": "copper_ingot",
+      "count": "1",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Ocean",
+    "River",
+    "Underwater Ruin"
+  ],
+  "combat": [
+    "با Trident از دور",
+    "نزدیک نرو",
+    "با شیر حلیب"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Drowned"
+}

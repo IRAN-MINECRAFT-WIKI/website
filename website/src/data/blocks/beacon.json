@@ -1,0 +1,32 @@
+{
+  "id": "beacon",
+  "nameEn": "Beacon",
+  "nameFa": "فانوس دریایی",
+  "category": "utility",
+  "icon": "px-diamond-ore",
+  "hardness": 3.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "1.4+",
+    "bedrock": "0.1+"
+  },
+  "description": "فانوس دریایی از ۵ شیشه، ۳ اوبسیدین و ۱ Nether Star ساخته می‌شه. با ساخت هرم زیرش، بونوس‌های مختلفی می‌ده.",
+  "uses": [
+    "بونوس Speed/Haste/Jump",
+    "نور",
+    "نشانه"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "beacon",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Beacon"
+}

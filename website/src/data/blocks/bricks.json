@@ -1,0 +1,32 @@
+{
+  "id": "bricks",
+  "nameEn": "Bricks",
+  "nameFa": "آجر",
+  "category": "building",
+  "icon": "brick",
+  "hardness": 2.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "آجر بلوکی ساختمانی است که از پختن ۴ آجر کوچک در کوره ساخته می‌شه. رنگ قرمز کلاسیک داره.",
+  "uses": [
+    "ساخت دیوار آجری",
+    "ساخت شومینه",
+    "ساخت پله آجری"
+  ],
+  "locations": [
+    "صنعت (کوره)"
+  ],
+  "drops": [
+    {
+      "item": "bricks",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Bricks"
+}

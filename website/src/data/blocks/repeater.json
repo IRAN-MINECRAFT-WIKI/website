@@ -1,0 +1,32 @@
+{
+  "id": "repeater",
+  "nameEn": "Redstone Repeater",
+  "nameFa": "تکرارکننده‌ی رداستون",
+  "category": "redstone",
+  "icon": "px-stone-block",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.3+",
+    "bedrock": "0.1+"
+  },
+  "description": "تکرارکننده سیگنال رداستون رو تازه می‌کنه و ۰.۱ تا ۰.۴ ثانیه تأخیر ایجاد می‌کنه.",
+  "uses": [
+    "تأخیر در مدار",
+    "تقویت سیگنال",
+    "تکرار"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "repeater",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Redstone_Repeater"
+}

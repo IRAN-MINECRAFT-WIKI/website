@@ -1,0 +1,31 @@
+{
+  "id": "red-sand",
+  "nameEn": "Red Sand",
+  "nameFa": "ماسه قرمز",
+  "category": "natural",
+  "icon": "sand",
+  "hardness": 0.5,
+  "tool": "shovel",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.7+",
+    "bedrock": "0.1+"
+  },
+  "description": "ماسه قرمز در بایوم Badlands پیدا می‌شه و برای ساخت Red Sandstone استفاده می‌شه.",
+  "uses": [
+    "ساخت Red Sandstone",
+    "دکوراسیون صحرایی"
+  ],
+  "locations": [
+    "Badlands"
+  ],
+  "drops": [
+    {
+      "item": "red_sand",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Red_Sand"
+}

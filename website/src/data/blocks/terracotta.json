@@ -1,0 +1,32 @@
+{
+  "id": "terracotta",
+  "nameEn": "Terracotta",
+  "nameFa": "تراکوتا",
+  "category": "building",
+  "icon": "px-diamond-ore",
+  "hardness": 1.25,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.12+",
+    "bedrock": "1.1.0+"
+  },
+  "description": "تراکوتا در بایوم Badlands پیدا می‌شه و بعد از پختن در کوره به Hardened Clay تبدیل می‌شه.",
+  "uses": [
+    "ساخت خانه بدلندز",
+    "رنگ‌آمیزی"
+  ],
+  "locations": [
+    "Badlands",
+    "Mesa"
+  ],
+  "drops": [
+    {
+      "item": "terracotta",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Terracotta"
+}

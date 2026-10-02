@@ -1,0 +1,38 @@
+{
+  "id": "ghast",
+  "nameEn": "Ghast",
+  "nameFa": "غاست",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 10,
+  "damage": {
+    "ranged": 17,
+    "explosion": 0
+  },
+  "speed": 0.1,
+  "versions": {
+    "java": "Alpha 1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "غاست ماب بزرگ نادر هست که با گریه و شلیک فایربال حمله می‌کنه. با کمان کشتن می‌شه ولی افتادن lootش احتمالیه.",
+  "drops": [
+    {
+      "item": "ghast_tear",
+      "count": "0-1",
+      "condition": "اگه بازیکن بکشه"
+    },
+    {
+      "item": "gunpowder",
+      "count": "0-2"
+    }
+  ],
+  "locations": [
+    "Nether (پاسخنه‌های نادر)"
+  ],
+  "combat": [
+    "با کمان از دور بزن",
+    "فایربال رو بلاک و برگردون",
+    "با شمشیر نزدیک نرو"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Ghast"
+}

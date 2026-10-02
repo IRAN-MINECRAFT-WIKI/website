@@ -11,6 +11,20 @@ import versionsRaw from '@/data/versions.json';
 import seedsTestedRaw from '@/data/seeds-tested.json';
 import categoriesRaw from '@/data/categories.json';
 import musicRaw from '@/data/music.json';
+import blocksIndexRaw from '@/data/blocks/index.json';
+import mobsIndexRaw from '@/data/mobs/index.json';
+
+// Eager-glob all per-block + per-mob JSON files. Each module's default export
+// is the parsed JSON (Vite's JSON plugin wraps it). We skip index.json since
+// that's just the lightweight master list (id/nameEn/nameFa/category/icon).
+const blockModules = import.meta.glob('@/data/blocks/*.json', {
+  eager: true,
+  import: 'default',
+}) as Record<string, unknown>;
+const mobModules = import.meta.glob('@/data/mobs/*.json', {
+  eager: true,
+  import: 'default',
+}) as Record<string, unknown>;
 
 export type Mod = {
   id: string;
@@ -134,7 +148,164 @@ export const versions: MCVersion[] = [...javaVersions, ...bedrockVersions].sort(
 export const categories: Category[] = (categoriesRaw as { categories: Category[] }).categories;
 export const musicTracks: MusicTrack[] = (musicRaw as { tracks?: MusicTrack[] }).tracks ?? [];
 
-// === Helpers ===
+// === Blocks (Part 4 of the wiki) =============================================
+
+export type BlockCategory =
+  | 'building'
+  | 'natural'
+  | 'ore'
+  | 'decoration'
+  | 'redstone'
+  | 'mechanism'
+  | 'utility';
+
+export type BlockDrop = {
+  item: string;
+  count?: string;
+  condition?: string;
+};
+
+export type BlockInfo = {
+  id: string;
+  nameEn: string;
+  nameFa: string;
+  category: BlockCategory;
+  icon: string;
+  hardness: number;
+  tool: string;
+  stackSize: number;
+  transparent: boolean;
+  lightLevel: number;
+  versions: { java: string; bedrock: string };
+  description: string;
+  uses: string[];
+  locations: string[];
+  drops: BlockDrop[];
+  wikiLink: string;
+};
+
+type BlocksIndexFile = {
+  blocks: Pick<BlockInfo, 'id' | 'nameEn' | 'nameFa' | 'category' | 'icon'>[];
+};
+
+export const blocksIndex: Pick<BlockInfo, 'id' | 'nameEn' | 'nameFa' | 'category' | 'icon'>[] =
+  (blocksIndexRaw as BlocksIndexFile).blocks ?? [];
+
+export const blocks: BlockInfo[] = Object.entries(blockModules)
+  .filter(([path]) => !path.endsWith('/index.json'))
+  .map(([_, data]) => data as BlockInfo)
+  .sort((a, b) => a.nameFa.localeCompare(b.nameFa, 'fa'));
+
+export const BLOCK_CATEGORIES: { id: BlockCategory; nameFa: string; icon: string }[] = [
+  { id: 'building', nameFa: 'ساختمانی', icon: '🧱' },
+  { id: 'natural', nameFa: 'طبیعی', icon: '🌿' },
+  { id: 'ore', nameFa: 'سنگ‌های معدنی', icon: '💎' },
+  { id: 'decoration', nameFa: 'تزئینی', icon: '🎨' },
+  { id: 'redstone', nameFa: 'رداستون', icon: '🔴' },
+  { id: 'mechanism', nameFa: 'مکانیزم', icon: '⚙️' },
+  { id: 'utility', nameFa: 'کاربردی', icon: '🛠️' },
+];
+
+export function getBlockById(id: string): BlockInfo | undefined {
+  return blocks.find((b) => b.id === id);
+}
+
+export function getBlocksByCategory(category: string): BlockInfo[] {
+  return blocks.filter((b) => b.category === category);
+}
+
+export function searchBlocks(query: string): BlockInfo[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return blocks;
+  return blocks.filter((b) =>
+    [b.id, b.nameEn, b.nameFa, b.category, b.description, ...b.uses, ...b.locations]
+      .join(' ')
+      .toLowerCase()
+      .includes(q)
+  );
+}
+
+// === Mobs (Part 5 of the wiki) ===============================================
+
+export type MobCategory =
+  | 'hostile'
+  | 'passive'
+  | 'neutral'
+  | 'boss'
+  | 'utility'
+  | 'ambient';
+
+export type MobDamage = {
+  contact?: number;
+  explosion?: number;
+  ranged?: number;
+  [key: string]: number | undefined;
+};
+
+export type MobDrop = {
+  item: string;
+  count?: string;
+  condition?: string;
+};
+
+export type MobInfo = {
+  id: string;
+  nameEn: string;
+  nameFa: string;
+  category: MobCategory;
+  icon: string;
+  health: number;
+  damage: MobDamage;
+  speed: number;
+  versions: { java: string; bedrock: string };
+  description: string;
+  drops: MobDrop[];
+  locations: string[];
+  combat: string[];
+  wikiLink: string;
+};
+
+type MobsIndexFile = {
+  mobs: Pick<MobInfo, 'id' | 'nameEn' | 'nameFa' | 'category' | 'icon'>[];
+};
+
+export const mobsIndex: Pick<MobInfo, 'id' | 'nameEn' | 'nameFa' | 'category' | 'icon'>[] =
+  (mobsIndexRaw as MobsIndexFile).mobs ?? [];
+
+export const mobs: MobInfo[] = Object.entries(mobModules)
+  .filter(([path]) => !path.endsWith('/index.json'))
+  .map(([_, data]) => data as MobInfo)
+  .sort((a, b) => a.nameFa.localeCompare(b.nameFa, 'fa'));
+
+export const MOB_CATEGORIES: { id: MobCategory; nameFa: string; icon: string }[] = [
+  { id: 'hostile', nameFa: 'متخاصم', icon: '💀' },
+  { id: 'passive', nameFa: 'صلح‌جو', icon: '🐷' },
+  { id: 'neutral', nameFa: 'خنثی', icon: '🐺' },
+  { id: 'boss', nameFa: 'بوس', icon: '👑' },
+  { id: 'utility', nameFa: 'کاربردی', icon: '🤖' },
+  { id: 'ambient', nameFa: 'محیطی', icon: '🦇' },
+];
+
+export function getMobById(id: string): MobInfo | undefined {
+  return mobs.find((m) => m.id === id);
+}
+
+export function getMobsByCategory(category: string): MobInfo[] {
+  return mobs.filter((m) => m.category === category);
+}
+
+export function searchMobs(query: string): MobInfo[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return mobs;
+  return mobs.filter((m) =>
+    [m.id, m.nameEn, m.nameFa, m.category, m.description, ...m.locations, ...m.combat]
+      .join(' ')
+      .toLowerCase()
+      .includes(q)
+  );
+}
+
+// === Helpers (legacy) ========================================================
 
 export function getModBySlug(slug: string): Mod | undefined {
   return mods.find((m) => m.id === slug);

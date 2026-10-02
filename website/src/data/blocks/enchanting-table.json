@@ -1,0 +1,32 @@
+{
+  "id": "enchanting-table",
+  "nameEn": "Enchanting Table",
+  "nameFa": "میز جادو",
+  "category": "mechanism",
+  "icon": "px-crafting-table",
+  "hardness": 5.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 7,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "میز جادو از ۴ اوبسیدین، ۲ الماس و ۱ کتاب ساخته می‌شه و برای جادو کردن وسایل استفاده می‌شه.",
+  "uses": [
+    "جادو کردن ابزار و زره"
+  ],
+  "locations": [
+    "صنعت",
+    "Village",
+    "Stronghold"
+  ],
+  "drops": [
+    {
+      "item": "enchanting_table",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Enchanting_Table"
+}

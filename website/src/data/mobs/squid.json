@@ -1,0 +1,31 @@
+{
+  "id": "squid",
+  "nameEn": "Squid",
+  "nameFa": "هشت‌پا",
+  "category": "ambient",
+  "icon": "px-cow-face",
+  "health": 10,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "Beta 1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "هشت‌پا در اقیانوس‌ها و رودخانه‌ها پیدا می‌شه و Ink Sac می‌ده. وقتی حمله می‌کنه، جوهر پرا می‌کنه.",
+  "drops": [
+    {
+      "item": "ink_sac",
+      "count": "1-3"
+    }
+  ],
+  "locations": [
+    "Ocean",
+    "River"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Squid"
+}

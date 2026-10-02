@@ -1,0 +1,37 @@
+{
+  "id": "horse",
+  "nameEn": "Horse",
+  "nameFa": "اسب",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 30,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.45,
+  "versions": {
+    "java": "1.6+",
+    "bedrock": "0.15.0+"
+  },
+  "description": "اسب برای سواری استفاده می‌شه. با Saddle روش سوار می‌شی. رنگ و سرعت متفاوتی داره.",
+  "drops": [
+    {
+      "item": "leather",
+      "count": "0-2"
+    },
+    {
+      "item": "rotten_flesh",
+      "count": "1",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Plains",
+    "Savanna"
+  ],
+  "combat": [
+    "با چند ضربه بزن",
+    "سوار نشو"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Horse"
+}

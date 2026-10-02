@@ -1,0 +1,32 @@
+{
+  "id": "blast-furnace",
+  "nameEn": "Blast Furnace",
+  "nameFa": "کوره‌ی انفجاری",
+  "category": "mechanism",
+  "icon": "px-furnace",
+  "hardness": 3.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 13,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.10.0+"
+  },
+  "description": "کوره‌ی انفجاری از ۵ آهن‌اولاد، ۱ کوره و ۳ Smooth Stone ساخته می‌شه و فلزات رو دو بار سریع‌تر ذوب می‌کنه.",
+  "uses": [
+    "ذوب فلزات سریع",
+    "تجارت با روستایی"
+  ],
+  "locations": [
+    "صنعت",
+    "Village Armorer"
+  ],
+  "drops": [
+    {
+      "item": "blast_furnace",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Blast_Furnace"
+}

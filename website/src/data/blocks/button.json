@@ -1,0 +1,31 @@
+{
+  "id": "button",
+  "nameEn": "Button",
+  "nameFa": "دکمه",
+  "category": "redstone",
+  "icon": "px-stone-block",
+  "hardness": 0.5,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.3+",
+    "bedrock": "0.1+"
+  },
+  "description": "دکمه از چوب یا سنگ ساخته می‌شه و یک پالس کوتاه رداستون ساطع می‌کنه.",
+  "uses": [
+    "سوئیچ لحظه‌ای",
+    "در دزدگیر"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "button",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Button"
+}

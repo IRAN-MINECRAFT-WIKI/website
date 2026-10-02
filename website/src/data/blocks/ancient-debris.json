@@ -1,0 +1,33 @@
+{
+  "id": "ancient-debris",
+  "nameEn": "Ancient Debris",
+  "nameFa": "خرده‌سنگ باستانی",
+  "category": "ore",
+  "icon": "px-iron-ore",
+  "hardness": 30.0,
+  "tool": "diamond_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.16+",
+    "bedrock": "1.16.0+"
+  },
+  "description": "خرده‌سنگ باستانی کمیاب‌ترین سنگ نادر هست و در عمق نادر پیدا می‌شه. برای ساخت Netherite Scrap و Netherite Ingot استفاده می‌شه.",
+  "uses": [
+    "ساخت Netherite Scrap",
+    "ساخت Netherite Ingot",
+    "ارتقا الماس به نِدِرایت"
+  ],
+  "locations": [
+    "Nether y=15 تا y=-64",
+    "بیش‌ترین در y=-14"
+  ],
+  "drops": [
+    {
+      "item": "ancient_debris",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Ancient_Debris"
+}

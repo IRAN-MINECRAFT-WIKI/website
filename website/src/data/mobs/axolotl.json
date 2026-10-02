@@ -1,0 +1,31 @@
+{
+  "id": "axolotl",
+  "nameEn": "Axolotl",
+  "nameFa": "آژولوتل",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 14,
+  "damage": {
+    "contact": 2
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.17+",
+    "bedrock": "1.18.0+"
+  },
+  "description": "آژولوتل در Lush Caves پیدا می‌شه و در ۵ رنگ مختلف موجود هست. به بازیکن در جنگ زیر آب کمک می‌کنه.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Lush Caves"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "با Tropical Fish جمع کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Axolotl"
+}

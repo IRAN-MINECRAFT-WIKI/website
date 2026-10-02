@@ -1,0 +1,33 @@
+{
+  "id": "dispenser",
+  "nameEn": "Dispenser",
+  "nameFa": "توزیع‌کننده",
+  "category": "redstone",
+  "icon": "px-furnace",
+  "hardness": 3.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "توزیع‌کننده از ۷ کوب‌استون، ۱ کمان و ۱ رداستون ساخته می‌شه و آیتم‌ها رو شلیک می‌کنه.",
+  "uses": [
+    "شلیک تیر",
+    "شلیک پات",
+    "تله‌ها"
+  ],
+  "locations": [
+    "صنعت",
+    "Jungle Temple"
+  ],
+  "drops": [
+    {
+      "item": "dispenser",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Dispenser"
+}

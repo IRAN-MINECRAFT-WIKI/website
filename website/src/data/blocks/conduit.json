@@ -1,0 +1,33 @@
+{
+  "id": "conduit",
+  "nameEn": "Conduit",
+  "nameFa": "کاندویت",
+  "category": "utility",
+  "icon": "px-diamond-ore",
+  "hardness": 3.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "1.13+",
+    "bedrock": "1.5.0+"
+  },
+  "description": "کاندوییت از ۸ Nautilus Shell و ۱ Heart of the Sea ساخته می‌شه و زیر آب، اکسیژن و سرعت می‌ده.",
+  "uses": [
+    "نفس زیر آب",
+    "سرعت شنا",
+    "حمله به ماب‌های آب"
+  ],
+  "locations": [
+    "صنعت",
+    "Ocean Ruin"
+  ],
+  "drops": [
+    {
+      "item": "conduit",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Conduit"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "lever",
+  "nameEn": "Lever",
+  "nameFa": "اهرم",
+  "category": "redstone",
+  "icon": "px-stick",
+  "hardness": 0.5,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Alpha 1.0.1+",
+    "bedrock": "0.1+"
+  },
+  "description": "اهرم از چوب‌دست و کوب‌استون ساخته می‌شه و یک منبع دائمی یا خاموش رداستون هست.",
+  "uses": [
+    "سوئیچ دستی"
+  ],
+  "locations": [
+    "صنعت",
+    "Jungle Temple"
+  ],
+  "drops": [
+    {
+      "item": "lever",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Lever"
+}

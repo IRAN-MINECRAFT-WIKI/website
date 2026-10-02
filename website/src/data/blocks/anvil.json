@@ -1,0 +1,32 @@
+{
+  "id": "anvil",
+  "nameEn": "Anvil",
+  "nameFa": "آهن‌روس",
+  "category": "mechanism",
+  "icon": "px-iron-ingot",
+  "hardness": 5.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.4+",
+    "bedrock": "0.1+"
+  },
+  "description": "آهن‌روس از ۴ Iron Block ساخته می‌شه و برای تعمیر ابزار و تغییر نام استفاده می‌شه. بعد از ۲۵ بار استفاده می‌شکنه.",
+  "uses": [
+    "تعمیر ابزار",
+    "ترکیب جادوها",
+    "تغییر نام"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "anvil",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Anvil"
+}

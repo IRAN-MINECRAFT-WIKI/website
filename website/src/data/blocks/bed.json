@@ -1,0 +1,34 @@
+{
+  "id": "bed",
+  "nameEn": "Bed",
+  "nameFa": "تختی‌خواب",
+  "category": "decoration",
+  "icon": "px-bread",
+  "hardness": 0.2,
+  "tool": "none",
+  "stackSize": 1,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.3+",
+    "bedrock": "0.1+"
+  },
+  "description": "تختی‌خواب از ۳ پشم و ۳ تخته ساخته می‌شه و برای تنظیم نقطه‌ی اسپاون و عبور شب استفاده می‌شه.",
+  "uses": [
+    "تنظیم اسپاون",
+    "عبور شب",
+    "ساخت Cloud"
+  ],
+  "locations": [
+    "صنعت",
+    "Village",
+    "Igloo"
+  ],
+  "drops": [
+    {
+      "item": "bed",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Bed"
+}

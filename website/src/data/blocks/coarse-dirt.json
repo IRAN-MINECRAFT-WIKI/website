@@ -1,0 +1,32 @@
+{
+  "id": "coarse-dirt",
+  "nameEn": "Coarse Dirt",
+  "nameFa": "خاک زبر",
+  "category": "natural",
+  "icon": "dirt",
+  "hardness": 0.5,
+  "tool": "shovel",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.7+",
+    "bedrock": "0.1+"
+  },
+  "description": "خاک زبر در بایوم‌های Giant Tree Taiga و دشت پیدا می‌شه و چمن روی آن رشد نمی‌کنه.",
+  "uses": [
+    "جاده‌ی خاکی",
+    "جلوگیری از رشد چمن"
+  ],
+  "locations": [
+    "Giant Tree Taiga",
+    "دشت"
+  ],
+  "drops": [
+    {
+      "item": "coarse_dirt",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Coarse_Dirt"
+}

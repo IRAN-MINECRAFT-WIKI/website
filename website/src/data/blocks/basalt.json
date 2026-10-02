@@ -1,0 +1,32 @@
+{
+  "id": "basalt",
+  "nameEn": "Basalt",
+  "nameFa": "باسالت",
+  "category": "building",
+  "icon": "px-obsidian",
+  "hardness": 1.25,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.16+",
+    "bedrock": "1.16.0+"
+  },
+  "description": "باسالت در دلتای باسالت نادر پیدا می‌شه و از Blue Ice و Lava به وجود میاد.",
+  "uses": [
+    "ساخت Smooth Basalt",
+    "دکوراسیون نادر"
+  ],
+  "locations": [
+    "Nether Delta",
+    "Bastion"
+  ],
+  "drops": [
+    {
+      "item": "basalt",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Basalt"
+}

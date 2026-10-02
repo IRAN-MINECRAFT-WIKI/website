@@ -1,0 +1,33 @@
+{
+  "id": "cauldron",
+  "nameEn": "Cauldron",
+  "nameFa": "دیگ",
+  "category": "mechanism",
+  "icon": "px-furnace",
+  "hardness": 2.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "دیگ از ۷ Iron Ingot ساخته می‌شه و می‌تونه آب، معجون یا رنگ رو نگه داره.",
+  "uses": [
+    "نگهداری آب",
+    "نگهداری معجون",
+    "توسط رنگ"
+  ],
+  "locations": [
+    "صنعت",
+    "Witch Hut"
+  ],
+  "drops": [
+    {
+      "item": "cauldron",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Cauldron"
+}

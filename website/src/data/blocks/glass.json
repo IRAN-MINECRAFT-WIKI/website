@@ -1,0 +1,38 @@
+{
+  "id": "glass",
+  "nameEn": "Glass",
+  "nameFa": "شیشه",
+  "category": "building",
+  "icon": "px-ice",
+  "hardness": 0.3,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "شیشه از ذوب شدن ماسه در کوره ساخته می‌شه. نور رو عبور می‌ده ولی دیدن از طریقش محدوده.",
+  "uses": [
+    "ساخت پنجره",
+    "ساخت آکواریوم",
+    "ساخت Glass Pane"
+  ],
+  "locations": [
+    "صنعت (کوره)"
+  ],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "glass",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Glass"
+}

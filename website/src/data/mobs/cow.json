@@ -1,0 +1,36 @@
+{
+  "id": "cow",
+  "nameEn": "Cow",
+  "nameFa": "گاو",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 10,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.2,
+  "versions": {
+    "java": "Alpha 1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "گاو منبع چرم و Raw Beef هست. با سطل حلیب می‌تونی شیر ازش بگیری.",
+  "drops": [
+    {
+      "item": "raw_beef",
+      "count": "1-3"
+    },
+    {
+      "item": "leather",
+      "count": "0-2"
+    }
+  ],
+  "locations": [
+    "بایوم چمنزار",
+    "Village",
+    "Forest"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Cow"
+}

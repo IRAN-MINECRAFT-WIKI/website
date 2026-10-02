@@ -1,0 +1,31 @@
+{
+  "id": "villager",
+  "nameEn": "Villager",
+  "nameFa": "روستایی",
+  "category": "utility",
+  "icon": "px-cow-face",
+  "health": 20,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "روستایی در Village پیدا می‌شه و با تجارت Emerald می‌ده. شغل‌های مختلفی داره (Farmer, Librarian, Blacksmith و...).",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Village"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "با تجارت Emerald بگیر"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Villager"
+}

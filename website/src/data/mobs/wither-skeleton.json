@@ -1,0 +1,41 @@
+{
+  "id": "wither-skeleton",
+  "nameEn": "Wither Skeleton",
+  "nameFa": "اسکلت ویدر",
+  "category": "boss",
+  "icon": "px-skeleton-face",
+  "health": 20,
+  "damage": {
+    "contact": 7,
+    "wither": 5
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.4+",
+    "bedrock": "0.16.0+"
+  },
+  "description": "اسکلت ویدر در Nether Fortress پیدا می‌شه و با ضربه، Wither اثر می‌ده. با احتمال کم Wither Skeleton Skull می‌ده.",
+  "drops": [
+    {
+      "item": "coal",
+      "count": "0-1"
+    },
+    {
+      "item": "bone",
+      "count": "0-2"
+    },
+    {
+      "item": "wither_skeleton_skull",
+      "count": "1",
+      "condition": "احتمال کم"
+    }
+  ],
+  "locations": [
+    "Nether Fortress (محل اسپاون اسپاگم)"
+  ],
+  "combat": [
+    "با شمشیر و سپر",
+    "با Looting III احتمال Skull بیشتر"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Wither_Skeleton"
+}

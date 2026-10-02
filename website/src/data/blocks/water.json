@@ -1,0 +1,35 @@
+{
+  "id": "water",
+  "nameEn": "Water",
+  "nameFa": "آب",
+  "category": "natural",
+  "icon": "px-water-bucket",
+  "hardness": 100.0,
+  "tool": "none",
+  "stackSize": 1,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "آب بلوک مایع روانی هست که در دریاها و رودخانه‌ها پیدا می‌شه. با سطل قابل حمل هست.",
+  "uses": [
+    "کشاورزی",
+    "ساخت آکواریوم",
+    "ساخت ObSidian با لاوا"
+  ],
+  "locations": [
+    "دریا",
+    "رودخانه",
+    "چشمه"
+  ],
+  "drops": [
+    {
+      "item": "water_bucket",
+      "count": "1",
+      "condition": "با سطل"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Water"
+}

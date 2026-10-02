@@ -1,0 +1,34 @@
+{
+  "id": "silverfish",
+  "nameEn": "Silverfish",
+  "nameFa": "ماهی نقره",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 8,
+  "damage": {
+    "contact": 1
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "ماهی نقره از سنگ Stronghold بیرون میاد و به سرعت حمله می‌کنه. اگر کوب‌استون Stronghold رو بشکنی ظاهر می‌شه.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Stronghold",
+    "Extreme Hills",
+    "Infested Block"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "با کمان از دور",
+    "رو دربان و فرار کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Silverfish"
+}

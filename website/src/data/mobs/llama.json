@@ -1,0 +1,33 @@
+{
+  "id": "llama",
+  "nameEn": "Llama",
+  "nameFa": "لاما",
+  "category": "neutral",
+  "icon": "px-cow-face",
+  "health": 22,
+  "damage": {
+    "contact": 1,
+    "ranged": 1
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.11+",
+    "bedrock": "1.0.0+"
+  },
+  "description": "لاما در Savanna و Mountains پیدا می‌شه و می‌تونی صندوق روش بذاری. با تأخیر بهت تف می‌زنه.",
+  "drops": [
+    {
+      "item": "leather",
+      "count": "0-2"
+    }
+  ],
+  "locations": [
+    "Savanna",
+    "Windswept Hills"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "از دور بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Llama"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "item-frame",
+  "nameEn": "Item Frame",
+  "nameFa": "قاب آیتم",
+  "category": "decoration",
+  "icon": "px-stick",
+  "hardness": 0.25,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.4+",
+    "bedrock": "0.1+"
+  },
+  "description": "قاب آیتم از ۸ چوب‌دست و ۱ پشم چرم ساخته می‌شه و برای نمایش آیتم روی دیوار استفاده می‌شه.",
+  "uses": [
+    "نمایش آیتم",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "item_frame",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Item_Frame"
+}

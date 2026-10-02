@@ -1,0 +1,35 @@
+{
+  "id": "chicken",
+  "nameEn": "Chicken",
+  "nameFa": "مرغ",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 4,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "Alpha 1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "مرغ هر ۵-۱۰ دقیقه یه تخم‌مرغ می‌ذاره و وقتی از جا بلند می‌شه، افتادن آسیب نمی‌بینه.",
+  "drops": [
+    {
+      "item": "raw_chicken",
+      "count": "1"
+    },
+    {
+      "item": "feather",
+      "count": "0-2"
+    }
+  ],
+  "locations": [
+    "بایوم چمنزار",
+    "Village"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Chicken"
+}

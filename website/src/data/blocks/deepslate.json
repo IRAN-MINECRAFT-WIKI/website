@@ -1,0 +1,37 @@
+{
+  "id": "deepslate",
+  "nameEn": "Deepslate",
+  "nameFa": "سنگ تیره عمیق",
+  "category": "building",
+  "icon": "px-stone-block",
+  "hardness": 3.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.17+",
+    "bedrock": "1.18.0+"
+  },
+  "description": "دیپ‌اسلیت در عمق y=0 به پایین پیدا می‌شه و سخت‌تر از سنگ معمولی شکسته می‌شه.",
+  "uses": [
+    "ساخت Deepslate Bricks",
+    "دکوراسیون تیره"
+  ],
+  "locations": [
+    "عمق y=0 تا y=-64"
+  ],
+  "drops": [
+    {
+      "item": "cobbled_deepslate",
+      "count": "1",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "deepslate",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Deepslate"
+}

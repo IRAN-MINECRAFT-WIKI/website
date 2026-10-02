@@ -1,0 +1,31 @@
+{
+  "id": "sticky-piston",
+  "nameEn": "Sticky Piston",
+  "nameFa": "پیستون چسبناک",
+  "category": "redstone",
+  "icon": "px-cobblestone",
+  "hardness": 1.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.7+",
+    "bedrock": "0.1+"
+  },
+  "description": "پیستون چسبناک از پیستون و Slimball ساخته می‌شه و بلوک‌ها رو هم هل می‌ده هم عقب می‌کشه.",
+  "uses": [
+    "هل و کشیدن بلوک",
+    "درب‌های مخفی"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "sticky_piston",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Sticky_Piston"
+}

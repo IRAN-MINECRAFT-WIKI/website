@@ -1,0 +1,33 @@
+{
+  "id": "crafting-table",
+  "nameEn": "Crafting Table",
+  "nameFa": "میز ساخت",
+  "category": "utility",
+  "icon": "crafting-table-top",
+  "hardness": 2.5,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "میز ساخت از ۴ تخته ساخته می‌شه و امکان ساخت در شبکه‌ی ۳×۳ رو می‌ده. اولین ابزار هر بازیکن!",
+  "uses": [
+    "ساخت ابزار و وسایل",
+    "ساخت کوره",
+    "ساخت پیشرفت"
+  ],
+  "locations": [
+    "صنعت",
+    "Village"
+  ],
+  "drops": [
+    {
+      "item": "crafting_table",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Crafting_Table"
+}

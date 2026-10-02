@@ -1,0 +1,38 @@
+{
+  "id": "emerald-ore",
+  "nameEn": "Emerald Ore",
+  "nameFa": "سنگ زمرد",
+  "category": "ore",
+  "icon": "emerald-ore",
+  "hardness": 3.0,
+  "tool": "iron_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "سنگ زمرد کمیاب‌ترین سنگ معدنی هست و فقط در بایوم Extreme Hills پیدا می‌شه. برای تجارت با روستایی‌ها استفاده می‌شه.",
+  "uses": [
+    "تجارت با روستایی‌ها",
+    "ساخت Block of Emerald"
+  ],
+  "locations": [
+    "بایوم کوهستان",
+    "y=-16 تا y=32"
+  ],
+  "drops": [
+    {
+      "item": "emerald",
+      "count": "1",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "emerald_ore",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Emerald_Ore"
+}

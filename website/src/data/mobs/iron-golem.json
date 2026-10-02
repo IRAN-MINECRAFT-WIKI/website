@@ -1,0 +1,39 @@
+{
+  "id": "iron-golem",
+  "nameEn": "Iron Golem",
+  "nameFa": "گلولم آهنی",
+  "category": "neutral",
+  "icon": "px-cow-face",
+  "health": 100,
+  "damage": {
+    "contact": 15,
+    "ranged": 15,
+    "fling": 18
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "گلولم آهنی در Village پیدا می‌شه و از ۴ Iron Block + Pumpkin ساخته می‌شه. به روستایی‌ها حمله نمی‌کنه ولی به ماب‌های متخاصم حمله می‌کنه.",
+  "drops": [
+    {
+      "item": "iron_ingot",
+      "count": "3-5"
+    },
+    {
+      "item": "poppy",
+      "count": "0-2"
+    }
+  ],
+  "locations": [
+    "Village",
+    "Pillager Outpost Cage"
+  ],
+  "combat": [
+    "با شمشیر و شیر حلیب",
+    "با کمان از دور",
+    "از سقف بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Iron_Golem"
+}

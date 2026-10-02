@@ -1,0 +1,32 @@
+{
+  "id": "spruce-log",
+  "nameEn": "Spruce Log",
+  "nameFa": "تنه‌ی نجوکا",
+  "category": "natural",
+  "icon": "oak-log",
+  "hardness": 2.0,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "تنه‌ی نجوکا در تایگا پیدا می‌شه و رنگ تیره‌تری نسبت به بلوط داره.",
+  "uses": [
+    "ساخت تخته‌های نجوکا",
+    "ساخت Coal Char"
+  ],
+  "locations": [
+    "تایگا",
+    "جنگل تیره"
+  ],
+  "drops": [
+    {
+      "item": "spruce_log",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Spruce_Log"
+}

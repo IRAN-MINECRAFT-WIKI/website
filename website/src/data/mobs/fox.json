@@ -1,0 +1,32 @@
+{
+  "id": "fox",
+  "nameEn": "Fox",
+  "nameFa": "روباه",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 20,
+  "damage": {
+    "contact": 2
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.13.0+"
+  },
+  "description": "روباه در جنگل‌های کهنه (Old Growth Taiga) پیدا می‌شه و شب فعال هست. می‌تونی با Sweet Berry اهلیش کنی.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Old Growth Taiga",
+    "Forest"
+  ],
+  "combat": [
+    "با شمشیر بزن",
+    "با Sweet Berry تله بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Fox"
+}

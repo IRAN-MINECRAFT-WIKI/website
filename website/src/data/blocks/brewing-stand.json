@@ -1,0 +1,32 @@
+{
+  "id": "brewing-stand",
+  "nameEn": "Brewing Stand",
+  "nameFa": "میز جوشان",
+  "category": "mechanism",
+  "icon": "px-furnace",
+  "hardness": 0.5,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 1,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "میز جوش از ۳ Cobblestone و ۱ Blaze Rod ساخته می‌شه و برای ساخت معجون استفاده می‌شه.",
+  "uses": [
+    "ساخت معجون",
+    "ساخت Splash Potion"
+  ],
+  "locations": [
+    "صنعت",
+    "End Ship"
+  ],
+  "drops": [
+    {
+      "item": "brewing_stand",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Brewing_Stand"
+}

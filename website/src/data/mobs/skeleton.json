@@ -1,0 +1,39 @@
+{
+  "id": "skeleton",
+  "nameEn": "Skeleton",
+  "nameFa": "اسکلت",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 20,
+  "damage": {
+    "contact": 0,
+    "ranged": 4
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "0.24+",
+    "bedrock": "0.1+"
+  },
+  "description": "اسکلت با کمان از دور حمله می‌کنه. در نور خورشید می‌سوزه. استخوان و تیر می‌ده.",
+  "drops": [
+    {
+      "item": "bone",
+      "count": "0-2"
+    },
+    {
+      "item": "arrow",
+      "count": "0-2"
+    }
+  ],
+  "locations": [
+    "سطح (روشنایی < 7)",
+    "غارها",
+    "Nether Fortress (Wither Skeleton)"
+  ],
+  "combat": [
+    "از دور با کمان بزن",
+    "نزدیک شو و بزن",
+    "با سپر تیرها رو بلاک کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Skeleton"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "banner",
+  "nameEn": "Banner",
+  "nameFa": "پرچم",
+  "category": "decoration",
+  "icon": "px-stick",
+  "hardness": 1.0,
+  "tool": "axe",
+  "stackSize": 16,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "پرچم از ۶ پشم و ۱ چوب‌دست ساخته می‌شه و با ۳۸ طرح مختلف قابل سفارشی‌سازی هست.",
+  "uses": [
+    "نشان خاندان",
+    "دکوراسیون",
+    "نقشه‌ی مکان"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "banner",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Banner"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "bee",
+  "nameEn": "Bee",
+  "nameFa": "زنبور",
+  "category": "neutral",
+  "icon": "px-cow-face",
+  "health": 10,
+  "damage": {
+    "contact": 2,
+    "poison": 12
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.15+",
+    "bedrock": "1.14.0+"
+  },
+  "description": "زنبور در Bee Nest یا Beehive پیدا می‌شه و با گرده‌افشانی به بازیکن شفایافت Speed می‌ده. اگه حمله کنه بعد از ۱ دقیقه می‌میره.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Plains",
+    "Sunflower Plains",
+    "Flower Forest"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "با Campfire از کندو نگه‌دار"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Bee"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "rabbit",
+  "nameEn": "Rabbit",
+  "nameFa": "خرگوش",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 3,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.8+",
+    "bedrock": "0.13.0+"
+  },
+  "description": "خرگوش در بایوم‌های مختلف پیدا می‌شه و در رنگ‌های مختلف. نسخه‌ی Killer Bunny هم وجود داره که حمله می‌کنه.",
+  "drops": [
+    {
+      "item": "rabbit_hide",
+      "count": "0-1"
+    },
+    {
+      "item": "raw_rabbit",
+      "count": "0-1"
+    },
+    {
+      "item": "rabbit_foot",
+      "count": "0-1",
+      "condition": "احتمال کم"
+    }
+  ],
+  "locations": [
+    "Plains",
+    "Desert",
+    "Snowy Tundra",
+    "Taiga"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Rabbit"
+}

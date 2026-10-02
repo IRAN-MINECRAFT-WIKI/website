@@ -1,0 +1,32 @@
+{
+  "id": "pufferfish",
+  "nameEn": "Pufferfish",
+  "nameFa": "ماهی بادی",
+  "category": "ambient",
+  "icon": "px-cow-face",
+  "health": 3,
+  "damage": {
+    "contact": 0,
+    "poison": 0
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "1.7+",
+    "bedrock": "0.1+"
+  },
+  "description": "ماهی بادی در Lukewarm Ocean پیدا می‌شه و اگه نزدیک بشی، فوراً باد می‌کنه و با Poison آسیب می‌زنه.",
+  "drops": [
+    {
+      "item": "pufferfish",
+      "count": "1"
+    }
+  ],
+  "locations": [
+    "Lukewarm Ocean",
+    "Warm Ocean"
+  ],
+  "combat": [
+    "با قلاب یا دست"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Pufferfish"
+}

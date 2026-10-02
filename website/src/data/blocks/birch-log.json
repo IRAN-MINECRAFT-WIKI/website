@@ -1,0 +1,30 @@
+{
+  "id": "birch-log",
+  "nameEn": "Birch Log",
+  "nameFa": "تنه‌ی توس",
+  "category": "natural",
+  "icon": "oak-log",
+  "hardness": 2.0,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "تنه‌ی توس در جنگل‌های توس پیدا می‌شه و رنگ سفید متمایزی داره.",
+  "uses": [
+    "ساخت تخته‌های توس"
+  ],
+  "locations": [
+    "جنگل توس"
+  ],
+  "drops": [
+    {
+      "item": "birch_log",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Birch_Log"
+}

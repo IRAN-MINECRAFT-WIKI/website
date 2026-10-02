@@ -1,0 +1,39 @@
+{
+  "id": "stone",
+  "nameEn": "Stone",
+  "nameFa": "سنگ",
+  "category": "building",
+  "icon": "stone",
+  "hardness": 1.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "سنگ پایه‌ای‌ترین بلاک ساختمانی ماینکرفت است. بعد از استخراج با پیکه تبدیل به کوب‌استون می‌شود ولی با کوره به سنگ برمی‌گردد.",
+  "uses": [
+    "ساخت کلیسای سنگ",
+    "ساخت Stonecutter",
+    "ساخت پله و دیده"
+  ],
+  "locations": [
+    "زیرزمین (دنیای اصلی)",
+    "در تمام بایوم‌ها"
+  ],
+  "drops": [
+    {
+      "item": "cobblestone",
+      "count": "1",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "stone",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Stone"
+}

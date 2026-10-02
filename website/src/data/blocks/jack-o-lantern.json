@@ -1,0 +1,32 @@
+{
+  "id": "jack-o-lantern",
+  "nameEn": "Jack o'Lantern",
+  "nameFa": "جک لانتورن",
+  "category": "decoration",
+  "icon": "px-pumpkin",
+  "hardness": 1.0,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "جک لانتورن از ترکیب کدو و مشعل ساخته می‌شه و نور ۱۵ درجه ساطع می‌کنه.",
+  "uses": [
+    "منبع نور",
+    "ساخت Snow Golem",
+    "ساخت Iron Golem"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "jack_o_lantern",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Jack_o%27Lantern"
+}

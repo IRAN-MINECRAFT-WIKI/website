@@ -1,0 +1,32 @@
+{
+  "id": "spruce-planks",
+  "nameEn": "Spruce Planks",
+  "nameFa": "تخته‌های نجوکا",
+  "category": "building",
+  "icon": "oak-planks",
+  "hardness": 2.0,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "تخته‌های نجوکا از چوب درخت نجوکا ساخته می‌شن و در بایوم‌های تایگا پیدا می‌شن. رنگ تیره‌تری دارن.",
+  "uses": [
+    "ساخت وسایل چوبی",
+    "ساخت خانه‌های تیره"
+  ],
+  "locations": [
+    "بایوم تایگا",
+    "بایوم جنگل تیره"
+  ],
+  "drops": [
+    {
+      "item": "spruce_planks",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Spruce_Planks"
+}

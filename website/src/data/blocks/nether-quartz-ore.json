@@ -1,0 +1,38 @@
+{
+  "id": "nether-quartz-ore",
+  "nameEn": "Nether Quartz Ore",
+  "nameFa": "سنگ کوارتز نادر",
+  "category": "ore",
+  "icon": "px-diamond-ore",
+  "hardness": 3.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.5+",
+    "bedrock": "0.6+"
+  },
+  "description": "سنگ کوارتز نادر در نادر پیدا می‌شه و کوارتز می‌ده. برای ساخت کوارتز و Comparator استفاده می‌شه.",
+  "uses": [
+    "ساخت Block of Quartz",
+    "ساخت Comparator",
+    "ساخت Daylight Detector"
+  ],
+  "locations": [
+    "The Nether"
+  ],
+  "drops": [
+    {
+      "item": "nether_quartz",
+      "count": "1",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "nether_quartz_ore",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Nether_Quartz_Ore"
+}

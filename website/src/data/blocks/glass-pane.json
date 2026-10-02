@@ -1,0 +1,37 @@
+{
+  "id": "glass-pane",
+  "nameEn": "Glass Pane",
+  "nameFa": "قاب شیشه",
+  "category": "decoration",
+  "icon": "px-ice",
+  "hardness": 0.3,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "قاب شیشه نازک‌تر از شیشه کامل هست و برای ساخت پنجره‌های باریک استفاده می‌شه.",
+  "uses": [
+    "ساخت پنجره",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "glass_pane",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Glass_Pane"
+}

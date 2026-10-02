@@ -1,0 +1,33 @@
+{
+  "id": "phantom",
+  "nameEn": "Phantom",
+  "nameFa": "فانتوم",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 12,
+  "damage": {
+    "contact": 3
+  },
+  "speed": 0.7,
+  "versions": {
+    "java": "1.13+",
+    "bedrock": "1.6.0+"
+  },
+  "description": "فانتوم در شب به بازیکنانی که ۳ شب نخفته‌اند حمله می‌کنه و از آسمون نازل میاد. Phantom Membrane برای تعمیر Elytra لازم هست.",
+  "drops": [
+    {
+      "item": "phantom_membrane",
+      "count": "0-1",
+      "condition": "اگه بازیکن بکشه"
+    }
+  ],
+  "locations": [
+    "سطح شب (اگه بازیکن نخفته)"
+  ],
+  "combat": [
+    "با شمشیر نزدیک بزن",
+    "با کمان از دور",
+    "با تخت بخواب"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Phantom"
+}

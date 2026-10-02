@@ -1,0 +1,40 @@
+{
+  "id": "grass-block",
+  "nameEn": "Grass Block",
+  "nameFa": "بلوک چمن",
+  "category": "natural",
+  "icon": "grass-block",
+  "hardness": 0.6,
+  "tool": "shovel",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "بلوک چمن پایه‌ی بایوم‌های چمنی هست. با Silk Touch می‌تونی اون رو در حالت چمنی جمع کنی.",
+  "uses": [
+    "ساخت چمنزار",
+    "کشت",
+    "پر کردن زمین"
+  ],
+  "locations": [
+    "بایوم چمنزار",
+    "جنگل",
+    "تایگا"
+  ],
+  "drops": [
+    {
+      "item": "dirt",
+      "count": "1",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "grass_block",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Grass_Block"
+}

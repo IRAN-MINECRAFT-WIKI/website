@@ -1,0 +1,42 @@
+{
+  "id": "stray",
+  "nameEn": "Stray",
+  "nameFa": "ولگرد",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 20,
+  "damage": {
+    "ranged": 4,
+    "contact": 2
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.10+",
+    "bedrock": "1.10.0+"
+  },
+  "description": "ولگرد نسخه‌ی یخی اسکلت هست که در بایوم Snowy Tundra پیدا می‌شه و با تیر Slowness می‌زنه.",
+  "drops": [
+    {
+      "item": "bone",
+      "count": "0-2"
+    },
+    {
+      "item": "arrow",
+      "count": "0-2"
+    },
+    {
+      "item": "arrow_of_slowness",
+      "count": "1",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Snowy Tundra",
+    "Frozen Ocean"
+  ],
+  "combat": [
+    "با سپر تیر رو بلاک کن",
+    "نزدیک شو و بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Stray"
+}

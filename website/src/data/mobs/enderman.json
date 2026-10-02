@@ -1,0 +1,36 @@
+{
+  "id": "enderman",
+  "nameEn": "Enderman",
+  "nameFa": "اِندرمن",
+  "category": "neutral",
+  "icon": "px-creeper-face",
+  "health": 40,
+  "damage": {
+    "contact": 7,
+    "ranged": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "اِندرمن ماب بلند و سیاه هست که می‌تونه بلاک‌ها رو جابجا کنه. اگه به چشمش نگاهی یا حمله کنی، عصبانی می‌شه.",
+  "drops": [
+    {
+      "item": "ender_pearl",
+      "count": "0-1",
+      "condition": "اگه بازیکن بکشه"
+    }
+  ],
+  "locations": [
+    "سطح (روشنایی < 7)",
+    "The End",
+    "Warped Forest"
+  ],
+  "combat": [
+    "به چشمش نگاه نکن",
+    "با آب بزن",
+    "با سپر حمله رو بلاک کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Enderman"
+}

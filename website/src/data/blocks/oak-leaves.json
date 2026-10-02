@@ -1,0 +1,42 @@
+{
+  "id": "oak-leaves",
+  "nameEn": "Oak Leaves",
+  "nameFa": "برگ‌های بلوط",
+  "category": "natural",
+  "icon": "oak-leaves",
+  "hardness": 0.2,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "برگ‌های بلوط از درخت بلوط می‌فتن و ۵٪ احتمال افتادن سیب دارن.",
+  "uses": [
+    "دکوراسیون",
+    "افتادن سیب"
+  ],
+  "locations": [
+    "درخت بلوط"
+  ],
+  "drops": [
+    {
+      "item": "apple",
+      "count": "1",
+      "condition": "۵٪ احتمال"
+    },
+    {
+      "item": "stick",
+      "count": "1-2",
+      "condition": "احتمالی"
+    },
+    {
+      "item": "oak_leaves",
+      "count": "1",
+      "condition": "با Shears"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Oak_Leaves"
+}

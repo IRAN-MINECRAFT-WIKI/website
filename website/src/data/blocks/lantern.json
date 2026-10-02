@@ -1,0 +1,32 @@
+{
+  "id": "lantern",
+  "nameEn": "Lantern",
+  "nameFa": "فانوس",
+  "category": "decoration",
+  "icon": "px-torch",
+  "hardness": 3.5,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.9.0+"
+  },
+  "description": "فانوس از ۸ Iron Nugget و ۱ Torch ساخته می‌شه و نور ۱۵ درجه ساطع می‌کنه. به سقف هم آویزون می‌شه.",
+  "uses": [
+    "منبع نور",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "صنعت",
+    "Village"
+  ],
+  "drops": [
+    {
+      "item": "lantern",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Lantern"
+}

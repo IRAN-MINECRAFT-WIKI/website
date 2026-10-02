@@ -1,0 +1,32 @@
+{
+  "id": "snow-block",
+  "nameEn": "Snow Block",
+  "nameFa": "بلوک برف",
+  "category": "natural",
+  "icon": "px-ice",
+  "hardness": 0.2,
+  "tool": "shovel",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "بلوک برف در بایوم‌های برفی پیدا می‌شه و از ۴ Snow Layer ساخته می‌شه.",
+  "uses": [
+    "ساخت Snow Golem",
+    "ساخت خانه برفی"
+  ],
+  "locations": [
+    "بایوم برفی",
+    "تایگا برفی"
+  ],
+  "drops": [
+    {
+      "item": "snowball",
+      "count": "4"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Snow_Block"
+}

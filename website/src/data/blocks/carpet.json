@@ -1,0 +1,33 @@
+{
+  "id": "carpet",
+  "nameEn": "Carpet",
+  "nameFa": "فرش",
+  "category": "decoration",
+  "icon": "px-stick",
+  "hardness": 0.1,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.6+",
+    "bedrock": "0.1+"
+  },
+  "description": "فرش از ۲ پشم ساخته می‌شه و در ۱۶ رنگ موجود هست. ضخامت ۱ پیکسل داره.",
+  "uses": [
+    "کف‌پوش",
+    "دکوراسیون رنگی"
+  ],
+  "locations": [
+    "صنعت",
+    "Village",
+    "Igloo"
+  ],
+  "drops": [
+    {
+      "item": "carpet",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Carpet"
+}

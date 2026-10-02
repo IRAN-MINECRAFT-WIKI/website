@@ -1,0 +1,32 @@
+{
+  "id": "allay",
+  "nameEn": "Allay",
+  "nameFa": "آلِی",
+  "category": "passive",
+  "icon": "px-creeper-face",
+  "health": 20,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.19+",
+    "bedrock": "1.18.10+"
+  },
+  "description": "آلی ماب دوست‌داشتنی هست که آیتم‌های مشابه رو پیدا می‌کنه و به Note Block میاره. در Woodland Mansion یا Stronghold پیدا می‌شه.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Woodland Mansion",
+    "Pillager Outpost Cage"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "با Note Block بهش بگو"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Allay"
+}

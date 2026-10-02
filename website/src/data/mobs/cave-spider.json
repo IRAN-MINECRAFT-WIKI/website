@@ -1,0 +1,38 @@
+{
+  "id": "cave-spider",
+  "nameEn": "Cave Spider",
+  "nameFa": "عنکبوت غار",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 12,
+  "damage": {
+    "contact": 2,
+    "explosion": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "Beta 1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "عنکبوت غار کوچک‌تر و سمی‌تر از عنکبوت معمولی هست. گازش باعث Poison می‌شه و از سوراخ‌های کوچک رد می‌شه.",
+  "drops": [
+    {
+      "item": "string",
+      "count": "0-2"
+    },
+    {
+      "item": "spider_eye",
+      "count": "1",
+      "condition": "اگه بازیکن بکشه"
+    }
+  ],
+  "locations": [
+    "Mineshaft"
+  ],
+  "combat": [
+    "با شیر حلیب بزن",
+    "از دور بکش",
+    "با سپر"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Cave_Spider"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "gravel",
+  "nameEn": "Gravel",
+  "nameFa": "شن و ماسه",
+  "category": "natural",
+  "icon": "gravel",
+  "hardness": 0.6,
+  "tool": "shovel",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "شن‌ و ماسه در زیرزمین و ساحل پیدا می‌شه. تحت تأثیر گرانش می‌افته و برای ساخت Flint استفاده می‌شه.",
+  "uses": [
+    "ساخت Flint",
+    "ساخت Concrete Powder"
+  ],
+  "locations": [
+    "زیرزمین",
+    "ساحل",
+    "رودخانه"
+  ],
+  "drops": [
+    {
+      "item": "flint",
+      "count": "1",
+      "condition": "۱۰٪ احتمال"
+    },
+    {
+      "item": "gravel",
+      "count": "1",
+      "condition": "۹۰٪ احتمال"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Gravel"
+}

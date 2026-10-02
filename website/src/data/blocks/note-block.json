@@ -1,0 +1,31 @@
+{
+  "id": "note-block",
+  "nameEn": "Note Block",
+  "nameFa": "بلوک نت",
+  "category": "redstone",
+  "icon": "px-crafting-table",
+  "hardness": 0.8,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "بلوک نت از ۸ تخته و ۱ رداستون ساخته می‌شه و با کلیک نت موسیقی تولید می‌کنه.",
+  "uses": [
+    "ساخت موسیقی",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "note_block",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Note_Block"
+}

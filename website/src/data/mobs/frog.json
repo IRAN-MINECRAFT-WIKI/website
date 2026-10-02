@@ -1,0 +1,31 @@
+{
+  "id": "frog",
+  "nameEn": "Frog",
+  "nameFa": "قورباغه",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 10,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.19+",
+    "bedrock": "1.18.10+"
+  },
+  "description": "قورباغه در Swamp پیدا می‌شه و با Slimball می‌تونی اهلیش کنی. سه نوع تمپراتور داره.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Swamp",
+    "Mangrove Swamp"
+  ],
+  "combat": [
+    "با یک ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Frog"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "sea-lantern",
+  "nameEn": "Sea Lantern",
+  "nameFa": "فانوس دریایی",
+  "category": "decoration",
+  "icon": "px-glowstone",
+  "hardness": 0.3,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "فانوس دریایی از ۵ Prismarine Crystal و ۱ Prismarine Shard ساخته می‌شه و در Ocean Monument پیدا می‌شه.",
+  "uses": [
+    "منبع نور زیر آب",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "Ocean Monument"
+  ],
+  "drops": [
+    {
+      "item": "prismarine_crystals",
+      "count": "2-3",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "sea_lantern",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Sea_Lantern"
+}

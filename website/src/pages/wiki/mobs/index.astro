@@ -1,0 +1,216 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import {
+  mobs,
+  MOB_CATEGORIES,
+  type MobInfo,
+} from '@/lib/data';
+import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'ویکی', url: '/wiki' },
+  { name: 'ماب‌ها', url: '/wiki/mobs' },
+];
+
+const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
+const ldItemList = itemListJsonLd(mobs.map((m) => ({ name: m.nameFa, url: `/wiki/mobs/${m.id}` })));
+
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+// Group mobs by category
+const mobsByCategory: Record<string, MobInfo[]> = {};
+for (const c of MOB_CATEGORIES) {
+  mobsByCategory[c.id] = mobs.filter((m) => m.category === c.id);
+}
+---
+
+<BaseLayout
+  path="/wiki/mobs"
+  title="راهنمای کامل ماب‌های ماینکرفت"
+  description="راهنمای فارسی ماب‌های ماینکرفت: بیش از ۵۰ ماب با اطلاعات کامل — سلامت، آسیب، سرعت، دراپ، محل یافتن، راه‌های مبارزه و لینک به Minecraft Wiki."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(ldBreadcrumb)} />
+  <script type="application/ld+json" set:html={JSON.stringify(ldItemList)} />
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">ماب‌های ماینکرفت</h1>
+    <p class="text-sm text-mc-text-2">
+      {faNum(mobs.length)} ماب در {faNum(MOB_CATEGORIES.length)} دسته — متخاصم، صلح‌جو، خنثی، بوس، کاربردی و محیطی
+    </p>
+  </div>
+
+  <!-- Filter toolbar -->
+  <div class="mc-panel p-3 mb-5 flex flex-wrap items-center gap-3">
+    <div class="flex flex-wrap gap-2" id="mobChips">
+      <button class="mc-chip active" data-cat="all">همه ({faNum(mobs.length)})</button>
+      {MOB_CATEGORIES.map((c) => {
+        const count = (mobsByCategory[c.id] || []).length;
+        return (
+          <button class="mc-chip" data-cat={c.id}>
+            {c.icon} {c.nameFa} ({faNum(count)})
+          </button>
+        );
+      })}
+    </div>
+    <div class="mr-auto flex items-center gap-2">
+      <label for="mobSearch" class="text-xs text-mc-text-3 font-bold">جستجو:</label>
+      <input
+        id="mobSearch"
+        type="search"
+        placeholder="مثلا کریپر یا zombie..."
+        class="sw-input text-xs py-1.5 px-3"
+        dir="rtl"
+      />
+    </div>
+  </div>
+
+  <!-- Per-category sections -->
+  {MOB_CATEGORIES.map((c) => {
+    const items = mobsByCategory[c.id] || [];
+    if (items.length === 0) return null;
+    return (
+      <section class="mb-10" id={`cat-${c.id}`} data-cat-section={c.id}>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">{c.icon}</span>
+          <div>
+            <h2 class="text-xl font-extrabold">{c.nameFa}</h2>
+            <p class="text-xs text-mc-text-3">{faNum(items.length)} ماب</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {items.map((m) => (
+            <a
+              href={base(`/wiki/mobs/${m.id}`)}
+              class="mc-panel hoverable group block p-3 text-center"
+              data-cat={m.category}
+              data-name={m.nameFa}
+              data-en={m.nameEn}
+              data-id={m.id}
+            >
+              <div class="mx-auto mb-2 inline-flex items-center justify-center w-12 h-12">
+                <img
+                  src={`${BASE}textures/blocks/${m.icon.replace('px-', '').replace('-face', '')}.png`}
+                  alt={m.nameFa}
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                  decoding="async"
+                  class="pixel-img"
+                  onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
+                />
+                <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+                  <use href={`#${m.icon.startsWith('px-') ? m.icon : 'px-' + m.icon}`} />
+                </svg>
+              </div>
+              <h3 class="text-sm font-bold text-mc-text group-hover:text-mc-grass-2 leading-tight mb-1">{m.nameFa}</h3>
+              <p class="text-[10px] text-mc-text-3" dir="ltr">{m.nameEn}</p>
+              <div class="text-[10px] text-mc-redstone mt-1">❤ {faNum(m.health)}</div>
+            </a>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+
+  <!-- Empty state -->
+  <p class="mc-panel text-center py-8 text-sm text-mc-text-2 hidden" id="mobNoResults">
+    هیچ مابی با این فیلتر پیدا نشد. 🔍 فیلترها را تغییر دهید.
+  </p>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const chips = document.querySelectorAll('#mobChips .mc-chip');
+    const searchInput = document.getElementById('mobSearch');
+    const noResults = document.getElementById('mobNoResults');
+    const sections = document.querySelectorAll('[data-cat-section]');
+    if (!chips.length) return;
+
+    let curCat = 'all';
+    let curQuery = '';
+
+    function applyFilter() {
+      const q = curQuery.trim().toLowerCase();
+      let visibleCount = 0;
+
+      sections.forEach((sec) => {
+        const catId = sec.getAttribute('data-cat-section');
+        const cards = sec.querySelectorAll('[data-cat]');
+        let visibleInSec = 0;
+        cards.forEach((card) => {
+          const cardCat = card.getAttribute('data-cat');
+          if (curCat !== 'all' && cardCat !== curCat) {
+            card.style.display = 'none';
+            return;
+          }
+          if (q) {
+            const haystack = [
+              card.dataset.name || '',
+              card.dataset.en || '',
+              card.dataset.id || '',
+            ].join(' ').toLowerCase();
+            if (!haystack.includes(q)) {
+              card.style.display = 'none';
+              return;
+            }
+          }
+          card.style.display = '';
+          visibleInSec++;
+          visibleCount++;
+        });
+        if (curCat !== 'all' && curCat !== catId) {
+          sec.style.display = 'none';
+        } else if (visibleInSec === 0 && q) {
+          sec.style.display = 'none';
+        } else {
+          sec.style.display = '';
+        }
+      });
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      }
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        curCat = chip.dataset.cat || 'all';
+        applyFilter();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        curQuery = searchInput.value;
+        applyFilter();
+      });
+    }
+  })();
+</script>
+
+<style>
+  .sw-input {
+    background: var(--bg-2, #0d0d18);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    border-radius: 4px;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sw-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+    background: #141428;
+  }
+</style>

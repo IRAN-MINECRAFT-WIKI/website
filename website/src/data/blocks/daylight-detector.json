@@ -1,0 +1,31 @@
+{
+  "id": "daylight-detector",
+  "nameEn": "Daylight Detector",
+  "nameFa": "تشخیص‌دهنده‌ی نور",
+  "category": "redstone",
+  "icon": "px-stone-block",
+  "hardness": 0.2,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.5+",
+    "bedrock": "0.1+"
+  },
+  "description": "تشخیص‌دهنده‌ی نور از ۳ چوب، ۳ شیشه پلکانی و ۳ Nether Quartz ساخته می‌شه و در روز سیگنال رداستون ساطع می‌کنه.",
+  "uses": [
+    "روشنایی خودکار شب",
+    "مدارهای زمانی"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "daylight_detector",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Daylight_Detector"
+}

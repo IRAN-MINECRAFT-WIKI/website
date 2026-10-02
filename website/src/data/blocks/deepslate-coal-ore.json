@@ -1,0 +1,37 @@
+{
+  "id": "deepslate-coal-ore",
+  "nameEn": "Deepslate Coal Ore",
+  "nameFa": "سنگ زغال‌سنگ دیپ‌اسلیت",
+  "category": "ore",
+  "icon": "coal-ore",
+  "hardness": 4.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.17+",
+    "bedrock": "1.18.0+"
+  },
+  "description": "نسخه‌ی دیپ‌اسلیتی سنگ زغال‌سنگ در عمق y=0 به پایین پیدا می‌شه و سخت‌تر شکسته می‌شه.",
+  "uses": [
+    "سوخت کوره",
+    "ساخت مشعل"
+  ],
+  "locations": [
+    "y=0 تا y=-64"
+  ],
+  "drops": [
+    {
+      "item": "coal",
+      "count": "1",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "deepslate_coal_ore",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Deepslate_Coal_Ore"
+}

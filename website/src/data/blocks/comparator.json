@@ -1,0 +1,31 @@
+{
+  "id": "comparator",
+  "nameEn": "Redstone Comparator",
+  "nameFa": "مقایسه‌کننده‌ی رداستون",
+  "category": "redstone",
+  "icon": "px-stone-block",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.5+",
+    "bedrock": "0.14.0+"
+  },
+  "description": "مقایسه‌کننده در 1.5 اضافه شد و سیگنال رداستون رو با آیتم‌های داخل ظرف مقایسه می‌کنه.",
+  "uses": [
+    "تشخیص محتویات ظرف",
+    "مدار منطقی"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "comparator",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Redstone_Comparator"
+}

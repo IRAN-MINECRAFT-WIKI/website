@@ -1,0 +1,38 @@
+{
+  "id": "ender-chest",
+  "nameEn": "Ender Chest",
+  "nameFa": "صندوق اِندر",
+  "category": "utility",
+  "icon": "chest",
+  "hardness": 22.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 7,
+  "versions": {
+    "java": "1.3+",
+    "bedrock": "0.1+"
+  },
+  "description": "صندوق اِندر از ۸ اوبسیدین و ۱ Eye of Ender ساخته می‌شه و محتوای اون بین تمام صندوق‌های اِندر مشترک هست.",
+  "uses": [
+    "ذخیره‌ی اشتراکی",
+    "حمل لوازم اضافه"
+  ],
+  "locations": [
+    "صنعت",
+    "Stronghold"
+  ],
+  "drops": [
+    {
+      "item": "obsidian",
+      "count": "8",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "ender_chest",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Ender_Chest"
+}

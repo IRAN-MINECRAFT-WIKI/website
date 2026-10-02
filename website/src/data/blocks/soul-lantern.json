@@ -1,0 +1,31 @@
+{
+  "id": "soul-lantern",
+  "nameEn": "Soul Lantern",
+  "nameFa": "فانوس روح",
+  "category": "decoration",
+  "icon": "px-torch",
+  "hardness": 3.5,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 10,
+  "versions": {
+    "java": "1.16+",
+    "bedrock": "1.16.0+"
+  },
+  "description": "فانوس روح نور آبی‌رنگ کمتری از فانوس معمولی داره ولی از Soul Sand/Soil ساخته می‌شه.",
+  "uses": [
+    "منبع نور آبی",
+    "دکوراسیون نادر"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "soul_lantern",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Soul_Lantern"
+}

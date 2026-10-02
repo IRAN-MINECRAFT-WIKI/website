@@ -1,0 +1,31 @@
+{
+  "id": "donkey",
+  "nameEn": "Donkey",
+  "nameFa": "الاغ",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 30,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "1.6+",
+    "bedrock": "0.15.0+"
+  },
+  "description": "الاغ کوچک‌تر از اسب هست و می‌تونی صندوق روش بذاری تا ۱۵ اسلات فضای ذخیره داشته باشی.",
+  "drops": [
+    {
+      "item": "leather",
+      "count": "0-2"
+    }
+  ],
+  "locations": [
+    "Plains",
+    "Savanna"
+  ],
+  "combat": [
+    "با چند ضربه بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Donkey"
+}

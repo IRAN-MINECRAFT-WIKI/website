@@ -1,0 +1,33 @@
+{
+  "id": "panda",
+  "nameEn": "Panda",
+  "nameFa": "پاندا",
+  "category": "neutral",
+  "icon": "px-cow-face",
+  "health": 20,
+  "damage": {
+    "contact": 6
+  },
+  "speed": 0.15,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.8.0+"
+  },
+  "description": "پاندا در Jungle و Bamboo Jungle پیدا می‌شه و در ۷ شخصیت مختلف (playful, lazy, worried و...) موجود هست.",
+  "drops": [
+    {
+      "item": "bamboo",
+      "count": "0-2",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Jungle",
+    "Bamboo Jungle"
+  ],
+  "combat": [
+    "با شمشیر بزن",
+    "از بچه‌ها دور باش"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Panda"
+}

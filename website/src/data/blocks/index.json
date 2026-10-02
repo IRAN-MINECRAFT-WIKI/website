@@ -1,0 +1,788 @@
+{
+  "blocks": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "category": "building",
+      "icon": "stone"
+    },
+    {
+      "id": "cobblestone",
+      "nameEn": "Cobblestone",
+      "nameFa": "کوب‌استون",
+      "category": "building",
+      "icon": "cobblestone"
+    },
+    {
+      "id": "oak-planks",
+      "nameEn": "Oak Planks",
+      "nameFa": "تخته‌های بلوط",
+      "category": "building",
+      "icon": "oak-planks"
+    },
+    {
+      "id": "spruce-planks",
+      "nameEn": "Spruce Planks",
+      "nameFa": "تخته‌های نجوکا",
+      "category": "building",
+      "icon": "oak-planks"
+    },
+    {
+      "id": "birch-planks",
+      "nameEn": "Birch Planks",
+      "nameFa": "تخته‌های توس",
+      "category": "building",
+      "icon": "oak-planks"
+    },
+    {
+      "id": "bricks",
+      "nameEn": "Bricks",
+      "nameFa": "آجر",
+      "category": "building",
+      "icon": "brick"
+    },
+    {
+      "id": "sandstone",
+      "nameEn": "Sandstone",
+      "nameFa": "ماسه‌سنگ",
+      "category": "building",
+      "icon": "sand"
+    },
+    {
+      "id": "quartz-block",
+      "nameEn": "Block of Quartz",
+      "nameFa": "بلوک کوارتز",
+      "category": "building",
+      "icon": "px-diamond-ore"
+    },
+    {
+      "id": "stone-bricks",
+      "nameEn": " Stone Bricks",
+      "nameFa": "آجر سنگی",
+      "category": "building",
+      "icon": "px-stone-block"
+    },
+    {
+      "id": "deepslate",
+      "nameEn": "Deepslate",
+      "nameFa": "سنگ تیره عمیق",
+      "category": "building",
+      "icon": "px-stone-block"
+    },
+    {
+      "id": "deepslate-bricks",
+      "nameEn": "Deepslate Bricks",
+      "nameFa": "آجر دیپ‌اسلیت",
+      "category": "building",
+      "icon": "px-stone-block"
+    },
+    {
+      "id": "nether-bricks",
+      "nameEn": "Nether Bricks",
+      "nameFa": "آجر نادر",
+      "category": "building",
+      "icon": "brick"
+    },
+    {
+      "id": "blackstone",
+      "nameEn": "Blackstone",
+      "nameFa": "سنگ سیاه",
+      "category": "building",
+      "icon": "px-obsidian"
+    },
+    {
+      "id": "basalt",
+      "nameEn": "Basalt",
+      "nameFa": "باسالت",
+      "category": "building",
+      "icon": "px-obsidian"
+    },
+    {
+      "id": "end-stone",
+      "nameEn": "End Stone",
+      "nameFa": "سنگ اِند",
+      "category": "building",
+      "icon": "px-sand"
+    },
+    {
+      "id": "terracotta",
+      "nameEn": "Terracotta",
+      "nameFa": "تراکوتا",
+      "category": "building",
+      "icon": "px-diamond-ore"
+    },
+    {
+      "id": "concrete",
+      "nameEn": "Concrete",
+      "nameFa": "بتن",
+      "category": "building",
+      "icon": "px-cobblestone"
+    },
+    {
+      "id": "glass",
+      "nameEn": "Glass",
+      "nameFa": "شیشه",
+      "category": "building",
+      "icon": "px-ice"
+    },
+    {
+      "id": "obsidian",
+      "nameEn": "Obsidian",
+      "nameFa": "اوبسیدین",
+      "category": "building",
+      "icon": "obsidian"
+    },
+    {
+      "id": "tnt",
+      "nameEn": "TNT",
+      "nameFa": "تی‌ان‌تی",
+      "category": "building",
+      "icon": "tnt"
+    },
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "category": "natural",
+      "icon": "grass-block"
+    },
+    {
+      "id": "dirt",
+      "nameEn": "Dirt",
+      "nameFa": "خاک",
+      "category": "natural",
+      "icon": "dirt"
+    },
+    {
+      "id": "coarse-dirt",
+      "nameEn": "Coarse Dirt",
+      "nameFa": "خاک زبر",
+      "category": "natural",
+      "icon": "dirt"
+    },
+    {
+      "id": "sand",
+      "nameEn": "Sand",
+      "nameFa": "ماسه",
+      "category": "natural",
+      "icon": "sand"
+    },
+    {
+      "id": "red-sand",
+      "nameEn": "Red Sand",
+      "nameFa": "ماسه قرمز",
+      "category": "natural",
+      "icon": "sand"
+    },
+    {
+      "id": "gravel",
+      "nameEn": "Gravel",
+      "nameFa": "شن و ماسه",
+      "category": "natural",
+      "icon": "gravel"
+    },
+    {
+      "id": "clay",
+      "nameEn": "Clay",
+      "nameFa": "گل",
+      "category": "natural",
+      "icon": "px-cobblestone"
+    },
+    {
+      "id": "snow-block",
+      "nameEn": "Snow Block",
+      "nameFa": "بلوک برف",
+      "category": "natural",
+      "icon": "px-ice"
+    },
+    {
+      "id": "ice",
+      "nameEn": "Ice",
+      "nameFa": "یخ",
+      "category": "natural",
+      "icon": "ice"
+    },
+    {
+      "id": "packed-ice",
+      "nameEn": "Packed Ice",
+      "nameFa": "یخ فشرده",
+      "category": "natural",
+      "icon": "ice"
+    },
+    {
+      "id": "water",
+      "nameEn": "Water",
+      "nameFa": "آب",
+      "category": "natural",
+      "icon": "px-water-bucket"
+    },
+    {
+      "id": "lava",
+      "nameEn": "Lava",
+      "nameFa": "لاوا",
+      "category": "natural",
+      "icon": "px-water-bucket"
+    },
+    {
+      "id": "bedrock",
+      "nameEn": "Bedrock",
+      "nameFa": "سنگ بستر",
+      "category": "natural",
+      "icon": "bedrock"
+    },
+    {
+      "id": "oak-log",
+      "nameEn": "Oak Log",
+      "nameFa": "تنه‌ی بلوط",
+      "category": "natural",
+      "icon": "oak-log"
+    },
+    {
+      "id": "spruce-log",
+      "nameEn": "Spruce Log",
+      "nameFa": "تنه‌ی نجوکا",
+      "category": "natural",
+      "icon": "oak-log"
+    },
+    {
+      "id": "birch-log",
+      "nameEn": "Birch Log",
+      "nameFa": "تنه‌ی توس",
+      "category": "natural",
+      "icon": "oak-log"
+    },
+    {
+      "id": "oak-leaves",
+      "nameEn": "Oak Leaves",
+      "nameFa": "برگ‌های بلوط",
+      "category": "natural",
+      "icon": "oak-leaves"
+    },
+    {
+      "id": "netherrack",
+      "nameEn": "Netherrack",
+      "nameFa": "سنگ نادر",
+      "category": "natural",
+      "icon": "netherrack"
+    },
+    {
+      "id": "soul-sand",
+      "nameEn": "Soul Sand",
+      "nameFa": "ماسه‌ی روح",
+      "category": "natural",
+      "icon": "soul-sand"
+    },
+    {
+      "id": "glowstone",
+      "nameEn": "Glowstone",
+      "nameFa": "گلو‌استون",
+      "category": "natural",
+      "icon": "glowstone"
+    },
+    {
+      "id": "coal-ore",
+      "nameEn": "Coal Ore",
+      "nameFa": "سنگ زغال‌سنگ",
+      "category": "ore",
+      "icon": "coal-ore"
+    },
+    {
+      "id": "iron-ore",
+      "nameEn": "Iron Ore",
+      "nameFa": "سنگ آهن",
+      "category": "ore",
+      "icon": "iron-ore"
+    },
+    {
+      "id": "gold-ore",
+      "nameEn": "Gold Ore",
+      "nameFa": "سنگ طلا",
+      "category": "ore",
+      "icon": "gold-ore"
+    },
+    {
+      "id": "diamond-ore",
+      "nameEn": "Diamond Ore",
+      "nameFa": "سنگ الماس",
+      "category": "ore",
+      "icon": "diamond-ore"
+    },
+    {
+      "id": "emerald-ore",
+      "nameEn": "Emerald Ore",
+      "nameFa": "سنگ زمرد",
+      "category": "ore",
+      "icon": "emerald-ore"
+    },
+    {
+      "id": "lapis-ore",
+      "nameEn": "Lapis Lazuli Ore",
+      "nameFa": "سنگ لاجورد",
+      "category": "ore",
+      "icon": "lapis-lazuli-ore"
+    },
+    {
+      "id": "redstone-ore",
+      "nameEn": "Redstone Ore",
+      "nameFa": "سنگ رداستون",
+      "category": "ore",
+      "icon": "redstone-ore"
+    },
+    {
+      "id": "copper-ore",
+      "nameEn": "Copper Ore",
+      "nameFa": "سنگ مس",
+      "category": "ore",
+      "icon": "px-iron-ore"
+    },
+    {
+      "id": "nether-quartz-ore",
+      "nameEn": "Nether Quartz Ore",
+      "nameFa": "سنگ کوارتز نادر",
+      "category": "ore",
+      "icon": "px-diamond-ore"
+    },
+    {
+      "id": "nether-gold-ore",
+      "nameEn": "Nether Gold Ore",
+      "nameFa": "سنگ طلا نادر",
+      "category": "ore",
+      "icon": "gold-ore"
+    },
+    {
+      "id": "ancient-debris",
+      "nameEn": "Ancient Debris",
+      "nameFa": "خرده‌سنگ باستانی",
+      "category": "ore",
+      "icon": "px-iron-ore"
+    },
+    {
+      "id": "deepslate-coal-ore",
+      "nameEn": "Deepslate Coal Ore",
+      "nameFa": "سنگ زغال‌سنگ دیپ‌اسلیت",
+      "category": "ore",
+      "icon": "coal-ore"
+    },
+    {
+      "id": "deepslate-iron-ore",
+      "nameEn": "Deepslate Iron Ore",
+      "nameFa": "سنگ آهن دیپ‌اسلیت",
+      "category": "ore",
+      "icon": "iron-ore"
+    },
+    {
+      "id": "deepslate-gold-ore",
+      "nameEn": "Deepslate Gold Ore",
+      "nameFa": "سنگ طلا دیپ‌اسلیت",
+      "category": "ore",
+      "icon": "gold-ore"
+    },
+    {
+      "id": "deepslate-diamond-ore",
+      "nameEn": "Deepslate Diamond Ore",
+      "nameFa": "سنگ الماس دیپ‌اسلیت",
+      "category": "ore",
+      "icon": "diamond-ore"
+    },
+    {
+      "id": "deepslate-emerald-ore",
+      "nameEn": "Deepslate Emerald Ore",
+      "nameFa": "سنگ زمرد دیپ‌اسلیت",
+      "category": "ore",
+      "icon": "emerald-ore"
+    },
+    {
+      "id": "deepslate-redstone-ore",
+      "nameEn": "Deepslate Redstone Ore",
+      "nameFa": "سنگ رداستون دیپ‌اسلیت",
+      "category": "ore",
+      "icon": "redstone-ore"
+    },
+    {
+      "id": "glass-pane",
+      "nameEn": "Glass Pane",
+      "nameFa": "قاب شیشه",
+      "category": "decoration",
+      "icon": "px-ice"
+    },
+    {
+      "id": "bookshelf",
+      "nameEn": "Bookshelf",
+      "nameFa": "کتاب‌خانه",
+      "category": "decoration",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "lantern",
+      "nameEn": "Lantern",
+      "nameFa": "فانوس",
+      "category": "decoration",
+      "icon": "px-torch"
+    },
+    {
+      "id": "soul-lantern",
+      "nameEn": "Soul Lantern",
+      "nameFa": "فانوس روح",
+      "category": "decoration",
+      "icon": "px-torch"
+    },
+    {
+      "id": "torch",
+      "nameEn": "Torch",
+      "nameFa": "مشعل",
+      "category": "decoration",
+      "icon": "px-torch"
+    },
+    {
+      "id": "painting",
+      "nameEn": "Painting",
+      "nameFa": "نقاشی",
+      "category": "decoration",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "item-frame",
+      "nameEn": "Item Frame",
+      "nameFa": "قاب آیتم",
+      "category": "decoration",
+      "icon": "px-stick"
+    },
+    {
+      "id": "flower-pot",
+      "nameEn": "Flower Pot",
+      "nameFa": "گل‌دان",
+      "category": "decoration",
+      "icon": "px-bone"
+    },
+    {
+      "id": "carpet",
+      "nameEn": "Carpet",
+      "nameFa": "فرش",
+      "category": "decoration",
+      "icon": "px-stick"
+    },
+    {
+      "id": "banner",
+      "nameEn": "Banner",
+      "nameFa": "پرچم",
+      "category": "decoration",
+      "icon": "px-stick"
+    },
+    {
+      "id": "bed",
+      "nameEn": "Bed",
+      "nameFa": "تختی‌خواب",
+      "category": "decoration",
+      "icon": "px-bread"
+    },
+    {
+      "id": "sea-lantern",
+      "nameEn": "Sea Lantern",
+      "nameFa": "فانوس دریایی",
+      "category": "decoration",
+      "icon": "px-glowstone"
+    },
+    {
+      "id": "cake",
+      "nameEn": "Cake",
+      "nameFa": "کیک",
+      "category": "decoration",
+      "icon": "px-bread"
+    },
+    {
+      "id": "pumpkin",
+      "nameEn": "Pumpkin",
+      "nameFa": "کدو",
+      "category": "decoration",
+      "icon": "px-pumpkin"
+    },
+    {
+      "id": "jack-o-lantern",
+      "nameEn": "Jack o'Lantern",
+      "nameFa": "جک لانتورن",
+      "category": "decoration",
+      "icon": "px-pumpkin"
+    },
+    {
+      "id": "redstone-block",
+      "nameEn": "Block of Redstone",
+      "nameFa": "بلوک رداستون",
+      "category": "redstone",
+      "icon": "px-tnt"
+    },
+    {
+      "id": "redstone-wire",
+      "nameEn": "Redstone Wire",
+      "nameFa": "سیم رداستون",
+      "category": "redstone",
+      "icon": "px-tnt"
+    },
+    {
+      "id": "piston",
+      "nameEn": "Piston",
+      "nameFa": "پیستون",
+      "category": "redstone",
+      "icon": "px-cobblestone"
+    },
+    {
+      "id": "sticky-piston",
+      "nameEn": "Sticky Piston",
+      "nameFa": "پیستون چسبناک",
+      "category": "redstone",
+      "icon": "px-cobblestone"
+    },
+    {
+      "id": "dispenser",
+      "nameEn": "Dispenser",
+      "nameFa": "توزیع‌کننده",
+      "category": "redstone",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "observer",
+      "nameEn": "Observer",
+      "nameFa": "ناظر",
+      "category": "redstone",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "repeater",
+      "nameEn": "Redstone Repeater",
+      "nameFa": "تکرارکننده‌ی رداستون",
+      "category": "redstone",
+      "icon": "px-stone-block"
+    },
+    {
+      "id": "comparator",
+      "nameEn": "Redstone Comparator",
+      "nameFa": "مقایسه‌کننده‌ی رداستون",
+      "category": "redstone",
+      "icon": "px-stone-block"
+    },
+    {
+      "id": "lever",
+      "nameEn": "Lever",
+      "nameFa": "اهرم",
+      "category": "redstone",
+      "icon": "px-stick"
+    },
+    {
+      "id": "button",
+      "nameEn": "Button",
+      "nameFa": "دکمه",
+      "category": "redstone",
+      "icon": "px-stone-block"
+    },
+    {
+      "id": "pressure-plate",
+      "nameEn": "Pressure Plate",
+      "nameFa": "صفحه‌ی فشار",
+      "category": "redstone",
+      "icon": "px-stone-block"
+    },
+    {
+      "id": "note-block",
+      "nameEn": "Note Block",
+      "nameFa": "بلوک نت",
+      "category": "redstone",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "daylight-detector",
+      "nameEn": "Daylight Detector",
+      "nameFa": "تشخیص‌دهنده‌ی نور",
+      "category": "redstone",
+      "icon": "px-stone-block"
+    },
+    {
+      "id": "tripwire-hook",
+      "nameEn": "Tripwire Hook",
+      "nameFa": "قلاب سیم",
+      "category": "redstone",
+      "icon": "px-stick"
+    },
+    {
+      "id": "redstone-lamp",
+      "nameEn": "Redstone Lamp",
+      "nameFa": "لامپ رداستون",
+      "category": "redstone",
+      "icon": "px-glowstone"
+    },
+    {
+      "id": "hopper",
+      "nameEn": "Hopper",
+      "nameFa": "قیف",
+      "category": "mechanism",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "dropper",
+      "nameEn": "Dropper",
+      "nameFa": "دراپر",
+      "category": "mechanism",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "blast-furnace",
+      "nameEn": "Blast Furnace",
+      "nameFa": "کوره‌ی انفجاری",
+      "category": "mechanism",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "smoker",
+      "nameEn": "Smoker",
+      "nameFa": "دودکش",
+      "category": "mechanism",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "brewing-stand",
+      "nameEn": "Brewing Stand",
+      "nameFa": "میز جوشان",
+      "category": "mechanism",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "cauldron",
+      "nameEn": "Cauldron",
+      "nameFa": "دیگ",
+      "category": "mechanism",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "enchanting-table",
+      "nameEn": "Enchanting Table",
+      "nameFa": "میز جادو",
+      "category": "mechanism",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "anvil",
+      "nameEn": "Anvil",
+      "nameFa": "آهن‌روس",
+      "category": "mechanism",
+      "icon": "px-iron-ingot"
+    },
+    {
+      "id": "grindstone",
+      "nameEn": "Grindstone",
+      "nameFa": "سنگ‌ساب",
+      "category": "mechanism",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "stonecutter",
+      "nameEn": "Stonecutter",
+      "nameFa": "سنگ‌بُر",
+      "category": "mechanism",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "crafting-table",
+      "nameEn": "Crafting Table",
+      "nameFa": "میز ساخت",
+      "category": "utility",
+      "icon": "crafting-table-top"
+    },
+    {
+      "id": "furnace",
+      "nameEn": "Furnace",
+      "nameFa": "کوره",
+      "category": "utility",
+      "icon": "furnace-side"
+    },
+    {
+      "id": "chest",
+      "nameEn": "Chest",
+      "nameFa": "صندوق",
+      "category": "utility",
+      "icon": "chest"
+    },
+    {
+      "id": "ender-chest",
+      "nameEn": "Ender Chest",
+      "nameFa": "صندوق اِندر",
+      "category": "utility",
+      "icon": "chest"
+    },
+    {
+      "id": "trapped-chest",
+      "nameEn": "Trapped Chest",
+      "nameFa": "صندوق تله",
+      "category": "utility",
+      "icon": "chest"
+    },
+    {
+      "id": "barrel",
+      "nameEn": "Barrel",
+      "nameFa": "بشکه",
+      "category": "utility",
+      "icon": "px-furnace"
+    },
+    {
+      "id": "shulker-box",
+      "nameEn": "Shulker Box",
+      "nameFa": "جعبه‌ی شالکر",
+      "category": "utility",
+      "icon": "px-chest"
+    },
+    {
+      "id": "beacon",
+      "nameEn": "Beacon",
+      "nameFa": "فانوس دریایی",
+      "category": "utility",
+      "icon": "px-diamond-ore"
+    },
+    {
+      "id": "conduit",
+      "nameEn": "Conduit",
+      "nameFa": "کاندویت",
+      "category": "utility",
+      "icon": "px-diamond-ore"
+    },
+    {
+      "id": "loom",
+      "nameEn": "Loom",
+      "nameFa": "میز نساجی",
+      "category": "utility",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "cartography-table",
+      "nameEn": "Cartography Table",
+      "nameFa": "میز نقشه‌کش",
+      "category": "utility",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "fletching-table",
+      "nameEn": "Fletching Table",
+      "nameFa": "میز تیرساز",
+      "category": "utility",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "smithing-table",
+      "nameEn": "Smithing Table",
+      "nameFa": "میز آهنگری",
+      "category": "utility",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "jukebox",
+      "nameEn": "Jukebox",
+      "nameFa": "گرامافون",
+      "category": "utility",
+      "icon": "px-crafting-table"
+    },
+    {
+      "id": "respawn-anchor",
+      "nameEn": "Respawn Anchor",
+      "nameFa": "لنگر اسپاون",
+      "category": "utility",
+      "icon": "px-glowstone"
+    }
+  ]
+}

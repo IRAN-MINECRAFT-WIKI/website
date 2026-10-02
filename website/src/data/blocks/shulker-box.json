@@ -1,0 +1,32 @@
+{
+  "id": "shulker-box",
+  "nameEn": "Shulker Box",
+  "nameFa": "جعبه‌ی شالکر",
+  "category": "utility",
+  "icon": "px-chest",
+  "hardness": 2.0,
+  "tool": "pickaxe",
+  "stackSize": 1,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.11+",
+    "bedrock": "1.0.0+"
+  },
+  "description": "جعبه‌ی شالکر از ۲ شالکر پوسته و ۱ صندوق ساخته می‌شه و با محتوا می‌افتد و حمل می‌شه.",
+  "uses": [
+    "حمل لوازم با محتوا"
+  ],
+  "locations": [
+    "End City",
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "shulker_box",
+      "count": "1",
+      "condition": "با محتوا"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Shulker_Box"
+}

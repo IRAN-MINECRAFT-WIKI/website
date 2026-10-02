@@ -1,0 +1,39 @@
+{
+  "id": "copper-ore",
+  "nameEn": "Copper Ore",
+  "nameFa": "سنگ مس",
+  "category": "ore",
+  "icon": "px-iron-ore",
+  "hardness": 3.0,
+  "tool": "stone_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.17+",
+    "bedrock": "1.17.40+"
+  },
+  "description": "سنگ مس در 1.17 اضافه شد و برای ساخت مس (Copper Ingot)، رگبار، و اسپای استفاده می‌شه. اکسید می‌شه و سبز می‌شه.",
+  "uses": [
+    "ساخت Copper Ingot",
+    "ساخت Lightning Rod",
+    "ساخت Spyglass"
+  ],
+  "locations": [
+    "y=-16 تا y=112",
+    "بیش‌ترین در y=48"
+  ],
+  "drops": [
+    {
+      "item": "raw_copper",
+      "count": "2-5",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "copper_ore",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Copper_Ore"
+}

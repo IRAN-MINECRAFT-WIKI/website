@@ -1,0 +1,33 @@
+{
+  "id": "furnace",
+  "nameEn": "Furnace",
+  "nameFa": "کوره",
+  "category": "utility",
+  "icon": "furnace-side",
+  "hardness": 3.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 13,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "کوره از ۸ کوب‌استون ساخته می‌شه و برای ذوب کردن، پختن غذا و ساخت وسایل استفاده می‌شه.",
+  "uses": [
+    "ذوب کردن",
+    "پختن غذا",
+    "ساخت Smooth Stone"
+  ],
+  "locations": [
+    "صنعت",
+    "Village"
+  ],
+  "drops": [
+    {
+      "item": "furnace",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Furnace"
+}

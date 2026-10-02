@@ -1,0 +1,221 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import BackButton from '@components/BackButton.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { mobs, MOB_CATEGORIES, type MobInfo, type MobDamage } from '@/lib/data';
+import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+
+export async function getStaticPaths() {
+  return mobs.map((m) => ({
+    params: { id: m.id },
+    props: { mob: m },
+  }));
+}
+
+const { mob } = Astro.props as { mob: MobInfo };
+const cat = MOB_CATEGORIES.find((c) => c.id === mob.category);
+
+const BASE = import.meta.env.BASE_URL;
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'ویکی', url: '/wiki' },
+  { name: 'ماب‌ها', url: '/wiki/mobs' },
+  { name: mob.nameFa, url: `/wiki/mobs/${mob.id}` },
+];
+
+const ldBread = breadcrumbJsonLd(breadcrumb);
+const ldArticle = articleJsonLd({
+  title: mob.nameFa,
+  description: mob.description,
+  datePublished: '2024-01-01',
+  url: `/wiki/mobs/${mob.id}`,
+});
+
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+// Translate damage types to Persian labels
+const damageLabelsFa: Record<string, string> = {
+  contact: 'تماسی',
+  explosion: 'انفجاری',
+  ranged: 'دور',
+  trident: 'سه‌شاخه',
+  poison: 'سم',
+  fling: 'پرت‌کردن',
+  knockback: 'هل‌دادن',
+  wither: 'خشک‌سازی',
+  'mining_fatigue': 'خستگی معدن',
+  splash_potion: 'معجون',
+  snowball: 'گلوله برف',
+};
+
+// Convert damage object to list of {label, value}
+const damageEntries = Object.entries(mob.damage || {}).filter(([_, v]) => v !== undefined && v !== 0);
+---
+
+<BaseLayout
+  path={`/wiki/mobs/${mob.id}`}
+  title={`${mob.nameFa} — ماب ماینکرفت (${mob.nameEn})`}
+  description={mob.description}
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <BackButton />
+  <StructuredData data={ldArticle} />
+  <StructuredData data={ldBread} />
+
+  <!-- Header -->
+  <div class="mb-6 flex items-start gap-4">
+    <span class="shrink-0 inline-flex items-center justify-center w-20 h-20 mc-block-panel p-2">
+      <img
+        src={`${BASE}textures/blocks/${mob.icon.replace('px-', '').replace('-face', '')}.png`}
+        alt={mob.nameFa}
+        width="56"
+        height="56"
+        loading="eager"
+        decoding="async"
+        class="pixel-img"
+        onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
+      />
+      <svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+        <use href={`#${mob.icon.startsWith('px-') ? mob.icon : 'px-' + mob.icon}`} />
+      </svg>
+    </span>
+    <div class="flex-1">
+      <div class="flex items-center gap-3 mb-1 flex-wrap">
+        <h1 class="text-2xl lg:text-4xl font-extrabold">{mob.nameFa}</h1>
+        <span class="bg-mc-bg-2 border-2 border-mc-line text-xs font-pixel px-2 py-1 text-mc-text-2" dir="ltr">{mob.nameEn}</span>
+      </div>
+      <p class="text-sm text-mc-text-2 mb-3">
+        {cat && <span>{cat.icon} {cat.nameFa}</span>}
+        <span> • 🆔 <code dir="ltr" class="text-mc-text">{mob.id}</code></span>
+        <span> • 🏃 سرعت: <span dir="ltr" class="text-mc-text">{faNum(mob.speed)}</span></span>
+      </p>
+      <p class="text-base text-mc-text-2 leading-loose">{mob.description}</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <section class="mc-panel mb-6 p-5">
+    <h2 class="text-xl font-extrabold mb-3">آمار و ویژگی‌ها</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+      <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
+        <div class="text-[10px] text-mc-text-3 mb-1">سلامت (Health)</div>
+        <div class="text-lg font-bold text-mc-redstone" dir="ltr">❤ {faNum(mob.health)}</div>
+      </div>
+      {damageEntries.length > 0 ? (
+        damageEntries.slice(0, 3).map(([key, val]) => (
+          <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
+            <div class="text-[10px] text-mc-text-3 mb-1">آسیب {damageLabelsFa[key] || key}</div>
+            <div class="text-lg font-bold text-mc-gold" dir="ltr">{faNum(val as number)}</div>
+          </div>
+        ))
+      ) : (
+        <div class="p-3 bg-mc-bg-2 border border-mc-line rounded">
+          <div class="text-[10px] text-mc-text-3 mb-1">آسیب</div>
+          <div class="text-lg font-bold text-mc-grass-2">۰</div>
+        </div>
+      )}
+    </div>
+    {damageEntries.length === 0 && (
+      <p class="text-xs text-mc-text-3 mt-3 text-center">این ماب آسیبی به بازیکن وارد نمی‌کند.</p>
+    )}
+  </section>
+
+  <!-- Drops + Locations + Combat -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+    <section class="mc-panel p-5">
+      <h2 class="text-lg font-extrabold mb-3">🎁 دراپ‌ها</h2>
+      {mob.drops.length > 0 ? (
+        <ul class="space-y-2">
+          {mob.drops.map((d, idx) => (
+            <li class="flex items-start gap-2 text-sm">
+              <span class="text-mc-gold mt-0.5">▸</span>
+              <div class="flex-1">
+                <div class="font-bold text-mc-text" dir="ltr">{d.item}</div>
+                {d.count && <div class="text-xs text-mc-text-3" dir="ltr">تعداد: {d.count}</div>}
+                {d.condition && <div class="text-[10px] text-mc-text-3 mt-0.5">{d.condition}</div>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-sm text-mc-text-3">این ماب چیزی دراپ نمی‌کند.</p>
+      )}
+    </section>
+
+    <section class="mc-panel p-5">
+      <h2 class="text-lg font-extrabold mb-3">📍 محل یافتن</h2>
+      {mob.locations.length > 0 ? (
+        <ul class="space-y-2">
+          {mob.locations.map((l) => (
+            <li class="flex items-start gap-2">
+              <span class="text-mc-grass-2 mt-1">→</span>
+              <span class="text-sm text-mc-text-2">{l}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-sm text-mc-text-3">محل خاصی ثبت نشده.</p>
+      )}
+    </section>
+
+    <section class="mc-panel p-5">
+      <h2 class="text-lg font-extrabold mb-3">⚔️ راه‌های مبارزه</h2>
+      {mob.combat.length > 0 ? (
+        <ul class="space-y-2">
+          {mob.combat.map((c) => (
+            <li class="flex items-start gap-2">
+              <span class="text-mc-redstone mt-1">★</span>
+              <span class="text-sm text-mc-text-2">{c}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-sm text-mc-text-3">این ماب نیاز به مبارزه ندارد.</p>
+      )}
+    </section>
+  </div>
+
+  <!-- Versions + Wiki link -->
+  <section class="mc-panel mb-6 p-5">
+    <h2 class="text-lg font-extrabold mb-3">📚 نسخه‌ها و مرجع</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+      <div class="flex items-start gap-2">
+        <span class="text-mc-text-3 mt-0.5">☕ جاوا:</span>
+        <span class="text-mc-text-2" dir="ltr">{mob.versions.java}</span>
+      </div>
+      <div class="flex items-start gap-2">
+        <span class="text-mc-text-3 mt-0.5">🪨 بدراک:</span>
+        <span class="text-mc-text-2" dir="ltr">{mob.versions.bedrock}</span>
+      </div>
+      {mob.wikiLink && (
+        <div class="sm:col-span-2 flex items-start gap-2 mt-2 pt-3 border-t border-mc-line">
+          <span class="text-mc-text-3 mt-0.5">📖 ویکی:</span>
+          <a
+            href={mob.wikiLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-mc-grass-2 hover:underline break-all"
+            dir="ltr"
+          >
+            {mob.wikiLink} ↗
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Back to mobs -->
+  <a
+    href={`/wiki/mobs`}
+    class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-2 text-sm font-bold text-mc-text-2 hover:text-mc-grass-2"
+  >
+    <svg width="14" height="14"><use href="#icon-chevron-right" /></svg>
+    بازگشت به فهرست ماب‌ها
+  </a>
+</BaseLayout>

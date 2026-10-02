@@ -1,0 +1,31 @@
+{
+  "id": "observer",
+  "nameEn": "Observer",
+  "nameFa": "ناظر",
+  "category": "redstone",
+  "icon": "px-furnace",
+  "hardness": 3.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.11+",
+    "bedrock": "0.15.0+"
+  },
+  "description": "ناظر در 1.11 اضافه شد و وقتی بلوک روبروی آن تغییر می‌کنه، یک پالس رداستون کوتاه ساطع می‌کنه.",
+  "uses": [
+    "تشخیص تغییرات بلوک",
+    "مزرعه‌ی اتوماتیک"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "observer",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Observer"
+}

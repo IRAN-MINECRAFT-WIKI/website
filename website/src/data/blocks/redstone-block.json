@@ -1,0 +1,31 @@
+{
+  "id": "redstone-block",
+  "nameEn": "Block of Redstone",
+  "nameFa": "بلوک رداستون",
+  "category": "redstone",
+  "icon": "px-tnt",
+  "hardness": 5.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.5+",
+    "bedrock": "0.1+"
+  },
+  "description": "بلوک رداستون از ۹ رداستون ساخته می‌شه و یک منبع سیگنال دائمی رداستون هست.",
+  "uses": [
+    "منبع سیگنال دائمی",
+    "ساخت بالم"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "redstone_block",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Block_of_Redstone"
+}

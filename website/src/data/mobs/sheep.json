@@ -1,0 +1,37 @@
+{
+  "id": "sheep",
+  "nameEn": "Sheep",
+  "nameFa": "گوسفند",
+  "category": "passive",
+  "icon": "px-pig-face",
+  "health": 8,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "0.27+",
+    "bedrock": "0.1+"
+  },
+  "description": "گوسفند با رنگ‌های مختلف پیدا می‌شه و پشم می‌ده. با Shears می‌تونی بدون کشتن، پشمشو بگیری.",
+  "drops": [
+    {
+      "item": "wool",
+      "count": "1",
+      "condition": "اگه با شمشیر بکشی"
+    },
+    {
+      "item": "mutton",
+      "count": "1-2"
+    }
+  ],
+  "locations": [
+    "بایوم چمنزار",
+    "Village"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "با Shears پشم بگیر"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Sheep"
+}

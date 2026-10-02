@@ -1,0 +1,34 @@
+{
+  "id": "magma-cube",
+  "nameEn": "Magma Cube",
+  "nameFa": "مکعب ماگما",
+  "category": "hostile",
+  "icon": "px-skeleton-face",
+  "health": 16,
+  "damage": {
+    "contact": 4,
+    "explosion": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "مکعب ماگما نسخه‌ی نادری از اسلایم هست که در Nether پیدا می‌شه و Magma Cream می‌ده.",
+  "drops": [
+    {
+      "item": "magma_cream",
+      "count": "0-1",
+      "condition": "فقط سایز کوچک"
+    }
+  ],
+  "locations": [
+    "Nether (Nether Wastes)",
+    "Nether Fortress"
+  ],
+  "combat": [
+    "با شمشیر بزن",
+    "با کمان از دور"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Magma_Cube"
+}

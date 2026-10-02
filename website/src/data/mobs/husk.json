@@ -1,0 +1,42 @@
+{
+  "id": "husk",
+  "nameEn": "Husk",
+  "nameFa": "هاسک",
+  "category": "hostile",
+  "icon": "px-creeper-face",
+  "health": 20,
+  "damage": {
+    "contact": 3,
+    "explosion": 0
+  },
+  "speed": 0.23,
+  "versions": {
+    "java": "1.10+",
+    "bedrock": "0.15.0+"
+  },
+  "description": "هاسک نسخه‌ی صحرایی زامبی هست که در زیر آفتاب هم نمی‌سوزه. با گزش، Hunger می‌ده.",
+  "drops": [
+    {
+      "item": "rotten_flesh",
+      "count": "0-2"
+    },
+    {
+      "item": "iron_ingot",
+      "count": "1",
+      "condition": "احتمال"
+    },
+    {
+      "item": "sand",
+      "count": "1",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Desert"
+  ],
+  "combat": [
+    "با شمشیر بزن",
+    "از دور بکش"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Husk"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "lava",
+  "nameEn": "Lava",
+  "nameFa": "لاوا",
+  "category": "natural",
+  "icon": "px-water-bucket",
+  "hardness": 100.0,
+  "tool": "none",
+  "stackSize": 1,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "لاوا مایع خطرناکی هست که در زیرزمین و نادر پیدا می‌شه. با آب ترکیب می‌شه و اوبسیدین یا سنگ می‌سازه.",
+  "uses": [
+    "ساخت اوبسیدین",
+    "ساخت سنگ",
+    "منبع نور"
+  ],
+  "locations": [
+    "زیرزمین (y=-54)",
+    "Nether",
+    "لاوا دریا"
+  ],
+  "drops": [
+    {
+      "item": "lava_bucket",
+      "count": "1",
+      "condition": "با سطل"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Lava"
+}

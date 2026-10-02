@@ -1,0 +1,31 @@
+{
+  "id": "trapped-chest",
+  "nameEn": "Trapped Chest",
+  "nameFa": "صندوق تله",
+  "category": "utility",
+  "icon": "chest",
+  "hardness": 2.5,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.5+",
+    "bedrock": "0.1+"
+  },
+  "description": "صندوق تله از ۱ صندوق و ۱ Tripwire Hook ساخته می‌شه و با باز شدن، سیگنال رداستون ساطع می‌کنه.",
+  "uses": [
+    "تله‌های صندوقی",
+    "دزدگیر"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "trapped_chest",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Trapped_Chest"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "dirt",
+  "nameEn": "Dirt",
+  "nameFa": "خاک",
+  "category": "natural",
+  "icon": "dirt",
+  "hardness": 0.5,
+  "tool": "shovel",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "خاک بلوک پایه‌ی زمین هست و در همه جا پیدا می‌شه. با پیچه شخم می‌زنی و به Farmland تبدیل می‌کنی.",
+  "uses": [
+    "شخم‌زنی برای کشاورزی",
+    "ساخت Farmland"
+  ],
+  "locations": [
+    "همه جا",
+    "زیرزمین تا y=-5"
+  ],
+  "drops": [
+    {
+      "item": "dirt",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Dirt"
+}

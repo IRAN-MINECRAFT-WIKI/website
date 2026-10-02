@@ -1,0 +1,37 @@
+{
+  "id": "polar-bear",
+  "nameEn": "Polar Bear",
+  "nameFa": "خرس قطبی",
+  "category": "neutral",
+  "icon": "px-cow-face",
+  "health": 30,
+  "damage": {
+    "contact": 6
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "1.10+",
+    "bedrock": "1.0.0+"
+  },
+  "description": "خرس قطبی در Snowy Tundra و Ice Spikes پیدا می‌شه و اگه بچه‌اش نزدیک باشه، حمله می‌کنه.",
+  "drops": [
+    {
+      "item": "raw_cod",
+      "count": "0-2"
+    },
+    {
+      "item": "raw_salmon",
+      "count": "0-2",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Snowy Tundra",
+    "Ice Spikes"
+  ],
+  "combat": [
+    "با کمان از دور",
+    "از بچه‌ها دور باش"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Polar_Bear"
+}

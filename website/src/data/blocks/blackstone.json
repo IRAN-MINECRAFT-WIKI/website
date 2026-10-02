@@ -1,0 +1,32 @@
+{
+  "id": "blackstone",
+  "nameEn": "Blackstone",
+  "nameFa": "سنگ سیاه",
+  "category": "building",
+  "icon": "px-obsidian",
+  "hardness": 1.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.16+",
+    "bedrock": "1.16.0+"
+  },
+  "description": "بلک‌استون در دلتای باسالت نادر پیدا می‌شه و جایگزینی تیره برای سنگ در نادر هست.",
+  "uses": [
+    "ساخت آجر نادر",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "Bastion Remnant",
+    "Nether Delta"
+  ],
+  "drops": [
+    {
+      "item": "blackstone",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Blackstone"
+}

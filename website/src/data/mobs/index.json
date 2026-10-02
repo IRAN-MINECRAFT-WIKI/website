@@ -1,0 +1,375 @@
+{
+  "mobs": [
+    {
+      "id": "creeper",
+      "nameEn": "Creeper",
+      "nameFa": "کریپر",
+      "category": "hostile",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "zombie",
+      "nameEn": "Zombie",
+      "nameFa": "زامبی",
+      "category": "hostile",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "skeleton",
+      "nameEn": "Skeleton",
+      "nameFa": "اسکلت",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "spider",
+      "nameEn": "Spider",
+      "nameFa": "عنکبوت",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "cave-spider",
+      "nameEn": "Cave Spider",
+      "nameFa": "عنکبوت غار",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "witch",
+      "nameEn": "Witch",
+      "nameFa": "جادوگر",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "slime",
+      "nameEn": "Slime",
+      "nameFa": "اسلایم",
+      "category": "hostile",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "blaze",
+      "nameEn": "Blaze",
+      "nameFa": "بلیز",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "ghast",
+      "nameEn": "Ghast",
+      "nameFa": "غاست",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "magma-cube",
+      "nameEn": "Magma Cube",
+      "nameFa": "مکعب ماگما",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "silverfish",
+      "nameEn": "Silverfish",
+      "nameFa": "ماهی نقره",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "stray",
+      "nameEn": "Stray",
+      "nameFa": "ولگرد",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "husk",
+      "nameEn": "Husk",
+      "nameFa": "هاسک",
+      "category": "hostile",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "drowned",
+      "nameEn": "Drowned",
+      "nameFa": "غرق‌شده",
+      "category": "hostile",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "phantom",
+      "nameEn": "Phantom",
+      "nameFa": "فانتوم",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "pillager",
+      "nameEn": "Pillager",
+      "nameFa": "غارتگر",
+      "category": "hostile",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "warden",
+      "nameEn": "Warden",
+      "nameFa": "واردن",
+      "category": "hostile",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "pig",
+      "nameEn": "Pig",
+      "nameFa": "خوک",
+      "category": "passive",
+      "icon": "px-pig-face"
+    },
+    {
+      "id": "cow",
+      "nameEn": "Cow",
+      "nameFa": "گاو",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "sheep",
+      "nameEn": "Sheep",
+      "nameFa": "گوسفند",
+      "category": "passive",
+      "icon": "px-pig-face"
+    },
+    {
+      "id": "chicken",
+      "nameEn": "Chicken",
+      "nameFa": "مرغ",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "mooshroom",
+      "nameEn": "Mooshroom",
+      "nameFa": "گاو قارچی",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "horse",
+      "nameEn": "Horse",
+      "nameFa": "اسب",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "donkey",
+      "nameEn": "Donkey",
+      "nameFa": "الاغ",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "rabbit",
+      "nameEn": "Rabbit",
+      "nameFa": "خرگوش",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "fox",
+      "nameEn": "Fox",
+      "nameFa": "روباه",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "turtle",
+      "nameEn": "Turtle",
+      "nameFa": "لاک‌پشت",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "parrot",
+      "nameEn": "Parrot",
+      "nameFa": "طوطی",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "cod",
+      "nameEn": "Cod",
+      "nameFa": "بادکن",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "salmon",
+      "nameEn": "Salmon",
+      "nameFa": "سالمون",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "axolotl",
+      "nameEn": "Axolotl",
+      "nameFa": "آژولوتل",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "frog",
+      "nameEn": "Frog",
+      "nameFa": "قورباغه",
+      "category": "passive",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "allay",
+      "nameEn": "Allay",
+      "nameFa": "آلِی",
+      "category": "passive",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "enderman",
+      "nameEn": "Enderman",
+      "nameFa": "اِندرمن",
+      "category": "neutral",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "wolf",
+      "nameEn": "Wolf",
+      "nameFa": "گرگ",
+      "category": "neutral",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "iron-golem",
+      "nameEn": "Iron Golem",
+      "nameFa": "گلولم آهنی",
+      "category": "neutral",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "zombified-piglin",
+      "nameEn": "Zombified Piglin",
+      "nameFa": "پیگلین زامبی",
+      "category": "neutral",
+      "icon": "px-pig-face"
+    },
+    {
+      "id": "polar-bear",
+      "nameEn": "Polar Bear",
+      "nameFa": "خرس قطبی",
+      "category": "neutral",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "panda",
+      "nameEn": "Panda",
+      "nameFa": "پاندا",
+      "category": "neutral",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "dolphin",
+      "nameEn": "Dolphin",
+      "nameFa": "دلفین",
+      "category": "neutral",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "bee",
+      "nameEn": "Bee",
+      "nameFa": "زنبور",
+      "category": "neutral",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "llama",
+      "nameEn": "Llama",
+      "nameFa": "لاما",
+      "category": "neutral",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "goat",
+      "nameEn": "Goat",
+      "nameFa": "بز",
+      "category": "neutral",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "ender-dragon",
+      "nameEn": "Ender Dragon",
+      "nameFa": "اژدهای اِند",
+      "category": "boss",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "wither",
+      "nameEn": "Wither",
+      "nameFa": "ویدر",
+      "category": "boss",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "wither-skeleton",
+      "nameEn": "Wither Skeleton",
+      "nameFa": "اسکلت ویدر",
+      "category": "boss",
+      "icon": "px-skeleton-face"
+    },
+    {
+      "id": "elder-guardian",
+      "nameEn": "Elder Guardian",
+      "nameFa": "نگهبان کهنه",
+      "category": "boss",
+      "icon": "px-creeper-face"
+    },
+    {
+      "id": "snow-golem",
+      "nameEn": "Snow Golem",
+      "nameFa": "گلولم برفی",
+      "category": "utility",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "villager",
+      "nameEn": "Villager",
+      "nameFa": "روستایی",
+      "category": "utility",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "bat",
+      "nameEn": "Bat",
+      "nameFa": "خفاش",
+      "category": "ambient",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "pufferfish",
+      "nameEn": "Pufferfish",
+      "nameFa": "ماهی بادی",
+      "category": "ambient",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "tropical-fish",
+      "nameEn": "Tropical Fish",
+      "nameFa": "ماهی گرمسیری",
+      "category": "ambient",
+      "icon": "px-cow-face"
+    },
+    {
+      "id": "squid",
+      "nameEn": "Squid",
+      "nameFa": "هشت‌پا",
+      "category": "ambient",
+      "icon": "px-cow-face"
+    }
+  ]
+}

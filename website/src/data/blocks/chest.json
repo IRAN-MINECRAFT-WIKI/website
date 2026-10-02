@@ -1,0 +1,34 @@
+{
+  "id": "chest",
+  "nameEn": "Chest",
+  "nameFa": "صندوق",
+  "category": "utility",
+  "icon": "chest",
+  "hardness": 2.5,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "صندوق از ۸ تخته ساخته می‌شه و ۲۷ اسلات برای ذخیره‌ی آیتم داره. با یه چلتیکه در صندوق مجاور بزرگ می‌شه.",
+  "uses": [
+    "ذخیره‌ی آیتم",
+    "ساخت Trapped Chest",
+    "ساخت Hopper"
+  ],
+  "locations": [
+    "صنعت",
+    "Dungeon",
+    "Village"
+  ],
+  "drops": [
+    {
+      "item": "chest",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Chest"
+}

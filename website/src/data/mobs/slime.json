@@ -1,0 +1,35 @@
+{
+  "id": "slime",
+  "nameEn": "Slime",
+  "nameFa": "اسلایم",
+  "category": "hostile",
+  "icon": "px-creeper-face",
+  "health": 16,
+  "damage": {
+    "contact": 2,
+    "explosion": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "Alpha 1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "اسلایم ماب مکعبی سبز رنگ هست که در سه سایز کوچک/متوسط/بزرگ پیدا می‌شه. بعد از کشتن بزرگ، ۲-۴ متوسط می‌سازه. در Slim Chunk پیدا می‌شه.",
+  "drops": [
+    {
+      "item": "slimeball",
+      "count": "0-2",
+      "condition": "فقط سایز کوچک"
+    }
+  ],
+  "locations": [
+    "Slime Chunk (y < 40)",
+    "Swamp (شب)"
+  ],
+  "combat": [
+    "با شمشیر بزن",
+    "با کمان از دور",
+    "رو زمین سفت بایست"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Slime"
+}

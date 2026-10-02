@@ -1,0 +1,48 @@
+{
+  "id": "elder-guardian",
+  "nameEn": "Elder Guardian",
+  "nameFa": "نگهبان کهنه",
+  "category": "boss",
+  "icon": "px-creeper-face",
+  "health": 80,
+  "damage": {
+    "ranged": 5,
+    "contact": 5,
+    "mining_fatigue": 5
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.8+",
+    "bedrock": "1.0.0+"
+  },
+  "description": "نگهبان کهنه بوس Ocean Monument هست و ۳ عدد در هر Monument پیدا می‌شه. با حمله، Mining Fatigue به بازیکن می‌ده.",
+  "drops": [
+    {
+      "item": "prismarine_shard",
+      "count": "0-2"
+    },
+    {
+      "item": "prismarine_crystals",
+      "count": "0-2"
+    },
+    {
+      "item": "raw_cod",
+      "count": "0-2",
+      "condition": "احتمال"
+    },
+    {
+      "item": "sponge",
+      "count": "1",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Ocean Monument"
+  ],
+  "combat": [
+    "با شیر حلیب Mining Fatigue رو برنیدار",
+    "با کمان از دور",
+    "با milk قبل"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Elder_Guardian"
+}

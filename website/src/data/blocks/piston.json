@@ -1,0 +1,32 @@
+{
+  "id": "piston",
+  "nameEn": "Piston",
+  "nameFa": "پیستون",
+  "category": "redstone",
+  "icon": "px-cobblestone",
+  "hardness": 1.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.7+",
+    "bedrock": "0.1+"
+  },
+  "description": "پیستون از ۳ چوب، ۴ کوب‌استون، ۱ آهن‌اولاد و ۱ رداستون ساخته می‌شه و بلوک‌ها رو هل می‌ده.",
+  "uses": [
+    "هل دادن بلوک",
+    "تله‌ها",
+    "مدار اتوماتیک"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "piston",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Piston"
+}

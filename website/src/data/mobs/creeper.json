@@ -1,0 +1,38 @@
+{
+  "id": "creeper",
+  "nameEn": "Creeper",
+  "nameFa": "کریپر",
+  "category": "hostile",
+  "icon": "px-creeper-face",
+  "health": 20,
+  "damage": {
+    "contact": 0,
+    "explosion": 49
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "0.24+",
+    "bedrock": "0.1+"
+  },
+  "description": "کریپر یک ماب منفجره است که بی‌صدا به سمت بازیکن می‌آید و با نزدیک شدن منفجر می‌شود. نماد ماینکرفت است.",
+  "drops": [
+    {
+      "item": "gunpowder",
+      "count": "0-2"
+    },
+    {
+      "item": "music_disc",
+      "condition": "اگه اسکلت بکشه"
+    }
+  ],
+  "locations": [
+    "سطح (روشنایی < 7)",
+    "غارها"
+  ],
+  "combat": [
+    "با شمشیر بزن و عقب برو",
+    "از کمان از دور استفاده کن",
+    "با سپر انفجار رو بلاک کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Creeper"
+}

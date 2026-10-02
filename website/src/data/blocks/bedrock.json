@@ -1,0 +1,32 @@
+{
+  "id": "bedrock",
+  "nameEn": "Bedrock",
+  "nameFa": "سنگ بستر",
+  "category": "natural",
+  "icon": "bedrock",
+  "hardness": -1.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "سنگ بستر غیرقابل شکسته پایه‌ی دنیا هست و در پایین‌ترین لایه‌ی دنیا و نادر پیدا می‌شه.",
+  "uses": [
+    "غیر قابل تخریب",
+    "مرز دنیا"
+  ],
+  "locations": [
+    "پایین دنیا (y=-64)",
+    "Nether"
+  ],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Bedrock"
+}

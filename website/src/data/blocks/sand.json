@@ -1,0 +1,34 @@
+{
+  "id": "sand",
+  "nameEn": "Sand",
+  "nameFa": "ماسه",
+  "category": "natural",
+  "icon": "sand",
+  "hardness": 0.5,
+  "tool": "shovel",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "ماسه در بایوم‌های صحرا و سواحل پیدا می‌شه. تحت تأثیر گرانش می‌افته و برای ساخت شیشه استفاده می‌شه.",
+  "uses": [
+    "ساخت شیشه",
+    "ساخت ماسه‌سنگ",
+    "ساخت TNT"
+  ],
+  "locations": [
+    "صحرا",
+    "ساحل",
+    "رودخانه"
+  ],
+  "drops": [
+    {
+      "item": "sand",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Sand"
+}

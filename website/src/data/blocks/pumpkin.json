@@ -1,0 +1,32 @@
+{
+  "id": "pumpkin",
+  "nameEn": "Pumpkin",
+  "nameFa": "کدو",
+  "category": "decoration",
+  "icon": "px-pumpkin",
+  "hardness": 1.0,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "کدو در بایوم‌های چمنی پیدا می‌شه و برای ساخت Jack o'Lantern و Pumpkin Pie استفاده می‌شه.",
+  "uses": [
+    "ساخت Jack o'Lantern",
+    "ساخت Pumpkin Pie",
+    "ساخت Snow Golem"
+  ],
+  "locations": [
+    "بایوم چمنزار"
+  ],
+  "drops": [
+    {
+      "item": "pumpkin",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Pumpkin"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "torch",
+  "nameEn": "Torch",
+  "nameFa": "مشعل",
+  "category": "decoration",
+  "icon": "px-torch",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 14,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "مشعل از چوب‌دست و زغال‌سنگ/زغال ساخته می‌شه و نور ۱۴ درجه ساطع می‌کنه. پایه‌ی اولیه‌ی روشنایی هست.",
+  "uses": [
+    "منبع نور",
+    "ساخت Lantern",
+    "ساخت Jack o'Lantern"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "torch",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Torch"
+}

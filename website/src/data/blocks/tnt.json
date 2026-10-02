@@ -1,0 +1,32 @@
+{
+  "id": "tnt",
+  "nameEn": "TNT",
+  "nameFa": "تی‌ان‌تی",
+  "category": "building",
+  "icon": "tnt",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Alpha 1.0+",
+    "bedrock": "0.1+"
+  },
+  "description": "TNT یک بلوک انفجاری است که با استفاده از پودر و ماسه ساخته می‌شه. با اتصال به رداستون یا شعله منفجر می‌شه.",
+  "uses": [
+    "نابودی زمین",
+    "تله‌ی انفجاری",
+    "کانال معدن"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "tnt",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/TNT"
+}

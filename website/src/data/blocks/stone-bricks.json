@@ -1,0 +1,32 @@
+{
+  "id": "stone-bricks",
+  "nameEn": " Stone Bricks",
+  "nameFa": "آجر سنگی",
+  "category": "building",
+  "icon": "px-stone-block",
+  "hardness": 1.5,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "آجر سنگی برای ساخت قلعه‌ها و دیوارهای سنگی استفاده می‌شه. در Strongholdها هم پیدا می‌شه.",
+  "uses": [
+    "ساخت Stronghold",
+    "ساخت قلعه"
+  ],
+  "locations": [
+    "Stronghold",
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "stone_bricks",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Stone_Bricks"
+}

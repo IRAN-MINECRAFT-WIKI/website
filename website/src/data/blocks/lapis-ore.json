@@ -1,0 +1,38 @@
+{
+  "id": "lapis-ore",
+  "nameEn": "Lapis Lazuli Ore",
+  "nameFa": "سنگ لاجورد",
+  "category": "ore",
+  "icon": "lapis-lazuli-ore",
+  "hardness": 3.0,
+  "tool": "stone_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "سنگ لاجورد در عمق‌های پایین پیدا می‌شه و ۴-۸ لاجورد می‌ده. برای جادو و رنگ‌آمیزی استفاده می‌شه.",
+  "uses": [
+    "جادو (Enchanting)",
+    "رنگ‌آمیزی آبی"
+  ],
+  "locations": [
+    "y=-64 تا y=64",
+    "بیش‌ترین در y=0"
+  ],
+  "drops": [
+    {
+      "item": "lapis_lazuli",
+      "count": "4-8",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "lapis_ore",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Lapis_Lazuli_Ore"
+}

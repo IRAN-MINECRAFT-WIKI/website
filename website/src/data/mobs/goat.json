@@ -1,0 +1,35 @@
+{
+  "id": "goat",
+  "nameEn": "Goat",
+  "nameFa": "بز",
+  "category": "neutral",
+  "icon": "px-cow-face",
+  "health": 10,
+  "damage": {
+    "contact": 2,
+    "ranged": 4,
+    "knockback": 4
+  },
+  "speed": 0.35,
+  "versions": {
+    "java": "1.17+",
+    "bedrock": "1.17.0+"
+  },
+  "description": "بز در Mountains پیدا می‌شه و اگه هجوم ببره، با شاخ بازیکن رو پرت می‌کنه. می‌تونه روی سنگ بالا بره.",
+  "drops": [
+    {
+      "item": "mutton",
+      "count": "1",
+      "condition": "اگه بازیکن بکشه"
+    }
+  ],
+  "locations": [
+    "Mountains",
+    "Savanna"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "زیرش نایست"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Goat"
+}

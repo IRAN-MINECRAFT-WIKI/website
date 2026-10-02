@@ -1,0 +1,32 @@
+{
+  "id": "grindstone",
+  "nameEn": "Grindstone",
+  "nameFa": "سنگ‌ساب",
+  "category": "mechanism",
+  "icon": "px-furnace",
+  "hardness": 2.0,
+  "tool": "wooden_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.10.0+"
+  },
+  "description": "سنگ‌ساب از ۲ چوب‌دست، ۲ تخته و ۱ سنگ ساب ساخته می‌شه و برای حذف جادو و تعمیر ساده استفاده می‌شه.",
+  "uses": [
+    "حذف جادو",
+    "تعمیر ابزار"
+  ],
+  "locations": [
+    "صنعت",
+    "Village Weaponsmith"
+  ],
+  "drops": [
+    {
+      "item": "grindstone",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Grindstone"
+}

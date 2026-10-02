@@ -1,0 +1,219 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import {
+  blocks,
+  BLOCK_CATEGORIES,
+  type BlockInfo,
+} from '@/lib/data';
+import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'ویکی', url: '/wiki' },
+  { name: 'بلاک‌ها', url: '/wiki/blocks' },
+];
+
+const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
+const ldItemList = itemListJsonLd(blocks.map((b) => ({ name: b.nameFa, url: `/wiki/blocks/${b.id}` })));
+
+// Persian digit helper
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+// Group blocks by category for sectioned layout
+const blocksByCategory: Record<string, BlockInfo[]> = {};
+for (const c of BLOCK_CATEGORIES) {
+  blocksByCategory[c.id] = blocks.filter((b) => b.category === c.id);
+}
+---
+
+<BaseLayout
+  path="/wiki/blocks"
+  title="راهنمای کامل بلاک‌های ماینکرفت"
+  description="راهنمای فارسی بلاک‌های ماینکرفت: بیش از ۱۰۰ بلاک با اطلاعات کامل — سختی، ابزار لازم، دراپ، محل یافتن، نسخه‌ها و لینک به Minecraft Wiki."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(ldBreadcrumb)} />
+  <script type="application/ld+json" set:html={JSON.stringify(ldItemList)} />
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">بلاک‌های ماینکرفت</h1>
+    <p class="text-sm text-mc-text-2">
+      {faNum(blocks.length)} بلاک در {faNum(BLOCK_CATEGORIES.length)} دسته — راهنمای کامل بلاک‌های ساختمانی، طبیعی، معدنی، رداستون و کاربردی
+    </p>
+  </div>
+
+  <!-- Filter toolbar -->
+  <div class="mc-panel p-3 mb-5 flex flex-wrap items-center gap-3">
+    <div class="flex flex-wrap gap-2" id="blkChips">
+      <button class="mc-chip active" data-cat="all">همه ({faNum(blocks.length)})</button>
+      {BLOCK_CATEGORIES.map((c) => {
+        const count = (blocksByCategory[c.id] || []).length;
+        return (
+          <button class="mc-chip" data-cat={c.id}>
+            {c.icon} {c.nameFa} ({faNum(count)})
+          </button>
+        );
+      })}
+    </div>
+    <div class="mr-auto flex items-center gap-2">
+      <label for="blkSearch" class="text-xs text-mc-text-3 font-bold">جستجو:</label>
+      <input
+        id="blkSearch"
+        type="search"
+        placeholder="مثلا سنگ یا diamond..."
+        class="sw-input text-xs py-1.5 px-3"
+        dir="rtl"
+      />
+    </div>
+  </div>
+
+  <!-- Per-category sections -->
+  {BLOCK_CATEGORIES.map((c) => {
+    const items = blocksByCategory[c.id] || [];
+    if (items.length === 0) return null;
+    return (
+      <section class="mb-10" id={`cat-${c.id}`} data-cat-section={c.id}>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">{c.icon}</span>
+          <div>
+            <h2 class="text-xl font-extrabold">{c.nameFa}</h2>
+            <p class="text-xs text-mc-text-3">{faNum(items.length)} بلاک</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {items.map((b) => (
+            <a
+              href={base(`/wiki/blocks/${b.id}`)}
+              class="mc-panel hoverable group block p-3 text-center"
+              data-cat={b.category}
+              data-name={b.nameFa}
+              data-en={b.nameEn}
+              data-id={b.id}
+            >
+              <div class="mx-auto mb-2 inline-flex items-center justify-center w-12 h-12">
+                <img
+                  src={`${BASE}textures/blocks/${b.icon.replace('px-', '')}.png`}
+                  alt={b.nameFa}
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                  decoding="async"
+                  class="pixel-img"
+                  onerror={`this.style.display='none'; var s=this.nextElementSibling; if(s){s.style.display='inline-block';}`}
+                />
+                <svg width="40" height="40" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display: none; image-rendering: pixelated;">
+                  <use href={`#${b.icon.startsWith('px-') ? b.icon : 'px-' + b.icon}`} />
+                </svg>
+              </div>
+              <h3 class="text-sm font-bold text-mc-text group-hover:text-mc-grass-2 leading-tight mb-1">{b.nameFa}</h3>
+              <p class="text-[10px] text-mc-text-3" dir="ltr">{b.nameEn}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+
+  <!-- Empty state -->
+  <p class="mc-panel text-center py-8 text-sm text-mc-text-2 hidden" id="blkNoResults">
+    هیچ بلاکی با این فیلتر پیدا نشد. 🔍 فیلترها را تغییر دهید.
+  </p>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const chips = document.querySelectorAll('#blkChips .mc-chip');
+    const searchInput = document.getElementById('blkSearch');
+    const noResults = document.getElementById('blkNoResults');
+    const sections = document.querySelectorAll('[data-cat-section]');
+    if (!chips.length) return;
+
+    let curCat = 'all';
+    let curQuery = '';
+
+    function applyFilter() {
+      const q = curQuery.trim().toLowerCase();
+      let visibleCount = 0;
+
+      sections.forEach((sec) => {
+        const catId = sec.getAttribute('data-cat-section');
+        const cards = sec.querySelectorAll('[data-cat]');
+        let visibleInSec = 0;
+        cards.forEach((card) => {
+          const cardCat = card.getAttribute('data-cat');
+          // category filter
+          if (curCat !== 'all' && cardCat !== curCat) {
+            card.style.display = 'none';
+            return;
+          }
+          // search filter
+          if (q) {
+            const haystack = [
+              card.dataset.name || '',
+              card.dataset.en || '',
+              card.dataset.id || '',
+            ].join(' ').toLowerCase();
+            if (!haystack.includes(q)) {
+              card.style.display = 'none';
+              return;
+            }
+          }
+          card.style.display = '';
+          visibleInSec++;
+          visibleCount++;
+        });
+        // hide the whole section if no visible cards in this category
+        if (curCat !== 'all' && curCat !== catId) {
+          sec.style.display = 'none';
+        } else if (visibleInSec === 0 && q) {
+          sec.style.display = 'none';
+        } else {
+          sec.style.display = '';
+        }
+      });
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      }
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        curCat = chip.dataset.cat || 'all';
+        applyFilter();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        curQuery = searchInput.value;
+        applyFilter();
+      });
+    }
+  })();
+</script>
+
+<style>
+  .sw-input {
+    background: var(--bg-2, #0d0d18);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    border-radius: 4px;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sw-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+    background: #141428;
+  }
+</style>

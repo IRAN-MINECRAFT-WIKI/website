@@ -1,0 +1,33 @@
+{
+  "id": "dolphin",
+  "nameEn": "Dolphin",
+  "nameFa": "دلفین",
+  "category": "neutral",
+  "icon": "px-cow-face",
+  "health": 10,
+  "damage": {
+    "contact": 3
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "1.13+",
+    "bedrock": "1.5.0+"
+  },
+  "description": "دلفین در Ocean پیدا می‌شه و به سمت کشتی غرق‌شده و خرابه‌های زیر آب می‌ره. اگه بازیکن زخمی شه، بهش حمله می‌کنه.",
+  "drops": [
+    {
+      "item": "raw_cod",
+      "count": "0-1",
+      "condition": "اگه بازیکن بکشه"
+    }
+  ],
+  "locations": [
+    "Ocean",
+    "Lukewarm Ocean"
+  ],
+  "combat": [
+    "با کمان از دور",
+    "زیر آب بزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Dolphin"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "redstone-lamp",
+  "nameEn": "Redstone Lamp",
+  "nameFa": "لامپ رداستون",
+  "category": "redstone",
+  "icon": "px-glowstone",
+  "hardness": 0.3,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 15,
+  "versions": {
+    "java": "1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "لامپ رداستون از ۴ Glowstone و ۱ رداستون ساخته می‌شه و با سیگنال رداستون روشن می‌شه.",
+  "uses": [
+    "روشنایی خودکار",
+    "دکوراسیون"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "redstone_lamp",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Redstone_Lamp"
+}

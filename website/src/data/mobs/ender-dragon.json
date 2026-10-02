@@ -1,0 +1,38 @@
+{
+  "id": "ender-dragon",
+  "nameEn": "Ender Dragon",
+  "nameFa": "اژدهای اِند",
+  "category": "boss",
+  "icon": "px-creeper-face",
+  "health": 200,
+  "damage": {
+    "contact": 10,
+    "ranged": 12,
+    "fling": 16
+  },
+  "speed": 0.5,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "1.0.0+"
+  },
+  "description": "اژدهای اِند بوس نهایی ماینکرفت هست و در جزیره‌ی مرکزی The End پیدا می‌شه. با نابودی Ender Crystal و ضربه به سرش کشته می‌شه.",
+  "drops": [
+    {
+      "item": "experience",
+      "count": "12000"
+    },
+    {
+      "item": "dragon_egg",
+      "count": "1"
+    }
+  ],
+  "locations": [
+    "The End (Central Island)"
+  ],
+  "combat": [
+    "با کمان و Pillar بری Ender Crystal رو بزن",
+    "با شمشیر و Sleep حمله کن",
+    "با Bed explode کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Ender_Dragon"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "wolf",
+  "nameEn": "Wolf",
+  "nameFa": "گرگ",
+  "category": "neutral",
+  "icon": "px-cow-face",
+  "health": 8,
+  "damage": {
+    "contact": 4
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "Beta 1.4+",
+    "bedrock": "0.1+"
+  },
+  "description": "گرگ در بایوم Taiga و Forest پیدا می‌شه. با استخوان می‌تونی اهلیش کنی و بهت کمک می‌کنه در جنگ.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Taiga",
+    "Forest"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "با استخوان اهلی کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Wolf"
+}

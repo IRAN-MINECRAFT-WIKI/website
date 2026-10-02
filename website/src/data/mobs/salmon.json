@@ -1,0 +1,31 @@
+{
+  "id": "salmon",
+  "nameEn": "Salmon",
+  "nameFa": "سالمون",
+  "category": "passive",
+  "icon": "px-cow-face",
+  "health": 3,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.4,
+  "versions": {
+    "java": "1.13+",
+    "bedrock": "1.5.0+"
+  },
+  "description": "سالمون یک ماهی بزرگ‌تر از بادکن هست و در اقیانوس‌ها و رودخانه‌ها پیدا می‌شه.",
+  "drops": [
+    {
+      "item": "raw_salmon",
+      "count": "1"
+    }
+  ],
+  "locations": [
+    "Ocean",
+    "River"
+  ],
+  "combat": [
+    "با قلاب یا دست"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Salmon"
+}

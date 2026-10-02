@@ -1,0 +1,43 @@
+{
+  "id": "pillager",
+  "nameEn": "Pillager",
+  "nameFa": "غارتگر",
+  "category": "hostile",
+  "icon": "px-creeper-face",
+  "health": 24,
+  "damage": {
+    "ranged": 5,
+    "contact": 2
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.10.0+"
+  },
+  "description": "غارتگر با Crossbow حمله می‌کنه و در Raid و Pillager Outpost پیدا می‌شه. اگه Banner بدی، Raid آغاز می‌شه.",
+  "drops": [
+    {
+      "item": "crossbow",
+      "count": "1",
+      "condition": "احتمال"
+    },
+    {
+      "item": "arrow",
+      "count": "0-2"
+    },
+    {
+      "item": "emerald",
+      "count": "0-1",
+      "condition": "احتمال"
+    }
+  ],
+  "locations": [
+    "Pillager Outpost",
+    "Village (Raid)"
+  ],
+  "combat": [
+    "با کمان از دور بزن",
+    "با سپر تیر رو بلاک کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Pillager"
+}

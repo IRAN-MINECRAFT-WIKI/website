@@ -1,0 +1,39 @@
+{
+  "id": "iron-ore",
+  "nameEn": "Iron Ore",
+  "nameFa": "سنگ آهن",
+  "category": "ore",
+  "icon": "iron-ore",
+  "hardness": 3.0,
+  "tool": "stone_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "0.26+",
+    "bedrock": "0.1+"
+  },
+  "description": "سنگ آهن از معدن در عمق‌های متوسط استخراج می‌شه و برای ساخت آهن‌اولاد و ابزار آهنی استفاده می‌شه.",
+  "uses": [
+    "ساخت Iron Ingot",
+    "ساخت ابزار آهنی",
+    "ساخت زره آهنی"
+  ],
+  "locations": [
+    "y=15 تا y=80",
+    "بیش‌ترین در y=15"
+  ],
+  "drops": [
+    {
+      "item": "raw_iron",
+      "count": "1",
+      "condition": "بدون Silk Touch"
+    },
+    {
+      "item": "iron_ore",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Iron_Ore"
+}

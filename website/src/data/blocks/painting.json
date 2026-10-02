@@ -1,0 +1,30 @@
+{
+  "id": "painting",
+  "nameEn": "Painting",
+  "nameFa": "نقاشی",
+  "category": "decoration",
+  "icon": "px-crafting-table",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "نقاشی از چوب‌دست، پشم و چوب‌دست ساخته می‌شه و در ۲۶ طرح مختلف موجود هست.",
+  "uses": [
+    "دکوراسیون دیواری"
+  ],
+  "locations": [
+    "صنعت"
+  ],
+  "drops": [
+    {
+      "item": "painting",
+      "count": "1"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Painting"
+}
