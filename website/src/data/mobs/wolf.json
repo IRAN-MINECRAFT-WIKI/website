@@ -3,7 +3,7 @@
   "nameEn": "Wolf",
   "nameFa": "گرگ",
   "category": "neutral",
-  "icon": "px-cow-face",
+  "icon": "wolf",
   "health": 8,
   "damage": {
     "contact": 4
@@ -101,5 +101,6 @@
     "xp": 1,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }

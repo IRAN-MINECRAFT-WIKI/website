@@ -37,9 +37,10 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   .stats-widget {
     position: fixed;
     bottom: 0.75rem;
-    /* RTL: anchor to the left edge so the widget hugs the same side as
-       the BackToTop + MusicPlayer (which are on the left in RTL layout). */
-    left: 0.75rem;
+    /* User requested: move to RIGHT side (away from MusicPlayer which
+       is on the left). This gives breathing room between the two
+       floating widgets. */
+    right: 0.75rem;
     z-index: 45;
     display: inline-flex;
     align-items: center;
@@ -125,7 +126,7 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
       padding: 0.35rem 0.55rem;
       gap: 0.3rem;
       bottom: 0.5rem;
-      left: 0.5rem;
+      right: 0.5rem;
     }
     .stats-widget .sw-pill:last-child {
       display: none;

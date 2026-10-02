@@ -3,7 +3,7 @@
   "nameEn": "Blaze",
   "nameFa": "بلیز",
   "category": "hostile",
-  "icon": "px-skeleton-face",
+  "icon": "blaze",
   "health": 20,
   "damage": {
     "ranged": 6,
@@ -103,5 +103,6 @@
     "xp": 10,
     "boss": false,
     "spawnGroup": "monster"
-  }
+  },
+  "hasRealTexture": true
 }

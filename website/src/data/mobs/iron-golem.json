@@ -3,7 +3,7 @@
   "nameEn": "Iron Golem",
   "nameFa": "گلولم آهنی",
   "category": "neutral",
-  "icon": "px-cow-face",
+  "icon": "iron-golem",
   "health": 100,
   "damage": {
     "contact": 15,
@@ -114,5 +114,6 @@
     "xp": 0,
     "boss": false,
     "spawnGroup": "creature"
-  }
+  },
+  "hasRealTexture": true
 }

@@ -54,7 +54,7 @@
       "nameEn": "Block of Quartz",
       "nameFa": "بلوک کوارتز",
       "category": "building",
-      "icon": "px-diamond-ore"
+      "icon": "diamond-ore"
     },
     {
       "id": "stone-bricks",
@@ -89,42 +89,42 @@
       "nameEn": "Blackstone",
       "nameFa": "سنگ سیاه",
       "category": "building",
-      "icon": "px-obsidian"
+      "icon": "obsidian"
     },
     {
       "id": "basalt",
       "nameEn": "Basalt",
       "nameFa": "باسالت",
       "category": "building",
-      "icon": "px-obsidian"
+      "icon": "obsidian"
     },
     {
       "id": "end-stone",
       "nameEn": "End Stone",
       "nameFa": "سنگ اِند",
       "category": "building",
-      "icon": "px-sand"
+      "icon": "sand"
     },
     {
       "id": "terracotta",
       "nameEn": "Terracotta",
       "nameFa": "تراکوتا",
       "category": "building",
-      "icon": "px-diamond-ore"
+      "icon": "diamond-ore"
     },
     {
       "id": "concrete",
       "nameEn": "Concrete",
       "nameFa": "بتن",
       "category": "building",
-      "icon": "px-cobblestone"
+      "icon": "cobblestone"
     },
     {
       "id": "glass",
       "nameEn": "Glass",
       "nameFa": "شیشه",
       "category": "building",
-      "icon": "px-ice"
+      "icon": "ice"
     },
     {
       "id": "obsidian",
@@ -187,14 +187,14 @@
       "nameEn": "Clay",
       "nameFa": "گل",
       "category": "natural",
-      "icon": "px-cobblestone"
+      "icon": "cobblestone"
     },
     {
       "id": "snow-block",
       "nameEn": "Snow Block",
       "nameFa": "بلوک برف",
       "category": "natural",
-      "icon": "px-ice"
+      "icon": "ice"
     },
     {
       "id": "ice",
@@ -334,14 +334,14 @@
       "nameEn": "Copper Ore",
       "nameFa": "سنگ مس",
       "category": "ore",
-      "icon": "px-iron-ore"
+      "icon": "iron-ore"
     },
     {
       "id": "nether-quartz-ore",
       "nameEn": "Nether Quartz Ore",
       "nameFa": "سنگ کوارتز نادر",
       "category": "ore",
-      "icon": "px-diamond-ore"
+      "icon": "diamond-ore"
     },
     {
       "id": "nether-gold-ore",
@@ -355,7 +355,7 @@
       "nameEn": "Ancient Debris",
       "nameFa": "خرده‌سنگ باستانی",
       "category": "ore",
-      "icon": "px-iron-ore"
+      "icon": "iron-ore"
     },
     {
       "id": "deepslate-coal-ore",
@@ -404,7 +404,7 @@
       "nameEn": "Glass Pane",
       "nameFa": "قاب شیشه",
       "category": "decoration",
-      "icon": "px-ice"
+      "icon": "ice"
     },
     {
       "id": "bookshelf",
@@ -481,7 +481,7 @@
       "nameEn": "Sea Lantern",
       "nameFa": "فانوس دریایی",
       "category": "decoration",
-      "icon": "px-glowstone"
+      "icon": "glowstone"
     },
     {
       "id": "cake",
@@ -509,28 +509,28 @@
       "nameEn": "Block of Redstone",
       "nameFa": "بلوک رداستون",
       "category": "redstone",
-      "icon": "px-tnt"
+      "icon": "tnt"
     },
     {
       "id": "redstone-wire",
       "nameEn": "Redstone Wire",
       "nameFa": "سیم رداستون",
       "category": "redstone",
-      "icon": "px-tnt"
+      "icon": "tnt"
     },
     {
       "id": "piston",
       "nameEn": "Piston",
       "nameFa": "پیستون",
       "category": "redstone",
-      "icon": "px-cobblestone"
+      "icon": "cobblestone"
     },
     {
       "id": "sticky-piston",
       "nameEn": "Sticky Piston",
       "nameFa": "پیستون چسبناک",
       "category": "redstone",
-      "icon": "px-cobblestone"
+      "icon": "cobblestone"
     },
     {
       "id": "dispenser",
@@ -607,7 +607,7 @@
       "nameEn": "Redstone Lamp",
       "nameFa": "لامپ رداستون",
       "category": "redstone",
-      "icon": "px-glowstone"
+      "icon": "glowstone"
     },
     {
       "id": "hopper",
@@ -726,21 +726,21 @@
       "nameEn": "Shulker Box",
       "nameFa": "جعبه‌ی شالکر",
       "category": "utility",
-      "icon": "px-chest"
+      "icon": "chest"
     },
     {
       "id": "beacon",
       "nameEn": "Beacon",
       "nameFa": "فانوس دریایی",
       "category": "utility",
-      "icon": "px-diamond-ore"
+      "icon": "diamond-ore"
     },
     {
       "id": "conduit",
       "nameEn": "Conduit",
       "nameFa": "کاندویت",
       "category": "utility",
-      "icon": "px-diamond-ore"
+      "icon": "diamond-ore"
     },
     {
       "id": "loom",
@@ -782,7 +782,7 @@
       "nameEn": "Respawn Anchor",
       "nameFa": "لنگر اسپاون",
       "category": "utility",
-      "icon": "px-glowstone"
+      "icon": "glowstone"
     }
   ]
 }

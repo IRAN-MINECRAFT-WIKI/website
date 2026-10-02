@@ -54,14 +54,16 @@
       "nameEn": "Blaze",
       "nameFa": "بلیز",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "blaze",
+      "hasRealTexture": true
     },
     {
       "id": "ghast",
       "nameEn": "Ghast",
       "nameFa": "غاست",
       "category": "hostile",
-      "icon": "px-skeleton-face"
+      "icon": "ghast",
+      "hasRealTexture": true
     },
     {
       "id": "magma-cube",
@@ -243,14 +245,16 @@
       "nameEn": "Wolf",
       "nameFa": "گرگ",
       "category": "neutral",
-      "icon": "px-cow-face"
+      "icon": "wolf",
+      "hasRealTexture": true
     },
     {
       "id": "iron-golem",
       "nameEn": "Iron Golem",
       "nameFa": "گلولم آهنی",
       "category": "neutral",
-      "icon": "px-cow-face"
+      "icon": "iron-golem",
+      "hasRealTexture": true
     },
     {
       "id": "zombified-piglin",
@@ -313,7 +317,8 @@
       "nameEn": "Wither",
       "nameFa": "ویدر",
       "category": "boss",
-      "icon": "px-creeper-face"
+      "icon": "wither",
+      "hasRealTexture": true
     },
     {
       "id": "wither-skeleton",
