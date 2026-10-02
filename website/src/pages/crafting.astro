@@ -1,44 +1,987 @@
 ---
+/**
+ * /crafting — Minecraft Crafting Table page (Phase 5 rebuild)
+ *
+ * Layout:
+ *   ┌─────────────────────────────────────────────┐
+ *   │  [Search input ....]                         │
+ *   │  [chip] [chip] [chip] [chip] [chip] [chip]   │
+ *   ├──────────────────────┬──────────────────────┤
+ *   │  3x3 grid + arrow +  │  Scrollable list     │
+ *   │  result slot          │  of recipes (click)  │
+ *   │  Recipe info (below)  │                      │
+ *   └──────────────────────┴──────────────────────┘
+ *
+ * Bug fix (P1-3): chip text now uses EXACT recipe.nameFa
+ *   (e.g. "شمشیر الماسی" with ی suffix, not "شمشیر الماس").
+ *   findRecipe is split into two paths:
+ *     - For TYPED search: try exact, then aliases, then substring
+ *     - For CHIP click: directly look up by data-recipe-id (EXACT, no fuzzy)
+ */
 import BaseLayout from '@layouts/BaseLayout.astro';
-import CraftingHelper from '@components/CraftingHelper.astro';
+import recipesJson from '@/data/crafting-recipes.json';
 
 const BASE = import.meta.env.BASE_URL;
-const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 
-// This page is full-screen (no main padding) — the scene fills the viewport
+// Pre-serialize the recipe list for client-side JS
+const recipes = recipesJson.recipes;
+const recipesData = JSON.stringify(
+  recipes.map((r) => ({
+    id: r.id,
+    nameFa: r.nameFa,
+    nameEn: r.nameEn,
+    aliases: r.aliases,
+    grid: r.grid,
+    output: r.output,
+    wikiSlug: r.wikiSlug,
+    shapeless: r.shapeless,
+    description: r.description,
+  }))
+);
+
+// A curated set of popular recipes for the chip strip.
+// IMPORTANT: chip text MUST come from the recipe's actual nameFa so that
+// if a user clicks a chip, then types the SAME text into the search box,
+// the typed search returns the SAME recipe (idempotent — fixes P1-3).
+const chipIds = [
+  'diamond-sword',   // nameFa = "شمشیر الماسی"
+  'iron-pickaxe',    // nameFa = "کلنگ آهنی"
+  'crafting-table',  // nameFa = "میز کار"
+  'torch',           // nameFa = "مشعل"
+  'furnace',         // nameFa = "کوره"
+  'chest',           // nameFa = "صندوق"
+  'bow',             // nameFa = "کمان"
+  'tnt',             // nameFa = "تی‌ان‌تی"
+];
+const chipRecipes = chipIds
+  .map((id) => recipes.find((r) => r.id === id))
+  .filter(Boolean) as typeof recipes;
+
+// Texture path helper — the JSON lists item names like "diamond" or
+// "oak-planks". Block textures live in /textures/blocks/, items in
+// /textures/items/. A small allowlist of known block names is used.
+const BLOCK_NAMES = new Set([
+  'oak-planks', 'cobblestone', 'crafting-table-top', 'crafting-table-side',
+  'chest', 'furnace-side', 'furnace-front', 'furnace-top', 'tnt',
+  'ladder', 'bookshelf', 'red-bed', 'glass', 'sand', 'wool',
+  'oak-log', 'oak-log-top', 'oak-leaves', 'stone', 'dirt', 'grass-block',
+  'planks', 'sand-side',
+]);
+
+function texPath(name?: string | null): string | null {
+  if (!name) return null;
+  const folder = BLOCK_NAMES.has(name) ? 'blocks' : 'items';
+  return `${BASE}textures/${folder}/${name}.png`;
+}
 ---
 
 <BaseLayout
   path="/crafting"
-  title="کرافت ماینکرفت — تعاملی و سه‌بعدی"
-  description="یک تجربه‌ی کرافت کامل و سه‌بعدی — استیو، میز کار، هات‌بار، پنل بلاک‌ها. تایپ کن تا استیو برات بسازه!"
+  title="میز کار کرافت — همه‌ی رسپی‌های ماینکرفت"
+  description="جدول کامل رسپی‌های کرافت ماینکرفت با رابط میز کار واقعی. اسم آیتم رو سرچ کن، روی رسپی کلیک کن و ببین چطور ساخته می‌شه."
 >
-  <!-- Full-screen crafting scene — overrides the default BaseLayout main padding -->
-  <div class="crafting-page">
-    <CraftingHelper />
-  </div>
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE HEADER
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="craft-header">
+    <div class="craft-header-icon">
+      <img
+        src={`${BASE}textures/blocks/crafting-table-top.png`}
+        alt=""
+        width="48"
+        height="48"
+        class="pixel-img"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+    <div class="craft-header-text">
+      <h1>میزِ کرافت</h1>
+      <p>یه رسپی رو از لیست انتخاب کن یا اسمش رو سرچ کن تا ترکیب ۳×۳ رو ببینی.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SEARCH + CHIPS
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="craft-search-section" aria-label="جستجوی رسپی">
+    <div class="craft-search-wrap">
+      <svg class="craft-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </svg>
+      <input
+        type="text"
+        id="craftingSearch"
+        class="craft-search-input"
+        placeholder="جستجو: شمشیر الماسی، کلنگ آهنی، میز کار..."
+        autocomplete="off"
+        aria-label="جستجوی رسپی"
+      />
+      <button id="craftingSearchClear" class="craft-search-clear" aria-label="پاک کردن جستجو" type="button" hidden>✕</button>
+    </div>
+
+    <div class="craft-chips" role="group" aria-label="رسپی‌های محبوب">
+      {chipRecipes.map((r) => (
+        <button class="craft-chip" data-recipe-id={r.id} type="button">
+          <img
+            src={texPath(r.output.item)}
+            alt=""
+            width="16"
+            height="16"
+            class="pixel-img chip-icon"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="chip-text">{r.nameFa}</span>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN LAYOUT: GRID (LEFT) + RECIPE LIST (RIGHT)
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="craft-layout">
+    <!-- LEFT: crafting table -->
+    <div class="craft-grid-area">
+      <div class="mcui-Crafting_Table" id="craftingTableUI">
+        <div class="mcui-input">
+          <div class="mcui-shaped">
+            {[0, 1, 2].map((r) => (
+              <div class="mcui-row">
+                {[0, 1, 2].map((c) => {
+                  const idx = r * 3 + c;
+                  return (
+                    <div
+                      class="craft-slot"
+                      data-craft-slot={idx}
+                      aria-label={`اسلات ${idx + 1}`}
+                    ></div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="mcui-arrow" aria-hidden="true">
+          <svg width="32" height="16" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8h22M21 3l5 5-5 5" />
+          </svg>
+        </div>
+        <div class="mcui-output">
+          <div class="craft-result-slot" id="craftResultSlot" aria-label="خروجی"></div>
+        </div>
+      </div>
+
+      <!-- Recipe info card (revealed when a recipe is loaded) -->
+      <div class="recipe-info" id="recipeInfo" hidden>
+        <div class="recipe-info-head">
+          <h3 id="recipeTitle" class="recipe-title">—</h3>
+          <span id="recipeCount" class="recipe-count" hidden></span>
+        </div>
+        <p id="recipeDesc" class="recipe-desc">—</p>
+        <div class="recipe-info-actions">
+          <a href="#" class="mc-btn pixel small" id="wikiLink" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" />
+            </svg>
+            صفحه‌ی ویکی
+          </a>
+          <button class="mc-btn ghost small" id="clearGridBtn" type="button">
+            پاک‌سازی
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty-state hint (shown when no recipe is loaded) -->
+      <div class="empty-hint" id="emptyHint">
+        <p>📌 روی یکی از رسپی‌های سمت چپ کلیک کن تا ترکیب ۳×۳ این‌جا نمایش داده بشه.</p>
+      </div>
+    </div>
+
+    <!-- RIGHT: recipe list -->
+    <aside class="recipe-list-area" aria-label="لیست رسپی‌ها">
+      <div class="recipe-list-head">
+        <h3>📋 لیست رسپی‌ها</h3>
+        <span class="recipe-count-display">
+          <span id="recipeListCount">{recipes.length}</span> رسپی
+        </span>
+      </div>
+      <ul class="recipe-list" id="recipeList">
+        {recipes.map((r) => (
+          <li>
+            <button class="recipe-item" data-recipe-id={r.id} type="button">
+              <span class="recipe-item-icon">
+                <img
+                  src={texPath(r.output.item) || ''}
+                  alt=""
+                  width="24"
+                  height="24"
+                  class="pixel-img"
+                  loading="lazy"
+                  decoding="async"
+                  onerror="this.style.visibility='hidden'"
+                />
+              </span>
+              <span class="recipe-item-name">{r.nameFa}</span>
+              {r.output.count > 1 && (
+                <span class="recipe-item-count">×{r.output.count}</span>
+              )}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <p class="recipe-list-empty" id="recipeListEmpty" hidden>
+        هیچ رسپی پیدا نشد. کلمه‌ی دیگه‌ای امتحان کن.
+      </p>
+    </aside>
+  </section>
 </BaseLayout>
 
 <style is:global>
-  /* Override BaseLayout's main padding for this page only */
-  .crafting-page {
-    margin: -1.5rem -1rem 0;
+  /* ───────────────────────────────────────────────────────────
+     PAGE HEADER
+     ─────────────────────────────────────────────────────────── */
+  .craft-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, rgba(28, 28, 52, 0.85) 0%, rgba(20, 20, 42, 0.92) 100%);
+    border: 2px solid var(--line, #2e2e4a);
+    border-right-color: var(--grass-3, #3d7521);
+    border-bottom-color: var(--grass-3, #3d7521);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 1px 1px 0 rgba(255, 255, 255, 0.05);
   }
-  
-  /* On larger screens, also kill the max-width + horizontal padding */
-  @media (min-width: 640px) {
-    .crafting-page {
-      margin: -1.5rem -1.5rem 0;
+  .craft-header-icon {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .craft-header-icon img { width: 70%; height: 70%; }
+  .craft-header-text h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+    color: var(--grass-2, #7cc84a);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+    margin: 0 0 0.375rem 0;
+    line-height: 1.3;
+  }
+  .craft-header-text p {
+    color: var(--text-2, #b8b8d0);
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     SEARCH + CHIPS
+     ─────────────────────────────────────────────────────────── */
+  .craft-search-section {
+    padding: 0.875rem 1rem;
+    margin-bottom: 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--line, #2e2e4a);
+  }
+  .craft-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .craft-search-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-3, #8585a3);
+    pointer-events: none;
+  }
+  .craft-search-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--grass-3, #3d7521);
+    border-right-color: var(--grass, #5fa838);
+    border-bottom-color: var(--grass, #5fa838);
+    padding: 0.625rem 2.5rem 0.625rem 0.75rem;
+    color: var(--text, #e6e6f2);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    border-radius: 0;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .craft-search-input:focus {
+    border-color: var(--grass-2, #7cc84a);
+    box-shadow: 0 0 0 2px rgba(124, 200, 74, 0.25);
+  }
+  .craft-search-input::placeholder { color: var(--text-3, #8585a3); }
+
+  .craft-search-clear {
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 59, 59, 0.15);
+    border: 1px solid #8a1a1a;
+    color: #ff8b8b;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .craft-search-clear:hover { background: rgba(255, 59, 59, 0.3); }
+
+  .craft-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+  .craft-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(123, 197, 92, 0.12);
+    border: 1px solid var(--grass-3, #3d7521);
+    color: var(--grass-2, #7cc84a);
+    font-size: 0.78rem;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .craft-chip:hover {
+    background: rgba(123, 197, 92, 0.28);
+    transform: translateY(-1px);
+  }
+  .craft-chip:active { transform: translateY(0); }
+  .craft-chip .chip-icon {
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     MAIN LAYOUT (grid + list)
+     ─────────────────────────────────────────────────────────── */
+  .craft-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .craft-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ─── LEFT: crafting table + info ─── */
+  .craft-grid-area {
+    background: linear-gradient(135deg, rgba(28, 28, 52, 0.85) 0%, rgba(20, 20, 42, 0.92) 100%);
+    border: 2px solid var(--line, #2e2e4a);
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  /* The 3x3 grid + arrow + result, modeled on CraftingGrid.astro */
+  .mcui-Crafting_Table {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, #6b6b6b 0%, #5a5a5a 50%, #4a4a4a 100%);
+    border: 3px solid #373737;
+    border-right-color: #555;
+    border-bottom-color: #555;
+    box-shadow:
+      inset 3px 3px 0 rgba(0, 0, 0, 0.3),
+      inset -3px -3px 0 rgba(255, 255, 255, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.3);
+    image-rendering: pixelated;
+    color: #ffffff;
+    border-radius: 2px;
+    direction: ltr;     /* Minecraft crafting UI is always LTR */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  .mcui-shaped {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mcui-row { display: flex; gap: 2px; }
+  .mcui-arrow {
+    color: #c0c0c0;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+    filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.4));
+  }
+  .mcui-arrow svg { animation: mcuiPulse 2s ease-in-out infinite; }
+  @keyframes mcuiPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .craft-slot,
+  .craft-result-slot {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.4), inset -2px -2px 0 rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+    position: relative;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .craft-slot.empty,
+  .craft-result-slot.empty {
+    opacity: 0.35;
+  }
+  .craft-slot img,
+  .craft-result-slot img {
+    width: 70%;
+    height: 70%;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+  .craft-result-slot {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #a0a0a0 0%, #828282 50%, #6a6a6a 100%);
+    border-top-color: #5a5a5a;
+    border-left-color: #5a5a5a;
+  }
+  .slot-count {
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 0.7rem;
+    color: #fff;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8), -1px -1px 0 rgba(0, 0, 0, 0.4);
+    padding: 0 2px;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  /* Recipe info card (below grid) */
+  .recipe-info {
+    margin-top: 1rem;
+    padding: 0.875rem 1rem;
+    background: rgba(123, 197, 92, 0.08);
+    border: 2px solid var(--grass-3, #3d7521);
+    animation: slideUp 0.3s ease-out;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .recipe-info[hidden] { display: none; }
+  .recipe-info-head {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.375rem;
+  }
+  .recipe-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: var(--grass-2, #7cc84a);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6);
+    margin: 0;
+  }
+  .recipe-count {
+    background: var(--grass-3, #3d7521);
+    color: #fff;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 0;
+  }
+  .recipe-desc {
+    color: var(--text-2, #b8b8d0);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin: 0 0 0.75rem 0;
+  }
+  .recipe-info-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Empty hint */
+  .empty-hint {
+    margin-top: 1rem;
+    padding: 0.875rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 2px dashed var(--line, #2e2e4a);
+    text-align: center;
+  }
+  .empty-hint p {
+    margin: 0;
+    color: var(--text-2, #b8b8d0);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .empty-hint[hidden] { display: none; }
+
+  /* ─── RIGHT: recipe list ─── */
+  .recipe-list-area {
+    background: linear-gradient(135deg, rgba(28, 28, 52, 0.85) 0%, rgba(20, 20, 42, 0.92) 100%);
+    border: 2px solid var(--line, #2e2e4a);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+  }
+  .recipe-list-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.875rem;
+    background: linear-gradient(135deg, rgba(123, 197, 92, 0.15) 0%, rgba(123, 197, 92, 0.05) 100%);
+    border-bottom: 2px solid var(--line, #2e2e4a);
+  }
+  .recipe-list-head h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    color: var(--grass-2, #7cc84a);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    margin: 0;
+  }
+  .recipe-count-display {
+    color: var(--text-2, #b8b8d0);
+    font-size: 0.7rem;
+    font-family: 'Courier New', monospace;
+  }
+  .recipe-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.375rem;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    direction: ltr;     /* list itself LTR — text inside is RTL via .recipe-item-name */
+  }
+  .recipe-list li { margin: 0; }
+  .recipe-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid transparent;
+    color: var(--text, #e6e6f2);
+    font-family: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    border-radius: 0;
+    text-align: left;
+    transition: background 0.1s, border-color 0.1s;
+  }
+  .recipe-item:hover {
+    background: rgba(123, 197, 92, 0.15);
+    border-color: var(--grass-3, #3d7521);
+  }
+  .recipe-item.active {
+    background: rgba(123, 197, 92, 0.28);
+    border-color: var(--grass-2, #7cc84a);
+    box-shadow: inset 2px 0 0 var(--grass-2, #7cc84a);
+  }
+  .recipe-item-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #8b8b8b 0%, #6e6e6e 50%, #565656 100%);
+    border-top: 1px solid #373737;
+    border-left: 1px solid #373737;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+  }
+  .recipe-item-icon img { width: 70%; height: 70%; }
+  .recipe-item-name {
+    flex: 1;
+    text-align: right;     /* Persian text inside an LTR list row */
+    direction: rtl;
+    color: var(--text, #e6e6f2);
+  }
+  .recipe-item-count {
+    flex-shrink: 0;
+    color: var(--gold, #fcb32b);
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .recipe-list-empty {
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-2, #b8b8d0);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+  .recipe-list-empty[hidden] { display: none; }
+
+  /* Mobile tweaks */
+  @media (max-width: 900px) {
+    .recipe-list-area { max-height: 480px; }
+    .craft-slot { width: 36px; height: 36px; }
+    .craft-result-slot { width: 44px; height: 44px; }
+    .craft-header-text h1 { font-size: 0.85rem; }
+    .craft-header-text p { font-size: 0.78rem; }
+  }
+  @media (max-width: 480px) {
+    .mcui-Crafting_Table {
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.75rem;
     }
+    .mcui-arrow svg { transform: rotate(90deg); }
   }
-  @media (min-width: 1024px) {
-    .crafting-page {
-      margin: -1.5rem -2rem 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    .mcui-arrow svg,
+    .recipe-info { animation: none; }
+  }
+</style>
+
+<script is:inline define:vars={{ recipesData, BASE }}>
+  (function () {
+    // ── State ─────────────────────────────────────────────
+    let recipes = [];
+    try { recipes = JSON.parse(recipesData); }
+    catch (e) { console.error('crafting: failed to parse recipes', e); return; }
+
+    // ── DOM refs ──────────────────────────────────────────
+    const searchInput = document.getElementById('craftingSearch');
+    const searchClear = document.getElementById('craftingSearchClear');
+    const chips = document.querySelectorAll('.craft-chip');
+    const craftSlots = document.querySelectorAll('.craft-slot');
+    const craftResultSlot = document.getElementById('craftResultSlot');
+    const recipeInfo = document.getElementById('recipeInfo');
+    const recipeTitle = document.getElementById('recipeTitle');
+    const recipeDesc = document.getElementById('recipeDesc');
+    const recipeCount = document.getElementById('recipeCount');
+    const wikiLink = document.getElementById('wikiLink');
+    const clearGridBtn = document.getElementById('clearGridBtn');
+    const emptyHint = document.getElementById('emptyHint');
+    const recipeList = document.getElementById('recipeList');
+    const recipeListCount = document.getElementById('recipeListCount');
+    const recipeListEmpty = document.getElementById('recipeListEmpty');
+    const recipeItems = document.querySelectorAll('.recipe-item');
+
+    if (!searchInput || !craftResultSlot || recipes.length === 0) return;
+
+    // Block-texture names (same list as in the .astro frontmatter) — used to
+    // pick the right folder for each grid/output item.
+    const BLOCK_NAMES = new Set([
+      'oak-planks', 'cobblestone', 'crafting-table-top', 'crafting-table-side',
+      'chest', 'furnace-side', 'furnace-front', 'furnace-top', 'tnt',
+      'ladder', 'bookshelf', 'red-bed', 'glass', 'sand', 'wool',
+      'oak-log', 'oak-log-top', 'oak-leaves', 'stone', 'dirt', 'grass-block',
+      'planks', 'sand-side',
+    ]);
+    function texPath(name) {
+      if (!name) return null;
+      const folder = BLOCK_NAMES.has(name) ? 'blocks' : 'items';
+      return BASE + 'textures/' + folder + '/' + name + '.png';
     }
-  }
-  
-  /* Hide the breadcrumbs + h1 on this page (the scene is the hero) */
-  .crafting-page + * {
-    display: none;
+
+    // ── findRecipe (TYPED search): exact → alias → substring ──
+    // NOTE: This is the FUZZY path used only when the user TYPES.
+    // Chip clicks and recipe-list clicks use the EXACT `findById` path.
+    function findRecipe(query) {
+      const q = (query || '').trim().toLowerCase();
+      if (!q) return null;
+
+      // 1) Exact id
+      let r = recipes.find((r) => r.id === q);
+      if (r) return r;
+
+      // 2) Exact nameFa (Persian, lowercased — Persian has no case but this is harmless)
+      r = recipes.find((r) => (r.nameFa || '').toLowerCase() === q);
+      if (r) return r;
+
+      // 3) Exact English name
+      r = recipes.find((r) => (r.nameEn || '').toLowerCase() === q);
+      if (r) return r;
+
+      // 4) Exact alias
+      r = recipes.find((r) => (r.aliases || []).some((a) => a.toLowerCase() === q));
+      if (r) return r;
+
+      // 5) Substring on nameFa / nameEn / aliases (simple includes())
+      r = recipes.find((r) =>
+        (r.nameFa || '').toLowerCase().includes(q) ||
+        (r.nameEn || '').toLowerCase().includes(q) ||
+        (r.aliases || []).some((a) => a.toLowerCase().includes(q))
+      );
+      return r || null;
+    }
+
+    // ── EXACT id lookup — used by chips + list clicks (no fuzzy) ──
+    function findById(recipeId) {
+      if (!recipeId) return null;
+      return recipes.find((r) => r.id === recipeId) || null;
+    }
+
+    // ── Render recipe into 3x3 grid + result slot ──────────
+    function renderRecipe(recipe) {
+      // Clear grid + result
+      craftSlots.forEach((s) => { s.innerHTML = ''; s.classList.add('empty'); });
+      craftResultSlot.innerHTML = '';
+      craftResultSlot.classList.add('empty');
+      recipeInfo.hidden = true;
+      if (emptyHint) emptyHint.hidden = false;
+
+      if (!recipe) return;
+
+      // Mark the matching list item active
+      recipeItems.forEach((el) => el.classList.remove('active'));
+      const matchItem = document.querySelector('.recipe-item[data-recipe-id="' + recipe.id + '"]');
+      if (matchItem) {
+        matchItem.classList.add('active');
+        // Scroll the active item into view inside the list
+        try { matchItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
+      }
+
+      // Fill 3x3 grid (animated pop-in)
+      const flatGrid = [];
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) {
+          const v = recipe.grid && recipe.grid[r] ? recipe.grid[r][c] : null;
+          flatGrid.push(v);
+        }
+      }
+      flatGrid.forEach((itemName, idx) => {
+        if (!itemName) return;
+        const slot = craftSlots[idx];
+        if (!slot) return;
+        setTimeout(() => {
+          slot.classList.remove('empty');
+          const img = document.createElement('img');
+          img.src = texPath(itemName);
+          img.alt = itemName;
+          img.loading = 'eager';
+          img.decoding = 'async';
+          img.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
+          img.onerror = function () { this.style.display = 'none'; };
+          slot.innerHTML = '';
+          slot.appendChild(img);
+        }, idx * 60);
+      });
+
+      // Output slot
+      setTimeout(() => {
+        craftResultSlot.classList.remove('empty');
+        if (emptyHint) emptyHint.hidden = true;
+        const outImg = document.createElement('img');
+        outImg.src = texPath(recipe.output.item);
+        outImg.alt = recipe.nameFa;
+        outImg.style.cssText = 'width: 70%; height: 70%; image-rendering: pixelated;';
+        outImg.onerror = function () { this.style.display = 'none'; };
+        craftResultSlot.innerHTML = '';
+        craftResultSlot.appendChild(outImg);
+
+        if (recipe.output.count && recipe.output.count > 1) {
+          const count = document.createElement('span');
+          count.className = 'slot-count';
+          count.textContent = recipe.output.count;
+          craftResultSlot.appendChild(count);
+        }
+
+        // Recipe info
+        recipeTitle.textContent = recipe.nameFa;
+        recipeDesc.textContent = recipe.description || '';
+        if (recipe.output.count && recipe.output.count > 1) {
+          recipeCount.textContent = '×' + recipe.output.count;
+          recipeCount.hidden = false;
+        } else {
+          recipeCount.hidden = true;
+        }
+        wikiLink.href = BASE + 'wiki/' + (recipe.wikiSlug || 'crafting-recipes');
+        recipeInfo.hidden = false;
+      }, flatGrid.filter(Boolean).length * 60 + 120);
+    }
+
+    // ── Filter the recipe list (substring on nameFa / nameEn / aliases) ──
+    function filterList(query) {
+      const q = (query || '').trim().toLowerCase();
+      let visibleCount = 0;
+      recipeItems.forEach((el) => {
+        if (!q) {
+          el.parentElement.style.display = '';
+          visibleCount++;
+          return;
+        }
+        const id = el.getAttribute('data-recipe-id');
+        const r = findById(id);
+        if (!r) return;
+        const matches =
+          (r.nameFa || '').toLowerCase().includes(q) ||
+          (r.nameEn || '').toLowerCase().includes(q) ||
+          (r.aliases || []).some((a) => a.toLowerCase().includes(q));
+        el.parentElement.style.display = matches ? '' : 'none';
+        if (matches) visibleCount++;
+      });
+      if (recipeListCount) recipeListCount.textContent = String(visibleCount);
+      if (recipeListEmpty) recipeListEmpty.hidden = visibleCount > 0;
+    }
+
+    // ── Clear grid + info ──────────────────────────────────
+    function clearGrid() {
+      craftSlots.forEach((s) => { s.innerHTML = ''; s.classList.add('empty'); });
+      craftResultSlot.innerHTML = '';
+      craftResultSlot.classList.add('empty');
+      recipeInfo.hidden = true;
+      if (emptyHint) emptyHint.hidden = false;
+      recipeItems.forEach((el) => el.classList.remove('active'));
+    }
+
+    // ── Event handlers ─────────────────────────────────────
+    // Search input (typed)
+    let searchTimer = null;
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const q = e.target.value;
+        if (searchClear) searchClear.hidden = q.length === 0;
+
+        // Always filter the list live
+        filterList(q);
+
+        // Only auto-render the grid when query is non-empty AND a recipe is found
+        clearTimeout(searchTimer);
+        if (!q || q.trim().length < 2) {
+          // Don't clear grid on every short query — keep current state
+          return;
+        }
+        searchTimer = setTimeout(() => {
+          const recipe = findRecipe(q);
+          // Only re-render if the found recipe differs from the active one
+          const activeItem = document.querySelector('.recipe-item.active');
+          const activeId = activeItem ? activeItem.getAttribute('data-recipe-id') : null;
+          if (recipe && recipe.id !== activeId) {
+            renderRecipe(recipe);
+          } else if (!recipe && activeId) {
+            // No match — leave current grid alone (less jarring)
+          }
+        }, 250);
+      });
+
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          clearTimeout(searchTimer);
+          const q = searchInput.value.trim();
+          if (q.length < 2) return;
+          const recipe = findRecipe(q);
+          if (recipe) {
+            renderRecipe(recipe);
+          } else {
+            // Brief shake to indicate no match
+            if (searchInput.parentElement) {
+              searchInput.parentElement.style.animation = 'none';
+              void searchInput.parentElement.offsetWidth;
+              searchInput.parentElement.style.animation = 'searchShake 0.4s ease-in-out';
+            }
+          }
+        } else if (e.key === 'Escape') {
+          searchInput.value = '';
+          if (searchClear) searchClear.hidden = true;
+          filterList('');
+          searchInput.focus();
+        }
+      });
+    }
+
+    // Clear-search button
+    if (searchClear) {
+      searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        searchClear.hidden = true;
+        filterList('');
+        searchInput.focus();
+      });
+    }
+
+    // Chips — EXACT id lookup, NO fuzzy
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const id = chip.getAttribute('data-recipe-id');
+        const recipe = findById(id);
+        if (!recipe) return;
+        // Set the search box to the EXACT nameFa so the user sees what they clicked
+        searchInput.value = recipe.nameFa;
+        if (searchClear) searchClear.hidden = false;
+        filterList(recipe.nameFa);
+        renderRecipe(recipe);
+      });
+    });
+
+    // Recipe list items — EXACT id lookup
+    recipeItems.forEach((el) => {
+      el.addEventListener('click', () => {
+        const id = el.getAttribute('data-recipe-id');
+        const recipe = findById(id);
+        if (!recipe) return;
+        searchInput.value = recipe.nameFa;
+        if (searchClear) searchClear.hidden = false;
+        filterList(recipe.nameFa);
+        renderRecipe(recipe);
+      });
+    });
+
+    // Clear-grid button
+    if (clearGridBtn) {
+      clearGridBtn.addEventListener('click', () => {
+        clearGrid();
+        searchInput.value = '';
+        if (searchClear) searchClear.hidden = true;
+        filterList('');
+        searchInput.focus();
+      });
+    }
+  })();
+</script>
+
+<style is:global>
+  @keyframes searchShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
   }
 </style>
