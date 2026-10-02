@@ -83,13 +83,17 @@ function ymd(d) {
  * minute are de-duplicated to avoid inflating numbers on View Transitions
  * or rapid in-page navigation).
  *
- * @param {string} [pagePath] — current pathname (defaults to location.pathname)
+ * @param {string} [pagePath] — current pathname (defaults to location.pathname).
+ *   The Astro site is served from the project-page base `/website/`, so
+ *   `/website/seeds/create` is normalized to `/seeds/create` so it matches
+ *   the SEED_PAGES list and looks clean in the Top Pages chart.
  */
 export function trackVisit(pagePath) {
   if (typeof localStorage === 'undefined') return;
 
   const now = new Date();
-  const path = pagePath || (typeof location !== 'undefined' ? location.pathname : '/');
+  let path = pagePath || (typeof location !== 'undefined' ? location.pathname : '/');
+  path = normalizePath(path);
 
   // De-duplicate: ignore if same path was tracked in the last 60s
   const lastPath = safeGet('mb:stats:lastPath', '');
@@ -148,6 +152,22 @@ function trimOldDays(byDay, now) {
     const dt = new Date(y, m - 1, d);
     if (dt < cutoff) delete byDay[key];
   }
+}
+
+/**
+ * Normalize a page path so the GitHub Pages project-page base URL
+ * (e.g. `/website/`) is stripped. Trailing slash is also removed so
+ * `/seeds` and `/seeds/` collapse to the same key.
+ */
+function normalizePath(p) {
+  // Hardcoded for the iran-minecraft-wiki.github.io/website/ project
+  // page. Stripping the BASE_URL keeps paths short in the Top Pages
+  // chart and matches the SEED_PAGES list.
+  let s = String(p || '/');
+  if (s.startsWith('/website/')) s = s.slice('/website'.length);
+  if (s.length > 1 && s.endsWith('/')) s = s.slice(0, -1);
+  if (s.length === 0) s = '/';
+  return s;
 }
 
 // ============================================================

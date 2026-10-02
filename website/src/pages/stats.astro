@@ -198,7 +198,7 @@ const breadcrumb = [
 
   .top-row {
     display: grid;
-    grid-template-columns: 28px 1fr 60px 80px;
+    grid-template-columns: 28px minmax(0, 1fr) 60px 80px;
     gap: 0.5rem;
     align-items: center;
     padding: 0.45rem 0.55rem;
@@ -213,12 +213,18 @@ const breadcrumb = [
     text-align: center;
   }
   .top-label {
+    /* min-width: 0 is critical for grid items — without it, the implicit
+       `min-width: auto` lets long text overflow the assigned 1fr track
+       and push the bar+count columns out of alignment. */
+    min-width: 0;
     font-size: 0.8rem;
     color: #e8e8f4;
     font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    direction: ltr;
+    text-align: left;
   }
   .top-path {
     font-family: monospace;
@@ -229,17 +235,24 @@ const breadcrumb = [
     white-space: nowrap;
     direction: ltr;
     text-align: left;
+    min-width: 0;
+  }
+  .top-bar-wrap {
+    min-width: 0;
+    display: flex;
+    align-items: center;
   }
   .top-bar {
     height: 8px;
     background: linear-gradient(90deg, #7cc84a, #4aedd9);
     border-radius: 4px;
     transition: width 0.3s ease-out;
+    max-width: 100%;
   }
 
   @media (max-width: 600px) {
     .top-row {
-      grid-template-columns: 28px 1fr 60px;
+      grid-template-columns: 28px minmax(0, 1fr) 60px;
     }
     .top-row .top-bar-wrap {
       display: none;
