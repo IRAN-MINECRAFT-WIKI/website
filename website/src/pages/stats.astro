@@ -28,7 +28,7 @@ const breadcrumb = [
     <div>
       <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">📊 آمار سایت</h1>
       <p class="text-sm text-mc-text-2">
-        همه‌ی اعداد به‌صورت محلی در همین مرورگر نگه‌داری می‌شن — بدون سرور، بدون ردیاب خارجی.
+        آمار زنده از Cloudflare Worker — تعداد آنلاین‌ها، بازدید امروز و کل به‌صورت لحظه‌ای.
         <a href="https://github.com/IRAN-MINECRAFT-WIKI/website" target="_blank" rel="noopener" class="text-mc-grass-2 underline">منبع باز</a>.
       </p>
     </div>
@@ -47,17 +47,17 @@ const breadcrumb = [
     <div class="mc-card p-4">
       <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
         <span class="kpi-dot" aria-hidden="true"></span>
-        <span>آنلاین (شبیه‌سازی)</span>
+        <span>آنلاین (زنده)</span>
       </div>
-      <div class="text-2xl font-extrabold text-mc-grass-2" id="kpiOnline">—</div>
-      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiOnlineSub">همین حالا</div>
+      <div class="text-2xl font-extrabold text-mc-grass-2" id="kpiOnline">⏳</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiOnlineSub">در حال بارگذاری…</div>
     </div>
     <div class="mc-card p-4">
       <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
         <span aria-hidden="true">📈</span>
         <span>بازدید امروز</span>
       </div>
-      <div class="text-2xl font-extrabold text-mc-diamond" id="kpiToday">—</div>
+      <div class="text-2xl font-extrabold text-mc-diamond" id="kpiToday">⏳</div>
       <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTodaySub">از ساعت ۰۰:۰۰</div>
     </div>
     <div class="mc-card p-4">
@@ -65,7 +65,7 @@ const breadcrumb = [
         <span aria-hidden="true">🔥</span>
         <span>بازدید کل (این مرورگر)</span>
       </div>
-      <div class="text-2xl font-extrabold text-mc-gold" id="kpiTotal">—</div>
+      <div class="text-2xl font-extrabold text-mc-gold" id="kpiTotal">⏳</div>
       <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTotalSub">از اولین بازدید</div>
     </div>
     <div class="mc-card p-4">
@@ -73,7 +73,7 @@ const breadcrumb = [
         <span aria-hidden="true">🆔</span>
         <span>شناسه‌ی مرورگر</span>
       </div>
-      <div class="text-xs font-mono text-mc-text break-all" id="kpiUuid">—</div>
+      <div class="text-xs font-mono text-mc-text break-all" id="kpiUuid">⏳</div>
       <div class="text-[10px] text-mc-text-3 mt-1">پایدار تا پاک‌سازی</div>
     </div>
   </section>
