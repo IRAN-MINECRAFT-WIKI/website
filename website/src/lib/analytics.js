@@ -26,6 +26,7 @@ const K_LAST_SAMPLE = 'mb:stats:lastSampleDate'; // 'YYYY-MM-DD'
 const K_LAST_HEARTBEAT = 'mb:stats:lastHeartbeat'; // epoch ms
 const K_PAGE_HITS = 'mb:stats:pageHits'; // {path: count} — local only
 const K_LAST_GOOD = 'mb:stats:lastGoodStats'; // cached Worker response for fallback
+const K_HB_TIMES = 'mb:stats:hbTimes'; // [epoch ms] — last 24h heartbeat timestamps
 
 const HEARTBEAT_MIN_INTERVAL_MS = 30_000; // 30s — don't spam the Worker
 const SAMPLE_INTERVAL_DAYS = 1; // sample once per day
@@ -129,6 +130,14 @@ async function sendHeartbeat(page) {
   const last = parseInt(localStorage.getItem(K_LAST_HEARTBEAT) || '0', 10);
   if (now - last < HEARTBEAT_MIN_INTERVAL_MS) return;
   localStorage.setItem(K_LAST_HEARTBEAT, String(now));
+
+  // Record heartbeat timestamp for the 24h activity chart (local, per-browser).
+  const times = readJSON(K_HB_TIMES, []);
+  times.push(now);
+  // Keep only last 24h.
+  const cutoff = now - 24 * 3_600_000;
+  const filtered = times.filter((t) => t >= cutoff);
+  writeJSON(K_HB_TIMES, filtered);
 
   try {
     await fetch(`${API_BASE}/api/heartbeat`, {
@@ -262,12 +271,32 @@ export function getPageHits() {
   return readJSON(K_PAGE_HITS, {});
 }
 
+export function getHourly24() {
+  // Returns 8 buckets (every 3h) of heartbeat counts in the last 24h.
+  // Per-browser, honest — shows when THIS browser was active.
+  const times = readJSON(K_HB_TIMES, []);
+  const now = Date.now();
+  const currentHour = new Date().getHours();
+  const buckets = [0, 3, 6, 9, 12, 15, 18, 21].map((h) => {
+    const matching = times.filter((t) => {
+      const ht = new Date(t).getHours();
+      return ht === h || ht === h + 1 || ht === h + 2;
+    });
+    return {
+      hour: h,
+      label: fmtFa(String(h).padStart(2, '0')) + ':۰۰',
+      count: matching.length,
+    };
+  });
+  return buckets;
+}
+
 export async function heartbeat() {
   await sendHeartbeat(normalizePath(location.pathname));
 }
 
 export function resetAnalytics() {
-  [K_HISTORY, K_LAST_SAMPLE, K_LAST_HEARTBEAT, K_PAGE_HITS, K_LAST_GOOD].forEach((k) =>
+  [K_HISTORY, K_LAST_SAMPLE, K_LAST_HEARTBEAT, K_PAGE_HITS, K_LAST_GOOD, K_HB_TIMES].forEach((k) =>
     localStorage.removeItem(k),
   );
 }
