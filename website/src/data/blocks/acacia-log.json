@@ -1,0 +1,45 @@
+{
+  "id": "acacia-log",
+  "nameEn": "Acacia Log",
+  "nameFa": "اقاقیا تنه",
+  "category": "other",
+  "icon": "px-acacia-log",
+  "description": "بلوک اقاقیا تنه در ماینکرفت.",
+  "hardness": 1.0,
+  "resistance": 1.0,
+  "stackSize": 64,
+  "transparent": false,
+  "lightEmission": 0,
+  "wikiLink": "https://minecraft.wiki/w/Acacia_Log",
+  "intro": [],
+  "behavior": [],
+  "trivia": [],
+  "history": [],
+  "differences": [],
+  "related": [],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "—"
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.0,
+    "width": 1.0,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "block"
+  },
+  "tool": "—",
+  "lightLevel": 0,
+  "uses": [],
+  "versions": {
+    "java": "—",
+    "bedrock": "—"
+  }
+}
