@@ -63,21 +63,13 @@ const breadcrumb = [
       <div class="text-3xl font-extrabold text-mc-diamond" id="kpiToday">⏳</div>
       <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTodaySub">از ساعت ۰۰:۰۰ (UTC)</div>
     </div>
-    <div class="mc-card p-4">
-      <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
-        <span aria-hidden="true">🏆</span>
-        <span>اوج امروز</span>
-      </div>
-      <div class="text-3xl font-extrabold text-mc-emerald" id="kpiPeak">⏳</div>
-      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiPeakSub">—</div>
-    </div>
-    <div class="mc-card p-4">
+    <div class="mc-card p-4 col-span-2 lg:col-span-1">
       <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
         <span aria-hidden="true">🔢</span>
-        <span>بازدید کل</span>
+        <span>بازدیدکننده‌ی کل (یکته)</span>
       </div>
       <div class="text-3xl font-extrabold text-mc-gold" id="kpiTotal">⏳</div>
-      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTotalSub">از ابتدای راه‌اندازی</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTotalSub">از ابتدای راه‌اندازی KV</div>
     </div>
   </section>
 
@@ -101,12 +93,13 @@ const breadcrumb = [
         <h2 class="text-lg font-extrabold flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
           <span aria-hidden="true">🕐</span> فعالیت ۲۴ ساعت
         </h2>
-        <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-diamond/10 text-mc-diamond border border-mc-diamond/20">۲۴ ساعت</span>
+        <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-diamond/10 text-mc-diamond border border-mc-diamond/20">محلی</span>
       </div>
       <div class="chart-canvas-wrap" style="height: 240px; position: relative;">
         <canvas id="chart24h"></canvas>
       </div>
       <p class="text-[10px] text-mc-text-3 mt-2" id="chart24Meta">—</p>
+      <p class="text-[10px] text-mc-amber mt-1">⚠️ این فقط فعالیت همین مرورگره، نه کل سایت.</p>
     </div>
   </section>
 
@@ -116,10 +109,10 @@ const breadcrumb = [
       <h2 class="text-lg font-extrabold flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
         <span aria-hidden="true">📄</span> صفحات دیده‌شده توسط شما
       </h2>
-      <span class="text-xs text-mc-text-3" id="topMeta">—</span>
+      <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-amber/10 text-mc-amber border border-mc-amber/20" id="topBadge">محلی</span>
     </div>
     <div id="topPagesList" class="space-y-2"></div>
-    <p class="text-[10px] text-mc-text-3 mt-3">این بخش فقط صفحات دیده‌شده توسط همین مرورگر را نشان می‌دهد (داده‌ی محلی).</p>
+    <p class="text-[10px] text-mc-amber mt-3">⚠️ این فقط صفحات دیده‌شده توسط همین مرورگره (داده‌ی محلی) — نه کل سایت. برای آمار سایت‌گسترده، KV فقط online/today/total را نگه می‌داره.</p>
   </section>
 
   <!-- Privacy -->
@@ -233,26 +226,28 @@ const breadcrumb = [
     paintChart30(history);
     paintChart24(hourly);
     paintTopPages(hits);
+    paintSourceBadge(remote);
+  }
+
+  function paintSourceBadge(remote) {
+    // Update the live badge with real online count + source
+    const badge = document.getElementById('onlineBadgeText');
+    if (badge) badge.textContent = fmtFa(remote.online || 0);
   }
 
   function paintKpis(remote, history) {
     const $ = (id) => document.getElementById(id);
     const online = $('kpiOnline');
     const today = $('kpiToday');
-    const peak = $('kpiPeak');
     const total = $('kpiTotal');
     if (online) online.textContent = fmtFa(remote.online || 0);
     if (today) today.textContent = fmtFa(remote.today || 0);
     if (total) total.textContent = fmtFa(remote.total || 0);
 
-    const peakVal = history.length ? Math.max(...history.map(d => d.today)) : 0;
-    if (peak) peak.textContent = fmtFa(peakVal);
-
     const cachedNote = remote.isCached ? ' (ذخیره‌شده)' : '';
-    if ($('kpiOnlineSub')) $('kpiOnlineSub').textContent = `سرور متمرکز — ۶۰s اخیر${cachedNote}`;
-    if ($('kpiTodaySub')) $('kpiTodaySub').textContent = `از ۰۰:۰۰ UTC${cachedNote}`;
-    if ($('kpiPeakSub')) $('kpiPeakSub').textContent = peakVal ? `بیشترین بازدید روزانه` : '—';
-    if ($('kpiTotalSub')) $('kpiTotalSub').textContent = `از ابتدا${cachedNote}`;
+    if ($('kpiOnlineSub')) $('kpiOnlineSub').textContent = `از KV متمرکز — ۶۰s اخیر${cachedNote}`;
+    if ($('kpiTodaySub')) $('kpiTodaySub').textContent = `بازدیدکننده‌ی یکتای امروز${cachedNote}`;
+    if ($('kpiTotalSub')) $('kpiTotalSub').textContent = `همه‌ی بازدیدکننده‌ها${cachedNote}`;
   }
 
   // Minecraft green gradient for 30-day bars.
@@ -280,13 +275,29 @@ const breadcrumb = [
   function paintChart30(history) {
     const ctx = document.getElementById('chart30d');
     if (!ctx) return;
+    // If no real samples yet, show honest empty-state message.
+    if (history.length === 0) {
+      if (chart30) { chart30.destroy(); chart30 = null; }
+      const canvas = ctx;
+      const c2d = canvas.getContext('2d');
+      // The Chart.js canvas — we can't easily draw text on it, so just
+      // show the meta line. The chart will render on next poll when
+      // today's sample lands.
+      return;
+    }
     const labels = history.map(d => shamsiLabel(d.date));
     const data = history.map(d => d.today);
     const meta = document.getElementById('chart30Meta');
     if (meta) {
-      const max = Math.max(...data, 0);
-      const realCount = history.filter(d => !d.seed).length;
-      meta.textContent = `${fmtFa(history.length)} روز · ${fmtFa(realCount)} نمونه‌ی واقعی · اوج: ${fmtFa(max)}`;
+      const realCount = history.length;
+      if (realCount === 0) {
+        meta.textContent = `هنوز نمونه‌ای ثبت نشده — اولین نمونه همین الان ثبت می‌شه.`;
+      } else if (realCount === 1) {
+        meta.textContent = `۱ نمونه‌ی واقعی (امروز) — روز‌های بعد بیشتر می‌شه.`;
+      } else {
+        const max = Math.max(...data, 0);
+        meta.textContent = `${fmtFa(realCount)} نمونه‌ی واقعی · اوج: ${fmtFa(max)}`;
+      }
     }
 
     if (chart30) chart30.destroy();

@@ -157,33 +157,23 @@ async function sendHeartbeat(page) {
 
 // ─── Daily sampling (builds 30-day trend from real Worker numbers) ────
 
-function seedHistory(currentOnline, currentToday, currentTotal) {
-  // Seed 30 days of history using the current real Worker numbers as a
-  // baseline. Each day gets a value near the current `today`, with realistic
-  // variation (weekend boost, slight growth trend). These seed points are
-  // REPLACED by real samples as browsers visit on subsequent days.
-  const rand = mulberry32(20261003);
-  const days = [];
-  const todayTotal = Math.max(currentToday, 10);
-  for (let i = 29; i >= 0; i--) {
-    const d = new Date(Date.now() - i * 86_400_000);
-    const dStr = d.toISOString().split('T')[0];
-    const dow = d.getDay();
-    const isWeekend = dow === 5; // Friday in IR
-    // Older days slightly lower (growth), weekend boost.
-    const factor = (0.7 + (29 - i) * 0.01) * (isWeekend ? 1.25 : 1) * (0.85 + rand() * 0.3);
-    const dayToday = Math.max(1, Math.round(todayTotal * factor));
-    const dayTotal = Math.max(dayToday, Math.round(currentTotal * ((30 - i) / 30)));
-    const dayOnline = Math.max(1, Math.round(dayToday * 0.04));
-    days.push({
-      date: dStr,
-      online: dayOnline,
-      today: dayToday,
-      total: dayTotal,
-      seed: true, // mark as seed — will be replaced by real samples
-    });
+// NOTE: We no longer seed fake history. The chart shows ONLY real KV
+// samples — day 1 has 1 bar (today), and more bars appear over time as
+// visitors come on subsequent days. This is honest: we don't pretend to
+// have data we don't have.
+// Old seeded entries (seed:true) from a previous version are migrated out
+// on first load by migrateAwayFromSeed().
+
+function migrateAwayFromSeed() {
+  // One-time migration: remove any old seed:true entries from localStorage.
+  // These were fake baselines (570/2024) from before KV was deployed.
+  let history = readJSON(K_HISTORY, []);
+  if (!Array.isArray(history) || history.length === 0) return;
+  const before = history.length;
+  history = history.filter((d) => !d.seed);
+  if (history.length !== before) {
+    writeJSON(K_HISTORY, history);
   }
-  return days;
 }
 
 function sampleToday(remote) {
@@ -193,10 +183,9 @@ function sampleToday(remote) {
   if (lastSample === today) return; // already sampled today
   localStorage.setItem(K_LAST_SAMPLE, today);
 
+  migrateAwayFromSeed();
   let history = readJSON(K_HISTORY, []);
-  if (!Array.isArray(history) || history.length === 0) {
-    history = seedHistory(remote.online, remote.today, remote.total);
-  }
+  if (!Array.isArray(history)) history = [];
 
   // Replace or append today's entry with the REAL Worker numbers.
   const existing = history.find((d) => d.date === today);
@@ -256,13 +245,11 @@ export async function getStats() {
 }
 
 export function getDailyHistory() {
+  migrateAwayFromSeed();
   let history = readJSON(K_HISTORY, []);
-  if (!Array.isArray(history) || history.length === 0) {
-    // No history yet — seed with zeros (will be populated on first Worker fetch).
-    history = seedHistory(1, 10, 50);
-    writeJSON(K_HISTORY, history);
-  }
-  // Ensure 30 entries.
+  if (!Array.isArray(history)) history = [];
+  // Only real samples — no fake seed data.
+  history = history.filter((d) => !d.seed);
   history.sort((a, b) => a.date.localeCompare(b.date));
   return history.slice(-30);
 }
