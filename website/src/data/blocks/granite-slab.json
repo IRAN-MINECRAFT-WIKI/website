@@ -1,0 +1,45 @@
+{
+  "id": "granite-slab",
+  "nameEn": "Granite Slab",
+  "nameFa": "گرانیت اسلب",
+  "category": "other",
+  "icon": "px-granite-slab",
+  "description": "بلوک گرانیت اسلب در ماینکرفت.",
+  "hardness": 1.0,
+  "resistance": 1.0,
+  "stackSize": 64,
+  "transparent": false,
+  "lightEmission": 0,
+  "wikiLink": "https://minecraft.wiki/w/Granite_Slab",
+  "intro": [],
+  "behavior": [],
+  "trivia": [],
+  "history": [],
+  "differences": [],
+  "related": [],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "—"
+  ],
+  "uses": [],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.0,
+    "width": 1.0,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "block"
+  },
+  "tool": "—",
+  "lightLevel": 0,
+  "versions": {
+    "java": "—",
+    "bedrock": "—"
+  }
+}

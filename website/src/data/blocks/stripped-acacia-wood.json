@@ -1,0 +1,45 @@
+{
+  "id": "stripped-acacia-wood",
+  "nameEn": "Stripped Acacia Wood",
+  "nameFa": "تراش‌خورده اقاقیا چوب",
+  "category": "other",
+  "icon": "px-stripped-acacia-wood",
+  "description": "بلوک تراش‌خورده اقاقیا چوب در ماینکرفت.",
+  "hardness": 1.0,
+  "resistance": 1.0,
+  "stackSize": 64,
+  "transparent": false,
+  "lightEmission": 0,
+  "wikiLink": "https://minecraft.wiki/w/Stripped_Acacia_Wood",
+  "intro": [],
+  "behavior": [],
+  "trivia": [],
+  "history": [],
+  "differences": [],
+  "related": [],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "—"
+  ],
+  "uses": [],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.0,
+    "width": 1.0,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "block"
+  },
+  "tool": "—",
+  "lightLevel": 0,
+  "versions": {
+    "java": "—",
+    "bedrock": "—"
+  }
+}

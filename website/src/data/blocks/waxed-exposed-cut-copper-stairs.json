@@ -1,0 +1,45 @@
+{
+  "id": "waxed-exposed-cut-copper-stairs",
+  "nameEn": "Waxed Exposed Cut Copper Stairs",
+  "nameFa": "وکس‌دار نمودار Cut مس پله",
+  "category": "other",
+  "icon": "px-waxed-exposed-cut-copper-stairs",
+  "description": "بلوک وکس‌دار نمودار Cut مس پله در ماینکرفت.",
+  "hardness": 1.0,
+  "resistance": 1.0,
+  "stackSize": 64,
+  "transparent": false,
+  "lightEmission": 0,
+  "wikiLink": "https://minecraft.wiki/w/Waxed_Exposed_Cut_Copper_Stairs",
+  "intro": [],
+  "behavior": [],
+  "trivia": [],
+  "history": [],
+  "differences": [],
+  "related": [],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "—"
+  ],
+  "uses": [],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.0,
+    "width": 1.0,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "block"
+  },
+  "tool": "—",
+  "lightLevel": 0,
+  "versions": {
+    "java": "—",
+    "bedrock": "—"
+  }
+}

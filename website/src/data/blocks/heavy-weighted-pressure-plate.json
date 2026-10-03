@@ -1,0 +1,45 @@
+{
+  "id": "heavy-weighted-pressure-plate",
+  "nameEn": "Heavy Weighted Pressure Plate",
+  "nameFa": "Heavy Weighted Pressure Plate",
+  "category": "other",
+  "icon": "px-heavy-weighted-pressure-plate",
+  "description": "بلوک Heavy Weighted Pressure Plate در ماینکرفت.",
+  "hardness": 1.0,
+  "resistance": 1.0,
+  "stackSize": 64,
+  "transparent": false,
+  "lightEmission": 0,
+  "wikiLink": "https://minecraft.wiki/w/Heavy_Weighted_Pressure_Plate",
+  "intro": [],
+  "behavior": [],
+  "trivia": [],
+  "history": [],
+  "differences": [],
+  "related": [],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "—"
+  ],
+  "uses": [],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.0,
+    "width": 1.0,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "block"
+  },
+  "tool": "—",
+  "lightLevel": 0,
+  "versions": {
+    "java": "—",
+    "bedrock": "—"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "mossy-cobblestone-stairs",
+  "nameEn": "Mossy Cobblestone Stairs",
+  "nameFa": "خزه‌دار قلوه‌سنگ پله",
+  "category": "other",
+  "icon": "px-mossy-cobblestone-stairs",
+  "description": "بلوک خزه‌دار قلوه‌سنگ پله در ماینکرفت.",
+  "hardness": 1.0,
+  "resistance": 1.0,
+  "stackSize": 64,
+  "transparent": false,
+  "lightEmission": 0,
+  "wikiLink": "https://minecraft.wiki/w/Mossy_Cobblestone_Stairs",
+  "intro": [],
+  "behavior": [],
+  "trivia": [],
+  "history": [],
+  "differences": [],
+  "related": [],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "—"
+  ],
+  "uses": [],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.0,
+    "width": 1.0,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "block"
+  },
+  "tool": "—",
+  "lightLevel": 0,
+  "versions": {
+    "java": "—",
+    "bedrock": "—"
+  }
+}

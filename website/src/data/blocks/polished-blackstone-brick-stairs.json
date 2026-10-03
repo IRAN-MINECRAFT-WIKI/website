@@ -1,0 +1,45 @@
+{
+  "id": "polished-blackstone-brick-stairs",
+  "nameEn": "Polished Blackstone Brick Stairs",
+  "nameFa": "صیقلی سنگ سیاه Brick پله",
+  "category": "other",
+  "icon": "px-polished-blackstone-brick-stairs",
+  "description": "بلوک صیقلی سنگ سیاه Brick پله در ماینکرفت.",
+  "hardness": 1.0,
+  "resistance": 1.0,
+  "stackSize": 64,
+  "transparent": false,
+  "lightEmission": 0,
+  "wikiLink": "https://minecraft.wiki/w/Polished_Blackstone_Brick_Stairs",
+  "intro": [],
+  "behavior": [],
+  "trivia": [],
+  "history": [],
+  "differences": [],
+  "related": [],
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "—"
+  ],
+  "uses": [],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.0,
+    "width": 1.0,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "block"
+  },
+  "tool": "—",
+  "lightLevel": 0,
+  "versions": {
+    "java": "—",
+    "bedrock": "—"
+  }
+}

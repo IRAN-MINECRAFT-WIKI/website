@@ -34,26 +34,69 @@ const recipes = recipesJson.recipes;
 const itemIcons: Record<string, string> = (recipesJson as any).itemIcons || {};
 
 // Scan the /public/textures/ folders at build time so we know which items
-// have a real PNG. Used to decide whether to render <img> or emoji fallback.
+// have a real image asset. Used to decide whether to render <img> or emoji
+// fallback. Order of preference (highest first):
+//   1. /textures/items-render/{name}.webp  (3D item render from mcicons)
+//   2. /textures/blocks-render/{name}.webp (3D block render from mcicons)
+//   3. /textures/blocks/{name}.png        (flat block PNG)
+//   4. /textures/items/{name}.png         (flat item PNG)
+//   5. emoji fallback
 const PUB = path.resolve('./public');
 const blocksDir = path.join(PUB, 'textures', 'blocks');
 const itemsDir = path.join(PUB, 'textures', 'items');
+const itemsRenderDir = path.join(PUB, 'textures', 'items-render');
+const blocksRenderDir = path.join(PUB, 'textures', 'blocks-render');
+
+function listWebp(dir: string): Set<string> {
+  if (!fs.existsSync(dir)) return new Set<string>();
+  return new Set(
+    fs.readdirSync(dir).filter((f) => f.toLowerCase().endsWith('.webp'))
+  );
+}
+
 const blocksPngs = fs.existsSync(blocksDir)
   ? new Set(fs.readdirSync(blocksDir).filter((f) => f.endsWith('.png')))
   : new Set<string>();
 const itemsPngs = fs.existsSync(itemsDir)
   ? new Set(fs.readdirSync(itemsDir).filter((f) => f.endsWith('.png')))
   : new Set<string>();
+const itemsRenderWebps = listWebp(itemsRenderDir);
+const blocksRenderWebps = listWebp(blocksRenderDir);
 
 function pngExists(name: string | null | undefined): boolean {
   if (!name) return false;
-  return itemsPngs.has(name + '.png') || blocksPngs.has(name + '.png');
+  return (
+    itemsRenderWebps.has(name + '.webp') ||
+    blocksRenderWebps.has(name + '.webp') ||
+    itemsPngs.has(name + '.png') ||
+    blocksPngs.has(name + '.png')
+  );
+}
+
+// Returns the URL of the highest-preference image asset for an item name,
+// or null if no image asset exists. (3D render preferred over flat PNG.)
+function renderSrc(name: string | null | undefined): string | null {
+  if (!name) return null;
+  if (itemsRenderWebps.has(name + '.webp'))
+    return `${BASE}textures/items-render/${name}.webp`;
+  if (blocksRenderWebps.has(name + '.webp'))
+    return `${BASE}textures/blocks-render/${name}.webp`;
+  return null;
 }
 
 // Folder picker: if the item has a block PNG, use /textures/blocks/; else /textures/items/.
 function isBlockPng(name: string): boolean {
   return blocksPngs.has(name + '.png');
 }
+
+// Set of item IDs that have a 3D render (item or block) — passed to client
+// so the client's texPath() can prefer .webp over .png.
+const itemsRenderSet = new Set(
+  [...itemsRenderWebps].map((f) => f.replace(/\.webp$/, ''))
+);
+const blocksRenderSet = new Set(
+  [...blocksRenderWebps].map((f) => f.replace(/\.webp$/, ''))
+);
 
 const recipesData = JSON.stringify(
   recipes.map((r) => ({
@@ -74,9 +117,9 @@ const recipesData = JSON.stringify(
 // Pass itemIcons map to client JS as JSON string.
 const itemIconsJson = JSON.stringify(itemIcons);
 
-// Build a list of all item names that HAVE a PNG texture in either folder.
-// Used by the client to skip <img> loads for items that would 404 anyway.
-// (Task 23: most of the 285 new recipes have no PNG — they'll render emoji.)
+// Build a list of all item names that HAVE any image asset (3D render OR
+// flat PNG). Used by the client to skip <img> loads for items that would 404.
+// (Task SA-ITEMS: extended to also cover items-render/ and blocks-render/.)
 const pngItemsList: string[] = [];
 for (const r of recipes) {
   // grid items
@@ -94,6 +137,10 @@ for (const r of recipes) {
   }
 }
 const pngItemsJson = JSON.stringify(pngItemsList);
+
+// Two small sets passed to client so its texPath() can prefer .webp renders.
+const itemsRenderJson = JSON.stringify([...itemsRenderSet]);
+const blocksRenderJson = JSON.stringify([...blocksRenderSet]);
 
 // Build the list of categories from recipes (for filter chips, if we add them later).
 const CATEGORIES_ORDER = ['combat', 'tools', 'building', 'redstone', 'food', 'brewing', 'misc'];
@@ -131,16 +178,19 @@ const chipRecipes = chipIds
   .filter(Boolean) as typeof recipes;
 
 // Texture path helper — the JSON lists item names like "diamond" or
-// "oak-planks". Block textures live in /textures/blocks/, items in
-// /textures/items/. Decided at build-time by scanning the folders.
+// "oak-planks". Preference order: 3D item render (.webp) > 3D block render
+// (.webp) > flat block PNG > flat item PNG.
 function texPath(name?: string | null): string | null {
   if (!name) return null;
+  const webp = renderSrc(name);
+  if (webp) return webp;
   const folder = isBlockPng(name) ? 'blocks' : 'items';
   return `${BASE}textures/${folder}/${name}.png`;
 }
 
-// Render either an <img> (when PNG exists) or a <span class="emoji-icon">
-// fallback (using r.icon or itemIcons[name]) — used in chip strip + recipe list.
+// Render either an <img> (when an image asset exists — 3D render preferred
+// over flat PNG) or a <span class="emoji-icon"> fallback (using r.icon or
+// itemIcons[name]) — used in chip strip + recipe list.
 function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls = ''): string {
   if (pngExists(name)) {
     const src = texPath(name) || '';
@@ -804,7 +854,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   }
 </style>
 
-<script is:inline define:vars={{ recipesData, itemIconsJson, pngItemsJson, BASE }}>
+<script is:inline define:vars={{ recipesData, itemIconsJson, pngItemsJson, itemsRenderJson, blocksRenderJson, BASE }}>
   (function () {
     // ── State ─────────────────────────────────────────────
     let recipes = [];
@@ -817,8 +867,9 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     try { itemIcons = JSON.parse(itemIconsJson) || {}; }
     catch (e) { itemIcons = {}; }
 
-    // ── Set of item names that DO have PNG textures (Task 23) ──
-    // Built at build-time by scanning /public/textures/{items,blocks}/.
+    // ── Set of item names that DO have any image asset (Task SA-ITEMS) ──
+    // Built at build-time by scanning /public/textures/{items,blocks} (flat PNGs)
+    // plus /public/textures/{items-render,blocks-render} (3D .webp renders).
     // Lets the client skip img loads for items that would 404 anyway.
     let pngSet = new Set();
     try {
@@ -826,6 +877,22 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       pngSet = new Set(arr);
     } catch (e) { pngSet = new Set(); }
     function hasPng(name) { return !!name && pngSet.has(name); }
+
+    // ── Sets of item names that have a 3D render (.webp) ──
+    // itemsRenderSet: 3D item renders (from mcicons `items` category).
+    // blocksRenderSet: 3D block renders (from mcicons `blocks` category).
+    // Preference order in texPath(): item render > block render > flat PNG.
+    let itemsRenderSet = new Set();
+    try {
+      itemsRenderSet = new Set(JSON.parse(itemsRenderJson) || []);
+    } catch (e) { itemsRenderSet = new Set(); }
+    let blocksRenderSet = new Set();
+    try {
+      blocksRenderSet = new Set(JSON.parse(blocksRenderJson) || []);
+    } catch (e) { blocksRenderSet = new Set(); }
+    function hasRender(name) {
+      return !!name && (itemsRenderSet.has(name) || blocksRenderSet.has(name));
+    }
 
     // Folder picker for items that have block PNGs (everything else → items/).
     // NOTE: server-side isBlockPng() checks the actual block folder; we mirror
@@ -846,13 +913,19 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
     function texPath(name) {
       if (!name) return null;
+      // Prefer 3D renders over flat PNGs (Task SA-ITEMS).
+      if (itemsRenderSet.has(name))
+        return BASE + 'textures/items-render/' + name + '.webp';
+      if (blocksRenderSet.has(name))
+        return BASE + 'textures/blocks-render/' + name + '.webp';
       const folder = BLOCK_NAMES_CLIENT.has(name) ? 'blocks' : 'items';
       return BASE + 'textures/' + folder + '/' + name + '.png';
     }
 
     // ── Render a single grid-slot or result-slot item ────────
-    // If the item has a PNG, render an <img> (with onerror → emoji swap).
-    // Otherwise, render the emoji directly as text — no failed HTTP req.
+    // If the item has any image asset (3D render preferred, else flat PNG),
+    // render an <img> (with onerror → emoji swap). Otherwise, render the
+    // emoji directly as text — no failed HTTP req.
     function renderItemIcon(parentEl, itemName, fallbackEmoji, large) {
       parentEl.innerHTML = '';
       const emoji = fallbackEmoji || itemIcons[itemName] || '📦';
@@ -1181,8 +1254,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     }
 
     // 3. Make craft-slots droppable
-    const craftSlots = document.querySelectorAll('.craft-slot[data-craft-slot]');
-    craftSlots.forEach((slot) => {
+    // (Task SA-ITEMS: renamed to droppableSlots — `craftSlots` was already
+    // declared at the top of the IIFE, so the previous `const craftSlots`
+    // duplicate caused a SyntaxError that broke the entire inline script.)
+    const droppableSlots = document.querySelectorAll('.craft-slot[data-craft-slot]');
+    droppableSlots.forEach((slot) => {
       slot.addEventListener('dragover', (e) => {
         e.preventDefault();
         if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
