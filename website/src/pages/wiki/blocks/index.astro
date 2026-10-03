@@ -7,9 +7,21 @@ import {
   type BlockInfo,
 } from '@/lib/data';
 import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+// Helper: prefer 3D render (blocks-render/*.webp) over flat texture.
+function blockImg(icon: string): string {
+  const clean = icon.replace('px-', '');
+  const renderPath = path.resolve('./public/textures/blocks-render', `${clean}.webp`);
+  if (fs.existsSync(renderPath)) {
+    return `${BASE}textures/blocks-render/${clean}.webp`;
+  }
+  return `${BASE}textures/blocks/${clean}.png`;
+}
 
 const breadcrumb = [
   { name: 'خانه', url: '/' },
@@ -99,7 +111,7 @@ for (const c of BLOCK_CATEGORIES) {
             >
               <div class="mx-auto mb-2 inline-flex items-center justify-center w-12 h-12">
                 <img
-                  src={`${BASE}textures/blocks/${b.icon.replace('px-', '')}.png`}
+                  src={blockImg(b.icon)}
                   alt={b.nameFa}
                   width="40"
                   height="40"
