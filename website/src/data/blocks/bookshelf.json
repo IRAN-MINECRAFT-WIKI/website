@@ -3,7 +3,7 @@
   "nameEn": "Bookshelf",
   "nameFa": "کتاب‌خانه",
   "category": "decoration",
-  "icon": "px-crafting-table",
+  "icon": "px-bookshelf",
   "hardness": 1.5,
   "tool": "axe",
   "stackSize": 64,

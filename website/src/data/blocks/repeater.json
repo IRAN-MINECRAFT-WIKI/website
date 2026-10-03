@@ -3,7 +3,7 @@
   "nameEn": "Redstone Repeater",
   "nameFa": "تکرارکننده‌ی رداستون",
   "category": "redstone",
-  "icon": "px-stone-block",
+  "icon": "px-repeater",
   "hardness": 0.0,
   "tool": "none",
   "stackSize": 64,

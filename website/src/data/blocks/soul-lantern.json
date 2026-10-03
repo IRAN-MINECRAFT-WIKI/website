@@ -3,7 +3,7 @@
   "nameEn": "Soul Lantern",
   "nameFa": "فانوس روح",
   "category": "decoration",
-  "icon": "px-torch",
+  "icon": "px-soul-lantern",
   "hardness": 3.5,
   "tool": "none",
   "stackSize": 64,

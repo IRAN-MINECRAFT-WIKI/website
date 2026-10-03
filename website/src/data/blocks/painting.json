@@ -3,7 +3,7 @@
   "nameEn": "Painting",
   "nameFa": "نقاشی",
   "category": "decoration",
-  "icon": "px-crafting-table",
+  "icon": "px-painting",
   "hardness": 0.0,
   "tool": "none",
   "stackSize": 64,

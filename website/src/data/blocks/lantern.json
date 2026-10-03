@@ -3,7 +3,7 @@
   "nameEn": "Lantern",
   "nameFa": "فانوس",
   "category": "decoration",
-  "icon": "px-torch",
+  "icon": "px-lantern",
   "hardness": 3.5,
   "tool": "none",
   "stackSize": 64,

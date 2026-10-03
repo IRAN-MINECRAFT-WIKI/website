@@ -3,7 +3,7 @@
   "nameEn": "Crafting Table",
   "nameFa": "میز ساخت",
   "category": "utility",
-  "icon": "crafting-table-top",
+  "icon": "px-crafting-table",
   "hardness": 2.5,
   "tool": "axe",
   "stackSize": 64,

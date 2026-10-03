@@ -3,7 +3,7 @@
   "nameEn": "Trapped Chest",
   "nameFa": "صندوق تله",
   "category": "utility",
-  "icon": "chest",
+  "icon": "px-trapped-chest",
   "hardness": 2.5,
   "tool": "axe",
   "stackSize": 64,

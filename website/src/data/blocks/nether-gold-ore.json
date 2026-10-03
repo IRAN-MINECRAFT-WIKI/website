@@ -3,7 +3,7 @@
   "nameEn": "Nether Gold Ore",
   "nameFa": "سنگ طلا نادر",
   "category": "ore",
-  "icon": "gold-ore",
+  "icon": "px-nether-gold-ore",
   "hardness": 3.0,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

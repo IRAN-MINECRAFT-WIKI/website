@@ -3,7 +3,7 @@
   "nameEn": "Sea Lantern",
   "nameFa": "فانوس دریایی",
   "category": "decoration",
-  "icon": "px-glowstone",
+  "icon": "px-sea-lantern",
   "hardness": 0.3,
   "tool": "none",
   "stackSize": 64,

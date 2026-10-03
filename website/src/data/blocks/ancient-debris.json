@@ -3,7 +3,7 @@
   "nameEn": "Ancient Debris",
   "nameFa": "خرده‌سنگ باستانی",
   "category": "ore",
-  "icon": "px-iron-ore",
+  "icon": "px-ancient-debris",
   "hardness": 30.0,
   "tool": "diamond_pickaxe",
   "stackSize": 64,

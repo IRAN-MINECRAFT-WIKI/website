@@ -3,7 +3,7 @@
   "nameEn": "Copper Ore",
   "nameFa": "سنگ مس",
   "category": "ore",
-  "icon": "px-iron-ore",
+  "icon": "px-copper-ore",
   "hardness": 3.0,
   "tool": "stone_pickaxe",
   "stackSize": 64,

@@ -3,7 +3,7 @@
   "nameEn": "Conduit",
   "nameFa": "کاندویت",
   "category": "utility",
-  "icon": "px-diamond-ore",
+  "icon": "px-conduit",
   "hardness": 3.0,
   "tool": "none",
   "stackSize": 64,

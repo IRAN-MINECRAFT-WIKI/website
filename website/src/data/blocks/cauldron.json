@@ -3,7 +3,7 @@
   "nameEn": "Cauldron",
   "nameFa": "دیگ",
   "category": "mechanism",
-  "icon": "px-furnace",
+  "icon": "px-cauldron",
   "hardness": 2.0,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

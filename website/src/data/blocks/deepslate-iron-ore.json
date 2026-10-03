@@ -3,7 +3,7 @@
   "nameEn": "Deepslate Iron Ore",
   "nameFa": "سنگ آهن دیپ‌اسلیت",
   "category": "ore",
-  "icon": "iron-ore",
+  "icon": "px-deepslate-iron-ore",
   "hardness": 4.5,
   "tool": "stone_pickaxe",
   "stackSize": 64,

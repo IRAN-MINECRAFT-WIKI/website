@@ -3,7 +3,7 @@
   "nameEn": "Loom",
   "nameFa": "میز نساجی",
   "category": "utility",
-  "icon": "px-crafting-table",
+  "icon": "px-loom",
   "hardness": 2.5,
   "tool": "axe",
   "stackSize": 64,

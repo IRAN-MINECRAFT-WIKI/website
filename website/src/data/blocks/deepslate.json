@@ -3,7 +3,7 @@
   "nameEn": "Deepslate",
   "nameFa": "سنگ تیره عمیق",
   "category": "building",
-  "icon": "px-stone-block",
+  "icon": "px-deepslate",
   "hardness": 3.0,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

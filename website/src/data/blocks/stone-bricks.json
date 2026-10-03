@@ -3,7 +3,7 @@
   "nameEn": " Stone Bricks",
   "nameFa": "آجر سنگی",
   "category": "building",
-  "icon": "px-stone-block",
+  "icon": "px-stone-bricks",
   "hardness": 1.5,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

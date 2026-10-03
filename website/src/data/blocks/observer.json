@@ -3,7 +3,7 @@
   "nameEn": "Observer",
   "nameFa": "ناظر",
   "category": "redstone",
-  "icon": "px-furnace",
+  "icon": "px-observer",
   "hardness": 3.5,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

@@ -3,7 +3,7 @@
   "nameEn": "Banner",
   "nameFa": "پرچم",
   "category": "decoration",
-  "icon": "px-stick",
+  "icon": "px-banner",
   "hardness": 1.0,
   "tool": "axe",
   "stackSize": 16,

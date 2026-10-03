@@ -3,7 +3,7 @@
   "nameEn": "Water",
   "nameFa": "آب",
   "category": "natural",
-  "icon": "px-water-bucket",
+  "icon": "px-water",
   "hardness": 100.0,
   "tool": "none",
   "stackSize": 1,

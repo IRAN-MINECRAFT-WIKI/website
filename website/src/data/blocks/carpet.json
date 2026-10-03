@@ -3,7 +3,7 @@
   "nameEn": "Carpet",
   "nameFa": "فرش",
   "category": "decoration",
-  "icon": "px-stick",
+  "icon": "px-carpet",
   "hardness": 0.1,
   "tool": "none",
   "stackSize": 64,

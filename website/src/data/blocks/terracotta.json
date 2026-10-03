@@ -3,7 +3,7 @@
   "nameEn": "Terracotta",
   "nameFa": "تراکوتا",
   "category": "building",
-  "icon": "px-diamond-ore",
+  "icon": "px-terracotta",
   "hardness": 1.25,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

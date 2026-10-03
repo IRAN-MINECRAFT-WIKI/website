@@ -3,7 +3,7 @@
   "nameEn": "Tripwire Hook",
   "nameFa": "قلاب سیم",
   "category": "redstone",
-  "icon": "px-stick",
+  "icon": "px-tripwire-hook",
   "hardness": 0.0,
   "tool": "none",
   "stackSize": 64,

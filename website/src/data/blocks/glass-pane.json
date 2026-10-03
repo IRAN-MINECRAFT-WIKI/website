@@ -3,7 +3,7 @@
   "nameEn": "Glass Pane",
   "nameFa": "قاب شیشه",
   "category": "decoration",
-  "icon": "px-ice",
+  "icon": "px-glass-pane",
   "hardness": 0.3,
   "tool": "none",
   "stackSize": 64,

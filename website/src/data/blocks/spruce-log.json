@@ -3,7 +3,7 @@
   "nameEn": "Spruce Log",
   "nameFa": "تنه‌ی نجوکا",
   "category": "natural",
-  "icon": "oak-log",
+  "icon": "px-spruce-log",
   "hardness": 2.0,
   "tool": "axe",
   "stackSize": 64,

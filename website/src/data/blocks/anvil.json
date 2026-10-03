@@ -3,7 +3,7 @@
   "nameEn": "Anvil",
   "nameFa": "آهن‌روس",
   "category": "mechanism",
-  "icon": "px-iron-ingot",
+  "icon": "px-anvil",
   "hardness": 5.0,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

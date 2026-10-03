@@ -3,7 +3,7 @@
   "nameEn": "Bricks",
   "nameFa": "آجر",
   "category": "building",
-  "icon": "brick",
+  "icon": "px-bricks",
   "hardness": 2.0,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

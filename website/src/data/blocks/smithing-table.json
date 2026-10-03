@@ -3,7 +3,7 @@
   "nameEn": "Smithing Table",
   "nameFa": "میز آهنگری",
   "category": "utility",
-  "icon": "px-crafting-table",
+  "icon": "px-smithing-table",
   "hardness": 2.5,
   "tool": "axe",
   "stackSize": 64,

@@ -3,7 +3,7 @@
   "nameEn": "Ender Chest",
   "nameFa": "صندوق اِندر",
   "category": "utility",
-  "icon": "chest",
+  "icon": "px-ender-chest",
   "hardness": 22.5,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

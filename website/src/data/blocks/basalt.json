@@ -3,7 +3,7 @@
   "nameEn": "Basalt",
   "nameFa": "باسالت",
   "category": "building",
-  "icon": "px-obsidian",
+  "icon": "px-basalt",
   "hardness": 1.25,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

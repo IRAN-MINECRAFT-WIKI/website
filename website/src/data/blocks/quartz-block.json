@@ -3,7 +3,7 @@
   "nameEn": "Block of Quartz",
   "nameFa": "بلوک کوارتز",
   "category": "building",
-  "icon": "px-diamond-ore",
+  "icon": "px-quartz-block",
   "hardness": 0.8,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

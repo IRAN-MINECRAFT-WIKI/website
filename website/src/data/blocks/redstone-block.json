@@ -3,7 +3,7 @@
   "nameEn": "Block of Redstone",
   "nameFa": "بلوک رداستون",
   "category": "redstone",
-  "icon": "px-tnt",
+  "icon": "px-redstone-block",
   "hardness": 5.0,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

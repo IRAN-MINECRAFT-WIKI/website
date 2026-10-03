@@ -3,7 +3,7 @@
   "nameEn": "Lava",
   "nameFa": "لاوا",
   "category": "natural",
-  "icon": "px-water-bucket",
+  "icon": "px-lava",
   "hardness": 100.0,
   "tool": "none",
   "stackSize": 1,

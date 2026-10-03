@@ -3,7 +3,7 @@
   "nameEn": "Brewing Stand",
   "nameFa": "میز جوشان",
   "category": "mechanism",
-  "icon": "px-furnace",
+  "icon": "px-brewing-stand",
   "hardness": 0.5,
   "tool": "none",
   "stackSize": 64,

@@ -3,7 +3,7 @@
   "nameEn": "Clay",
   "nameFa": "گل",
   "category": "natural",
-  "icon": "px-cobblestone",
+  "icon": "px-clay",
   "hardness": 0.6,
   "tool": "shovel",
   "stackSize": 64,

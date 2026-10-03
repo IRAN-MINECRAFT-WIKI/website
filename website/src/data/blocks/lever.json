@@ -3,7 +3,7 @@
   "nameEn": "Lever",
   "nameFa": "اهرم",
   "category": "redstone",
-  "icon": "px-stick",
+  "icon": "px-lever",
   "hardness": 0.5,
   "tool": "none",
   "stackSize": 64,

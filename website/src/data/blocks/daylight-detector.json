@@ -3,7 +3,7 @@
   "nameEn": "Daylight Detector",
   "nameFa": "تشخیص‌دهنده‌ی نور",
   "category": "redstone",
-  "icon": "px-stone-block",
+  "icon": "px-daylight-detector",
   "hardness": 0.2,
   "tool": "axe",
   "stackSize": 64,

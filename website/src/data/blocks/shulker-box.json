@@ -3,7 +3,7 @@
   "nameEn": "Shulker Box",
   "nameFa": "جعبه‌ی شالکر",
   "category": "utility",
-  "icon": "px-chest",
+  "icon": "px-shulker-box",
   "hardness": 2.0,
   "tool": "pickaxe",
   "stackSize": 1,

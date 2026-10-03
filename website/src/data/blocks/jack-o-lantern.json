@@ -3,7 +3,7 @@
   "nameEn": "Jack o'Lantern",
   "nameFa": "جک لانتورن",
   "category": "decoration",
-  "icon": "px-pumpkin",
+  "icon": "px-jack-o-lantern",
   "hardness": 1.0,
   "tool": "axe",
   "stackSize": 64,

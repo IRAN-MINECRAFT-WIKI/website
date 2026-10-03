@@ -3,7 +3,7 @@
   "nameEn": "Glass",
   "nameFa": "شیشه",
   "category": "building",
-  "icon": "px-ice",
+  "icon": "px-glass",
   "hardness": 0.3,
   "tool": "none",
   "stackSize": 64,

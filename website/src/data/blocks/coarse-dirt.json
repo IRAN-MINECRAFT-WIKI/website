@@ -3,7 +3,7 @@
   "nameEn": "Coarse Dirt",
   "nameFa": "خاک زبر",
   "category": "natural",
-  "icon": "dirt",
+  "icon": "px-coarse-dirt",
   "hardness": 0.5,
   "tool": "shovel",
   "stackSize": 64,

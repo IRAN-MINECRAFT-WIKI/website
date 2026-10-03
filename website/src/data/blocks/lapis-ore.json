@@ -3,7 +3,7 @@
   "nameEn": "Lapis Lazuli Ore",
   "nameFa": "سنگ لاجورد",
   "category": "ore",
-  "icon": "lapis-lazuli-ore",
+  "icon": "px-lapis-ore",
   "hardness": 3.0,
   "tool": "stone_pickaxe",
   "stackSize": 64,

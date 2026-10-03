@@ -3,7 +3,7 @@
   "nameEn": "Dispenser",
   "nameFa": "توزیع‌کننده",
   "category": "redstone",
-  "icon": "px-furnace",
+  "icon": "px-dispenser",
   "hardness": 3.5,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

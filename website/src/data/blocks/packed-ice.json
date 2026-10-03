@@ -3,7 +3,7 @@
   "nameEn": "Packed Ice",
   "nameFa": "یخ فشرده",
   "category": "natural",
-  "icon": "ice",
+  "icon": "px-packed-ice",
   "hardness": 0.5,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

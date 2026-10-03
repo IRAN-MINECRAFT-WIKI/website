@@ -3,7 +3,7 @@
   "nameEn": "Spruce Planks",
   "nameFa": "تخته‌های نجوکا",
   "category": "building",
-  "icon": "oak-planks",
+  "icon": "px-spruce-planks",
   "hardness": 2.0,
   "tool": "axe",
   "stackSize": 64,

@@ -3,7 +3,7 @@
   "nameEn": "Sandstone",
   "nameFa": "ماسه‌سنگ",
   "category": "building",
-  "icon": "sand",
+  "icon": "px-sandstone",
   "hardness": 0.8,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

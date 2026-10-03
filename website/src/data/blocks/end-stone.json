@@ -3,7 +3,7 @@
   "nameEn": "End Stone",
   "nameFa": "سنگ اِند",
   "category": "building",
-  "icon": "px-sand",
+  "icon": "px-end-stone",
   "hardness": 3.0,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

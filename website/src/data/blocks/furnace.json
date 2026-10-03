@@ -3,7 +3,7 @@
   "nameEn": "Furnace",
   "nameFa": "کوره",
   "category": "utility",
-  "icon": "furnace-side",
+  "icon": "px-furnace",
   "hardness": 3.5,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

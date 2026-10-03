@@ -3,7 +3,7 @@
   "nameEn": "Red Sand",
   "nameFa": "ماسه قرمز",
   "category": "natural",
-  "icon": "sand",
+  "icon": "px-red-sand",
   "hardness": 0.5,
   "tool": "shovel",
   "stackSize": 64,

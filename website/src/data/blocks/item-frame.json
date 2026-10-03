@@ -3,7 +3,7 @@
   "nameEn": "Item Frame",
   "nameFa": "قاب آیتم",
   "category": "decoration",
-  "icon": "px-stick",
+  "icon": "px-item-frame",
   "hardness": 0.25,
   "tool": "none",
   "stackSize": 64,

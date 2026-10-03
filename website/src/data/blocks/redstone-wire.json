@@ -3,7 +3,7 @@
   "nameEn": "Redstone Wire",
   "nameFa": "سیم رداستون",
   "category": "redstone",
-  "icon": "px-tnt",
+  "icon": "px-redstone-wire",
   "hardness": 0.0,
   "tool": "none",
   "stackSize": 64,

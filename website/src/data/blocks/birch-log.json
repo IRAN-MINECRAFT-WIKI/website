@@ -3,7 +3,7 @@
   "nameEn": "Birch Log",
   "nameFa": "تنه‌ی توس",
   "category": "natural",
-  "icon": "oak-log",
+  "icon": "px-birch-log",
   "hardness": 2.0,
   "tool": "axe",
   "stackSize": 64,

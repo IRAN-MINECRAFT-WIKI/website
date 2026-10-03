@@ -3,7 +3,7 @@
   "nameEn": "Pressure Plate",
   "nameFa": "صفحه‌ی فشار",
   "category": "redstone",
-  "icon": "px-stone-block",
+  "icon": "px-pressure-plate",
   "hardness": 0.5,
   "tool": "none",
   "stackSize": 64,

@@ -3,7 +3,7 @@
   "nameEn": "Button",
   "nameFa": "دکمه",
   "category": "redstone",
-  "icon": "px-stone-block",
+  "icon": "px-button",
   "hardness": 0.5,
   "tool": "none",
   "stackSize": 64,

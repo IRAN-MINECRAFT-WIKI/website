@@ -3,7 +3,7 @@
   "nameEn": "Barrel",
   "nameFa": "بشکه",
   "category": "utility",
-  "icon": "px-furnace",
+  "icon": "px-barrel",
   "hardness": 2.5,
   "tool": "axe",
   "stackSize": 64,

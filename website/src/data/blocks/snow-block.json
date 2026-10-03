@@ -3,7 +3,7 @@
   "nameEn": "Snow Block",
   "nameFa": "بلوک برف",
   "category": "natural",
-  "icon": "px-ice",
+  "icon": "px-snow-block",
   "hardness": 0.2,
   "tool": "shovel",
   "stackSize": 64,

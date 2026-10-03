@@ -3,7 +3,7 @@
   "nameEn": "Piston",
   "nameFa": "پیستون",
   "category": "redstone",
-  "icon": "px-cobblestone",
+  "icon": "px-piston",
   "hardness": 1.5,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

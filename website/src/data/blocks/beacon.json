@@ -3,7 +3,7 @@
   "nameEn": "Beacon",
   "nameFa": "فانوس دریایی",
   "category": "utility",
-  "icon": "px-diamond-ore",
+  "icon": "px-beacon",
   "hardness": 3.0,
   "tool": "none",
   "stackSize": 64,

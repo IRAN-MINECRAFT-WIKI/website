@@ -3,7 +3,7 @@
   "nameEn": "Enchanting Table",
   "nameFa": "میز جادو",
   "category": "mechanism",
-  "icon": "px-crafting-table",
+  "icon": "px-enchanting-table",
   "hardness": 5.0,
   "tool": "wooden_pickaxe",
   "stackSize": 64,

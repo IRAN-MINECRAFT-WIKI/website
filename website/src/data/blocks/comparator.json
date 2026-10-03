@@ -3,7 +3,7 @@
   "nameEn": "Redstone Comparator",
   "nameFa": "مقایسه‌کننده‌ی رداستون",
   "category": "redstone",
-  "icon": "px-stone-block",
+  "icon": "px-comparator",
   "hardness": 0.0,
   "tool": "none",
   "stackSize": 64,

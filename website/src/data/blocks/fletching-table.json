@@ -3,7 +3,7 @@
   "nameEn": "Fletching Table",
   "nameFa": "میز تیرساز",
   "category": "utility",
-  "icon": "px-crafting-table",
+  "icon": "px-fletching-table",
   "hardness": 2.5,
   "tool": "axe",
   "stackSize": 64,

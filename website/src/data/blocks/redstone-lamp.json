@@ -3,7 +3,7 @@
   "nameEn": "Redstone Lamp",
   "nameFa": "لامپ رداستون",
   "category": "redstone",
-  "icon": "px-glowstone",
+  "icon": "px-redstone-lamp",
   "hardness": 0.3,
   "tool": "none",
   "stackSize": 64,

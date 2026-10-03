@@ -3,7 +3,7 @@
   "nameEn": "Cartography Table",
   "nameFa": "میز نقشه‌کش",
   "category": "utility",
-  "icon": "px-crafting-table",
+  "icon": "px-cartography-table",
   "hardness": 2.5,
   "tool": "axe",
   "stackSize": 64,
