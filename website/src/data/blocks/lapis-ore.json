@@ -1,7 +1,7 @@
 {
   "id": "lapis-ore",
   "nameEn": "Lapis Lazuli Ore",
-  "nameFa": "سنگ لاجورد",
+  "nameFa": "سنگ معدن لاجورد",
   "category": "ore",
   "icon": "px-lapis-ore",
   "hardness": 3.0,
@@ -83,7 +83,7 @@
     {
       "id": "deepslate-iron-ore",
       "nameEn": "Deepslate Iron Ore",
-      "nameFa": "سنگ آهنِ عمیق",
+      "nameFa": "سنگ معدن آهنِ عمیق",
       "type": "block"
     },
     {
@@ -95,7 +95,7 @@
     {
       "id": "redstone-ore",
       "nameEn": "Redstone Ore",
-      "nameFa": "سنگ رداستون",
+      "nameFa": "سنگ معدن رداستون",
       "type": "block"
     }
   ],

@@ -84,13 +84,13 @@
     {
       "id": "wither-skeleton",
       "nameEn": "Wither Skeleton",
-      "nameFa": "اسکلت ویدر",
+      "nameFa": "اسکلتون ویدر",
       "type": "mob"
     },
     {
       "id": "netherrack",
       "nameEn": "Netherrack",
-      "nameFa": "نثرَک",
+      "nameFa": "ندراک",
       "type": "block"
     }
   ],

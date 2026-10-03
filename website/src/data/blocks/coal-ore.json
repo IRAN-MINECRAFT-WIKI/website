@@ -1,7 +1,7 @@
 {
   "id": "coal-ore",
   "nameEn": "Coal Ore",
-  "nameFa": "سنگ زغال‌سنگ",
+  "nameFa": "سنگ معدن زغال",
   "category": "ore",
   "icon": "coal-ore",
   "hardness": 3.0,
@@ -84,19 +84,19 @@
     {
       "id": "deepslate-coal-ore",
       "nameEn": "Deepslate Coal Ore",
-      "nameFa": "سنگ زغالِ عمیق",
+      "nameFa": "سنگ معدن زغالِ عمیق",
       "type": "block"
     },
     {
       "id": "iron-ore",
       "nameEn": "Iron Ore",
-      "nameFa": "سنگ آهن",
+      "nameFa": "سنگ معدن آهن",
       "type": "block"
     },
     {
       "id": "redstone-ore",
       "nameEn": "Redstone Ore",
-      "nameFa": "سنگ رداستون",
+      "nameFa": "سنگ معدن رداستون",
       "type": "block"
     }
   ],

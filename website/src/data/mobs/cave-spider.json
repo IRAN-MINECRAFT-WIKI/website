@@ -1,7 +1,7 @@
 {
   "id": "cave-spider",
   "nameEn": "Cave Spider",
-  "nameFa": "عنکبوت غار",
+  "nameFa": "اسپایدر غار",
   "category": "hostile",
   "icon": "cave-spider",
   "health": 12,
@@ -14,7 +14,7 @@
     "java": "Beta 1.0+",
     "bedrock": "0.1+"
   },
-  "description": "عنکبوت غار کوچک‌تر و سمی‌تر از عنکبوت معمولی هست. گازش باعث Poison می‌شه و از سوراخ‌های کوچک رد می‌شه.",
+  "description": "اسپایدر غار کوچک‌تر و سمی‌تر از اسپایدر معمولی هست. گازش باعث Poison می‌شه و از سوراخ‌های کوچک رد می‌شه.",
   "drops": [
     {
       "item": "string",

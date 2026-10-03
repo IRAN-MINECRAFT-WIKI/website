@@ -1,10 +1,10 @@
 {
   "id": "dried-ghast",
   "nameEn": "Dried Ghast",
-  "nameFa": "Dried غاست",
+  "nameFa": "Dried گاست",
   "category": "other",
   "icon": "px-dried-ghast",
-  "description": "بلوک Dried غاست در ماینکرفت.",
+  "description": "بلوک Dried گاست در ماینکرفت.",
   "hardness": 1.0,
   "resistance": 1.0,
   "stackSize": 64,

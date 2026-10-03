@@ -1,7 +1,7 @@
 {
   "id": "bedrock",
   "nameEn": "Bedrock",
-  "nameFa": "سنگ بستر",
+  "nameFa": "بدراک",
   "category": "natural",
   "icon": "bedrock",
   "hardness": -1.0,
@@ -89,7 +89,7 @@
     {
       "id": "netherrack",
       "nameEn": "Netherrack",
-      "nameFa": "نثرَک",
+      "nameFa": "ندراک",
       "type": "block"
     }
   ],

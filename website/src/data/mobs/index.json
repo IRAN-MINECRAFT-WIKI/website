@@ -19,7 +19,7 @@
     {
       "id": "skeleton",
       "nameEn": "Skeleton",
-      "nameFa": "اسکلت",
+      "nameFa": "اسکلتون",
       "category": "hostile",
       "icon": "skeleton",
       "hasRealTexture": true
@@ -27,7 +27,7 @@
     {
       "id": "spider",
       "nameEn": "Spider",
-      "nameFa": "عنکبوت",
+      "nameFa": "اسپایدر",
       "category": "hostile",
       "icon": "spider",
       "hasRealTexture": true
@@ -35,7 +35,7 @@
     {
       "id": "cave-spider",
       "nameEn": "Cave Spider",
-      "nameFa": "عنکبوت غار",
+      "nameFa": "اسپایدر غار",
       "category": "hostile",
       "icon": "cave-spider",
       "hasRealTexture": true
@@ -43,7 +43,7 @@
     {
       "id": "witch",
       "nameEn": "Witch",
-      "nameFa": "جادوگر",
+      "nameFa": "ویچ",
       "category": "hostile",
       "icon": "witch",
       "hasRealTexture": true
@@ -67,7 +67,7 @@
     {
       "id": "ghast",
       "nameEn": "Ghast",
-      "nameFa": "غاست",
+      "nameFa": "گاست",
       "category": "hostile",
       "icon": "ghast",
       "hasRealTexture": true
@@ -123,7 +123,7 @@
     {
       "id": "pillager",
       "nameEn": "Pillager",
-      "nameFa": "غارتگر",
+      "nameFa": "پیلجر",
       "category": "hostile",
       "icon": "pillager",
       "hasRealTexture": true
@@ -237,7 +237,7 @@
     {
       "id": "axolotl",
       "nameEn": "Axolotl",
-      "nameFa": "آژولوتل",
+      "nameFa": "اکسولوتل",
       "category": "passive",
       "icon": "px-cow-face"
     },
@@ -251,7 +251,7 @@
     {
       "id": "allay",
       "nameEn": "Allay",
-      "nameFa": "آلِی",
+      "nameFa": "الای",
       "category": "passive",
       "icon": "allay",
       "hasRealTexture": true
@@ -259,7 +259,7 @@
     {
       "id": "enderman",
       "nameEn": "Enderman",
-      "nameFa": "اِندرمن",
+      "nameFa": "اندرمن",
       "category": "neutral",
       "icon": "enderman",
       "hasRealTexture": true
@@ -275,7 +275,7 @@
     {
       "id": "iron-golem",
       "nameEn": "Iron Golem",
-      "nameFa": "گلولم آهنی",
+      "nameFa": "گولم آهنی",
       "category": "neutral",
       "icon": "iron-golem",
       "hasRealTexture": true
@@ -283,7 +283,7 @@
     {
       "id": "zombified-piglin",
       "nameEn": "Zombified Piglin",
-      "nameFa": "پیگلین زامبی",
+      "nameFa": "پیگلین زامبی‌شده",
       "category": "neutral",
       "icon": "zombified-piglin",
       "hasRealTexture": true
@@ -336,7 +336,7 @@
     {
       "id": "ender-dragon",
       "nameEn": "Ender Dragon",
-      "nameFa": "اژدهای اِند",
+      "nameFa": "اژدهای اندر",
       "category": "boss",
       "icon": "ender-dragon",
       "hasRealTexture": true
@@ -352,7 +352,7 @@
     {
       "id": "wither-skeleton",
       "nameEn": "Wither Skeleton",
-      "nameFa": "اسکلت ویدر",
+      "nameFa": "اسکلتون ویدر",
       "category": "boss",
       "icon": "wither-skeleton",
       "hasRealTexture": true
@@ -368,7 +368,7 @@
     {
       "id": "snow-golem",
       "nameEn": "Snow Golem",
-      "nameFa": "گلولم برفی",
+      "nameFa": "گولم برفی",
       "category": "utility",
       "icon": "snow-golem",
       "hasRealTexture": true

@@ -78,7 +78,7 @@
     {
       "id": "cobblestone",
       "nameEn": "Cobblestone",
-      "nameFa": "کوب‌استون",
+      "nameFa": "قلوه‌سنگ",
       "type": "block"
     },
     {
@@ -96,7 +96,7 @@
     {
       "id": "crafting-table",
       "nameEn": "Crafting Table",
-      "nameFa": "میز ساخت",
+      "nameFa": "میز کرافت",
       "type": "block"
     }
   ],

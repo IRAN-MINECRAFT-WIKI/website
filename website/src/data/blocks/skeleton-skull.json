@@ -1,10 +1,10 @@
 {
   "id": "skeleton-skull",
   "nameEn": "Skeleton Skull",
-  "nameFa": "اسکلت Skull",
+  "nameFa": "اسکلتون Skull",
   "category": "other",
   "icon": "px-skeleton-skull",
-  "description": "بلوک اسکلت Skull در ماینکرفت.",
+  "description": "بلوک اسکلتون Skull در ماینکرفت.",
   "hardness": 1.0,
   "resistance": 1.0,
   "stackSize": 64,

@@ -17,7 +17,7 @@
   "uses": [
     "ساخت Netherite Scrap",
     "ساخت Netherite Ingot",
-    "ارتقا الماس به نِدِرایت"
+    "ارتقا دایمند به ندریت"
   ],
   "locations": [
     "Nether y=15 تا y=-64",
@@ -33,7 +33,7 @@
   "intro": [
     "خرده‌سنگ باستانی (Ancient Debris) کمیاب‌ترین و باارزش‌ترین رگه‌ی معدنی ماینکرفت است که در Nether یافت می‌شود و تنها منبع Netherite است.",
     "این بلاک در لایه‌های y=۱۵ تا y=-۴ در Nether تولید می‌شود، با تمرکز بیشتر در y=۱۵. به‌دلیل سختیِ بالا (۳۰.۰)، باید با Diamond Pickaxe یا Netherite Pickaxe استخراج شود.",
-    "Ancient Debris به Netherite Scrap تبدیل می‌شود و با ترکیب ۴ Netherite Scrap + ۴ Gold Ingot در Crafting Table، یک Netherite Ingot تولید می‌کند. Netherite برای ارتقا ابزار و زره الماسی به نیدِرایتی استفاده می‌شود — سطح بالاتر از الماس."
+    "Ancient Debris به Netherite Scrap تبدیل می‌شود و با ترکیب ۴ Netherite Scrap + ۴ Gold Ingot در Crafting Table، یک Netherite Ingot تولید می‌کند. Netherite برای ارتقا ابزار و زره دایمندی به ندریتی استفاده می‌شود — سطح بالاتر از دایمند."
   ],
   "behavior": [
     "سختی Ancient Debris ۳۰.۰ است — بسیار سخت‌تر از Obsidian (۵۰.۰ را ندارد، ولی برای یک رگه‌ی معدنی فوق‌العاده سختی است). با دستِ خالی ۱۵۰ ثانیه و با Diamond Pickaxe ۲.۲۵ ثانیه زمان لازم است.",
@@ -78,7 +78,7 @@
     {
       "id": "netherrack",
       "nameEn": "Netherrack",
-      "nameFa": "نثرَک",
+      "nameFa": "ندراک",
       "type": "block"
     },
     {
@@ -90,7 +90,7 @@
     {
       "id": "diamond-ore",
       "nameEn": "Diamond Ore",
-      "nameFa": "سنگ الماس",
+      "nameFa": "سنگ معدن دایمند",
       "type": "block"
     },
     {

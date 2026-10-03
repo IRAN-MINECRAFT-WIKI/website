@@ -1,7 +1,7 @@
 {
   "id": "iron-golem",
   "nameEn": "Iron Golem",
-  "nameFa": "گلولم آهنی",
+  "nameFa": "گولم آهنی",
   "category": "neutral",
   "icon": "iron-golem",
   "health": 100,
@@ -15,7 +15,7 @@
     "java": "1.2+",
     "bedrock": "0.1+"
   },
-  "description": "گلولم آهنی در Village پیدا می‌شه و از ۴ Iron Block + Pumpkin ساخته می‌شه. به روستایی‌ها حمله نمی‌کنه ولی به ماب‌های متخاصم حمله می‌کنه.",
+  "description": "گولم آهنی در Village پیدا می‌شه و از ۴ Iron Block + Pumpkin ساخته می‌شه. به روستایی‌ها حمله نمی‌کنه ولی به ماب‌های متخاصم حمله می‌کنه.",
   "drops": [
     {
       "item": "iron_ingot",
@@ -84,7 +84,7 @@
     {
       "id": "snow-golem",
       "nameEn": "Snow Golem",
-      "nameFa": "گلوم برفی",
+      "nameFa": "گولم برفی",
       "type": "mob"
     },
     {
@@ -102,7 +102,7 @@
     {
       "id": "iron-ore",
       "nameEn": "Iron Ore",
-      "nameFa": "سنگ آهن",
+      "nameFa": "سنگ معدن آهن",
       "type": "block"
     }
   ],

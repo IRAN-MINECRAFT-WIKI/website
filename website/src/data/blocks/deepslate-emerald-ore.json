@@ -1,7 +1,7 @@
 {
   "id": "deepslate-emerald-ore",
   "nameEn": "Deepslate Emerald Ore",
-  "nameFa": "سنگ زمرد دیپ‌اسلیت",
+  "nameFa": "سنگ معدن امرالدِ عمیق",
   "category": "ore",
   "icon": "px-deepslate-emerald-ore",
   "hardness": 4.5,
@@ -13,7 +13,7 @@
     "java": "1.17+",
     "bedrock": "1.18.0+"
   },
-  "description": "نسخه‌ی دیپ‌اسلیتی سنگ زمرد در عمق کوهستان پیدا می‌شه.",
+  "description": "نسخه‌ی دیپ‌اسلیتی سنگ امرالد در عمق کوهستان پیدا می‌شه.",
   "uses": [
     "تجارت با روستایی‌ها"
   ],

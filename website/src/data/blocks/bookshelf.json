@@ -1,7 +1,7 @@
 {
   "id": "bookshelf",
   "nameEn": "Bookshelf",
-  "nameFa": "کتاب‌خانه",
+  "nameFa": "کتابخانه",
   "category": "decoration",
   "icon": "px-bookshelf",
   "hardness": 1.5,
@@ -83,7 +83,7 @@
     {
       "id": "oak-planks",
       "nameEn": "Oak Planks",
-      "nameFa": "تخته‌های بلوط",
+      "nameFa": "تخته‌ی بلوط",
       "type": "block"
     },
     {

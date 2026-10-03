@@ -14,7 +14,7 @@
     "java": "1.10+",
     "bedrock": "1.10.0+"
   },
-  "description": "ولگرد نسخه‌ی یخی اسکلت هست که در بایوم Snowy Tundra پیدا می‌شه و با تیر Slowness می‌زنه.",
+  "description": "ولگرد نسخه‌ی یخی اسکلتون هست که در بایوم Snowy Tundra پیدا می‌شه و با تیر Slowness می‌زنه.",
   "drops": [
     {
       "item": "bone",

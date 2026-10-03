@@ -1,7 +1,7 @@
 {
   "id": "emerald-ore",
   "nameEn": "Emerald Ore",
-  "nameFa": "سنگ زمرد",
+  "nameFa": "سنگ معدن امرالد",
   "category": "ore",
   "icon": "emerald-ore",
   "hardness": 3.0,
@@ -13,7 +13,7 @@
     "java": "1.0+",
     "bedrock": "0.1+"
   },
-  "description": "سنگ زمرد کمیاب‌ترین سنگ معدنی هست و فقط در بایوم Extreme Hills پیدا می‌شه. برای تجارت با روستایی‌ها استفاده می‌شه.",
+  "description": "سنگ امرالد کمیاب‌ترین سنگ معدنی هست و فقط در بایوم Extreme Hills پیدا می‌شه. برای تجارت با روستایی‌ها استفاده می‌شه.",
   "uses": [
     "تجارت با روستایی‌ها",
     "ساخت Block of Emerald"
@@ -36,7 +36,7 @@
   ],
   "wikiLink": "https://minecraft.wiki/w/Emerald_Ore",
   "intro": [
-    "سنگ زمرد (Emerald Ore) کمیاب‌ترین رگه‌ی معدنی ماینکرفت در دنیای زیرین است و به‌صورت رگه‌های ۱ بلاکی در بایوم‌های کوهستانی تولید می‌شود.",
+    "سنگ امرالد (Emerald Ore) کمیاب‌ترین رگه‌ی معدنی ماینکرفت در دنیای زیرین است و به‌صورت رگه‌های ۱ بلاکی در بایوم‌های کوهستانی تولید می‌شود.",
     "Emerald Ore تنها در بایوم‌های Mountains، Windswept Hills و Extreme Hills تولید می‌شود، در لایه‌های y=-۱۶ تا y=۳۲۰، با تمرکز بیشتر در y=۲۳۶. در عمق زیر y=۰ به Deepslate Emerald Ore تبدیل می‌شود.",
     "با استخراج Emerald Ore با پیکه‌ی آهنی یا بالاتر، Emerald می‌رسد که برای تجارت با روستاییان و ساخت پایه‌ی Beacon استفاده می‌شود. Emerald Ore یکی از نادرترین بلاک‌های معدنی است و پیدا کردن آن به‌معنای یک موفقیت بزرگ است."
   ],
@@ -83,13 +83,13 @@
     {
       "id": "deepslate-emerald-ore",
       "nameEn": "Deepslate Emerald Ore",
-      "nameFa": "سنگ زمردِ عمیق",
+      "nameFa": "سنگ معدن امرالدِ عمیق",
       "type": "block"
     },
     {
       "id": "diamond-ore",
       "nameEn": "Diamond Ore",
-      "nameFa": "سنگ الماس",
+      "nameFa": "سنگ معدن دایمند",
       "type": "block"
     },
     {

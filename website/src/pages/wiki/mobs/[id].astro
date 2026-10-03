@@ -5,6 +5,7 @@ import BackButton from "@components/BackButton.astro";
 import StructuredData from '@components/StructuredData.astro';
 import { mobs, MOB_CATEGORIES, getMobById, type MobInfo } from '@/lib/data';
 import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+import { mobImgUrl } from '@/lib/cdn-images';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -20,14 +21,17 @@ const cat = MOB_CATEGORIES.find((c) => c.id === mob.category);
 
 const BASE = import.meta.env.BASE_URL;
 
-// Prefer 3D full-body renders from mcicons (mobs-render/*.webp) over
-// the old face-only textures (mobs/*.png). Falls back gracefully.
-const cleanIcon = mob.icon.replace('px-', '').replace('-face', '');
+// Prefer ccvaults.com CDN URL (no GitHub Pages bandwidth cost).
+// Fallback chain: CDN → local 3D render (dev only) → face-only PNG.
+const cleanIcon = mob.icon.replace(/^px-/, '').replace(/-face$/, '');
+const cdnUrl = mobImgUrl(cleanIcon) || mobImgUrl(mob.id);
 const renderPath = path.resolve('./public/textures/mobs-render', `${cleanIcon}.webp`);
 const hasRender = fs.existsSync(renderPath);
-const mobImgSrc = hasRender
-  ? `${BASE}textures/mobs-render/${cleanIcon}.webp`
-  : `${BASE}textures/mobs/${cleanIcon}.png`;
+const mobImgSrc = cdnUrl
+  ? cdnUrl
+  : hasRender
+    ? `${BASE}textures/mobs-render/${cleanIcon}.webp`
+    : `${BASE}textures/mobs/${cleanIcon}.png`;
 
 const breadcrumb = [
   { name: 'خانه', url: '/' },
@@ -280,20 +284,26 @@ function faNum(n: number | string | undefined): string {
           <section class="mob-section">
             <h2 class="mob-section-title">🔗 ماب‌های مرتبط</h2>
             <div class="mob-related-grid">
-              {mob.related.map((r) => (
-                <a href={`${BASE}wiki/mobs/${r.id}`} class="mob-related-card">
-                  <img
-                    src={`${BASE}textures/mobs/${r.id}.png`}
-                    alt={r.name}
-                    width="32" height="32"
-                    loading="lazy"
-                    class="pixel-img"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
-                  />
-                  <span style="display:none;">📦</span>
-                  <span class="mob-related-name">{r.name}</span>
-                </a>
-              ))}
+              {mob.related.map((r) => {
+                // Prefer CDN URL for the related mob's render; fall back to the
+                // small face-only PNG (kept in git) if no CDN match exists.
+                const relCdn = mobImgUrl(r.id) || mobImgUrl(r.nameEn.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
+                const relSrc = relCdn || `${BASE}textures/mobs/${r.id}.png`;
+                return (
+                  <a href={`${BASE}wiki/mobs/${r.id}`} class="mob-related-card">
+                    <img
+                      src={relSrc}
+                      alt={r.name}
+                      width="32" height="32"
+                      loading="lazy"
+                      class="pixel-img"
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
+                    />
+                    <span style="display:none;">📦</span>
+                    <span class="mob-related-name">{r.name}</span>
+                  </a>
+                );
+              })}
             </div>
           </section>
         )}

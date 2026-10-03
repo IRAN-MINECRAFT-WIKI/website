@@ -10,14 +10,14 @@
     {
       "id": "cobblestone",
       "nameEn": "Cobblestone",
-      "nameFa": "کوب‌استون",
+      "nameFa": "قلوه‌سنگ",
       "category": "building",
       "icon": "cobblestone"
     },
     {
       "id": "oak-planks",
       "nameEn": "Oak Planks",
-      "nameFa": "تخته‌های بلوط",
+      "nameFa": "تخته‌ی بلوط",
       "category": "building",
       "icon": "oak-planks"
     },
@@ -101,7 +101,7 @@
     {
       "id": "end-stone",
       "nameEn": "End Stone",
-      "nameFa": "سنگ اِند",
+      "nameFa": "سنگ اند",
       "category": "building",
       "icon": "sand"
     },
@@ -227,7 +227,7 @@
     {
       "id": "bedrock",
       "nameEn": "Bedrock",
-      "nameFa": "سنگ بستر",
+      "nameFa": "بدراک",
       "category": "natural",
       "icon": "bedrock"
     },
@@ -262,7 +262,7 @@
     {
       "id": "netherrack",
       "nameEn": "Netherrack",
-      "nameFa": "سنگ نادر",
+      "nameFa": "ندراک",
       "category": "natural",
       "icon": "netherrack"
     },
@@ -283,49 +283,49 @@
     {
       "id": "coal-ore",
       "nameEn": "Coal Ore",
-      "nameFa": "سنگ زغال‌سنگ",
+      "nameFa": "سنگ معدن زغال",
       "category": "ore",
       "icon": "coal-ore"
     },
     {
       "id": "iron-ore",
       "nameEn": "Iron Ore",
-      "nameFa": "سنگ آهن",
+      "nameFa": "سنگ معدن آهن",
       "category": "ore",
       "icon": "iron-ore"
     },
     {
       "id": "gold-ore",
       "nameEn": "Gold Ore",
-      "nameFa": "سنگ طلا",
+      "nameFa": "سنگ معدن طلا",
       "category": "ore",
       "icon": "gold-ore"
     },
     {
       "id": "diamond-ore",
       "nameEn": "Diamond Ore",
-      "nameFa": "سنگ الماس",
+      "nameFa": "سنگ معدن دایمند",
       "category": "ore",
       "icon": "diamond-ore"
     },
     {
       "id": "emerald-ore",
       "nameEn": "Emerald Ore",
-      "nameFa": "سنگ زمرد",
+      "nameFa": "سنگ معدن امرالد",
       "category": "ore",
       "icon": "emerald-ore"
     },
     {
       "id": "lapis-ore",
       "nameEn": "Lapis Lazuli Ore",
-      "nameFa": "سنگ لاجورد",
+      "nameFa": "سنگ معدن لاجورد",
       "category": "ore",
       "icon": "lapis-lazuli-ore"
     },
     {
       "id": "redstone-ore",
       "nameEn": "Redstone Ore",
-      "nameFa": "سنگ رداستون",
+      "nameFa": "سنگ معدن رداستون",
       "category": "ore",
       "icon": "redstone-ore"
     },
@@ -339,14 +339,14 @@
     {
       "id": "nether-quartz-ore",
       "nameEn": "Nether Quartz Ore",
-      "nameFa": "سنگ کوارتز نادر",
+      "nameFa": "سنگ معدن کوارتز ندر",
       "category": "ore",
       "icon": "diamond-ore"
     },
     {
       "id": "nether-gold-ore",
       "nameEn": "Nether Gold Ore",
-      "nameFa": "سنگ طلا نادر",
+      "nameFa": "سنگ معدن طلا‌ی ندر",
       "category": "ore",
       "icon": "gold-ore"
     },
@@ -360,42 +360,42 @@
     {
       "id": "deepslate-coal-ore",
       "nameEn": "Deepslate Coal Ore",
-      "nameFa": "سنگ زغال‌سنگ دیپ‌اسلیت",
+      "nameFa": "سنگ معدن زغالِ عمیق",
       "category": "ore",
       "icon": "coal-ore"
     },
     {
       "id": "deepslate-iron-ore",
       "nameEn": "Deepslate Iron Ore",
-      "nameFa": "سنگ آهن دیپ‌اسلیت",
+      "nameFa": "سنگ معدن آهنِ عمیق",
       "category": "ore",
       "icon": "iron-ore"
     },
     {
       "id": "deepslate-gold-ore",
       "nameEn": "Deepslate Gold Ore",
-      "nameFa": "سنگ طلا دیپ‌اسلیت",
+      "nameFa": "سنگ معدن طلا‌ی عمیق",
       "category": "ore",
       "icon": "gold-ore"
     },
     {
       "id": "deepslate-diamond-ore",
       "nameEn": "Deepslate Diamond Ore",
-      "nameFa": "سنگ الماس دیپ‌اسلیت",
+      "nameFa": "سنگ معدن دایمندِ عمیق",
       "category": "ore",
       "icon": "diamond-ore"
     },
     {
       "id": "deepslate-emerald-ore",
       "nameEn": "Deepslate Emerald Ore",
-      "nameFa": "سنگ زمرد دیپ‌اسلیت",
+      "nameFa": "سنگ معدن امرالدِ عمیق",
       "category": "ore",
       "icon": "emerald-ore"
     },
     {
       "id": "deepslate-redstone-ore",
       "nameEn": "Deepslate Redstone Ore",
-      "nameFa": "سنگ رداستون دیپ‌اسلیت",
+      "nameFa": "سنگ معدن رداستونِ عمیق",
       "category": "ore",
       "icon": "redstone-ore"
     },
@@ -409,7 +409,7 @@
     {
       "id": "bookshelf",
       "nameEn": "Bookshelf",
-      "nameFa": "کتاب‌خانه",
+      "nameFa": "کتابخانه",
       "category": "decoration",
       "icon": "px-crafting-table"
     },
@@ -682,7 +682,7 @@
     {
       "id": "crafting-table",
       "nameEn": "Crafting Table",
-      "nameFa": "میز ساخت",
+      "nameFa": "میز کرافت",
       "category": "utility",
       "icon": "crafting-table-top"
     },
@@ -703,7 +703,7 @@
     {
       "id": "ender-chest",
       "nameEn": "Ender Chest",
-      "nameFa": "صندوق اِندر",
+      "nameFa": "صندوق اندر",
       "category": "utility",
       "icon": "chest"
     },

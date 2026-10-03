@@ -40,3 +40,10 @@ pipeline/__pycache__/
 pipeline/*.pyc
 pipeline/uploaded_history.json
 pipeline/sync_log.json
+
+# 3D renders loaded from ccvaults.com CDN (not stored in git to save bandwidth)
+# The flat face textures in public/textures/{blocks,items,mobs}/ are kept
+# (small, used as final fallback) — only the bulky 3D renders are excluded.
+public/textures/blocks-render/
+public/textures/mobs-render/
+public/textures/items-render/

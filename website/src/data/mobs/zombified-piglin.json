@@ -1,7 +1,7 @@
 {
   "id": "zombified-piglin",
   "nameEn": "Zombified Piglin",
-  "nameFa": "پیگلین زامبی",
+  "nameFa": "پیگلین زامبی‌شده",
   "category": "neutral",
   "icon": "zombified-piglin",
   "health": 20,
@@ -105,7 +105,7 @@
     {
       "id": "wither-skeleton",
       "nameEn": "Wither Skeleton",
-      "nameFa": "اسکلت ویدر",
+      "nameFa": "اسکلتون ویدر",
       "type": "mob"
     }
   ],

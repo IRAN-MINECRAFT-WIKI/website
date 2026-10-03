@@ -7,15 +7,19 @@ import {
   type BlockInfo,
 } from '@/lib/data';
 import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
+import { blockImgUrl } from '@/lib/cdn-images';
 import fs from 'node:fs';
 import path from 'node:path';
 
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 
-// Helper: prefer 3D render (blocks-render/*.webp) over flat texture.
+// Helper: prefer ccvaults.com CDN URL (no bandwidth cost on GitHub Pages).
+// Fallback chain: CDN → local 3D render (dev only) → flat texture PNG.
 function blockImg(icon: string): string {
-  const clean = icon.replace('px-', '');
+  const clean = icon.replace(/^px-/, '');
+  const cdn = blockImgUrl(clean);
+  if (cdn) return cdn;
   const renderPath = path.resolve('./public/textures/blocks-render', `${clean}.webp`);
   if (fs.existsSync(renderPath)) {
     return `${BASE}textures/blocks-render/${clean}.webp`;

@@ -1,7 +1,7 @@
 {
   "id": "crafting-table",
   "nameEn": "Crafting Table",
-  "nameFa": "میز ساخت",
+  "nameFa": "میز کرافت",
   "category": "utility",
   "icon": "px-crafting-table",
   "hardness": 2.5,
@@ -78,7 +78,7 @@
     {
       "id": "oak-planks",
       "nameEn": "Oak Planks",
-      "nameFa": "تخته‌های بلوط",
+      "nameFa": "تخته‌ی بلوط",
       "type": "block"
     },
     {

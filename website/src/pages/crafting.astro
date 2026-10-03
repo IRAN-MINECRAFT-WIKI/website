@@ -21,6 +21,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import recipesJson from '@/data/crafting-recipes.json';
 import SteveViewer from '@components/SteveViewer.astro';
+import { itemImgUrl, blockImgUrl } from '@/lib/cdn-images';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -36,11 +37,12 @@ const itemIcons: Record<string, string> = (recipesJson as any).itemIcons || {};
 // Scan the /public/textures/ folders at build time so we know which items
 // have a real image asset. Used to decide whether to render <img> or emoji
 // fallback. Order of preference (highest first):
-//   1. /textures/items-render/{name}.webp  (3D item render from mcicons)
-//   2. /textures/blocks-render/{name}.webp (3D block render from mcicons)
-//   3. /textures/blocks/{name}.png        (flat block PNG)
-//   4. /textures/items/{name}.png         (flat item PNG)
-//   5. emoji fallback
+//   1. ccvaults.com CDN URL      (no GitHub Pages bandwidth cost)
+//   2. /textures/items-render/{name}.webp  (3D item render — dev fallback)
+//   3. /textures/blocks-render/{name}.webp (3D block render — dev fallback)
+//   4. /textures/blocks/{name}.png        (flat block PNG — kept in git)
+//   5. /textures/items/{name}.png         (flat item PNG — kept in git)
+//   6. emoji fallback
 const PUB = path.resolve('./public');
 const blocksDir = path.join(PUB, 'textures', 'blocks');
 const itemsDir = path.join(PUB, 'textures', 'items');
@@ -65,6 +67,9 @@ const blocksRenderWebps = listWebp(blocksRenderDir);
 
 function pngExists(name: string | null | undefined): boolean {
   if (!name) return false;
+  // CDN match counts as "has an image" so the client renders an <img>
+  // (whose src will be the ccvaults.com URL — no GitHub Pages hit).
+  if (itemImgUrl(name) || blockImgUrl(name)) return true;
   return (
     itemsRenderWebps.has(name + '.webp') ||
     blocksRenderWebps.has(name + '.webp') ||
@@ -74,9 +79,14 @@ function pngExists(name: string | null | undefined): boolean {
 }
 
 // Returns the URL of the highest-preference image asset for an item name,
-// or null if no image asset exists. (3D render preferred over flat PNG.)
+// or null if no image asset exists. Preference: ccvaults.com CDN → local
+// 3D render (dev only, since *-render/ dirs are git-ignored).
 function renderSrc(name: string | null | undefined): string | null {
   if (!name) return null;
+  const itemCdn = itemImgUrl(name);
+  if (itemCdn) return itemCdn;
+  const blockCdn = blockImgUrl(name);
+  if (blockCdn) return blockCdn;
   if (itemsRenderWebps.has(name + '.webp'))
     return `${BASE}textures/items-render/${name}.webp`;
   if (blocksRenderWebps.has(name + '.webp'))
@@ -141,6 +151,24 @@ const pngItemsJson = JSON.stringify(pngItemsList);
 // Two small sets passed to client so its texPath() can prefer .webp renders.
 const itemsRenderJson = JSON.stringify([...itemsRenderSet]);
 const blocksRenderJson = JSON.stringify([...blocksRenderSet]);
+
+// Build a { name → ccvaults.com URL } map for items appearing in recipes
+// that have a CDN URL. Passed to client so its texPath() can prefer CDN
+// URLs over local files (saves GitHub Pages bandwidth — local *-render/
+// dirs are git-ignored).
+const cdnMap: Record<string, string> = {};
+for (const r of recipes) {
+  const collect = (name?: string | null) => {
+    if (!name || cdnMap[name]) return;
+    const u = itemImgUrl(name) || blockImgUrl(name);
+    if (u) cdnMap[name] = u;
+  };
+  for (const row of r.grid || []) {
+    for (const cell of row || []) collect(cell);
+  }
+  collect(r.output?.item);
+}
+const cdnMapJson = JSON.stringify(cdnMap);
 
 // Build the list of categories from recipes (for filter chips, if we add them later).
 const CATEGORIES_ORDER = ['combat', 'tools', 'building', 'redstone', 'food', 'brewing', 'misc'];
@@ -854,7 +882,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   }
 </style>
 
-<script is:inline define:vars={{ recipesData, itemIconsJson, pngItemsJson, itemsRenderJson, blocksRenderJson, BASE }}>
+<script is:inline define:vars={{ recipesData, itemIconsJson, pngItemsJson, itemsRenderJson, blocksRenderJson, cdnMapJson, BASE }}>
   (function () {
     // ── State ─────────────────────────────────────────────
     let recipes = [];
@@ -877,6 +905,13 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       pngSet = new Set(arr);
     } catch (e) { pngSet = new Set(); }
     function hasPng(name) { return !!name && pngSet.has(name); }
+
+    // ── CDN URL map (name → ccvaults.com URL) ──
+    // Build-time lookup from @klashdevelopment/mcicons. Preferred over all
+    // local paths so GitHub Pages doesn't serve the (git-ignored) renders.
+    let cdnMap = {};
+    try { cdnMap = JSON.parse(cdnMapJson) || {}; }
+    catch (e) { cdnMap = {}; }
 
     // ── Sets of item names that have a 3D render (.webp) ──
     // itemsRenderSet: 3D item renders (from mcicons `items` category).
@@ -913,7 +948,9 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
     function texPath(name) {
       if (!name) return null;
-      // Prefer 3D renders over flat PNGs (Task SA-ITEMS).
+      // Prefer CDN URL (no GitHub Pages bandwidth cost)
+      if (cdnMap[name]) return cdnMap[name];
+      // Then local 3D renders (dev fallback — git-ignored in prod)
       if (itemsRenderSet.has(name))
         return BASE + 'textures/items-render/' + name + '.webp';
       if (blocksRenderSet.has(name))

@@ -1,10 +1,10 @@
 {
   "id": "wither-skeleton-skull",
   "nameEn": "Wither Skeleton Skull",
-  "nameFa": "Wither اسکلت Skull",
+  "nameFa": "Wither اسکلتون Skull",
   "category": "other",
   "icon": "px-wither-skeleton-skull",
-  "description": "بلوک Wither اسکلت Skull در ماینکرفت.",
+  "description": "بلوک Wither اسکلتون Skull در ماینکرفت.",
   "hardness": 1.0,
   "resistance": 1.0,
   "stackSize": 64,

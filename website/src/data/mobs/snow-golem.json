@@ -1,7 +1,7 @@
 {
   "id": "snow-golem",
   "nameEn": "Snow Golem",
-  "nameFa": "گلولم برفی",
+  "nameFa": "گولم برفی",
   "category": "utility",
   "icon": "snow-golem",
   "health": 4,
@@ -14,7 +14,7 @@
     "java": "Beta 1.9+",
     "bedrock": "0.1+"
   },
-  "description": "گلولم برفی با ۲ بلوک برف و Jack o'Lantern ساخته می‌شه و به ماب‌ها Snowball می‌زنه. در بایوم گرم آب می‌شه.",
+  "description": "گولم برفی با ۲ بلوک برف و Jack o'Lantern ساخته می‌شه و به ماب‌ها Snowball می‌زنه. در بایوم گرم آب می‌شه.",
   "drops": [
     {
       "item": "snowball",

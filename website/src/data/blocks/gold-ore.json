@@ -1,7 +1,7 @@
 {
   "id": "gold-ore",
   "nameEn": "Gold Ore",
-  "nameFa": "سنگ طلا",
+  "nameFa": "سنگ معدن طلا",
   "category": "ore",
   "icon": "gold-ore",
   "hardness": 3.0,
@@ -50,7 +50,7 @@
     "Gold Ore اولین بار در نسخه‌ی Java 0.0.20 (۲۰۰۹) اضافه شد.",
     "در نسخه‌ی ۱.۱۷، Raw Gold به‌جای مستقیم‌سازی Gold Ingot به‌عنوان دراپ اضافه شد.",
     "Nether Gold Ore در نسخه‌ی ۱.۱۶ به Nether اضافه شد و یکی از منابع قابل‌تجدیدِ Gold است.",
-    "ابزار طلایی سرعت استخراجِ بالاتری از الماس دارند، ولی دوامشان فقط ۳۲ است — به‌عنوان انتخاب اکسترم برای سرعت.",
+    "ابزار طلایی سرعت استخراجِ بالاتری از دایمند دارند، ولی دوامشان فقط ۳۲ است — به‌عنوان انتخاب اکسترم برای سرعت.",
     "در نسخه‌ی Bedrock، Gold Ore در بایوم‌های Mesca و Badlands با چگالی بیشتر تولید می‌شود."
   ],
   "history": [
@@ -84,19 +84,19 @@
     {
       "id": "deepslate-gold-ore",
       "nameEn": "Deepslate Gold Ore",
-      "nameFa": "سنگ طلا‌ی عمیق",
+      "nameFa": "سنگ معدن طلا‌ی عمیق",
       "type": "block"
     },
     {
       "id": "nether-gold-ore",
       "nameEn": "Nether Gold Ore",
-      "nameFa": "سنگ طلا‌ی ندر",
+      "nameFa": "سنگ معدن طلا‌ی ندر",
       "type": "block"
     },
     {
       "id": "iron-ore",
       "nameEn": "Iron Ore",
-      "nameFa": "سنگ آهن",
+      "nameFa": "سنگ معدن آهن",
       "type": "block"
     }
   ],

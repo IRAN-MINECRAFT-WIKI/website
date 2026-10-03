@@ -1,7 +1,7 @@
 {
   "id": "netherrack",
   "nameEn": "Netherrack",
-  "nameFa": "سنگ نادر",
+  "nameFa": "ندراک",
   "category": "natural",
   "icon": "netherrack",
   "hardness": 0.4,
@@ -13,7 +13,7 @@
     "java": "Alpha 1.2+",
     "bedrock": "0.1+"
   },
-  "description": "نِدرَک بلوک پایه‌ی نادر هست و در تمام نادر پراکنده هست. با شعله همیشه روشن می‌مونه.",
+  "description": "ندراک بلوک پایه‌ی نادر هست و در تمام نادر پراکنده هست. با شعله همیشه روشن می‌مونه.",
   "uses": [
     "ساخت Nether Brick",
     "کاشت قارچ نادر"
@@ -29,7 +29,7 @@
   ],
   "wikiLink": "https://minecraft.wiki/w/Netherrack",
   "intro": [
-    "نثرَک (Netherrack) فراوان‌ترین بلاک در Nether است و در تمام بایوم‌های Nether به‌وفور یافت می‌شود. این بلاک با شکستن، خودش را می‌دهد و در ساخت Nether Brick و Nether Brick Fence به‌کار می‌رود.",
+    "ندراک (Netherrack) فراوان‌ترین بلاک در Nether است و در تمام بایوم‌های Nether به‌وفور یافت می‌شود. این بلاک با شکستن، خودش را می‌دهد و در ساخت Nether Brick و Nether Brick Fence به‌کار می‌رود.",
     "Netherrack در لایه‌های تمام Nether (y=۰ تا y=۱۲۷) تولید می‌شود و یکی از اولین بلاک‌هایی است که بازیکن در Nether می‌بیند. این بلاک در کوره به Nether Brick تبدیل می‌شود.",
     "این بلاک سختی ۰.۴ دارد و با پیکه‌ی چوبی قابل‌شکستن است. در استخراج با Silk Touch خودش را می‌دهد؛ بدون آن نیز خودش را بازمی‌گرداند. Netherrack در نسخه‌ی ۱.۲۱ با ۱۶ میلیون توزیع در Nether، یکی از فراوان‌ترین بلاک‌های ماینکرفت است."
   ],
@@ -88,7 +88,7 @@
     {
       "id": "end-stone",
       "nameEn": "End Stone",
-      "nameFa": "سنگ اِند",
+      "nameFa": "سنگ اند",
       "type": "block"
     }
   ],

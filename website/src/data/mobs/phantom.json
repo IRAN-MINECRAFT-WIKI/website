@@ -78,7 +78,7 @@
     {
       "id": "ender-dragon",
       "nameEn": "Ender Dragon",
-      "nameFa": "اژدهای اِند",
+      "nameFa": "اژدهای اندر",
       "type": "mob"
     },
     {
@@ -90,7 +90,7 @@
     {
       "id": "ghast",
       "nameEn": "Ghast",
-      "nameFa": "غاست",
+      "nameFa": "گاست",
       "type": "mob"
     }
   ],

@@ -79,13 +79,13 @@
     {
       "id": "ghast",
       "nameEn": "Ghast",
-      "nameFa": "غاست",
+      "nameFa": "گاست",
       "type": "mob"
     },
     {
       "id": "wither-skeleton",
       "nameEn": "Wither Skeleton",
-      "nameFa": "اسکلت ویدر",
+      "nameFa": "اسکلتون ویدر",
       "type": "mob"
     },
     {

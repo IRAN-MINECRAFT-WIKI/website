@@ -1,7 +1,7 @@
 {
   "id": "pillager",
   "nameEn": "Pillager",
-  "nameFa": "غارتگر",
+  "nameFa": "پیلجر",
   "category": "hostile",
   "icon": "pillager",
   "health": 24,
@@ -14,7 +14,7 @@
     "java": "1.14+",
     "bedrock": "1.10.0+"
   },
-  "description": "غارتگر با Crossbow حمله می‌کنه و در Raid و Pillager Outpost پیدا می‌شه. اگه Banner بدی، Raid آغاز می‌شه.",
+  "description": "پیلجر با Crossbow حمله می‌کنه و در Raid و Pillager Outpost پیدا می‌شه. اگه Banner بدی، Raid آغاز می‌شه.",
   "drops": [
     {
       "item": "crossbow",
@@ -94,7 +94,7 @@
     {
       "id": "witch",
       "nameEn": "Witch",
-      "nameFa": "جادوگر",
+      "nameFa": "ویچ",
       "type": "mob"
     },
     {
