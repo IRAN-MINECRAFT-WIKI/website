@@ -329,23 +329,23 @@ export function fmtFa(n, opts = {}) {
   return String(n).replace(/[0-9]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[d]);
 }
 
-// Persian Shamsi date label (approximate, for chart axis).
+// Persian Shamsi (Jalali) date label — uses jalaali-js (the standard,
+// well-tested library). Correct for the official Iranian calendar.
+import { toJalaali } from 'jalaali-js';
+
 export function shamsiLabel(isoDateStr) {
   try {
-    const d = new Date(isoDateStr + 'T00:00:00Z');
-    const gy = d.getUTCFullYear();
-    const gm = d.getUTCMonth() + 1;
-    const gd = d.getUTCDate();
-    const gdm = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    let jday = gd - gdm[gm - 1];
-    const k = gy % 33 - 4;
-    const leap = k === 1 || k === 5 || k === 9 || k === 13 || k === 17 || k === 22 || k === 26 || k === 30;
-    if (gm > 2 && leap) jday += 1;
-    let jMonthIdx = jday <= 0 ? 9 : Math.min(11, Math.floor((jday - 1) / 30));
-    if (jday <= 0) { jday += 30; jMonthIdx = 9; }
-    const jDay = ((jday - 1) % 30 + 30) % 30 + 1;
-    const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-    return fmtFa(jDay) + ' ' + months[jMonthIdx];
+    // Parse the ISO date (YYYY-MM-DD) and convert to Jalali.
+    const parts = isoDateStr.split('-');
+    const gy = parseInt(parts[0], 10);
+    const gm = parseInt(parts[1], 10);
+    const gd = parseInt(parts[2], 10);
+    const j = toJalaali(gy, gm, gd);
+    const months = [
+      'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+      'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند',
+    ];
+    return fmtFa(j.jd) + ' ' + months[j.jm - 1];
   } catch {
     return isoDateStr;
   }

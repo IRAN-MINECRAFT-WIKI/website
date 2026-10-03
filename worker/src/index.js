@@ -1,173 +1,177 @@
-/**
- * MineBed Stats Worker — KV-based (NOT D1, so no row-read limit).
- *
- * How it works:
- *   POST /api/heartbeat  { user_uuid, page }
- *     → stores  hb:{uuid}        = { ts, page }            (TTL 5min)
- *     → stores  d:{date}:{uuid}  = 1                       (daily unique, TTL 31d)
- *     → stores  u:{uuid}         = 1                       (ever-seen, no TTL)
- *
- *   GET /api/stats
- *     → lists hb:* keys, counts those with ts < 60s = online now
- *     → counts d:{today}:* = today unique visitors
- *     → counts u:* = total unique visitors (all-time)
- *
- * Anti-inflation: each user_uuid = 1 unique per day. A browser can't
- * inflate by refreshing (same UUID, same day = 1 marker, not 2).
- *
- * Free tier: 100,000 KV reads/day + 1,000 writes/day — far more than
- * a small site needs (each visitor = ~3 writes, each stats fetch = ~3 list calls).
- *
- * Deploy (see worker/README.md):
- *   1. npm install -g wrangler
- *   2. wrangler login
- *   3. wrangler kv:namespace create MINEBED_HEARTBEAT
- *      → copy the id into wrangler.toml
- *   4. wrangler kv:namespace create MINEBED_HEARTBEAT --preview
- *      → copy the preview_id into wrangler.toml
- *   5. wrangler deploy
- */
+// MineBed Stats Worker v2.1 — KV-based + page tracking + Tehran timezone
+// ADDS: /api/pages endpoint + page-visit tracking + Asia/Tehran "today" boundary
+// Paste this over the existing Worker code in the Cloudflare dashboard.
+//
+// REQUIRED: KV namespace bound as MINEBED_KV (already done per user)
+// NOTE: "today" is computed in Asia/Tehran (UTC+3:30) so it matches the
+// Iranian user's calendar day, not UTC.
 
-const HEARTBEAT_TTL_SECONDS = 300; // 5 min — auto-expire stale heartbeats
-const ONLINE_WINDOW_MS = 60_000; // 60s — "online" = heartbeat in last 60s
+const ONLINE_TTL = 60; // seconds — heartbeat auto-expires after 60s
+const DAILY_TTL = 86400 * 31; // 31 days
 
-const K_HB = 'hb:'; // hb:{uuid} = { ts, page }
-const K_DAILY = 'd:'; // d:{YYYY-MM-DD}:{uuid} = 1 (daily unique)
-const K_UUID = 'u:'; // u:{uuid} = 1 (ever-seen)
-
-function todayStr() {
-  return new Date().toISOString().split('T')[0];
-}
-
-function normalizePath(p) {
-  if (!p || typeof p !== 'string') return '/';
-  return p.replace(/^\/website\//, '/') || '/';
-}
-
-function isValidUuid(v) {
-  return typeof v === 'string' && v.length >= 16 && v.length <= 64 && /^[a-zA-Z0-9_-]+$/.test(v);
+// Compute today's date in Asia/Tehran timezone (returns YYYY-MM-DD).
+// The Worker runs in UTC, but Iranian users expect "today" to match
+// their calendar day (which starts at 00:00 Tehran = 20:30 UTC previous day).
+function todayTehran() {
+  // Tehran = UTC+3:30. Add 3.5h to UTC, then format as date.
+  const now = new Date();
+  const tehran = new Date(now.getTime() + (3.5 * 60 * 60 * 1000));
+  return tehran.toISOString().split('T')[0];
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Content-Type': 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     };
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
     }
 
-    // ── GET /api/stats ──────────────────────────────────────────
-    if (url.pathname === '/api/stats' && request.method === 'GET') {
-      try {
-        const now = Date.now();
-
-        // Online now: list heartbeat keys, check timestamps.
-        const hbList = await env.MINEBED_HEARTBEAT.list({ prefix: K_HB, limit: 1000 });
-        let online = 0;
-        for (const key of hbList.keys) {
-          const val = await env.MINEBED_HEARTBEAT.get(key.name);
-          if (val) {
-            try {
-              const data = JSON.parse(val);
-              if (now - data.ts < ONLINE_WINDOW_MS) online++;
-            } catch {}
-          }
-        }
-
-        // Today unique: count daily markers for today.
-        const todayPrefix = K_DAILY + todayStr() + ':';
-        const dailyList = await env.MINEBED_HEARTBEAT.list({ prefix: todayPrefix, limit: 1000 });
-        const todayUnique = dailyList.keys.length;
-
-        // Total unique: count ever-seen UUID markers.
-        const uuidList = await env.MINEBED_HEARTBEAT.list({ prefix: K_UUID, limit: 1000 });
-        const totalUnique = uuidList.keys.length;
-
-        return new Response(
-          JSON.stringify({
-            online,
-            today: todayUnique,
-            total: totalUnique,
-            totalUnique,
-            todayUnique,
-            source: 'kv',
-            timestamp: now,
-          }),
-          { headers: corsHeaders }
-        );
-      } catch (e) {
-        return new Response(
-          JSON.stringify({ error: 'stats_error: ' + e.message, online: 0, today: 0, total: 0 }),
-          { status: 500, headers: corsHeaders }
-        );
-      }
-    }
-
-    // ── POST /api/heartbeat ─────────────────────────────────────
-    if (url.pathname === '/api/heartbeat' && request.method === 'POST') {
-      try {
-        let body;
-        try {
-          body = await request.json();
-        } catch {
-          return new Response(JSON.stringify({ ok: false, error: 'invalid_json' }), {
-            status: 400,
-            headers: corsHeaders,
-          });
-        }
-
-        const userUuid = (body.user_uuid || '').trim();
-        if (!isValidUuid(userUuid)) {
-          return new Response(JSON.stringify({ ok: false, error: 'invalid_uuid' }), {
-            status: 400,
-            headers: corsHeaders,
-          });
-        }
-
-        const page = normalizePath(body.page);
-        const now = Date.now();
-        const today = todayStr();
-
-        // Write heartbeat (with TTL so stale entries auto-expire).
-        await env.MINEBED_HEARTBEAT.put(
-          K_HB + userUuid,
-          JSON.stringify({ ts: now, page }),
-          { expirationTtl: HEARTBEAT_TTL_SECONDS }
-        );
-
-        // Mark daily unique (idempotent).
-        await env.MINEBED_HEARTBEAT.put(K_DAILY + today + ':' + userUuid, '1', {
-          expirationTtl: 86400 * 31,
-        });
-
-        // Mark ever-seen UUID (no TTL).
-        await env.MINEBED_HEARTBEAT.put(K_UUID + userUuid, '1');
-
-        return new Response(JSON.stringify({ ok: true, ts: now }), { headers: corsHeaders });
-      } catch (e) {
-        return new Response(JSON.stringify({ ok: false, error: e.message }), {
-          status: 500,
-          headers: corsHeaders,
-        });
-      }
-    }
-
-    if (url.pathname === '/' || url.pathname === '/health') {
-      return new Response(
-        JSON.stringify({ ok: true, service: 'minebed-stats', backend: 'kv' }),
-        { headers: corsHeaders }
+    if (!env.MINEBED_KV) {
+      return Response.json(
+        { error: 'KV not bound. Bind as MINEBED_KV in Worker Settings → Bindings.' },
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    return new Response(JSON.stringify({ error: 'not_found' }), {
-      status: 404,
-      headers: corsHeaders,
-    });
+    try {
+      // ── Health check ──────────────────────────────────────────────
+      if (url.pathname === '/api/health') {
+        return Response.json(
+          { ok: true, time: new Date().toISOString(), backend: 'kv', version: 2 },
+          { headers: corsHeaders }
+        );
+      }
+
+      // ── Seeds submission ──────────────────────────────────────────
+      if (url.pathname === '/api/seeds' && request.method === 'POST') {
+        const body = await request.json();
+        const ip = request.headers.get('cf-connecting-ip') || 'unknown';
+        const today = todayTehran();
+        const dayKey = `seeds|${today}|${ip}`;
+        const countStr = await env.MINEBED_KV.get(dayKey);
+        const count = parseInt(countStr || '0', 10);
+
+        if (count >= 5) {
+          return Response.json(
+            { error: 'محدودیت روزانه: حداکثر ۵ سید در روز' },
+            { status: 429, headers: corsHeaders }
+          );
+        }
+
+        const seedId = `seed|${Date.now()}|${Math.random().toString(36).slice(2, 8)}`;
+        await env.MINEBED_KV.put(
+          seedId,
+          JSON.stringify({
+            seed_value: body.seed_value,
+            version: body.version,
+            platform: body.platform,
+            features: body.features || [],
+            coordinates: body.coordinates || {},
+            user_uuid: body.user_uuid || '',
+            ip_address: ip,
+            created: new Date().toISOString(),
+          }),
+          { expirationTtl: DAILY_TTL }
+        );
+        await env.MINEBED_KV.put(dayKey, String(count + 1), { expirationTtl: DAILY_TTL });
+        return Response.json({ ok: true }, { headers: corsHeaders });
+      }
+
+      // ── Stats — 3 KV reads (list operations) ─────────────────────
+      if (url.pathname === '/api/stats') {
+        const today = todayTehran();
+        const hbList = await env.MINEBED_KV.list({ prefix: 'hb:', limit: 1000 });
+        const online = hbList.keys.length;
+        const dailyList = await env.MINEBED_KV.list({ prefix: `d:${today}:`, limit: 1000 });
+        const todayCount = dailyList.keys.length;
+        const uuidList = await env.MINEBED_KV.list({ prefix: 'u:', limit: 1000 });
+        const total = uuidList.keys.length;
+        return Response.json(
+          { online, today: todayCount, total, source: 'kv' },
+          { headers: corsHeaders }
+        );
+      }
+
+      // ── Top pages (site-wide, real) — NEW in v2 ───────────────────
+      // Returns the most-visited pages across ALL visitors, based on
+      // unique-visitor-per-page-per-day markers (idempotent — a visitor
+      // who refreshes a page 100 times counts as 1 for that page).
+      //
+      // Query param: ?range=today (default) or ?range=all
+      if (url.pathname === '/api/pages') {
+        const range = url.searchParams.get('range') || 'today';
+        const today = todayTehran();
+        const prefix = range === 'all' ? 'pv|' : `pv|${today}|`;
+        const list = await env.MINEBED_KV.list({ prefix, limit: 1000 });
+
+        // Each key: pv|{date}|{page}|{uuid}  (or pv|{page}|{uuid} — no, we use date)
+        // Count unique (page, uuid) pairs per page.
+        const pageCounts = {};
+        for (const k of list.keys) {
+          // Split by | — parts: ['pv', date, page, uuid]
+          const parts = k.name.split('|');
+          if (parts.length < 4) continue;
+          const page = parts[2]; // page path (pages don't contain |)
+          pageCounts[page] = (pageCounts[page] || 0) + 1;
+        }
+
+        const sorted = Object.entries(pageCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 10)
+          .map(([page, count]) => ({ page, count }));
+
+        return Response.json(
+          { pages: sorted, range, date: today, total: list.keys.length },
+          { headers: corsHeaders }
+        );
+      }
+
+      // ── Heartbeat — 4 KV writes (now includes page tracking) ─────
+      if (url.pathname === '/api/heartbeat' && request.method === 'POST') {
+        const body = await request.json();
+        const userUuid = (body.user_uuid || '').trim();
+        const page = (body.page || '/').replace(/^\/website\//, '/') || '/';
+        const today = todayTehran();
+
+        if (userUuid.length < 8) {
+          return Response.json(
+            { ok: false, error: 'invalid uuid' },
+            { status: 400, headers: corsHeaders }
+          );
+        }
+
+        // Heartbeat (auto-expires 60s)
+        await env.MINEBED_KV.put(`hb:${userUuid}`, page, { expirationTtl: ONLINE_TTL });
+        // Daily unique marker
+        await env.MINEBED_KV.put(`d:${today}:${userUuid}`, '1', { expirationTtl: DAILY_TTL });
+        // Ever-seen UUID
+        await env.MINEBED_KV.put(`u:${userUuid}`, '1');
+        // NEW: page-visit marker (unique per page per UUID per day)
+        // Key format: pv|{date}|{page}|{uuid} — idempotent, so refreshing
+        // a page 100 times = 1 count for that page.
+        await env.MINEBED_KV.put(`pv|${today}|${page}|${userUuid}`, '1', {
+          expirationTtl: DAILY_TTL,
+        });
+
+        return Response.json({ ok: true }, { headers: corsHeaders });
+      }
+
+      if (url.pathname === '/' || url.pathname === '/health') {
+        return Response.json(
+          { ok: true, service: 'minebed-stats', backend: 'kv', version: 2 },
+          { headers: corsHeaders }
+        );
+      }
+
+      return Response.json({ error: 'Not found' }, { status: 404, headers: corsHeaders });
+    } catch (err) {
+      return Response.json({ error: err.message }, { status: 500, headers: corsHeaders });
+    }
   },
 };
