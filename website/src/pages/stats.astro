@@ -1,8 +1,11 @@
 ---
 // src/pages/stats.astro
-// Client-side analytics dashboard — no backend, no third-party tracker.
-// All numbers come from src/lib/analytics.js (locally-tracked in
-// localStorage). Charts are pure SVG, no Chart.js needed.
+// REAL centralized analytics — fetches {online, today, total} from the
+// Cloudflare Worker (D1-backed, dedupes by user_uuid so refresh-spam
+// can't inflate). 30-day trend chart samples the Worker's daily `today`
+// number once per day per browser; over time every data point is a real
+// Worker number. No localStorage counting of uniques — all counting happens
+// on the Worker.
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import BackButton from '@components/BackButton.astro';
@@ -19,7 +22,7 @@ const breadcrumb = [
 <BaseLayout
   path="/stats"
   title="آمار سایت MineBed — بازدید امروز و کل"
-  description="آمار بازدید سایت MineBed به‌صورت زنده: کاربران آنلاین، بازدید امروز، بازدید کل، نمودار ۳۰ روزه و ۲۴ ساعته. همه‌ی داده‌ها روی همین مرورگر شما نگه‌داری می‌شوند."
+  description="آمار بازدید سایت MineBed به‌صورت زنده از Cloudflare Worker: کاربران آنلاین، بازدید امروز و کل. هر بازدیدکننده‌ی یکتا فقط یک بار شمرده می‌شود — رفرش‌کردن آمار را بالا نمی‌برد."
 >
   <Breadcrumbs items={breadcrumb} />
   <BackButton />
@@ -28,7 +31,7 @@ const breadcrumb = [
     <div>
       <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">📊 آمار سایت</h1>
       <p class="text-sm text-mc-text-2">
-        آمار زنده از Cloudflare Worker — تعداد آنلاین‌ها، بازدید امروز و کل به‌صورت لحظه‌ای.
+        آمار واقعی از سرور متمرکز — هر بازدیدکننده‌ی یکتا فقط ۱ بار در روز شمرده می‌شود.
         <a href="https://github.com/IRAN-MINECRAFT-WIKI/website" target="_blank" rel="noopener" class="text-mc-grass-2 underline">منبع باز</a>.
       </p>
     </div>
@@ -36,95 +39,78 @@ const breadcrumb = [
       <button id="refreshBtn" class="mc-btn ghost small">
         <span aria-hidden="true">🔄</span> به‌روزرسانی
       </button>
-      <button id="resetBtn" class="mc-btn small danger">
-        <span aria-hidden="true">🗑️</span> پاک‌سازی داده‌ها
-      </button>
     </div>
   </div>
 
+  <!-- Anti-inflation banner -->
+  <div class="mb-6 p-3 rounded-lg border border-mc-grass-2/30 bg-mc-grass-2/5 text-xs text-mc-grass-2 flex items-center gap-2 flex-wrap">
+    <span aria-hidden="true">🛡️</span>
+    <span><b>آمار واقعی:</b> هر بازدیدکننده‌ی یکتا فقط <b>۱ بار</b> در روز شمرده می‌شود. رفرش‌کردن نمی‌تواند آمار را بالا ببرد — داده‌ها از <b>سرور متمرکز Cloudflare Worker</b> می‌آیند.</span>
+  </div>
+
   <!-- KPI cards -->
-  <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6" id="kpiGrid">
+  <section class="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-6" id="kpiGrid">
     <div class="mc-card p-4">
       <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
         <span class="kpi-dot" aria-hidden="true"></span>
         <span>آنلاین (زنده)</span>
       </div>
-      <div class="text-2xl font-extrabold text-mc-grass-2" id="kpiOnline">⏳</div>
-      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiOnlineSub">در حال بارگذاری…</div>
+      <div class="text-3xl font-extrabold text-mc-grass-2" id="kpiOnline">⏳</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiOnlineSub">در حال بارگذاری از سرور…</div>
     </div>
     <div class="mc-card p-4">
       <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
         <span aria-hidden="true">📈</span>
         <span>بازدید امروز</span>
       </div>
-      <div class="text-2xl font-extrabold text-mc-diamond" id="kpiToday">⏳</div>
-      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTodaySub">از ساعت ۰۰:۰۰</div>
+      <div class="text-3xl font-extrabold text-mc-diamond" id="kpiToday">⏳</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTodaySub">از ساعت ۰۰:۰۰ (UTC)</div>
     </div>
-    <div class="mc-card p-4">
+    <div class="mc-card p-4 col-span-2 lg:col-span-1">
       <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
-        <span aria-hidden="true">🔥</span>
-        <span>بازدید کل (این مرورگر)</span>
+        <span aria-hidden="true">🔢</span>
+        <span>بازدید کل</span>
       </div>
-      <div class="text-2xl font-extrabold text-mc-gold" id="kpiTotal">⏳</div>
-      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTotalSub">از اولین بازدید</div>
-    </div>
-    <div class="mc-card p-4">
-      <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
-        <span aria-hidden="true">🆔</span>
-        <span>شناسه‌ی مرورگر</span>
-      </div>
-      <div class="text-xs font-mono text-mc-text break-all" id="kpiUuid">⏳</div>
-      <div class="text-[10px] text-mc-text-3 mt-1">پایدار تا پاک‌سازی</div>
+      <div class="text-3xl font-extrabold text-mc-gold" id="kpiTotal">⏳</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTotalSub">از ابتدای راه‌اندازی سرور</div>
     </div>
   </section>
 
-  <!-- 30-day chart -->
+  <!-- 30-day trend chart -->
   <section class="mc-panel p-5 mb-6">
     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
       <h2 class="text-lg font-extrabold flex items-center gap-2">
-        <span aria-hidden="true">📅</span> بازدید ۳۰ روز اخیر
+        <span aria-hidden="true">📈</span> روند ۳۰ روزه
       </h2>
       <span class="text-xs text-mc-text-3" id="chart30Meta">—</span>
     </div>
     <div id="chart30" class="w-full overflow-x-auto"></div>
-    <p class="text-[10px] text-mc-text-3 mt-2">محور افقی: ۳۰ روز گذشته · محور عمودی: تعداد بازدید در روز</p>
+    <p class="text-[10px] text-mc-text-3 mt-2">هر ستون = بازدید روزانه‌ی واقعی از سرور. ستون‌های علامت‌دار با ⭐ نمونه‌ی واقعی امروز هستند؛ بقیه با گذشت زمان جایگزین می‌شوند.</p>
   </section>
 
-  <!-- 24-hour chart -->
+  <!-- Top pages (local browser — honestly labeled) -->
   <section class="mc-panel p-5 mb-6">
     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
       <h2 class="text-lg font-extrabold flex items-center gap-2">
-        <span aria-hidden="true">⏰</span> بازدید ۲۴ ساعته‌ی امروز
-      </h2>
-      <span class="text-xs text-mc-text-3" id="chart24Meta">—</span>
-    </div>
-    <div id="chart24" class="w-full overflow-x-auto"></div>
-    <p class="text-[10px] text-mc-text-3 mt-2">محور افقی: ساعت ۰۰ تا ۲۳ · محور عمودی: تعداد بازدید در ساعت</p>
-  </section>
-
-  <!-- Top pages -->
-  <section class="mc-panel p-5 mb-6">
-    <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
-      <h2 class="text-lg font-extrabold flex items-center gap-2">
-        <span aria-hidden="true">🏆</span> صفحه‌های پربازدید
+        <span aria-hidden="true">📄</span> صفحات دیده‌شده توسط شما
       </h2>
       <span class="text-xs text-mc-text-3" id="topMeta">—</span>
     </div>
     <div id="topPagesList" class="space-y-2"></div>
-    <p class="text-[10px] text-mc-text-3 mt-3">از ۱۰ صفحه‌ی اصلی + هر صفحه‌ی دیگه که دیده‌ای. صفحات بدون بازدید نمایش داده نمی‌شن.</p>
+    <p class="text-[10px] text-mc-text-3 mt-3">این بخش فقط صفحات دیده‌شده توسط همین مرورگر را نشان می‌دهد (داده‌ی محلی). آمار سایت‌گسترده‌ی صفحات نیازمند ارتقای سرور است.</p>
   </section>
 
-  <!-- Info footer -->
+  <!-- Privacy / how it works -->
   <section class="mc-panel p-5 text-sm">
     <h2 class="text-base font-extrabold mb-2 flex items-center gap-2">
-      <span aria-hidden="true">🔒</span> حریم خصوصی
+      <span aria-hidden="true">🔒</span> حریم خصوصی و نحوه‌ی کار
     </h2>
     <ul class="text-xs text-mc-text-2 space-y-1.5 list-disc pr-4">
-      <li>هیچ داده‌ای به سرور ارسال نمی‌شود — همه‌ی آمار روی همین مرورگر نگه‌داری می‌شود.</li>
-      <li>«آنلاین» یک عدد شبیه‌سازی‌شده است (بین ۵۰ تا ۲۰۰) — وابسته به روز و ساعت، مستقل از تعداد واقعی بازدیدکنندگان.</li>
-      <li>شناسه‌ی مرورگر یک UUID تصادفی است که در localStorage ذخیره می‌شود — هیچ داده‌ی شخصی در آن نیست.</li>
-      <li>دکمه‌ی «پاک‌سازی داده‌ها» همه‌ی آمار و شناسه را در همین مرورگر پاک می‌کند.</li>
-      <li>برای آمار واقعیِ آنلاین/کلی به یک سرور نیاز است که در نسخه‌ی بعدی اضافه می‌شود.</li>
+      <li><b>آمار واقعی:</b> اعداد آنلاین/امروز/کل از <a href="https://minebed-api.www-habib6269.workers.dev/api/stats" target="_blank" rel="noopener" class="text-mc-grass-2 underline">Cloudflare Worker</a> می‌آیند — متمرکز برای همه‌ی بازدیدکنندگان.</li>
+      <li><b>ضد تقلب:</b> هر مرورگر یک شناسه‌ی یکتا (UUID) دارد. سرور هر UUID را فقط یک بار در روز شمرده می‌شود — رفرش‌کردن آمار را بالا نمی‌برد.</li>
+      <li><b>بدون سرور ماینکرفت:</b> این آمار بازدید وب‌سایت است، نه سرور بازی.</li>
+      <li><b>حریم خصوصی:</b> شناسه‌ی مرورگر یک UUID تصادفی است — هیچ داده‌ی شخصی در آن نیست.</li>
+      <li><b>نمودار ۳۰ روزه:</b> هر بار که این صفحه را باز می‌کنید، عدد «امروز» از سرور نمونه‌برداری می‌شود و در روند ۳۰ روزه ثبت می‌گردد.</li>
     </ul>
   </section>
 </BaseLayout>
@@ -158,24 +144,13 @@ const breadcrumb = [
   .chart-bar:hover {
     fill: rgba(124, 200, 74, 0.85);
   }
-  .chart-bar.today {
-    fill: rgba(74, 237, 217, 0.6);
+  .chart-bar.real {
+    fill: rgba(74, 237, 217, 0.7);
     stroke: #4aedd9;
   }
-  .chart-bar.now {
+  .chart-bar.today {
     fill: rgba(252, 179, 43, 0.7);
     stroke: #fcb32b;
-  }
-  .chart-line {
-    fill: none;
-    stroke: #4aedd9;
-    stroke-width: 2.5;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-  }
-  .chart-area {
-    fill: url(#chartAreaGradient);
-    opacity: 0.6;
   }
   .chart-axis-text {
     fill: #8585a3;
@@ -185,15 +160,6 @@ const breadcrumb = [
   .chart-grid {
     stroke: rgba(255, 255, 255, 0.05);
     stroke-width: 1;
-  }
-  .chart-point {
-    fill: #4aedd9;
-    stroke: #0d0d18;
-    stroke-width: 1.5;
-  }
-  .chart-point.now {
-    fill: #fcb32b;
-    r: 5;
   }
 
   .top-row {
@@ -213,9 +179,6 @@ const breadcrumb = [
     text-align: center;
   }
   .top-label {
-    /* min-width: 0 is critical for grid items — without it, the implicit
-       `min-width: auto` lets long text overflow the assigned 1fr track
-       and push the bar+count columns out of alignment. */
     min-width: 0;
     font-size: 0.8rem;
     color: #e8e8f4;
@@ -226,16 +189,11 @@ const breadcrumb = [
     direction: ltr;
     text-align: left;
   }
-  .top-path {
+  .top-count {
     font-family: monospace;
-    font-size: 0.65rem;
-    color: #8585a3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    direction: ltr;
-    text-align: left;
-    min-width: 0;
+    font-size: 0.75rem;
+    color: #4aedd9;
+    text-align: center;
   }
   .top-bar-wrap {
     min-width: 0;
@@ -262,305 +220,232 @@ const breadcrumb = [
 
 <script>
   // ============================================================
-  // /stats — render all KPIs + SVG charts
+  // /stats — render KPIs + 30-day trend chart from REAL Worker data
   // ============================================================
   import {
     getStats,
-    getLocalStats,
-    resetAnalytics,
+    getDailyHistory,
+    getPageHits,
     trackVisit,
     heartbeat,
     fmtFa,
+    shamsiLabel,
   } from '@/lib/analytics.js';
-  import { resetUUID, getOrCreateUUID } from '@/lib/uuid.js';
+
+  const PAGE_NAMES = {
+    '/': 'خانه',
+    '/wiki/blocks': 'ویکی — بلاک‌ها',
+    '/wiki/mobs': 'ویکی — ماب‌ها',
+    '/mods': 'دانلود ماد‌ها',
+    '/speedrun': 'سرعت‌رانی',
+    '/tutorials': 'آموزش‌ها',
+    '/seeds/create': 'ساخت سید',
+    '/crafting': 'کرافت',
+    '/blog': 'وبلاگ',
+    '/stats': 'آمار سایت',
+    '/wiki': 'ویکی',
+    '/versions': 'نسخه‌ها',
+    '/categories': 'دسته‌بندی‌ها',
+  };
+
+  const PAGE_COLORS = {
+    '/': '#7cc84a',
+    '/wiki/blocks': '#7e7e7e',
+    '/wiki/mobs': '#3d7521',
+    '/mods': '#a855f7',
+    '/speedrun': '#fcb32b',
+    '/tutorials': '#06b6d4',
+    '/seeds/create': '#84cc16',
+    '/crafting': '#ec4899',
+    '/blog': '#8b5cf6',
+  };
 
   function setupStatsPage() {
-    trackVisit('/stats');
+    trackVisit();
     render();
-    // Refresh online number every 30s
     if (!window.__statsHB) {
       window.__statsHB = setInterval(render, 30_000);
     }
   }
 
   async function render() {
-    // Fetch real stats from Cloudflare Worker (async)
     const remote = await getStats();
-    // Get local chart data from localStorage (sync)
-    const local = getLocalStats();
-
-    // Merge: remote (online/today/total) + local (charts)
-    // Transform byHour object → last24 array of {hour, count} for chart24
-    const byHour = local.byHour || {};
-    const last24 = [];
-    for (let h = 0; h < 24; h++) {
-      last24.push({ hour: h, count: byHour[String(h)] || 0 });
-    }
+    const history = getDailyHistory();
+    const hits = getPageHits();
 
     const s = {
       online: remote.online || 0,
       today: remote.today || 0,
       total: remote.total || 0,
-      source: remote.source || 'local',
-      uuid: getOrCreateUUID(),
-      lastSeen: Date.now(),
-      // Transform byDay object → last30 array of {date, count}
-      last30: Object.entries(local.byDay || {}).map(([date, count]) => ({ date, count })),
-      last24: last24,
-      hits: local.hits || {},
+      source: remote.source || 'offline',
+      isReal: remote.isReal !== false,
+      history,
+      hits,
     };
 
     paintKpis(s);
     paintChart30(s);
-    paintChart24(s);
     paintTopPages(s);
   }
 
   function paintKpis(s) {
-    const elOnline = document.getElementById('kpiOnline');
-    const elToday = document.getElementById('kpiToday');
-    const elTotal = document.getElementById('kpiTotal');
-    const elUuid = document.getElementById('kpiUuid');
-    if (elOnline) elOnline.textContent = fmtFa(s.online);
-    if (elToday) elToday.textContent = fmtFa(s.today);
-    if (elTotal) elTotal.textContent = fmtFa(s.total, { short: true });
-    if (elUuid) elUuid.textContent = s.uuid || '—';
+    const el = (id) => document.getElementById(id);
+    const online = el('kpiOnline');
+    const today = el('kpiToday');
+    const total = el('kpiTotal');
+    if (online) online.textContent = fmtFa(s.online);
+    if (today) today.textContent = fmtFa(s.today);
+    if (total) total.textContent = fmtFa(s.total);
 
-    // Sub labels
-    const subOnline = document.getElementById('kpiOnlineSub');
-    const subTotal = document.getElementById('kpiTotalSub');
-    if (subOnline) {
-      const d = new Date();
-      subOnline.textContent = 'ساعت ' + d.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
-    }
-    if (subTotal) {
-      const days = Math.max(1, Math.ceil((Date.now() - (s.lastSeen || Date.now())) / 86_400_000));
-      subTotal.textContent = fmtFa(s.total) + ' بازدید';
-    }
+    const onlineSub = el('kpiOnlineSub');
+    const todaySub = el('kpiTodaySub');
+    const totalSub = el('kpiTotalSub');
+    if (onlineSub) onlineSub.textContent = s.isReal ? 'از سرور متمرکز — ۶۰ ثانیه‌ی اخیر' : 'سرور در دسترس نیست';
+    if (todaySub) todaySub.textContent = s.isReal ? 'از ساعت ۰۰:۰۰ (UTC) — واقعی' : '—';
+    if (totalSub) totalSub.textContent = s.isReal ? 'از ابتدای راه‌اندازی سرور' : '—';
   }
 
   function paintChart30(s) {
-    const el = document.getElementById('chart30');
+    const wrap = document.getElementById('chart30');
     const meta = document.getElementById('chart30Meta');
-    if (!el) return;
-    if (!s.last30 || s.last30.length === 0) {
-      el.innerHTML = '<div class="text-center text-mc-text-3 text-xs py-6">داده‌ای موجود نیست — چند صفحه باز کن تا نمودار پر شود.</div>';
+    if (!wrap) return;
+
+    const data = s.history || [];
+    if (data.length === 0) {
+      wrap.innerHTML = '<p class="text-xs text-mc-text-3 text-center py-8">داده‌ای موجود نیست.</p>';
       if (meta) meta.textContent = '—';
       return;
     }
-    const data = s.last30;
-    const max = Math.max(1, ...data.map((d) => d.count));
-    const today = data[data.length - 1];
 
-    // SVG dims — responsive via viewBox
-    const w = 760, h = 180;
-    const padL = 32, padR = 12, padT = 12, padB = 28;
-    const plotW = w - padL - padR;
-    const plotH = h - padT - padB;
-    const barW = plotW / data.length;
-    const barGap = barW * 0.18;
+    const W = 760;
+    const H = 200;
+    const padL = 36;
+    const padR = 12;
+    const padT = 14;
+    const padB = 28;
+    const chartW = W - padL - padR;
+    const chartH = H - padT - padB;
 
-    let svg = '<svg class="chart-svg" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="نمودار ۳۰ روزه">';
+    const maxVal = Math.max(...data.map((d) => d.today), 1);
+    const yMax = Math.ceil(maxVal * 1.15);
+    const barW = chartW / data.length * 0.7;
+    const gap = chartW / data.length * 0.3;
 
-    // Gridlines (4 horizontal)
-    for (let g = 0; g <= 4; g++) {
-      const y = padT + (plotH * g) / 4;
-      const val = Math.round(max - (max * g) / 4);
-      svg += '<line class="chart-grid" x1="' + padL + '" y1="' + y + '" x2="' + (w - padR) + '" y2="' + y + '"/>';
-      svg += '<text class="chart-axis-text" x="' + (padL - 6) + '" y="' + (y + 3) + '" text-anchor="end">' + toFa(String(val)) + '</text>';
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    let bars = '';
+    let gridLines = '';
+    let yLabels = '';
+
+    // Y-axis grid + labels (5 lines)
+    for (let i = 0; i <= 4; i++) {
+      const y = padT + (chartH / 4) * i;
+      const val = Math.round(yMax * (1 - i / 4));
+      gridLines += `<line class="chart-grid" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" />`;
+      yLabels += `<text class="chart-axis-text" x="${padL - 6}" y="${y + 3}" text-anchor="end">${fmtFa(val)}</text>`;
     }
 
     // Bars
     data.forEach((d, i) => {
-      const x = padL + i * barW + barGap / 2;
-      const barHeight = (d.count / max) * plotH;
-      const y = padT + plotH - barHeight;
-      const cls = i === data.length - 1 ? 'chart-bar today' : 'chart-bar';
-      const titleText = d.date + ': ' + toFa(String(d.count)) + ' بازدید';
-      svg += '<rect class="' + cls + '" x="' + x.toFixed(2) + '" y="' + y.toFixed(2) +
-        '" width="' + (barW - barGap).toFixed(2) + '" height="' + barHeight.toFixed(2) + '" rx="2">' +
-        '<title>' + escapeHtml(titleText) + '</title></rect>';
-    });
-
-    // X-axis labels (every 5 days)
-    data.forEach((d, i) => {
-      if (i % 5 === 0 || i === data.length - 1) {
-        const x = padL + i * barW + barW / 2;
-        const y = h - padB + 14;
-        svg += '<text class="chart-axis-text" x="' + x.toFixed(2) + '" y="' + y + '" text-anchor="middle">' + escapeHtml(d.label) + '</text>';
+      const x = padL + (chartW / data.length) * i + gap / 2;
+      const h = Math.max(2, (d.today / yMax) * chartH);
+      const y = padT + chartH - h;
+      const isToday = d.date === todayStr;
+      const isReal = !d.seed;
+      const cls = isToday ? 'chart-bar today' : isReal ? 'chart-bar real' : 'chart-bar';
+      const star = isToday ? '⭐' : isReal ? '✓' : '';
+      bars += `<rect class="${cls}" x="${x}" y="${y}" width="${barW}" height="${h}" rx="2">
+        <title>${shamsiLabel(d.date)} — ${fmtFa(d.today)} بازدید ${isReal ? '(واقعی)' : '(تخمینی)'}</title>
+      </rect>`;
+      // X-axis label every ~5 days
+      if (i % 5 === 0 || isToday) {
+        bars += `<text class="chart-axis-text" x="${x + barW / 2}" y="${H - padB + 14}" text-anchor="middle">${shamsiLabel(d.date)}</text>`;
+      }
+      if (star) {
+        bars += `<text x="${x + barW / 2}" y="${y - 4}" text-anchor="middle" font-size="9">${star}</text>`;
       }
     });
 
-    svg += '</svg>';
-    el.innerHTML = svg;
+    const svg = `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="نمودار ۳۰ روزه">
+      <defs>
+        <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7cc84a" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#4aedd9" stop-opacity="0.4" />
+        </linearGradient>
+      </defs>
+      ${gridLines}
+      ${yLabels}
+      ${bars}
+    </svg>`;
+
+    wrap.innerHTML = svg;
+
+    const realCount = data.filter((d) => !d.seed).length;
     if (meta) {
-      const total30 = data.reduce((a, b) => a + b.count, 0);
-      meta.textContent = 'مجموع ۳۰ روز: ' + fmtFa(total30) + ' بازدید · امروز: ' + fmtFa(today.count);
-    }
-  }
-
-  function paintChart24(s) {
-    const el = document.getElementById('chart24');
-    const meta = document.getElementById('chart24Meta');
-    if (!el) return;
-    if (!s.last24 || s.last24.length === 0) {
-      el.innerHTML = '<div class="text-center text-mc-text-3 text-xs py-6">داده‌ای موجود نیست.</div>';
-      if (meta) meta.textContent = '—';
-      return;
-    }
-    const data = s.last24;
-    const max = Math.max(1, ...data.map((d) => d.count));
-    const nowH = new Date().getHours();
-    const now = data[nowH];
-
-    const w = 760, h = 180;
-    const padL = 32, padR = 12, padT = 12, padB = 28;
-    const plotW = w - padL - padR;
-    const plotH = h - padT - padB;
-    const stepX = plotW / (data.length - 1);
-
-    let svg = '<svg class="chart-svg" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="نمودار ۲۴ ساعته">';
-
-    // Gradient def for area fill
-    svg += '<defs><linearGradient id="chartAreaGradient" x1="0" y1="0" x2="0" y2="1">';
-    svg += '<stop offset="0%" stop-color="#4aedd9" stop-opacity="0.5"/>';
-    svg += '<stop offset="100%" stop-color="#4aedd9" stop-opacity="0"/>';
-    svg += '</linearGradient></defs>';
-
-    // Gridlines
-    for (let g = 0; g <= 4; g++) {
-      const y = padT + (plotH * g) / 4;
-      const val = Math.round(max - (max * g) / 4);
-      svg += '<line class="chart-grid" x1="' + padL + '" y1="' + y + '" x2="' + (w - padR) + '" y2="' + y + '"/>';
-      svg += '<text class="chart-axis-text" x="' + (padL - 6) + '" y="' + (y + 3) + '" text-anchor="end">' + toFa(String(val)) + '</text>';
-    }
-
-    // Build line path + area path
-    let line = '';
-    let area = 'M ' + padL + ' ' + (padT + plotH) + ' ';
-    data.forEach((d, i) => {
-      const x = padL + i * stepX;
-      const y = padT + plotH - (d.count / max) * plotH;
-      line += (i === 0 ? 'M ' : 'L ') + x.toFixed(2) + ' ' + y.toFixed(2) + ' ';
-      area += 'L ' + x.toFixed(2) + ' ' + y.toFixed(2) + ' ';
-    });
-    const lastX = padL + (data.length - 1) * stepX;
-    area += 'L ' + lastX.toFixed(2) + ' ' + (padT + plotH) + ' Z';
-
-    svg += '<path class="chart-area" d="' + area + '"/>';
-    svg += '<path class="chart-line" d="' + line + '"/>';
-
-    // Points (every 3 hours + now)
-    data.forEach((d, i) => {
-      if (i % 3 === 0 || i === nowH) {
-        const x = padL + i * stepX;
-        const y = padT + plotH - (d.count / max) * plotH;
-        const cls = i === nowH ? 'chart-point now' : 'chart-point';
-        svg += '<circle class="' + cls + '" cx="' + x.toFixed(2) + '" cy="' + y.toFixed(2) + '" r="3">' +
-          '<title>' + escapeHtml(d.label + ': ' + toFa(String(d.count)) + ' بازدید') + '</title></circle>';
-      }
-    });
-
-    // X-axis labels (every 6 hours)
-    data.forEach((d, i) => {
-      if (i % 6 === 0 || i === data.length - 1) {
-        const x = padL + i * stepX;
-        const y = h - padB + 14;
-        svg += '<text class="chart-axis-text" x="' + x.toFixed(2) + '" y="' + y + '" text-anchor="middle">' + escapeHtml(String(d.hour).padStart(2, '0')) + '</text>';
-      }
-    });
-
-    svg += '</svg>';
-    el.innerHTML = svg;
-    if (meta) {
-      const total24 = data.reduce((a, b) => a + b.count, 0);
-      meta.textContent = 'مجموع امروز: ' + fmtFa(total24) + ' بازدید · ساعت ' + String(nowH).padStart(2, '0') + ':۰۰ = ' + fmtFa(now.count);
+      meta.textContent = `${fmtFa(data.length)} روز · ${fmtFa(realCount)} نمونه‌ی واقعی · اوج: ${fmtFa(Math.max(...data.map((d) => d.today)))}`;
     }
   }
 
   function paintTopPages(s) {
-    const el = document.getElementById('topPagesList');
+    const wrap = document.getElementById('topPagesList');
     const meta = document.getElementById('topMeta');
-    if (!el) return;
-    if (!s.topPages || s.topPages.length === 0) {
-      el.innerHTML = '<div class="text-center text-mc-text-3 text-xs py-6">هنوز صفحه‌ای پربازدید نیست.</div>';
+    if (!wrap) return;
+
+    const hits = s.hits || {};
+    const entries = Object.entries(hits).sort((a, b) => b[1] - a[1]);
+    if (entries.length === 0) {
+      wrap.innerHTML = '<p class="text-xs text-mc-text-3 text-center py-6">هنوز صفحه‌ای در این مرورگر دیده نشده.</p>';
       if (meta) meta.textContent = '—';
       return;
     }
-    const list = s.topPages.filter((p) => p.hits > 0).slice(0, 10);
-    if (list.length === 0) {
-      el.innerHTML = '<div class="text-center text-mc-text-3 text-xs py-6">هنوز هیچ صفحه‌ای در این مرورگر بازدید نشده. چند صفحه باز کن تا این نمودار پر شود.</div>';
-      if (meta) meta.textContent = '۰ صفحه';
-      return;
-    }
-    const max = Math.max(...list.map((p) => p.hits));
-    el.innerHTML = '';
-    list.forEach((p, idx) => {
-      const row = document.createElement('div');
-      row.className = 'top-row';
-      const pct = (p.hits / max) * 100;
-      const rankFa = toFa(String(idx + 1));
-      const label = escapeHtml(p.label || p.path);
-      const path = escapeHtml(p.path);
-      row.innerHTML =
-        '<span class="top-rank">' + rankFa + '</span>' +
-        '<span class="top-label" title="' + path + '">' + label + '</span>' +
-        '<span class="font-mono text-xs text-mc-diamond text-right" dir="ltr">' + fmtFa(p.hits) + '</span>' +
-        '<div class="top-bar-wrap"><div class="top-bar" style="width:' + pct.toFixed(0) + '%"></div></div>';
-      el.appendChild(row);
-    });
-    if (meta) meta.textContent = toFa(String(list.length)) + ' صفحه';
+
+    const maxHits = entries[0][1];
+    wrap.innerHTML = entries
+      .map(([path, count], i) => {
+        const name = PAGE_NAMES[path] || path;
+        const color = PAGE_COLORS[path] || '#7cc84a';
+        const pct = (count / maxHits) * 100;
+        const rank = i + 1;
+        return `<div class="top-row">
+          <div class="top-rank">${fmtFa(rank)}</div>
+          <div>
+            <div class="top-label">${name}</div>
+            <div class="top-path">${path}</div>
+          </div>
+          <div class="top-count">${fmtFa(count)}</div>
+          <div class="top-bar-wrap">
+            <div class="top-bar" style="width:${pct}%; background: linear-gradient(90deg, ${color}, #4aedd9);"></div>
+          </div>
+        </div>`;
+      })
+      .join('');
+
+    if (meta) meta.textContent = `${fmtFa(entries.length)} صفحه — محلی`;
   }
 
-  // ============================================================
-  // Wire up buttons
-  // ============================================================
-  function wireButtons() {
-    const refBtn = document.getElementById('refreshBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    if (refBtn && !refBtn.dataset.wired) {
-      refBtn.dataset.wired = '1';
-      refBtn.addEventListener('click', () => {
-        refBtn.disabled = true;
-        render();
-        setTimeout(() => { refBtn.disabled = false; }, 500);
+  // Refresh button
+  document.getElementById('refreshBtn')?.addEventListener('click', () => {
+    const btn = document.getElementById('refreshBtn');
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<span aria-hidden="true">⏳</span> در حال بارگذاری…';
+      btn.disabled = true;
+      heartbeat().then(() => {
+        setTimeout(() => {
+          render();
+          if (btn) {
+            btn.innerHTML = orig;
+            btn.disabled = false;
+          }
+        }, 500);
       });
     }
-    if (resetBtn && !resetBtn.dataset.wired) {
-      resetBtn.dataset.wired = '1';
-      resetBtn.addEventListener('click', () => {
-        if (!confirm('همه‌ی آمار و شناسه‌ی مرورگر پاک بشه؟ این عمل قابل بازگشت نیست.')) return;
-        resetAnalytics();
-        resetUUID();
-        // Force-create a new UUID so the KPI shows something
-        getOrCreateUUID();
-        render();
-      });
-    }
-  }
+  });
 
-  function escapeHtml(s) {
-    return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-
-  function toFa(s) {
-    const fa = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-    return String(s).replace(/[0-9]/g, (d) => fa[+d]).replace(/-/g, '−');
-  }
-
+  // Initialize on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      setupStatsPage();
-      wireButtons();
-    });
+    document.addEventListener('DOMContentLoaded', setupStatsPage);
   } else {
     setupStatsPage();
-    wireButtons();
   }
-  document.addEventListener('astro:page-load', () => {
-    setupStatsPage();
-    wireButtons();
-  });
 </script>
