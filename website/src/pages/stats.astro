@@ -274,14 +274,15 @@ const breadcrumb = [
     const hits = getPageHits();
 
     const s = {
-      online: remote.online || 0,
-      today: remote.today || 0,
-      total: remote.total || 0,
-      source: remote.source || 'offline',
-      isReal: remote.isReal !== false,
-      history,
-      hits,
-    };
+    online: remote.online || 0,
+    today: remote.today || 0,
+    total: remote.total || 0,
+    source: remote.source || 'offline',
+    isReal: remote.isReal !== false,
+    isCached: remote.isCached || false,
+    history,
+    hits,
+  };
 
     paintKpis(s);
     paintChart30(s);
@@ -300,9 +301,10 @@ const breadcrumb = [
     const onlineSub = el('kpiOnlineSub');
     const todaySub = el('kpiTodaySub');
     const totalSub = el('kpiTotalSub');
-    if (onlineSub) onlineSub.textContent = s.isReal ? 'از سرور متمرکز — ۶۰ ثانیه‌ی اخیر' : 'سرور در دسترس نیست';
-    if (todaySub) todaySub.textContent = s.isReal ? 'از ساعت ۰۰:۰۰ (UTC) — واقعی' : '—';
-    if (totalSub) totalSub.textContent = s.isReal ? 'از ابتدای راه‌اندازی سرور' : '—';
+    const cachedNote = s.isCached ? ' (داده‌ی ذخیره‌شده — سرور موقتاً محدود شده)' : '';
+    if (onlineSub) onlineSub.textContent = s.isReal ? `از سرور متمرکز — ۶۰ ثانیه‌ی اخیر${cachedNote}` : 'سرور در دسترس نیست';
+    if (todaySub) todaySub.textContent = s.isReal ? `از ساعت ۰۰:۰۰ (UTC) — واقعی${cachedNote}` : '—';
+    if (totalSub) totalSub.textContent = s.isReal ? `از ابتدای راه‌اندازی سرور${cachedNote}` : '—';
   }
 
   function paintChart30(s) {
