@@ -28,7 +28,7 @@ const K_PAGE_HITS = 'mb:stats:pageHits'; // {path: count} — local only
 const K_LAST_GOOD = 'mb:stats:lastGoodStats'; // cached Worker response for fallback
 const K_HB_TIMES = 'mb:stats:hbTimes'; // [epoch ms] — last 24h heartbeat timestamps
 
-const HEARTBEAT_MIN_INTERVAL_MS = 30_000; // 30s — don't spam the Worker
+const HEARTBEAT_MIN_INTERVAL_MS = 300_000; // 5 min — KV free-tier writes are limited to 1,000/day
 const SAMPLE_INTERVAL_DAYS = 1; // sample once per day
 
 function normalizePath(p) {
@@ -64,7 +64,7 @@ function mulberry32(seed) {
 
 let cachedRemoteStats = null;
 let lastFetchTime = 0;
-const FETCH_CACHE_MS = 10_000; // cache Worker response 10s
+const FETCH_CACHE_MS = 300_000; // cache Worker response 5 min — KV list() limit is 1,000/day
 
 async function fetchRemoteStats() {
   const now = Date.now();
@@ -251,7 +251,7 @@ export async function getStats() {
  */
 let cachedTopPages = null;
 let lastPagesFetch = 0;
-const PAGES_CACHE_MS = 30_000;
+const PAGES_CACHE_MS = 300_000; // 5 min — KV list() limit protection
 
 export async function fetchTopPages() {
   const now = Date.now();

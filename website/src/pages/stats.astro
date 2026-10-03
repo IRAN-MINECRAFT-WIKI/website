@@ -213,7 +213,7 @@ const breadcrumb = [
     trackVisit();
     render();
     if (!window.__statsHB) {
-      window.__statsHB = setInterval(render, 30_000);
+      window.__statsHB = setInterval(render, 300_000); // 5 min — KV list() limit protection
     }
   }
 
