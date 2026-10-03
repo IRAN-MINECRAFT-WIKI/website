@@ -1,0 +1,17 @@
+name = "minebed-api"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+
+# KV namespace — replace these IDs after running:
+#   wrangler kv:namespace create MINEBED_HEARTBEAT
+#   wrangler kv:namespace create MINEBED_HEARTBEAT --preview
+[[kv_namespaces]]
+binding = "MINEBED_HEARTBEAT"
+id = "YOUR_KV_NAMESPACE_ID"
+preview_id = "YOUR_KV_PREVIEW_NAMESPACE_ID"
+
+# Optional: custom domain (uncomment + set)
+# routes = [
+#   { pattern = "minebed-api.www-habib6269.workers.dev/*", zone_name = "www-habib6269.workers.dev" }
+# ]

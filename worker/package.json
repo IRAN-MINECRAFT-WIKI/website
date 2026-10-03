@@ -1,0 +1,14 @@
+{
+  "name": "minebed-stats-worker",
+  "version": "1.0.0",
+  "description": "KV-based stats backend for MineBed — replaces D1 (no row-read limit)",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

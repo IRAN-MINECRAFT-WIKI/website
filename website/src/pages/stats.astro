@@ -1,10 +1,9 @@
 ---
 // src/pages/stats.astro
-// REAL centralized analytics — beautiful Chart.js dashboard matching the
-// Next.js preview design. Fetches {online, today, total} from the Cloudflare
-// Worker (D1-backed, dedupes by user_uuid so refresh-spam can't inflate).
-// 30-day bar chart from daily Worker samples; 24-hour line chart from
-// local heartbeat timestamps.
+// REAL centralized analytics — Minecraft pixel theme using the site's
+// existing mc-card/mc-btn/pixel-font styles. Fetches {online, today, total}
+// from the Cloudflare Worker (D1-backed, dedupes by user_uuid). Chart.js
+// for beautiful charts with Minecraft colors.
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
 import BackButton from '@components/BackButton.astro';
@@ -26,348 +25,143 @@ const breadcrumb = [
   <Breadcrumbs items={breadcrumb} />
   <BackButton />
 
-  <div class="stats-page">
-    <!-- Header -->
-    <header class="stats-header">
-      <div class="stats-title-wrap">
-        <div class="stats-logo">📊</div>
-        <div>
-          <h1>آمار سایت MineBed</h1>
-          <p class="stats-subtitle">آمار واقعی از سرور متمرکز — هر بازدیدکننده‌ی یکتا فقط ۱ بار در روز شمرده می‌شود</p>
-        </div>
-      </div>
-      <div class="stats-actions">
-        <span class="badge-live" id="onlineBadge">
-          <span class="pulse-dot"></span>
-          <span id="onlineBadgeText">⏳</span> آنلاین
-        </span>
-        <button id="refreshBtn" class="btn-refresh">
-          <span aria-hidden="true">🔄</span> به‌روزرسانی
-        </button>
-      </div>
-    </header>
+  <div class="mb-6 flex items-start justify-between gap-3 flex-wrap">
+    <div>
+      <h1 class="text-2xl lg:text-3xl font-extrabold mb-2 font-pixel text-mc-grass-2" style="font-size: 1.3rem; line-height: 1.6;">📊 آمار سایت</h1>
+      <p class="text-sm text-mc-text-2">
+        آمار واقعی از سرور متمرکز — هر بازدیدکننده‌ی یکتا فقط ۱ بار در روز شمرده می‌شود.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <button id="refreshBtn" class="mc-btn ghost small">
+        <span aria-hidden="true">🔄</span> به‌روزرسانی
+      </button>
+    </div>
+  </div>
 
-    <!-- Anti-inflation banner -->
-    <div class="anti-inflation-banner">
-      <span aria-hidden="true">🛡️</span>
-      <span><b>آمار واقعی:</b> هر بازدیدکننده‌ی یکتا فقط <b>۱ بار</b> در روز شمرده می‌شود. رفرش‌کردن نمی‌تواند آمار را بالا ببرد — داده‌ها از <b>سرور Cloudflare Worker</b> می‌آیند.</span>
+  <!-- Anti-inflation banner -->
+  <div class="mb-6 p-3 rounded-lg border border-mc-grass-2/30 bg-mc-grass-2/5 text-xs text-mc-grass-2 flex items-center gap-2 flex-wrap">
+    <span aria-hidden="true">🛡️</span>
+    <span><b>آمار واقعی:</b> هر بازدیدکننده‌ی یکتا فقط <b>۱ بار</b> در روز شمرده می‌شود. رفرش‌کردن نمی‌تواند آمار را بالا ببرد — داده‌ها از <b>سرور Cloudflare Worker</b> می‌آیند.</span>
+  </div>
+
+  <!-- KPI cards -->
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6" id="kpiGrid">
+    <div class="mc-card p-4">
+      <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
+        <span class="kpi-dot" aria-hidden="true"></span>
+        <span>آنلاین (زنده)</span>
+      </div>
+      <div class="text-3xl font-extrabold text-mc-grass-2" id="kpiOnline">⏳</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiOnlineSub">در حال بارگذاری…</div>
+    </div>
+    <div class="mc-card p-4">
+      <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
+        <span aria-hidden="true">📈</span>
+        <span>بازدید امروز</span>
+      </div>
+      <div class="text-3xl font-extrabold text-mc-diamond" id="kpiToday">⏳</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTodaySub">از ساعت ۰۰:۰۰ (UTC)</div>
+    </div>
+    <div class="mc-card p-4">
+      <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
+        <span aria-hidden="true">🏆</span>
+        <span>اوج امروز</span>
+      </div>
+      <div class="text-3xl font-extrabold text-mc-emerald" id="kpiPeak">⏳</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiPeakSub">—</div>
+    </div>
+    <div class="mc-card p-4">
+      <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
+        <span aria-hidden="true">🔢</span>
+        <span>بازدید کل</span>
+      </div>
+      <div class="text-3xl font-extrabold text-mc-gold" id="kpiTotal">⏳</div>
+      <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTotalSub">از ابتدای راه‌اندازی</div>
+    </div>
+  </section>
+
+  <!-- Charts row -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+    <div class="mc-panel p-5">
+      <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+        <h2 class="text-lg font-extrabold flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
+          <span aria-hidden="true">📈</span> روند ۳۰ روزه
+        </h2>
+        <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-grass-2/10 text-mc-grass-2 border border-mc-grass-2/20">۳۰ روز</span>
+      </div>
+      <div class="chart-canvas-wrap" style="height: 240px; position: relative;">
+        <canvas id="chart30d"></canvas>
+      </div>
+      <p class="text-[10px] text-mc-text-3 mt-2" id="chart30Meta">—</p>
     </div>
 
-    <!-- KPI cards -->
-    <section class="kpi-grid">
-      <div class="kpi-card kpi-green">
-        <div class="kpi-icon"><span>👥</span></div>
-        <div class="kpi-body">
-          <div class="kpi-label">آنلاین الان</div>
-          <div class="kpi-value" id="kpiOnline">⏳</div>
-          <div class="kpi-sub" id="kpiOnlineSub">در حال بارگذاری…</div>
-        </div>
+    <div class="mc-panel p-5">
+      <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+        <h2 class="text-lg font-extrabold flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
+          <span aria-hidden="true">🕐</span> فعالیت ۲۴ ساعت
+        </h2>
+        <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-diamond/10 text-mc-diamond border border-mc-diamond/20">۲۴ ساعت</span>
       </div>
-      <div class="kpi-card kpi-blue">
-        <div class="kpi-icon"><span>👁️</span></div>
-        <div class="kpi-body">
-          <div class="kpi-label">بازدید امروز</div>
-          <div class="kpi-value" id="kpiToday">⏳</div>
-          <div class="kpi-sub" id="kpiTodaySub">از ساعت ۰۰:۰۰ (UTC)</div>
-        </div>
+      <div class="chart-canvas-wrap" style="height: 240px; position: relative;">
+        <canvas id="chart24h"></canvas>
       </div>
-      <div class="kpi-card kpi-purple">
-        <div class="kpi-icon"><span>📈</span></div>
-        <div class="kpi-body">
-          <div class="kpi-label">اوج امروز</div>
-          <div class="kpi-value" id="kpiPeak">⏳</div>
-          <div class="kpi-sub" id="kpiPeakSub">—</div>
-        </div>
-      </div>
-      <div class="kpi-card kpi-orange">
-        <div class="kpi-icon"><span>🔢</span></div>
-        <div class="kpi-body">
-          <div class="kpi-label">بازدید کل</div>
-          <div class="kpi-value" id="kpiTotal">⏳</div>
-          <div class="kpi-sub" id="kpiTotalSub">از ابتدای راه‌اندازی</div>
-        </div>
-      </div>
-    </section>
+      <p class="text-[10px] text-mc-text-3 mt-2" id="chart24Meta">—</p>
+    </div>
+  </section>
 
-    <!-- Charts row 1 -->
-    <section class="charts-grid">
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h2>📈 روند ۳۰ روزه</h2>
-            <p class="chart-subtitle" id="chart30Meta">—</p>
-          </div>
-          <span class="chart-badge badge-green">۳۰ روز</span>
-        </div>
-        <div class="chart-canvas-wrap">
-          <canvas id="chart30d"></canvas>
-        </div>
-      </div>
+  <!-- Top pages -->
+  <section class="mc-panel p-5 mb-6">
+    <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+      <h2 class="text-lg font-extrabold flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
+        <span aria-hidden="true">📄</span> صفحات دیده‌شده توسط شما
+      </h2>
+      <span class="text-xs text-mc-text-3" id="topMeta">—</span>
+    </div>
+    <div id="topPagesList" class="space-y-2"></div>
+    <p class="text-[10px] text-mc-text-3 mt-3">این بخش فقط صفحات دیده‌شده توسط همین مرورگر را نشان می‌دهد (داده‌ی محلی).</p>
+  </section>
 
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h2>🕐 فعالیت ۲۴ ساعت</h2>
-            <p class="chart-subtitle" id="chart24Meta">—</p>
-          </div>
-          <span class="chart-badge badge-blue">۲۴ ساعت</span>
-        </div>
-        <div class="chart-canvas-wrap">
-          <canvas id="chart24h"></canvas>
-        </div>
-      </div>
-    </section>
-
-    <!-- Top pages -->
-    <section class="chart-card">
-      <div class="chart-header">
-        <div>
-          <h2>📄 صفحات دیده‌شده توسط شما</h2>
-          <p class="chart-subtitle" id="topMeta">—</p>
-        </div>
-      </div>
-      <div id="topPagesList" class="top-pages-list"></div>
-      <p class="chart-note">این بخش فقط صفحات دیده‌شده توسط همین مرورگر را نشان می‌دهد (داده‌ی محلی).</p>
-    </section>
-
-    <!-- Privacy -->
-    <section class="chart-card privacy-card">
-      <h2>🔒 حریم خصوصی و نحوه‌ی کار</h2>
-      <ul class="privacy-list">
-        <li><b>آمار واقعی:</b> اعداد آنلاین/امروز/کل از <a href="https://minebed-api.www-habib6269.workers.dev/api/stats" target="_blank" rel="noopener">Cloudflare Worker</a> می‌آیند — متمرکز برای همه‌ی بازدیدکنندگان.</li>
-        <li><b>ضد تقلب:</b> هر مرورگر یک شناسه‌ی یکتا (UUID) دارد. سرور هر UUID را فقط یک بار در روز شمرده می‌شود.</li>
-        <li><b>بدون سرور ماینکرفت:</b> این آمار بازدید وب‌سایت است.</li>
-        <li><b>نمودار ۳۰ روزه:</b> هر بار که این صفحه را باز می‌کنید، عدد «امروز» از سرور نمونه‌برداری می‌شود.</li>
-      </ul>
-    </section>
-  </div>
+  <!-- Privacy -->
+  <section class="mc-panel p-5 text-sm">
+    <h2 class="text-base font-extrabold mb-2 flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
+      <span aria-hidden="true">🔒</span> حریم خصوصی و نحوه‌ی کار
+    </h2>
+    <ul class="text-xs text-mc-text-2 space-y-1.5 list-disc pr-4">
+      <li><b>آمار واقعی:</b> اعداد آنلاین/امروز/کل از <a href="https://minebed-api.www-habib6269.workers.dev/api/stats" target="_blank" rel="noopener" class="text-mc-grass-2 underline">Cloudflare Worker</a> می‌آیند — متمرکز برای همه‌ی بازدیدکنندگان.</li>
+      <li><b>ضد تقلب:</b> هر مرورگر یک شناسه‌ی یکتا (UUID) دارد. سرور هر UUID را فقط یک بار در روز شمرده می‌شود.</li>
+      <li><b>بدون سرور ماینکرفت:</b> این آمار بازدید وب‌سایت است.</li>
+      <li><b>نمودار ۳۰ روزه:</b> هر بار که این صفحه را باز می‌کنید، عدد «امروز» از سرور نمونه‌برداری می‌شود.</li>
+    </ul>
+  </section>
 </BaseLayout>
 
 <style>
-  .stats-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-
-  .stats-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-  }
-  .stats-title-wrap {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .stats-logo {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: #059669;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
-  }
-  .stats-header h1 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #f1f5f9;
-    margin: 0;
-  }
-  .stats-subtitle {
-    font-size: 0.8rem;
-    color: #94a3b8;
-    margin: 2px 0 0;
-  }
-  .stats-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .badge-live {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 0.4rem 0.85rem;
-    border-radius: 999px;
-    background: rgba(52, 211, 153, 0.12);
-    color: #6ee7b7;
-    border: 1px solid rgba(52, 211, 153, 0.3);
-  }
-  .pulse-dot {
+  .kpi-dot {
     width: 8px;
     height: 8px;
+    background: #7cc84a;
     border-radius: 50%;
-    background: #34d399;
-    animation: pulse 1.8s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(124, 200, 74, 0.8);
+    animation: kpiPulse 1.8s ease-in-out infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(52, 211, 153, 0.8); }
-    50% { opacity: 0.4; }
-  }
-
-  .btn-refresh {
-    background: #1e293b;
-    border: 1px solid #334155;
-    color: #e2e8f0;
-    padding: 0.4rem 0.85rem;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .btn-refresh:hover { background: #334155; }
-  .btn-refresh:disabled { opacity: 0.5; cursor: wait; }
-
-  .anti-inflation-banner {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.65rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-    background: rgba(52, 211, 153, 0.06);
-    border: 1px solid rgba(52, 211, 153, 0.25);
-    color: #6ee7b7;
-    font-size: 0.78rem;
-    line-height: 1.5;
+  @keyframes kpiPulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.4; }
   }
 
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  @media (max-width: 768px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  .kpi-card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    transition: border-color 0.2s;
-  }
-  .kpi-card:hover { border-color: #475569; }
-  .kpi-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-  }
-  .kpi-green .kpi-icon { background: rgba(52, 211, 153, 0.15); }
-  .kpi-blue .kpi-icon { background: rgba(96, 165, 250, 0.15); }
-  .kpi-purple .kpi-icon { background: rgba(167, 139, 250, 0.15); }
-  .kpi-orange .kpi-icon { background: rgba(251, 146, 60, 0.15); }
-
-  .kpi-label { font-size: 0.78rem; color: #94a3b8; font-weight: 600; }
-  .kpi-value {
-    font-size: 1.65rem;
-    font-weight: 800;
-    line-height: 1.1;
-    margin: 2px 0;
-  }
-  .kpi-green .kpi-value { color: #34d399; }
-  .kpi-blue .kpi-value { color: #60a5fa; }
-  .kpi-purple .kpi-value { color: #a78bfa; }
-  .kpi-orange .kpi-value { color: #fb923c; }
-  .kpi-sub { font-size: 0.65rem; color: #64748b; }
-
-  .charts-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  @media (max-width: 768px) {
-    .charts-grid { grid-template-columns: 1fr; }
-  }
-
-  .chart-card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 1.25rem;
-  }
-  .chart-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-    flex-wrap: wrap;
-  }
-  .chart-header h2 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #f1f5f9;
-    margin: 0;
-  }
-  .chart-subtitle {
-    font-size: 0.72rem;
-    color: #94a3b8;
-    margin: 3px 0 0;
-  }
-  .chart-badge {
-    font-size: 0.7rem;
-    font-family: monospace;
-    padding: 0.25rem 0.55rem;
-    border-radius: 6px;
-    font-weight: 600;
-  }
-  .badge-green {
-    background: rgba(52, 211, 153, 0.12);
-    color: #6ee7b7;
-    border: 1px solid rgba(52, 211, 153, 0.25);
-  }
-  .badge-blue {
-    background: rgba(96, 165, 250, 0.12);
-    color: #93c5fd;
-    border: 1px solid rgba(96, 165, 250, 0.25);
-  }
-  .chart-canvas-wrap {
-    position: relative;
-    height: 240px;
-    width: 100%;
-  }
-  .chart-note {
-    font-size: 0.65rem;
-    color: #64748b;
-    margin-top: 0.75rem;
-  }
-
-  .top-pages-list { display: flex; flex-direction: column; gap: 0.4rem; }
   .top-row {
     display: grid;
-    grid-template-columns: 28px 1fr 50px 100px;
+    grid-template-columns: 28px minmax(0, 1fr) 50px 100px;
     gap: 0.5rem;
     align-items: center;
     padding: 0.5rem 0.6rem;
-    background: rgba(15, 23, 42, 0.5);
+    background: rgba(13, 13, 24, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 8px;
+    border-radius: 6px;
   }
-  .top-rank { font-family: monospace; font-size: 0.75rem; color: #fcb32b; text-align: center; }
-  .top-label { font-size: 0.8rem; color: #e2e8f4; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; text-align: left; }
+  .top-rank { font-family: 'Press Start 2P', monospace; font-size: 0.65rem; color: #fcb32b; text-align: center; }
+  .top-label { min-width: 0; font-size: 0.8rem; color: #e8e8f4; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; text-align: left; }
   .top-count { font-family: monospace; font-size: 0.72rem; color: #4aedd9; text-align: center; }
   .top-bar-wrap { min-width: 0; display: flex; align-items: center; }
   .top-bar { height: 8px; border-radius: 4px; transition: width 0.3s; max-width: 100%; }
@@ -375,22 +169,6 @@ const breadcrumb = [
     .top-row { grid-template-columns: 28px 1fr 50px; }
     .top-row .top-bar-wrap { display: none; }
   }
-
-  .privacy-card h2 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #f1f5f9;
-    margin: 0 0 0.5rem;
-  }
-  .privacy-list {
-    font-size: 0.78rem;
-    color: #94a3b8;
-    line-height: 1.7;
-    list-style: disc;
-    padding-right: 1.2rem;
-    margin: 0;
-  }
-  .privacy-list a { color: #34d399; text-decoration: underline; }
 </style>
 
 <script>
@@ -426,11 +204,11 @@ const breadcrumb = [
   };
 
   const PAGE_COLORS = {
-    '/': '#34d399',
+    '/': '#7cc84a',
     '/wiki/blocks': '#7e7e7e',
     '/wiki/mobs': '#3d7521',
     '/mods': '#a855f7',
-    '/speedrun': '#f59e0b',
+    '/speedrun': '#fcb32b',
     '/tutorials': '#06b6d4',
     '/seeds/create': '#84cc16',
     '/crafting': '#ec4899',
@@ -467,7 +245,6 @@ const breadcrumb = [
     if (today) today.textContent = fmtFa(remote.today || 0);
     if (total) total.textContent = fmtFa(remote.total || 0);
 
-    // Peak = max of daily history's `today` values
     const peakVal = history.length ? Math.max(...history.map(d => d.today)) : 0;
     if (peak) peak.textContent = fmtFa(peakVal);
 
@@ -476,9 +253,28 @@ const breadcrumb = [
     if ($('kpiTodaySub')) $('kpiTodaySub').textContent = `از ۰۰:۰۰ UTC${cachedNote}`;
     if ($('kpiPeakSub')) $('kpiPeakSub').textContent = peakVal ? `بیشترین بازدید روزانه` : '—';
     if ($('kpiTotalSub')) $('kpiTotalSub').textContent = `از ابتدا${cachedNote}`;
+  }
 
-    const badge = $('onlineBadgeText');
-    if (badge) badge.textContent = fmtFa(remote.online || 0);
+  // Minecraft green gradient for 30-day bars.
+  function grassGradient(ctx) {
+    const chart = ctx.chart;
+    const { ctx: c, chartArea } = chart;
+    if (!chartArea) return 'rgba(124, 200, 74, 0.6)';
+    const g = c.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+    g.addColorStop(0, 'rgba(93, 168, 56, 0.35)');
+    g.addColorStop(1, 'rgba(124, 200, 74, 0.9)');
+    return g;
+  }
+
+  // Minecraft diamond-cyan gradient for 24h line area.
+  function diamondGradient(ctx) {
+    const chart = ctx.chart;
+    const { ctx: c, chartArea } = chart;
+    if (!chartArea) return 'rgba(74, 237, 217, 0.1)';
+    const g = c.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+    g.addColorStop(0, 'rgba(74, 237, 217, 0.02)');
+    g.addColorStop(1, 'rgba(74, 237, 217, 0.35)');
+    return g;
   }
 
   function paintChart30(history) {
@@ -501,18 +297,10 @@ const breadcrumb = [
         datasets: [{
           label: 'بازدید روزانه',
           data,
-          backgroundColor: (ctx) => {
-            const chart = ctx.chart;
-            const { ctx: c, chartArea } = chart;
-            if (!chartArea) return 'rgba(52, 211, 153, 0.6)';
-            const g = c.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-            g.addColorStop(0, 'rgba(52, 211, 153, 0.3)');
-            g.addColorStop(1, 'rgba(52, 211, 153, 0.9)');
-            return g;
-          },
-          borderColor: '#34d399',
+          backgroundColor: grassGradient,
+          borderColor: '#7cc84a',
           borderWidth: 1,
-          borderRadius: 4,
+          borderRadius: 2,
           maxBarThickness: 28,
         }],
       },
@@ -523,29 +311,29 @@ const breadcrumb = [
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#0f172a',
-            titleColor: '#f1f5f9',
-            bodyColor: '#94a3b8',
-            borderColor: '#334155',
+            backgroundColor: '#0d0d18',
+            titleColor: '#f0f0fa',
+            bodyColor: '#9a9ab8',
+            borderColor: '#2e2e4a',
             borderWidth: 1,
             padding: 10,
-            cornerRadius: 8,
+            cornerRadius: 0,
             rtl: true,
-            callbacks: {
-              label: (ctx) => fmtFa(ctx.parsed.y) + ' بازدید',
-            },
+            titleFont: { family: 'Press Start 2P', size: 8 },
+            bodyFont: { family: 'Rooyin', size: 11 },
+            callbacks: { label: (ctx) => fmtFa(ctx.parsed.y) + ' بازدید' },
           },
         },
         scales: {
           y: {
             beginAtZero: true,
-            grid: { color: 'rgba(51, 65, 85, 0.4)' },
-            ticks: { color: '#94a3b8', font: { size: 10 } },
+            grid: { color: 'rgba(46, 46, 74, 0.5)' },
+            ticks: { color: '#8585a3', font: { size: 10 } },
             border: { display: false },
           },
           x: {
             grid: { display: false },
-            ticks: { color: '#94a3b8', font: { size: 9 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 },
+            ticks: { color: '#8585a3', font: { size: 9 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 },
             border: { display: false },
           },
         },
@@ -570,22 +358,14 @@ const breadcrumb = [
         datasets: [{
           label: 'بازدید',
           data,
-          borderColor: '#34d399',
+          borderColor: '#4aedd9',
           borderWidth: 2.5,
-          backgroundColor: (ctx) => {
-            const chart = ctx.chart;
-            const { ctx: c, chartArea } = chart;
-            if (!chartArea) return 'rgba(52, 211, 153, 0.1)';
-            const g = c.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-            g.addColorStop(0, 'rgba(52, 211, 153, 0.02)');
-            g.addColorStop(1, 'rgba(52, 211, 153, 0.35)');
-            return g;
-          },
+          backgroundColor: diamondGradient,
           fill: true,
           tension: 0.4,
           pointRadius: 3,
-          pointBackgroundColor: '#34d399',
-          pointBorderColor: '#0f172a',
+          pointBackgroundColor: '#4aedd9',
+          pointBorderColor: '#0d0d18',
           pointBorderWidth: 1.5,
           pointHoverRadius: 6,
         }],
@@ -597,27 +377,29 @@ const breadcrumb = [
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#0f172a',
-            titleColor: '#f1f5f9',
-            bodyColor: '#94a3b8',
-            borderColor: '#334155',
+            backgroundColor: '#0d0d18',
+            titleColor: '#f0f0fa',
+            bodyColor: '#9a9ab8',
+            borderColor: '#2e2e4a',
             borderWidth: 1,
             padding: 10,
-            cornerRadius: 8,
+            cornerRadius: 0,
             rtl: true,
+            titleFont: { family: 'Press Start 2P', size: 8 },
+            bodyFont: { family: 'Rooyin', size: 11 },
             callbacks: { label: (ctx) => fmtFa(ctx.parsed.y) + ' بازدید' },
           },
         },
         scales: {
           y: {
             beginAtZero: true,
-            grid: { color: 'rgba(51, 65, 85, 0.4)' },
-            ticks: { color: '#94a3b8', font: { size: 10 }, precision: 0 },
+            grid: { color: 'rgba(46, 46, 74, 0.5)' },
+            ticks: { color: '#8585a3', font: { size: 10 }, precision: 0 },
             border: { display: false },
           },
           x: {
             grid: { display: false },
-            ticks: { color: '#94a3b8', font: { size: 10 } },
+            ticks: { color: '#8585a3', font: { size: 10 } },
             border: { display: false },
           },
         },
@@ -631,14 +413,14 @@ const breadcrumb = [
     if (!wrap) return;
     const entries = Object.entries(hits).sort((a, b) => b[1] - a[1]);
     if (entries.length === 0) {
-      wrap.innerHTML = '<p style="text-align:center;color:#64748b;font-size:0.78rem;padding:1.5rem;">هنوز صفحه‌ای در این مرورگر دیده نشده.</p>';
+      wrap.innerHTML = '<p style="text-align:center;color:#8585a3;font-size:0.78rem;padding:1.5rem;">هنوز صفحه‌ای در این مرورگر دیده نشده.</p>';
       if (meta) meta.textContent = '—';
       return;
     }
     const maxHits = entries[0][1];
     wrap.innerHTML = entries.map(([path, count], i) => {
       const name = PAGE_NAMES[path] || path;
-      const color = PAGE_COLORS[path] || '#34d399';
+      const color = PAGE_COLORS[path] || '#7cc84a';
       const pct = (count / maxHits) * 100;
       return `<div class="top-row">
         <div class="top-rank">${fmtFa(i + 1)}</div>
