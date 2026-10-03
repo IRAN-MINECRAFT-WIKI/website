@@ -279,7 +279,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       <ul class="recipe-list" id="recipeList">
         {recipes.map((r) => (
           <li>
-            <button class="recipe-item" data-recipe-id={r.id} type="button">
+            <button class="recipe-item" data-recipe-id={r.id} data-recipe-name={r.nameFa} draggable="true" type="button">
               <span class="recipe-item-icon" data-emoji={r.icon || itemIcons[r.output.item] || '📦'} set:html={renderIcon(r.output.item, r.icon)} />
               <span class="recipe-item-name">{r.nameFa}</span>
               {r.output.count > 1 && (
@@ -705,6 +705,23 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     background: rgba(123, 197, 92, 0.28);
     border-color: var(--grass-2, #7cc84a);
     box-shadow: inset 2px 0 0 var(--grass-2, #7cc84a);
+  }
+  .recipe-item.dragging {
+    opacity: 0.4;
+    cursor: grabbing;
+  }
+  /* Drag-over highlight on craft-slots (phase 102) */
+  .craft-slot.drag-over {
+    background: rgba(124, 200, 74, 0.3) !important;
+    border-color: #7cc84a !important;
+    box-shadow: 0 0 8px rgba(124, 200, 74, 0.6) inset;
+  }
+  .craft-slot.filled {
+    cursor: pointer;
+    border-color: var(--grass-2, #7cc84a);
+  }
+  .craft-slot.filled:hover {
+    background: rgba(252, 179, 43, 0.15);
   }
   .recipe-item-icon {
     flex-shrink: 0;
@@ -1132,6 +1149,100 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         searchInput.focus();
       });
     }
+
+    // ── Drag & Drop (phase 102) ──────────────────────────────────
+    // Drag recipe items from the list → drop into craft-slots to build a grid.
+    // Also: click a filled slot to clear it; drag a slot to another slot to move.
+
+    // 1. Make recipe-items draggable (set dataTransfer with recipe id + name)
+    function setupDragSource() {
+      document.querySelectorAll('.recipe-item[draggable="true"]').forEach((el) => {
+        el.addEventListener('dragstart', (e) => {
+          const id = el.getAttribute('data-recipe-id');
+          const name = el.getAttribute('data-recipe-name') || '';
+          if (e.dataTransfer) {
+            e.dataTransfer.setData('text/plain', id + '|' + name);
+            e.dataTransfer.effectAllowed = 'copy';
+          }
+          el.classList.add('dragging');
+        });
+        el.addEventListener('dragend', () => {
+          el.classList.remove('dragging');
+        });
+      });
+    }
+    setupDragSource();
+
+    // 2. Re-bind drag source when the list re-renders (after search filter)
+    const recipeListEl = document.getElementById('recipeList');
+    if (recipeListEl) {
+      const observer = new MutationObserver(() => setupDragSource());
+      observer.observe(recipeListEl, { childList: true, subtree: true });
+    }
+
+    // 3. Make craft-slots droppable
+    const craftSlots = document.querySelectorAll('.craft-slot[data-craft-slot]');
+    craftSlots.forEach((slot) => {
+      slot.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+        slot.classList.add('drag-over');
+      });
+      slot.addEventListener('dragleave', () => {
+        slot.classList.remove('drag-over');
+      });
+      slot.addEventListener('drop', (e) => {
+        e.preventDefault();
+        slot.classList.remove('drag-over');
+        const raw = e.dataTransfer ? e.dataTransfer.getData('text/plain') : '';
+        if (!raw) return;
+        const [id, name] = raw.split('|');
+        // Find the recipe to get its icon/item
+        const recipe = findById(id);
+        if (!recipe) return;
+        // Render the item icon in this slot
+        const slotIdx = slot.getAttribute('data-craft-slot');
+        slot.innerHTML = renderIcon(recipe.output.item, recipe.icon) || '';
+        slot.classList.add('filled');
+        slot.setAttribute('data-placed-item', recipe.output.item);
+        slot.setAttribute('data-placed-id', id);
+        slot.setAttribute('title', name + ' — کلیک برای پاک‌کردن');
+      });
+      // Click filled slot to clear
+      slot.addEventListener('click', () => {
+        if (slot.classList.contains('filled')) {
+          slot.innerHTML = '';
+          slot.classList.remove('filled');
+          slot.removeAttribute('data-placed-item');
+          slot.removeAttribute('data-placed-id');
+          slot.removeAttribute('title');
+        }
+      });
+    });
+
+    // 4. Touch support for mobile — tap recipe-item then tap a slot
+    let pendingItem = null;
+    document.querySelectorAll('.recipe-item[draggable="true"]').forEach((el) => {
+      el.addEventListener('touchstart', () => {
+        pendingItem = {
+          id: el.getAttribute('data-recipe-id'),
+          name: el.getAttribute('data-recipe-name') || '',
+        };
+      });
+    });
+    craftSlots.forEach((slot) => {
+      slot.addEventListener('touchend', () => {
+        if (!pendingItem) return;
+        const recipe = findById(pendingItem.id);
+        if (recipe) {
+          slot.innerHTML = renderIcon(recipe.output.item, recipe.icon) || '';
+          slot.classList.add('filled');
+          slot.setAttribute('data-placed-item', recipe.output.item);
+          slot.setAttribute('title', pendingItem.name + ' — کلیک برای پاک‌کردن');
+        }
+        pendingItem = null;
+      });
+    });
   })();
 </script>
 

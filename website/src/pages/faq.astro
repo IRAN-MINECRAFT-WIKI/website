@@ -1,0 +1,229 @@
+---
+/**
+ * /faq — Frequently Asked Questions about Minecraft (in Persian)
+ * 20+ common questions with answers.
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd, faqJsonLd } from '@/lib/seo';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'سوالات متداول', url: '/faq' },
+];
+const ldBread = breadcrumbJsonLd(breadcrumb);
+
+const FAQS: Array<{ q: string; a: string; cat: string }> = [
+  {
+    cat: 'عمومی',
+    q: 'ماینکرفت چیست و چه هدفی دارد؟',
+    a: 'ماینکرفت یک بازی ویدئویی سندباکس (sandbox) است که توسط موجانگ (Mojang Studios) توسعه داده شده. هدف اصلی بازی، ساخت، کاوش و بقا در یک دنیای سه‌بعدی پروسیجرال (تصادفی) است. بازیکنان می‌توانند منابع جمع‌آوری کنند، ابزار بسازند، با ماب‌ها بجنگند و سازه‌های عظیم خلق کنند.',
+  },
+  {
+    cat: 'عمومی',
+    q: 'تفاوت Minecraft Java و Bedrock چیست؟',
+    a: 'نسخه‌ی Java نسخه‌ی اصلی برای ویندوز، مک و لینوکس است و از ماد‌های جاوا پشتیبانی می‌کند. نسخه‌ی Bedrock برای ویندوز ۱۰/۱۱، موبایل، کنسول‌ها و واقعیت مجازی است و از مادهای add-on و کراس‌پلی (بازی بین دستگاه‌های مختلف) پشتیبانی می‌کند. جاوا انعطاف‌پذیرتر است، بدراک سریع‌تر و بهینه‌تر.',
+  },
+  {
+    cat: 'عمومی',
+    q: 'ماینکرفت رایگان است؟',
+    a: 'خیر، ماینکرفت یک بازی پولی است. نسخه‌ی Java حدود ۲۹.۹۹ دلار و نسخه‌ی Bedrock قیمت متفاوتی دارد. اما نسخه‌ی Demo رایگان موجود است. همچنین Minecraft Classic (نسخه‌ی قدیمی مرورگری) به‌صورت رایگان قابل بازی است.',
+  },
+  {
+    cat: 'سید',
+    q: 'سید (Seed) ماینکرفت چیست و چطور ازش استفاده کنم؟',
+    a: 'سید یک عدد (یا متن) است که تولید دنیای ماینکرفت را تعیین می‌کند. هر سید یک دنیای منحصربه‌فرد می‌سازد. برای استفاده: هنگام ساخت دنیای جدید، در فیلد «Seed for the world generator» سید رو وارد کن. یا دستور /seed رو توی بازی بزن تا سید دنیای فعلی رو ببینی.',
+  },
+  {
+    cat: 'سید',
+    q: 'چطور سیدهای خوب پیدا کنم؟',
+    a: 'سیدهای خوب معمولاً در نزدیکی اسپاون ساختارهای مفید (روستا، Stronghold، Ancient City) دارند. می‌توانی از وب‌سایت‌هایی مثل chunkbase.com یا seedhive.com استفاده کنی. در سایت ما هم سیدهای تست‌شده موجود است.',
+  },
+  {
+    cat: 'سید',
+    q: 'آیا می‌توانم سید خودم رو با دیگران به اشتراک بذارم؟',
+    a: 'بله! سید فقط یک عدد است — می‌توانی آن را به دوستانت بدهی تا همان دنیا رو بسازن. در سایت ما هم می‌توانی سیدت رو ثبت کنی تا دیگران ببینن (به‌زودی).',
+  },
+  {
+    cat: 'ماد',
+    q: 'چطور ماد نصب کنم؟',
+    a: 'برای نسخه‌ی Java: ۱. نرم‌افزار Forge یا Fabric رو نصب کن. ۲. فایل ماد (.jar) رو دانلود کن. ۳. آن رو در پوشه‌ی mods (داخل پوشه‌ی بازی) بذار. ۴. بازی رو با پروفایل Forge/Fabric اجرا کن. برای Bedrock: فایل .mcaddon رو دانلود کن و بازش کن — خودکار نصب می‌شه.',
+  },
+  {
+    cat: 'ماد',
+    q: 'تفاوت Forge و Fabric چیست؟',
+    a: 'Forge قدیمی‌تر و پایدارتر است و مادهای بیشتری پشتیبانی می‌کند. Fabric سبک‌تر و سریع‌تر است و برای نسخه‌های جدید سریع‌تر آپدیت می‌شود. بعضی مادها فقط روی یکی از این دو کار می‌کنند — همیشه توضیحات ماد رو بخون.',
+  },
+  {
+    cat: 'ماد',
+    q: 'آیا نصب ماد خطرناکه؟',
+    a: 'اگه ماد رو از منابع معتبر (CurseForge, Modrinth, MCPEDL) دانلود کنی، خطرناک نیست. اما از منابع ناشناخته دانلود نکن — ممکنه ویروس داشته باشه. همیشه آنتی‌ویروس رو آپدیت نگه‌دار.',
+  },
+  {
+    cat: 'ماد',
+    q: 'چطور ماد رو غیرفعال یا حذف کنم؟',
+    a: 'برای Java: فایل ماد رو از پوشه‌ی mods حذف کن. برای Bedrock: به Settings → Storage → Resources برو و ماد رو حذف کن. اگه بازی مشکل پیدا کرد، نسخه‌ی بدون ماد رو اجرا کن.',
+  },
+  {
+    cat: 'گیم‌پلی',
+    q: 'چطور در ماینکرفت بقا بمونم؟',
+    a: 'روز اول: چوب جمع کن، میز کار (Crafting Table) بساز، تبر بساز، کلبه‌ی کوچک بساز یا توی غار مخفی شو. شب: ماب‌های خطرناک (زامبی، اسکلت، کریپر) ظاهر می‌شن. غذای (حیوانات) شکار کن. روزهای بعد: سنگ و آهن استخراج کن، خانه‌ی بهتر بساز، به ندر برو.',
+  },
+  {
+    cat: 'گیم‌پلی',
+    q: 'چطور الماس پیدا کنم؟',
+    a: 'الماس در عمق Y=-59 تا Y=-58 (نسخه‌های 1.18+) بیشترین فراوانی رو داره. تبر آهنی یا بهتر لازمه. کانال‌های غار (Lush Caves, Deep Dark) رو دنبال کن. از Cubiomes یا chunkbase هم می‌تونی برای پیدا‌کردن مختصات دقیق استفاده کنی.',
+  },
+  {
+    cat: 'گیم‌پلی',
+    q: 'چطور به Nether برم؟',
+    a: '۱.Obsidian بساز (آب + لاوا). ۲. قاب 4×5 (یا بزرگ‌تر) از Obsidian بساز. ۳. با فایر چرخ (Flint and Steel) درون قاب رو روشن کن. ۴. درگاه بنفش ظاهر می‌شه — واردش شو. توش مراقب باش: Ghast، Piglin، Nether Fortress.',
+  },
+  {
+    cat: 'گیم‌پلی',
+    q: 'چطور بازی رو تموم کنم (End)؟',
+    a: '۱. Stronghold پیدا کن (با Eye of Ender). ۲. درگاه End رو فعال کن (۱۲ Eye of Ender). ۳. وارد End بشو. ۴. با Ender Dragon بجنگ — کریستال‌های روی برج‌ها رو اول خراب کن. ۵. وقتی اژدها مرد، درگاه بازگشت ظاهر می‌شه.',
+  },
+  {
+    cat: 'گیم‌پلی',
+    q: 'Elytra چیست و چطور بگیرمش؟',
+    a: 'Elytra بال‌های پروازه که در End City (شهرهای End) پیدا می‌شه. باید به End بری، End City پیدا کنی (جزایر بیرونی)، به برج بروی و در قفس Elytra رو برداری. بعد با Anvil وکتش تعمیر کن (با Phantom Membrane).',
+  },
+  {
+    cat: 'فنی',
+    q: 'نسخه‌ی ماینکرفت من چقدره؟',
+    a: 'تو بازی: به منوی Options → Video Settings برو — نسخه پایین صفحه نوشته. یا از لانچر: نسخه‌ی نصب‌شده رو توی لیست پروفایل‌ها ببین. در سایت ما هم لیست نسخه‌ها موجود است.',
+  },
+  {
+    cat: 'فنی',
+    q: 'بازی لگ (lag) داره — چیکار کنم؟',
+    a: '۱. Render Distance رو کم کن (Options → Video). ۲. Graphics رو Fast بذار. ۳. RAM بیشتری به بازی بده (در لانچر: JVM Arguments → -Xmx4G). ۴. مادهای بهینه‌سازی (OptiFine, Sodium) نصب کن. ۵. مادهای اضافه رو حذف کن. ۶. درایور کارت گرافیک رو آپدیت کن.',
+  },
+  {
+    cat: 'فنی',
+    q: 'دنیای من گم شده — چطور بازیابی کنم؟',
+    a: '۱. پوشه‌ی saves (داخل پوشه‌ی بازی) رو چک کن — شاید فایل هنوز اونجا باشه. ۲. فایل‌های .bak (backup) رو به .dat تغییر نام بده. ۳. از备份‌های قبلی بازی کنترل می‌کردی برگردون. ۴. اگه Minecraft Realms داشتی، از اون بازیابی کن.',
+  },
+  {
+    cat: 'فنی',
+    q: 'چطور اسکرین‌شات بگیرم؟',
+    a: 'در Java: کلید F2. در Bedrock: بسته به دستگاه متفاوته — ویندوز: Win+PrtSc، موبایل: دکمه‌ی قدرت + کمکردن صدا. عکس‌ها در پوشه‌ی screenshots (داخل پوشه‌ی بازی) ذخیره می‌شن.',
+  },
+  {
+    cat: 'مالتی‌پلیر',
+    q: 'چطور با دوستانم بازی کنم؟',
+    a: 'سه راه: ۱. Local (همان شبکه): در بازی → Open to LAN. ۲. Minecraft Realms (پولی): سرویس رسمی موجانگ. ۳. سرور شخصی: سرور بساز یا اجاره کن (Aternos رایگان، یا سرورهای پولی). آدرس سرور رو وارد کن.',
+  },
+  {
+    cat: 'مالتی‌پلیر',
+    q: 'Realms چیه و چقدر هزینه داره؟',
+    a: 'Realms سرویس سرور رسمی موجانگ است که اجازه می‌ده با تا ۱۱ دوست بازی کنی. دو نوع: Realms (برای Bedrock، 3.99 دلار/ماه) و Realms Plus (با مادهای رایگان، 7.99 دلار/ماه). آپتایم ۲۴/۷، بدون نیاز به تنظیمات فنی.',
+  },
+  {
+    cat: 'سایت ما',
+    q: 'چطور می‌تونم به وب‌سایت کمک کنم؟',
+    a: '۱. سیدهای خوب ثبت کن (به‌زودی). ۲. اگه ماد ساختی، اضافه کن. ۳. ترجمه یا اصلاح مقالات ویکی. ۴. باگ‌ها رو گزارش بده. ۵. به دوستان معرفی کن. برای همکاری، از صفحه‌ی «درباره» با ما تماس بگیر.',
+  },
+];
+
+const ldFaq = faqJsonLd(FAQS.map(f => ({ q: f.q, a: f.a })));
+
+// Persian numeral helper (used in frontmatter + inline script)
+function fa(n: string | number): string {
+  return String(n).replace(/[0-9]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[+d]);
+}
+
+// Group by category
+const categories = [...new Set(FAQS.map(f => f.cat))];
+const byCat = (cat: string) => FAQS.filter(f => f.cat === cat);
+---
+
+<BaseLayout
+  path="/faq"
+  title="سوالات متداول ماینکرفت — FAQ | ماین بد (MineBed Farsi)"
+  description="پاسخ به ۲۰+ سوال رایج درباره‌ی ماینکرفت: نصب ماد، سیدها، بقا، ندر، End و... به فارسی."
+>
+  <StructuredData data={ldBread} />
+  <StructuredData data={ldFaq} />
+
+  <Breadcrumbs items={breadcrumb} />
+
+  <div class="mb-6">
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2 font-pixel" style="font-size: 1.3rem; line-height: 1.6;">
+      ❓ سوالات متداول
+    </h1>
+    <p class="text-sm text-mc-text-2">
+      پاسخ به ۲۰+ سوال رایج درباره‌ی ماینکرفت. اگه سوالت اینجا نیست، از ما بپرس.
+    </p>
+  </div>
+
+  <!-- Quick category nav -->
+  <div class="flex flex-wrap gap-2 mb-6">
+    {categories.map((cat) => (
+      <a href={`#cat-${cat}`} class="mc-btn ghost small">
+        {cat}
+      </a>
+    ))}
+  </div>
+
+  <!-- FAQ sections by category -->
+  {categories.map((cat) => (
+    <section class="mb-8" id={`cat-${cat}`}>
+      <h2 class="text-lg font-extrabold text-mc-grass-2 mb-4 flex items-center gap-2 font-pixel" style="font-size: 0.9rem;">
+        <span aria-hidden="true">📂</span> {cat}
+      </h2>
+      <div class="space-y-3">
+        {byCat(cat).map((f, i) => (
+          <details class="mc-panel group">
+            <summary class="cursor-pointer p-4 font-bold text-mc-text hover:text-mc-grass-2 transition-colors list-none flex items-center gap-2">
+              <span class="text-mc-gold font-mono text-xs shrink-0">Q{fa(String(i + 1))}</span>
+              <span class="flex-1">{f.q}</span>
+              <span class="text-mc-text-3 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true">▼</span>
+            </summary>
+            <div class="px-4 pb-4 text-sm text-mc-text-2 leading-relaxed border-t border-mc-line pt-3">
+              {f.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <!-- Still have questions? -->
+  <section class="mc-panel p-6 text-center mt-8">
+    <div class="text-4xl mb-3" aria-hidden="true">💬</div>
+    <h2 class="text-lg font-bold text-mc-text mb-2">سوال دیگه‌ای داری؟</h2>
+    <p class="text-sm text-mc-text-3 mb-4">
+      اگه پاسخت اینجا نیست، می‌تونی از کانال اپارات یا گیت‌هاب ما بپرسی.
+    </p>
+    <div class="flex flex-wrap gap-2 justify-center">
+      <a href="https://www.aparat.com/MineBedFarsi" target="_blank" rel="noopener" class="mc-btn ghost small">
+        📺 اپارات
+      </a>
+      <a href="https://github.com/IRAN-MINECRAFT-WIKI/website" target="_blank" rel="noopener" class="mc-btn ghost small">
+        💻 گیت‌هاب
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  // fa() is defined in frontmatter above and also available globally for the
+  // Q1/Q2 numbering in the summary labels (already rendered server-side).
+</script>
+
+<style>
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  details[open] > summary {
+    background: rgba(124, 200, 74, 0.08);
+  }
+</style>

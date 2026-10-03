@@ -1,9 +1,13 @@
 ---
 /**
- * /videos — Aparat video page
+ * /videos — Aparat video page with embed support
  * Channel: https://www.aparat.com/MineBedFarsi
- * When videos exist, they'll be fetched from Aparat API and displayed.
- * For now, shows an empty state + subscribe button.
+ *
+ * Embed format: https://www.aparat.com/video/video/embed/videohash/{HASH}/vt/frame
+ * To add a video, add its hash to VIDEOS array below (or to src/data/videos.json).
+ *
+ * For now, shows the channel embed + empty-state placeholder grid.
+ * When real videos are added to VIDEOS, they auto-embed as iframes.
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
@@ -20,6 +24,16 @@ const breadcrumb = [
 const ldBread = breadcrumbJsonLd(breadcrumb);
 
 const APARAT_CHANNEL = 'https://www.aparat.com/MineBedFarsi';
+const APARAT_CHANNEL_EMBED = 'https://www.aparat.com/video/video/embed/userhash/MineBedFarsi/vt/frame';
+
+// To add a real video, copy its hash from the Aparat URL and add here:
+// e.g. https://www.aparat.com/v/AbCdE → hash = "AbCdE"
+const VIDEOS: Array<{ hash: string; title: string; desc: string; category: string }> = [
+  // Example (uncomment + replace with real hash when videos exist):
+  // { hash: 'AbCdEfG', title: 'نصب ماد لuckyblock', desc: 'آموزش کامل نصب', category: 'آموزش نصب' },
+];
+
+const hasVideos = VIDEOS.length > 0;
 ---
 
 <BaseLayout
@@ -32,41 +46,92 @@ const APARAT_CHANNEL = 'https://www.aparat.com/MineBedFarsi';
 
   <div class="mb-6">
     <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">🎬 ویدیوهای ماین‌بد</h1>
-    <p class="text-sm text-mc-text-2">آموزش، بررسی و گیم‌پلی ماینکرفت</p>
+    <p class="text-sm text-mc-text-2">آموزش، بررسی و گیم‌پلی ماینکرفت — مستقیم از اپارات</p>
   </div>
 
   <!-- Channel subscribe banner -->
   <div class="mc-panel p-5 mb-6 flex items-center gap-4 flex-wrap">
     <div class="flex-1 min-w-[200px]">
       <h2 class="text-lg font-bold text-mc-text mb-1">کانال اپارات ماین‌بد فارسی</h2>
-      <p class="text-xs text-mc-text-2">آموزش‌های نصب مود، بررسی نسخه‌ها، گیم‌پلی و ترفندهای ماینکرفت</p>
+      <p class="text-xs text-mc-text-2">آموزش‌های نصب ماد، بررسی نسخه‌ها، گیم‌پلی و ترفندهای ماینکرفت</p>
     </div>
     <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn">
       <span>📺</span> دنبال‌کردن کانال
     </a>
   </div>
 
-  <!-- Empty state -->
-  <div class="mc-panel text-center py-16">
-    <div class="text-6xl mb-4">🎬</div>
-    <h3 class="text-xl font-bold text-mc-text-2 mb-2">ویدیوها به‌زودی اضافه می‌شن!</h3>
-    <p class="text-sm text-mc-text-3 mb-6 max-w-md mx-auto leading-relaxed">
-      ما در حال آماده‌سازی ویدیوهای آموزشی ماینکرفت هستیم. به‌زودی آموزش‌های نصب مود،
-      بررسی نسخه‌های جدید و گیم‌پلی‌های جذاب رو توی کانال اپارات منتشر می‌کنیم.
-    </p>
-    <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn ghost small">
-      📺 مشاهده‌ی کانال اپارات
-    </a>
-  </div>
+  {hasVideos ? (
+    <!-- Video grid with embedded iframes -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+      {VIDEOS.map((v) => (
+        <div class="mc-panel overflow-hidden">
+          <div class="aspect-video bg-mc-bg-2">
+            <iframe
+              src={`https://www.aparat.com/video/video/embed/videohash/${v.hash}/vt/frame`}
+              title={v.title}
+              allowFullScreen="true"
+              webkitallowfullscreen="true"
+              mozallowfullscreen="true"
+              loading="lazy"
+              class="w-full h-full border-0"
+            ></iframe>
+          </div>
+          <div class="p-4">
+            <h3 class="text-sm font-bold text-mc-text">{v.title}</h3>
+            <p class="text-xs text-mc-text-3 mt-1">{v.desc}</p>
+            <span class="text-[10px] text-mc-grass-2 mt-2 inline-block bg-mc-grass-2/10 px-2 py-0.5 rounded">
+              {v.category}
+            </span>
+          </div>
+        </div>
+      ))}
+    </section>
+  ) : (
+    <!-- Channel embed + empty state -->
+    <section class="mb-6">
+      <h2 class="text-lg font-bold text-mc-text mb-3 flex items-center gap-2">
+        <span>🎥</span> کانال اپارات (زنده)
+      </h2>
+      <div class="mc-panel overflow-hidden">
+        <div class="aspect-video bg-mc-bg-2">
+          <iframe
+            src={APARAT_CHANNEL_EMBED}
+            title="کانال اپارات ماین‌بد فارسی"
+            allowFullScreen="true"
+            webkitallowfullscreen="true"
+            mozallowfullscreen="true"
+            loading="lazy"
+            class="w-full h-full border-0"
+          ></iframe>
+        </div>
+      </div>
+      <p class="text-[10px] text-mc-text-3 mt-2">
+        اگه کانال خالیه، ویدیوها نمایش داده نمی‌شن. وقتی ویدیو اضافه کنی، این‌جا نشون داده می‌شه.
+      </p>
+    </section>
 
-  <!-- Coming soon categories -->
+    <!-- Empty state for specific videos -->
+    <div class="mc-panel text-center py-12">
+      <div class="text-5xl mb-3">🎬</div>
+      <h3 class="text-xl font-bold text-mc-text-2 mb-2">ویدیوهای جداگانه به‌زودی!</h3>
+      <p class="text-sm text-mc-text-3 mb-6 max-w-md mx-auto leading-relaxed">
+        ویدیوهای آموزشی جداگانه (نصب ماد، بررسی نسخه، گیم‌پلی) این‌جا نمایش داده می‌شن.
+        فعلاً کانال اپارات رو دنبال کن تا جدیدترین ویدیوها رو ببینی.
+      </p>
+      <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn ghost small">
+        📺 مشاهده‌ی کانال اپارات
+      </a>
+    </div>
+  )}
+
+  <!-- Categories preview -->
   <div class="mt-8">
     <h2 class="text-lg font-bold text-mc-text mb-4">دسته‌بندی‌های پیش‌رو</h2>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
       <div class="mc-panel p-4 text-center opacity-60">
         <div class="text-3xl mb-2">📚</div>
         <h3 class="text-sm font-bold text-mc-text-2">آموزش نصب</h3>
-        <p class="text-xs text-mc-text-3 mt-1">نصب مودها و ریسورس‌پک</p>
+        <p class="text-xs text-mc-text-3 mt-1">نصب مادها و ریسورس‌پک</p>
       </div>
       <div class="mc-panel p-4 text-center opacity-60">
         <div class="text-3xl mb-2">🔍</div>
@@ -86,3 +151,9 @@ const APARAT_CHANNEL = 'https://www.aparat.com/MineBedFarsi';
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+</style>
