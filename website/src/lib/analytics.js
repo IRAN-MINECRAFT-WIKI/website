@@ -244,6 +244,34 @@ export async function getStats() {
   return { online: 0, today: 0, total: 0, source: 'offline', isReal: false, isCached: false };
 }
 
+/**
+ * Fetch real site-wide top pages from the Worker's /api/pages endpoint.
+ * Returns array of { page, count } — most-visited pages across ALL visitors.
+ * Falls back to null if Worker unreachable.
+ */
+let cachedTopPages = null;
+let lastPagesFetch = 0;
+const PAGES_CACHE_MS = 30_000;
+
+export async function fetchTopPages() {
+  const now = Date.now();
+  if (cachedTopPages && now - lastPagesFetch < PAGES_CACHE_MS) {
+    return cachedTopPages;
+  }
+  try {
+    const res = await fetch(`${API_BASE}/api/pages?range=all`, {
+      headers: { Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    cachedTopPages = data.pages || [];
+    lastPagesFetch = now;
+    return cachedTopPages;
+  } catch {
+    return null;
+  }
+}
+
 export function getDailyHistory() {
   migrateAwayFromSeed();
   let history = readJSON(K_HISTORY, []);

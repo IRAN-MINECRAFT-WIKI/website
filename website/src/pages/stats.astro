@@ -112,7 +112,7 @@ const breadcrumb = [
       <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-amber/10 text-mc-amber border border-mc-amber/20" id="topBadge">محلی</span>
     </div>
     <div id="topPagesList" class="space-y-2"></div>
-    <p class="text-[10px] text-mc-amber mt-3">⚠️ این فقط صفحات دیده‌شده توسط همین مرورگره (داده‌ی محلی) — نه کل سایت. برای آمار سایت‌گسترده، KV فقط online/today/total را نگه می‌داره.</p>
+    <p class="text-[10px] text-mc-amber mt-3" id="topWarn">⚠️ این فقط صفحات دیده‌شده توسط همین مرورگره (داده‌ی محلی) — نه کل سایت. برای آمار سایت‌گسترده، Worker v2 رو آپدیت کن (با /api/pages).</p>
   </section>
 
   <!-- Privacy -->
@@ -170,6 +170,7 @@ const breadcrumb = [
     getStats,
     getDailyHistory,
     getHourly24,
+    fetchTopPages,
     getPageHits,
     trackVisit,
     heartbeat,
@@ -220,12 +221,13 @@ const breadcrumb = [
     const remote = await getStats();
     const history = getDailyHistory();
     const hourly = getHourly24();
-    const hits = getPageHits();
+    const topPages = await fetchTopPages();
+    const localHits = getPageHits();
 
     paintKpis(remote, history);
     paintChart30(history);
     paintChart24(hourly);
-    paintTopPages(hits);
+    paintTopPages(topPages, localHits);
     paintSourceBadge(remote);
   }
 
@@ -418,13 +420,46 @@ const breadcrumb = [
     });
   }
 
-  function paintTopPages(hits) {
+  function paintTopPages(topPages, localHits) {
     const wrap = document.getElementById('topPagesList');
     const meta = document.getElementById('topMeta');
+    const badge = document.getElementById('topBadge');
     if (!wrap) return;
-    const entries = Object.entries(hits).sort((a, b) => b[1] - a[1]);
+
+    // If we have real site-wide data from KV, show it.
+    if (topPages && topPages.length > 0) {
+      if (badge) {
+        badge.textContent = 'سایت‌گسترده';
+        badge.className = 'text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-grass-2/10 text-mc-grass-2 border border-mc-grass-2/20';
+      }
+      const maxCount = topPages[0].count;
+      wrap.innerHTML = topPages.map((p, i) => {
+        const name = PAGE_NAMES[p.page] || p.page;
+        const color = PAGE_COLORS[p.page] || '#7cc84a';
+        const pct = (p.count / maxCount) * 100;
+        return `<div class="top-row">
+          <div class="top-rank">${fmtFa(i + 1)}</div>
+          <div><div class="top-label">${name}</div></div>
+          <div class="top-count">${fmtFa(p.count)}</div>
+          <div class="top-bar-wrap"><div class="top-bar" style="width:${pct}%;background:linear-gradient(90deg,${color},#4aedd9);"></div></div>
+        </div>`;
+      }).join('');
+      const totalVisitors = topPages.reduce((s, p) => s + p.count, 0);
+      if (meta) meta.textContent = `${fmtFa(topPages.length)} صفحه · ${fmtFa(totalVisitors)} بازدیدکننده‌ی یکته`;
+      // Hide the per-browser warning since we're showing real data now.
+      const warn = document.getElementById('topWarn');
+      if (warn) warn.style.display = 'none';
+      return;
+    }
+
+    // Fallback: per-browser data (clearly labeled).
+    if (badge) {
+      badge.textContent = 'محلی';
+      badge.className = 'text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-amber/10 text-mc-amber border border-mc-amber/20';
+    }
+    const entries = Object.entries(localHits || {}).sort((a, b) => b[1] - a[1]);
     if (entries.length === 0) {
-      wrap.innerHTML = '<p style="text-align:center;color:#8585a3;font-size:0.78rem;padding:1.5rem;">هنوز صفحه‌ای در این مرورگر دیده نشده.</p>';
+      wrap.innerHTML = '<p style="text-align:center;color:#8585a3;font-size:0.78rem;padding:1.5rem;">هنوز صفحه‌ای ثبت نشده — بعد از آپدیت Worker، صفحات سایت‌گسترده نمایش داده می‌شن.</p>';
       if (meta) meta.textContent = '—';
       return;
     }

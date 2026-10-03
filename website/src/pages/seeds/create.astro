@@ -142,6 +142,17 @@ const features = [
       </div>
     </div>
 
+    <!-- 2D Map (NEW — phase 84) -->
+    <h3 class="text-sm font-extrabold mb-2 text-mc-text-2">🗺️ نقشه‌ی ۲ بعدی سید</h3>
+    <div class="map-wrap mb-4">
+      <canvas id="seedMap" width="480" height="480" class="seed-map-canvas"></canvas>
+      <div class="map-legend" id="mapLegend">
+        <span class="map-legend-item"><span class="map-dot spawn"></span> اسپاون (۰،۰)</span>
+        <span class="map-legend-item"><span class="map-dot structure"></span> ساختارها</span>
+        <span class="map-legend-item">هر سلول = ۱۰۰ بلوک</span>
+      </div>
+    </div>
+
     <!-- Coords table -->
     <h3 class="text-sm font-extrabold mb-2 text-mc-text-2">مختصات ویژگی‌ها</h3>
     <div id="coordsList" class="space-y-2">
@@ -281,6 +292,48 @@ const features = [
     /* LTR even in RTL pages */
     direction: ltr;
   }
+
+  /* ── 2D Map (phase 84) ── */
+  .map-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(13, 13, 24, 0.6);
+    border: 2px solid var(--line, #2e2e4a);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .seed-map-canvas {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    aspect-ratio: 1;
+    image-rendering: pixelated;
+    background: #1a1a2e;
+    border: 2px solid #2e2e4a;
+  }
+  .map-legend {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: var(--text-3, #8585a3);
+  }
+  .map-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .map-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+  .map-dot.spawn { background: #fcb32b; box-shadow: 0 0 4px #fcb32b; }
+  .map-dot.structure { background: #7cc84a; }
 </style>
 
 <script>
@@ -473,6 +526,120 @@ const features = [
         '<span class="coord-xyz">X: ' + toFa(String(c.x)) + '  Y: ' + toFa(String(c.y)) + '  Z: ' + toFa(String(c.z)) + '</span>';
       list.appendChild(row);
     });
+
+    // Draw the 2D map (phase 84)
+    drawSeedMap(seed);
+  }
+
+  // ── 2D Map renderer ──────────────────────────────────────────
+  // Draws a top-down Minecraft-style map: grid + spawn at center +
+  // each structure plotted as a colored pixel-dot at its (x,z).
+  function drawSeedMap(seed) {
+    const canvas = document.getElementById('seedMap');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width;
+    const H = canvas.height;
+    const cx = W / 2;
+    const cy = H / 2;
+
+    // Clear
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(0, 0, W, H);
+
+    // Compute scale: find max |x| or |z| among coords, map to ~45% of canvas.
+    let maxCoord = 100; // default scale
+    for (const c of (seed.coords || [])) {
+      maxCoord = Math.max(maxCoord, Math.abs(c.x), Math.abs(c.z));
+    }
+    maxCoord = Math.max(maxCoord, 100); // ensure non-zero
+    const scale = (Math.min(W, H) * 0.42) / maxCoord;
+
+    // Draw grid (every 100 blocks = 1 cell)
+    ctx.strokeStyle = 'rgba(46, 46, 74, 0.5)';
+    ctx.lineWidth = 1;
+    const cellSize = 100 * scale;
+    for (let x = cx; x <= W; x += cellSize) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    for (let x = cx; x >= 0; x -= cellSize) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    for (let y = cy; y <= H; y += cellSize) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+    for (let y = cy; y >= 0; y -= cellSize) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    // Draw axes (X horizontal, Z vertical) — brighter
+    ctx.strokeStyle = 'rgba(124, 200, 74, 0.4)';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke(); // X axis
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke(); // Z axis
+
+    // Draw spawn (0,0) — gold dot with glow
+    ctx.shadowColor = '#fcb32b';
+    ctx.shadowBlur = 8;
+    ctx.fillStyle = '#fcb32b';
+    ctx.fillRect(cx - 5, cy - 5, 10, 10);
+    ctx.shadowBlur = 0;
+
+    // Draw each structure — green/teal dot + label
+    const STRUCTURE_COLORS = ['#7cc84a', '#4aedd9', '#a855f7', '#f59e0b', '#ec4899', '#06b6d4'];
+    (seed.coords || []).forEach((c, i) => {
+      const px = cx + c.x * scale;
+      const py = cy + c.z * scale;
+      const color = STRUCTURE_COLORS[i % STRUCTURE_COLORS.length];
+
+      // Outer ring
+      ctx.fillStyle = color;
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 6;
+      ctx.fillRect(px - 6, py - 6, 12, 12);
+      ctx.shadowBlur = 0;
+
+      // Inner dot (brighter)
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(px - 2, py - 2, 4, 4);
+
+      // Label (feature name) — small text next to dot
+      ctx.fillStyle = '#e6e6f2';
+      ctx.font = '10px monospace';
+      ctx.textAlign = px > cx ? 'right' : 'left';
+      ctx.textBaseline = py > cy ? 'bottom' : 'top';
+      const labelX = px + (px > cx ? -10 : 10);
+      const labelY = py + (py > cy ? -10 : 10);
+      const label = (c.label || c.feature || '').slice(0, 16);
+      ctx.fillText(label, labelX, labelY);
+
+      // Coordinate text below
+      ctx.fillStyle = '#8585a3';
+      ctx.font = '8px monospace';
+      ctx.fillText(`${c.x},${c.z}`, labelX, labelY + (py > cy ? -12 : 12));
+    });
+
+    // Draw scale text (corner)
+    ctx.fillStyle = '#8585a3';
+    ctx.font = '9px monospace';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(`مقیاس: هر ${toFa(String(Math.round(100)))} بلوک = ${toFa(String(Math.round(cellSize)))}px`, 8, 8);
+    ctx.fillText(`حداکثر فاصله: ${toFa(String(Math.round(maxCoord)))} بلوک`, 8, 22);
+
+    // N/S/E/W compass
+    ctx.fillStyle = '#fcb32b';
+    ctx.font = 'bold 12px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText('Z−', cx, 4); // North (Z negative)
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('Z+', cx, H - 4); // South (Z positive)
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('X+', W - 14, cy); // East (X positive)
+    ctx.textAlign = 'right';
+    ctx.fillText('X−', 14, cy); // West (X negative)
   }
 
   async function onSave() {
