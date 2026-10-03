@@ -3,7 +3,7 @@
   "nameEn": "Tropical Fish",
   "nameFa": "ماهی گرمسیری",
   "category": "ambient",
-  "icon": "px-cow-face",
+  "icon": "px-tropical-fish-face",
   "health": 3,
   "damage": {
     "contact": 0

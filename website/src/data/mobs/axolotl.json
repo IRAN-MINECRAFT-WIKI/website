@@ -3,7 +3,7 @@
   "nameEn": "Axolotl",
   "nameFa": "آژولوتل",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "px-axolotl-face",
   "health": 14,
   "damage": {
     "contact": 2

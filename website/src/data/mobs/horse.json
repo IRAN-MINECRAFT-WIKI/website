@@ -3,7 +3,7 @@
   "nameEn": "Horse",
   "nameFa": "اسب",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "px-horse-face",
   "health": 30,
   "damage": {
     "contact": 0

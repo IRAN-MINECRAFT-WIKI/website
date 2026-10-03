@@ -3,7 +3,7 @@
   "nameEn": "Parrot",
   "nameFa": "طوطی",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "px-parrot-face",
   "health": 6,
   "damage": {
     "contact": 0

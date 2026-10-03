@@ -3,7 +3,7 @@
   "nameEn": "Cod",
   "nameFa": "بادکن",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "px-cod-face",
   "health": 3,
   "damage": {
     "contact": 0

@@ -3,7 +3,7 @@
   "nameEn": "Mooshroom",
   "nameFa": "گاو قارچی",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "px-mooshroom-face",
   "health": 10,
   "damage": {
     "contact": 0

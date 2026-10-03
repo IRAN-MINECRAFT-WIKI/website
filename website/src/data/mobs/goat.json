@@ -3,7 +3,7 @@
   "nameEn": "Goat",
   "nameFa": "بز",
   "category": "neutral",
-  "icon": "px-cow-face",
+  "icon": "px-goat-face",
   "health": 10,
   "damage": {
     "contact": 2,

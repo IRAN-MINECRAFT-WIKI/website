@@ -3,7 +3,7 @@
   "nameEn": "Salmon",
   "nameFa": "سالمون",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "px-salmon-face",
   "health": 3,
   "damage": {
     "contact": 0

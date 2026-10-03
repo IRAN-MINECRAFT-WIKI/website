@@ -3,7 +3,7 @@
   "nameEn": "Llama",
   "nameFa": "لاما",
   "category": "neutral",
-  "icon": "px-cow-face",
+  "icon": "px-llama-face",
   "health": 22,
   "damage": {
     "contact": 1,

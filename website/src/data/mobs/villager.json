@@ -3,7 +3,7 @@
   "nameEn": "Villager",
   "nameFa": "روستایی",
   "category": "utility",
-  "icon": "px-cow-face",
+  "icon": "px-villager-face",
   "health": 20,
   "damage": {
     "contact": 0

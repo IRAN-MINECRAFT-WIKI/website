@@ -3,7 +3,7 @@
   "nameEn": "Bee",
   "nameFa": "زنبور",
   "category": "neutral",
-  "icon": "px-cow-face",
+  "icon": "px-bee-face",
   "health": 10,
   "damage": {
     "contact": 2,

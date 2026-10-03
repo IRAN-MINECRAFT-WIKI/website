@@ -3,7 +3,7 @@
   "nameEn": "Frog",
   "nameFa": "قورباغه",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "px-frog-face",
   "health": 10,
   "damage": {
     "contact": 0

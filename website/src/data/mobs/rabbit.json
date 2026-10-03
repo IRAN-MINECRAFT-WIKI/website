@@ -3,7 +3,7 @@
   "nameEn": "Rabbit",
   "nameFa": "خرگوش",
   "category": "passive",
-  "icon": "px-cow-face",
+  "icon": "px-rabbit-face",
   "health": 3,
   "damage": {
     "contact": 0

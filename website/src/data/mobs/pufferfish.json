@@ -3,7 +3,7 @@
   "nameEn": "Pufferfish",
   "nameFa": "ماهی بادی",
   "category": "ambient",
-  "icon": "px-cow-face",
+  "icon": "px-pufferfish-face",
   "health": 3,
   "damage": {
     "contact": 0,
