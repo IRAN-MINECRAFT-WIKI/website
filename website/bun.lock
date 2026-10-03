@@ -9,6 +9,7 @@
         "@astrojs/rss": "^4.0.11",
         "@astrojs/sitemap": "^3.4.1",
         "@astrojs/tailwind": "^6.0.2",
+        "@klashdevelopment/mcicons": "^1.0.2",
         "astro": "^5.6.1",
         "chart.js": "^4.5.1",
         "jalaali-js": "^2.0.1",
@@ -352,6 +353,8 @@
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.6.0", "", {}, "sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw=="],
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
+
+    "@klashdevelopment/mcicons": ["@klashdevelopment/mcicons@1.0.2", "", {}, "sha512-yLVZO4HfEvGVUNN+zL0hwrX5Pujwtwvm42hm4Ih2GAMpEnvfDiiokWP4bR33VCqH1cC3OddeMM6y04D2LsHofQ=="],
 
     "@kurkle/color": ["@kurkle/color@0.3.4", "", {}, "sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w=="],
 

@@ -5,6 +5,8 @@ import BackButton from "@components/BackButton.astro";
 import StructuredData from '@components/StructuredData.astro';
 import { mobs, MOB_CATEGORIES, getMobById, type MobInfo } from '@/lib/data';
 import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export async function getStaticPaths() {
   return mobs.map((m) => ({
@@ -17,6 +19,15 @@ const { mob } = Astro.props as { mob: MobInfo };
 const cat = MOB_CATEGORIES.find((c) => c.id === mob.category);
 
 const BASE = import.meta.env.BASE_URL;
+
+// Prefer 3D full-body renders from mcicons (mobs-render/*.webp) over
+// the old face-only textures (mobs/*.png). Falls back gracefully.
+const cleanIcon = mob.icon.replace('px-', '').replace('-face', '');
+const renderPath = path.resolve('./public/textures/mobs-render', `${cleanIcon}.webp`);
+const hasRender = fs.existsSync(renderPath);
+const mobImgSrc = hasRender
+  ? `${BASE}textures/mobs-render/${cleanIcon}.webp`
+  : `${BASE}textures/mobs/${cleanIcon}.png`;
 
 const breadcrumb = [
   { name: 'خانه', url: '/' },
@@ -76,7 +87,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Image 1: Main mob render (full body) -->
         <div class="infobox-image-main">
           <img
-            src={`${BASE}textures/mobs/${mob.icon.replace('px-', '').replace('-face', '')}.png`}
+            src={mobImgSrc}
             alt={mob.nameFa}
             width="200" height="300"
             loading="eager"
@@ -96,7 +107,7 @@ function faNum(n: number | string | undefined): string {
         <div class="infobox-image-row">
           <div class="infobox-image-small">
             <img
-              src={`${BASE}textures/mobs/${mob.icon.replace('px-', '').replace('-face', '')}.png`}
+              src={mobImgSrc}
               alt={`سر ${mob.nameFa}`}
               width="32" height="32"
               loading="lazy"
