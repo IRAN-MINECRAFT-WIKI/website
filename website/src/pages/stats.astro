@@ -290,6 +290,13 @@ const breadcrumb = [
     const local = getLocalStats();
 
     // Merge: remote (online/today/total) + local (charts)
+    // Transform byHour object → last24 array of {hour, count} for chart24
+    const byHour = local.byHour || {};
+    const last24 = [];
+    for (let h = 0; h < 24; h++) {
+      last24.push({ hour: h, count: byHour[String(h)] || 0 });
+    }
+
     const s = {
       online: remote.online || 0,
       today: remote.today || 0,
@@ -299,7 +306,7 @@ const breadcrumb = [
       lastSeen: Date.now(),
       // Transform byDay object → last30 array of {date, count}
       last30: Object.entries(local.byDay || {}).map(([date, count]) => ({ date, count })),
-      byHour: local.byHour || {},
+      last24: last24,
       hits: local.hits || {},
     };
 
