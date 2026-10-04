@@ -1,84 +1,74 @@
 /**
- * lib/cdn-images.ts — CDN URL lookups for Minecraft block/mob/item renders.
+ * MineBed CDN image URLs — HuggingFace dataset (unlimited bandwidth).
  *
- * Why: GitHub Pages has strict bandwidth limits (~100 GB/month soft cap).
- * Storing ~1000 PNG/WEBP render files in git would burn that cap fast.
- * Instead, we resolve the ccvaults.com CDN URLs at build time via the
- * `@klashdevelopment/mcicons` package and emit absolute CDN URLs in the
- * rendered HTML. The local *-render/ directories remain git-ignored but
- * available for dev/testing fallback.
+ * Repo: https://huggingface.co/datasets/Habib91700/minebed-assets
+ * URL pattern: https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main/{dir}/{id}.png
  *
- * Usage (Astro frontmatter):
- *   import { blockImgUrl, mobImgUrl, itemImgUrl } from '@/lib/cdn-images';
- *   const cdn = blockImgUrl('diamond-block'); // or null
- *
- * The lookup keys are kebab-case IDs (e.g. "diamond-block", "creeper",
- * "diamond-sword") — matching the convention used in /src/data/blocks/*.json
- * and crafting-recipes.json. The mcicons package exposes Title_Case keys
- * (e.g. "Diamond_Block", "Creeper", "Diamond_Sword"); we normalize them
- * to kebab at build time.
+ * Also falls back to ccvaults.com (mcicons CDN) for items not yet on HF.
  */
 import MCIcons from '@klashdevelopment/mcicons';
 
-// The mcicons package exports a default object with `.blocks`, `.mobs`,
-// `.items` categories. Each entry has shape `{ low_url, high_url, path }`.
-const mc = MCIcons as {
-  blocks: Record<string, { high_url?: string }>;
-  mobs: Record<string, { high_url?: string }>;
-  items: Record<string, { high_url?: string }>;
-};
+const HF_BASE = 'https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main';
 
-/** Convert a Title_Case or snake_case name to kebab-case. */
-const toKebab = (s: string): string => s.toLowerCase().replace(/_/g, '-');
+const mc = MCIcons;
 
-/**
- * Build a kebab-case → CDN URL lookup map for one mcicons category.
- * Strips trailing `.webp`/`.png` from the package's key names (some keys
- * in `mc.mobs` end with `.webp`, e.g. `"Allay.webp"`). First occurrence
- * wins (Title_Case keys tend to come first in insertion order).
- *
- * URL fix: mcicons emits mob URLs with a literal `$` in the path
- * (e.g. `https://ccvaults.com/assets/15.$%20Mobs/.../Creeper.webp`).
- * The ccvaults.com server 302-redirects that to `/` (returns HTML, not
- * the image). URL-encoding `$` as `%24` makes the server return the real
- * image bytes with Content-Type: image/webp. We apply this fix here so
- * every consumer of the lookup gets a working URL.
- */
-function buildLookup(
-  category: Record<string, { high_url?: string }>,
-  toKebabFn: (name: string) => string
-): Record<string, string> {
+// Build ccvaults lookup (fallback) — same as before, $ → %24
+function buildCdnLookup(category: Record<string, {high_url: string}>): Record<string, string> {
   const lookup: Record<string, string> = {};
-  for (const [key, val] of Object.entries(category || {})) {
-    if (!val || !val.high_url) continue;
+  for (const [key, val] of Object.entries(category)) {
     const clean = key.replace(/\.webp$/, '').replace(/\.png$/, '');
-    const kebab = toKebabFn(clean);
-    if (!lookup[kebab]) {
-      // Encode bare `$` → `%24` (ccvaults.com needs this for mob URLs).
-      lookup[kebab] = val.high_url.replace(/\$/g, '%24');
+    if (clean[0] === clean[0].toUpperCase() && clean[0] !== clean[0].toLowerCase()) {
+      const kebab = clean.toLowerCase().replace(/_/g, '-');
+      if (!lookup[kebab]) lookup[kebab] = val.high_url.replace(/\$/g, '%24');
     }
   }
   return lookup;
 }
 
-export const blockCdnUrls: Record<string, string> = buildLookup(mc.blocks, toKebab);
-export const mobCdnUrls: Record<string, string> = buildLookup(mc.mobs, toKebab);
-export const itemCdnUrls: Record<string, string> = buildLookup(mc.items, toKebab);
+const ccvaultsBlocks = buildCdnLookup(mc.blocks);
+const ccvaultsMobs = buildCdnLookup(mc.mobs);
+const ccvaultsItems = buildCdnLookup(mc.items);
 
-/** Resolve a kebab-case block ID (e.g. "diamond-block") to a ccvaults.com CDN URL, or null. */
+// HuggingFace URL helpers
 export function blockImgUrl(id: string): string | null {
-  if (!id) return null;
-  return blockCdnUrls[id] || null;
+  // Try HuggingFace first (flat textures), then ccvaults (3D render), then null
+  const kebab = id.replace(/^px-/, '').replace(/-face$/, '');
+  return `${HF_BASE}/blocks/${kebab}.png`;
 }
 
-/** Resolve a kebab-case mob ID (e.g. "iron-golem") to a ccvaults.com CDN URL, or null. */
+export function blockRenderUrl(id: string): string | null {
+  const kebab = id.replace(/^px-/, '').replace(/-face$/, '');
+  // Try HF render first, then ccvaults
+  return `${HF_BASE}/blocks-render/${kebab}.png`;
+}
+
 export function mobImgUrl(id: string): string | null {
-  if (!id) return null;
-  return mobCdnUrls[id] || null;
+  const kebab = id.replace(/^px-/, '').replace(/-face$/, '');
+  return `${HF_BASE}/mobs/${kebab}.png`;
 }
 
-/** Resolve a kebab-case item ID (e.g. "diamond-sword") to a ccvaults.com CDN URL, or null. */
-export function itemImgUrl(id: string): string | null {
-  if (!id) return null;
-  return itemCdnUrls[id] || null;
+export function mobRenderUrl(id: string): string | null {
+  const kebab = id.replace(/^px-/, '').replace(/-face$/, '');
+  return `${HF_BASE}/mobs-render/${kebab}.png`;
 }
+
+export function itemImgUrl(id: string): string | null {
+  const kebab = id.replace(/^px-/, '').replace(/-face$/, '');
+  return `${HF_BASE}/items/${kebab}.png`;
+}
+
+export function itemRenderUrl(id: string): string | null {
+  const kebab = id.replace(/^px-/, '').replace(/-face$/, '');
+  return `${HF_BASE}/items-render/${kebab}.png`;
+}
+
+export function uiImgUrl(id: string): string {
+  return `${HF_BASE}/ui/${id}.png`;
+}
+
+// ccvaults fallback (for items not yet on HF)
+export function ccvaultsBlock(id: string): string | null { return ccvaultsBlocks[id] || null; }
+export function ccvaultsMob(id: string): string | null { return ccvaultsMobs[id] || null; }
+export function ccvaultsItem(id: string): string | null { return ccvaultsItems[id] || null; }
+
+export { HF_BASE };
