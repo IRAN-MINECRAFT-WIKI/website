@@ -5,9 +5,25 @@
   "category_name": "Any%",
   "category_slug": "any",
   "miscellaneous": false,
-  "fetched_at": "2026-10-04T02:49:04.946307+00:00",
+  "fetched_at": "2026-10-05T02:16:58.081941+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "zxrjx2kz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/zxrjx2kz",
+      "category": "Any%",
+      "platform": "Bedrock",
+      "time_primary": 222.867,
+      "time_display": "3m 42s 867ms",
+      "date": "2026-10-01",
+      "players": [
+        "Khalooody"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.2.13",
+      "seed_type": "Random Seed"
+    },
     {
       "id": "yog0w60m",
       "weblink": "https://www.speedrun.com/mcbe/runs/yog0w60m",
@@ -109,8 +125,8 @@
       "weblink": "https://www.speedrun.com/mcbe/runs/ylw1e5rz",
       "category": "Any%",
       "platform": "Bedrock",
-      "time_primary": 222.0,
-      "time_display": "3m 42s",
+      "time_primary": 222.133,
+      "time_display": "3m 42s 133ms",
       "date": "2026-08-24",
       "players": [
         "guccigang"
@@ -1591,22 +1607,6 @@
       "verified": true,
       "version": "1.21.23",
       "seed_type": "Set Seed"
-    },
-    {
-      "id": "zpxg52vm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zpxg52vm",
-      "category": "Any%",
-      "platform": "Bedrock",
-      "time_primary": 509.0,
-      "time_display": "8m 29s",
-      "date": "2024-09-13",
-      "players": [
-        "CZX"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.2.13",
-      "seed_type": "Random Seed"
     }
   ]
 }

@@ -5,7 +5,7 @@
   "category_name": "Set Seed Solo",
   "category_slug": "set-seed-solo",
   "miscellaneous": false,
-  "fetched_at": "2026-10-04T02:49:04.946307+00:00",
+  "fetched_at": "2026-10-05T02:16:58.081941+00:00",
   "count": 100,
   "runs": [
     {
@@ -193,7 +193,7 @@
       "time_display": "0s 567ms",
       "date": "2026-08-09",
       "players": [
-        "TimDuncan"
+        "bozagg"
       ],
       "seed": null,
       "verified": true,
@@ -433,7 +433,7 @@
       "time_display": "1s 67ms",
       "date": "2026-07-29",
       "players": [
-        "TimDuncan"
+        "bozagg"
       ],
       "seed": null,
       "verified": true,
