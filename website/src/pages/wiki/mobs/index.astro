@@ -7,17 +7,20 @@ import {
   type MobInfo,
 } from '@/lib/data';
 import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
-import { mobImgUrl } from '@/lib/cdn-images';
+import { mobImgUrl, mobRenderUrl } from '@/lib/cdn-images';
 import fs from 'node:fs';
 import path from 'node:path';
 
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 
-// Helper: prefer ccvaults.com CDN URL (no GitHub Pages bandwidth cost).
-// Fallback chain: CDN → local 3D render (dev only) → face-only PNG.
+// Helper: prefer 3D render from HuggingFace (all 52 mobs have renders).
+// Fallback: flat texture → local render (dev) → face-only PNG.
 function mobImg(icon: string): string {
   const clean = icon.replace(/^px-/, '').replace(/-face$/, '');
+  // Always try HF 3D render first (all 52 mobs have renders on HF)
+  const render = mobRenderUrl(clean);
+  if (render) return render;
   const cdn = mobImgUrl(clean);
   if (cdn) return cdn;
   const renderPath = path.resolve('./public/textures/mobs-render', `${clean}.webp`);

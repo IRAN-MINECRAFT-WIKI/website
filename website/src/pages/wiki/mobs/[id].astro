@@ -5,7 +5,7 @@ import BackButton from "@components/BackButton.astro";
 import StructuredData from '@components/StructuredData.astro';
 import { mobs, MOB_CATEGORIES, getMobById, type MobInfo } from '@/lib/data';
 import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
-import { mobImgUrl } from '@/lib/cdn-images';
+import { mobImgUrl, mobRenderUrl } from '@/lib/cdn-images';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -21,17 +21,20 @@ const cat = MOB_CATEGORIES.find((c) => c.id === mob.category);
 
 const BASE = import.meta.env.BASE_URL;
 
-// Prefer ccvaults.com CDN URL (no GitHub Pages bandwidth cost).
-// Fallback chain: CDN → local 3D render (dev only) → face-only PNG.
+// Prefer 3D render from HuggingFace (all 52 mobs have renders on HF).
+// Fallback chain: HF render → HF flat → local render (dev) → face-only PNG.
 const cleanIcon = mob.icon.replace(/^px-/, '').replace(/-face$/, '');
-const cdnUrl = mobImgUrl(cleanIcon) || mobImgUrl(mob.id);
+const renderCdn = mobRenderUrl(cleanIcon) || mobRenderUrl(mob.id);
+const flatCdn = mobImgUrl(cleanIcon) || mobImgUrl(mob.id);
 const renderPath = path.resolve('./public/textures/mobs-render', `${cleanIcon}.webp`);
 const hasRender = fs.existsSync(renderPath);
-const mobImgSrc = cdnUrl
-  ? cdnUrl
-  : hasRender
-    ? `${BASE}textures/mobs-render/${cleanIcon}.webp`
-    : `${BASE}textures/mobs/${cleanIcon}.png`;
+const mobImgSrc = renderCdn
+  ? renderCdn
+  : flatCdn
+    ? flatCdn
+    : hasRender
+      ? `${BASE}textures/mobs-render/${cleanIcon}.webp`
+      : `${BASE}textures/mobs/${cleanIcon}.png`;
 
 const breadcrumb = [
   { name: 'خانه', url: '/' },
