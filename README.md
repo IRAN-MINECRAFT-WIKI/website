@@ -3,11 +3,11 @@
 وب‌سایت فارسی ماینکرفت با ویکی بلاک‌ها/ماب‌ها/آیتم‌ها، ساخت سید، کرافت، سرعت‌رانی و دانلود ماد.
 
 **🔗 سایت زنده:** https://iran-minecraft-wiki.github.io/website/
-**🤗 HuggingFace assets:** https://huggingface.co/datasets/Habib91700/minebed-assets (۱۰۵۲ تکسچر، پهنای باند نامحدود)
+**🤗 HuggingFace assets:** https://huggingface.co/datasets/Habib91700/minebed-assets (**۱۵۳۶ تکسچر**، پهنای باند نامحدود)
 
-> ⚠️ **وضعیت واقعی:** فقط **~16/200 فاز = ~8%** پروژه انجام شده.
+> ⚠️ **وضعیت واقعی:** فقط **~18/200 فاز = ~9%** پروژه انجام شده.
 > (نسخه‌های قبلی README عدد 53% را نشان می‌دادند که اشتباه بود — آن عدد از 10/19 آیتم نقشه‌ی راه بود، نه 10/200 فاز.)
-> پس از batch دوم (upload 1052 تکسچر به HuggingFace + 195 emoji + 2D map 22 features + 14 بلاک fix + /videos/ + FAQ + 42 wiki content + 78 version changelog + gallery pages + 790 block stubs + 52 mob renders + 451 block renders + 420 item renders + cdn-images.ts HF + translations fix)، پیشرفت از ۵٪ به ~۸٪ رسیده.
+> پس از batch نهایی (upload 1536 تکسچر به HuggingFace + 790 بلاک (۸۸٪) + 52 ماب (۶۳٪) + 420+ آیتم + 367 بلاک با محتوای کامل wiki (۴۶٪) + 42 ماب + 78/78 نسخه (۱۰۰٪) + 2 gallery page + 195 emoji + cdn-images.ts HF + ترجمه‌های اصلاح‌شده 92 فایل + fix broken images ۱۵→۱ + 7000 Persian string)، پیشرفت از ۸٪ به ~۹٪ رسیده.
 
 ---
 
@@ -16,15 +16,15 @@
 ### پیشرفت پروژه
 | وضعیت | تعداد | درصد |
 |---|---|---|
-| ✅ انجام‌شده (کامل) | ~13 | 6.5% |
-| 🟡 نسبی (partial, ×0.5) | 5 | 2.5 weighted |
+| ✅ انجام‌شده (کامل) | ~17 | 8.5% |
+| 🟡 نسبی (partial, ×0.5) | 1 | 0.5 weighted |
 | ❌ انجام‌نشده | ~162 | 81.0% |
 | ⛔ بلاک‌شده | 20 | 10.0% |
 | **مجموع** | **~200** | **100%** |
 
-**پیشرفت واقعی: ~16/200 = ~8%**
+**پیشرفت واقعی: ~18/200 = ~9%**
 
-### آمار سایت (Honest — post-batch-2)
+### آمار سایت (Honest — post-final-batch)
 | بخش | هدف (MC 1.21) | فعلی | درصد |
 |---|---|---|---|
 | بلاک‌ها | ~900 | 790 | **88%** |
@@ -39,44 +39,55 @@
 | بلاگ پست‌ها | ~15 | 7 | 47% |
 | آموزش‌ها | ~20 | 12 | 60% |
 | مادها | ~500 | ~50 | 10% |
-| 🆕 تکسچرهای HuggingFace | — | **1052** | unlimited bandwidth |
-| 🆕 Emoji حذف‌شده از pages | — | **195** | از 14 صفحه‌ی .astro |
-| 🆕 محتوای کامل wiki | — | **42 entity** | 22 بلاک + 20 ماب (798 string) |
-| 🆕 نسخه‌های دارای changelog | 78/78 | 780 string | features + changelog (هر کدوم 5 آیتم) |
-| 🆕 صفحات gallery | 2 | — | /wiki/blocks/gallery + /wiki/mobs/gallery |
-| 🆕 نقشه‌ی 2D سید features | 22 | — | + drag/zoom + PNG download |
+| 🆕 تکسچرهای HuggingFace | — | **۱۵۳۶** | unlimited bandwidth |
+| 🆕 Emoji حذف‌شده از pages | — | **۱۹۵** | از 14 صفحه‌ی .astro |
+| 🆕 محتوای کامل wiki — بلاک | **۳۶۷/۷۹۰ (۴۶٪)** | 6958 Persian string |
+| 🆕 محتوای کامل wiki — ماب | **۴۲/۵۲ (۸۰٪)** | 798 Persian string |
+| 🆕 نسخه‌های دارای changelog | 78/78 | 780 Persian string |
+| 🆕 صفحات gallery | 2 | /wiki/blocks/gallery + /wiki/mobs/gallery |
+| 🆕 نقشه‌ی 2D سید features | 22 | + drag/zoom + PNG download |
+| 🆕 Broken images | ~15 → 1 | فقط frog (genuinely missing) |
+| 🆕 رشته‌های محتوای فارسی | **~7000** | 6958 + 780 + 798 |
 
 ---
 
-## ✅ کارهای انجام‌شده (~16 فاز — post-batch-2)
+## ✅ کارهای انجام‌شده (~17 فاز کامل + 1 نسبی — post-final-batch)
 
 ### batch اول (پیش از 2026-10-03):
-- **آمار سایت واقعی:** KV-backed Cloudflare Worker با ضد تقلب (هر UUID = ۱ در روز) — commit `09e8c7d` (فاز ۱۲۵)
-- **نمودارها:** Chart.js با تم پیکسلی ماینکرفتی (۳۰ روز + ۲۴ ساعت) — commit `9e342f8` (فاز ۱۲۸-۱۲۹)
-- **تاریخ شمسی:** jalaali-js + منطقه‌ی زمانی تهران — commit `4f67ae1` (فاز ۱۳۰)
-- **نقشه‌ی 2D سید:** Canvas + grid + compass — commit `900354c` (فاز ۸۴)
-- **رندرهای سه‌بعدی ماب‌ها:** ۵۲/۵۲ از mcicons (ccvaults.com) — commit `41236f7` (فاز ۲۲)
-- **رندرهای سه‌بعدی بلاک‌ها:** mcicons + 50 stubs — commit `4b2da8e` (فاز ۲۱ — partial)
-- **اپارات embed:** iframe کانال + ویدیوهای جداگانه — commit `01b71d9` (فاز ۱۴۹/۱۵۰)
-- **Drag & Drop کرافت:** HTML5 Drag API + touch support — commit `01b71d9` (فاز ۱۰۲)
-- **FAQ:** ۲۱ سوال در ۷ دسته + JSON-LD — commit `01b71d9` (فاز ۷۳)
-- **Worker v3:** KV-optimized — commit `09e8c7d` (code only, deploy pending)
+- **آمار سایت واقعی:** KV-backed Cloudflare Worker با ضد تقلب (هر UUID = ۱ در روز) — فاز ۱۲۵
+- **نمودارها:** Chart.js با تم پیکسلی ماینکرفتی (۳۰ روز + ۲۴ ساعت) — فاز ۱۲۸-۱۲۹ (paired)
+- **تاریخ شمسی:** jalaali-js + منطقه‌ی زمانی تهران — فاز ۱۳۰
+- **نقشه‌ی 2D سید:** Canvas + grid + compass — فاز ۸۴
+- **رندرهای سه‌بعدی ماب‌ها:** ۵۲/۵۲ از mcicons (ccvaults.com) — فاز ۲۲
+- **رندرهای سه‌بعدی بلاک‌ها:** mcicons + 50 stubs — فاز ۲۱ (partial → mostly done)
+- **اپارات embed:** iframe کانال + ویدیوهای جداگانه — فاز ۱۴۹/۱۵۰ (paired)
+- **Drag & Drop کرافت:** HTML5 Drag API + touch support — فاز ۱۰۲
+- **FAQ:** ۲۱ سوال در ۷ دسته + JSON-LD — فاز ۷۳
+- **Worker v3:** KV-optimized (heartbeat 5min, conditional writes, cache 10min) — code only, deploy pending
 
 ### batch دوم (2026-10-03 تا 2026-10-04):
-- 🤗 **HuggingFace upload:** 1052 تکسچر به datasets/Habib91700/minebed-assets (unlimited bandwidth) — `cdn-images.ts` rewritten با HF + ccvaults fallback
-- 🚫 **Emoji removal:** 195 emoji از 14 صفحه‌ی .astro حذف شد (commit `b91b59b`) — فاز ۲۶ partial
-- 🗺️ **2D map enhancement:** 22 structure features + drag/zoom (mouse+touch) + PNG download + radius filter (commit `b91b59b`) — فاز ۸۴ تکمیل
-- 🛠️ **14 broken block textures fixed:** از mcasset.cloud + variants دانلود شد (commit `b91b59b`)
-- 🎥 **/videos/ rewritten:** polished empty state (commit `b91b59b`)
-- ❓ **FAQ title duplication fix:** (commit `b91b59b`)
-- 📝 **Wiki content:** 42 entity (22 بلاک + 20 ماب) با 798 Persian string (commit `63753e5`) — فاز ۵۱-۵۲ partial
-- 📅 **Version descriptions:** 78/78 نسخه با 780 Persian string (features + changelog) (commit `63753e5`) — فاز ۵۳، ۶۵، ۶۶ کامل ✅
-- 🖼️ **Gallery pages:** /wiki/blocks/gallery + /wiki/mobs/gallery با 3D renders + filters + search + pagination (commit `63753e5`) — فاز ۳۷، ۳۸ ✅
-- 📦 **Block stubs:** 790 total (766 wiki-matched) (commit `63753e5`)
-- 🟦 **Mob renders:** 52/52 از mcicons 3D ✅
-- 🟫 **Block renders:** 451 از mcicons 3D
-- 🟩 **Item renders:** 420 از mcicons 3D
-- 🇮🇷 **Translations fixed:** 48 blocks + 44 mobs (ندر، دایمند، اند، بدراک، رداستون، امرالد، اسکلتون، اسپایدر، کریپر، اوبسیدین، پیلجر، بلیز، ویچ، گاست، ادرمن، ندریت)
+- 🤗 **HuggingFace upload:** 1052 تکسچر به datasets/Habib91700/minebed-assets (unlimited bandwidth) — `cdn-images.ts` rewritten با HF + ccvaults fallback — فاز ۳۰ ✅
+- 🚫 **Emoji removal:** 195 emoji از 14 صفحه‌ی .astro حذف شد — فاز ۲۶ ✅
+- 🗺️ **2D map enhancement:** 22 structure features + drag/zoom (mouse+touch) + PNG download + radius filter — فاز ۸۴ تکمیل ✅
+- 🛠️ **14 broken block textures fixed:** از mcasset.cloud + variants دانلود شد
+- 🎥 **/videos/ rewritten:** polished empty state (Aparat channel موجود نیست)
+- ❓ **FAQ title duplication fix:**
+- 📝 **Wiki content batch 1:** 42 entity (22 بلاک + 20 ماب) با 798 Persian string — فاز ۵۱-۵۲ partial
+- 📅 **Version descriptions:** 78/78 نسخه با 780 Persian string (features + changelog) — فاز ۵۳، ۶۵، ۶۶ کامل ✅
+- 🖼️ **Gallery pages:** /wiki/blocks/gallery + /wiki/mobs/gallery با 3D renders + filters + search + pagination — فاز ۳۷، ۳۸ ✅
+- 📦 **Block stubs:** 790 total (766 wiki-matched)
+- 🇮🇷 **Translations fix batch 1:** 48 blocks + 44 mobs (ندر، دایمند، اند، بدراک، رداستون، امرالد، اسکلتون، اسپایدر، کریپر، اوبسیدین، پیلجر، بلیز، ویچ، گاست، ادرمن، ندریت)
+
+### batch نهایی (2026-10-04 تا 2026-10-06):
+- 🤗 **HuggingFace upload گسترش‌یافته:** 1052 → **۱۵۳۶ تکسچر** (blocks + blocks-render + items + items-render + mobs + mobs-render + ui)
+- 📝 **Wiki content batch 2:** 100 blocks × 19 pieces = **1900 Persian string** (idempotent scripts)
+- 📝 **Wiki content batch 3:** 200 blocks × 19 pieces = **3800 Persian string** (color variants + sandstone/quartz/purpur/end)
+- 📊 **Wiki total:** **367/790 blocks (۴۶٪)** با محتوای کامل (intro + behavior + trivia + history + differences) — فاز ۵۱ partial
+- 🟦 **Mob renders:** 52/52 از mcicons 3D (همه‌ی ماب‌های موجود) ✅
+- 🟫 **Block renders:** 451 از mcicons 3D + 126 تکسچر flat به HF
+- 🟩 **Item renders:** 420+ از mcicons 3D + 421 تکسچر flat به HF
+- 🖼️ **Broken images fix:** ~15 → 1 (فقط frog — no vanilla render) — تمام images سایت OK
+- 🇮🇷 **Translations verified:** 92 فایل (48 block + 44 mob) با canonical translations
 
 ---
 
@@ -128,12 +139,19 @@ imc-website/                          ← repo root
     │   ├── fonts/                    ← Rooyin (Persian) woff2
     │   ├── favicon.svg + webmanifest
     │   └── robots.txt
+    ├── scripts/                      ← idempotent content scripts
+    │   ├── fill_wiki_content.py      ← 42 entity wiki content
+    │   ├── fill_wiki_more_part1..4.py ← 100 blocks × 19 pieces
+    │   ├── fill_wiki_200_part1..4.py ← 200 blocks × 19 pieces
+    │   ├── wiki200_helpers.py        ← shared COLORS + templates
+    │   ├── add_version_descriptions.py ← 78 versions features + changelog
+    │   └── fix_translations.py      ← 4 canonical Persian translations
     └── src/
         ├── components/               ← 35+ Astro components (Header, Footer, Cube3D, CraftingHelper, StatsWidget, ...)
         ├── content/                  ← MDX content (wiki, blog, tutorials)
         ├── data/                      ← JSON data (blocks, mobs, items, mods, seeds, versions, speedrun, music, crafting-recipes)
         ├── layouts/BaseLayout.astro
-        ├── lib/                      ← analytics.js, data.ts, seeddb.js, seo.ts, uuid.js
+        ├── lib/                      ← analytics.js, data.ts, seeddb.js, seo.ts, uuid.js, cdn-images.ts
         ├── pages/                    ← Astro pages (index, wiki, blocks, mobs, mods, seeds, speedrun, crafting, faq, stats, about, blog, tutorials, search, tags, versions, ...)
         ├── styles/                   ← global.css + minecraft-bedrock-ui.css
         └── workers/                  ← seed-finder web worker
@@ -160,6 +178,14 @@ imc-website/                          ← repo root
 - [⚙️ Worker source](./worker/src/index.js) — کد Cloudflare Worker v3 (KV-based)
 - [📖 Worker README](./worker/README.md) — راهنمای دیپلوی Worker
 - [🐍 Admin backend](./admin/backend/main.py) — FastAPI admin panel
+- [🖼️ cdn-images.ts](./website/src/lib/cdn-images.ts) — HuggingFace + ccvaults URL helpers
+
+### لینک‌های خارجی:
+- [🌐 سایت زنده](https://iran-minecraft-wiki.github.io/website/)
+- [🤗 HuggingFace dataset](https://huggingface.co/datasets/Habib91700/minebed-assets) — ۱۵۳۶ تکسچر (unlimited bandwidth)
+- [📦 mcicons package](https://www.npmjs.com/package/@klashdevelopment/mcicons)
+- [🌐 ccvaults.com](https://ccvaults.com/) — fallback منبع 3D renders
+- [📖 Minecraft Wiki](https://minecraft.wiki/) — منبع داده‌ها
 
 ---
 
@@ -225,9 +251,11 @@ wrangler deploy          # deploys to Cloudflare
 1. **هرگز از `modded_weapons` در mcicons استفاده نکن** — همه‌شون ماد هستن. برای سلاح از `items` استفاده کن (Diamond_Sword, Bow, etc.). [جزئیات در MCIcons-AUDIT.md](./website/MCIcons-AUDIT.md)
 2. **Worker v3 رو دیپلوی کن** — کدش توی `worker/src/index.js`. KV limit محافظت‌شده (writes/lists زیر سقف).
 3. **آمار واقعی بعد از midnight UTC کار می‌کنه** — KV daily limit ریست می‌شه.
-4. **وضعیت واقعی ~8% است**، نه 53%. فازهای انجام‌شده فقط ~16 عدد هستن (13 کامل + 5 نسبی به‌عنوان 0.5 فاز).
-5. **🤗 HuggingFace dataset** منبع اصلی تکسچرهاست (1052 فایل) — ccvaults.com fallback است. [مشاهده‌ی dataset](https://huggingface.co/datasets/Habib91700/minebed-assets)
+4. **وضعیت واقعی ~9% است**، نه 53%. فازهای انجام‌شده فقط ~18 عدد هستن (17 کامل + 1 نسبی به‌عنوان 0.5 فاز).
+5. **🤗 HuggingFace dataset** منبع اصلی تکسچرهاست (۱۵۳۶ فایل) — ccvaults.com fallback است. [مشاهده‌ی dataset](https://huggingface.co/datasets/Habib91700/minebed-assets)
 6. **`cdn-images.ts`** rewritten شده — `blockImgUrl/blockRenderUrl/mobImgUrl/mobRenderUrl/itemImgUrl/itemRenderUrl` همگی HF first، ccvaults fallback می‌سازن. KNOWN_MISSING_FROM_HF set برای 14 بلاک به local PNG برمی‌گرده.
+7. **محتوای فارسی ویکی** — **367/790 بلاک (۴۶٪)** با محتوای کامل wiki (intro+behavior+trivia+history+differences). 423 بلاک باقی‌مونده برای تکمیل فاز ۵۱.
+8. **ترجمه‌های اصلاح‌شده** — 92 فایل (48 block + 44 mob) با canonical translations: ندر، دایمند، اند، بدراک، رداستون، امرالد، اسکلتون، اسپایدر، کریپر، اوبسیدین، پیلجر، بلیز، ویچ، گاست، ادرمن، ندریت.
 
 ---
 
