@@ -239,7 +239,7 @@
       "codename": "Caves & Cliffs Part 2",
       "major": 1,
       "minor": 18,
-      "icon": "px-stone-block",
+      "icon": "px-stone",
       "summary": "بخش دوم Caves & Cliffs با World Generation جدید، غارهای بزرگ‌تر و کوه‌های بلندتر.",
       "description": "نسخه‌ی ۱.۱۸ که بخش دوم آپدیت بزرگ Caves & Cliffs است، World Generation بازی را کاملاً دگرگون کرد. غارها به اشکال مختلف مثل Lush Caves و Dripstone Caves درآمدند و عمیق‌تر شدند. کوه‌ها به ارتفاع ۲۵۶ بلوک رسیدند و بیوم‌های Meadow و Grove اضافه شد.",
       "highlights": [
@@ -423,7 +423,7 @@
       "codename": "Update Aquatic",
       "major": 1,
       "minor": 13,
-      "icon": "px-water-bucket",
+      "icon": "px-water",
       "summary": "آپدیت بزرگ آبی با اقیانوس‌های بازطراحی‌شده، coral، کelp و موجودات دریایی.",
       "description": "نسخه‌ی ۱.۱۳ با نام Update Aquatic در ژوئیه ۲۰۱۸ منتشر شد و یکی از بزرگ‌ترین آپدیت‌های آبی تاریخ ماینکرفت است. اقیانوس‌ها کاملاً بازطراحی شدند با Coral Reefs، Kelp Forest و Sea Grass. موجودات جدید مثل Dolphin، Turtle و Drowned اضافه شدند. Tri-Tongue Block و Conduit نیز اضافه شد.",
       "highlights": [
@@ -571,7 +571,7 @@
       "codename": "Combat Update",
       "major": 1,
       "minor": 9,
-      "icon": "px-sword-diamond",
+      "icon": "px-diamond-sword",
       "summary": "آپدیت مبارزه با سیستم Combat جدید، Shield و Elytra.",
       "description": "نسخه‌ی ۱.۹ با نام Combat Update در فوریه ۲۰۱۶ منتشر شد و بزرگ‌ترین تغییر در سیستم مبارزه از زمان نسخه‌ی Beta را به ارمغان آورد. شروع Cool Down برای حملات، اضافه شدن Shield، و Elytra برای پرواز. End City و Shulker نیز اضافه شد.",
       "highlights": [
@@ -608,7 +608,7 @@
       "codename": "Bountiful Update",
       "major": 1,
       "minor": 8,
-      "icon": "px-stone-block",
+      "icon": "px-stone",
       "summary": "آپدیت فراوان با Ocean Monument، Guardian و Underwater Ruins.",
       "description": "نسخه‌ی ۱.۸ با نام Bountiful Update در سپتامبر ۲۰۱۴ منتشر شد. این نسخه Ocean Monument را به اقیانوس‌ها اضافه کرد. Guardian و Elder Guardian موجودات دریایی جدیدی هستند. Rabbit و Slime Block نیز اضافه شد.",
       "highlights": [
@@ -1963,7 +1963,7 @@
       "codename": "Caves & Cliffs Part 2",
       "major": 1,
       "minor": 18,
-      "icon": "px-stone-block",
+      "icon": "px-stone",
       "summary": "هماهنگی کامل با Java 1.18 و رفع اشکال.",
       "description": "نسخه‌ی 1.18.30 بدراک در فوریه ۲۰۲۲ منتشر شد و هماهنگی کامل با Java 1.18 را فراهم می‌کند. این نسخه World Generation جدید با ارتفاع ۳۸۴ بلوک، Lush Caves و Dripstone Caves را اضافه کرد.",
       "highlights": [
@@ -2292,7 +2292,7 @@
       "codename": "Pandora's Box",
       "major": 1,
       "minor": 8,
-      "icon": "px-stone-block",
+      "icon": "px-stone",
       "summary": "اضافه شدن Pandas، Cats و Bamboo.",
       "description": "نسخه‌ی 1.8.0 بدراک در دسامبر ۲۰۱۸ منتشر شد. این نسخه Pandas، Cats جدید و Bamboo Jungle را اضافه کرد. Structure Block نیز اضافه شد.",
       "highlights": [
@@ -2329,7 +2329,7 @@
       "codename": "Update Aquatic",
       "major": 1,
       "minor": 7,
-      "icon": "px-water-bucket",
+      "icon": "px-water",
       "summary": "هماهنگی با Java 1.13 با اقیانوس‌های بازطراحی‌شده و Coral.",
       "description": "نسخه‌ی 1.7.0 بدراک با نام Update Aquatic در اکتبر ۲۰۱۸ منتشر شد و با Java 1.13 هماهنگ است. این نسخه اقیانوس‌ها را کاملاً بازطراحی کرد. Coral، Kelp و Dolphin اضافه شد.",
       "highlights": [
@@ -2366,7 +2366,7 @@
       "codename": "Update Aquatic Part 2",
       "major": 1,
       "minor": 6,
-      "icon": "px-water-bucket",
+      "icon": "px-water",
       "summary": "بخش دوم Update Aquatic با Coral و Drowned.",
       "description": "نسخه‌ی 1.6.0 بدراک در آگوست ۲۰۱۸ منتشر شد. این نسخه بخش دوم Update Aquatic است. Coral Reefs، Drowned و Shipwrecks اضافه شد.",
       "highlights": [
@@ -2403,7 +2403,7 @@
       "codename": "Update Aquatic Phase 1",
       "major": 1,
       "minor": 5,
-      "icon": "px-water-bucket",
+      "icon": "px-water",
       "summary": "بخش اول Update Aquatic با Coral و Ocean Monument.",
       "description": "نسخه‌ی 1.5.0 بدراک در مِ ۲۰۱۸ منتشر شد. این نسخه بخش اول Update Aquatic است. Coral، Kelp و Ocean Monument بهبود یافت.",
       "highlights": [
@@ -2440,7 +2440,7 @@
       "codename": "Update Aquatic Preview",
       "major": 1,
       "minor": 4,
-      "icon": "px-water-bucket",
+      "icon": "px-water",
       "summary": "پیش‌نمایش Update Aquatic و رفع اشکال.",
       "description": "نسخه‌ی 1.4.0 بدراک در دسامبر ۲۰۱۷ منتشر شد. این نسخه پیش‌نمایش Update Aquatic (Coral، Kelp) را شامل می‌شود. رفع اشکال فراوان.",
       "highlights": [
