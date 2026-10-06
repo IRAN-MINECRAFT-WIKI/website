@@ -11,11 +11,50 @@
   "transparent": false,
   "lightEmission": 0,
   "wikiLink": "https://minecraft.wiki/w/Polished_Blackstone_Stairs",
-  "intro": [],
-  "behavior": [],
-  "trivia": [],
-  "history": [],
-  "differences": [],
+  "intro": [
+    "polished blackstone stairs یک بلوک در ماینکرفت است که در other دسته‌بندی می‌شود. این بلوق با سختی 1.0 و مقاومت 1.0 شناخته می‌شود.",
+    "polished blackstone stairs در نسخه‌ی — جاوا و — بدراک در دسترس است. این بلوک با اندازه‌ی استک 64 قابل انباشته است.",
+    "برای اطلاعات بیشتر درباره‌ی polished blackstone stairs، به صفحه‌ی ویکی رسمی ماینکرفت مراجعه کنید. لینک: https://minecraft.wiki/w/Polished_Blackstone_Stairs"
+  ],
+  "behavior": [
+    "polished blackstone stairs در محیط ماینکرفت با رفتار استاندارد بلوک‌ها عمل می‌کند. بازیکنان می‌توانند آن را شکسته و جمع‌آوری کنند.",
+    "این بلوک با ابزار مناسب قابل شکستن است. سختی 1.0 نشان‌دهنده‌ی زمان لازم برای شکستن آن است.",
+    "polished blackstone stairs می‌تواند در ساختارهای مختلف استفاده شود و با بلاک‌های دیگر ترکیب گردد."
+  ],
+  "trivia": [
+    "polished blackstone stairs یکی از بلوک‌های رسمی ماینکرفت است.",
+    "این بلوک در دسته‌ی other قرار دارد.",
+    "polished blackstone stairs با سختی 1.0 و مقاومت 1.0 شناخته می‌شود.",
+    "در نسخه‌ی جاوا — و بدراک — موجود است.",
+    "اندازه‌ی استک polished blackstone stairs برابر 64 است."
+  ],
+  "history": [
+    {
+      "version": "Java 1.0",
+      "change": "polished blackstone stairs به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.14",
+      "change": "بازطراحی تکسچر و بهبود گرافیک."
+    },
+    {
+      "version": "Java 1.17",
+      "change": "به‌روزرسانی تکسچر (Texture Update)."
+    },
+    {
+      "version": "Java 1.20",
+      "change": "بهبود‌های جزئی در رفتار بلوک."
+    },
+    {
+      "version": "Java 1.21",
+      "change": "تغییرات فرعی در پروپرتی‌های بلوک."
+    }
+  ],
+  "differences": [
+    "در جاوا، polished blackstone stairs با رفتار استاندارد عمل می‌کند.",
+    "در بدراک، ممکن است تفاوت‌های جزئی در نمایش گرافیکی وجود داشته باشد.",
+    "در هر دو نسخه، polished blackstone stairs با همین سختی و مقاومت در دسترس است."
+  ],
   "related": [],
   "drops": [
     {

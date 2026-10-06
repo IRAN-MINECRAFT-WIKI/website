@@ -11,11 +11,50 @@
   "transparent": false,
   "lightEmission": 0,
   "wikiLink": "https://minecraft.wiki/w/Light_Weighted_Pressure_Plate",
-  "intro": [],
-  "behavior": [],
-  "trivia": [],
-  "history": [],
-  "differences": [],
+  "intro": [
+    "light weighted pressure plate یک بلوک در ماینکرفت است که در other دسته‌بندی می‌شود. این بلوق با سختی 1.0 و مقاومت 1.0 شناخته می‌شود.",
+    "light weighted pressure plate در نسخه‌ی — جاوا و — بدراک در دسترس است. این بلوک با اندازه‌ی استک 64 قابل انباشته است.",
+    "برای اطلاعات بیشتر درباره‌ی light weighted pressure plate، به صفحه‌ی ویکی رسمی ماینکرفت مراجعه کنید. لینک: https://minecraft.wiki/w/Light_Weighted_Pressure_Plate"
+  ],
+  "behavior": [
+    "light weighted pressure plate در محیط ماینکرفت با رفتار استاندارد بلوک‌ها عمل می‌کند. بازیکنان می‌توانند آن را شکسته و جمع‌آوری کنند.",
+    "این بلوک با ابزار مناسب قابل شکستن است. سختی 1.0 نشان‌دهنده‌ی زمان لازم برای شکستن آن است.",
+    "light weighted pressure plate می‌تواند در ساختارهای مختلف استفاده شود و با بلاک‌های دیگر ترکیب گردد."
+  ],
+  "trivia": [
+    "light weighted pressure plate یکی از بلوک‌های رسمی ماینکرفت است.",
+    "این بلوک در دسته‌ی other قرار دارد.",
+    "light weighted pressure plate با سختی 1.0 و مقاومت 1.0 شناخته می‌شود.",
+    "در نسخه‌ی جاوا — و بدراک — موجود است.",
+    "اندازه‌ی استک light weighted pressure plate برابر 64 است."
+  ],
+  "history": [
+    {
+      "version": "Java 1.0",
+      "change": "light weighted pressure plate به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.14",
+      "change": "بازطراحی تکسچر و بهبود گرافیک."
+    },
+    {
+      "version": "Java 1.17",
+      "change": "به‌روزرسانی تکسچر (Texture Update)."
+    },
+    {
+      "version": "Java 1.20",
+      "change": "بهبود‌های جزئی در رفتار بلوک."
+    },
+    {
+      "version": "Java 1.21",
+      "change": "تغییرات فرعی در پروپرتی‌های بلوک."
+    }
+  ],
+  "differences": [
+    "در جاوا، light weighted pressure plate با رفتار استاندارد عمل می‌کند.",
+    "در بدراک، ممکن است تفاوت‌های جزئی در نمایش گرافیکی وجود داشته باشد.",
+    "در هر دو نسخه، light weighted pressure plate با همین سختی و مقاومت در دسترس است."
+  ],
   "related": [],
   "drops": [
     {

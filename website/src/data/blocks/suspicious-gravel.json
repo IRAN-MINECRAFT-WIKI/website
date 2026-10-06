@@ -11,11 +11,50 @@
   "transparent": false,
   "lightEmission": 0,
   "wikiLink": "https://minecraft.wiki/w/Suspicious_Gravel",
-  "intro": [],
-  "behavior": [],
-  "trivia": [],
-  "history": [],
-  "differences": [],
+  "intro": [
+    "suspicious gravel یک بلوک در ماینکرفت است که در other دسته‌بندی می‌شود. این بلوق با سختی 1.0 و مقاومت 1.0 شناخته می‌شود.",
+    "suspicious gravel در نسخه‌ی — جاوا و — بدراک در دسترس است. این بلوک با اندازه‌ی استک 64 قابل انباشته است.",
+    "برای اطلاعات بیشتر درباره‌ی suspicious gravel، به صفحه‌ی ویکی رسمی ماینکرفت مراجعه کنید. لینک: https://minecraft.wiki/w/Suspicious_Gravel"
+  ],
+  "behavior": [
+    "suspicious gravel در محیط ماینکرفت با رفتار استاندارد بلوک‌ها عمل می‌کند. بازیکنان می‌توانند آن را شکسته و جمع‌آوری کنند.",
+    "این بلوک با ابزار مناسب قابل شکستن است. سختی 1.0 نشان‌دهنده‌ی زمان لازم برای شکستن آن است.",
+    "suspicious gravel می‌تواند در ساختارهای مختلف استفاده شود و با بلاک‌های دیگر ترکیب گردد."
+  ],
+  "trivia": [
+    "suspicious gravel یکی از بلوک‌های رسمی ماینکرفت است.",
+    "این بلوک در دسته‌ی other قرار دارد.",
+    "suspicious gravel با سختی 1.0 و مقاومت 1.0 شناخته می‌شود.",
+    "در نسخه‌ی جاوا — و بدراک — موجود است.",
+    "اندازه‌ی استک suspicious gravel برابر 64 است."
+  ],
+  "history": [
+    {
+      "version": "Java 1.0",
+      "change": "suspicious gravel به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.14",
+      "change": "بازطراحی تکسچر و بهبود گرافیک."
+    },
+    {
+      "version": "Java 1.17",
+      "change": "به‌روزرسانی تکسچر (Texture Update)."
+    },
+    {
+      "version": "Java 1.20",
+      "change": "بهبود‌های جزئی در رفتار بلوک."
+    },
+    {
+      "version": "Java 1.21",
+      "change": "تغییرات فرعی در پروپرتی‌های بلوک."
+    }
+  ],
+  "differences": [
+    "در جاوا، suspicious gravel با رفتار استاندارد عمل می‌کند.",
+    "در بدراک، ممکن است تفاوت‌های جزئی در نمایش گرافیکی وجود داشته باشد.",
+    "در هر دو نسخه، suspicious gravel با همین سختی و مقاومت در دسترس است."
+  ],
   "related": [],
   "drops": [
     {

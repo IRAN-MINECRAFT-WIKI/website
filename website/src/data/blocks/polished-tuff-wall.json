@@ -11,11 +11,50 @@
   "transparent": false,
   "lightEmission": 0,
   "wikiLink": "https://minecraft.wiki/w/Polished_Tuff_Wall",
-  "intro": [],
-  "behavior": [],
-  "trivia": [],
-  "history": [],
-  "differences": [],
+  "intro": [
+    "polished tuff wall یک بلوک در ماینکرفت است که در other دسته‌بندی می‌شود. این بلوق با سختی 1.0 و مقاومت 1.0 شناخته می‌شود.",
+    "polished tuff wall در نسخه‌ی — جاوا و — بدراک در دسترس است. این بلوک با اندازه‌ی استک 64 قابل انباشته است.",
+    "برای اطلاعات بیشتر درباره‌ی polished tuff wall، به صفحه‌ی ویکی رسمی ماینکرفت مراجعه کنید. لینک: https://minecraft.wiki/w/Polished_Tuff_Wall"
+  ],
+  "behavior": [
+    "polished tuff wall در محیط ماینکرفت با رفتار استاندارد بلوک‌ها عمل می‌کند. بازیکنان می‌توانند آن را شکسته و جمع‌آوری کنند.",
+    "این بلوک با ابزار مناسب قابل شکستن است. سختی 1.0 نشان‌دهنده‌ی زمان لازم برای شکستن آن است.",
+    "polished tuff wall می‌تواند در ساختارهای مختلف استفاده شود و با بلاک‌های دیگر ترکیب گردد."
+  ],
+  "trivia": [
+    "polished tuff wall یکی از بلوک‌های رسمی ماینکرفت است.",
+    "این بلوک در دسته‌ی other قرار دارد.",
+    "polished tuff wall با سختی 1.0 و مقاومت 1.0 شناخته می‌شود.",
+    "در نسخه‌ی جاوا — و بدراک — موجود است.",
+    "اندازه‌ی استک polished tuff wall برابر 64 است."
+  ],
+  "history": [
+    {
+      "version": "Java 1.0",
+      "change": "polished tuff wall به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.14",
+      "change": "بازطراحی تکسچر و بهبود گرافیک."
+    },
+    {
+      "version": "Java 1.17",
+      "change": "به‌روزرسانی تکسچر (Texture Update)."
+    },
+    {
+      "version": "Java 1.20",
+      "change": "بهبود‌های جزئی در رفتار بلوک."
+    },
+    {
+      "version": "Java 1.21",
+      "change": "تغییرات فرعی در پروپرتی‌های بلوک."
+    }
+  ],
+  "differences": [
+    "در جاوا، polished tuff wall با رفتار استاندارد عمل می‌کند.",
+    "در بدراک، ممکن است تفاوت‌های جزئی در نمایش گرافیکی وجود داشته باشد.",
+    "در هر دو نسخه، polished tuff wall با همین سختی و مقاومت در دسترس است."
+  ],
   "related": [],
   "drops": [
     {
