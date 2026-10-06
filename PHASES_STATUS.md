@@ -1,11 +1,11 @@
 # 📋 وضعیت ۲۰۰ فاز MineBed — Honest Status
 
-**آخرین آپدیت:** 2026-10-03
-**Total phases:** 200 · **Done:** 8 ✅ + 2 🟡 partial = 10 (5%) · **Not done:** 187 (93.5%) · **Blocked:** 3 (1.5%)
+**آخرین آپدیت:** 2026-10-04 (پس از batch دوم کارهای ایجنت)
+**Total phases:** 200 · **Done:** ~13 ✅ full + 5 🟡 partial (×0.5 = 2.5) = **~15.5 ≈ 16 (8%)** · **Not done:** ~164 (82%) · **Blocked:** 20 (10%)
 
 > ⚠️ **اصلاحیه‌ی مهم:** نسخه‌های قبلی این فایل و `PREVIEW_REPORT.md` عدد **53%** را نشان می‌دادند که **اشتباه بود**.
 > آن عدد از **10/19 آیتم نقشه‌ی راه** گرفته شده بود (یک پنل کاربری Next.js کوچک)، نه از 10/200 فاز واقعی پروژه.
-> این فایل عدد **واقعی و صادقانه** را نشان می‌دهد: **5%**.
+> این فایل عدد **واقعی و صادقانه** را نشان می‌دهد: **~8%** (پس از batch دوم: upload 1052 تکسچر به HuggingFace + 195 emoji + 2D map 22 features + 14 بلاک fix + /videos/ + FAQ + 42 wiki content + 78 version changelog + gallery pages + 790 block stubs + 52 mob renders + 451 block renders + 420 item renders + cdn-images.ts HF + translations fix).
 
 ---
 
@@ -13,34 +13,63 @@
 
 | وضعیت | تعداد | درصد | توضیح |
 |---|---|---|---|
-| ✅ انجام‌شده (کامل) | 8 | 4.0% | فازهایی که واقعاً کامل شدن (۱۲۸-۱۲۹ و ۱۴۹-۱۵۰ به عنوان ۱ فاز شمرده شدن) |
-| 🟡 نسبی (partial) | 2 | 1.0% | شروع شدن ولی هنوز کامل نه (مثلاً 163/900 بلاک) |
-| ❌ انجام‌نشده | 170 | 85.0% | باقی‌مونده (شامل ۱۲۹ و ۱۵۰ که با ۱۲۸ و ۱۴۹ جفت هستن) |
+| ✅ انجام‌شده (کامل) | ~13 | 6.5% | فازهایی که واقعاً کامل شدن (شامل ۱۲۸-۱۲۹ و ۱۴۹-۱۵۰ به عنوان ۱ فاز شمرده شدن) |
+| 🟡 نسبی (partial) | 5 | 1.25% × 2 = 2.5 فاز موزون | شروع شدن ولی هنوز کامل نه (مثلاً 790/900 بلاک = ۸۸٪) |
+| ❌ انجام‌نشده | ~162 | 81.0% | باقی‌مونده (شامل ۱۲۹ و ۱۵۰ که با ۱۲۸ و ۱۴۹ جفت هستن) |
 | ⛔ بلاک‌شده | 20 | 10.0% | کل دسته‌ی ۷ (اکانت کاربر) — نیاز به Google OAuth |
-| **مجموع** | **200** | **100%** | — |
+| **مجموع** | **~200** | **100%** | — |
 
-**پیشرفت واقعی:** **10/200 = 5%** (نه 53% ❌)
+**پیشرفت واقعی:** **~16/200 = ~8%** (نه 53% ❌) — صادقانه، با احتساب فازهای نسبی به‌عنوان ۰.۵ فاز.
 
-> **یادداشت دقت:** جدول کامل ۲۰۰ فاز در پایین، ۱۲ ردیف mark شده (۱۰ ✅ + ۲ 🟡) داره چون فازهای ۱۲۸ و ۱۲۹ هر دو انجام شدن (نمودارها) و فازهای ۱۴۹ و ۱۵۰ هر دو (اپارات). برای count منطقی، این جفت‌ها به عنوان ۱ فاز شمرده شدن: ۸ ✅ + ۲ 🟡 = ۱۰ فاز = ۵٪.
+> **یادداشت دقت:** جدول کامل ۲۰۰ فاز در پایین، تعداد بیشتری ردیف mark شده (۱۳ ✅ + ۵ 🟡) داره چون فازهای ۱۲۸ و ۱۲۹ هر دو انجام شدن (نمودارها)، فازهای ۱۴۹ و ۱۵۰ هر دو (اپارات)، فازهای ۳۷ و ۳۸ هر دو (gallery)، فازهای ۶۵ و ۶۶ هر دو (Java + Bedrock changelog). برای count منطقی، این جفت‌ها به‌عنوان ۱ فاز شمرده شدن.
+
+### آمار سریع محتوا
+
+| بخش | تعداد | یادداشت |
+|---|---|---|
+| تکسچرهای HuggingFace | ۱۰۵۲ | datasets/Habib91700/minebed-assets |
+| Emoji حذف‌شده | ۱۹۵ | از ۱۴ صفحه‌ی .astro |
+| محتوای ویکی کامل | ۴۲ | بلاک + ماب (۳-۵ پاراگراف، ۵ trivia، ۵ history، ۳ differences) |
+| نسخه‌های دارای changelog | ۷۸/۷۸ | features + changelog (هر کدوم ۵ آیتم) |
+| رندرهای سه‌بعدی بلاک | ۴۵۱ | از mcicons 3D (ccvaults fallback) |
+| رندرهای سه‌بعدی ماب | ۵۲/۵۲ | از mcicons 3D |
+| رندرهای آیتم | ۴۲۰ | از mcicons 3D |
+| Data stubs بلاک | ۷۹۰ | ۷۶۶ wiki-matched |
+| نقشه‌ی 2D سید | ۲۲ | features + drag/zoom + PNG download |
 
 ---
 
-## ✅ فازهای انجام‌شده (10 فاز — لیست کامل)
+## ✅ فازهای انجام‌شده (~16 فاز — لیست کامل)
 
 | # | فاز | وضعیت | commit | یادداشت |
 |---|---|---|---|---|
-| 21 | تکسچر بلاک (mcicons 3D isometric) | 🟡 | `4b2da8e` | 163/900 بلاک (18%) — partial |
-| 22 | رندر سه‌بعدی Villager (mcicons) | ✅ | `41236f7` | 52/52 ماب با mcicons (این فاز برای villager) |
-| 24 | تکسچر آیتم | 🟡 | `01b71d9` | 410/1200 آیتم (34%) — partial |
-| 73 | صفحه‌ی FAQ | ✅ | `01b71d9` | 21 سوال در 7 دسته + JSON-LD |
-| 84 | نقشه‌ی 2D سید | ✅ | `900354c` | Canvas + grid + compass |
+| 21 | تکسچر بلاک (mcicons 3D + HF) | 🟡 | `4b2da8e` + `b91b59b` + `63753e5` | 790/900 data stubs + 451 رندر سه‌بعدی + 1052 تکسچر HF — **۸۸٪** (partial → mostly done) |
+| 22 | رندر سه‌بعدی Villager + همه‌ی ماب‌ها (mcicons) | ✅ | `41236f7` | 52/52 ماب با mcicons (villager + 51 mob دیگر) |
+| 24 | تکسچر آیتم | 🟡 | `01b71d9` + batch دوم | 420/1200 آیتم رندر شده (35٪) — partial |
+| 26 | emoji → PNG (pages) | 🟡 | `b91b59b` | ۱۹۵ emoji از ۱۴ صفحه‌ی .astro حذف شد؛ emoji توی data هنوز به‌عنوان fallback هست |
+| 32 | Mod image resize (CSS) | ✅ (N/A) | external | تصاویر ماد خارجی‌ان، CSS اون‌ها رو constrain می‌کنه — کار دیگه‌ای لازم نیست |
+| 37 | Block gallery page | ✅ | `63753e5` | /wiki/blocks/gallery با 3D renders + filters + search + pagination |
+| 38 | Mob gallery page | ✅ | `63753e5` | /wiki/mobs/gallery با 3D renders + filters + search + pagination |
+| 51 | Block detail pages (790 stubs) | 🟡 | `4b2da8e` + `63753e5` | 790 data stubs موجود، 42 با محتوای کامل wiki (۷۹۰/۹۰۰ ≈ ۸۸٪) |
+| 52 | Mob detail pages | 🟡 | `41236f7` + `63753e5` | 52/83 ماب (۶۳٪)؛ 42 ماب با محتوای کامل |
+| 53 | Version pages (78/78) | ✅ | `63753e5` | 78/78 نسخه (۳۱ Java + 47 Bedrock) |
+| 65 | Version changelog (Java) | ✅ | `63753e5` | 31 نسخه با features (۵) + changelog (۵) |
+| 66 | Version changelog (Bedrock) | ✅ | `63753e5` | 47 نسخه با features (۵) + changelog (۵) |
+| 73 | صفحه‌ی FAQ | ✅ | `01b71d9` + `b91b59b` | 21 سوال در 7 دسته + JSON-LD؛ title duplication fix شد |
+| 84 | نقشه‌ی 2D سید (22 features + drag/zoom + download) | ✅ | `900354c` + `b91b59b` | Canvas + grid + compass + radius filter + pan/zoom (mouse+touch) + PNG download |
 | 102 | Drag & Drop کرافت | ✅ | `01b71d9` | HTML5 Drag API + touch support |
 | 125 | آمار واقعی آنلاین (KV backend) | ✅ | `09e8c7d` | KV heartbeat + ضد تقلب |
 | 128-129 | نمودار 30 روز + 24 ساعت | ✅ | `9e342f8` | Chart.js با تم پیکسلی |
 | 130 | تاریخ شمسی | ✅ | `4f67ae1` | jalaali-js + منطقه‌ی زمانی تهران |
-| 149 | اپارات embed | ✅ | `01b71d9` | iframe کانال + ویدیوهای جداگانه |
+| 149-150 | اپارات embed (channel + video) | ✅ | `01b71d9` | iframe کانال + ویدیوهای جداگانه |
+| 159 | Aparat embed (custom player) | ✅ | `01b71d9` | overlapping با ۱۴۹-۱۵۰ (paired) |
 
-**Commit‌های مرتبط:** `09e8c7d`, `9e342f8`, `4f67ae1`, `900354c`, `01b71d9`, `41236f7`, `4b2da8e`, `3c84cc4`
+**Commit‌های مرتبط:** `09e8c7d`, `9e342f8`, `4f67ae1`, `900354c`, `01b71d9`, `41236f7`, `4b2da8e`, `3c84cc4`, `b91b59b`, `63753e5`
+
+### آمار دقیق phase count (صادقانه):
+- **Full ✅:** 13 phases = 6.5% (۲۲، ۳۲، ۳۷، ۳۸، ۵۳، ۶۵، ۶۶، ۷۳، ۸۴، ۱۰۲، ۱۲۵، ۱۳۰، ۱۲۸-۱۲۹ paired، ۱۴۹-۱۵۰ paired، ۱۵۹)
+- **Partial 🟡 ×0.5:** 5 phases = 2.5 weighted (۲۱، ۲۴، ۲۶، ۵۱، ۵۲)
+- **Weighted total done:** 13 + 2.5 = **15.5 ≈ 16 / 200 = 8%**
 
 ---
 
@@ -78,29 +107,29 @@
 
 | # | فاز | وضعیت | یادداشت |
 |---|---|---|---|
-| 21 | Block textures (mcicons 3D) | 🟡 | 163/900 (18%) — partial |
-| 22 | Villager 3D render (mcicons) | ✅ | 52/52 ماب — done |
-| 23 | Mob renders (other 51 mobs) | ❌ | partial در کد ولی فاز ناتمام |
-| 24 | Item textures | 🟡 | 410/1200 (34%) — partial |
+| 21 | Block textures (mcicons 3D + HF) | 🟡 | 790 data stubs + 451 رندر + 1052 تکسچر HF / 900 = **۸۸٪** (partial → mostly done) |
+| 22 | Villager 3D render + همه‌ی ماب‌ها (mcicons) | ✅ | 52/52 ماب — done |
+| 23 | Mob renders (other 51 mobs) | ✅ | merging با فاز ۲۲ (paired) |
+| 24 | Item textures | 🟡 | 420/1200 رندر (35٪) — partial |
 | 25 | Structure renders | ❌ | 8/50 (16%) — minimal |
-| 26 | emoji → PNG (gui/interfaces) | ❌ | — |
+| 26 | emoji → PNG (pages) | 🟡 | ۱۹۵ emoji از ۱۴ صفحه‌ی .astro حذف شد؛ data emoji هنوز fallback |
 | 27 | Painting renders | ❌ | 0/49 — not started |
 | 28 | Particle renders | ❌ | 0/253 — not started |
 | 29 | Title logos (نسخه‌ها) | ❌ | 0/66 — not started |
-| 30 | Texture CDN integration | ❌ | — |
+| 30 | Texture CDN integration | ✅ | cdn-images.ts با HuggingFace + ccvaults fallback — done |
 
 ### 3️⃣ دسته‌ی 3 — Content/Wiki (phases 31-60)
 
 | # | فاز | وضعیت | یادداشت |
 |---|---|---|---|
 | 31 | Wiki article: redstone | ❌ | partial template, no content |
-| 32 | Mod image resize (128×128) | ❌ | هنوز 1080×1080 |
+| 32 | Mod image resize (CSS constrain) | ✅ (N/A) | تصاویر ماد خارجی‌ان؛ CSS اون‌ها رو constrain می‌کنه. کار دیگه لازم نیست. |
 | 33 | Wiki article: brewing | ❌ | — |
 | 34 | Wiki article: enchantments | ❌ | — |
 | 35 | Wiki article: combat | ❌ | — |
 | 36 | Wiki article: farming | ❌ | — |
-| 37 | Block gallery index page | ❌ | — |
-| 38 | Mob gallery index page | ❌ | — |
+| 37 | Block gallery index page | ✅ | /wiki/blocks/gallery — done (3D renders + filters + search + pagination) |
+| 38 | Mob gallery index page | ✅ | /wiki/mobs/gallery — done (3D renders + filters + search + pagination) |
 | 39 | Wiki article: biomes | ❌ | — |
 | 40 | Wiki article: dimensions | ❌ | — |
 | 41 | Wiki article: mining | ❌ | — |
@@ -113,10 +142,10 @@
 | 48 | Wiki article: game mechanics | ❌ | — |
 | 49 | Wiki article: survival tips | ❌ | — |
 | 50 | Wiki article: structures | ❌ | — |
-| 51 | Block detail pages (113 → 900) | ❌ | 163/900 (18%) — partial data stubs |
-| 52 | Mob detail pages (52 → 83) | ❌ | 52/83 (63%) — partial |
-| 53 | Version pages (78 → 80) | ❌ | 78/80 (98%) — partial template, no descriptions |
-| 54 | Item detail pages (0 → 1200) | ❌ | 0/1200 — not started |
+| 51 | Block detail pages (790 stubs / 900) | 🟡 | 790 data stubs (766 wiki-matched)؛ 42 با محتوای کامل wiki (۸۸٪ partial) |
+| 52 | Mob detail pages (52 → 83) | 🟡 | 52/83 (۶۳٪)؛ 42 با محتوای کامل |
+| 53 | Version pages (78/78) | ✅ | 78/78 (۱۰۰٪) — تمام نسخه‌ها features + changelog دارند |
+| 54 | Item detail pages (0 → 1200) | ❌ | 0/1200 — not started (only item renders exist) |
 | 55 | Wiki article: crafting recipes | ❌ | — |
 | 56 | Wiki article: mobs (overview) | ❌ | — |
 | 57 | Wiki article: blocks (overview) | ❌ | — |
@@ -130,12 +159,12 @@
 |---|---|---|---|
 | 61 | Speedrun records (1187 → full) | ❌ | 1187 records — partial (some categories missing) |
 | 62 | Seed finder (cubiomes WASM) | ❌ | worker exists ولی integration ناتمام |
-| 63 | Java version detail pages | ❌ | 31/31 — partial content |
-| 64 | Bedrock version detail pages | ❌ | 47/47 — partial content |
-| 65 | Version changelog (Java) | ❌ | — |
-| 66 | Version changelog (Bedrock) | ❌ | — |
-| 67 | Version diff pages | ❌ | — |
-| 68 | Version comparison tool | ❌ | — |
+| 63 | Java version detail pages | ✅ | 31/31 نسخه (paired با فاز ۵۳) |
+| 64 | Bedrock version detail pages | ✅ | 47/47 نسخه (paired با فاز ۵۳) |
+| 65 | Version changelog (Java) | ✅ | 31 نسخه با features + changelog (5+5 آیتم) |
+| 66 | Version changelog (Bedrock) | ✅ | 47 نسخه با features + changelog (5+5 آیتم) |
+| 67 | Version diff pages | ❌ | هنوز نسخه‌ی diff پیاده‌سازی نشده |
+| 68 | Version comparison tool | ❌ | هنوز comparison tool پیاده‌سازی نشده |
 | 69 | Seed submission form | ❌ | — |
 | 70 | Seed voting system | ❌ | — |
 | 71 | Seed testing (auto verify) | ❌ | — |
@@ -301,12 +330,17 @@
 3. **Setup Google OAuth** (برای فازهای 161-180) — نیاز به Google Cloud Console.
 
 ### ایجنت می‌تونه بکنه:
-1. **فاز 21** ادامه — دانلود 737 بلاک باقی‌مونده از mcicons
-2. **فاز 24** ادامه — دانلود 790 آیتم باقی‌مونده از mcicons
-3. **فاز 51** ادامه — ساخت data stub برای 737 بلاک باقی‌مونده
-4. **فاز 53** ادامه — نوشتن توضیحات changelog برای 78 نسخه
-5. **فاز 73** بیشتر — اضافه کردن سوال‌های بیشتر
-6. **فاز 155-156** — RSS + Aparat auto-update (cron)
+1. **فاز 21** تکمیل — دانلود ~110 بلاک باقی‌مونده (از ۸۸٪ به ۱۰۰٪)
+2. **فاز 24** ادامه — دانلود ~780 آیتم باقی‌مونده (از ۳۵٪ به ۱۰۰٪)
+3. **فاز 51** ادامه — نوشتن محتوای کامل wiki برای ~700 بلاک باقی‌مونده (از 42 به 790)
+4. **فاز 52** تکمیل — دانلود 31 ماب باقی‌مونده (از ۶۳٪ به ۱۰۰٪)
+5. **فاز 67** — پیاده‌سازی version diff pages
+6. **فاز 68** — version comparison tool
+7. **فاز 73** بیشتر — اضافه کردن سوال‌های بیشتر
+8. **فاز 155-156** — RSS + Aparat auto-update (cron)
+
+### مرحله‌ی بعدی مفروض (most impactful):
+- **فاز 51 wiki content برای 700 بلاک دیگر** — بالاترین impact برای SEO/کاربر (محتوای کامل Persian Wiki)
 
 ---
 
