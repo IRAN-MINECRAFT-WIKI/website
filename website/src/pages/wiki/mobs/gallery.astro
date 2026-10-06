@@ -89,7 +89,7 @@ const ldItemList = itemListJsonLd(
   <!-- Header -->
   <div class="mb-6">
     <div class="flex flex-wrap items-center gap-3 mb-3">
-      <h1 class="text-2xl lg:text-3xl font-extrabold font-pixel">👾 گالری ماب‌ها</h1>
+      <h1 class="text-2xl lg:text-3xl font-extrabold font-pixel inline-flex items-center gap-2"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-mob"/></svg> گالری ماب‌ها</h1>
       <a href={base('/wiki/mobs')} class="mc-btn ghost small" aria-label="بازگشت به راهنمای ماب‌ها">
         ← راهنمای ماب‌ها
       </a>
@@ -157,7 +157,7 @@ const ldItemList = itemListJsonLd(
         <p class="text-[10px] text-mc-text-3" dir="ltr">{m.nameEn}</p>
         <div class="flex items-center justify-center gap-2 mt-2 flex-wrap">
           <span class="mc-chip text-[10px]">{m.catIcon} {m.catName}</span>
-          <span class="text-[10px] text-mc-redstone font-bold">❤ {faNum(m.health)}</span>
+          <span class="text-[10px] text-mc-redstone font-bold inline-flex items-center gap-0.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><use href="#icon-heart"/></svg> {faNum(m.health)}</span>
         </div>
       </a>
     ))}

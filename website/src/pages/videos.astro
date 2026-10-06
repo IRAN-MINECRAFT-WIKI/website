@@ -55,7 +55,7 @@ const hasVideos = VIDEOS.length > 0;
   <Breadcrumbs items={breadcrumb} />
 
   <div class="mb-6">
-    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">🎬 ویدیوهای ماین‌بد</h1>
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2 inline-flex items-center gap-2"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-media"/></svg> ویدیوهای ماین‌بد</h1>
     <p class="text-sm text-mc-text-2">آموزش، بررسی و گیم‌پلی ماینکرفت — مستقیم از اپارات</p>
   </div>
 
@@ -66,8 +66,8 @@ const hasVideos = VIDEOS.length > 0;
         <h2 class="text-lg font-bold text-mc-text mb-1">کانال اپارات ماین‌بد فارسی</h2>
         <p class="text-xs text-mc-text-2">آموزش‌های نصب ماد، بررسی نسخه‌ها، گیم‌پلی و ترفندهای ماینکرفت</p>
       </div>
-      <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn">
-        <span>📺</span> دنبال‌کردن کانال
+      <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn inline-flex items-center gap-2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-media"/></svg> دنبال‌کردن کانال
       </a>
     </div>
 
@@ -105,7 +105,7 @@ const hasVideos = VIDEOS.length > 0;
 
         <div class="relative z-10 max-w-2xl mx-auto">
           <div class="videos-camera mb-5" aria-hidden="true">
-            <span class="videos-camera-icon">🎥</span>
+            <span class="videos-camera-icon inline-flex"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-camera"/></svg></span>
             <span class="videos-camera-pulse"></span>
           </div>
 
@@ -119,11 +119,11 @@ const hasVideos = VIDEOS.length > 0;
           </p>
 
           <div class="flex flex-wrap gap-3 justify-center mb-6">
-            <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn">
-              <span>📺</span> دنبال‌کردن کانال اپارات
+            <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn inline-flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-media"/></svg> دنبال‌کردن کانال اپارات
             </a>
-            <a href={APARAT_SEARCH} target="_blank" rel="noopener" class="mc-btn ghost">
-              <span>🔍</span> جستجوی ویدیوهای ماین‌بد
+            <a href={APARAT_SEARCH} target="_blank" rel="noopener" class="mc-btn ghost inline-flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-search"/></svg> جستجوی ویدیوهای ماین‌بد
             </a>
           </div>
 
@@ -138,9 +138,9 @@ const hasVideos = VIDEOS.length > 0;
             </div>
           </div>
 
-          <p class="text-xs text-mc-text-3 mb-2">💡 اگه ویدیوی خاصی می‌خوای بسازیم، پیشنهادت رو روی گیت‌هاب ثبت کن:</p>
-          <a href={GITHUB_ISSUES} target="_blank" rel="noopener" class="mc-btn ghost small">
-            <span>📝</span> درخواست ویدیو روی گیت‌هاب
+          <p class="text-xs text-mc-text-3 mb-2 inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lightbulb"/></svg> اگه ویدیوی خاصی می‌خوای بسازیم، پیشنهادت رو روی گیت‌هاب ثبت کن:</p>
+          <a href={GITHUB_ISSUES} target="_blank" rel="noopener" class="mc-btn ghost small inline-flex items-center gap-1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-note"/></svg> درخواست ویدیو روی گیت‌هاب
           </a>
         </div>
       </div>
@@ -151,22 +151,22 @@ const hasVideos = VIDEOS.length > 0;
       <h2 class="text-lg font-bold text-mc-text mb-4">دسته‌بندی‌های پیش‌رو</h2>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <div class="mc-panel p-4 text-center opacity-70 hover:opacity-100 transition-opacity">
-          <div class="text-3xl mb-2">📚</div>
+          <div class="mb-2 text-mc-text-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-book-open"/></svg></div>
           <h3 class="text-sm font-bold text-mc-text-2">آموزش نصب</h3>
           <p class="text-xs text-mc-text-3 mt-1">نصب مادها و ریسورس‌پک</p>
         </div>
         <div class="mc-panel p-4 text-center opacity-70 hover:opacity-100 transition-opacity">
-          <div class="text-3xl mb-2">🔍</div>
+          <div class="mb-2 text-mc-text-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-search"/></svg></div>
           <h3 class="text-sm font-bold text-mc-text-2">بررسی نسخه</h3>
           <p class="text-xs text-mc-text-3 mt-1">قابلیت‌های نسخه‌های جدید</p>
         </div>
         <div class="mc-panel p-4 text-center opacity-70 hover:opacity-100 transition-opacity">
-          <div class="text-3xl mb-2">🎮</div>
+          <div class="mb-2 text-mc-text-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-controller"/></svg></div>
           <h3 class="text-sm font-bold text-mc-text-2">گیم‌پلی</h3>
           <p class="text-xs text-mc-text-3 mt-1">بازی و چالش‌های ماینکرفت</p>
         </div>
         <div class="mc-panel p-4 text-center opacity-70 hover:opacity-100 transition-opacity">
-          <div class="text-3xl mb-2">📰</div>
+          <div class="mb-2 text-mc-text-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-newspaper"/></svg></div>
           <h3 class="text-sm font-bold text-mc-text-2">اخبار</h3>
           <p class="text-xs text-mc-text-3 mt-1">آخرین خبرهای ماینکرفت</p>
         </div>
@@ -176,14 +176,14 @@ const hasVideos = VIDEOS.length > 0;
 
   <!-- Help / contribute section -->
   <section class="mc-panel p-5 mt-8 text-center">
-    <div class="text-3xl mb-2" aria-hidden="true">🤝</div>
+    <div class="mb-2 text-mc-text-3" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-handshake"/></svg></div>
     <h2 class="text-base font-bold text-mc-text mb-2">اگه ویدیوساز هستی، به ما بپیوند!</h2>
     <p class="text-xs text-mc-text-3 mb-4 max-w-md mx-auto leading-relaxed">
       اگه تجربه‌ی ساخت ویدیو برای ماینکرفت داری و می‌خوای تو کانال ماین‌بد فارسی
       همکاری کنی، با ما تماس بگیر. ویدیوهای تو مستقیم تو این صفحه نمایش داده می‌شه.
     </p>
-    <a href={GITHUB_ISSUES} target="_blank" rel="noopener" class="mc-btn ghost small">
-      <span>💬</span> ثبت همکاری روی گیت‌هاب
+    <a href={GITHUB_ISSUES} target="_blank" rel="noopener" class="mc-btn ghost small inline-flex items-center gap-1">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-comment"/></svg> ثبت همکاری روی گیت‌هاب
     </a>
   </section>
 </BaseLayout>

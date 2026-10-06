@@ -61,8 +61,8 @@ const ldBread = breadcrumbJsonLd(breadcrumb);
       <h1 class="text-2xl lg:text-4xl font-extrabold mb-3 leading-tight">{post.data.title}</h1>
       <p class="text-sm text-mc-text-2 mb-3 leading-loose">{post.data.description}</p>
       <div class="flex flex-wrap items-center gap-3 text-xs text-mc-text-3">
-        <span>📅 {post.data.pubDate.toLocaleDateString('fa-IR')}</span>
-        <span>👤 {post.data.author}</span>
+        <span class="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-calendar"/></svg> {post.data.pubDate.toLocaleDateString('fa-IR')}</span>
+        <span class="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-person"/></svg> {post.data.author}</span>
         <ReadingTime text={post.body} />
       </div>
       {post.data.tags.length > 0 && (

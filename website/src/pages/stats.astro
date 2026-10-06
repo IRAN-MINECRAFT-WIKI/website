@@ -27,21 +27,21 @@ const breadcrumb = [
 
   <div class="mb-6 flex items-start justify-between gap-3 flex-wrap">
     <div>
-      <h1 class="text-2xl lg:text-3xl font-extrabold mb-2 font-pixel text-mc-grass-2" style="font-size: 1.3rem; line-height: 1.6;">📊 آمار سایت</h1>
+      <h1 class="text-2xl lg:text-3xl font-extrabold mb-2 font-pixel text-mc-grass-2 inline-flex items-center gap-2" style="font-size: 1.3rem; line-height: 1.6;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-stats"/></svg> آمار سایت</h1>
       <p class="text-sm text-mc-text-2">
         آمار واقعی از سرور متمرکز — هر بازدیدکننده‌ی یکتا فقط ۱ بار در روز شمرده می‌شود.
       </p>
     </div>
     <div class="flex flex-wrap gap-2">
       <button id="refreshBtn" class="mc-btn ghost small">
-        <span aria-hidden="true">🔄</span> به‌روزرسانی
+        <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-refresh"/></svg></span> به‌روزرسانی
       </button>
     </div>
   </div>
 
   <!-- Anti-inflation banner -->
   <div class="mb-6 p-3 rounded-lg border border-mc-grass-2/30 bg-mc-grass-2/5 text-xs text-mc-grass-2 flex items-center gap-2 flex-wrap">
-    <span aria-hidden="true">🛡️</span>
+    <span aria-hidden="true" class="shrink-0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lock"/></svg></span>
     <span><b>آمار واقعی:</b> هر بازدیدکننده‌ی یکتا فقط <b>۱ بار</b> در روز شمرده می‌شود. رفرش‌کردن نمی‌تواند آمار را بالا ببرد — داده‌ها از <b>سرور Cloudflare Worker</b> می‌آیند.</span>
   </div>
 
@@ -52,23 +52,23 @@ const breadcrumb = [
         <span class="kpi-dot" aria-hidden="true"></span>
         <span>آنلاین (زنده)</span>
       </div>
-      <div class="text-3xl font-extrabold text-mc-grass-2" id="kpiOnline">⏳</div>
+      <div class="text-3xl font-extrabold text-mc-grass-2" id="kpiOnline"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-hourglass"/></svg></div>
       <div class="text-[10px] text-mc-text-3 mt-1" id="kpiOnlineSub">در حال بارگذاری…</div>
     </div>
     <div class="mc-card p-4">
       <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
-        <span aria-hidden="true">📈</span>
+        <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-stats"/></svg></span>
         <span>بازدید امروز</span>
       </div>
-      <div class="text-3xl font-extrabold text-mc-diamond" id="kpiToday">⏳</div>
+      <div class="text-3xl font-extrabold text-mc-diamond" id="kpiToday"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-hourglass"/></svg></div>
       <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTodaySub">از ساعت ۰۰:۰۰ (UTC)</div>
     </div>
     <div class="mc-card p-4 col-span-2 lg:col-span-1">
       <div class="flex items-center gap-2 text-xs text-mc-text-3 font-bold mb-1">
-        <span aria-hidden="true">🔢</span>
+        <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-hashtag"/></svg></span>
         <span>بازدیدکننده‌ی کل (یکته)</span>
       </div>
-      <div class="text-3xl font-extrabold text-mc-gold" id="kpiTotal">⏳</div>
+      <div class="text-3xl font-extrabold text-mc-gold" id="kpiTotal"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-hourglass"/></svg></div>
       <div class="text-[10px] text-mc-text-3 mt-1" id="kpiTotalSub">از ابتدای راه‌اندازی KV</div>
     </div>
   </section>
@@ -78,7 +78,7 @@ const breadcrumb = [
     <div class="mc-panel p-5">
       <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
         <h2 class="text-lg font-extrabold flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
-          <span aria-hidden="true">📈</span> روند ۳۰ روزه
+          <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-stats"/></svg></span> روند ۳۰ روزه
         </h2>
         <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-grass-2/10 text-mc-grass-2 border border-mc-grass-2/20">۳۰ روز</span>
       </div>
@@ -91,7 +91,7 @@ const breadcrumb = [
     <div class="mc-panel p-5">
       <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
         <h2 class="text-lg font-extrabold flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
-          <span aria-hidden="true">🕐</span> فعالیت ۲۴ ساعت
+          <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-clock"/></svg></span> فعالیت ۲۴ ساعت
         </h2>
         <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-diamond/10 text-mc-diamond border border-mc-diamond/20">محلی</span>
       </div>
@@ -99,7 +99,7 @@ const breadcrumb = [
         <canvas id="chart24h"></canvas>
       </div>
       <p class="text-[10px] text-mc-text-3 mt-2" id="chart24Meta">—</p>
-      <p class="text-[10px] text-mc-amber mt-1">⚠️ این فقط فعالیت همین مرورگره، نه کل سایت.</p>
+      <p class="text-[10px] text-mc-amber mt-1 inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-warning"/></svg> این فقط فعالیت همین مرورگره، نه کل سایت.</p>
     </div>
   </section>
 
@@ -107,18 +107,18 @@ const breadcrumb = [
   <section class="mc-panel p-5 mb-6">
     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
       <h2 class="text-lg font-extrabold flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
-        <span aria-hidden="true">📄</span> صفحات دیده‌شده توسط شما
+        <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-document"/></svg></span> صفحات دیده‌شده توسط شما
       </h2>
       <span class="text-xs text-mc-text-3 font-mono px-2 py-1 rounded bg-mc-amber/10 text-mc-amber border border-mc-amber/20" id="topBadge">محلی</span>
     </div>
     <div id="topPagesList" class="space-y-2"></div>
-    <p class="text-[10px] text-mc-amber mt-3" id="topWarn">⚠️ این فقط صفحات دیده‌شده توسط همین مرورگره (داده‌ی محلی) — نه کل سایت. برای آمار سایت‌گسترده، Worker v2 رو آپدیت کن (با /api/pages).</p>
+    <p class="text-[10px] text-mc-amber mt-3 inline-flex items-start gap-1" id="topWarn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top:2px;"><use href="#icon-warning"/></svg> <span>این فقط صفحات دیده‌شده توسط همین مرورگره (داده‌ی محلی) — نه کل سایت. برای آمار سایت‌گسترده، Worker v2 رو آپدیت کن (با /api/pages).</span></p>
   </section>
 
   <!-- Privacy -->
   <section class="mc-panel p-5 text-sm">
     <h2 class="text-base font-extrabold mb-2 flex items-center gap-2 font-pixel" style="font-size: 0.85rem;">
-      <span aria-hidden="true">🔒</span> حریم خصوصی و نحوه‌ی کار
+      <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lock"/></svg></span> حریم خصوصی و نحوه‌ی کار
     </h2>
     <ul class="text-xs text-mc-text-2 space-y-1.5 list-disc pr-4">
       <li><b>آمار واقعی:</b> اعداد آنلاین/امروز/کل از <a href="https://minebed-api.www-habib6269.workers.dev/api/stats" target="_blank" rel="noopener" class="text-mc-grass-2 underline">Cloudflare Worker</a> می‌آیند — متمرکز برای همه‌ی بازدیدکنندگان.</li>
@@ -480,10 +480,10 @@ const breadcrumb = [
 
   document.getElementById('refreshBtn')?.addEventListener('click', () => {
     const btn = document.getElementById('refreshBtn');
-    if (btn) { btn.disabled = true; btn.innerHTML = '<span>⏳</span> در حال بارگذاری…'; }
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-hourglass"/></svg></span> در حال بارگذاری…'; }
     heartbeat().then(() => setTimeout(() => {
       render();
-      if (btn) { btn.disabled = false; btn.innerHTML = '<span aria-hidden="true">🔄</span> به‌روزرسانی'; }
+      if (btn) { btn.disabled = false; btn.innerHTML = '<span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-refresh"/></svg></span> به‌روزرسانی'; }
     }, 500));
   });
 

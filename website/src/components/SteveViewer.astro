@@ -27,21 +27,21 @@ const BASE = import.meta.env.BASE_URL;
   <div class="steve-controls">
     <div class="steve-anim-row">
       <button class="steve-btn active" data-anim="idle" id="animIdle">
-        <span>🧍</span> ایستاده
+        <span class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-stand"/></svg></span> ایستاده
       </button>
       <button class="steve-btn" data-anim="walk" id="animWalk">
-        <span>🚶</span> راه می‌ره
+        <span class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-walk"/></svg></span> راه می‌ره
       </button>
       <button class="steve-btn" data-anim="run" id="animRun">
-        <span>🏃</span> می‌دوه
+        <span class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-run"/></svg></span> می‌دوه
       </button>
     </div>
     <div class="steve-action-row">
       <button class="steve-btn-ghost" id="steveRotate">
-        🔄 چرخش خودکار
+        <span class="inline-flex"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-refresh"/></svg></span> چرخش خودکار
       </button>
       <button class="steve-btn-ghost" id="steveReset">
-        🎯 بازنشانی دید
+        <span class="inline-flex"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-target"/></svg></span> بازنشانی دید
       </button>
     </div>
     <div class="steve-skin-row">
@@ -304,7 +304,7 @@ const BASE = import.meta.env.BASE_URL;
     } catch (e) {
       console.error('SteveViewer init error:', e);
       if (loading) {
-        loading.innerHTML = '<p style="color:#ff8b8b">⚠️ خطا در بارگذاری ۳D — مرورگر شما ممکنه قدیمی باشه</p>';
+        loading.innerHTML = '<p style="color:#ff8b8b;margin:0;display:flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-warning"/></svg> خطا در بارگذاری ۳D — مرورگر شما ممکنه قدیمی باشه</p>';
       }
     }
   }

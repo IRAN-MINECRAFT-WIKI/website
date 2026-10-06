@@ -47,8 +47,8 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
           <h2 class="text-lg font-extrabold text-mc-text group-hover:text-mc-grass-2 mb-2">{post.data.title}</h2>
           <p class="text-xs text-mc-text-2 mb-3 line-clamp-2 flex-1">{post.data.description}</p>
           <div class="flex items-center justify-between text-xs text-mc-text-3 pt-3 border-t border-mc-line">
-            <span>📅 {post.data.pubDate.toLocaleDateString('fa-IR')}</span>
-            <span>👤 {post.data.author}</span>
+            <span class="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-calendar"/></svg> {post.data.pubDate.toLocaleDateString('fa-IR')}</span>
+            <span class="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-person"/></svg> {post.data.author}</span>
           </div>
         </div>
       </a>

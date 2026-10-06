@@ -74,9 +74,10 @@ const ldArticle = articleJsonLd({
           {platformLabel}
         </span>
       </div>
-      <p class="text-sm text-mc-text-2 mb-2">
-        📅 {version.releaseDate} • 🏷️ {version.codename}
-        {version.version && <span> • 🔢 نسخه‌ی {version.version}</span>}
+      <p class="text-sm text-mc-text-2 mb-2 inline-flex items-center gap-3 flex-wrap">
+        <span class="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-calendar"/></svg> {version.releaseDate}</span>
+        <span class="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-tag"/></svg> {version.codename}</span>
+        {version.version && <span class="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-hashtag"/></svg> نسخه‌ی {version.version}</span>}
       </p>
       <p class="text-base text-mc-text-2 leading-loose">{version.summary}</p>
     </div>
@@ -106,24 +107,24 @@ const ldArticle = articleJsonLd({
     <h2 class="text-xl font-extrabold mb-3">منابع و مرجع</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
       <div class="flex items-start gap-2">
-        <span class="text-mc-text-3 mt-0.5">🍪 پلتفرم:</span>
+        <span class="text-mc-text-3 mt-0.5 inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-mobile"/></svg> پلتفرم:</span>
         <span class="text-mc-text-2">{platformFa}</span>
       </div>
       <div class="flex items-start gap-2">
-        <span class="text-mc-text-3 mt-0.5">📅 تاریخ انتشار:</span>
+        <span class="text-mc-text-3 mt-0.5 inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-calendar"/></svg> تاریخ انتشار:</span>
         <span class="text-mc-text-2" dir="ltr">{version.releaseDate}</span>
       </div>
       <div class="flex items-start gap-2">
-        <span class="text-mc-text-3 mt-0.5">🏷️ نام آپدیت:</span>
+        <span class="text-mc-text-3 mt-0.5 inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-tag"/></svg> نام آپدیت:</span>
         <span class="text-mc-text-2">{version.codename}</span>
       </div>
       <div class="flex items-start gap-2">
-        <span class="text-mc-text-3 mt-0.5">📦 نسخه‌ی عددی:</span>
+        <span class="text-mc-text-3 mt-0.5 inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-hashtag"/></svg> نسخه‌ی عددی:</span>
         <span class="text-mc-text-2" dir="ltr">{version.version}</span>
       </div>
       {version.wikiLink && (
         <div class="sm:col-span-2 flex items-start gap-2 mt-2 pt-3 border-t border-mc-line">
-          <span class="text-mc-text-3 mt-0.5">📚 ویکی:</span>
+          <span class="text-mc-text-3 mt-0.5 inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-book-open"/></svg> ویکی:</span>
           <a
             href={version.wikiLink}
             target="_blank"

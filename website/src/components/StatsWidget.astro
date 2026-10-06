@@ -1,7 +1,7 @@
 ---
 // src/components/StatsWidget.astro
 // Floating stats widget shown on every page — bottom-center, above the
-// footer. Three numbers: 🟢 online  📈 today  🔥 total. Click → /stats.
+// footer. Three numbers: online / today / total. Click → /stats.
 //
 // All numbers come from src/lib/analytics.js (client-side only).
 // Online is simulated; today & total are locally-tracked visit counts.
@@ -21,13 +21,13 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
   <span class="sw-pill" id="swOnline" aria-live="polite">— آنلاین</span>
   <span class="sw-sep" aria-hidden="true"></span>
   <span class="sw-pill">
-    <span class="sw-icon" aria-hidden="true">📈</span>
+    <span class="sw-icon inline-flex" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-stats"/></svg></span>
     <span id="swToday">—</span>
     <span class="sw-pill-label">امروز</span>
   </span>
   <span class="sw-sep" aria-hidden="true"></span>
   <span class="sw-pill">
-    <span class="sw-icon" aria-hidden="true">🔥</span>
+    <span class="sw-icon inline-flex" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-trophy"/></svg></span>
     <span id="swTotal">—</span>
     <span class="sw-pill-label">کل</span>
   </span>

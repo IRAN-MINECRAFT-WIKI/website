@@ -58,7 +58,7 @@ function faNum(n: number | string): string {
   <!-- Java Edition section -->
   <section class="mb-10" id="java-section" data-platform-section="java">
     <div class="flex items-center gap-3 mb-4">
-      <span class="text-3xl">☕</span>
+      <span class="shrink-0"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-computer"/></svg></span>
       <div>
         <h2 class="text-xl font-extrabold">Java Edition (نسخه‌ی کامپیوتر)</h2>
         <p class="text-xs text-mc-text-3">{faNum(javaVersions.length)} نسخه از Classic تا 26.3</p>
@@ -108,8 +108,8 @@ function faNum(n: number | string): string {
           </div>
           <p class="text-xs text-mc-text-2 mb-3 line-clamp-2">{v.summary}</p>
           <div class="flex items-center justify-between text-[10px] text-mc-text-3 border-t border-mc-line pt-2">
-            <span>📅 {v.releaseDate}</span>
-            <span>🍵 Java Edition</span>
+            <span class="inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-calendar"/></svg> {v.releaseDate}</span>
+            <span>Java Edition</span>
             {v.wikiLink && (
               <span class="text-mc-grass-2 hover:underline">Wiki ↗</span>
             )}
@@ -122,7 +122,7 @@ function faNum(n: number | string): string {
   <!-- Bedrock Edition section -->
   <section class="mb-10" id="bedrock-section" data-platform-section="bedrock">
     <div class="flex items-center gap-3 mb-4">
-      <span class="text-3xl">🪨</span>
+      <span class="shrink-0"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-mobile"/></svg></span>
       <div>
         <h2 class="text-xl font-extrabold">Bedrock Edition (موبایل/کنسول/Win10)</h2>
         <p class="text-xs text-mc-text-3">{faNum(bedrockVersions.length)} نسخه از 0.9.0 تا 26.50</p>
@@ -172,8 +172,8 @@ function faNum(n: number | string): string {
           </div>
           <p class="text-xs text-mc-text-2 mb-3 line-clamp-2">{v.summary}</p>
           <div class="flex items-center justify-between text-[10px] text-mc-text-3 border-t border-mc-line pt-2">
-            <span>📅 {v.releaseDate}</span>
-            <span>📱 Bedrock</span>
+            <span class="inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-calendar"/></svg> {v.releaseDate}</span>
+            <span class="inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-mobile"/></svg> Bedrock</span>
             {v.wikiLink && (
               <span class="text-mc-grass-2 hover:underline">Wiki ↗</span>
             )}
@@ -185,7 +185,7 @@ function faNum(n: number | string): string {
 
   <!-- Empty state shown when filters exclude everything -->
   <p class="mc-panel text-center py-8 text-sm text-mc-text-2 hidden" id="noResults">
-    هیچ نسخه‌ای با این فیلتر پیدا نشد. 🔍
+    هیچ نسخه‌ای با این فیلتر پیدا نشد.
   </p>
 </BaseLayout>
 

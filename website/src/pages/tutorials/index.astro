@@ -59,7 +59,7 @@ const difficultyColors = {
             <span class={`text-xs font-bold ${difficultyColors[tut.data.difficulty]}`}>
               {difficultyNames[tut.data.difficulty]}
             </span>
-            <span class="text-xs text-mc-text-3">⏱️ {tut.data.duration} دقیقه</span>
+            <span class="text-xs text-mc-text-3 inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-clock"/></svg> {tut.data.duration} دقیقه</span>
           </div>
           <h2 class="text-lg font-extrabold text-mc-text group-hover:text-mc-grass-2 mb-2">{tut.data.title}</h2>
           <p class="text-xs text-mc-text-2 line-clamp-2 flex-1">{tut.data.description}</p>
@@ -70,7 +70,7 @@ const difficultyColors = {
 
   {tutorials.length === 0 && (
     <div class="mc-panel text-center py-12">
-      <div class="text-5xl mb-4">📖</div>
+      <div class="mb-4 text-mc-text-3"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-book-open"/></svg></div>
       <h3 class="text-xl font-bold text-mc-text-2 mb-2">هنوز آموزشی نیست</h3>
       <p class="text-sm text-mc-text-3">به‌زودی آموزش‌های تخصصی اضافه می‌شه!</p>
     </div>

@@ -88,7 +88,7 @@ const BASE = import.meta.env.BASE_URL;
     <!-- Side inventory panel (only on desktop, large screens) -->
     <aside class="inventory-panel" id="inventoryPanel">
       <div class="inventory-header">
-        <span class="inventory-title">🎨 بلاک‌ها</span>
+        <span class="inventory-title inline-flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-palette"/></svg> بلاک‌ها</span>
       </div>
       <div class="inventory-grid" id="inventoryGrid">
         {allTextures.map((tex) => (
@@ -129,7 +129,7 @@ const BASE = import.meta.env.BASE_URL;
         </div>
         <div class="ct-shadow"></div>
         <div class="ct-glow" id="tableGlow"></div>
-        <div class="ct-hint">⚡ کلیک کن!</div>
+        <div class="ct-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round" aria-hidden="true" style="display:inline-block;vertical-align:middle;"><use href="#icon-zap"/></svg> کلیک کن!</div>
       </button>
       
       <!-- Steve character -->
@@ -172,7 +172,7 @@ const BASE = import.meta.env.BASE_URL;
     
     <!-- Hint text below the scene -->
     <div class="scene-hint">
-      <p>📌 روی میز کار کلیک کن تا اینونتوری باز بشه</p>
+      <p class="inline-flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-pushpin"/></svg> روی میز کار کلیک کن تا اینونتوری باز بشه</p>
     </div>
   </div>
   
@@ -203,10 +203,10 @@ const BASE = import.meta.env.BASE_URL;
           />
         </div>
         <div class="search-chips">
-          <button class="search-chip" data-recipe-id="diamond-sword">⚔️ شمشیر الماس</button>
-          <button class="search-chip" data-recipe-id="iron-pickaxe">⛏️ کلنگ آهنی</button>
-          <button class="search-chip" data-recipe-id="crafting-table">🪵 میز کار</button>
-          <button class="search-chip" data-recipe-id="torch">🔥 مشعل</button>
+          <button class="search-chip" data-recipe-id="diamond-sword"><img src="https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main/items/diamond-sword.png" alt="" width="16" height="16" loading="lazy" decoding="async" style="image-rendering:pixelated; vertical-align:middle;" onerror="this.style.display='none'" /> شمشیر الماس</button>
+          <button class="search-chip" data-recipe-id="iron-pickaxe"><img src="https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main/items/iron-pickaxe.png" alt="" width="16" height="16" loading="lazy" decoding="async" style="image-rendering:pixelated; vertical-align:middle;" onerror="this.style.display='none'" /> کلنگ آهنی</button>
+          <button class="search-chip" data-recipe-id="crafting-table"><img src="https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main/blocks/crafting-table.png" alt="" width="16" height="16" loading="lazy" decoding="async" style="image-rendering:pixelated; vertical-align:middle;" onerror="this.style.display='none'" /> میز کار</button>
+          <button class="search-chip" data-recipe-id="torch"><img src="https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main/items/torch.png" alt="" width="16" height="16" loading="lazy" decoding="async" style="image-rendering:pixelated; vertical-align:middle;" onerror="this.style.display='none'" /> مشعل</button>
         </div>
       </div>
       
@@ -238,7 +238,7 @@ const BASE = import.meta.env.BASE_URL;
               <div class="inv-steve-arm right"></div>
               <div class="inv-steve-leg left"></div>
               <div class="inv-steve-leg right"></div>
-              <div class="inv-steve-tap-hint" id="steveTapHint">👇 کلیک کن</div>
+              <div class="inv-steve-tap-hint" id="steveTapHint">کلیک کن</div>
             </div>
           </button>
           

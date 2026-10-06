@@ -40,14 +40,14 @@ const versionCounts = versions.map((v) => ({ id: v, count: seeds.filter((s) => s
       <p class="text-sm text-mc-text-2">{seeds.length} سید دست‌چین شده با توضیحات کامل · یا خودت یک سید بساز</p>
     </div>
     <div class="flex flex-wrap gap-2">
-      <a href={base('/seeds/tested')} class="mc-btn">
-        <span aria-hidden="true">🧪</span> سیدهای تست‌شده
+      <a href={base('/seeds/tested')} class="mc-btn inline-flex items-center gap-1">
+        <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-potion"/></svg></span> سیدهای تست‌شده
       </a>
-      <a href={base('/seeds/create')} class="mc-btn ghost">
-        <span aria-hidden="true">🎲</span> ساخت سید
+      <a href={base('/seeds/create')} class="mc-btn ghost inline-flex items-center gap-1">
+        <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-dice"/></svg></span> ساخت سید
       </a>
-      <a href={base('/seeds/my')} class="mc-btn ghost">
-        <span aria-hidden="true">📥</span> سیدهای من
+      <a href={base('/seeds/my')} class="mc-btn ghost inline-flex items-center gap-1">
+        <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-download"/></svg></span> سیدهای من
       </a>
     </div>
   </div>
@@ -93,8 +93,8 @@ const versionCounts = versions.map((v) => ({ id: v, count: seeds.filter((s) => s
             {seed.code}
           </div>
           <div class="flex items-center justify-between gap-2 mt-3 pt-3 border-t border-mc-line text-xs">
-            <span class="text-mc-text-3">🌍 {seed.biome || 'نامشخص'}</span>
-            <span class="text-mc-text-3">⭐ {seed.rating}</span>
+            <span class="text-mc-text-3 inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-world"/></svg> {seed.biome || 'نامشخص'}</span>
+            <span class="text-mc-text-3 inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><use href="#icon-star"/></svg> {seed.rating}</span>
             <span class="text-mc-text-3">MC {seed.version}</span>
           </div>
         </div>

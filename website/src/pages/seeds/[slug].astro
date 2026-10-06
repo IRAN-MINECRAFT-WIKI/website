@@ -63,7 +63,7 @@ const ldBread = breadcrumbJsonLd(breadcrumb);
           <h2 class="text-xl font-extrabold mb-3">ساختارهای مهم</h2>
           <div class="flex flex-wrap gap-2">
             {seed.structures.map((s) => (
-              <span class="mc-chip">🏛️ {s}</span>
+              <span class="mc-chip inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-structure"/></svg> {s}</span>
             ))}
           </div>
         </section>
@@ -85,7 +85,7 @@ const ldBread = breadcrumbJsonLd(breadcrumb);
           </div>
           <div class="flex justify-between">
             <dt class="text-mc-text-3">امتیاز:</dt>
-            <dd class="text-mc-gold font-bold">⭐ {seed.rating}</dd>
+            <dd class="text-mc-gold font-bold inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><use href="#icon-star"/></svg> {seed.rating}</dd>
           </div>
           <div class="flex justify-between">
             <dt class="text-mc-text-3">دسته:</dt>

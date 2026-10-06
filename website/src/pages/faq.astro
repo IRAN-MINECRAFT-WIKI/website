@@ -174,7 +174,7 @@ const byCat = (cat: string) => FAQS.filter(f => f.cat === cat);
   {categories.map((cat) => (
     <section class="mb-8" id={`cat-${cat}`}>
       <h2 class="text-lg font-extrabold text-mc-grass-2 mb-4 flex items-center gap-2 font-pixel" style="font-size: 0.9rem;">
-        <span aria-hidden="true">📂</span> {cat}
+        <span aria-hidden="true" class="inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-folder"/></svg></span> {cat}
       </h2>
       <div class="space-y-3">
         {byCat(cat).map((f, i) => (
@@ -195,17 +195,17 @@ const byCat = (cat: string) => FAQS.filter(f => f.cat === cat);
 
   <!-- Still have questions? -->
   <section class="mc-panel p-6 text-center mt-8">
-    <div class="text-4xl mb-3" aria-hidden="true">💬</div>
+    <div class="mb-3 text-mc-text-3" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-comment"/></svg></div>
     <h2 class="text-lg font-bold text-mc-text mb-2">سوال دیگه‌ای داری؟</h2>
     <p class="text-sm text-mc-text-3 mb-4">
       اگه پاسخت اینجا نیست، می‌تونی از کانال اپارات یا گیت‌هاب ما بپرسی.
     </p>
     <div class="flex flex-wrap gap-2 justify-center">
-      <a href="https://www.aparat.com/MineBedFarsi" target="_blank" rel="noopener" class="mc-btn ghost small">
-        📺 اپارات
+      <a href="https://www.aparat.com/MineBedFarsi" target="_blank" rel="noopener" class="mc-btn ghost small inline-flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-media"/></svg> اپارات
       </a>
-      <a href="https://github.com/IRAN-MINECRAFT-WIKI/website" target="_blank" rel="noopener" class="mc-btn ghost small">
-        💻 گیت‌هاب
+      <a href="https://github.com/IRAN-MINECRAFT-WIKI/website" target="_blank" rel="noopener" class="mc-btn ghost small inline-flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-computer"/></svg> گیت‌هاب
       </a>
     </div>
   </section>
