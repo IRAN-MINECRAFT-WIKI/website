@@ -93,7 +93,15 @@ const ldHowTo = howToJsonLd({
     </header>
 
     {tut.data.cover && (
-      <img src={coverUrl} alt={tut.data.title} class="w-full aspect-video object-cover mb-6" />
+      <img
+        src={coverUrl}
+        alt={tut.data.title}
+        width="1280"
+        height="720"
+        loading="eager"
+        decoding="async"
+        class="w-full aspect-video object-cover mb-6"
+      />
     )}
 
     <div class="prose prose-invert max-w-none">

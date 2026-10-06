@@ -35,7 +35,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
           <img
             src={post.data.cover || `${BASE}images/placeholder-blog.svg`}
             alt={post.data.title}
+            width="640"
+            height="360"
             loading="lazy"
+            decoding="async"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             onerror={`this.src='${BASE}images/placeholder-blog.svg'`}
           />

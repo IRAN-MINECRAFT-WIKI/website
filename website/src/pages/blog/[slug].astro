@@ -73,7 +73,15 @@ const ldBread = breadcrumbJsonLd(breadcrumb);
     </header>
 
     {post.data.cover && (
-      <img src={coverUrl} alt={post.data.title} class="w-full aspect-video object-cover mb-6" />
+      <img
+        src={coverUrl}
+        alt={post.data.title}
+        width="1280"
+        height="720"
+        loading="eager"
+        decoding="async"
+        class="w-full aspect-video object-cover mb-6"
+      />
     )}
 
     <div class="prose prose-invert max-w-none">

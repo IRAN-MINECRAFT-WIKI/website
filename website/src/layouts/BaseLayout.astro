@@ -38,6 +38,8 @@ const orgLd = organizationJsonLd();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d0d18" />
+    <meta name="color-scheme" content="dark" />
     <title>{headMeta.title}</title>
     <meta name="description" content={headMeta.description} />
     <meta name="robots" content={headMeta.robots} />
@@ -173,6 +175,7 @@ const orgLd = organizationJsonLd();
     <ClientRouter />
   </head>
   <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="skip-link">پرش به محتوا</a>
     <Icons />
     <PixelSprites />
     <!-- Old browser warning -->
@@ -185,7 +188,7 @@ const orgLd = organizationJsonLd();
     <Preloader />
 
     <Header />
-    <main class="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <main id="main-content" class="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <slot />
     </main>
     <Footer />
@@ -196,3 +199,28 @@ const orgLd = organizationJsonLd();
     <StatsWidget />
   </body>
 </html>
+
+<style is:global>
+  /* Skip-to-content link — accessibility (a11y) best practice.
+     Hidden off-screen until focused, then snaps into view. */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    right: 0;
+    z-index: 10000;
+    background: var(--grass, #5fa838);
+    color: #0d0d18;
+    padding: 0.625rem 1.25rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border-radius: 0 0 0 8px;
+    text-decoration: none;
+    transition: top 0.15s ease-out;
+  }
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    top: 0;
+    outline: 3px solid var(--grass-2, #7cc84a);
+    outline-offset: 2px;
+  }
+</style>

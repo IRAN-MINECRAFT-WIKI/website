@@ -122,7 +122,15 @@ const gallery = mod.gallery || [];
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {gallery.map((g) => (
               <a href={g} target="_blank" class="block aspect-video overflow-hidden bg-mc-panel-2">
-                <img src={g} alt="اسکرین‌شات" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform" />
+                <img
+                  src={g}
+                  alt="اسکرین‌شات"
+                  width="640"
+                  height="360"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover hover:scale-105 transition-transform"
+                />
               </a>
             ))}
           </div>

@@ -43,7 +43,16 @@ const difficultyColors = {
     {tutorials.map((tut) => (
       <a href={base(`/tutorials/${tut.id}`)} class="mc-card group flex flex-col">
         <div class="aspect-video overflow-hidden bg-mc-panel-2">
-          <img src={tut.data.cover || `${BASE}images/placeholder-tutorial.svg`} alt={tut.data.title} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform" onerror={`this.src='${BASE}images/placeholder-tutorial.svg'`} />
+          <img
+            src={tut.data.cover || `${BASE}images/placeholder-tutorial.svg`}
+            alt={tut.data.title}
+            width="640"
+            height="360"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform"
+            onerror={`this.src='${BASE}images/placeholder-tutorial.svg'`}
+          />
         </div>
         <div class="p-5 flex-1 flex flex-col">
           <div class="flex items-center gap-2 mb-2">
