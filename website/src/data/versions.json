@@ -12,12 +12,32 @@
       "icon": "px-grass-block",
       "summary": "بزرگ‌ترین آپدیت جاوا در سال ۲۰۲۶ با تمرکز بر بیوم‌های وحشی، غارهای جدید و سیستم چابک‌سازی Survival.",
       "description": "نسخه‌ی ۲۶.۳ جاوا با نام Wilderness Bound در سپتامبر ۲۰۲۶ عرضه شد و بزرگ‌ترین بازطراحی بیوم‌های وحشی از زمان The Wild Update را به ارمغان می‌آورد. اضافه شدن Wilderness Camp، Quick Travel Rope و سیستم های جدید Trail Marking، ماجراجویی را متحول می‌کند.",
-      "highlights": ["Wilderness Camp جدید", "Quick Travel Rope", "Trail Marking با Banner", "غارهای Crystalline", "سیستم آب‌وهوای پویا"],
+      "highlights": [
+        "Wilderness Camp جدید",
+        "Quick Travel Rope",
+        "Trail Marking با Banner",
+        "غارهای Crystalline",
+        "سیستم آب‌وهوای پویا"
+      ],
       "compatibleMods": 9,
       "platform": "java",
       "isLatest": false,
       "featured": false,
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_26.3"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_26.3",
+      "features": [
+        "Wilderness Camp — ساختار جدید کمپینگ با امکان اسکان کردن",
+        "Quick Travel Rope — ابزار پرتاب‌ون برای سفر سریع بین کمپ‌ها",
+        "Trail Marking با Banner — سیستم نشانه‌گذاری مسیرها",
+        "Crystalline Caves — بیوم غاری جدید با کریستال‌های درخشان",
+        "سیستم آب‌وهوای پویا با باران، برف و طوفان‌های فصلی"
+      ],
+      "changelog": [
+        "افزودن بلوک Wilderness Camp و Quick Travel Rope",
+        "افزودن بیوم Crystalline Caves در اعماق زمین",
+        "افزودن سیستم Trail Marking با Banner",
+        "بازطراحی سیستم آب‌وهوای پویا",
+        "بازطراحی بیوم‌های وحشی با تنوع بیشتر"
+      ]
     },
     {
       "id": "java-26-2",
@@ -31,12 +51,31 @@
       "icon": "px-tnt",
       "summary": "آپدیت جاوا ۲۶.۲ با تمرکز بر ردمستون، ماشین‌آلات سیمی-چرخ‌دنده و منطق ضد ضعیف‌سازی مولر.",
       "description": "نسخه‌ی ۲۶.۲ جاوا با نام Chaos Cubed در ژوئن ۲۰۲۶ عرضه شد. این نسخه ماشین‌آلات سیمی-چرخ‌دنده، قراضه‌های خرد شده و ابزارهای منطقی جدید را اضافه می‌کند تا بازیکنان حرفه‌ای‌تر بتوانند سیستم‌های پیچیده‌ی ردمستون بسازند.",
-      "highlights": ["Cogwheel بلوک منطقی", "Redstone Dust جدید", "سنگ خرد شده با سیگنال ضعیف‌تر", "افزودن Logic Gate Block"],
+      "highlights": [
+        "Cogwheel بلوک منطقی",
+        "Redstone Dust جدید",
+        "سنگ خرد شده با سیگنال ضعیف‌تر",
+        "افزودن Logic Gate Block"
+      ],
       "compatibleMods": 11,
       "platform": "java",
       "isLatest": false,
       "featured": false,
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_26.2"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_26.2",
+      "features": [
+        "Cogwheel — بلوک منطقی جدید برای انتقال سیگنال رداستون",
+        "Logic Gate Block — دروازه‌های AND/OR/XOR برای ساخت مدارهای پیچیده",
+        "پودر رداستون بازطراحی‌شده با قابلیت تنظیم شدت سیگنال",
+        "Scrap Block — قطعات خرد شده برای منطق ضعیف‌تر",
+        "Comparator بازطراحی‌شده با حالت‌های جدید"
+      ],
+      "changelog": [
+        "افزودن بلوک Cogwheel و Logic Gate Block",
+        "بازطراحی پودر رداستون با شدت سیگنال متغیر",
+        "افزودن Scrap Block برای منطق ضعیف‌تر",
+        "بهبود Comparator با حالت‌های جدید",
+        "رفع اشکال فراوان در سیستم رداستون"
+      ]
     },
     {
       "id": "java-26-1",
@@ -50,12 +89,31 @@
       "icon": "px-grass-block",
       "summary": "نسخه‌ی ۲۶.۱ با موجودات کوچک جدید، Bee Queen، انیمیشن‌های جمع‌وجور و Mini Village.",
       "description": "نسخه‌ی ۲۶.۱ جاوا با نام Tiny Takeover در مارس ۲۰۲۶ منتشر شد. این آپدیت تمرکز بر موجودات کوچک دارد: Bee Queen، Tiny Slime و Mini Village که در آن‌ها ویلجرهای کوچک زندگی می‌کنند. انیمیشن‌های منحصر بفرد برای هر موجود اضافه شده است.",
-      "highlights": ["Bee Queen", "Mini Village", "Tiny Slime", "انیمیشن‌های کوچک‌سازی"],
+      "highlights": [
+        "Bee Queen",
+        "Mini Village",
+        "Tiny Slime",
+        "انیمیشن‌های کوچک‌سازی"
+      ],
       "compatibleMods": 7,
       "platform": "java",
       "isLatest": false,
       "featured": false,
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_26.1"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_26.1",
+      "features": [
+        "Bee Queen — ماب جدید رهبر زنبورها با قابلیت تولید عسل ویژه",
+        "Mini Village — دهکده‌ی مینیاتوری با ویلجرهای کوچک",
+        "Tiny Slime — اسلایم کوچک با رفتار دوستانه",
+        "انیمیشن‌های جمع‌وجور برای تمام ماب‌ها",
+        "سیستم Miniaturization برای تبدیل ابزارها به حالت کوچک"
+      ],
+      "changelog": [
+        "افزودن ماب Bee Queen و Mini Village",
+        "افزودن Tiny Slime با رفتار دوستانه",
+        "افزودن انیمیشن‌های مینیاتوری برای ماب‌ها",
+        "افزودن سیستم Miniaturization",
+        "رفع اشکال فراوان و بهبود عملکرد"
+      ]
     },
     {
       "id": "java-1-21",
@@ -69,12 +127,32 @@
       "icon": "px-grass-block",
       "summary": "آپدیت بزرگ ۲۰۲۴ با تمرکز بر ماجراجویی، تاریک‌خانه، و موجودات جدید مثل Armadillo.",
       "description": "آپدیت ۱.۲۱ که با نام Trails & Tales شناخته می‌شود، یکی از بزرگ‌ترین به‌روزرسانی‌های ماینکرفت جاوا در سال ۲۰۲۴ است. این نسخه با تمرکز بر ماجراجویی، اکتشافات جدید، و داستان‌سرایی محتوای فراوانی را به بازی اضافه کرده است. از موجودات جدید مثل Armadillo که با کنار گرفتنش از شما سپانه‌های محکم می‌سازد تا بلوک‌های تزئینی فراوان و ابزارهای جدید مثل Brush که با آن می‌توانید تاریک‌خانه را کاوش کنید.",
-      "highlights": ["موجود Armadillo با سپانه‌های جدید", "تاریک‌خانه (Trial Chambers)", "ابزار Brush برای کاوش", "Wolf Variants گوناگون", "Copper Bulb"],
+      "highlights": [
+        "موجود Armadillo با سپانه‌های جدید",
+        "تاریک‌خانه (Trial Chambers)",
+        "ابزار Brush برای کاوش",
+        "Wolf Variants گوناگون",
+        "Copper Bulb"
+      ],
       "compatibleMods": 18,
       "platform": "java",
       "isLatest": true,
       "featured": true,
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.21"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.21",
+      "features": [
+        "Trial Chambers — ساختارهای زیرزمینی با چالش‌های پویا و پاداش",
+        "Breeze — ماب جدید با حملات بادی پرتاب‌کننده",
+        "Mace — سلاح جدید با آسیب خنثی‌کننده و افزایش آسیب از ارتفاع",
+        "Crafter — بلوک کرافت خودکار با رداستون",
+        "Armadillo — ماب جدید با سپانه‌های محکم و Wolf Variants"
+      ],
+      "changelog": [
+        "افزودن Trial Chambers و Trial Spawner",
+        "افزودن ماب Breeze و Wind Charge",
+        "افزودن سلاح Mace با انیمیشن smash",
+        "افزودن بلوک Crafter برای کرافت خودکار",
+        "افزودن Armadillo و Wolf Variants گوناگون"
+      ]
     },
     {
       "id": "java-1-20",
@@ -88,11 +166,31 @@
       "icon": "px-grass-block",
       "summary": "نسخه‌ی آرام و ماجراجویانه با اضافه شدن Cherry Blossom، Bamboo Set و Archaeology.",
       "description": "نسخه‌ی ۱.۲۰ جاوا با نام Trails & Tales عرضه شد و تم اصلی آن آرامش، ماجراجویی، و داستان‌گویی است. در این نسخه با بیوم جدید Cherry Blossom روبرو می‌شوید. Bamboo Set با نوع جدیدی از چوب‌ها اضافه شد. Archaeology سیستم جدیدی است که با Brush به شما امکان کاوش در خاک‌های باستانی را می‌دهد.",
-      "highlights": ["Cherry Blossom Biome جدید", "Bamboo Wood Set کامل", "سیستم Archaeology با Brush", "Hanging Signs", "Armor Trims"],
+      "highlights": [
+        "Cherry Blossom Biome جدید",
+        "Bamboo Wood Set کامل",
+        "سیستم Archaeology با Brush",
+        "Hanging Signs",
+        "Armor Trims"
+      ],
       "compatibleMods": 24,
       "platform": "java",
       "featured": true,
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.20"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.20",
+      "features": [
+        "Cherry Blossom Biome — بیوم جدید با درختان شکوفه‌های صورتی",
+        "Bamboo Wood Set — چوب بامبو کامل با پلانک، حصار و در",
+        "سیستم Archaeology با Brush برای کاوش در خاک‌های باستانی",
+        "Hanging Signs — تابلوهای آویزان با ظاهر متنوع",
+        "Armor Trims — الگوهای تزئینی برای زره‌ها"
+      ],
+      "changelog": [
+        "افزودن Cherry Blossom Biome و Bamboo Wood Set",
+        "افزودن سیستم Archaeology با Brush و Suspicious Sand",
+        "افزودن Hanging Signs و Bamboo Blocks",
+        "افزودن Armor Trims با ۱۱ الگو",
+        "افزودن Calibrated Sculk Sensor"
+      ]
     },
     {
       "id": "java-1-19",
@@ -106,11 +204,31 @@
       "icon": "px-grass-block",
       "summary": "آپدیت وحشی با Deep Dark، Warden و Mangrove Swamp.",
       "description": "نسخه‌ی ۱.۱۹ با نام The Wild Update شناخته می‌شود و یکی از ترسناک‌ترین آپدیت‌های ماینکرفت به شمار می‌رود. این نسخه Deep Dark biome را اضافه کرد که در اعماق زمین قرار دارد و محل زندگی Warden است. Mangrove Swamp با درختان منگرو و خاک منگروی به بازی اضافه شد. Allay موجود کوچک و دوست‌داشتنی است.",
-      "highlights": ["Deep Dark Biome با Warden", "Mangrove Swamp با درختان منگرو", "موجود Allay برای جمع‌آوری آیتم", "Echo Shards", "Frog و Tadpoles"],
+      "highlights": [
+        "Deep Dark Biome با Warden",
+        "Mangrove Swamp با درختان منگرو",
+        "موجود Allay برای جمع‌آوری آیتم",
+        "Echo Shards",
+        "Frog و Tadpoles"
+      ],
       "compatibleMods": 32,
       "platform": "java",
       "featured": true,
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.19"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.19",
+      "features": [
+        "Deep Dark Biome — بیوم ترسناک در اعماق زمین با Sculk",
+        "Warden — قوی‌ترین ماب بازی با گوش حاد و نابینایی",
+        "Mangrove Swamp — بیوم مردابی با درختان منگرو",
+        "Allay — موجود کوچک که آیتم جمع می‌کند",
+        "Frog و Tadpoles — قورباغه و بچه‌قورباغه با بیوم‌های متنوع"
+      ],
+      "changelog": [
+        "افزودن Deep Dark Biome و Warden",
+        "افزودن Mangrove Swamp با درختان منگرو",
+        "افزودن موجود Allay برای جمع‌آوری آیتم",
+        "افزودن Frog، Tadpoles و Froglight",
+        "افزودن Echo Shards و Recovery Compass"
+      ]
     },
     {
       "id": "java-1-18",
@@ -124,10 +242,30 @@
       "icon": "px-stone-block",
       "summary": "بخش دوم Caves & Cliffs با World Generation جدید، غارهای بزرگ‌تر و کوه‌های بلندتر.",
       "description": "نسخه‌ی ۱.۱۸ که بخش دوم آپدیت بزرگ Caves & Cliffs است، World Generation بازی را کاملاً دگرگون کرد. غارها به اشکال مختلف مثل Lush Caves و Dripstone Caves درآمدند و عمیق‌تر شدند. کوه‌ها به ارتفاع ۲۵۶ بلوک رسیدند و بیوم‌های Meadow و Grove اضافه شد.",
-      "highlights": ["World Generation جدید با ارتفاع ۲۵۶", "Lush Caves و Dripstone Caves", "بیوم Meadow و Grove", "عمق غارها به -۶۴", "Amethyst Geodes"],
+      "highlights": [
+        "World Generation جدید با ارتفاع ۲۵۶",
+        "Lush Caves و Dripstone Caves",
+        "بیوم Meadow و Grove",
+        "عمق غارها به -۶۴",
+        "Amethyst Geodes"
+      ],
       "compatibleMods": 12,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.18"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.18",
+      "features": [
+        "World Generation جدید با ارتفاع ۳۸۴ بلوک (از -۶۴ تا ۳۲۰)",
+        "Lush Caves — غارهای سرسبز با گیاهان و درختان",
+        "Dripstone Caves — غارهای استالاکتیتی با Pointed Dripstone",
+        "بیوم Meadow، Grove و Snowy Slopes",
+        "عمق غارها به -۶۴ بلوک"
+      ],
+      "changelog": [
+        "افزودن World Generation جدید با ارتفاع ۳۸۴ بلوک",
+        "افزودن Lush Caves و Dripstone Caves",
+        "افزودن بیوم Meadow، Grove و Snowy Slopes",
+        "افزودن Amethyst Geodes و Large Ore Veins",
+        "افزودن Copper Ore در سطح زمین"
+      ]
     },
     {
       "id": "java-1-17",
@@ -141,10 +279,30 @@
       "icon": "px-diamond-ore",
       "summary": "بخش اول Caves & Cliffs با بلوک‌های جدید مثل Amethyst، Copper و Lightning Rod.",
       "description": "نسخه‌ی ۱.۱۷ بخش اول آپدیت بزرگ Caves & Cliffs است. در این نسخه بلوک‌های جدید زیادی اضافه شد از جمله Copper که با گذشت زمان رنگش تغییر می‌کند، Amethyst Geodes که در اعماق زمین پیدا می‌شوند، و Lightning Rod برای جذب صاعقه. همچنین موجودات جدید Axolotl و Goat اضافه شدند.",
-      "highlights": ["بلوک Copper با رنگ‌پذیری زمان", "Amethyst Geodes", "Lightning Rod", "موجودات Axolotl و Goat", "Powder Snow"],
+      "highlights": [
+        "بلوک Copper با رنگ‌پذیری زمان",
+        "Amethyst Geodes",
+        "Lightning Rod",
+        "موجودات Axolotl و Goat",
+        "Powder Snow"
+      ],
       "compatibleMods": 8,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.17"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.17",
+      "features": [
+        "Copper Block — بلوک جدید که با گذشت زمان رنگش تغییر می‌کند",
+        "Amethyst Geodes — ساختارهای کریستالی در اعماق زمین",
+        "Lightning Rod — میله صاعقه‌گیر برای جذب صاعقه",
+        "موجودات Axolotl و Goat با رفتارهای جدید",
+        "Powder Snow — برف نرم که ماب‌ها را فرو می‌برد"
+      ],
+      "changelog": [
+        "افزودن Copper Block و_cut Copper variants",
+        "افزودن Amethyst Geodes و Budding Amethyst",
+        "افزودن Lightning Rod و Spyglass",
+        "افزودن Axolotl، Goat و Glow Squid",
+        "افزودن Powder Snow و Deepslate Ore"
+      ]
     },
     {
       "id": "java-1-16",
@@ -158,10 +316,30 @@
       "icon": "px-tnt",
       "summary": "آپدیت بزرگ Nether با بیوم‌های جدید، Piglins و Netherite.",
       "description": "نسخه‌ی ۱.۱۶ با نام Nether Update یکی از مهم‌ترین آپدیت‌های تاریخ ماینکرفت است. این نسخه Nether را از یک محیط خالی و یکنواخت به جهانی پر از تنوع تبدیل کرد. بیوم‌های جدید مثل Crimson Forest، Warped Forest، Soulsand Valley و Basalt Deltas اضافه شدند. Piglins که موجودات قابل تجارت هستند اضافه شدند. Netherite به عنوان مادون DIAMOND معرفی شد.",
-      "highlights": ["بیوم‌های متنوع Nether", "Piglins برای تجارت", "Netherite — مادون Diamond", "Respawn Anchor", "Bastion Remnants"],
+      "highlights": [
+        "بیوم‌های متنوع Nether",
+        "Piglins برای تجارت",
+        "Netherite — مادون Diamond",
+        "Respawn Anchor",
+        "Bastion Remnants"
+      ],
       "compatibleMods": 14,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.16"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.16",
+      "features": [
+        "بیوم‌های متنوع ندر: Crimson Forest، Warped Forest، Soulsand Valley",
+        "Piglins — موجودات قابل تجارت و حملات",
+        "Netherite — مادون قوی‌تر از Diamond",
+        "Respawn Anchor — بستر تولد در ندر",
+        "Bastion Remnants — ساختارهای جدید در ندر"
+      ],
+      "changelog": [
+        "افزودن بیوم‌های ندر: Crimson Forest، Warped Forest، Soulsand Valley، Basalt Deltas",
+        "افزودن Piglins، Hoglins و Striders",
+        "افزودن Netherite و قاب upgrade",
+        "افزودن Respawn Anchor و Crying Obsidian",
+        "افزودن Bastion Remnants و Ruined Portals"
+      ]
     },
     {
       "id": "java-1-15",
@@ -175,10 +353,29 @@
       "icon": "px-grass-block",
       "summary": "آپدیت زنبورها با Bee، Hive و Honey Bottle.",
       "description": "نسخه‌ی ۱.۱۵ با نام Buzzy Bees در دسامبر ۲۰۱۹ عرضه شد. این نسخه زنبورها، کندو و Honey Bottle را به بازی اضافه کرد. زنبورها در Hive زندگی می‌کنند و عسل تولید می‌کنند که می‌توانید آن را جمع‌آوری کنید. این نسخه همچنین رفع اشکال‌های فراوانی را شامل می‌شود.",
-      "highlights": ["زنبور (Bee) جدید", "Hive و Nest", "Honey Bottle و Honey Block", "رفع اشکال فراوان"],
+      "highlights": [
+        "زنبور (Bee) جدید",
+        "Hive و Nest",
+        "Honey Bottle و Honey Block",
+        "رفع اشکال فراوان"
+      ],
       "compatibleMods": 6,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.15"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.15",
+      "features": [
+        "Bee — زنبور جدید با رفتار群体ی",
+        "Bee Hive و Bee Nest — کندو و لانه‌ی زنبورها",
+        "Honey Bottle و Honey Block — آیتم‌های جدید از عسل",
+        "Honey Block با خاصیت چسبندگی برای ماشین‌های رداستون",
+        "رفع اشکال فراوان و بهبود عملکرد (Flattening)"
+      ],
+      "changelog": [
+        "افزودن Bee و Bee Hive و Bee Nest",
+        "افزودن Honey Bottle و Honey Block",
+        "افزودن Honeycomb و Honeycomb Block",
+        "بازطراحی سیستم دیتا (Flattening)",
+        "رفع اشکال فراوان و بهبود عملکرد"
+      ]
     },
     {
       "id": "java-1-14",
@@ -192,10 +389,30 @@
       "icon": "px-grass-block",
       "summary": "آپدیت دهکده و غارتگرها با بازطراحی کامل دهکده‌ها، Pillager و Crossbow.",
       "description": "نسخه‌ی ۱.۱۴ با نام Village & Pillage در آوریل ۲۰۱۹ منتشر شد و یکی از بزرگ‌ترین آپدیت‌های تاریخی ماینکرفت است. این نسخه دهکده‌ها را کاملاً بازطراحی کرد و برای هر بیوم ظاهر متفاوتی ساخت. Pillager و Crossbow اضافه شد. Bamboo و Scaffolding و Bengali نیز اضافه شدند.",
-      "highlights": ["بازطراحی کامل دهکده‌ها", "Pillager و Crossbow", "Bamboo Jungle", "Scaffolding", "خانه‌های جنگلی جدید"],
+      "highlights": [
+        "بازطراحی کامل دهکده‌ها",
+        "Pillager و Crossbow",
+        "Bamboo Jungle",
+        "Scaffolding",
+        "خانه‌های جنگلی جدید"
+      ],
       "compatibleMods": 10,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.14"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.14",
+      "features": [
+        "بازطراحی کامل دهکده‌ها با ظاهر مختص هر بیوم",
+        "Pillager و Pillager Outpost — دشمنان جدید",
+        "Crossbow — سلاح جدید با مهمات متنوع",
+        "Bamboo و Scaffolding برای ساخت سازه",
+        "Village Features جدید با کارگران (Mason، Fletcher، و غیره)"
+      ],
+      "changelog": [
+        "بازطراحی کامل دهکده‌ها با ۱۲ سبک بیومی",
+        "افزودن Pillager و Pillager Outpost",
+        "افزودن Crossbow و سه نوع پیکان (Rocket، Poison، Weakness)",
+        "افزودن Bamboo و Scaffolding",
+        "افزودن Village Features جدید با کارگران"
+      ]
     },
     {
       "id": "java-1-13",
@@ -209,10 +426,30 @@
       "icon": "px-water-bucket",
       "summary": "آپدیت بزرگ آبی با اقیانوس‌های بازطراحی‌شده، coral، کelp و موجودات دریایی.",
       "description": "نسخه‌ی ۱.۱۳ با نام Update Aquatic در ژوئیه ۲۰۱۸ منتشر شد و یکی از بزرگ‌ترین آپدیت‌های آبی تاریخ ماینکرفت است. اقیانوس‌ها کاملاً بازطراحی شدند با Coral Reefs، Kelp Forest و Sea Grass. موجودات جدید مثل Dolphin، Turtle و Drowned اضافه شدند. Tri-Tongue Block و Conduit نیز اضافه شد.",
-      "highlights": ["اقیانوس‌های بازطراحی‌شده", "Coral Reefs", "Kelp و Sea Grass", "Dolphin و Turtle", "Drowned"],
+      "highlights": [
+        "اقیانوس‌های بازطراحی‌شده",
+        "Coral Reefs",
+        "Kelp و Sea Grass",
+        "Dolphin و Turtle",
+        "Drowned"
+      ],
       "compatibleMods": 11,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.13"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.13",
+      "features": [
+        "اقیانوس‌های بازطراحی‌شده با Coral Reefs و Kelp Forest",
+        "Dolphin و Turtle — موجودات دریایی جدید",
+        "Drowned — زامبی زیرآبی با Trident",
+        "Trident — سلاح جدید قابل پرتاب و شارژ",
+        "Conduit — بلوک زیرآبی برای تنفس و آسیب"
+      ],
+      "changelog": [
+        "بازطراحی اقیانوس‌ها با Coral و Kelp و Sea Grass",
+        "افزودن Dolphin، Turtle و Drowned",
+        "افزودن Trident با enchant های Riptide، Loyalty، Channeling، Impaling",
+        "افزودن Conduit و Heart of the Sea",
+        "افزودن Shipwrecks و Ocean Ruins و Buried Treasure"
+      ]
     },
     {
       "id": "java-1-12",
@@ -226,10 +463,30 @@
       "icon": "px-grass-block",
       "summary": "آپدیت دنیای رنگ‌ها با ۱۶ رنگ جدید Concrete، Terracotta و Parrot.",
       "description": "نسخه‌ی ۱.۱۲ با نام World of Color در ژوئن ۲۰۱۷ منتشر شد. این نسخه ۱۶ رنگ جدید Concrete، Terracotta و Glazed Terracotta را اضافه کرد. Parrot موجود جدیدی است که از مکعب‌های شکسته می‌خواند. تابع دستورالعمل‌ی (Recipe Book) نیز اضافه شد.",
-      "highlights": ["۱۶ رنگ Concrete", "Glazed Terracotta", "موجود Parrot", "Recipe Book", "Bed شارژ شده"],
+      "highlights": [
+        "۱۶ رنگ Concrete",
+        "Glazed Terracotta",
+        "موجود Parrot",
+        "Recipe Book",
+        "Bed شارژ شده"
+      ],
       "compatibleMods": 7,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.12"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.12",
+      "features": [
+        "۱۶ رنگ Concrete و Concrete Powder",
+        "Glazed Terracotta — ۱۶ نوع بلوک تزئینی با الگو",
+        "Parrot — ماب رنگارنگی که روی شانه می‌نشیند",
+        "Recipe Book — کتاب دستورالعمل در Crafting Table",
+        "Bed شارژ شده با رنگ‌های جدید"
+      ],
+      "changelog": [
+        "افزودن ۱۶ رنگ Concrete و Concrete Powder",
+        "افزودن Glazed Terracotta با ۱۶ الگو",
+        "افزودن Parrot به جنگل‌ها",
+        "افزودن Recipe Book در Crafting Table",
+        "بازطراحی Color System با کد ۱۶"
+      ]
     },
     {
       "id": "java-1-11",
@@ -243,10 +500,30 @@
       "icon": "px-chest",
       "summary": "آپدیت کاوش با Woodland Mansion، Llamas و Observer.",
       "description": "نسخه‌ی ۱.۱۱ با نام Exploration Update در نوامبر ۲۰۱۶ منتشر شد. این نسخه Woodland Mansion را به بازی اضافه کرد که یکی از کمیاب‌ترین ساختارها است. Llama موجود جدیدی است که می‌توانید در کاروان‌ها استفاده کنید. Shulker Box و Observer نیز اضافه شد.",
-      "highlights": ["Woodland Mansion", "موجود Llama", "Shulker Box", "Observer Block", "Cartographer Villager"],
+      "highlights": [
+        "Woodland Mansion",
+        "موجود Llama",
+        "Shulker Box",
+        "Observer Block",
+        "Cartographer Villager"
+      ],
       "compatibleMods": 5,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.11"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.11",
+      "features": [
+        "Woodland Mansion — ساختار نادر در جنگل تاریک",
+        "Llama — ماب جدید برای حمل بار در کاروان",
+        "Shulker Box — جعبه با فضای ذخیره‌سازی",
+        "Observer Block — بلوک رداستون برای تشخیص تغییرات",
+        "Cartographer Villager — ویلجر جدید با نقشه‌ی ساختارها"
+      ],
+      "changelog": [
+        "افزودن Woodland Mansion و Totem of Undying",
+        "افزودن Llama و Caravan system",
+        "افزودن Shulker Box با ۱۶ رنگ",
+        "افزودن Observer Block",
+        "افزودن Cartographer Villager و Woodland Explorer Map"
+      ]
     },
     {
       "id": "java-1-10",
@@ -260,10 +537,30 @@
       "icon": "px-ice",
       "summary": "آپدیت Frostburn با Polar Bear، Stray و ساختارهای یخی.",
       "description": "نسخه‌ی 1.10 با نام Frostburn Update در ژوئن ۲۰۱۶ منتشر شد. این نسخه Polar Bear را به مناطق یخی اضافه کرد. Stray نسخه‌ی یخی اسکلت است. Structure Block برای سازندگان اضافه شد و ساختارهای یخی مثل Igloo اضافه شد.",
-      "highlights": ["Polar Bear", "Stray اسکلت یخی", "Structure Block", "Igloo", "Magma Block"],
+      "highlights": [
+        "Polar Bear",
+        "Stray اسکلت یخی",
+        "Structure Block",
+        "Igloo",
+        "Magma Block"
+      ],
       "compatibleMods": 4,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.10"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.10",
+      "features": [
+        "Polar Bear — ماب جدید در مناطق یخی",
+        "Stray — اسکلت یخی با اسلحه",
+        "Structure Block — بلوک سازندگان برای کپی/جابجایی",
+        "Igloo — ساختار یخی با زیرزمینه‌ی مخفی",
+        "Magma Block — بلوک جدید در ندر"
+      ],
+      "changelog": [
+        "افزودن Polar Bear به مناطق یخی",
+        "افزودن Stray و Husk",
+        "افزودن Structure Block برای Map Makers",
+        "افزودن Igloo با Silverfish spawner",
+        "افزودن Magma Block و Bone Block"
+      ]
     },
     {
       "id": "java-1-9",
@@ -277,10 +574,30 @@
       "icon": "px-sword-diamond",
       "summary": "آپدیت مبارزه با سیستم Combat جدید، Shield و Elytra.",
       "description": "نسخه‌ی ۱.۹ با نام Combat Update در فوریه ۲۰۱۶ منتشر شد و بزرگ‌ترین تغییر در سیستم مبارزه از زمان نسخه‌ی Beta را به ارمغان آورد. شروع Cool Down برای حملات، اضافه شدن Shield، و Elytra برای پرواز. End City و Shulker نیز اضافه شد.",
-      "highlights": ["سیستم Combat جدید", "Shield", "Elytra برای پرواز", "End City و Shulker", "بسته‌های دستورالعمل جدید"],
+      "highlights": [
+        "سیستم Combat جدید",
+        "Shield",
+        "Elytra برای پرواز",
+        "End City و Shulker",
+        "بسته‌های دستورالعمل جدید"
+      ],
       "compatibleMods": 6,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.9"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.9",
+      "features": [
+        "سیستم Combat جدید با Cool Down برای حملات",
+        "Shield — سپر برای دفاع در دست دوم",
+        "Elytra — بال برای پرواز در اند",
+        "شهر اند — ساختار جدید در اند با Shulker",
+        "بوابات اند جدید با اندر دراگن قابل احیا"
+      ],
+      "changelog": [
+        "افزودن Cool Down و cooldown برای حملات",
+        "افزودن Shield در دست دوم",
+        "افزودن Elytra برای پرواز",
+        "افزودن شهر اند و Shulker",
+        "افزودن سیستم Respawn Ender Dragon"
+      ]
     },
     {
       "id": "java-1-8",
@@ -294,10 +611,30 @@
       "icon": "px-stone-block",
       "summary": "آپدیت فراوان با Ocean Monument، Guardian و Underwater Ruins.",
       "description": "نسخه‌ی ۱.۸ با نام Bountiful Update در سپتامبر ۲۰۱۴ منتشر شد. این نسخه Ocean Monument را به اقیانوس‌ها اضافه کرد. Guardian و Elder Guardian موجودات دریایی جدیدی هستند. Rabbit و Slime Block نیز اضافه شد.",
-      "highlights": ["Ocean Monument", "Guardian", "Rabbit", "Slime Block", "Spectator Mode"],
+      "highlights": [
+        "Ocean Monument",
+        "Guardian",
+        "Rabbit",
+        "Slime Block",
+        "Spectator Mode"
+      ],
       "compatibleMods": 9,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.8"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.8",
+      "features": [
+        "Ocean Monument — ساختار جدید در اقیانوس",
+        "Guardian و Elder Guardian — موجودات دریایی جدید",
+        "Rabbit — ماب کوچک در بیوم‌های متنوع",
+        "Slime Block — بلوک چسبناک با عملکرد رداستون",
+        "Spectator Mode — حالت تماشا برای سازندگان"
+      ],
+      "changelog": [
+        "افزودن Ocean Monument و Guardian و Elder Guardian",
+        "افزودن Rabbit با ۶ نوع",
+        "افزودن Slime Block برای ماشین‌های رداستون",
+        "افزودن Spectator Mode",
+        "افزودن Underwater Ruins و Desert Temple"
+      ]
     },
     {
       "id": "java-1-7",
@@ -311,10 +648,29 @@
       "icon": "px-grass-block",
       "summary": "آپدیت جهان‌تغییر با بیوم‌های جدید، اضافه شدن قلمرو فیش و大幅度 بازی.",
       "description": "نسخه‌ی ۱.۷ با نام The Update that Changed the World در اکتبر ۲۰۱۳ منتشر شد. این آپدیت بزرگ تغییرات بنیادی در World Generation ایجاد کرد. تعداد زیادی بیوم جدید اضافه شد. سیستم قلمرو فیش (Fishing) بهبود یافت. Terrain شکل‌های متنوع‌تری گرفت.",
-      "highlights": ["بازطراحی World Generation", "اضافه شدن بیوم‌های جدید", "سیستم Fishing بهبود یافته", "Affixات جایزه"],
+      "highlights": [
+        "بازطراحی World Generation",
+        "اضافه شدن بیوم‌های جدید",
+        "سیستم Fishing بهبود یافته",
+        "Affixات جایزه"
+      ],
       "compatibleMods": 4,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.7"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.7",
+      "features": [
+        "بازطراحی World Generation با بیوم‌های فراوان",
+        "بیوم جدید Savanna، Mesa، Extreme Hills و Deep Ocean",
+        "سیستم Fishing بهبودیافته با Loot",
+        "افزودن قابلیت‌های جدید Map Maker",
+        "Achievement Commands برای ادمین‌ها"
+      ],
+      "changelog": [
+        "بازطراحی World Generation با بیوم‌های جدید",
+        "افزودن Savanna، Mesa، Extreme Hills",
+        "بهبود سیستم Fishing با Loot Tables",
+        "افزودن资源和 Achievement Commands",
+        "افزودن Resource Pack System"
+      ]
     },
     {
       "id": "java-1-6",
@@ -328,10 +684,30 @@
       "icon": "px-grass-block",
       "summary": "آپدیت اسب با Horse، Donkey و سیستم زین.",
       "description": "نسخه‌ی ۱.۶ با نام Horse Update در مِ ۲۰۱۳ منتشر شد. این نسخه Horse و Donkey را به بازی اضافه کرد. سیستم زین و چرم Horse Armor اضافه شد. Hay Block و Carpet نیز اضافه شد. سیستم دستورالعمل Resources Pack بهبود یافت.",
-      "highlights": ["Horse و Donkey", "سیستم زین", "Hay Block", "Carpet", "Resources Pack"],
+      "highlights": [
+        "Horse و Donkey",
+        "سیستم زین",
+        "Hay Block",
+        "Carpet",
+        "Resources Pack"
+      ],
       "compatibleMods": 3,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.6"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.6",
+      "features": [
+        "Horse و Donkey — ماب‌های جدید برای سوار شدن",
+        "سیستم زین و اسب‌سواری کامل",
+        "Hay Block و Carpet — بلوک‌های جدید",
+        "Resource Pack — سیستم پک‌های منابع",
+        "Mule — قاطر برای حمل بار"
+      ],
+      "changelog": [
+        "افزودن Horse، Donkey و Mule",
+        "افزودن سیستم زین و Horse Armor",
+        "افزودن Hay Block و Carpet",
+        "افزودن Resource Pack System",
+        "افزودن Name Tag و Lead"
+      ]
     },
     {
       "id": "java-1-5",
@@ -345,10 +721,30 @@
       "icon": "px-tnt",
       "summary": "آپدیت ردمستون با بلوک‌های منطقی، Comparator و قاب‌های جدید.",
       "description": "نسخه‌ی ۱.۵ با نام Redstone Update در مارس ۲۰۱۳ منتشر شد. این نسخه بلوک‌های ردمستون را به طور قابل توجهی گسترش داد: Comparator، Daylight Sensor، Block of Redstone و Hopper. سیستم Nether Quartz و Comparator اضافه شد.",
-      "highlights": ["Redstone Comparator", "Daylight Sensor", "Block of Redstone", "Hopper", "Nether Quartz"],
+      "highlights": [
+        "Redstone Comparator",
+        "Daylight Sensor",
+        "Block of Redstone",
+        "Hopper",
+        "Nether Quartz"
+      ],
       "compatibleMods": 3,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.5"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.5",
+      "features": [
+        "Comparator رداستون — بلوک منطقی پیشرفته",
+        "Daylight Sensor — حسگر نور روز",
+        "بلوک رداستون — بلوک منبع سیگنال",
+        "Hopper — قیف برای انتقال آیتم",
+        "کوارتز ندر و Comparator"
+      ],
+      "changelog": [
+        "افزودن Comparator رداستون",
+        "افزودن Daylight Sensor",
+        "افزودن بلوک رداستون",
+        "افزودن Hopper و Dropper",
+        "افزودن کوارتز ندر و Quartz Block"
+      ]
     },
     {
       "id": "java-1-4",
@@ -362,10 +758,30 @@
       "icon": "px-tnt",
       "summary": "آپدیت ترسناک با Wither، Anvil و Flower Pot.",
       "description": "نسخه‌ی ۱.۴ با نام Pretty Scary Update در اکتبر ۲۰۱۲ منتشر شد. این نسخه Wither را به بازی اضافه کرد. سیستم Anvil برای تعمیر و تغییر نام ابزارها اضافه شد. Flower Pot و Decoration Blocks نیز اضافه شد.",
-      "highlights": ["موجود Wither", "Anvil", "Flower Pot", "Item Frame", "Wither Rose"],
+      "highlights": [
+        "موجود Wither",
+        "Anvil",
+        "Flower Pot",
+        "Item Frame",
+        "Wither Rose"
+      ],
       "compatibleMods": 2,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.4"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.4",
+      "features": [
+        "Wither — باس جدید قابل احیا توسط بازیکن",
+        "Anvil — بلوک تعمیر و تغییر نام ابزارها",
+        "Flower Pot — گلدان برای تزیین",
+        "Item Frame — قاب برای نمایش آیتم",
+        "Wither Rose — گل جدید رشد پس از مرگ Wither"
+      ],
+      "changelog": [
+        "افزودن ماب Wither و ستاره‌ی ندر",
+        "افزودن Anvil برای تعمیر و تغییر نام",
+        "افزودن Flower Pot و Item Frame",
+        "افزودن Wither Rose و Cobweb قابل برداشت",
+        "افزودن Vampire Bats و Witch"
+      ]
     },
     {
       "id": "java-1-3",
@@ -379,10 +795,30 @@
       "icon": "px-grass-block",
       "summary": "بزرگ‌ترین بازنویسی کد با Single-player/LAN و Trading.",
       "description": "نسخه‌ی 1.3 در اوت ۲۰۱۲ منتشر شد و یکی از بزرگ‌ترین بازنویسی‌های کد تاریخ ماینکرفت بود. این نسخه Single-player و Multi-player را در یک کدومتریک کرد. سیستم Trading با دهکده‌نشینان اضافه شد. Emerald و Ender Chest نیز اضافه شد.",
-      "highlights": ["یکپارچه‌سازی Single/Multiplayer", "Trading با دهکده‌نشینان", "Emerald", "Ender Chest", "Adventure Settings"],
+      "highlights": [
+        "یکپارچه‌سازی Single/Multiplayer",
+        "Trading با دهکده‌نشینان",
+        "Emerald",
+        "Ender Chest",
+        "Adventure Settings"
+      ],
       "compatibleMods": 2,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.3"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.3",
+      "features": [
+        "یکپارچه‌سازی Single-player و Multiplayer",
+        "Trading با دهکده‌نشینان",
+        "Emerald — منبع جدید برای تجارت",
+        "Ender Chest — صندوقی مشترک بین ابعاد",
+        "Adventure Settings برای نقشه‌های ماجراجویی"
+      ],
+      "changelog": [
+        "یکپارچه‌سازی کد Single-player با Multiplayer",
+        "افزودن سیستم Trading با Villager",
+        "افزودن Emerald و Emerald Ore",
+        "افزودن Ender Chest",
+        "افزودن Adventure Mode و Command Block"
+      ]
     },
     {
       "id": "java-1-2",
@@ -396,10 +832,30 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Iron Golem، Ocelot و Jungle Biome.",
       "description": "نسخه‌ی ۱.۲ در مارس ۲۰۱۲ منتشر شد. این نسخه Iron Golem و Ocelot را اضافه کرد. Jungle Biome و ساختارهای جدید جنگلی اضافه شد. ارتفاع بازی به ۲۵۶ بلوک افزایش یافت.",
-      "highlights": ["Iron Golem", "Ocelot", "Jungle Biome", "Redstone Lamp", "ارتفاع ۲۵۶ بلوک"],
+      "highlights": [
+        "Iron Golem",
+        "Ocelot",
+        "Jungle Biome",
+        "Redstone Lamp",
+        "ارتفاع ۲۵۶ بلوک"
+      ],
       "compatibleMods": 1,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.2"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.2",
+      "features": [
+        "Iron Golem — ماب محافظ دهکده",
+        "Ocelot — گربه‌ی وحشی در جنگل",
+        "Jungle Biome — بیوم گرم و مرطوب",
+        "لامپ رداستون — لامپ با سیگنال رداستون",
+        "ارتفاع بازی به ۲۵۶ بلوک افزایش یافت"
+      ],
+      "changelog": [
+        "افزودن Iron Golem و Ocelot",
+        "افزودن Jungle Biome با درختان بزرگ",
+        "افزودن لامپ رداستون",
+        "افزایش ارتفاع بازی به ۲۵۶ بلوک",
+        "افزودن Chiseled Stone Brick و Wood Log variants"
+      ]
     },
     {
       "id": "java-1-1",
@@ -413,10 +869,30 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Spawn Egg، Bow Enchant و زبان‌های جدید.",
       "description": "نسخه‌ی 1.1 در ژانویه ۲۰۱۲ منتشر شد. این نسخه Spawn Egg را برای صف پیش گفت‌گو اضافه کرد. Bow Enchant (Power و Flame) اضافه شد. پشتیبانی از زبان‌های اضافه شد.",
-      "highlights": ["Spawn Egg", "Bow Enchant", "زبان‌های جدید", "Superflat World Type", "Large Biome"],
+      "highlights": [
+        "Spawn Egg",
+        "Bow Enchant",
+        "زبان‌های جدید",
+        "Superflat World Type",
+        "Large Biome"
+      ],
       "compatibleMods": 1,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.1"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.1",
+      "features": [
+        "Spawn Egg — تخم احضار ماب‌ها در Creative",
+        "Bow Enchant — افنت‌های Power و Flame",
+        "Superflat World Type — نقشه‌ی تخت قابل تنظیم",
+        "Large Biome — نقشه‌ی با بیوم‌های بزرگ",
+        "پشتیبانی از زبان‌های اضافی"
+      ],
+      "changelog": [
+        "افزودن Spawn Egg برای تمام ماب‌ها",
+        "افزودن Bow Enchant: Power، Flame، Punch، Infinity",
+        "افزودن Superflat World Type",
+        "افزودن Large Biome World Type",
+        "افزودن پشتیبانی از زبان‌های بیشتر"
+      ]
     },
     {
       "id": "java-1-0",
@@ -430,10 +906,30 @@
       "icon": "px-grass-block",
       "summary": "نسخه‌ی رسمی ماینکرفت با Ender Dragon، The End و Brewing.",
       "description": "نسخه‌ی 1.0 — نخستین نسخه‌ی رسمی ماینکرفت جاوا — در نوامبر ۲۰۱۱ منتشر شد. این نسخه The End و Ender Dragon را اضافه کرد. سیستم Brewing و Enchanting اضافه شد. دستاوردهای بازی اضافه شد. این نسخه نقطه‌ی عطفی در تاریخ ماینکرفت بود.",
-      "highlights": ["The End و Ender Dragon", "Brewing", "Enchanting", "Achievements", "Nether Fortress"],
+      "highlights": [
+        "The End و Ender Dragon",
+        "Brewing",
+        "Enchanting",
+        "Achievements",
+        "Nether Fortress"
+      ],
       "compatibleMods": 1,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.0"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_1.0",
+      "features": [
+        "اند — بُعد جدید با Ender Dragon",
+        "Brewing — سیستم دم‌کردن معجون‌ها",
+        "Enchanting — سیستم افنت ابزارها",
+        "Achievements — سیستم دستاوردها",
+        "دژ ندر — ساختار جدید در ندر"
+      ],
+      "changelog": [
+        "افزودن اند و Ender Dragon",
+        "افزودن Brewing Stand و Potions",
+        "افزودن Enchanting Table و XP",
+        "افزودن Achievement System",
+        "افزودن دژ ندر با Blazes"
+      ]
     },
     {
       "id": "java-beta-1-8",
@@ -447,10 +943,30 @@
       "icon": "px-grass-block",
       "summary": "آپدیت ماجراجویی با Enderman، Stronghold و Creative Mode.",
       "description": "نسخه‌ی بتا ۱.۸ با نام Adventure Update در سپتامبر ۲۰۱۱ منتشر شد. این آپدیت بزرگ با اضافه شدن Enderman، Creative Mode، و سیستم Hunger سیستم بازی را متحول کرد. Stronghold و End Portal به بازی اضافه شد. Mining و Combat نیز تغییر کرد.",
-      "highlights": ["Enderman", "Creative Mode", "سیستم Hunger", "Stronghold", "End Portal Frame"],
+      "highlights": [
+        "Enderman",
+        "Creative Mode",
+        "سیستم Hunger",
+        "Stronghold",
+        "End Portal Frame"
+      ],
       "compatibleMods": 0,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.8"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.8",
+      "features": [
+        "Enderman — ماب بلندقامت با قابلیت جابجایی بلوک‌ها",
+        "Creative Mode — حالت خلاقیت با آیتم‌های نامحدود",
+        "سیستم Hunger — نوار غذا و خستگی",
+        "Stronghold — ساختار زیرزمینی با پرتال اند",
+        "قاب پرتال اند — قاب پرتال به اند"
+      ],
+      "changelog": [
+        "افزودن Enderman",
+        "افزودن Creative Mode با Inventory نامحدود",
+        "افزودن سیستم Hunger و Regeneration",
+        "افزودن Stronghold و پرتال اند",
+        "افزودن Melon و vines و Mushroom Biome"
+      ]
     },
     {
       "id": "java-beta-1-0",
@@ -464,10 +980,29 @@
       "icon": "px-grass-block",
       "summary": "نخستین نسخه‌ی بتا ماینکرفت با Server-side inventory و Minecraft.net.",
       "description": "نسخه‌ی بتا 1.0 در دسامبر ۲۰۱۰ منتشر شد و نخستین نسخه‌ی بتا ماینکرفت بود. این نسخه Server-side inventory و Minecraft.net را معرفی کرد. این نقطه‌ی شروع نسخه‌ی بتا بود.",
-      "highlights": ["Server-side inventory", "Minecraft.net", "Sneaking", "Lava ریختن"],
+      "highlights": [
+        "Server-side inventory",
+        "Minecraft.net",
+        "Sneaking",
+        "Lava ریختن"
+      ],
       "compatibleMods": 0,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.0"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.0",
+      "features": [
+        "Server-side Inventory — همگام‌سازی آیتم با سرور",
+        "Minecraft.net — پشتیبانی رسمی وب‌سایت",
+        "Sneaking — قابلیت خم‌شدن",
+        "Lava ریختن — فیزیک مایعات",
+        "Statistics Tracking — ردیابی آمار بازی"
+      ],
+      "changelog": [
+        "افزودن Server-side Inventory",
+        "افزودن Minecraft.net authentication",
+        "افزودن Sneaking و قابلیت خم‌شدن",
+        "افزودن Lava ریختن قابل کنترل",
+        "افزودن Statistics و Achievement framework"
+      ]
     },
     {
       "id": "java-alpha",
@@ -481,10 +1016,30 @@
       "icon": "px-grass-block",
       "summary": "نسخه‌ی آلفای ماینکرفت با Nether، Survival Multiplayer و biomes.",
       "description": "نسخه‌ی آلفا در ژوئن ۲۰۱۰ شروع شد. این نسخه Nether، Survival Multiplayer و سیستم biomes را اضافه کرد. سیستم Snow و Ice اضافه شد. این نسخه پایه‌ی ماینکرفت امروزی بود.",
-      "highlights": ["Nether", "Survival Multiplayer", "Biomes", "Snow Worlds", "Minecart و Boat"],
+      "highlights": [
+        "Nether",
+        "Survival Multiplayer",
+        "Biomes",
+        "Snow Worlds",
+        "Minecart و Boat"
+      ],
       "compatibleMods": 0,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Alpha"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Alpha",
+      "features": [
+        "ندر — بُعد جدید با آتش و لاما",
+        "Survival Multiplayer — بازی چندنفره Survival",
+        "سیستم Biomes — بیوم‌های متنوع نقشه",
+        "Snow Worlds — نقشه‌ی برفی",
+        "Minecart و Boat — وسیله‌ی نقلیه"
+      ],
+      "changelog": [
+        "افزودن ندر (ندر) با Ghasts و Zombie Pigmen",
+        "افزودن Survival Multiplayer (SMP)",
+        "افزودن سیستم Biomes",
+        "افزودن Snow Worlds و Ice",
+        "افزودن Minecart و Boat"
+      ]
     },
     {
       "id": "java-infdev",
@@ -498,10 +1053,29 @@
       "icon": "px-grass-block",
       "summary": "نسخه‌ی Infinite Development با نقشه‌ی بی‌نهایت و Caves.",
       "description": "نسخه‌ی Infdev (Infinite Development) در فوریه ۲۰۱۰ شروع شد و بزرگ‌ترین تغییرات تاریخ ماینکرفت را به ارمغان آورد: نقشه‌ی بی‌نهایت. این نسخه از ساختار جزیره‌ی محدود Infdev عبور کرد و امکان کاوش نامحدود را فراهم کرد. Caves و Lava به نقشه اضافه شد.",
-      "highlights": ["نقشه‌ی بی‌نهایت", "Caves و Lava", "Day/Night Cycle", "Stairs و Slabs"],
+      "highlights": [
+        "نقشه‌ی بی‌نهایت",
+        "Caves و Lava",
+        "Day/Night Cycle",
+        "Stairs و Slabs"
+      ],
       "compatibleMods": 0,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Infdev"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Infdev",
+      "features": [
+        "نقشه‌ی بی‌نهایت — نقشه‌ی نامحدود به جای جزیره",
+        "Caves و Lava — غارها و مواد مذاب",
+        "Day/Night Cycle — چرخه‌ی روز و شب",
+        "Stairs و Slabs — بلوک‌های پلکانی و نیمه",
+        "Arrow و Bow — سیستم شلیک"
+      ],
+      "changelog": [
+        "افزودن نقشه‌ی بی‌نهایت با World Generation",
+        "افزودن Caves و Lava",
+        "افزودن Day/Night Cycle",
+        "افزودن Stairs و Slabs",
+        "افزودن Bow و Arrow"
+      ]
     },
     {
       "id": "java-indev",
@@ -515,10 +1089,30 @@
       "icon": "px-grass-block",
       "summary": "نسخه‌ی In Development با Crafting و Inventory.",
       "description": "نسخه‌ی Indev (In Development) در دسامبر ۲۰۰۹ شروع شد. این نسخه Crafting System و Inventory را اضافه کرد. سیستم Day/Night Cycle و TNT اضافه شد. این نسخه پایه‌ای برای Survival Mode بود.",
-      "highlights": ["Crafting System", "Inventory", "TNT", "Day/Night Cycle", "Books و Bookshelves"],
+      "highlights": [
+        "Crafting System",
+        "Inventory",
+        "TNT",
+        "Day/Night Cycle",
+        "Books و Bookshelves"
+      ],
       "compatibleMods": 0,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Indev"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Indev",
+      "features": [
+        "Crafting System — سیستم کرافت در بازی",
+        "Inventory — کیف موجودی بازیکن",
+        "TNT — ماده‌ی منفجره",
+        "Day/Night Cycle — چرخه‌ی روز و شب",
+        "Books و Bookshelves — کتاب و کتابخانه"
+      ],
+      "changelog": [
+        "افزودن Crafting System با Recipe",
+        "افزودن Inventory و Hotbar",
+        "افزودن TNT و ماده‌ی منفجره",
+        "افزودن Day/Night Cycle",
+        "افزودن Books و Bookshelves"
+      ]
     },
     {
       "id": "java-classic",
@@ -532,10 +1126,30 @@
       "icon": "px-grass-block",
       "summary": "نخستین نسخه‌ی عمومی ماینکرفت با Creative-style gameplay.",
       "description": "نسخه‌ی Classic در مِ ۲۰۰۹ منتشر شد و نخستین نسخه‌ی عمومی ماینکرفت بود. این نسخه فقط Creative-style gameplay داشت (ساخت و تخریب بدون محدودیت). Multiplayer در نسخه‌ی Classic 0.0.15a اضافه شد. Survival Mode بعداً در Classic 0.24 اضافه شد.",
-      "highlights": ["نخستین نسخه‌ی عمومی", "Creative-style", "Multiplayer", "Survival Test", "Original 32 Block Types"],
+      "highlights": [
+        "نخستین نسخه‌ی عمومی",
+        "Creative-style",
+        "Multiplayer",
+        "Survival Test",
+        "Original 32 Block Types"
+      ],
       "compatibleMods": 0,
       "platform": "java",
-      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Classic"
+      "wikiLink": "https://minecraft.wiki/w/Java_Edition_Classic",
+      "features": [
+        "نخستین نسخه‌ی عمومی ماینکرفت",
+        "Creative-style gameplay با بلوک‌های نامحدود",
+        "Multiplayer در نسخه‌ی 0.0.15a",
+        "Survival Test بعدها اضافه شد",
+        "Original 32 Block Types"
+      ],
+      "changelog": [
+        "عرضه‌ی نخستین نسخه‌ی عمومی ماینکرفت",
+        "افزودن Creative-style gameplay",
+        "افزودن Multiplayer در نسخه‌ی 0.0.15a",
+        "افزودن Survival Test",
+        "افزودن 32 نوع بلوک ابتدایی"
+      ]
     }
   ],
   "bedrock": [
@@ -551,12 +1165,32 @@
       "icon": "px-grass-block",
       "summary": "بزرگ‌ترین آپدیت بدراک در سال ۲۰۲۶ با تمرکز بر بیوم‌های وحشی و Quick Travel.",
       "description": "نسخه‌ی ۲۶.۵۰ بدراک با نام Wilderness Bound در سپتامبر ۲۰۲۶ منتشر شد. این نسخه با نسخه‌ی ۲۶.۳ جاوا هماهنگ است و همان محتوا را به بدراک می‌آورد: Wilderness Camp، Quick Travel Rope و Trail Marking.",
-      "highlights": ["Wilderness Camp", "Quick Travel Rope", "Trail Marking", "غارهای Crystalline", "هماهنگی با Java 26.3"],
+      "highlights": [
+        "Wilderness Camp",
+        "Quick Travel Rope",
+        "Trail Marking",
+        "غارهای Crystalline",
+        "هماهنگی با Java 26.3"
+      ],
       "compatibleMods": 9,
       "platform": "bedrock",
       "isLatest": true,
       "featured": true,
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.26.50"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.26.50",
+      "features": [
+        "Wilderness Camp — کمپینگ جدید برای بازیکنان بدراک",
+        "Quick Travel Rope — سفر سریع بین کمپ‌ها",
+        "Trail Marking — سیستم نشانه‌گذاری مسیرها",
+        "Crystalline Caves — غارهای کریستالی",
+        "هماهنگی کامل با Java 26.3"
+      ],
+      "changelog": [
+        "افزودن Wilderness Camp و Quick Travel Rope",
+        "افزودن Crystalline Caves",
+        "افزودن سیستم Trail Marking",
+        "هماهنگی محتوا با Java 26.3",
+        "رفع اشکال فراوان و بهبود عملکرد"
+      ]
     },
     {
       "id": "bedrock-26-45",
@@ -570,10 +1204,29 @@
       "icon": "px-tnt",
       "summary": "هماهنگی با Java 26.2 با Cogwheel و Logic Gate Block.",
       "description": "نسخه‌ی ۲۶.۴۵ بدراک در آگوست ۲۰۲۶ منتشر شد و با نسخه‌ی ۲۶.۲ جاوا هماهنگ است. این نسخه Cogwheel و Logic Gate Block را به بدراک می‌آورد.",
-      "highlights": ["Cogwheel", "Logic Gate Block", "Redstone Comparator جدید", "هماهنگی با Java 26.2"],
+      "highlights": [
+        "Cogwheel",
+        "Logic Gate Block",
+        "Redstone Comparator جدید",
+        "هماهنگی با Java 26.2"
+      ],
       "compatibleMods": 11,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.26.45"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.26.45",
+      "features": [
+        "Cogwheel — بلوک منطقی بدراک",
+        "Logic Gate Block — دروازه‌های منطقی",
+        "Comparator رداستون بازطراحی‌شده",
+        "Scrap Block برای منطق ضعیف‌تر",
+        "هماهنگی با Java 26.2"
+      ],
+      "changelog": [
+        "افزودن Cogwheel و Logic Gate Block",
+        "بازطراحی Comparator رداستون",
+        "افزودن Scrap Block",
+        "هماهنگی محتوا با Java 26.2",
+        "رفع اشکال و بهبود عملکرد"
+      ]
     },
     {
       "id": "bedrock-1-21-80",
@@ -587,10 +1240,29 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن نسخه‌ی نهایی Bundles و رفع اشکال فراوان.",
       "description": "نسخه‌ی 1.21.80 بدراک در دسامبر ۲۰۲۴ منتشر شد. این نسخه Bundles را از حالت Experimental خارج کرد و به طور رسمی به بازی اضافه کرد. رفع اشکال فراوان و بهبود عملکرد.",
-      "highlights": ["Bundles رسمی", "رفع اشکال", "بهبود عملکرد", "اضافه شدن Armadillo به طور پیش‌فرض"],
+      "highlights": [
+        "Bundles رسمی",
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "اضافه شدن Armadillo به طور پیش‌فرض"
+      ],
       "compatibleMods": 9,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.80"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.80",
+      "features": [
+        "Bundles — رسمی‌سازی باندل‌ها از حالت Experimental",
+        "افزودن Armadillo به طور پیش‌فرض",
+        "بهبود Wind Charge و Trial Chambers",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد و ثبات"
+      ],
+      "changelog": [
+        "رسمی‌سازی Bundles از Experimental",
+        "افزودن Armadillo به طور پیش‌فرض",
+        "بهبود Wind Charge و Trial Chambers",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد و ثبات بازی"
+      ]
     },
     {
       "id": "bedrock-1-21-70",
@@ -604,10 +1276,29 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Bundles به طور Experimental و رفع اشکال.",
       "description": "نسخه‌ی 1.21.70 بدراک در نوامبر ۲۰۲۴ منتشر شد. این نسخه Bundles را به طور Experimental اضافه کرد. بهبود Wind Charge و Trial Chambers.",
-      "highlights": ["Bundles (Experimental)", "Wind Charge", "Trial Chambers بهبود", "رفع اشکال"],
+      "highlights": [
+        "Bundles (Experimental)",
+        "Wind Charge",
+        "Trial Chambers بهبود",
+        "رفع اشکال"
+      ],
       "compatibleMods": 9,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.70"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.70",
+      "features": [
+        "Bundles (Experimental) — پیش‌نمایش باندل‌ها",
+        "Wind Charge بهبودیافته",
+        "Trial Chambers بهبودیافته",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد"
+      ],
+      "changelog": [
+        "افزودن Bundles به طور Experimental",
+        "بهبود Wind Charge",
+        "بهبود Trial Chambers",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد"
+      ]
     },
     {
       "id": "bedrock-1-21-60",
@@ -621,10 +1312,29 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن جدیدی برای Bundles و درایور جدید ردمستون.",
       "description": "نسخه‌ی 1.21.60 بدراک در اکتبر ۲۰۲۴ منتشر شد. این نسخه بهبودهای ردمستون و درایور جدید را شامل می‌شود. سیستم Ticking Area بهبود یافت.",
-      "highlights": ["درایور ردمستون", "Ticking Area", "بهبود Wind Charge", "رفع اشکال"],
+      "highlights": [
+        "درایور ردمستون",
+        "Ticking Area",
+        "بهبود Wind Charge",
+        "رفع اشکال"
+      ],
       "compatibleMods": 8,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.60"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.60",
+      "features": [
+        "درایور رداستون جدید",
+        "Ticking Area بهبودیافته",
+        "Wind Charge بهبودیافته",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد"
+      ],
+      "changelog": [
+        "افزودن درایور رداستون جدید",
+        "بهبود Ticking Area",
+        "بهبود Wind Charge",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد بازی"
+      ]
     },
     {
       "id": "bedrock-1-21-50",
@@ -638,10 +1348,30 @@
       "icon": "px-grass-block",
       "summary": "هماهنگی با Java 1.21 با Trial Chambers و Armadillo.",
       "description": "نسخه‌ی 1.21.50 بدراک در سپتامبر ۲۰۲۴ منتشر شد و هماهنگی کامل با Java 1.21 را فراهم می‌کند. این نسخه Trial Chambers و Armadillo را به طور رسمی اضافه کرد. Wind Charge نیز اضافه شد.",
-      "highlights": ["Trial Chambers", "Armadillo", "Wind Charge", "Breeze", "Copper Bulb"],
+      "highlights": [
+        "Trial Chambers",
+        "Armadillo",
+        "Wind Charge",
+        "Breeze",
+        "Copper Bulb"
+      ],
       "compatibleMods": 18,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.50"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.50",
+      "features": [
+        "Trial Chambers — ساختارهای زیرزمینی با چالش پویا",
+        "Armadillo — ماب جدید با سپانه",
+        "Wind Charge — پرتابه‌ی بادی",
+        "Breeze — ماب با حملات بادی",
+        "Copper Bulb — لامپ مسی با رداستون"
+      ],
+      "changelog": [
+        "افزودن Trial Chambers و Trial Spawner",
+        "افزودن Armadillo و Wolf Variants",
+        "افزودن Wind Charge و Breeze",
+        "افزودن Copper Bulb و Crafter",
+        "هماهنگی کامل با Java 1.21"
+      ]
     },
     {
       "id": "bedrock-1-21-40",
@@ -655,10 +1385,29 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Trial Chambers به طور Experimental.",
       "description": "نسخه‌ی 1.21.40 بدراک در ژوئیه ۲۰۲۴ منتشر شد. این نسخه Trial Chambers و Armadillo را به طور Experimental اضافه کرد. بهبود رفع اشکال و عملکرد.",
-      "highlights": ["Trial Chambers (Experimental)", "Armadillo (Experimental)", "رفع اشکال", "بهبود عملکرد"],
+      "highlights": [
+        "Trial Chambers (Experimental)",
+        "Armadillo (Experimental)",
+        "رفع اشکال",
+        "بهبود عملکرد"
+      ],
       "compatibleMods": 17,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.40"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.40",
+      "features": [
+        "Trial Chambers (Experimental) — پیش‌نمایش ساختار جدید",
+        "Armadillo (Experimental)",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI و کنترل‌ها"
+      ],
+      "changelog": [
+        "افزودن Trial Chambers به طور Experimental",
+        "افزودن Armadillo به طور Experimental",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI و کنترل‌ها"
+      ]
     },
     {
       "id": "bedrock-1-21-30",
@@ -672,10 +1421,29 @@
       "icon": "px-grass-block",
       "summary": "هماهنگی با Java 1.21 و رفع اشکال فراوان.",
       "description": "نسخه‌ی 1.21.30 بدراک در ژوئن ۲۰۲۴ منتشر شد. این نسخه هماهنگی با Java 1.21 را شروع کرد. رفع اشکال فراوان و بهبود Tomb از کارهای اصلی این نسخه بود.",
-      "highlights": ["هماهنگی با Java 1.21", "رفع اشکال", "بهبود عملکرد", "بهبود UI"],
+      "highlights": [
+        "هماهنگی با Java 1.21",
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
       "compatibleMods": 17,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.30"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.30",
+      "features": [
+        "هماهنگی با Java 1.21",
+        "رفع اشکال فراوان",
+        "بهبود Tomb و سینتک",
+        "بهبود عملکرد",
+        "بهبود UI و کنترل‌ها"
+      ],
+      "changelog": [
+        "شروع هماهنگی با Java 1.21",
+        "رفع اشکال فراوان",
+        "بهبود Tomb و سینتک ماب",
+        "بهبود عملکرد بازی",
+        "بهبود UI و کنترل‌ها"
+      ]
     },
     {
       "id": "bedrock-1-21-20",
@@ -689,10 +1457,29 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Crashing چندبخشی و رفع اشکال.",
       "description": "نسخه‌ی 1.21.20 بدراک در آوریل ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Tomb را شامل می‌شود. سیستم Wolf Variants به طور Experimental اضافه شد.",
-      "highlights": ["Wolf Variants (Experimental)", "رفع اشکال", "بهبود Tomb", "بهبود عملکرد"],
+      "highlights": [
+        "Wolf Variants (Experimental)",
+        "رفع اشکال",
+        "بهبود Tomb",
+        "بهبود عملکرد"
+      ],
       "compatibleMods": 16,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.20"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.20",
+      "features": [
+        "Wolf Variants (Experimental) — تنوع گرگ‌ها",
+        "رفع اشکال فراوان",
+        "بهبود Tomb",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
+      "changelog": [
+        "افزودن Wolf Variants به طور Experimental",
+        "رفع اشکال فراوان",
+        "بهبود Tomb",
+        "بهبود عملکرد",
+        "بهبود UI و کنترل‌ها"
+      ]
     },
     {
       "id": "bedrock-1-21-0",
@@ -706,10 +1493,30 @@
       "icon": "px-grass-block",
       "summary": "هماهنگی با Java 1.21 با Trial Chambers و Armadillo.",
       "description": "نسخه‌ی 1.21.0 بدراک با نام Tricky Trials در آوریل ۲۰۲۴ منتشر شد. این نسخه با Java 1.21 هماهنگ است و Trial Chambers و Armadillo را اضافه کرد. Copper Bulb و Wolf Variants نیز اضافه شد.",
-      "highlights": ["Trial Chambers", "Armadillo", "Copper Bulb", "Wolf Variants", "Crafter Block"],
+      "highlights": [
+        "Trial Chambers",
+        "Armadillo",
+        "Copper Bulb",
+        "Wolf Variants",
+        "Crafter Block"
+      ],
       "compatibleMods": 17,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.21.0",
+      "features": [
+        "Trial Chambers — ساختارهای زیرزمینی",
+        "Armadillo — ماب جدید با سپانه",
+        "Copper Bulb — لامپ مسی",
+        "Wolf Variants — تنوع گرگ‌ها",
+        "Crafter Block — بلوک کرافت خودکار"
+      ],
+      "changelog": [
+        "افزودن Trial Chambers و Trial Spawner",
+        "افزودن Armadillo و Wolf Variants",
+        "افزودن Copper Bulb و Crafter",
+        "افزودن Breeze و Wind Charge",
+        "هماهنگی با Java 1.21"
+      ]
     },
     {
       "id": "bedrock-1-20-80",
@@ -723,10 +1530,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود Shield.",
       "description": "نسخه‌ی 1.20.80 بدراک در آوریل ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Shield را شامل می‌شود.",
-      "highlights": ["رفع اشکال Shield", "بهبود عملکرد", "بهبود UI", "بهبود Tomb"],
+      "highlights": [
+        "رفع اشکال Shield",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb"
+      ],
       "compatibleMods": 22,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.80"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.80",
+      "features": [
+        "بهبود Shield و سپر",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb"
+      ],
+      "changelog": [
+        "رفع اشکال Shield",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد بازی",
+        "بهبود UI و کنترل‌ها",
+        "بهبود Tomb"
+      ]
     },
     {
       "id": "bedrock-1-20-70",
@@ -740,10 +1566,29 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Armadillo به طور Experimental و Tomb جدید.",
       "description": "نسخه‌ی 1.20.70 بدراک در فوریه ۲۰۲۴ منتشر شد. این نسخه Armadillo را به طور Experimental اضافه کرد. Wolf Variants نیز اضافه شد. رفع اشکال فراوان.",
-      "highlights": ["Armadillo (Experimental)", "Wolf Variants", "رفع اشکال", "بهبود Tomb"],
+      "highlights": [
+        "Armadillo (Experimental)",
+        "Wolf Variants",
+        "رفع اشکال",
+        "بهبود Tomb"
+      ],
       "compatibleMods": 22,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.70"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.70",
+      "features": [
+        "Armadillo (Experimental) — ماب جدید با سپانه",
+        "Wolf Variants — تنوع گرگ‌ها",
+        "رفع اشکال فراوان",
+        "بهبود Tomb",
+        "بهبود عملکرد"
+      ],
+      "changelog": [
+        "افزودن Armadillo به طور Experimental",
+        "افزودن Wolf Variants",
+        "رفع اشکال فراوان",
+        "بهبود Tomb",
+        "بهبود عملکرد بازی"
+      ]
     },
     {
       "id": "bedrock-1-20-60",
@@ -757,10 +1602,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود Ticking Area.",
       "description": "نسخه‌ی 1.20.60 بدراک در ژانویه ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Ticking Area را شامل می‌شود.",
-      "highlights": ["بهبود Ticking Area", "رفع اشکال", "بهبود عملکرد", "بهبود UI"],
+      "highlights": [
+        "بهبود Ticking Area",
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
       "compatibleMods": 22,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.60"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.60",
+      "features": [
+        "بهبود Ticking Area",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb"
+      ],
+      "changelog": [
+        "بهبود Ticking Area",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb"
+      ]
     },
     {
       "id": "bedrock-1-20-50",
@@ -774,10 +1638,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود Shield.",
       "description": "نسخه‌ی 1.20.50 بدراک در نوامبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Shield را شامل می‌شود. بهبود Tomb.",
-      "highlights": ["بهبود Shield", "رفع اشکال", "بهبود Tomb", "بهبود عملکرد"],
+      "highlights": [
+        "بهبود Shield",
+        "رفع اشکال",
+        "بهبود Tomb",
+        "بهبود عملکرد"
+      ],
       "compatibleMods": 22,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.50"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.50",
+      "features": [
+        "بهبود Shield",
+        "رفع اشکال فراوان",
+        "بهبود Tomb",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
+      "changelog": [
+        "بهبود Shield",
+        "رفع اشکال فراوان",
+        "بهبود Tomb",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ]
     },
     {
       "id": "bedrock-1-20-40",
@@ -791,10 +1674,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
       "description": "نسخه‌ی 1.20.40 بدراک در اکتبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود. بهبود Tomb.",
-      "highlights": ["رفع اشکال", "بهبود عملکرد", "بهبود Tomb", "بهبود UI"],
+      "highlights": [
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود Tomb",
+        "بهبود UI"
+      ],
       "compatibleMods": 21,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.40"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.40",
+      "features": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود Tomb",
+        "بهبود UI",
+        "بهبود ثبات بازی"
+      ],
+      "changelog": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد بازی",
+        "بهبود Tomb",
+        "بهبود UI",
+        "بهبود ثبات بازی"
+      ]
     },
     {
       "id": "bedrock-1-20-30",
@@ -808,10 +1710,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
       "description": "نسخه‌ی 1.20.30 بدراک در سپتامبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود.",
-      "highlights": ["رفع اشکال", "بهبود عملکرد", "بهبود UI", "بهبود Tomb"],
+      "highlights": [
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb"
+      ],
       "compatibleMods": 21,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.30"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.30",
+      "features": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb",
+        "بهبود ثبات"
+      ],
+      "changelog": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb",
+        "بهبود ثبات بازی"
+      ]
     },
     {
       "id": "bedrock-1-20-10",
@@ -825,10 +1746,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
       "description": "نسخه‌ی 1.20.10 بدراک در ژوئیه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود.",
-      "highlights": ["رفع اشکال", "بهبود عملکرد", "بهبود UI", "بهبود Tomb"],
+      "highlights": [
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb"
+      ],
       "compatibleMods": 20,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.10"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.10",
+      "features": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb",
+        "بهبود ثبات"
+      ],
+      "changelog": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb",
+        "بهبود ثبات بازی"
+      ]
     },
     {
       "id": "bedrock-1-20-0",
@@ -842,11 +1782,31 @@
       "icon": "px-grass-block",
       "summary": "نسخه‌ی آرام و ماجراجویانه با Cherry Blossom، Bamboo Set و Archaeology.",
       "description": "نسخه‌ی 1.20.0 بدراک با نام Trails & Tales در ژوئن ۲۰۲۳ منتشر شد و با Java 1.20 هماهنگ است. این نسخه Cherry Blossom Biome، Bamboo Set و Archaeology را اضافه کرد. Hanging Signs و Armor Trims نیز اضافه شد.",
-      "highlights": ["Cherry Blossom Biome", "Bamboo Set", "Archaeology با Brush", "Hanging Signs", "Armor Trims"],
+      "highlights": [
+        "Cherry Blossom Biome",
+        "Bamboo Set",
+        "Archaeology با Brush",
+        "Hanging Signs",
+        "Armor Trims"
+      ],
       "compatibleMods": 20,
       "platform": "bedrock",
       "featured": true,
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.20.0",
+      "features": [
+        "Cherry Blossom Biome — بیوم شکوفه‌های صورتی",
+        "Bamboo Set — چوب بامبو",
+        "Archaeology با Brush — سیستم کاوش باستانی",
+        "Hanging Signs — تابلوهای آویزان",
+        "Armor Trims — الگوهای تزئینی زره"
+      ],
+      "changelog": [
+        "افزودن Cherry Blossom Biome",
+        "افزودن Bamboo Set",
+        "افزودن Archaeology با Brush",
+        "افزودن Hanging Signs",
+        "افزودن Armor Trims"
+      ]
     },
     {
       "id": "bedrock-1-19-80",
@@ -860,10 +1820,29 @@
       "icon": "px-grass-block",
       "summary": "پیش‌نمایش Trails & Tales و رفع اشکال فراوان.",
       "description": "نسخه‌ی 1.19.80 بدراک در آوریل ۲۰۲۳ منتشر شد. این نسخه پیش‌نمایش Trails & Tales (Cherry Blossom، Archaeology) را به طور Experimental اضافه کرد.",
-      "highlights": ["Cherry Blossom (Experimental)", "Archaeology (Experimental)", "رفع اشکال", "بهبود عملکرد"],
+      "highlights": [
+        "Cherry Blossom (Experimental)",
+        "Archaeology (Experimental)",
+        "رفع اشکال",
+        "بهبود عملکرد"
+      ],
       "compatibleMods": 30,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.19.80"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.19.80",
+      "features": [
+        "Cherry Blossom (Experimental)",
+        "Archaeology (Experimental)",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
+      "changelog": [
+        "افزودن Cherry Blossom به طور Experimental",
+        "افزودن Archaeology به طور Experimental",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ]
     },
     {
       "id": "bedrock-1-19-70",
@@ -877,10 +1856,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
       "description": "نسخه‌ی 1.19.70 بدراک در فوریه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود.",
-      "highlights": ["رفع اشکال", "بهبود عملکرد", "بهبود UI", "بهبود Tomb"],
+      "highlights": [
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb"
+      ],
       "compatibleMods": 30,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.19.70"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.19.70",
+      "features": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb",
+        "بهبود ثبات بازی"
+      ],
+      "changelog": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb",
+        "بهبود ثبات بازی"
+      ]
     },
     {
       "id": "bedrock-1-19-60",
@@ -894,10 +1892,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
       "description": "نسخه‌ی 1.19.60 بدراک در ژانویه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود.",
-      "highlights": ["رفع اشکال", "بهبود عملکرد", "بهبود UI", "بهبود Tomb"],
+      "highlights": [
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb"
+      ],
       "compatibleMods": 30,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.19.60"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.19.60",
+      "features": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb",
+        "بهبود ثبات بازی"
+      ],
+      "changelog": [
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود Tomb",
+        "بهبود ثبات بازی"
+      ]
     },
     {
       "id": "bedrock-1-19-50",
@@ -911,11 +1928,31 @@
       "icon": "px-grass-block",
       "summary": "آپدیت وحشی با Deep Dark، Warden و Mangrove Swamp.",
       "description": "نسخه‌ی 1.19.50 بدراک با نام The Wild Update در نوامبر ۲۰۲۲ منتشر شد و با Java 1.19 هماهنگ است. این نسخه Deep Dark، Warden و Mangrove Swamp را اضافه کرد. Allay و Frog نیز اضافه شد.",
-      "highlights": ["Deep Dark و Warden", "Mangrove Swamp", "Allay", "Frog", "Tadpoles"],
+      "highlights": [
+        "Deep Dark و Warden",
+        "Mangrove Swamp",
+        "Allay",
+        "Frog",
+        "Tadpoles"
+      ],
       "compatibleMods": 30,
       "platform": "bedrock",
       "featured": true,
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.19.50"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.19.50",
+      "features": [
+        "Deep Dark — بیوم ترسناک در اعماق",
+        "Warden — ماب قوی و نابینا",
+        "Mangrove Swamp — بیوم مردابی",
+        "Allay — موجود جمع‌آور آیتم",
+        "Frog و Tadpoles — قورباغه و بچه‌قورباغه"
+      ],
+      "changelog": [
+        "افزودن Deep Dark و Warden",
+        "افزودن Mangrove Swamp",
+        "افزودن Allay",
+        "افزودن Frog و Tadpoles",
+        "هماهنگی با Java 1.19"
+      ]
     },
     {
       "id": "bedrock-1-18-30",
@@ -929,10 +1966,30 @@
       "icon": "px-stone-block",
       "summary": "هماهنگی کامل با Java 1.18 و رفع اشکال.",
       "description": "نسخه‌ی 1.18.30 بدراک در فوریه ۲۰۲۲ منتشر شد و هماهنگی کامل با Java 1.18 را فراهم می‌کند. این نسخه World Generation جدید با ارتفاع ۳۸۴ بلوک، Lush Caves و Dripstone Caves را اضافه کرد.",
-      "highlights": ["World Generation جدید", "Lush Caves", "Dripstone Caves", "بیوم Meadow", "عمق غارها به -۶۴"],
+      "highlights": [
+        "World Generation جدید",
+        "Lush Caves",
+        "Dripstone Caves",
+        "بیوم Meadow",
+        "عمق غارها به -۶۴"
+      ],
       "compatibleMods": 11,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.18.30"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.18.30",
+      "features": [
+        "World Generation جدید با ارتفاع ۳۸۴ بلوک",
+        "Lush Caves — غارهای سرسبز",
+        "Dripstone Caves — غارهای استالاکتیتی",
+        "بیوم Meadow و Grove",
+        "عمق غارها به -۶۴"
+      ],
+      "changelog": [
+        "افزودن World Generation جدید",
+        "افزودن Lush Caves و Dripstone Caves",
+        "افزودن Meadow و Grove",
+        "افزودن Amethyst Geodes",
+        "افزودن Copper و Deepslate Ore"
+      ]
     },
     {
       "id": "bedrock-1-17-40",
@@ -946,10 +2003,30 @@
       "icon": "px-diamond-ore",
       "summary": "هماهنگی با Java 1.17 با Copper، Amethyst و Lightning Rod.",
       "description": "نسخه‌ی 1.17.40 بدراک در اکتبر ۲۰۲۱ منتشر شد و هماهنگی با Java 1.17 را فراهم می‌کند. این نسخه Copper، Amethyst و Lightning Rod را اضافه کرد. Axolotl و Goat نیز اضافه شد.",
-      "highlights": ["Copper با رنگ‌پذیری", "Amethyst", "Lightning Rod", "Axolotl و Goat", "Powder Snow"],
+      "highlights": [
+        "Copper با رنگ‌پذیری",
+        "Amethyst",
+        "Lightning Rod",
+        "Axolotl و Goat",
+        "Powder Snow"
+      ],
       "compatibleMods": 7,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.17.40"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.17.40",
+      "features": [
+        "Copper با رنگ‌پذیری زمان",
+        "Amethyst Geodes",
+        "Lightning Rod",
+        "Axolotl و Goat",
+        "Powder Snow"
+      ],
+      "changelog": [
+        "افزودن Copper Block و cut variants",
+        "افزودن Amethyst Geodes",
+        "افزودن Lightning Rod و Spyglass",
+        "افزودن Axolotl و Goat",
+        "افزودن Powder Snow و Deepslate"
+      ]
     },
     {
       "id": "bedrock-1-16-0",
@@ -963,10 +2040,30 @@
       "icon": "px-tnt",
       "summary": "آپدیت Nether با Piglins، Netherite و بیوم‌های جدید.",
       "description": "نسخه‌ی 1.16.0 بدراک با نام Nether Update در ژوئن ۲۰۲۰ منتشر شد و با Java 1.16 هماهنگ است. این نسخه Nether را کاملاً بازطراحی کرد. Piglins، Netherite و Bastion Remnants اضافه شد.",
-      "highlights": ["بیوم‌های متنوع Nether", "Piglins", "Netherite", "Respawn Anchor", "Bastion Remnants"],
+      "highlights": [
+        "بیوم‌های متنوع Nether",
+        "Piglins",
+        "Netherite",
+        "Respawn Anchor",
+        "Bastion Remnants"
+      ],
       "compatibleMods": 14,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.16.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.16.0",
+      "features": [
+        "بیوم‌های متنوع ندر",
+        "Piglins — موجودات قابل تجارت",
+        "Netherite — مادون قوی‌تر از Diamond",
+        "Respawn Anchor — بستر تولد در ندر",
+        "Bastion Remnants"
+      ],
+      "changelog": [
+        "افزودن بیوم‌های ندر (Crimson، Warped، Soulsand Valley، Basalt Deltas)",
+        "افزودن Piglins، Hoglins و Striders",
+        "افزودن Netherite و upgrade قاب",
+        "افزودن Respawn Anchor و Crying Obsidian",
+        "افزودن Bastion Remnants و Ruined Portals"
+      ]
     },
     {
       "id": "bedrock-1-14-0",
@@ -980,10 +2077,30 @@
       "icon": "px-grass-block",
       "summary": "آپدیت زنبورها با Bee، Hive و Honey Bottle.",
       "description": "نسخه‌ی 1.14.0 بدراک با نام Buzzy Bees در دسامبر ۲۰۱۹ منتشر شد و با Java 1.15 هماهنگ است. این نسخه Bee، Hive و Honey Bottle را اضافه کرد.",
-      "highlights": ["Bee", "Hive", "Honey Bottle", "Honey Block", "رفع اشکال"],
+      "highlights": [
+        "Bee",
+        "Hive",
+        "Honey Bottle",
+        "Honey Block",
+        "رفع اشکال"
+      ],
       "compatibleMods": 6,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.14.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.14.0",
+      "features": [
+        "Bee — زنبور جدید",
+        "Bee Hive و Bee Nest",
+        "Honey Bottle و Honey Block",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد"
+      ],
+      "changelog": [
+        "افزودن Bee و Bee Hive",
+        "افزودن Honey Bottle و Honey Block",
+        "افزودن Honeycomb Block",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد"
+      ]
     },
     {
       "id": "bedrock-1-13-0",
@@ -997,10 +2114,29 @@
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود Light Block.",
       "description": "نسخه‌ی 1.13.0 بدراک در اکتبر ۲۰۱۹ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Light Block و Foxes (Experimental) را شامل می‌شود.",
-      "highlights": ["Foxes (Experimental)", "Light Block", "رفع اشکال", "بهبود عملکرد"],
+      "highlights": [
+        "Foxes (Experimental)",
+        "Light Block",
+        "رفع اشکال",
+        "بهبود عملکرد"
+      ],
       "compatibleMods": 9,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.13.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.13.0",
+      "features": [
+        "Foxes (Experimental) — روباه",
+        "Light Block",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
+      "changelog": [
+        "افزودن Foxes به طور Experimental",
+        "افزودن Light Block",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ]
     },
     {
       "id": "bedrock-1-12-0",
@@ -1014,10 +2150,29 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Education Edition Features و رفع اشکال.",
       "description": "نسخه‌ی 1.12.0 بدراک در ژوئیه ۲۰۱۹ منتشر شد. این نسخه Education Edition Features را شامل می‌شود. رفع اشکال فراوان.",
-      "highlights": ["Education Features", "رفع اشکال", "بهبود عملکرد", "بهبود UI"],
+      "highlights": [
+        "Education Features",
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
       "compatibleMods": 9,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.12.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.12.0",
+      "features": [
+        "Education Edition Features",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود کنترل‌ها"
+      ],
+      "changelog": [
+        "افزودن Education Edition Features",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود کنترل‌ها"
+      ]
     },
     {
       "id": "bedrock-1-11-0",
@@ -1031,10 +2186,30 @@
       "icon": "px-grass-block",
       "summary": "هماهنگی با Java 1.14 با بازطراحی دهکده‌ها و Pillager.",
       "description": "نسخه‌ی 1.11.0 بدراک با نام Village & Pillage در آوریل ۲۰۱۹ منتشر شد و با Java 1.14 هماهنگ است. این نسخه دهکده‌ها را کاملاً بازطراحی کرد. Pillager، Crossbow و Bamboo اضافه شد.",
-      "highlights": ["بازطراحی دهکده‌ها", "Pillager", "Crossbow", "Bamboo", "Scaffolding"],
+      "highlights": [
+        "بازطراحی دهکده‌ها",
+        "Pillager",
+        "Crossbow",
+        "Bamboo",
+        "Scaffolding"
+      ],
       "compatibleMods": 10,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.11.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.11.0",
+      "features": [
+        "بازطراحی دهکده‌ها با ۱۲ سبک بیومی",
+        "Pillager و Pillager Outpost",
+        "Crossbow — سلاح جدید",
+        "Bamboo و Scaffolding",
+        "Village Features با کارگران جدید"
+      ],
+      "changelog": [
+        "بازطراحی دهکده‌ها",
+        "افزودن Pillager و Pillager Outpost",
+        "افزودن Crossbow و پیکان‌های متنوع",
+        "افزودن Bamboo و Scaffolding",
+        "افزودن Village Features با کارگران"
+      ]
     },
     {
       "id": "bedrock-1-10-0",
@@ -1048,10 +2223,29 @@
       "icon": "px-grass-block",
       "summary": "پیش‌نمایش Village & Pillage و رفع اشکال.",
       "description": "نسخه‌ی 1.10.0 بدراک در مارس ۲۰۱۹ منتشر شد. این نسخه پیش‌نمایش Village & Pillage (دهکده‌های جدید) را شامل می‌شود.",
-      "highlights": ["دهکده‌های جدید (Experimental)", "رفع اشکال", "بهبود عملکرد", "بهبود UI"],
+      "highlights": [
+        "دهکده‌های جدید (Experimental)",
+        "رفع اشکال",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
       "compatibleMods": 8,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.10.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.10.0",
+      "features": [
+        "دهکده‌های جدید (Experimental)",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود ثبات"
+      ],
+      "changelog": [
+        "افزودن دهکده‌های جدید به طور Experimental",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI",
+        "بهبود ثبات"
+      ]
     },
     {
       "id": "bedrock-1-9-0",
@@ -1065,10 +2259,29 @@
       "icon": "px-grass-block",
       "summary": "پیش‌نمایش Pillage و رفع اشکال.",
       "description": "نسخه‌ی 1.9.0 بدراک در فوریه ۲۰۱۹ منتشر شد. این نسخه پیش‌نمایش Pillage (Pillager، Crossbow) را شامل می‌شود. رفع اشکال فراوان.",
-      "highlights": ["Pillager (Experimental)", "Crossbow (Experimental)", "رفع اشکال", "بهبود عملکرد"],
+      "highlights": [
+        "Pillager (Experimental)",
+        "Crossbow (Experimental)",
+        "رفع اشکال",
+        "بهبود عملکرد"
+      ],
       "compatibleMods": 8,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.9.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.9.0",
+      "features": [
+        "Pillager (Experimental)",
+        "Crossbow (Experimental)",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
+      "changelog": [
+        "افزودن Pillager به طور Experimental",
+        "افزودن Crossbow به طور Experimental",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ]
     },
     {
       "id": "bedrock-1-8-0",
@@ -1082,10 +2295,30 @@
       "icon": "px-stone-block",
       "summary": "اضافه شدن Pandas، Cats و Bamboo.",
       "description": "نسخه‌ی 1.8.0 بدراک در دسامبر ۲۰۱۸ منتشر شد. این نسخه Pandas، Cats جدید و Bamboo Jungle را اضافه کرد. Structure Block نیز اضافه شد.",
-      "highlights": ["Panda", "گربه‌های جدید", "Bamboo Jungle", "Structure Block", "رفع اشکال"],
+      "highlights": [
+        "Panda",
+        "گربه‌های جدید",
+        "Bamboo Jungle",
+        "Structure Block",
+        "رفع اشکال"
+      ],
       "compatibleMods": 8,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.8.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.8.0",
+      "features": [
+        "Panda — ماب جدید در Bamboo Jungle",
+        "گربه‌های جدید با تنوع",
+        "Bamboo Jungle — بیوم جنگلی",
+        "Structure Block",
+        "رفع اشکال فراوان"
+      ],
+      "changelog": [
+        "افزودن Panda و گربه‌های جدید",
+        "افزودن Bamboo Jungle",
+        "افزودن Structure Block",
+        "افزودن Crossbow و Pillager",
+        "رفع اشکال فراوان"
+      ]
     },
     {
       "id": "bedrock-1-7-0",
@@ -1099,10 +2332,30 @@
       "icon": "px-water-bucket",
       "summary": "هماهنگی با Java 1.13 با اقیانوس‌های بازطراحی‌شده و Coral.",
       "description": "نسخه‌ی 1.7.0 بدراک با نام Update Aquatic در اکتبر ۲۰۱۸ منتشر شد و با Java 1.13 هماهنگ است. این نسخه اقیانوس‌ها را کاملاً بازطراحی کرد. Coral، Kelp و Dolphin اضافه شد.",
-      "highlights": ["اقیانوس‌های بازطراحی‌شده", "Coral Reefs", "Kelp", "Dolphin و Turtle", "Drowned"],
+      "highlights": [
+        "اقیانوس‌های بازطراحی‌شده",
+        "Coral Reefs",
+        "Kelp",
+        "Dolphin و Turtle",
+        "Drowned"
+      ],
       "compatibleMods": 11,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.7.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.7.0",
+      "features": [
+        "اقیانوس‌های بازطراحی‌شده",
+        "Coral Reefs — صخره‌های مرجانی",
+        "Kelp — جنگل‌های دریایی",
+        "Dolphin و Turtle",
+        "Drowned — زامبی زیرآبی"
+      ],
+      "changelog": [
+        "بازطراحی اقیانوس‌ها",
+        "افزودن Coral Reefs و Kelp",
+        "افزودن Dolphin و Turtle",
+        "افزودن Drowned و Trident",
+        "افزودن Shipwrecks و Ocean Ruins"
+      ]
     },
     {
       "id": "bedrock-1-6-0",
@@ -1116,10 +2369,30 @@
       "icon": "px-water-bucket",
       "summary": "بخش دوم Update Aquatic با Coral و Drowned.",
       "description": "نسخه‌ی 1.6.0 بدراک در آگوست ۲۰۱۸ منتشر شد. این نسخه بخش دوم Update Aquatic است. Coral Reefs، Drowned و Shipwrecks اضافه شد.",
-      "highlights": ["Coral Reefs", "Drowned", "Shipwrecks", "Ocean Ruins", "Conduit"],
+      "highlights": [
+        "Coral Reefs",
+        "Drowned",
+        "Shipwrecks",
+        "Ocean Ruins",
+        "Conduit"
+      ],
       "compatibleMods": 11,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.6.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.6.0",
+      "features": [
+        "Coral Reefs — صخره‌های مرجانی",
+        "Drowned — زامبی زیرآبی",
+        "Shipwrecks — کشتی‌های غرق‌شده",
+        "Ocean Ruins — ویرانه‌های دریایی",
+        "Conduit — بلوک زیرآبی"
+      ],
+      "changelog": [
+        "افزودن Coral Reefs",
+        "افزودن Drowned",
+        "افزودن Shipwrecks و Ocean Ruins",
+        "افزودن Conduit و Heart of the Sea",
+        "افزودن Trident و Buried Treasure"
+      ]
     },
     {
       "id": "bedrock-1-5-0",
@@ -1133,10 +2406,30 @@
       "icon": "px-water-bucket",
       "summary": "بخش اول Update Aquatic با Coral و Ocean Monument.",
       "description": "نسخه‌ی 1.5.0 بدراک در مِ ۲۰۱۸ منتشر شد. این نسخه بخش اول Update Aquatic است. Coral، Kelp و Ocean Monument بهبود یافت.",
-      "highlights": ["Coral", "Kelp", "Ocean Monument بهبود", "Sea Turtle", "رفع اشکال"],
+      "highlights": [
+        "Coral",
+        "Kelp",
+        "Ocean Monument بهبود",
+        "Sea Turtle",
+        "رفع اشکال"
+      ],
       "compatibleMods": 11,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.5.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.5.0",
+      "features": [
+        "Coral — مرجان",
+        "Kelp — جلبک دریایی",
+        "Ocean Monument بهبودیافته",
+        "Sea Turtle — لاک‌پشت دریایی",
+        "رفع اشکال فراوان"
+      ],
+      "changelog": [
+        "افزودن Coral و Coral Fans",
+        "افزودن Kelp و Sea Grass",
+        "بهبود Ocean Monument",
+        "افزودن Sea Turtle",
+        "رفع اشکال فراوان"
+      ]
     },
     {
       "id": "bedrock-1-4-0",
@@ -1150,10 +2443,29 @@
       "icon": "px-water-bucket",
       "summary": "پیش‌نمایش Update Aquatic و رفع اشکال.",
       "description": "نسخه‌ی 1.4.0 بدراک در دسامبر ۲۰۱۷ منتشر شد. این نسخه پیش‌نمایش Update Aquatic (Coral، Kelp) را شامل می‌شود. رفع اشکال فراوان.",
-      "highlights": ["Coral (Experimental)", "Kelp (Experimental)", "رفع اشکال", "بهبود عملکرد"],
+      "highlights": [
+        "Coral (Experimental)",
+        "Kelp (Experimental)",
+        "رفع اشکال",
+        "بهبود عملکرد"
+      ],
       "compatibleMods": 9,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.4.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.4.0",
+      "features": [
+        "Coral (Experimental)",
+        "Kelp (Experimental)",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ],
+      "changelog": [
+        "افزودن Coral به طور Experimental",
+        "افزودن Kelp به طور Experimental",
+        "رفع اشکال فراوان",
+        "بهبود عملکرد",
+        "بهبود UI"
+      ]
     },
     {
       "id": "bedrock-1-2-0",
@@ -1167,10 +2479,30 @@
       "icon": "px-grass-block",
       "summary": "آپدیت Better Together با Cross-platform Multiplayer.",
       "description": "نسخه‌ی 1.2.0 بدراک با نام Better Together Update در ژوئیه ۲۰۱۷ منتشر شد. این نسخه بزرگ‌ترین آپدیت تاریخ بدراک است: Cross-platform Multiplayer بین Windows 10، Xbox، Mobile و VR. New Host Options و Recipe Book اضافه شد.",
-      "highlights": ["Cross-platform Multiplayer", "Recipe Book", "Host Options", "Add-Ons", "New Mobs"],
+      "highlights": [
+        "Cross-platform Multiplayer",
+        "Recipe Book",
+        "Host Options",
+        "Add-Ons",
+        "New Mobs"
+      ],
       "compatibleMods": 5,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.2.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.2.0",
+      "features": [
+        "Cross-platform Multiplayer بین Windows 10، Xbox، Mobile",
+        "Recipe Book — کتاب دستورالعمل",
+        "Host Options — تنظیمات میزبان",
+        "Add-Ons — سیستم افزودنی‌ها",
+        "New Mobs و Features"
+      ],
+      "changelog": [
+        "افزودن Cross-platform Multiplayer",
+        "افزودن Recipe Book",
+        "افزودن Host Options",
+        "افزودن Add-Ons System",
+        "افزودن New Mobs و Features"
+      ]
     },
     {
       "id": "bedrock-1-1-0",
@@ -1184,10 +2516,30 @@
       "icon": "px-grass-block",
       "summary": "آپدیت کاوش با Woodland Mansion و Llamas.",
       "description": "نسخه‌ی 1.1.0 بدراک با نام Discovery Update در ژوئن ۲۰۱۷ منتشر شد. این نسخه Woodland Mansion و Llamas را اضافه کرد. Illager Beast (Vindicator) نیز اضافه شد.",
-      "highlights": ["Woodland Mansion", "Llamas", "Vindicator", "Shulker Box (Creative)", "Off-hand Slot"],
+      "highlights": [
+        "Woodland Mansion",
+        "Llamas",
+        "Vindicator",
+        "Shulker Box (Creative)",
+        "Off-hand Slot"
+      ],
       "compatibleMods": 4,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.1.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.1.0",
+      "features": [
+        "Woodland Mansion — ساختار نادر",
+        "Llamas — ماب حمل بار",
+        "Vindicator — ایلیجر تند",
+        "Shulker Box (Creative)",
+        "Off-hand Slot — اسلات دست فرعی"
+      ],
+      "changelog": [
+        "افزودن Woodland Mansion",
+        "افزودن Llamas و Caravan",
+        "افزودن Vindicator و Evoker",
+        "افزودن Shulker Box در Creative",
+        "افزودن Off-hand Slot"
+      ]
     },
     {
       "id": "bedrock-1-0-0",
@@ -1201,10 +2553,30 @@
       "icon": "px-grass-block",
       "summary": "نسخه‌ی 1.0 بدراک با The End، Ender Dragon و World Market.",
       "description": "نسخه‌ی 1.0.0 بدراک با نام Ender Update در دسامبر ۲۰۱۶ منتشر شد و نخستین نسخه‌ی رسمی بدراک است. این نسخه The End و Ender Dragon را اضافه کرد. World Market (بعداً Marketplace) اضافه شد.",
-      "highlights": ["The End", "Ender Dragon", "World Market", "Boss Bar", "Big scarce dungeons"],
+      "highlights": [
+        "The End",
+        "Ender Dragon",
+        "World Market",
+        "Boss Bar",
+        "Big scarce dungeons"
+      ],
       "compatibleMods": 1,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.0.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_1.0.0",
+      "features": [
+        "اند — بُعد جدید",
+        "Ender Dragon — باس نهایی",
+        "World Market — بازار آینده",
+        "Boss Bar — نوار جان باس",
+        "Big scarce dungeons"
+      ],
+      "changelog": [
+        "افزودن اند و Ender Dragon",
+        "افزودن World Market (بعداً Marketplace)",
+        "افزودن Boss Bar",
+        "افزودن Elytra و Shulker Shell",
+        "افزودن شهرهای اند و Chorus Plant"
+      ]
     },
     {
       "id": "bedrock-0-16-0",
@@ -1218,10 +2590,30 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Elder Guardian، With Skul Wither و_commands.",
       "description": "نسخه‌ی 0.16.0 Pocket Edition با نام Boss Update در اکتبر ۲۰۱۶ منتشر شد. این نسخه Elder Guardian و Wither را اضافه کرد. سیستم Slash Commands نیز اضافه شد.",
-      "highlights": ["Elder Guardian", "Wither", "Slash Commands", "Add-Ons Preview", "Beacon"],
+      "highlights": [
+        "Elder Guardian",
+        "Wither",
+        "Slash Commands",
+        "Add-Ons Preview",
+        "Beacon"
+      ],
       "compatibleMods": 0,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.16.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.16.0",
+      "features": [
+        "Elder Guardian — باس جدید",
+        "Wither — باس قابل احیا",
+        "Slash Commands — فرامین نوار",
+        "Add-Ons Preview",
+        "Beacon — بلوک افکت‌بخش"
+      ],
+      "changelog": [
+        "افزودن Elder Guardian و Ocean Monument",
+        "افزودن Wither",
+        "افزودن Slash Commands",
+        "افزودن Add-Ons Preview",
+        "افزودن Beacon و Hopper"
+      ]
     },
     {
       "id": "bedrock-0-15-0",
@@ -1235,10 +2627,30 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Horse، Donkey و Piston.",
       "description": "نسخه‌ی 0.15.0 Pocket Edition با نام Friendly Update در ژوئن ۲۰۱۶ منتشر شد. این نسخه Horse، Donkey و Piston را اضافه کرد. Multiplayer Realms نیز اضافه شد.",
-      "highlights": ["Horse و Donkey", "Piston و Sticky Piston", "Realms", "Observer Block", "Mule"],
+      "highlights": [
+        "Horse و Donkey",
+        "Piston و Sticky Piston",
+        "Realms",
+        "Observer Block",
+        "Mule"
+      ],
       "compatibleMods": 0,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.15.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.15.0",
+      "features": [
+        "Horse و Donkey — ماب‌های سوار شونده",
+        "Piston و Sticky Piston",
+        "Realms — سرورهای اختصاصی",
+        "Observer Block",
+        "Mule — قاطر"
+      ],
+      "changelog": [
+        "افزودن Horse، Donkey و Mule",
+        "افزودن Piston و Sticky Piston",
+        "افزودن Realms Multiplayer",
+        "افزودن Observer Block",
+        "افزودن Zombie Horse و Skeleton Horse"
+      ]
     },
     {
       "id": "bedrock-0-14-0",
@@ -1252,10 +2664,30 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Redstone، Minecart و dropper.",
       "description": "نسخه‌ی 0.14.0 Pocket Edition با نام Overworld Update در فوریه ۲۰۱۶ منتشر شد. این نسخه Redstone Mechanics، Minecart و Dropper را اضافه کرد.",
-      "highlights": ["Redstone Mechanics", "Minecart with Hopper", "Dropper و Dispenser", "Trapped Chest", "Item Frame"],
+      "highlights": [
+        "Redstone Mechanics",
+        "Minecart with Hopper",
+        "Dropper و Dispenser",
+        "Trapped Chest",
+        "Item Frame"
+      ],
       "compatibleMods": 0,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.14.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.14.0",
+      "features": [
+        "مکانیک رداستون",
+        "Minecart with Hopper",
+        "Dropper و Dispenser",
+        "Trapped Chest",
+        "Item Frame"
+      ],
+      "changelog": [
+        "افزودن مکانیک رداستون",
+        "افزودن Minecart with Hopper",
+        "افزودن Dropper و Dispenser",
+        "افزودن Trapped Chest",
+        "افزودن Item Frame"
+      ]
     },
     {
       "id": "bedrock-0-13-0",
@@ -1269,10 +2701,30 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Crafting در بازی و Redstone.",
       "description": "نسخه‌ی 0.13.0 Pocket Edition در نوامبر ۲۰۱۵ منتشر شد. این نسخه Crafting را در بازی اضافه کرد (نه تنها در Crafting Table). Redstone و Pressure Plates اضافه شد.",
-      "highlights": ["Crafting در بازی", "Redstone Dust", "Pressure Plates", "Levers و Buttons", "Detector Rail"],
+      "highlights": [
+        "Crafting در بازی",
+        "Redstone Dust",
+        "Pressure Plates",
+        "Levers و Buttons",
+        "Detector Rail"
+      ],
       "compatibleMods": 0,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.13.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.13.0",
+      "features": [
+        "Crafting در بازی (نه فقط در Crafting Table)",
+        "پودر رداستون",
+        "Pressure Plates",
+        "Levers و Buttons",
+        "Detector Rail"
+      ],
+      "changelog": [
+        "افزودن Crafting در بازی با 2x2 grid",
+        "افزودن پودر رداستون و سنگ معدن رداستون",
+        "افزودن Pressure Plates",
+        "افزودن Levers و Buttons",
+        "افزودن Detector Rail و Activator Rail"
+      ]
     },
     {
       "id": "bedrock-0-12-0",
@@ -1286,10 +2738,30 @@
       "icon": "px-tnt",
       "summary": "اضافه شدن Nether، Hunger و Brewing.",
       "description": "نسخه‌ی 0.12.0 Pocket Edition با نام Nether Update در سپتامبر ۲۰۱۵ منتشر شد. این نسخه Nether، Hunger System و Brewing را اضافه کرد. XP و Enchanting نیز اضافه شد.",
-      "highlights": ["Nether", "Hunger System", "Brewing", "XP و Enchanting", "Ghasts و Blazes"],
+      "highlights": [
+        "Nether",
+        "Hunger System",
+        "Brewing",
+        "XP و Enchanting",
+        "Ghasts و Blazes"
+      ],
       "compatibleMods": 0,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.12.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.12.0",
+      "features": [
+        "ندر — بُعد جدید با آتش",
+        "Hunger System — نوار غذا",
+        "Brewing — دم‌کردن معجون",
+        "XP و Enchanting",
+        "Ghasts و Blazes"
+      ],
+      "changelog": [
+        "افزودن ندر با Ghasts و Zombie Pigmen",
+        "افزودن Hunger System",
+        "افزودن Brewing Stand و Potions",
+        "افزودن XP و Enchanting Table",
+        "افزودن Blazes و Magma Cube"
+      ]
     },
     {
       "id": "bedrock-0-11-0",
@@ -1303,10 +2775,30 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Skins و Fishing System.",
       "description": "نسخه‌ی 0.11.0 Pocket Edition در آوریل ۲۰۱۵ منتشر شد. این نسخه Skins System و Fishing را اضافه کرد. Cave Spiders و Zombie Pigmen نیز اضافه شد.",
-      "highlights": ["Skins System", "Fishing", "Cave Spider", "Zombie Pigman", "Boats"],
+      "highlights": [
+        "Skins System",
+        "Fishing",
+        "Cave Spider",
+        "Zombie Pigman",
+        "Boats"
+      ],
       "compatibleMods": 0,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.11.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.11.0",
+      "features": [
+        "Skins System — پوسته‌های قابل تنظیم",
+        "Fishing — سیستم ماهیگیری",
+        "Cave Spider — عنکبوت غاری",
+        "Zombie Pigman",
+        "Boats — قایق"
+      ],
+      "changelog": [
+        "افزودن Skins System با Custom Skins",
+        "افزودن Fishing System",
+        "افزودن Cave Spider",
+        "افزودن Zombie Pigman",
+        "افزودن Boats و Splash Potions"
+      ]
     },
     {
       "id": "bedrock-0-10-0",
@@ -1320,10 +2812,30 @@
       "icon": "px-grass-block",
       "summary": "اضافه شدن Minecart و Glass Pane.",
       "description": "نسخه‌ی 0.10.0 Pocket Edition در نوامبر ۲۰۱۴ منتشر شد. این نسخه Minecart و Glass Pane را اضافه کرد. Render و Water بهبود یافت.",
-      "highlights": ["Minecart", "Glass Pane", "Render بهبود یافته", "Water Effects", "Fire Braising"],
+      "highlights": [
+        "Minecart",
+        "Glass Pane",
+        "Render بهبود یافته",
+        "Water Effects",
+        "Fire Braising"
+      ],
       "compatibleMods": 0,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.10.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.10.0",
+      "features": [
+        "Minecart — ماین‌کرت",
+        "Glass Pane — شیشه‌ی نازک",
+        "Render بهبودیافته",
+        "Water Effects — افکت‌های آب",
+        "Fire Brazing — افکت آتش"
+      ],
+      "changelog": [
+        "افزودن Minecart و Rail",
+        "افزودن Glass Pane",
+        "بهبود Render و گرافیک",
+        "افزودن Water Effects",
+        "افزودن Fire Brazing"
+      ]
     },
     {
       "id": "bedrock-0-9-0",
@@ -1337,10 +2849,30 @@
       "icon": "px-grass-block",
       "summary": "آپدیت بی‌نهایت با نقشه‌ی بی‌نهایت و موجودات جدید.",
       "description": "نسخه‌ی 0.9.0 Pocket Edition با نام Infinite Update در ژوئیه ۲۰۱۴ منتشر شد و بزرگ‌ترین آپدیت تاریخ پاکت بود. این نسخه نقشه‌ی بی‌نهایت را اضافه کرد. موجودات جدید مثل Enderman، Villager و Minecart اضافه شد.",
-      "highlights": ["نقشه‌ی بی‌نهایت", "Enderman", "Villager", "Minecart و Boat", "Caves"],
+      "highlights": [
+        "نقشه‌ی بی‌نهایت",
+        "Enderman",
+        "Villager",
+        "Minecart و Boat",
+        "Caves"
+      ],
       "compatibleMods": 0,
       "platform": "bedrock",
-      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.9.0"
+      "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.9.0",
+      "features": [
+        "نقشه‌ی بی‌نهایت — نقشه‌ی نامحدود",
+        "Enderman",
+        "Villager",
+        "Minecart و Boat",
+        "Caves"
+      ],
+      "changelog": [
+        "افزودن نقشه‌ی بی‌نهایت",
+        "افزودن Enderman",
+        "افزودن Villager و Villager Zombie",
+        "افزودن Minecart و Boat",
+        "افزودن Caves و Lava"
+      ]
     }
   ]
 }

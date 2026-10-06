@@ -1,0 +1,313 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { mobs, MOB_CATEGORIES } from '@/lib/data';
+import { mobRenderUrl, mobImgUrl } from '@/lib/cdn-images';
+import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+// Persian digit helper
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+// Precompute the 3D render URL + flat-PNG fallback for every mob.
+// Render URL: HuggingFace mobs-render/<id>.png (real 3D render).
+// Fallback chain on error: HF flat PNG → local 3D render (.webp) → local flat PNG.
+type CardEntry = {
+  id: string;
+  nameEn: string;
+  nameFa: string;
+  category: string;
+  icon: string;
+  health: number;
+  renderUrl: string | null;
+  fallbackUrl: string;
+  catName: string;
+  catIcon: string;
+};
+
+const cards: CardEntry[] = mobs.map((m) => {
+  const clean = m.icon.replace(/^px-/, '').replace(/-face$/, '');
+  const renderUrl = mobRenderUrl(clean);
+
+  let fallbackUrl = mobImgUrl(clean) || '';
+  if (!fallbackUrl) {
+    const localRender = path.resolve('./public/textures/mobs-render', `${clean}.webp`);
+    if (fs.existsSync(localRender)) {
+      fallbackUrl = `${BASE}textures/mobs-render/${clean}.webp`;
+    } else {
+      fallbackUrl = `${BASE}textures/mobs/${clean}.png`;
+    }
+  }
+
+  const cat = MOB_CATEGORIES.find((c) => c.id === m.category);
+  return {
+    id: m.id,
+    nameEn: m.nameEn,
+    nameFa: m.nameFa,
+    category: m.category,
+    icon: m.icon,
+    health: m.health,
+    renderUrl,
+    fallbackUrl,
+    catName: cat?.nameFa ?? m.category,
+    catIcon: cat?.icon ?? '',
+  };
+});
+
+const PER_PAGE = 100;
+const totalPages = Math.max(1, Math.ceil(cards.length / PER_PAGE));
+
+const breadcrumb = [
+  { name: 'خانه', url: '/' },
+  { name: 'ویکی', url: '/wiki' },
+  { name: 'ماب‌ها', url: '/wiki/mobs' },
+  { name: 'گالری', url: '/wiki/mobs/gallery' },
+];
+
+const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
+const ldItemList = itemListJsonLd(
+  cards.slice(0, PER_PAGE).map((m) => ({ name: m.nameFa, url: `/wiki/mobs/${m.id}` }))
+);
+---
+
+<BaseLayout
+  path="/wiki/mobs/gallery"
+  title="گالری رندر سه‌بعدی ماب‌های ماینکرفت"
+  description={`گالری تصویری ${faNum(cards.length)} ماب ماینکرفت با رندرهای سه‌بعدی — فیلتر دسته‌بندی (متخاصم، صلح‌جو، خنثی، بوس) و جستجو. نمایش بصری کامل هیولاها و جانوران.`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(ldBreadcrumb)} />
+  <script type="application/ld+json" set:html={JSON.stringify(ldItemList)} />
+  <Breadcrumbs items={breadcrumb} />
+
+  <!-- Header -->
+  <div class="mb-6">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <h1 class="text-2xl lg:text-3xl font-extrabold font-pixel">👾 گالری ماب‌ها</h1>
+      <a href={base('/wiki/mobs')} class="mc-btn ghost small" aria-label="بازگشت به راهنمای ماب‌ها">
+        ← راهنمای ماب‌ها
+      </a>
+    </div>
+    <p class="text-sm text-mc-text-2 leading-relaxed">
+      گالری تصویری <span class="font-bold text-mc-grass-2">{faNum(cards.length)} ماب</span> ماینکرفت با رندرهای سه‌بعدی — در
+      <span class="font-bold">{faNum(totalPages)}</span> صفحه. روی هر ماب کلیک کن تا به صفحه‌ی راهنمای کاملش بروی.
+    </p>
+  </div>
+
+  <!-- Filter toolbar -->
+  <div class="mc-panel p-3 mb-5 flex flex-wrap items-center gap-3 sticky top-[var(--header-h,64px)] z-20">
+    <div class="flex flex-wrap gap-2" id="mobChips">
+      <button class="mc-chip active" data-cat="all">همه ({faNum(cards.length)})</button>
+      {MOB_CATEGORIES.map((c) => {
+        const count = cards.filter((m) => m.category === c.id).length;
+        return (
+          <button class="mc-chip" data-cat={c.id}>
+            {c.icon} {c.nameFa} ({faNum(count)})
+          </button>
+        );
+      })}
+    </div>
+    <div class="mr-auto flex items-center gap-2">
+      <label for="mobSearch" class="text-xs text-mc-text-3 font-bold">جستجو:</label>
+      <input
+        id="mobSearch"
+        type="search"
+        placeholder="مثلا کریپر یا zombie..."
+        class="sw-input text-xs py-1.5 px-3"
+        dir="rtl"
+      />
+    </div>
+  </div>
+
+  <!-- Gallery grid -->
+  <div
+    class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3"
+    id="mobGrid"
+  >
+    {cards.map((m) => (
+      <a
+        href={base(`/wiki/mobs/${m.id}`)}
+        class="mc-card hoverable group block p-3 text-center"
+        data-card
+        data-cat={m.category}
+        data-name={m.nameFa}
+        data-en={m.nameEn}
+        data-id={m.id}
+      >
+        <div class="aspect-square flex items-center justify-center mb-2 p-2 rounded bg-black/20">
+          <img
+            src={m.renderUrl ?? m.fallbackUrl}
+            data-fallback={m.fallbackUrl}
+            alt={m.nameFa}
+            width="120"
+            height="120"
+            loading="lazy"
+            decoding="async"
+            class="pixel-img gallery-render w-full h-full object-contain"
+            onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src=this.getAttribute('data-fallback');}else{this.style.opacity=0.25;}"
+          />
+        </div>
+        <h3 class="text-sm font-bold text-mc-text group-hover:text-mc-grass-2 leading-tight mb-1">{m.nameFa}</h3>
+        <p class="text-[10px] text-mc-text-3" dir="ltr">{m.nameEn}</p>
+        <div class="flex items-center justify-center gap-2 mt-2 flex-wrap">
+          <span class="mc-chip text-[10px]">{m.catIcon} {m.catName}</span>
+          <span class="text-[10px] text-mc-redstone font-bold">❤ {faNum(m.health)}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Empty state -->
+  <p class="mc-panel text-center py-8 text-sm text-mc-text-2 hidden" id="mobNoResults">
+    هیچ مابی با این فیلتر پیدا نشد. فیلترها را تغییر دهید.
+  </p>
+
+  <!-- Pagination -->
+  <div class="mt-6 mc-panel p-4 flex items-center justify-between gap-3" id="mobPager">
+    <button id="mobPrev" class="mc-btn small ghost" type="button">→ قبلی</button>
+    <span class="text-xs text-mc-text-2 text-center flex-1" id="mobPagerInfo"></span>
+    <button id="mobNext" class="mc-btn small" type="button">بعدی ←</button>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const grid = document.getElementById('mobGrid');
+    if (!grid) return;
+    const allCards = Array.from(grid.querySelectorAll('[data-card]'));
+    const chips = document.querySelectorAll('#mobChips .mc-chip');
+    const searchInput = document.getElementById('mobSearch');
+    const prevBtn = document.getElementById('mobPrev');
+    const nextBtn = document.getElementById('mobNext');
+    const info = document.getElementById('mobPagerInfo');
+    const noResults = document.getElementById('mobNoResults');
+    const pager = document.getElementById('mobPager');
+    const PER_PAGE = 100;
+
+    const faMap = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+    function faNum(n) {
+      return String(n).replace(/\d/g, (d) => faMap[+d]);
+    }
+
+    let curCat = 'all';
+    let curQuery = '';
+    let curPage = 1;
+
+    function getFiltered() {
+      const q = curQuery.trim().toLowerCase();
+      return allCards.filter((c) => {
+        const cat = c.getAttribute('data-cat');
+        if (curCat !== 'all' && cat !== curCat) return false;
+        if (q) {
+          const hay = [
+            c.dataset.name || '',
+            c.dataset.en || '',
+            c.dataset.id || '',
+          ].join(' ').toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function apply() {
+      const filtered = getFiltered();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+      if (curPage > totalPages) curPage = totalPages;
+      if (curPage < 1) curPage = 1;
+
+      const start = (curPage - 1) * PER_PAGE;
+      const end = start + PER_PAGE;
+      const visible = new Set(filtered.slice(start, end));
+
+      allCards.forEach((c) => {
+        c.style.display = visible.has(c) ? '' : 'none';
+      });
+
+      const showStart = filtered.length === 0 ? 0 : start + 1;
+      const showEnd = Math.min(end, filtered.length);
+      info.innerHTML = `صفحه‌ی <b>${faNum(curPage)}</b> از <b>${faNum(totalPages)}</b> — نمایش <b>${faNum(showStart)} تا ${faNum(showEnd)}</b> از <b>${faNum(filtered.length)}</b> ماب`;
+
+      prevBtn.disabled = curPage <= 1;
+      nextBtn.disabled = curPage >= totalPages;
+      prevBtn.classList.toggle('opacity-40', prevBtn.disabled);
+      prevBtn.classList.toggle('cursor-not-allowed', prevBtn.disabled);
+      nextBtn.classList.toggle('opacity-40', nextBtn.disabled);
+      nextBtn.classList.toggle('cursor-not-allowed', nextBtn.disabled);
+
+      pager.style.display = filtered.length > PER_PAGE ? '' : 'none';
+      noResults.classList.toggle('hidden', filtered.length > 0);
+    }
+
+    function scrollTopToGrid() {
+      const top = grid.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        curCat = chip.dataset.cat || 'all';
+        curPage = 1;
+        apply();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        curQuery = searchInput.value;
+        curPage = 1;
+        apply();
+      });
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      if (curPage <= 1) return;
+      curPage--;
+      apply();
+      scrollTopToGrid();
+    });
+    nextBtn?.addEventListener('click', () => {
+      const totalPages = Math.max(1, Math.ceil(getFiltered().length / PER_PAGE));
+      if (curPage >= totalPages) return;
+      curPage++;
+      apply();
+      scrollTopToGrid();
+    });
+
+    apply();
+  })();
+</script>
+
+<style>
+  .sw-input {
+    background: var(--bg-2, #0d0d18);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    border-radius: 4px;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .sw-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+    background: #141428;
+  }
+  /* 3D renders should NOT be pixelated (they're smooth renders),
+     so we override the .pixel-img class applied in markup. */
+  .gallery-render {
+    image-rendering: auto !important;
+    -ms-interpolation-mode: bicubic !important;
+  }
+  /* Prevent rounded corners on mc-card breaking the pixel feel */
+  #mobGrid > .mc-card {
+    border-radius: 4px;
+  }
+</style>

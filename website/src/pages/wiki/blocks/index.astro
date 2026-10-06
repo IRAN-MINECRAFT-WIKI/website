@@ -59,7 +59,12 @@ for (const c of BLOCK_CATEGORIES) {
   <Breadcrumbs items={breadcrumb} />
 
   <div class="mb-6">
-    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">بلاک‌های ماینکرفت</h1>
+    <div class="flex flex-wrap items-center gap-3 mb-2">
+      <h1 class="text-2xl lg:text-3xl font-extrabold">بلاک‌های ماینکرفت</h1>
+      <a href={base('/wiki/blocks/gallery')} class="mc-btn small" aria-label="گالری رندر سه‌بعدی بلاک‌ها">
+        🖼️ گالری رندرهای سه‌بعدی
+      </a>
+    </div>
     <p class="text-sm text-mc-text-2">
       {faNum(blocks.length)} بلاک در {faNum(BLOCK_CATEGORIES.length)} دسته — راهنمای کامل بلاک‌های ساختمانی، طبیعی، معدنی، رداستون و کاربردی
     </p>
