@@ -22,15 +22,33 @@ const breadcrumb = [
 
 const versions = ['1.21', '1.20', '1.19', '1.18', '1.17', '1.16'];
 
+// Structure features. `icon` is an emoji used in the feature grid + as a
+// fallback on the 2D map; `img` is a HuggingFace render path used as the
+// structure icon on the map (loaded async, with emoji fallback on failure).
+// HuggingFace dataset: Habib91700/minebed-assets  (see src/lib/cdn-images.ts).
 const features = [
-  { id: 'village',        label: 'روستا',                icon: '🏠', dim: 'overworld' },
-  { id: 'ancient-city',   label: 'شهر باستانی',          icon: '🏛️', dim: 'overworld' },
-  { id: 'mushroom-island', label: 'جزیره قارچ',           icon: '🍄', dim: 'overworld' },
-  { id: 'ocean-monument', label: 'بنای اقیانوسی',        icon: '🌊', dim: 'overworld' },
-  { id: 'woodland-mansion', label: 'عمارت جنگلی',        icon: '🏰', dim: 'overworld' },
-  { id: 'stronghold',     label: 'پناهگاه (Stronghold)', icon: '🌋', dim: 'overworld' },
-  { id: 'nether-fortress', label: 'قلعه‌ی ندر',           icon: '🔥', dim: 'nether' },
-  { id: 'end-city',       label: 'شهر End',               icon: '🚢', dim: 'end' },
+  { id: 'village',              label: 'روستا',                  icon: '🏠',  dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/emerald.png' },
+  { id: 'ancient-city',         label: 'شهر باستانی',            icon: '🏛️', dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/soul-sand.png' },
+  { id: 'mushroom-island',      label: 'جزیره قارچ',             icon: '🍄',  dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/red-mushroom.png' },
+  { id: 'ocean-monument',       label: 'بنای اقیانوسی',          icon: '🌊',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/sea-lantern.png' },
+  { id: 'woodland-mansion',     label: 'عمارت جنگلی',            icon: '🏰',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/dark-oak-log.png' },
+  { id: 'stronghold',           label: 'پناهگاه (Stronghold)',   icon: '🌋',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/end-portal-frame.png' },
+  { id: 'nether-fortress',      label: 'قلعه‌ی ندر',             icon: '🔥',  dim: 'nether',    dimFa: 'ندر',    img: 'blocks-render/nether-bricks.png' },
+  { id: 'end-city',             label: 'شهر End',               icon: '🚢',  dim: 'end',       dimFa: 'اند',    img: 'blocks-render/end-stone.png' },
+  { id: 'desert-temple',        label: 'معبد صحرایی',            icon: '🏜️', dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/sandstone.png' },
+  { id: 'jungle-temple',        label: 'معبد جنگلی',             icon: '🏚️', dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/chiseled-stone-bricks.png' },
+  { id: 'witch-hut',            label: 'کلبه‌ی جادوگر',          icon: '🧙',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/cauldron.png' },
+  { id: 'igloo',                label: 'ایگلو',                  icon: '⛄',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/snow-block.png' },
+  { id: 'ocean-ruin',           label: 'ویرانه‌ی اقیانوسی',      icon: '🐚',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/chiseled-sandstone.png' },
+  { id: 'shipwreck',           label: 'کشتی شکسته',            icon: '⚓',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/oak-planks.png' },
+  { id: 'ruined-portal',       label: 'پورتال ویران‌شده',       icon: '🌀',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/crying-obsidian.png' },
+  { id: 'buried-treasure',      label: 'گنج مدفون',              icon: '💰', dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/chest.png' },
+  { id: 'mineshaft',           label: 'معدن متروک',            icon: '⛏️', dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/rail.png' },
+  { id: 'pillager-outpost',    label: 'برج غارتگرها',           icon: '🏹',  dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/crossbow.png' },
+  { id: 'bastion',             label: 'دژ ندر (Bastion)',       icon: '🛡️', dim: 'nether',    dimFa: 'ندر',    img: 'blocks-render/gilded-blackstone.png' },
+  { id: 'trial-chambers',      label: 'اتاق‌های آزمایشی',       icon: '⚔️', dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/book.png' },
+  { id: 'ruined-portal-nether',label: 'پورتال ویران‌شده‌ی ندر',  icon: '🔥',  dim: 'nether',    dimFa: 'ندر',    img: 'blocks-render/obsidian.png' },
+  { id: 'fortress-bridge',     label: 'پل قلعه‌ی ندر',          icon: '🌉',  dim: 'nether',    dimFa: 'ندر',    img: 'blocks-render/basalt.png' },
 ];
 ---
 
@@ -43,7 +61,7 @@ const features = [
   <BackButton />
 
   <div class="mb-6">
-    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">🌾 ساخت سید ماینکرفت</h1>
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">ساخت سید ماینکرفت</h1>
     <p class="text-sm text-mc-text-2">
       نسخه و پلتفرم را انتخاب کن، ویژگی‌های مدنظرت را تیک بزن و روی «تولید سید» بزن.
       سید و مختصات هر ویژگی نمایش داده می‌شود. می‌تونی سید را کپی کنی یا در «سیدهای من» ذخیره کنی.
@@ -53,7 +71,7 @@ const features = [
   <!-- Configuration -->
   <section class="mc-panel p-5 mb-5">
     <h2 class="text-lg font-extrabold mb-4 flex items-center gap-2">
-      <span>⚙️</span> پیکربندی
+      پیکربندی
     </h2>
 
     <div class="grid sm:grid-cols-2 gap-4 mb-5">
@@ -66,8 +84,8 @@ const features = [
       <label class="block">
         <span class="text-xs font-bold text-mc-text-3 mb-1 block">پلتفرم</span>
         <select id="platformSelect" class="sw-input w-full">
-          <option value="bedrock">📱 بدراک (Bedrock)</option>
-          <option value="java">☕ جاوا (Java)</option>
+          <option value="bedrock">بدراک (Bedrock)</option>
+          <option value="java">جاوا (Java)</option>
         </select>
       </label>
     </div>
@@ -77,7 +95,6 @@ const features = [
       {features.map((f) => (
         <label class="feature-card" data-feature={f.id} data-dim={f.dim}>
           <input type="checkbox" class="feature-cb" value={f.id} />
-          <span class="feature-icon" aria-hidden="true">{f.icon}</span>
           <span class="feature-label">{f.label}</span>
         </label>
       ))}
@@ -87,15 +104,12 @@ const features = [
   <!-- Generate button -->
   <div class="flex flex-wrap gap-3 mb-5">
     <button id="genBtn" class="mc-btn big">
-      <span aria-hidden="true">🔍</span>
       <span>تولید سید</span>
     </button>
     <a href={base('/seeds/my')} class="mc-btn ghost">
-      <span aria-hidden="true">📥</span>
       <span>سیدهای من</span>
     </a>
     <a href={base('/seeds')} class="mc-btn ghost">
-      <span aria-hidden="true">🌍</span>
       <span>سیدهای عمومی</span>
     </a>
   </div>
@@ -104,14 +118,14 @@ const features = [
   <section id="resultPanel" class="mc-panel p-5 hidden" aria-live="polite">
     <header class="flex items-start justify-between gap-3 mb-4 flex-wrap">
       <h2 class="text-lg font-extrabold flex items-center gap-2">
-        <span>🎯</span> سید تولیدشده
+        سید تولیدشده
       </h2>
       <div class="flex gap-2">
         <button id="saveBtn" class="mc-btn small">
-          <span aria-hidden="true">💾</span> ذخیره در سیدهای من
+          ذخیره در سیدهای من
         </button>
         <button id="copyBtn" class="mc-btn small ghost">
-          <span aria-hidden="true">📋</span> کپی سید
+          کپی سید
         </button>
       </div>
     </header>
@@ -142,14 +156,33 @@ const features = [
       </div>
     </div>
 
-    <!-- 2D Map (NEW — phase 84) -->
-    <h3 class="text-sm font-extrabold mb-2 text-mc-text-2">🗺️ نقشه‌ی ۲ بعدی سید</h3>
+    <!-- 2D Map (phase 84 — enhanced with pan/zoom + structure icons) -->
+    <div class="map-header-row">
+      <h3 class="text-sm font-extrabold text-mc-text-2">نقشه‌ی ۲ بعدی سید</h3>
+      <label class="map-radius-label" for="radiusSelect">
+        <span>شعاع جستجو:</span>
+        <select id="radiusSelect" class="sw-input">
+          <option value="200">۲۰۰ بلوک</option>
+          <option value="500" selected>۵۰۰ بلوک</option>
+          <option value="1000">۱۰۰۰ بلوک</option>
+          <option value="2000">۲۰۰۰ بلوک</option>
+        </select>
+      </label>
+    </div>
     <div class="map-wrap mb-4">
+      <div class="map-toolbar">
+        <button type="button" id="mapZoomIn"  class="map-btn" title="بزرگنمایی (+)" aria-label="بزرگنمایی">➕</button>
+        <button type="button" id="mapZoomOut" class="map-btn" title="کوچکنمایی (−)" aria-label="کوچکنمایی">➖</button>
+        <button type="button" id="mapReset"   class="map-btn" title="بازنشانی نما" aria-label="بازنشانی نما">⟲</button>
+        <span class="map-zoom-info" id="mapZoomInfo">زوم ۱۰۰٪</span>
+        <button type="button" id="mapDownload" class="mc-btn small" title="دانلود نقشه به‌صورت PNG">📥 دانلود نقشه</button>
+      </div>
       <canvas id="seedMap" width="480" height="480" class="seed-map-canvas"></canvas>
       <div class="map-legend" id="mapLegend">
         <span class="map-legend-item"><span class="map-dot spawn"></span> اسپاون (۰،۰)</span>
         <span class="map-legend-item"><span class="map-dot structure"></span> ساختارها</span>
         <span class="map-legend-item">هر سلول = ۱۰۰ بلوک</span>
+        <span class="map-legend-item">🖱️ بکشید برای جابجایی · 🖰️ اسکرول برای زوم · 🤏 پینچ</span>
       </div>
     </div>
 
@@ -162,17 +195,17 @@ const features = [
     <!-- Footer actions -->
     <div class="flex flex-wrap gap-2 mt-5 pt-4 border-t border-mc-line">
       <button id="newBtn" class="mc-btn">
-        <span aria-hidden="true">🎲</span> ساخت سید جدید
+        ساخت سید جدید
       </button>
       <a href={base('/seeds/my')} class="mc-btn ghost">
-        <span aria-hidden="true">📥</span> مشاهده سیدهای من
+        مشاهده سیدهای من
       </a>
     </div>
   </section>
 
   <!-- Empty state (before any generation) -->
   <section id="emptyState" class="mc-panel p-8 text-center">
-    <div class="text-5xl mb-3" aria-hidden="true">🎲</div>
+    <div class="text-5xl mb-3" aria-hidden="true"></div>
     <p class="text-mc-text-2 mb-1">هنوز سیدی تولید نشده.</p>
     <p class="text-xs text-mc-text-3">نسخه و پلتفرم را انتخاب کن، ویژگی‌ها را تیک بزن و «تولید سید» را بزن.</p>
   </section>
@@ -334,6 +367,86 @@ const features = [
   }
   .map-dot.spawn { background: #fcb32b; box-shadow: 0 0 4px #fcb32b; }
   .map-dot.structure { background: #7cc84a; }
+
+  /* ── Map header row (radius select) ── */
+  .map-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.25rem;
+  }
+  .map-radius-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-2, #b8b8d0);
+  }
+  .map-radius-label .sw-input {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.8rem;
+    width: auto;
+    min-width: 9rem;
+  }
+
+  /* ── Map toolbar (zoom + download) ── */
+  .map-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    width: 100%;
+    max-width: 480px;
+    margin-bottom: 0.5rem;
+  }
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(28, 28, 52, 0.85);
+    border: 2px solid var(--line, #2a2a3e);
+    color: var(--text, #f0f0fa);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    transition: all 0.15s ease-out;
+    padding: 0;
+  }
+  .map-btn:hover {
+    background: rgba(124, 200, 74, 0.18);
+    border-color: var(--grass-2, #7cc84a);
+    color: #fff;
+  }
+  .map-btn:active { transform: scale(0.92); }
+  .map-btn:focus-visible {
+    outline: 2px solid var(--grass-2, #7cc84a);
+    outline-offset: 2px;
+  }
+  .map-zoom-info {
+    font-size: 0.7rem;
+    color: var(--text-3, #8585a3);
+    font-family: 'Rooyin', monospace;
+    flex: 1 1 6rem;
+    text-align: center;
+    direction: ltr;
+  }
+  #mapDownload.mc-btn.small { font-size: 0.78rem; }
+
+  /* Make the canvas drag-friendly */
+  .seed-map-canvas {
+    cursor: grab;
+    touch-action: none; /* let JS handle pan/zoom gestures */
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .seed-map-canvas:active { cursor: grabbing; }
 </style>
 
 <script>
@@ -344,15 +457,95 @@ const features = [
   import { getOrCreateUUID } from '@/lib/uuid.js';
 
   const FEATURE_DEFS = {
-    'village':          { label: 'روستا',                icon: '🏠', dim: 'overworld', dimFa: 'اورلرد' },
-    'ancient-city':     { label: 'شهر باستانی',          icon: '🏛️', dim: 'overworld', dimFa: 'اورلرد' },
-    'mushroom-island':  { label: 'جزیره قارچ',           icon: '🍄', dim: 'overworld', dimFa: 'اورلرد' },
-    'ocean-monument':  { label: 'بنای اقیانوسی',         icon: '🌊', dim: 'overworld', dimFa: 'اورلرد' },
-    'woodland-mansion': { label: 'عمارت جنگلی',          icon: '🏰', dim: 'overworld', dimFa: 'اورلرد' },
-    'stronghold':       { label: 'پناهگاه (Stronghold)', icon: '🌋', dim: 'overworld', dimFa: 'اورلرد' },
-    'nether-fortress':  { label: 'قلعه‌ی ندر',            icon: '🔥', dim: 'nether',    dimFa: 'ندر' },
-    'end-city':         { label: 'شهر End',              icon: '🚢', dim: 'end',       dimFa: 'اند' },
+    'village':              { label: 'روستا',                  icon: '🏠',  dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/emerald.png' },
+    'ancient-city':         { label: 'شهر باستانی',            icon: '🏛️', dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/soul-sand.png' },
+    'mushroom-island':      { label: 'جزیره قارچ',             icon: '🍄',  dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/red-mushroom.png' },
+    'ocean-monument':       { label: 'بنای اقیانوسی',          icon: '🌊',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/sea-lantern.png' },
+    'woodland-mansion':     { label: 'عمارت جنگلی',            icon: '🏰',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/dark-oak-log.png' },
+    'stronghold':           { label: 'پناهگاه (Stronghold)',   icon: '🌋',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/end-portal-frame.png' },
+    'nether-fortress':      { label: 'قلعه‌ی ندر',             icon: '🔥',  dim: 'nether',    dimFa: 'ندر',    img: 'blocks-render/nether-bricks.png' },
+    'end-city':             { label: 'شهر End',               icon: '🚢',  dim: 'end',       dimFa: 'اند',    img: 'blocks-render/end-stone.png' },
+    'desert-temple':        { label: 'معبد صحرایی',            icon: '🏜️', dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/sandstone.png' },
+    'jungle-temple':        { label: 'معبد جنگلی',             icon: '🏚️', dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/chiseled-stone-bricks.png' },
+    'witch-hut':            { label: 'کلبه‌ی جادوگر',          icon: '🧙',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/cauldron.png' },
+    'igloo':                { label: 'ایگلو',                  icon: '⛄',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/snow-block.png' },
+    'ocean-ruin':           { label: 'ویرانه‌ی اقیانوسی',      icon: '🐚',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/chiseled-sandstone.png' },
+    'shipwreck':           { label: 'کشتی شکسته',            icon: '⚓',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/oak-planks.png' },
+    'ruined-portal':       { label: 'پورتال ویران‌شده',       icon: '🌀',  dim: 'overworld', dimFa: 'اورلرد', img: 'blocks-render/crying-obsidian.png' },
+    'buried-treasure':      { label: 'گنج مدفون',              icon: '💰', dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/chest.png' },
+    'mineshaft':           { label: 'معدن متروک',            icon: '⛏️', dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/rail.png' },
+    'pillager-outpost':    { label: 'برج غارتگرها',           icon: '🏹',  dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/crossbow.png' },
+    'bastion':             { label: 'دژ ندر (Bastion)',       icon: '🛡️', dim: 'nether',    dimFa: 'ندر',    img: 'blocks-render/gilded-blackstone.png' },
+    'trial-chambers':      { label: 'اتاق‌های آزمایشی',       icon: '⚔️', dim: 'overworld', dimFa: 'اورلرد', img: 'items-render/book.png' },
+    'ruined-portal-nether':{ label: 'پورتال ویران‌شده‌ی ندر',  icon: '🔥',  dim: 'nether',    dimFa: 'ندر',    img: 'blocks-render/obsidian.png' },
+    'fortress-bridge':     { label: 'پل قلعه‌ی ندر',          icon: '🌉',  dim: 'nether',    dimFa: 'ندر',    img: 'blocks-render/basalt.png' },
   };
+
+  // Feature IDs that the Cubiomes worker (locator.js) knows how to find.
+  // Everything else is simulated.
+  const WORKER_SUPPORTED = new Set([
+    'village', 'ancient-city', 'ocean-monument', 'woodland-mansion',
+    'stronghold', 'nether-fortress', 'end-city',
+  ]);
+
+  // HuggingFace dataset base URL (same as src/lib/cdn-images.ts).
+  const HF_BASE = 'https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main/';
+
+  // ── 2D Map state (module-scope so it persists across redraws) ──
+  const mapState = {
+    seed: null,
+    seedCode: '',
+    radius: 500,
+    baseScale: 0,         // px per block at zoom=1 (set from radius)
+    zoom: 1,
+    offsetX: 0,
+    offsetY: 0,
+    isDragging: false,
+    lastX: 0,
+    lastY: 0,
+    // touch pinch state
+    pinchStartDist: 0,
+    pinchStartZoom: 1,
+    pinchMidX: 0,
+    pinchMidY: 0,
+    pinchWorldX: 0,
+    pinchWorldZ: 0,
+  };
+
+  // Module-scope flag so window mousemove/mouseup are only bound once
+  // (setupCreatePage re-runs on astro:page-load).
+  let mapInteractionsBound = false;
+
+  // Image cache for structure icons (one Image per HF path). The same
+  // Image element is shared by every redraw and by every structure that
+  // uses the same path. Loaded async with crossOrigin='anonymous' so the
+  // canvas can be exported via toDataURL (PNG download) without tainting.
+  const imgCache = {};
+
+  function getIconImg(relPath) {
+    if (!relPath) return null;
+    if (!imgCache[relPath]) {
+      const entry = { img: new Image(), loaded: false, failed: false };
+      entry.img.crossOrigin = 'anonymous';
+      entry.img.onload = () => {
+        entry.loaded = true;
+        if (mapState.seed) drawSeedMap(mapState.seed);
+      };
+      entry.img.onerror = () => { entry.failed = true; };
+      entry.img.src = HF_BASE + relPath;
+      imgCache[relPath] = entry;
+    }
+    const e = imgCache[relPath];
+    return e.loaded && !e.failed ? e.img : null;
+  }
+
+  // Pre-load every structure icon when the page boots so the first
+  // draw after a user clicks "Generate" can stamp them immediately.
+  function preLoadIcons() {
+    for (const def of Object.values(FEATURE_DEFS)) {
+      if (def.img) getIconImg(def.img);
+    }
+  }
 
   let lastSeed = null;
 
@@ -362,14 +555,35 @@ const features = [
     const saveBtn = document.getElementById('saveBtn');
     const copyBtn = document.getElementById('copyBtn');
     const seedCodeWrap = document.getElementById('seedCodeWrap');
+    const zoomInBtn = document.getElementById('mapZoomIn');
+    const zoomOutBtn = document.getElementById('mapZoomOut');
+    const resetBtn = document.getElementById('mapReset');
+    const downloadBtn = document.getElementById('mapDownload');
+    const radiusSelect = document.getElementById('radiusSelect');
 
     if (genBtn) genBtn.addEventListener('click', onGenerate);
     if (newBtn) newBtn.addEventListener('click', onGenerate);
     if (saveBtn) saveBtn.addEventListener('click', onSave);
     if (copyBtn) copyBtn.addEventListener('click', onCopy);
     if (seedCodeWrap) seedCodeWrap.addEventListener('click', onCopy);
+    if (zoomInBtn) zoomInBtn.addEventListener('click', () => zoomByFactor(1.3));
+    if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => zoomByFactor(1 / 1.3));
+    if (resetBtn) resetBtn.addEventListener('click', resetMapView);
+    if (downloadBtn) downloadBtn.addEventListener('click', downloadMap);
+    if (radiusSelect) radiusSelect.addEventListener('change', () => {
+      const r = parseInt(radiusSelect.value, 10) || 500;
+      mapState.radius = r;
+      const canvas = document.getElementById('seedMap');
+      if (canvas) {
+        mapState.baseScale = (Math.min(canvas.width, canvas.height) * 0.45) / r;
+      }
+      resetMapView(); // re-zoom to fit the new radius (coords stay)
+    });
 
-    // ⏎ on the form triggers generate
+    setupMapInteractions();
+    preLoadIcons();
+
+    // Enter on the form triggers generate
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && (e.target.tagName === 'SELECT' || e.target.classList.contains('feature-cb'))) {
         e.preventDefault();
@@ -397,6 +611,18 @@ const features = [
       });
     }
 
+    // Read the radius filter and set up map state for this seed
+    const radius = parseInt(document.getElementById('radiusSelect')?.value || '500', 10) || 500;
+    mapState.radius = radius;
+    const _mapCanvas = document.getElementById('seedMap');
+    if (_mapCanvas) {
+      mapState.baseScale = (Math.min(_mapCanvas.width, _mapCanvas.height) * 0.45) / radius;
+    }
+    // Reset pan/zoom for the new seed
+    mapState.zoom = 1;
+    mapState.offsetX = 0;
+    mapState.offsetY = 0;
+
     // Generate a random seed
     const seedValue = randomSeedValue();
 
@@ -405,63 +631,79 @@ const features = [
     const resultPanel = document.getElementById('resultPanel');
     resultPanel.classList.remove('hidden');
     const coordsList = document.getElementById('coordsList');
-    coordsList.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-3)">⏳ در حال جستجوی ساختارها با Cubiomes…</div>';
+    coordsList.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-3)">در حال جستجوی ساختارها با Cubiomes…</div>';
     document.getElementById('seedCode').textContent = seedValue;
     document.getElementById('metaVersion').textContent = 'MC ' + version;
-    document.getElementById('metaPlatform').textContent = platform === 'java' ? '☕ Java' : '📱 Bedrock';
+    document.getElementById('metaPlatform').textContent = platform === 'java' ? 'Java' : 'Bedrock';
     document.getElementById('metaCount').textContent = toFa(String(feats.length));
 
-    // Map feature IDs to mc-seedlocator feature names
-    const featureMap = {
-      'village': 'village',
-      'stronghold': 'stronghold',
-      'ocean-monument': 'oceanMonument',
-      'woodland-mansion': 'woodlandMansion',
-      'nether-fortress': 'netherFortress',
-      'end-city': 'endCity',
-      'ancient-city': 'ancientCity',
-      'mushroom-island': 'village', // fallback — mushroom island not supported
-    };
-    const locatorFeatures = feats.map(f => featureMap[f] || f).filter(f => f);
+    // Split features: the Cubiomes worker only knows how to find a
+    // handful of POIs (see WORKER_SUPPORTED). Everything else is
+    // simulated. The worker will resolve the workerFeats; we add
+    // simulated coords for the simFeats afterwards.
+    const workerFeats = feats.filter(f => WORKER_SUPPORTED.has(f));
+    const simFeats    = feats.filter(f => !WORKER_SUPPORTED.has(f));
 
-    // Try to use the Web Worker for real Cubiomes search
+    // Map worker-feature IDs → mc-seedlocator POI names (camelCase).
+    const featureMap = {
+      'village':           'village',
+      'stronghold':        'stronghold',
+      'ocean-monument':    'oceanMonument',
+      'woodland-mansion':  'woodlandMansion',
+      'nether-fortress':   'netherFortress',
+      'end-city':          'endCity',
+      'ancient-city':      'ancientCity',
+    };
+    const locatorFeatures = workerFeats.map(f => featureMap[f]).filter(Boolean);
+
+    // Try to use the Web Worker for real Cubiomes search (Java only,
+    // and only if at least one worker-supported feature was selected).
     if (locatorFeatures.length > 0 && platform === 'java') {
       try {
         const worker = new Worker(base('/cubiomes/seed-finder.worker.js'));
         worker.onmessage = (e) => {
           if (e.data.ok) {
-            // Real Cubiomes results!
-            const coords = e.data.result.map(r => ({
-              feature: r.type,
-              label: FEATURE_DEFS[feats.find(f => featureMap[f] === r.type) || '']?.label || r.type,
-              icon: FEATURE_DEFS[feats.find(f => featureMap[f] === r.type) || '']?.icon || '📍',
-              dim: 'overworld',
-              dimFa: 'دنیای معمولی',
-              x: Math.round(r.x * 16),
-              y: 64,
-              z: Math.round(r.z * 16),
-            }));
+            // Real Cubiomes results — build coord objects for worker feats.
+            const workerCoords = e.data.result.map(r => {
+              const fid = workerFeats.find(f => featureMap[f] === r.type) || r.type;
+              const def = FEATURE_DEFS[fid] || {};
+              return {
+                feature: fid,
+                label:   def.label  || r.type,
+                icon:    def.icon   || '📍',
+                img:     def.img,
+                dim:     def.dim    || 'overworld',
+                dimFa:   def.dimFa  || def.dim || 'اورلرد',
+                x: Math.round(r.x * 16),
+                y: 64,
+                z: Math.round(r.z * 16),
+                realCoords: true,
+              };
+            });
+            // Simulated coords for the remaining (worker-unsupported) feats.
+            const simCoords = simFeats.map(id => simulateCoord(id, mapState.radius));
+            const allCoords = workerCoords.concat(simCoords);
 
             lastSeed = {
               id: 'user-' + getOrCreateUUID() + '-' + Date.now().toString(36),
               uuid: getOrCreateUUID(),
               code: seedValue,
               version, platform,
-              features: feats, coords,
+              features: feats, coords: allCoords,
               createdAt: Date.now(),
               author: 'شما',
-              realCoords: true,
+              realCoords: workerCoords.length > 0,
             };
             render(lastSeed);
           } else {
-            // Worker failed — fall back to simulation
+            // Worker failed — fall back to full simulation
             console.log('Cubiomes worker failed, using simulation:', e.data.error);
             generateSimulated(seedValue, version, platform, feats);
           }
           worker.terminate();
         };
         worker.postMessage({ seed: seedValue, features: locatorFeatures, x: 0, z: 0 });
-        // Timeout: if worker doesn't respond in 10s, fall back
+        // Timeout: if worker doesn't respond in 10s, fall back to sim
         setTimeout(() => {
           if (!lastSeed || lastSeed.code !== seedValue) {
             worker.terminate();
@@ -473,22 +715,14 @@ const features = [
         generateSimulated(seedValue, version, platform, feats);
       }
     } else {
-      // Bedrock or no features — use simulation
+      // Bedrock or no worker-supported features — use simulation
       generateSimulated(seedValue, version, platform, feats);
     }
   }
 
   function generateSimulated(seedValue, version, platform, feats) {
-    const coords = feats.map((id) => ({
-      feature: id,
-      label: FEATURE_DEFS[id].label,
-      icon: FEATURE_DEFS[id].icon,
-      dim: FEATURE_DEFS[id].dim,
-      dimFa: FEATURE_DEFS[id].dimFa,
-      x: randInt(-1500, 1500),
-      y: randInt(-50, 100),
-      z: randInt(-1500, 1500),
-    }));
+    const radius = mapState.radius || 500;
+    const coords = feats.map(id => simulateCoord(id, radius));
     lastSeed = {
       id: 'user-' + getOrCreateUUID() + '-' + Date.now().toString(36),
       uuid: getOrCreateUUID(),
@@ -499,13 +733,32 @@ const features = [
     render(lastSeed);
   }
 
+  // Build a single simulated coordinate entry for a feature within ±radius.
+  // Pulled into its own helper so the worker-success path can reuse it
+  // for features the Cubiomes worker doesn't know about (e.g. mineshaft,
+  // pillager-outpost, trial-chambers, fortress-bridge, …).
+  function simulateCoord(id, radius) {
+    const def = FEATURE_DEFS[id] || {};
+    return {
+      feature: id,
+      label:   def.label  || id,
+      icon:    def.icon   || '📍',
+      img:     def.img,
+      dim:     def.dim    || 'overworld',
+      dimFa:   def.dimFa  || def.dim || 'اورلرد',
+      x: randInt(-radius, radius),
+      y: randInt(-50, 100),
+      z: randInt(-radius, radius),
+    };
+  }
+
   function render(seed) {
     document.getElementById('emptyState').classList.add('hidden');
     document.getElementById('resultPanel').classList.remove('hidden');
 
     document.getElementById('seedCode').textContent = seed.code;
     document.getElementById('metaVersion').textContent = 'MC ' + seed.version;
-    document.getElementById('metaPlatform').textContent = seed.platform === 'java' ? '☕ Java' : '📱 Bedrock';
+    document.getElementById('metaPlatform').textContent = seed.platform === 'java' ? 'Java' : 'Bedrock';
     document.getElementById('metaCount').textContent = toFa(String(seed.features.length));
     const d = new Date(seed.createdAt);
     document.getElementById('metaTime').textContent = d.toLocaleTimeString('fa-IR', {
@@ -532,115 +785,364 @@ const features = [
   }
 
   // ── 2D Map renderer ──────────────────────────────────────────
-  // Draws a top-down Minecraft-style map: grid + spawn at center +
-  // each structure plotted as a colored pixel-dot at its (x,z).
+  // Top-down Minecraft-style map. Per-draw responsibilities:
+  //   1. Reset pan/zoom when the seed identity changes (preserves radius).
+  //   2. Compute the world→canvas transform from radius + zoom + offset.
+  //   3. Draw background, grid (every 100 blocks), major X/Z axes,
+  //      a dashed gold search-radius circle, the spawn square, every
+  //      structure (HuggingFace icon when loaded, emoji fallback
+  //      otherwise) with a colored glow ring + label + coord text,
+  //      scale/zoom info, and a fixed-edge compass.
   function drawSeedMap(seed) {
     const canvas = document.getElementById('seedMap');
-    if (!canvas) return;
+    if (!canvas || !seed) return;
     const ctx = canvas.getContext('2d');
     const W = canvas.width;
     const H = canvas.height;
-    const cx = W / 2;
-    const cy = H / 2;
 
-    // Clear
+    // Reset pan/zoom on a NEW seed (compared by seed.code so re-renders
+    // of the same seed keep the user's pan/zoom).
+    if (seed.code !== mapState.seedCode) {
+      mapState.seedCode = seed.code;
+      mapState.zoom = 1;
+      mapState.offsetX = 0;
+      mapState.offsetY = 0;
+      if (!mapState.baseScale) {
+        mapState.baseScale = (Math.min(W, H) * 0.45) / (mapState.radius || 500);
+      }
+    }
+    mapState.seed = seed;
+
+    const s = mapState.baseScale * mapState.zoom;
+    const cx = W / 2 + mapState.offsetX;
+    const cy = H / 2 + mapState.offsetY;
+    const worldToCanvas = (wx, wz) => [cx + wx * s, cy + wz * s];
+
+    // Background
     ctx.fillStyle = '#1a1a2e';
     ctx.fillRect(0, 0, W, H);
 
-    // Compute scale: find max |x| or |z| among coords, map to ~45% of canvas.
-    let maxCoord = 100; // default scale
-    for (const c of (seed.coords || [])) {
-      maxCoord = Math.max(maxCoord, Math.abs(c.x), Math.abs(c.z));
-    }
-    maxCoord = Math.max(maxCoord, 100); // ensure non-zero
-    const scale = (Math.min(W, H) * 0.42) / maxCoord;
+    // Visible world range (for grid lines)
+    const minWX = (-W / 2 - mapState.offsetX) / s;
+    const maxWX = ( W / 2 - mapState.offsetX) / s;
+    const minWZ = (-H / 2 - mapState.offsetY) / s;
+    const maxWZ = ( H / 2 - mapState.offsetY) / s;
 
-    // Draw grid (every 100 blocks = 1 cell)
+    // Grid (every 100 blocks)
     ctx.strokeStyle = 'rgba(46, 46, 74, 0.5)';
     ctx.lineWidth = 1;
-    const cellSize = 100 * scale;
-    for (let x = cx; x <= W; x += cellSize) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    const STEP = 100;
+    const xStart = Math.floor(minWX / STEP) * STEP;
+    const xEnd   = Math.ceil (maxWX / STEP) * STEP;
+    const zStart = Math.floor(minWZ / STEP) * STEP;
+    const zEnd   = Math.ceil (maxWZ / STEP) * STEP;
+    for (let x = xStart; x <= xEnd; x += STEP) {
+      const [px] = worldToCanvas(x, 0);
+      ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, H); ctx.stroke();
     }
-    for (let x = cx; x >= 0; x -= cellSize) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-    }
-    for (let y = cy; y <= H; y += cellSize) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-    }
-    for (let y = cy; y >= 0; y -= cellSize) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    for (let z = zStart; z <= zEnd; z += STEP) {
+      const [, py] = worldToCanvas(0, z);
+      ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(W, py); ctx.stroke();
     }
 
-    // Draw axes (X horizontal, Z vertical) — brighter
+    // Major axes (X horizontal at z=0, Z vertical at x=0)
     ctx.strokeStyle = 'rgba(124, 200, 74, 0.4)';
     ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke(); // X axis
-    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke(); // Z axis
+    const [, axisY] = worldToCanvas(0, 0);
+    ctx.beginPath(); ctx.moveTo(0, axisY); ctx.lineTo(W, axisY); ctx.stroke();
+    const [axisX] = worldToCanvas(0, 0);
+    ctx.beginPath(); ctx.moveTo(axisX, 0); ctx.lineTo(axisX, H); ctx.stroke();
 
-    // Draw spawn (0,0) — gold dot with glow
+    // Search-radius circle (dashed gold)
+    const radiusPx = Math.max(2, mapState.radius * s);
+    ctx.strokeStyle = 'rgba(252, 179, 43, 0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath(); ctx.arc(cx, cy, radiusPx, 0, Math.PI * 2); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Spawn (0,0) — gold square with glow
     ctx.shadowColor = '#fcb32b';
     ctx.shadowBlur = 8;
     ctx.fillStyle = '#fcb32b';
     ctx.fillRect(cx - 5, cy - 5, 10, 10);
     ctx.shadowBlur = 0;
 
-    // Draw each structure — green/teal dot + label
+    // Structures (with HF icons when available)
     const STRUCTURE_COLORS = ['#7cc84a', '#4aedd9', '#a855f7', '#f59e0b', '#ec4899', '#06b6d4'];
+    const ICON_R = 12; // icon clip radius (px)
+    const ICON_SIZE = ICON_R * 2;
+
     (seed.coords || []).forEach((c, i) => {
-      const px = cx + c.x * scale;
-      const py = cy + c.z * scale;
+      const [px, py] = worldToCanvas(c.x, c.z);
+      // Skip drawing labels far off-screen (still counts as known)
+      if (px < -40 || px > W + 40 || py < -40 || py > H + 40) return;
+
+      const def = FEATURE_DEFS[c.feature] || {};
+      const imgPath = c.img || def.img;
+      const img = imgPath ? getIconImg(imgPath) : null;
       const color = STRUCTURE_COLORS[i % STRUCTURE_COLORS.length];
 
-      // Outer ring
+      // Glow ring behind icon
       ctx.fillStyle = color;
       ctx.shadowColor = color;
       ctx.shadowBlur = 6;
-      ctx.fillRect(px - 6, py - 6, 12, 12);
+      ctx.beginPath();
+      ctx.arc(px, py, img ? ICON_R + 2 : 7, 0, Math.PI * 2); ctx.fill();
       ctx.shadowBlur = 0;
 
-      // Inner dot (brighter)
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(px - 2, py - 2, 4, 4);
+      if (img) {
+        // Clip image to a circle and stamp it
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(px, py, ICON_R, 0, Math.PI * 2); ctx.clip();
+        ctx.drawImage(img, px - ICON_R, py - ICON_R, ICON_SIZE, ICON_SIZE);
+        ctx.restore();
+        // Dark border
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.85)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(px, py, ICON_R, 0, Math.PI * 2); ctx.stroke();
+      } else {
+        // Emoji fallback (when HF image hasn't loaded yet or failed)
+        ctx.font = '14px "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(def.icon || c.icon || '📍', px, py + 1);
+      }
 
-      // Label (feature name) — small text next to dot
+      // Label
       ctx.fillStyle = '#e6e6f2';
       ctx.font = '10px monospace';
       ctx.textAlign = px > cx ? 'right' : 'left';
       ctx.textBaseline = py > cy ? 'bottom' : 'top';
-      const labelX = px + (px > cx ? -10 : 10);
-      const labelY = py + (py > cy ? -10 : 10);
-      const label = (c.label || c.feature || '').slice(0, 16);
+      const labelX = px + (px > cx ? -(ICON_R + 4) : (ICON_R + 4));
+      const labelY = py + (py > cy ? -(ICON_R + 4) : (ICON_R + 4));
+      const label = (c.label || def.label || c.feature || '').slice(0, 14);
       ctx.fillText(label, labelX, labelY);
-
-      // Coordinate text below
+      // Coord text below label
       ctx.fillStyle = '#8585a3';
       ctx.font = '8px monospace';
       ctx.fillText(`${c.x},${c.z}`, labelX, labelY + (py > cy ? -12 : 12));
     });
 
-    // Draw scale text (corner)
+    // Scale / radius / zoom info (top-left)
     ctx.fillStyle = '#8585a3';
     ctx.font = '9px monospace';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText(`مقیاس: هر ${toFa(String(Math.round(100)))} بلوک = ${toFa(String(Math.round(cellSize)))}px`, 8, 8);
-    ctx.fillText(`حداکثر فاصله: ${toFa(String(Math.round(maxCoord)))} بلوک`, 8, 22);
+    const cellSizePx = Math.max(0, Math.round(STEP * s));
+    ctx.fillText(`مقیاس: هر ${toFa('100')} بلوک = ${toFa(String(cellSizePx))}px`, 8, 8);
+    ctx.fillText(`شعاع: ${toFa(String(mapState.radius))} بلوک · زوم: ${toFa(String(Math.round(mapState.zoom * 100)))}٪`, 8, 22);
 
-    // N/S/E/W compass
+    // Compass in canvas corners (always visible)
     ctx.fillStyle = '#fcb32b';
     ctx.font = 'bold 12px monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    ctx.fillText('Z−', cx, 4); // North (Z negative)
+    ctx.fillText('Z−', cx, 4);
     ctx.textBaseline = 'bottom';
-    ctx.fillText('Z+', cx, H - 4); // South (Z positive)
+    ctx.fillText('Z+', cx, H - 4);
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
-    ctx.fillText('X+', W - 14, cy); // East (X positive)
+    ctx.fillText('X+', W - 14, cy);
     ctx.textAlign = 'right';
-    ctx.fillText('X−', 14, cy); // West (X negative)
+    ctx.fillText('X−', 14, cy);
+
+    // Update the zoom-info chip below the toolbar
+    const zoomInfo = document.getElementById('mapZoomInfo');
+    if (zoomInfo) zoomInfo.textContent = `زوم ${toFa(String(Math.round(mapState.zoom * 100)))}٪`;
   }
+
+  // ── Zoom / pan / download helpers ─────────────────────────────
+
+  // Zoom by `factor` keeping the canvas center world-point fixed.
+  function zoomByFactor(factor) {
+    const canvas = document.getElementById('seedMap');
+    if (!canvas || !mapState.seed) return;
+    const W = canvas.width, H = canvas.height;
+    const newZoom = clamp(mapState.zoom * factor, 0.25, 8);
+    if (newZoom === mapState.zoom) return;
+    const s = mapState.baseScale * mapState.zoom;
+    // World coord currently at canvas center:
+    const wx = -mapState.offsetX / s;
+    const wz = -mapState.offsetY / s;
+    mapState.zoom = newZoom;
+    const newS = mapState.baseScale * mapState.zoom;
+    mapState.offsetX = -wx * newS;
+    mapState.offsetY = -wz * newS;
+    drawSeedMap(mapState.seed);
+  }
+
+  function resetMapView() {
+    mapState.zoom = 1;
+    mapState.offsetX = 0;
+    mapState.offsetY = 0;
+    if (mapState.seed) drawSeedMap(mapState.seed);
+    const zi = document.getElementById('mapZoomInfo');
+    if (zi) zi.textContent = `زوم ${toFa('100')}٪`;
+  }
+
+  function downloadMap() {
+    const canvas = document.getElementById('seedMap');
+    if (!canvas || !mapState.seed) {
+      alert('ابتدا یک سید تولید کنید.');
+      return;
+    }
+    try {
+      const dataURL = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = dataURL;
+      a.download = `minebed-seed-${mapState.seed.code}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('PNG download failed:', err);
+      alert('دانلود نقشه ناموفق بود. ممکن است مرورگر به تصاویر اجازه‌ی خروجی ندهد (CORS).');
+    }
+  }
+
+  // ── Pan / zoom interactions ──────────────────────────────────
+  // Mouse: drag to pan, wheel to zoom (centered on cursor).
+  // Touch: one finger = pan, two fingers = pinch-zoom.
+  function setupMapInteractions() {
+    const canvas = document.getElementById('seedMap');
+    if (!canvas) return;
+
+    // Canvas-scoped listeners are (re)bound every page-load — the
+    // canvas is fresh on each astro:page-load, so no duplicates.
+    canvas.addEventListener('mousedown', onMapMouseDown);
+    canvas.addEventListener('wheel', onMapWheel, { passive: false });
+    canvas.addEventListener('touchstart', onMapTouchStart, { passive: false });
+    canvas.addEventListener('touchmove',  onMapTouchMove,  { passive: false });
+    canvas.addEventListener('touchend',   onMapTouchEnd);
+    canvas.addEventListener('touchcancel', onMapTouchEnd);
+
+    // Window-scoped listeners only bound once (module scope).
+    if (!mapInteractionsBound) {
+      mapInteractionsBound = true;
+      window.addEventListener('mousemove', onMapMouseMove);
+      window.addEventListener('mouseup',   onMapMouseUp);
+    }
+  }
+
+  function onMapMouseDown(e) {
+    if (!mapState.seed) return;
+    mapState.isDragging = true;
+    mapState.lastX = e.clientX;
+    mapState.lastY = e.clientY;
+    const canvas = e.currentTarget;
+    canvas.style.cursor = 'grabbing';
+  }
+  function onMapMouseMove(e) {
+    if (!mapState.isDragging || !mapState.seed) return;
+    const canvas = document.getElementById('seedMap');
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    mapState.offsetX += (e.clientX - mapState.lastX) * scaleX;
+    mapState.offsetY += (e.clientY - mapState.lastY) * scaleY;
+    mapState.lastX = e.clientX;
+    mapState.lastY = e.clientY;
+    drawSeedMap(mapState.seed);
+  }
+  function onMapMouseUp() {
+    if (!mapState.isDragging) return;
+    mapState.isDragging = false;
+    const canvas = document.getElementById('seedMap');
+    if (canvas) canvas.style.cursor = 'grab';
+  }
+
+  function onMapWheel(e) {
+    if (!mapState.seed) return;
+    e.preventDefault();
+    const canvas = e.currentTarget;
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const my = (e.clientY - rect.top)  * (canvas.height / rect.height);
+    const factor = e.deltaY > 0 ? 0.9 : 1.1;
+    const newZoom = clamp(mapState.zoom * factor, 0.25, 8);
+    if (newZoom === mapState.zoom) return;
+    // Keep mouse world-position fixed during zoom
+    const s = mapState.baseScale * mapState.zoom;
+    const wx = (mx - canvas.width / 2 - mapState.offsetX) / s;
+    const wz = (my - canvas.height / 2 - mapState.offsetY) / s;
+    mapState.zoom = newZoom;
+    const newS = mapState.baseScale * mapState.zoom;
+    mapState.offsetX = mx - canvas.width / 2 - wx * newS;
+    mapState.offsetY = my - canvas.height / 2 - wz * newS;
+    drawSeedMap(mapState.seed);
+  }
+
+  function onMapTouchStart(e) {
+    if (!mapState.seed) return;
+    const canvas = e.currentTarget;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    if (e.touches.length === 1) {
+      mapState.isDragging = true;
+      mapState.lastX = e.touches[0].clientX;
+      mapState.lastY = e.touches[0].clientY;
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      mapState.isDragging = false;
+      const t0 = e.touches[0], t1 = e.touches[1];
+      mapState.pinchStartDist = Math.hypot(t0.clientX - t1.clientX, t0.clientY - t1.clientY);
+      mapState.pinchStartZoom = mapState.zoom;
+      const midX = (t0.clientX + t1.clientX) / 2;
+      const midY = (t0.clientY + t1.clientY) / 2;
+      mapState.pinchMidX = (midX - rect.left) * scaleX;
+      mapState.pinchMidY = (midY - rect.top)  * scaleY;
+      const s = mapState.baseScale * mapState.zoom;
+      mapState.pinchWorldX = (mapState.pinchMidX - canvas.width / 2 - mapState.offsetX) / s;
+      mapState.pinchWorldZ = (mapState.pinchMidY - canvas.height / 2 - mapState.offsetY) / s;
+    }
+  }
+  function onMapTouchMove(e) {
+    if (!mapState.seed) return;
+    const canvas = e.currentTarget;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    if (e.touches.length === 1 && mapState.isDragging) {
+      e.preventDefault();
+      mapState.offsetX += (e.touches[0].clientX - mapState.lastX) * scaleX;
+      mapState.offsetY += (e.touches[0].clientY - mapState.lastY) * scaleY;
+      mapState.lastX = e.touches[0].clientX;
+      mapState.lastY = e.touches[0].clientY;
+      drawSeedMap(mapState.seed);
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      const t0 = e.touches[0], t1 = e.touches[1];
+      const dist = Math.hypot(t0.clientX - t1.clientX, t0.clientY - t1.clientY);
+      if (mapState.pinchStartDist > 0) {
+        const factor = dist / mapState.pinchStartDist;
+        const newZoom = clamp(mapState.pinchStartZoom * factor, 0.25, 8);
+        mapState.zoom = newZoom;
+        const newS = mapState.baseScale * mapState.zoom;
+        mapState.offsetX = mapState.pinchMidX - canvas.width / 2 - mapState.pinchWorldX * newS;
+        mapState.offsetY = mapState.pinchMidY - canvas.height / 2 - mapState.pinchWorldZ * newS;
+        drawSeedMap(mapState.seed);
+      }
+    }
+  }
+  function onMapTouchEnd(e) {
+    if (e.touches.length < 2) {
+      mapState.pinchStartDist = 0;
+    }
+    if (e.touches.length === 0) {
+      mapState.isDragging = false;
+    } else if (e.touches.length === 1) {
+      // Switch from pinch back to single-finger pan
+      mapState.isDragging = true;
+      mapState.lastX = e.touches[0].clientX;
+      mapState.lastY = e.touches[0].clientY;
+    }
+  }
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
   async function onSave() {
     if (!lastSeed) return;
@@ -656,7 +1158,7 @@ const features = [
       }, 2000);
     } catch (e) {
       console.error('Failed to save seed:', e);
-      btn.innerHTML = '<span>⚠️</span> خطا — مرورگر از IndexedDB پشتیبانی نمی‌کند';
+      btn.innerHTML = 'خطا — مرورگر از IndexedDB پشتیبانی نمی‌کند';
       setTimeout(() => { btn.innerHTML = original; }, 2500);
     }
   }

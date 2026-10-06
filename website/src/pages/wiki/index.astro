@@ -42,22 +42,6 @@ const topicNames: Record<string, string> = {
   misc: 'متفرقه',
 };
 
-const topicIcons: Record<string, string> = {
-  items: '📦',
-  blocks: '🧱',
-  mobs: '💀',
-  mechanics: '⚙️',
-  redstone: '🔴',
-  combat: '⚔️',
-  farming: '🌾',
-  exploration: '🧭',
-  brewing: '⚗️',
-  dimensions: '🌌',
-  survival: '🔥',
-  commands: '💻',
-  misc: '📚',
-};
-
 const topicColors: Record<string, string> = {
   items: '#9c7b4e',
   blocks: '#7e7e7e',
@@ -91,7 +75,7 @@ const recent = entries.slice(0, 6);
 
   <!-- Hero -->
   <div class="wiki-hero">
-    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">📚 ویکی ماینکرفت</h1>
+    <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">ویکی ماینکرفت</h1>
     <p class="text-sm text-mc-text-2">راهنمای کامل فارسی — {entries.length} مقاله در {Object.keys(topics).length} دسته</p>
   </div>
 
@@ -126,14 +110,14 @@ const recent = entries.slice(0, 6);
   <!-- Featured article -->
   {featured && (
     <a href={base(`/wiki/${featured.id}`)} class="wiki-featured">
-      <div class="wiki-featured-badge">⭐ مقاله‌ی ویژه</div>
+      <div class="wiki-featured-badge">مقاله‌ی ویژه</div>
       <div class="wiki-featured-content">
         <h2 class="wiki-featured-title">{featured.data.title}</h2>
         <p class="wiki-featured-desc">{featured.data.description}</p>
         <div class="wiki-featured-meta">
-          <span>📅 {featured.data.pubDate.toLocaleDateString('fa-IR')}</span>
-          <span>📂 {topicNames[featured.data.topic] || 'متفرقه'}</span>
-          <span>📖 خواندن →</span>
+          <span>{featured.data.pubDate.toLocaleDateString('fa-IR')}</span>
+          <span>{topicNames[featured.data.topic] || 'متفرقه'}</span>
+          <span>خواندن →</span>
         </div>
       </div>
     </a>
@@ -142,23 +126,20 @@ const recent = entries.slice(0, 6);
   <!-- Quick links to blocks + mobs wiki -->
   <div class="wiki-quick-links">
     <a href={base('/wiki/blocks')} class="wiki-quick-card" style="--qc:#7e7e7e">
-      <span class="wiki-quick-icon">🧱</span>
       <span class="wiki-quick-name">بلاک‌ها</span>
       <span class="wiki-quick-count">۱۱۲ بلاک</span>
     </a>
     <a href={base('/wiki/mobs')} class="wiki-quick-card" style="--qc:#5fa838">
-      <span class="wiki-quick-icon">💀</span>
       <span class="wiki-quick-name">ماب‌ها</span>
       <span class="wiki-quick-count">۵۲ ماب</span>
     </a>
   </div>
 
   <!-- Category cards -->
-  <h2 class="text-lg font-bold text-mc-text mb-4">📂 دسته‌بندی‌ها</h2>
+  <h2 class="text-lg font-bold text-mc-text mb-4">دسته‌بندی‌ها</h2>
   <div class="wiki-categories">
     {Object.entries(topics).map(([topic, arts]) => (
       <a href={`#topic-${topic}`} class="wiki-cat-card" style={`--cc:${topicColors[topic] || '#8585a3'}`}>
-        <span class="wiki-cat-icon">{topicIcons[topic] || '📚'}</span>
         <div class="wiki-cat-body">
           <h3 class="wiki-cat-name">{topicNames[topic] || topic}</h3>
           <span class="wiki-cat-count">{arts.length} مقاله</span>
@@ -168,11 +149,10 @@ const recent = entries.slice(0, 6);
   </div>
 
   <!-- Recent articles -->
-  <h2 class="text-lg font-bold text-mc-text mb-4 mt-6">🆕 جدیدترین مقالات</h2>
+  <h2 class="text-lg font-bold text-mc-text mb-4 mt-6">جدیدترین مقالات</h2>
   <div class="wiki-recent">
     {recent.map((entry) => (
       <a href={base(`/wiki/${entry.id}`)} class="wiki-recent-card">
-        <span class="wiki-recent-topic">{topicIcons[entry.data.topic] || '📚'}</span>
         <div>
           <h3 class="wiki-recent-title">{entry.data.title}</h3>
           <p class="wiki-recent-desc">{entry.data.description?.slice(0, 80)}…</p>
@@ -183,11 +163,11 @@ const recent = entries.slice(0, 6);
   </div>
 
   <!-- Full article list by topic -->
-  <h2 class="text-lg font-bold text-mc-text mb-4 mt-6">📖 همه‌ی مقالات</h2>
+  <h2 class="text-lg font-bold text-mc-text mb-4 mt-6">همه‌ی مقالات</h2>
   {Object.entries(topics).map(([topic, arts]) => (
     <section class="wiki-topic-section" id={`topic-${topic}`}>
       <h3 class="wiki-topic-title">
-        {topicIcons[topic] || '📚'} {topicNames[topic] || topic}
+        {topicNames[topic] || topic}
         <span class="wiki-topic-count">({arts.length})</span>
       </h3>
       <div class="wiki-topic-list">
@@ -204,7 +184,7 @@ const recent = entries.slice(0, 6);
   <!-- CTA -->
   <div class="wiki-cta">
     <p>مقاله‌ای رو پیشنهاد کن یا سوال بپرس!</p>
-    <a href={base('/about')} class="mc-btn ghost small">📞 تماس با ما</a>
+    <a href={base('/about')} class="mc-btn ghost small">تماس با ما</a>
   </div>
 </BaseLayout>
 

@@ -173,13 +173,13 @@ const cdnMapJson = JSON.stringify(cdnMap);
 // Build the list of categories from recipes (for filter chips, if we add them later).
 const CATEGORIES_ORDER = ['combat', 'tools', 'building', 'redstone', 'food', 'brewing', 'misc'];
 const CATEGORY_LABELS: Record<string, { fa: string; emoji: string }> = {
-  combat:   { fa: 'جنگی',     emoji: '⚔️' },
-  tools:    { fa: 'ابزار',    emoji: '🛠️' },
-  building: { fa: 'ساختمان',  emoji: '🧱' },
-  redstone: { fa: 'رد‌استون', emoji: '🔴' },
-  food:     { fa: 'غذا',      emoji: '🍞' },
-  brewing:  { fa: 'جوش‌سازی', emoji: '⚗️' },
-  misc:     { fa: 'متفرقه',  emoji: '📦' },
+  combat:   { fa: 'جنگی',     emoji: '' },
+  tools:    { fa: 'ابزار',    emoji: '' },
+  building: { fa: 'ساختمان',  emoji: '' },
+  redstone: { fa: 'رد‌استون', emoji: '' },
+  food:     { fa: 'غذا',      emoji: '' },
+  brewing:  { fa: 'جوش‌سازی', emoji: '' },
+  misc:     { fa: 'متفرقه',  emoji: '' },
 };
 const catCounts: Record<string, number> = {};
 for (const r of recipes) {
@@ -342,14 +342,14 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
       <!-- Empty-state hint (shown when no recipe is loaded) -->
       <div class="empty-hint" id="emptyHint">
-        <p>📌 روی یکی از رسپی‌های سمت چپ کلیک کن تا ترکیب ۳×۳ این‌جا نمایش داده بشه.</p>
+        <p>روی یکی از رسپی‌های سمت چپ کلیک کن تا ترکیب ۳×۳ این‌جا نمایش داده بشه.</p>
       </div>
     </div>
 
     <!-- RIGHT: recipe list -->
     <aside class="recipe-list-area" aria-label="لیست رسپی‌ها">
       <div class="recipe-list-head">
-        <h3>📋 لیست رسپی‌ها</h3>
+        <h3>لیست رسپی‌ها</h3>
         <span class="recipe-count-display">
           <span id="recipeListCount">{recipes.length}</span> رسپی
         </span>
@@ -380,7 +380,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   <section class="craft-steve-section" aria-label="استیو سه‌بعدی">
     <div class="craft-steve-header">
       <h2 class="craft-steve-title">
-        <span>🧍</span> استیو کنار میز کار
+        استیو کنار میز کار
       </h2>
       <p class="craft-steve-sub">با درگ بچرخون، با اسکرول زوم کن</p>
     </div>

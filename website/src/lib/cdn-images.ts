@@ -30,9 +30,43 @@ const ccvaultsMobs = buildCdnLookup(mc.mobs);
 const ccvaultsItems = buildCdnLookup(mc.items);
 
 // HuggingFace URL helpers
+
+/**
+ * Blocks known to be MISSING from the HuggingFace CDN (last verified
+ * 2026-09-29). For these IDs, blockImgUrl() returns `null` so the
+ * fallback chain in `wiki/blocks/[id].astro` + `wiki/blocks/index.astro`
+ * serves the flat PNG from `public/textures/blocks/<name>.png`.
+ *
+ * These 14 IDs are "category" or "complex-model" blocks whose flat PNG
+ * was never uploaded to the HF dataset:
+ *   - banner, carpet, button, pressure-plate → variant categories
+ *     (icon points to white/oak variant, copied into blocks/ locally).
+ *   - item-frame, brewing-stand, hopper, repeater, comparator,
+ *     tripwire-hook, redstone-wire, redstone-block, quartz-block,
+ *     jack-o-lantern → downloaded from mcasset.cloud into blocks/.
+ */
+const KNOWN_MISSING_FROM_HF: ReadonlySet<string> = new Set([
+  'banner',
+  'quartz-block',
+  'jack-o-lantern',
+  'carpet',
+  'item-frame',
+  'redstone-block',
+  'repeater',
+  'button',
+  'redstone-wire',
+  'pressure-plate',
+  'tripwire-hook',
+  'comparator',
+  'hopper',
+  'brewing-stand',
+]);
+
 export function blockImgUrl(id: string): string | null {
-  // Try HuggingFace first (flat textures), then ccvaults (3D render), then null
   const kebab = id.replace(/^px-/, '').replace(/-face$/, '');
+  // Skip HF for known-missing blocks — use local PNG fallback instead.
+  if (KNOWN_MISSING_FROM_HF.has(kebab)) return null;
+  // Try HuggingFace first (flat textures), then ccvaults (3D render), then null
   return `${HF_BASE}/blocks/${kebab}.png`;
 }
 

@@ -129,7 +129,7 @@ for (const c of MOB_CATEGORIES) {
               </div>
               <h3 class="text-sm font-bold text-mc-text group-hover:text-mc-grass-2 leading-tight mb-1">{m.nameFa}</h3>
               <p class="text-[10px] text-mc-text-3" dir="ltr">{m.nameEn}</p>
-              <div class="text-[10px] text-mc-redstone mt-1">❤ {faNum(m.health)}</div>
+              <div class="text-[10px] text-mc-redstone mt-1">{faNum(m.health)}</div>
             </a>
           ))}
         </div>
@@ -139,7 +139,7 @@ for (const c of MOB_CATEGORIES) {
 
   <!-- Empty state -->
   <p class="mc-panel text-center py-8 text-sm text-mc-text-2 hidden" id="mobNoResults">
-    هیچ مابی با این فیلتر پیدا نشد. 🔍 فیلترها را تغییر دهید.
+    هیچ مابی با این فیلتر پیدا نشد. فیلترها را تغییر دهید.
   </p>
 </BaseLayout>
 

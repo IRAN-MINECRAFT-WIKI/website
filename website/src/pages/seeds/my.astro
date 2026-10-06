@@ -26,17 +26,17 @@ const breadcrumb = [
 
   <div class="mb-6 flex items-start justify-between gap-3 flex-wrap">
     <div>
-      <h1 class="text-2xl lg:text-3xl font-extrabold mb-1">📥 سیدهای من</h1>
+      <h1 class="text-2xl lg:text-3xl font-extrabold mb-1">سیدهای من</h1>
       <p class="text-sm text-mc-text-2">
         سیدهایی که ساخته‌ای اینجا ذخیره می‌شن. داده‌ها فقط روی همین مرورگر نگه‌داری می‌شن — بدون نیاز به حساب کاربری.
       </p>
     </div>
     <div class="flex flex-wrap gap-2">
       <a href={base('/seeds/create')} class="mc-btn">
-        <span aria-hidden="true">🎲</span> ساخت سید جدید
+        ساخت سید جدید
       </a>
       <a href={base('/seeds')} class="mc-btn ghost">
-        <span aria-hidden="true">🌍</span> سیدهای عمومی
+        سیدهای عمومی
       </a>
     </div>
   </div>
@@ -45,17 +45,15 @@ const breadcrumb = [
   <div id="myStatsStrip" class="mc-panel p-3 mb-5 hidden">
     <div class="flex flex-wrap items-center gap-4 text-sm">
       <span class="flex items-center gap-2">
-        <span aria-hidden="true">📦</span>
         <span>تعداد سیدها:</span>
         <strong id="msCount" class="text-mc-grass-2">۰</strong>
       </span>
       <span class="flex items-center gap-2">
-        <span aria-hidden="true">🗓️</span>
         <span>آخرین ذخیره:</span>
         <strong id="msLast" class="text-mc-text-2">—</strong>
       </span>
       <button id="clearAllBtn" class="mc-btn small danger ml-auto">
-        <span aria-hidden="true">🗑️</span> حذف همه
+        حذف همه
       </button>
     </div>
   </div>
@@ -65,13 +63,13 @@ const breadcrumb = [
 
   <!-- Empty state (before any seed is loaded) -->
   <section id="emptyState" class="mc-panel p-10 text-center">
-    <div class="text-6xl mb-4" aria-hidden="true">🌱</div>
+    <div class="text-6xl mb-4" aria-hidden="true"></div>
     <h2 class="text-xl font-extrabold mb-2">هنوز سیدی ذخیره نکردی</h2>
     <p class="text-sm text-mc-text-2 mb-5">
       با ابزار «ساخت سید» می‌تونی سید دلخواهت رو با ویژگی‌های انتخابی بسازی و اینجا ذخیره کنی.
     </p>
     <a href={base('/seeds/create')} class="mc-btn big">
-      <span aria-hidden="true">🎲</span> شروع ساخت سید
+      شروع ساخت سید
     </a>
   </section>
 
@@ -237,14 +235,14 @@ const breadcrumb = [
   import { getAllSeeds, deleteSeed, countSeeds, openDB } from '@/lib/seeddb.js';
 
   const FEATURE_DEFS = {
-    'village':          { label: 'روستا',            icon: '🏠' },
-    'ancient-city':     { label: 'شهر باستانی',      icon: '🏛️' },
-    'mushroom-island':  { label: 'جزیره قارچ',       icon: '🍄' },
-    'ocean-monument':  { label: 'بنای اقیانوسی',     icon: '🌊' },
-    'woodland-mansion': { label: 'عمارت جنگلی',      icon: '🏰' },
-    'stronghold':       { label: 'Stronghold',       icon: '🌋' },
-    'nether-fortress':  { label: 'قلعه‌ی ندر',         icon: '🔥' },
-    'end-city':         { label: 'شهر End',          icon: '🚢' },
+    'village':          { label: 'روستا',            icon: '' },
+    'ancient-city':     { label: 'شهر باستانی',      icon: '' },
+    'mushroom-island':  { label: 'جزیره قارچ',       icon: '' },
+    'ocean-monument':  { label: 'بنای اقیانوسی',     icon: '' },
+    'woodland-mansion': { label: 'عمارت جنگلی',      icon: '' },
+    'stronghold':       { label: 'Stronghold',       icon: '' },
+    'nether-fortress':  { label: 'قلعه‌ی ندر',         icon: '' },
+    'end-city':         { label: 'شهر End',          icon: '' },
   };
 
   let allSeeds = [];
@@ -268,7 +266,6 @@ const breadcrumb = [
     } catch (e) {
       loading.classList.add('hidden');
       grid.innerHTML = '<div class="mc-panel p-6 text-center col-span-full">' +
-        '<div class="text-4xl mb-2">⚠️</div>' +
         '<p class="text-mc-text-2 mb-2">مرورگر شما از IndexedDB پشتیبانی نمی‌کنه.</p>' +
         '<p class="text-xs text-mc-text-3">برای ذخیره‌ی سیدها از مرورگر مدرن (Chrome / Firefox / Edge) استفاده کن.</p>' +
         '</div>';
@@ -342,7 +339,7 @@ const breadcrumb = [
 
     const meta = document.createElement('div');
     meta.className = 'my-meta-row';
-    const platFa = seed.platform === 'java' ? '☕ Java' : '📱 Bedrock';
+    const platFa = seed.platform === 'java' ? 'Java' : 'Bedrock';
     meta.innerHTML =
       '<span class="my-meta-pill">MC ' + escapeHtml(seed.version) + '</span>' +
       '<span class="my-meta-pill">' + platFa + '</span>' +
@@ -353,10 +350,10 @@ const breadcrumb = [
     const featWrap = document.createElement('div');
     featWrap.className = 'my-features';
     (seed.features || []).forEach((fId) => {
-      const def = FEATURE_DEFS[fId] || { label: fId, icon: '❓' };
+      const def = FEATURE_DEFS[fId] || { label: fId, icon: '' };
       const chip = document.createElement('span');
       chip.className = 'my-feature-chip';
-      chip.innerHTML = '<span>' + def.icon + '</span><span>' + escapeHtml(def.label) + '</span>';
+      chip.innerHTML = '<span>' + escapeHtml(def.label) + '</span>';
       featWrap.appendChild(chip);
     });
     body.appendChild(featWrap);
@@ -366,11 +363,11 @@ const breadcrumb = [
       const coords = document.createElement('div');
       coords.className = 'my-coords';
       seed.coords.forEach((c) => {
-        const def = FEATURE_DEFS[c.feature] || { label: c.feature, icon: '📍' };
+        const def = FEATURE_DEFS[c.feature] || { label: c.feature, icon: '' };
         const line = document.createElement('div');
         line.className = 'my-coord-line';
         line.innerHTML =
-          '<span style="color:#c9e8a8">' + def.icon + ' ' + escapeHtml(c.label || def.label) + '</span>' +
+          '<span style="color:#c9e8a8">' + escapeHtml(c.label || def.label) + '</span>' +
           '<span class="font-mono" style="color:#4aedd9">X:' + toFa(String(c.x)) + ' Y:' + toFa(String(c.y)) + ' Z:' + toFa(String(c.z)) + '</span>';
         coords.appendChild(line);
       });
@@ -387,10 +384,10 @@ const breadcrumb = [
       '<span class="my-time">' + d.toLocaleDateString('fa-IR') + ' ' + d.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' }) + '</span>' +
       '<div class="my-actions">' +
         '<button class="my-action-btn" data-act="copy" data-code="' + escapeHtml(seed.code) + '">' +
-          '<span>📋</span> کپی' +
+          'کپی' +
         '</button>' +
         '<button class="my-action-btn danger" data-act="delete" data-id="' + escapeHtml(seed.id) + '">' +
-          '<span>🗑️</span> حذف' +
+          'حذف' +
         '</button>' +
       '</div>';
     card.appendChild(foot);

@@ -61,8 +61,8 @@ const ldBread = breadcrumbJsonLd(breadcrumb);
       <h1 class="text-2xl lg:text-4xl font-extrabold mb-2">{entry.data.title}</h1>
       <p class="text-sm text-mc-text-2 mb-3 leading-loose">{entry.data.description}</p>
       <div class="flex flex-wrap items-center gap-3 text-xs text-mc-text-3">
-        <span>📅 {entry.data.pubDate.toLocaleDateString('fa-IR')}</span>
-        <span>🎮 MC {entry.data.mcVersion}</span>
+        <span>{entry.data.pubDate.toLocaleDateString('fa-IR')}</span>
+        <span>MC {entry.data.mcVersion}</span>
         <ReadingTime text={entry.body} />
       </div>
       {entry.data.tags.length > 0 && (

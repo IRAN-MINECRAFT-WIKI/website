@@ -8,7 +8,7 @@
  *     "فقط با سید" checkbox + player search + reset button
  *   - Server-side renders ALL 1,187 runs as a JSON blob; client-side
  *     filters + paginates + expands rows. No re-fetch from Speedrun.com.
- *   - Rank colors: 🏆 gold (#fcb32b), 🥈 silver (#c0c0c0), 🥉 bronze (#cd7f32)
+ *   - Rank colors: gold (#fcb32b), silver (#c0c0c0), bronze (#cd7f32)
  *   - Sticky header, hover highlight, click-row-to-expand details
  *   - Responsive: desktop = full grid table, tablet = hide seed+date,
  *     mobile (≤768px) = card layout per run
@@ -176,7 +176,6 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
   <!-- ===== Title ===== -->
   <div class="mb-6">
     <h1 class="text-2xl lg:text-3xl font-extrabold mb-2 flex items-center gap-3">
-      <span class="text-3xl">🏆</span>
       <span>رکوردهای سرعت‌رانی ماینکرفت</span>
     </h1>
     <p class="text-sm text-mc-text-2">
@@ -213,12 +212,12 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
   <!-- ===== Platform tabs ===== -->
   <div class="sr-tabs" id="srTabs" role="tablist" aria-label="پلتفرم">
     <button class="mc-btn sr-tab active" data-platform="java" role="tab" aria-selected="true">
-      <span class="sr-tab-icon">☕</span>
+      <span class="sr-tab-icon"></span>
       <span class="sr-tab-label">Java Edition</span>
       <span class="sr-tab-cnt">{faJavaCount}</span>
     </button>
     <button class="mc-btn ghost sr-tab" data-platform="bedrock" role="tab" aria-selected="false">
-      <span class="sr-tab-icon">📱</span>
+      <span class="sr-tab-icon"></span>
       <span class="sr-tab-label">Bedrock Edition</span>
       <span class="sr-tab-cnt">{faBedrockCount}</span>
     </button>
@@ -297,7 +296,7 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
 
   <!-- ===== Empty state ===== -->
   <div id="srEmpty" class="sr-empty mc-panel hidden">
-    <div class="text-5xl mb-4 text-mc-text-3">🔍</div>
+    <div class="text-5xl mb-4 text-mc-text-3"></div>
     <h3 class="text-xl font-bold text-mc-text-2 mb-2">هیچ رکوردی پیدا نشد</h3>
     <p class="text-sm text-mc-text-3">فیلتر یا جستجوی دیگری امتحان کن یا فیلترها رو پاک کن.</p>
     <button class="mc-btn small mt-4" id="srEmptyReset">پاک کردن فیلترها</button>
@@ -430,9 +429,9 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
 
     // ---------- Render ----------
     function rankBadge(rank) {
-      if (rank === 1) return '<span class="sr-rank-medal sr-rank-gold">🏆</span>';
-      if (rank === 2) return '<span class="sr-rank-medal sr-rank-silver">🥈</span>';
-      if (rank === 3) return '<span class="sr-rank-medal sr-rank-bronze">🥉</span>';
+      if (rank === 1) return '';
+      if (rank === 2) return '';
+      if (rank === 3) return '';
       return '';
     }
     function rankClass(rank) {
@@ -516,7 +515,7 @@ const ldBreadcrumb = breadcrumbJsonLd(breadcrumb);
         '</span></div>';
       html +=
         '<div class="sr-detail-item"><span class="sr-detail-lbl">وضعیت</span><span class="sr-detail-val">' +
-        (r.verified ? '✅ تأیید شده' : '⏳ در انتظار') +
+        (r.verified ? 'تأیید شده' : 'در انتظار') +
         '</span></div>';
       html += '</div>';
       if (r.weblink) {

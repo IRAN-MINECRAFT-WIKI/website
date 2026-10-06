@@ -14,12 +14,12 @@ const breadcrumb = [
 
 // Category metadata
 const catMeta: Record<string, { name: string; icon: string }> = {
-  survival: { name: 'Survival', icon: '🌲' },
-  speedrun: { name: 'Speedrun', icon: '🏁' },
-  beautiful: { name: 'زیبا', icon: '🌸' },
-  rare: { name: 'کمیاب', icon: '💎' },
-  island: { name: 'جزیره', icon: '🏝️' },
-  challenge: { name: 'چالش', icon: '⚔️' },
+  survival: { name: 'Survival', icon: '' },
+  speedrun: { name: 'Speedrun', icon: '' },
+  beautiful: { name: 'زیبا', icon: '' },
+  rare: { name: 'کمیاب', icon: '' },
+  island: { name: 'جزیره', icon: '' },
+  challenge: { name: 'چالش', icon: '' },
 };
 
 const catCounts = Object.keys(catMeta).map((c) => ({
@@ -58,10 +58,10 @@ function stars(rating: number): string {
     </div>
     <div class="flex flex-wrap gap-2">
       <a href={base('/seeds/create')} class="mc-btn ghost">
-        <span aria-hidden="true">🎲</span> ساخت سید
+        ساخت سید
       </a>
       <a href={base('/seeds')} class="mc-btn ghost">
-        <span aria-hidden="true">📦</span> همه‌ی سیدها
+        همه‌ی سیدها
       </a>
     </div>
   </div>
@@ -73,7 +73,7 @@ function stars(rating: number): string {
         <button class="mc-chip active" data-cat="all">همه ({testedSeeds.length})</button>
         {catCounts.map((c) => (
           <button class="mc-chip" data-cat={c.id}>
-            <span aria-hidden="true">{c.icon}</span> {c.name} ({c.count})
+            {c.name} ({c.count})
           </button>
         ))}
       </div>
@@ -133,13 +133,13 @@ function stars(rating: number): string {
         <!-- Badges: platform + version + category -->
         <div class="flex items-center gap-1.5 mb-3 flex-wrap">
           <span class={`text-[10px] font-pixel px-2 py-0.5 ${seed.platform === 'java' ? 'bg-mc-grass text-white' : 'bg-mc-bg-2 border border-mc-line text-mc-text-2'}`}>
-            {seed.platform === 'java' ? '☕ Java' : '🪨 Bedrock'}
+            {seed.platform === 'java' ? 'Java' : 'Bedrock'}
           </span>
           <span class="bg-mc-bg-2 border border-mc-line text-[10px] font-pixel px-2 py-0.5 text-mc-text-2">
             MC {seed.version}
           </span>
           <span class="bg-mc-bg-2 border border-mc-line text-[10px] font-pixel px-2 py-0.5 text-mc-text-2">
-            {catMeta[seed.category]?.icon} {catMeta[seed.category]?.name}
+            {catMeta[seed.category]?.name}
           </span>
         </div>
 
@@ -172,7 +172,7 @@ function stars(rating: number): string {
         <!-- Coordinates -->
         {seed.coordinates && seed.coordinates.length > 0 && (
           <div class="mb-3 text-xs">
-            <p class="text-mc-text-3 font-bold mb-1">📍 مختصات:</p>
+            <p class="text-mc-text-3 font-bold mb-1">مختصات:</p>
             <ul class="space-y-0.5">
               {seed.coordinates.slice(0, 4).map((c) => (
                 <li class="text-mc-text-2" dir="ltr" style="text-align: right;">
@@ -186,7 +186,7 @@ function stars(rating: number): string {
         <!-- Footer: source + chunkbase link -->
         <div class="mt-auto pt-3 border-t border-mc-line flex items-center justify-between gap-2 text-[10px]">
           {seed.source && (
-            <span class="text-mc-text-3 truncate" title={seed.source}>📚 {seed.source}</span>
+            <span class="text-mc-text-3 truncate" title={seed.source}>{seed.source}</span>
           )}
           {seed.chunkbaseLink && (
             <a
@@ -205,7 +205,7 @@ function stars(rating: number): string {
 
   <!-- Empty state -->
   <p class="mc-panel text-center py-12 text-sm text-mc-text-2 hidden" id="tnoResults">
-    هیچ سیدی با این فیلتر پیدا نشد. 🔍 فیلترها را تغییر دهید.
+    هیچ سیدی با این فیلتر پیدا نشد. فیلترها را تغییر دهید.
   </p>
 
   <!-- Toast for copy confirmation -->

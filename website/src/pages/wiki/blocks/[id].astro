@@ -137,8 +137,8 @@ const relatedLinks = (block.related || []).map((r) => {
       </div>
       <p class="text-sm text-mc-text-2 mb-3">
         {cat && <span>{cat.icon} {cat.nameFa}</span>}
-        <span> • 🆔 <code dir="ltr" class="text-mc-text">{block.id}</code></span>
-        <span> • 📦 {faNum(block.stackSize)} تایی</span>
+        <span> • <code dir="ltr" class="text-mc-text">{block.id}</code></span>
+        <span> • {faNum(block.stackSize)} تایی</span>
       </p>
       <p class="text-base text-mc-text-2 leading-loose">{block.description}</p>
     </div>
@@ -151,7 +151,6 @@ const relatedLinks = (block.related || []).map((r) => {
       {block.intro && block.intro.length > 0 && (
         <section class="mc-panel p-5">
           <h2 class="text-xl font-extrabold mb-3 flex items-center gap-2">
-            <span>📖</span>
             <span>معرفی</span>
           </h2>
           <div class="space-y-3 text-sm text-mc-text-2 leading-loose">
@@ -163,7 +162,6 @@ const relatedLinks = (block.related || []).map((r) => {
       <!-- Locations (محل یافت) -->
       <section class="mc-panel p-5">
         <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
-          <span>📍</span>
           <span>محل یافتن</span>
         </h2>
         {block.locations.length > 0 ? (
@@ -183,7 +181,6 @@ const relatedLinks = (block.related || []).map((r) => {
       <!-- Drops (دراپ‌ها) -->
       <section class="mc-panel p-5">
         <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
-          <span>🎁</span>
           <span>دراپ‌ها (Loot)</span>
         </h2>
         {block.drops.length > 0 ? (
@@ -207,7 +204,6 @@ const relatedLinks = (block.related || []).map((r) => {
       {(block.uses.length > 0 || (block.behavior && block.behavior.length > 0)) && (
         <section class="mc-panel p-5">
           <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
-            <span>🎯</span>
             <span>کاربردها و رفتار</span>
           </h2>
           {block.uses.length > 0 && (
@@ -236,7 +232,6 @@ const relatedLinks = (block.related || []).map((r) => {
       {block.differences && block.differences.length > 0 && (
         <section class="mc-panel p-5">
           <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
-            <span>🔀</span>
             <span>تفاوت Java و Bedrock</span>
           </h2>
           <ul class="space-y-2">
@@ -254,7 +249,6 @@ const relatedLinks = (block.related || []).map((r) => {
       {block.history && block.history.length > 0 && (
         <section class="mc-panel p-5">
           <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
-            <span>📚</span>
             <span>تاریخچه نسخه‌ها</span>
           </h2>
           <ol class="space-y-3 relative pr-4 border-r-2 border-mc-line">
@@ -274,7 +268,6 @@ const relatedLinks = (block.related || []).map((r) => {
       {block.trivia && block.trivia.length > 0 && (
         <section class="mc-panel p-5">
           <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
-            <span>💡</span>
             <span>نکات جالب</span>
           </h2>
           <ul class="space-y-2">
@@ -292,7 +285,6 @@ const relatedLinks = (block.related || []).map((r) => {
       {relatedLinks.length > 0 && (
         <section class="mc-panel p-5">
           <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
-            <span>🔗</span>
             <span>آیتم‌های مرتبط</span>
           </h2>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -320,7 +312,6 @@ const relatedLinks = (block.related || []).map((r) => {
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-3 text-sm font-bold text-mc-grass-2 hover:text-mc-grass-2"
         >
-          <span>📖</span>
           <span>مشاهده در Minecraft Wiki</span>
           <span class="text-xs text-mc-text-3" dir="ltr">↗</span>
         </a>
@@ -389,11 +380,11 @@ const relatedLinks = (block.related || []).map((r) => {
         </h2>
         <div class="space-y-2 text-xs">
           <div class="flex items-center justify-between">
-            <span class="text-mc-text-3">☕ Java:</span>
+            <span class="text-mc-text-3">Java:</span>
             <span class="text-mc-text-2 font-bold" dir="ltr">{block.versions.java}</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-mc-text-3">🪨 Bedrock:</span>
+            <span class="text-mc-text-3">Bedrock:</span>
             <span class="text-mc-text-2 font-bold" dir="ltr">{block.versions.bedrock}</span>
           </div>
         </div>
@@ -407,7 +398,7 @@ const relatedLinks = (block.related || []).map((r) => {
           rel="noopener noreferrer"
           class="block text-center mc-panel hoverable p-3 text-xs font-bold text-mc-grass-2 hover:text-mc-grass-2"
         >
-          📖 Minecraft Wiki ↗
+          Minecraft Wiki ↗
         </a>
       )}
     </aside>

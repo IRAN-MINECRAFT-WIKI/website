@@ -6,8 +6,14 @@
  * Embed format: https://www.aparat.com/video/video/embed/videohash/{HASH}/vt/frame
  * To add a video, add its hash to VIDEOS array below (or to src/data/videos.json).
  *
- * For now, shows the channel embed + empty-state placeholder grid.
- * When real videos are added to VIDEOS, they auto-embed as iframes.
+ * STATUS (verified 2026-09-29): the MineBedFarsi Aparat channel has not been
+ * created yet (the `userhash/MineBedFarsi/vt/frame` embed loads a Nuxt SPA
+ * shell that renders "user not found"). Until the channel is live, this
+ * page renders a friendly "coming soon" empty state with subscribe CTAs
+ * instead of a broken iframe.
+ *
+ * When the channel goes live + real videos are added to the VIDEOS array,
+ * the iframe grid auto-renders below.
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
@@ -24,7 +30,11 @@ const breadcrumb = [
 const ldBread = breadcrumbJsonLd(breadcrumb);
 
 const APARAT_CHANNEL = 'https://www.aparat.com/MineBedFarsi';
-const APARAT_CHANNEL_EMBED = 'https://www.aparat.com/video/video/embed/userhash/MineBedFarsi/vt/frame';
+// Aparat search results page — points users to the future channel even
+// before it has any videos. Once the channel is created, this URL will
+// start listing MineBedFarsi's uploads automatically.
+const APARAT_SEARCH = 'https://www.aparat.com/result/video?text=MineBed';
+const GITHUB_ISSUES = 'https://github.com/IRAN-MINECRAFT-WIKI/website/issues/new?labels=video-request&title=%D8%AA%D9%82%D8%A7%D8%B6%D8%A7%DB%8C+%D9%88%DB%8C%D8%AF%DB%8C%D9%88%D8%B2%3A+';
 
 // To add a real video, copy its hash from the Aparat URL and add here:
 // e.g. https://www.aparat.com/v/AbCdE → hash = "AbCdE"
@@ -49,18 +59,18 @@ const hasVideos = VIDEOS.length > 0;
     <p class="text-sm text-mc-text-2">آموزش، بررسی و گیم‌پلی ماینکرفت — مستقیم از اپارات</p>
   </div>
 
-  <!-- Channel subscribe banner -->
-  <div class="mc-panel p-5 mb-6 flex items-center gap-4 flex-wrap">
-    <div class="flex-1 min-w-[200px]">
-      <h2 class="text-lg font-bold text-mc-text mb-1">کانال اپارات ماین‌بد فارسی</h2>
-      <p class="text-xs text-mc-text-2">آموزش‌های نصب ماد، بررسی نسخه‌ها، گیم‌پلی و ترفندهای ماینکرفت</p>
-    </div>
-    <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn">
-      <span>📺</span> دنبال‌کردن کانال
-    </a>
-  </div>
-
   {hasVideos ? (
+    <!-- Subscribe banner -->
+    <div class="mc-panel p-5 mb-6 flex items-center gap-4 flex-wrap">
+      <div class="flex-1 min-w-[200px]">
+        <h2 class="text-lg font-bold text-mc-text mb-1">کانال اپارات ماین‌بد فارسی</h2>
+        <p class="text-xs text-mc-text-2">آموزش‌های نصب ماد، بررسی نسخه‌ها، گیم‌پلی و ترفندهای ماینکرفت</p>
+      </div>
+      <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn">
+        <span>📺</span> دنبال‌کردن کانال
+      </a>
+    </div>
+
     <!-- Video grid with embedded iframes -->
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
       {VIDEOS.map((v) => (
@@ -87,73 +97,211 @@ const hasVideos = VIDEOS.length > 0;
       ))}
     </section>
   ) : (
-    <!-- Channel embed + empty state -->
+    <!-- ===== Empty state (channel coming soon) ===== -->
     <section class="mb-6">
-      <h2 class="text-lg font-bold text-mc-text mb-3 flex items-center gap-2">
-        <span>🎥</span> کانال اپارات (زنده)
-      </h2>
-      <div class="mc-panel overflow-hidden">
-        <div class="aspect-video bg-mc-bg-2">
-          <iframe
-            src={APARAT_CHANNEL_EMBED}
-            title="کانال اپارات ماین‌بد فارسی"
-            allowFullScreen="true"
-            webkitallowfullscreen="true"
-            mozallowfullscreen="true"
-            loading="lazy"
-            class="w-full h-full border-0"
-          ></iframe>
+      <div class="videos-hero mc-panel relative overflow-hidden p-8 md:p-12 text-center">
+        <!-- decorative block-tex background -->
+        <div class="videos-hero-bg" aria-hidden="true"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <div class="videos-camera mb-5" aria-hidden="true">
+            <span class="videos-camera-icon">🎥</span>
+            <span class="videos-camera-pulse"></span>
+          </div>
+
+          <h2 class="text-2xl md:text-3xl font-extrabold text-mc-text mb-3 font-pixel" style="font-size: 1.2rem; line-height: 1.6;">
+            ویدیوها به‌زودی!
+          </h2>
+          <p class="text-sm md:text-base text-mc-text-2 leading-loose mb-6">
+            کانال اپارات ماین‌بد فارسی در حال آماده‌سازی است. ویدیوهای آموزش
+            نصب ماد، بررسی نسخه‌ها، گیم‌پلی و ترفندهای ماینکرفت به‌زودی منتشر
+            می‌شن. همین حالا کانال رو دنبال کن تا اولین ویدیو رو از دست ندی.
+          </p>
+
+          <div class="flex flex-wrap gap-3 justify-center mb-6">
+            <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn">
+              <span>📺</span> دنبال‌کردن کانال اپارات
+            </a>
+            <a href={APARAT_SEARCH} target="_blank" rel="noopener" class="mc-btn ghost">
+              <span>🔍</span> جستجوی ویدیوهای ماین‌بد
+            </a>
+          </div>
+
+          <!-- progress / call for content -->
+          <div class="videos-progress mb-6">
+            <div class="videos-progress-track">
+              <div class="videos-progress-fill" style="width: 30%;"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-mc-text-3 mt-1.5 px-1">
+              <span>راه‌اندازی کانال</span>
+              <span>۳۰٪ تکمیل</span>
+            </div>
+          </div>
+
+          <p class="text-xs text-mc-text-3 mb-2">💡 اگه ویدیوی خاصی می‌خوای بسازیم، پیشنهادت رو روی گیت‌هاب ثبت کن:</p>
+          <a href={GITHUB_ISSUES} target="_blank" rel="noopener" class="mc-btn ghost small">
+            <span>📝</span> درخواست ویدیو روی گیت‌هاب
+          </a>
         </div>
       </div>
-      <p class="text-[10px] text-mc-text-3 mt-2">
-        اگه کانال خالیه، ویدیوها نمایش داده نمی‌شن. وقتی ویدیو اضافه کنی، این‌جا نشون داده می‌شه.
-      </p>
     </section>
 
-    <!-- Empty state for specific videos -->
-    <div class="mc-panel text-center py-12">
-      <div class="text-5xl mb-3">🎬</div>
-      <h3 class="text-xl font-bold text-mc-text-2 mb-2">ویدیوهای جداگانه به‌زودی!</h3>
-      <p class="text-sm text-mc-text-3 mb-6 max-w-md mx-auto leading-relaxed">
-        ویدیوهای آموزشی جداگانه (نصب ماد، بررسی نسخه، گیم‌پلی) این‌جا نمایش داده می‌شن.
-        فعلاً کانال اپارات رو دنبال کن تا جدیدترین ویدیوها رو ببینی.
-      </p>
-      <a href={APARAT_CHANNEL} target="_blank" rel="noopener" class="mc-btn ghost small">
-        📺 مشاهده‌ی کانال اپارات
-      </a>
+    <!-- Coming-soon category preview -->
+    <div class="mt-8">
+      <h2 class="text-lg font-bold text-mc-text mb-4">دسته‌بندی‌های پیش‌رو</h2>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="mc-panel p-4 text-center opacity-70 hover:opacity-100 transition-opacity">
+          <div class="text-3xl mb-2">📚</div>
+          <h3 class="text-sm font-bold text-mc-text-2">آموزش نصب</h3>
+          <p class="text-xs text-mc-text-3 mt-1">نصب مادها و ریسورس‌پک</p>
+        </div>
+        <div class="mc-panel p-4 text-center opacity-70 hover:opacity-100 transition-opacity">
+          <div class="text-3xl mb-2">🔍</div>
+          <h3 class="text-sm font-bold text-mc-text-2">بررسی نسخه</h3>
+          <p class="text-xs text-mc-text-3 mt-1">قابلیت‌های نسخه‌های جدید</p>
+        </div>
+        <div class="mc-panel p-4 text-center opacity-70 hover:opacity-100 transition-opacity">
+          <div class="text-3xl mb-2">🎮</div>
+          <h3 class="text-sm font-bold text-mc-text-2">گیم‌پلی</h3>
+          <p class="text-xs text-mc-text-3 mt-1">بازی و چالش‌های ماینکرفت</p>
+        </div>
+        <div class="mc-panel p-4 text-center opacity-70 hover:opacity-100 transition-opacity">
+          <div class="text-3xl mb-2">📰</div>
+          <h3 class="text-sm font-bold text-mc-text-2">اخبار</h3>
+          <p class="text-xs text-mc-text-3 mt-1">آخرین خبرهای ماینکرفت</p>
+        </div>
+      </div>
     </div>
   )}
 
-  <!-- Categories preview -->
-  <div class="mt-8">
-    <h2 class="text-lg font-bold text-mc-text mb-4">دسته‌بندی‌های پیش‌رو</h2>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
-      <div class="mc-panel p-4 text-center opacity-60">
-        <div class="text-3xl mb-2">📚</div>
-        <h3 class="text-sm font-bold text-mc-text-2">آموزش نصب</h3>
-        <p class="text-xs text-mc-text-3 mt-1">نصب مادها و ریسورس‌پک</p>
-      </div>
-      <div class="mc-panel p-4 text-center opacity-60">
-        <div class="text-3xl mb-2">🔍</div>
-        <h3 class="text-sm font-bold text-mc-text-2">بررسی نسخه</h3>
-        <p class="text-xs text-mc-text-3 mt-1">قابلیت‌های نسخه‌های جدید</p>
-      </div>
-      <div class="mc-panel p-4 text-center opacity-60">
-        <div class="text-3xl mb-2">🎮</div>
-        <h3 class="text-sm font-bold text-mc-text-2">گیم‌پلی</h3>
-        <p class="text-xs text-mc-text-3 mt-1">بازی و چالش‌های ماینکرفت</p>
-      </div>
-      <div class="mc-panel p-4 text-center opacity-60">
-        <div class="text-3xl mb-2">📰</div>
-        <h3 class="text-sm font-bold text-mc-text-2">اخبار</h3>
-        <p class="text-xs text-mc-text-3 mt-1">آخرین خبرهای ماینکرفت</p>
-      </div>
-    </div>
-  </div>
+  <!-- Help / contribute section -->
+  <section class="mc-panel p-5 mt-8 text-center">
+    <div class="text-3xl mb-2" aria-hidden="true">🤝</div>
+    <h2 class="text-base font-bold text-mc-text mb-2">اگه ویدیوساز هستی، به ما بپیوند!</h2>
+    <p class="text-xs text-mc-text-3 mb-4 max-w-md mx-auto leading-relaxed">
+      اگه تجربه‌ی ساخت ویدیو برای ماینکرفت داری و می‌خوای تو کانال ماین‌بد فارسی
+      همکاری کنی، با ما تماس بگیر. ویدیوهای تو مستقیم تو این صفحه نمایش داده می‌شه.
+    </p>
+    <a href={GITHUB_ISSUES} target="_blank" rel="noopener" class="mc-btn ghost small">
+      <span>💬</span> ثبت همکاری روی گیت‌هاب
+    </a>
+  </section>
 </BaseLayout>
 
 <style>
   .aspect-video {
     aspect-ratio: 16 / 9;
+  }
+
+  /* ===== Hero empty-state ===== */
+  .videos-hero {
+    position: relative;
+    border: 2px solid var(--mc-line, #2a2a3e);
+    background: linear-gradient(
+      135deg,
+      rgba(124, 200, 74, 0.05) 0%,
+      rgba(13, 13, 24, 0.6) 60%,
+      rgba(31, 31, 56, 0.7) 100%
+    );
+  }
+
+  .videos-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(124, 200, 74, 0.12) 0%, transparent 30%),
+      radial-gradient(circle at 85% 75%, rgba(244, 127, 39, 0.10) 0%, transparent 35%),
+      repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 18px,
+        rgba(255, 255, 255, 0.015) 18px,
+        rgba(255, 255, 255, 0.015) 19px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 18px,
+        rgba(255, 255, 255, 0.015) 18px,
+        rgba(255, 255, 255, 0.015) 19px
+      );
+    pointer-events: none;
+  }
+
+  /* Animated camera icon */
+  .videos-camera {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+  }
+  .videos-camera-icon {
+    font-size: 4rem;
+    display: inline-block;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+    animation: videos-bob 2.6s ease-in-out infinite;
+  }
+  .videos-camera-pulse {
+    position: absolute;
+    inset: -8px -14px;
+    border: 2px solid rgba(124, 200, 74, 0.55);
+    border-radius: 999px;
+    animation: videos-pulse 2.6s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes videos-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  @keyframes videos-pulse {
+    0%   { transform: scale(0.9);  opacity: 0.9; }
+    100% { transform: scale(1.35); opacity: 0;   }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .videos-camera-icon { animation: none; }
+    .videos-camera-pulse { display: none; }
+  }
+
+  /* ===== Progress bar ===== */
+  .videos-progress-track {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    height: 8px;
+    background: var(--bg-2, #0d0d18);
+    border: 1px solid var(--line, #2a2a3e);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .videos-progress-fill {
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--grass-2, #7cc84a) 0%,
+      var(--gold, #f4d03f) 100%
+    );
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(124, 200, 74, 0.5);
+    transition: width 0.4s ease;
+    position: relative;
+  }
+  .videos-progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%
+    );
+    animation: videos-shine 2s linear infinite;
+  }
+  @keyframes videos-shine {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .videos-progress-fill::after { animation: none; }
   }
 </style>

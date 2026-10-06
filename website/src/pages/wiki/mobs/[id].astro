@@ -129,36 +129,36 @@ function faNum(n: number | string | undefined): string {
 
         <!-- Stats table -->
         <div class="infobox-section">
-          <h3 class="infobox-title">📊 اطلاعات</h3>
+          <h3 class="infobox-title">اطلاعات</h3>
           <table class="infobox-table">
-            <tr><td>❤️ سلامتی</td><td>{faNum(mob.health)}</td></tr>
+            <tr><td>سلامتی</td><td>{faNum(mob.health)}</td></tr>
             {mob.extraStats && mob.extraStats.armor && (
-              <tr><td>🛡️ زره</td><td>{faNum(mob.extraStats.armor)}</td></tr>
+              <tr><td>زره</td><td>{faNum(mob.extraStats.armor)}</td></tr>
             )}
             {mob.speed && (
-              <tr><td>🏃 سرعت</td><td dir="ltr">{faNum(mob.speed)}</td></tr>
+              <tr><td>سرعت</td><td dir="ltr">{faNum(mob.speed)}</td></tr>
             )}
             {mob.extraStats && mob.extraStats.size && (
-              <tr><td>📏 ابعاد</td><td dir="ltr">{mob.extraStats.size}</td></tr>
+              <tr><td>ابعاد</td><td dir="ltr">{mob.extraStats.size}</td></tr>
             )}
             {mob.damage && (
-              <tr><td>⚔️ آسیب</td><td dir="ltr">{faNum(mob.damage)}</td></tr>
+              <tr><td>آسیب</td><td dir="ltr">{faNum(mob.damage)}</td></tr>
             )}
             {mob.extraStats && mob.extraStats.spawning && (
-              <tr><td>🎯 نوع</td><td>{mob.extraStats.spawning}</td></tr>
+              <tr><td>نوع</td><td>{mob.extraStats.spawning}</td></tr>
             )}
           </table>
         </div>
 
         <!-- Versions -->
         <div class="infobox-section">
-          <h3 class="infobox-title">📅 نسخه‌ها</h3>
+          <h3 class="infobox-title">نسخه‌ها</h3>
           <table class="infobox-table">
             {mob.versions && mob.versions.java && (
-              <tr><td>☕ Java</td><td dir="ltr">{mob.versions.java}</td></tr>
+              <tr><td>Java</td><td dir="ltr">{mob.versions.java}</td></tr>
             )}
             {mob.versions && mob.versions.bedrock && (
-              <tr><td>📱 Bedrock</td><td dir="ltr">{mob.versions.bedrock}</td></tr>
+              <tr><td>Bedrock</td><td dir="ltr">{mob.versions.bedrock}</td></tr>
             )}
           </table>
         </div>
@@ -166,7 +166,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Wiki link -->
         {mob.wikiLink && (
           <a href={mob.wikiLink} target="_blank" rel="noopener" class="infobox-wiki-link">
-            📖 Minecraft Wiki ↗
+            Minecraft Wiki ↗
           </a>
         )}
       </aside>
@@ -178,7 +178,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Intro (3-5 paragraphs) -->
         {mob.intro && mob.intro.length > 0 && (
           <section class="mob-section">
-            <h2 class="mob-section-title">📝 معرفی</h2>
+            <h2 class="mob-section-title">معرفی</h2>
             <div class="mob-intro-text">
               {mob.intro.map((p) => <p>{p}</p>)}
             </div>
@@ -188,7 +188,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Fallback intro if no rich content -->
         {(!mob.intro || mob.intro.length === 0) && (
           <section class="mob-section">
-            <h2 class="mob-section-title">📝 معرفی</h2>
+            <h2 class="mob-section-title">معرفی</h2>
             <p class="mob-intro-basic">{mob.description}</p>
           </section>
         )}
@@ -196,7 +196,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Behavior -->
         {mob.behavior && mob.behavior.length > 0 && (
           <section class="mob-section">
-            <h2 class="mob-section-title">🎯 رفتار</h2>
+            <h2 class="mob-section-title">رفتار</h2>
             <div class="mob-intro-text">
               {mob.behavior.map((p) => <p>{p}</p>)}
             </div>
@@ -206,7 +206,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Uses/Combat -->
         {(mob.combat && mob.combat.length > 0) || (mob.uses && mob.uses.length > 0) && (
           <section class="mob-section">
-            <h2 class="mob-section-title">{mob.category === 'hostile' || mob.category === 'boss' ? '⚔️ مبارزه' : '🔧 کاربردها'}</h2>
+            <h2 class="mob-section-title">{mob.category === 'hostile' || mob.category === 'boss' ? 'مبارزه' : 'کاربردها'}</h2>
             <ul class="mob-list">
               {(mob.combat || mob.uses || []).map((item) => <li>{item}</li>)}
             </ul>
@@ -216,7 +216,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Drops -->
         {mob.drops && mob.drops.length > 0 && (
           <section class="mob-section">
-            <h2 class="mob-section-title">🎁 دراپ‌ها</h2>
+            <h2 class="mob-section-title">دراپ‌ها</h2>
             <table class="mob-drops-table">
               <thead>
                 <tr><th>آیتم</th><th>تعداد</th><th>شرط</th></tr>
@@ -237,7 +237,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Locations -->
         {mob.locations && mob.locations.length > 0 && (
           <section class="mob-section">
-            <h2 class="mob-section-title">📍 مکان‌های یافت</h2>
+            <h2 class="mob-section-title">مکان‌های یافت</h2>
             <ul class="mob-list">
               {mob.locations.map((l) => <li>{l}</li>)}
             </ul>
@@ -247,7 +247,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Java vs Bedrock differences -->
         {mob.differences && mob.differences.length > 0 && (
           <section class="mob-section">
-            <h2 class="mob-section-title">🔄 تفاوت Java و Bedrock</h2>
+            <h2 class="mob-section-title">تفاوت Java و Bedrock</h2>
             <ul class="mob-list">
               {mob.differences.map((d) => <li>{d}</li>)}
             </ul>
@@ -257,7 +257,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Trivia -->
         {mob.trivia && mob.trivia.length > 0 && (
           <section class="mob-section">
-            <h2 class="mob-section-title">💡 نکات جالب</h2>
+            <h2 class="mob-section-title">نکات جالب</h2>
             <ul class="mob-list">
               {mob.trivia.map((t) => <li>{t}</li>)}
             </ul>
@@ -267,7 +267,7 @@ function faNum(n: number | string | undefined): string {
         <!-- History -->
         {mob.history && mob.history.length > 0 && (
           <section class="mob-section">
-            <h2 class="mob-section-title">📚 تاریخچه</h2>
+            <h2 class="mob-section-title">تاریخچه</h2>
             <div class="mob-history">
               {mob.history.map((h, idx) => (
                 <div class="history-entry">
@@ -282,7 +282,7 @@ function faNum(n: number | string | undefined): string {
         <!-- Related mobs -->
         {mob.related && mob.related.length > 0 && (
           <section class="mob-section">
-            <h2 class="mob-section-title">🔗 ماب‌های مرتبط</h2>
+            <h2 class="mob-section-title">ماب‌های مرتبط</h2>
             <div class="mob-related-grid">
               {mob.related.map((r) => {
                 // Prefer CDN URL for the related mob's render; fall back to the
@@ -297,9 +297,8 @@ function faNum(n: number | string | undefined): string {
                       width="32" height="32"
                       loading="lazy"
                       class="pixel-img"
-                      onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
+                      onerror="this.style.display='none';"
                     />
-                    <span style="display:none;">📦</span>
                     <span class="mob-related-name">{r.name}</span>
                   </a>
                 );
@@ -312,7 +311,7 @@ function faNum(n: number | string | undefined): string {
         {mob.wikiLink && (
           <section class="mob-section">
             <a href={mob.wikiLink} target="_blank" rel="noopener" class="mc-btn ghost small">
-              📖 مطالعه‌ی بیشتر در Minecraft Wiki ↗
+              مطالعه‌ی بیشتر در Minecraft Wiki ↗
             </a>
           </section>
         )}
