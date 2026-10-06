@@ -1,0 +1,112 @@
+{
+  "id": "zombie-villager",
+  "nameEn": "Zombie Villager",
+  "nameFa": "روستایی زامبی",
+  "category": "hostile",
+  "icon": "zombie-villager",
+  "health": 20,
+  "damage": {
+    "contact": 3
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.4.2+",
+    "bedrock": "1.0.0+"
+  },
+  "description": "روستایی زامبی ماب متخاصم ۱.۴ است که با Zombie infecting Villager به‌وجود میاد. با Weakness Potion و Golden Apple قابل درمانه.",
+  "drops": [
+    {
+      "item": "rotten_flesh",
+      "count": "0-2"
+    },
+    {
+      "item": "iron_ingot",
+      "count": "1",
+      "condition": "گاهی (اگه بازیکن بکشه)"
+    }
+  ],
+  "locations": [
+    "Village",
+    "Surface (with Zombie spawn)"
+  ],
+  "combat": [
+    "با شمشیر بزن",
+    "با Weakness Potion و Golden Apple درمان کن",
+    "نزدیک نشو چون سلاسه می‌کنه"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Zombie_Villager",
+  "intro": [
+    "روستایی زامبی (Zombie Villager) یک ماب متخاصم ماینکرفت است که در نسخه‌ی Java 1.4.2 (اکتبر ۲۰۱۲) به بازی اضافه شد. این ماب با Zombie infecting Villager به‌وجود می‌آید و قابل درمان است.",
+    "روستایی زامبی با ۲۰ سلامتی شناخته می‌شود و با حمله‌ی تماسی ۳ آسیب وارد می‌کند. این ماب با Weakness Potion و Golden Apple قابل درمان است — پس از ۵ دقیقه (یا ۲ دقیقه با Golden Apple) به Villager تبدیل می‌شود.",
+    "روستایی زامبی با کشته‌شدن، ۰ تا ۲ Rotten Flesh و گاهی ۱ Iron Ingot دراپ می‌کند. این ماب در نسخه‌ی ۱.۱۴ بازطراحی شد و با بیوم‌های مختلف (Desert، Jungle، Plains، Savanna، Snowy، Swamp، Taiga) شناخته می‌شود."
+  ],
+  "behavior": [
+    "روستایی زامبی با Zombie infecting Villager به‌وجود می‌آید. این ماب با ۲۰ سلامتی شناخته می‌شود و با حمله‌ی تماسی ۳ آسیب وارد می‌کند. روستایی زامبی با Weakness Potion و Golden Apple قابل درمان است.",
+    "روستایی زامبی با Weakness Potion و Golden Apple قابل درمان است — پس از ۵ دقیقه (یا ۲ دقیقه با Golden Apple) به Villager تبدیل می‌شود. این ماب با بایوم‌های مختلف، با لباس‌های متفاوت شناخته می‌شود.",
+    "روستایی زامبی با کشته‌شدن، ۰ تا ۲ Rotten Flesh و گاهی ۱ Iron Ingot دراپ می‌کند. این ماب در نسخه‌ی ۱.۱۴ بازطراحی شد."
+  ],
+  "trivia": [
+    "روستایی زامبی در نسخه‌ی ۱.۴.۲ (۲۰۱۲) به بازی اضافه شد — همراه با Zombie.",
+    "این ماب با Weakness Potion و Golden Apple قابل درمان است — منحصر‌به‌فرد.",
+    "روستایی زامبی با بایوم‌های مختلف، با لباس‌های متفاوت شناخته می‌شود — پرتنوع.",
+    "روستایی زامبی پس از درمان به Villager تبدیل می‌شود — تنها ماب بازی با این تغییر.",
+    "روستایی زامبی با ۲۰ سلامتی، یکی از متوسط‌ترین ماب‌های بازی است — مانند Zombie."
+  ],
+  "history": [
+    {
+      "version": "Java 1.4.2 (2012)",
+      "change": "روستایی زامبی به بازی اضافه شد — همراه با Zombie."
+    },
+    {
+      "version": "Bedrock 1.0.0 (2016)",
+      "change": "تطبیق روستایی زامبی با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "بازطراحی روستایی زامبی — با بایوم‌های مختلف."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "بهبود انیمیشن روستایی زامبی هنگام حمله."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت روستایی زامبی در Village."
+    }
+  ],
+  "differences": [
+    "در Java، روستایی زامبی با ۲۰ سلامتی شناخته می‌شود؛ در Bedrock ۲۰ — یکسان.",
+    "در Java، روستایی زامبی با Weakness Potion و Golden Apple قابل درمان است؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، روستایی زامبی با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "zombie",
+      "nameEn": "Zombie",
+      "nameFa": "زامبی",
+      "type": "mob"
+    },
+    {
+      "id": "villager",
+      "nameEn": "Villager",
+      "nameFa": "روستایی",
+      "type": "mob"
+    },
+    {
+      "id": "witch",
+      "nameEn": "Witch",
+      "nameFa": "ویچ",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.95,
+    "width": 0.6,
+    "spawnLightLevel": "<=7",
+    "xp": 5,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

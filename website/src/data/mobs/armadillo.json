@@ -1,0 +1,103 @@
+{
+  "id": "armadillo",
+  "nameEn": "Armadillo",
+  "nameFa": "آرمادیلو",
+  "category": "passive",
+  "icon": "armadillo",
+  "health": 6,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.20.5+",
+    "bedrock": "1.20.70+"
+  },
+  "description": "آرمادیلو ماب صلح‌جوی جدید ۱.۲۱ است که در بایوم‌های Badlands پیدا می‌شه. با Brush ازش Wolf Armor می‌گیریم و با Spider Eyes فرار می‌کنه.",
+  "drops": [
+    {
+      "item": "armadillo_scute",
+      "count": "1-2",
+      "condition": "با Brush brushing"
+    }
+  ],
+  "locations": [
+    "Badlands",
+    "Wooded Badlands",
+    "Eroded Badlands"
+  ],
+  "combat": [
+    "با Brush ازش Scute بگیر",
+    "آرمادیلو نمی‌تونه آسیب بزنه",
+    "از Spider Eyes فرارش بده"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Armadillo",
+  "intro": [
+    "آرمادیلو (Armadillo) یک ماب صلح‌جوی ماینکرفت است که در نسخه‌ی Java 1.20.5 (آوریل ۲۰۲۴) و در نسخه‌ی Bedrock 1.20.70 به بازی اضافه شد. این ماب در بایوم‌های Badlands زندگی می‌کند و منبع پوست برای ساخت Wolf Armor است.",
+    "آرمادیلو با ۶ سلامتی، یکی از ضعیف‌ترین ماب‌های بازی است و در صورت دیدن Spider، Spider Eye یا ساختمان‌های بد، حالت defensive به‌ خود می‌گیرد و سر خود را به‌داخل زره جمع می‌کند. در این حالت، آرمادیلو آسیب کمتری دریافت می‌کند.",
+    "این ماب با Brush قابل پاک‌سازی است و با هر بار قلم‌زدن، ۱ تا ۲ Armadillo Scute دراپ می‌کند. این Scute‌ها در ساخت Wolf Armor استفاده می‌شوند — زره‌ای برای گرگ‌های اهلی که نسخه‌ی ۱.۲۱ به بازی اضافه شد."
+  ],
+  "behavior": [
+    "آرمادیلو در بایوم‌های Badlands و Wooded Badlands اسپاون می‌شود. این ماب با ۶ سلامتی شناخته می‌شود و آسیب تماسی ۰ وارد می‌کند. آرمادیلو در صورت دیدن Spider یا Spider Eye، حالت defensive به‌ خود می‌گیرد و سر خود را به‌داخل زره جمع می‌کند.",
+    "آرمادیلو با Brush قابل پاک‌سازی است و با هر بار قلم‌زدن، ۱ تا ۲ Armadillo Scute دراپ می‌کند. این ماب پس از هفت تا ده قلم‌زدن متوالی، مدتی زمان می‌برد تا Scute‌هایش دوباره رشد کنند.",
+    "آرمادیلو در حالت defensive، آسیب دریافت‌شده را به‌ نصف کاهش می‌دهد و سرعت حرکتش کم می‌شود. این ماب با Spider Eyes قابل وحشت‌زدن است و از آن‌ها فرار می‌کند."
+  ],
+  "trivia": [
+    "آرمادیلو در نسخه‌ی ۱.۲۰.۵ (آوریل ۲۰۲۴) به بازی اضافه شد — اولین بار در MineCon ۲۰۲۳ برای ۱.۲۱ اعلام شد.",
+    "این ماب با Brush قابل پاک‌سازی است — تنها ماب بازی که با Brush یک آیتم دراپ می‌کند.",
+    "آرمادیلو با دیدن Spider یا Spider Eye، حالت defensive به‌ خود می‌گیرد — ویژگی منحصر‌به‌فرد.",
+    "Wolf Armor با Armadillo Scute ساخته می‌شود — اولین زره برای ماب‌ها در ماینکرفت.",
+    "آرمادیلو با ۶ سلامتی، یکی از ضعیف‌ترین ماب‌های بازی است — به‌سادگی با یک ضربه‌ی شمشیر آهنی کشته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.20.5 (2024)",
+      "change": "آرمادیلو به بازی اضافه شد — همراه با Wolf Armor و Armadillo Scute."
+    },
+    {
+      "version": "Bedrock 1.20.70 (2024)",
+      "change": "تطبیق آرمادیلو با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش رفتار defensive آرمادیلو با Spider Eyes."
+    },
+    {
+      "version": "Java 1.21.2 (2024)",
+      "change": "بهبود انیمیشن حالت defensive آرمادیلو."
+    },
+    {
+      "version": "Bedrock 1.21.50 (2024)",
+      "change": "افزودن جلوه‌ی بصری هنگام Brush کردن آرمادیلو."
+    }
+  ],
+  "differences": [
+    "در Java، آرمادیلو با ۶ سلامتی شناخته می‌شود؛ در Bedrock ۶ — یکسان.",
+    "در Java، آرمادیلو با Spider Eyes فرار می‌کند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، آرمادیلو با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "wolf",
+      "nameEn": "Wolf",
+      "nameFa": "گرگ",
+      "type": "mob"
+    },
+    {
+      "id": "pig",
+      "nameEn": "Pig",
+      "nameFa": "خوک",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 0.5,
+    "width": 0.7,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "creature"
+  },
+  "hasRealTexture": true
+}

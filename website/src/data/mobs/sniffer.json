@@ -1,0 +1,100 @@
+{
+  "id": "sniffer",
+  "nameEn": "Sniffer",
+  "nameFa": "اسنیفر",
+  "category": "passive",
+  "icon": "sniffer",
+  "health": 30,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.2,
+  "versions": {
+    "java": "1.20+",
+    "bedrock": "1.19.70+"
+  },
+  "description": "اسنیفر ماب صلح‌جوی ۱.۲۰ است که با Sniffer Egg از Archaeology به‌دست میاد. با حفاری Torchflower Seed پیدا می‌کنه.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "From Sniffer Egg (via Archaeology)"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "اسنیفر نمی‌تونه آسیب بزنه",
+    "با حفاری Torchflower Seed پیدا می‌کنه"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Sniffer",
+  "intro": [
+    "اسنیفر (Sniffer) یک ماب صلح‌جوی ماینکرفت است که در نسخه‌ی Java 1.20 (مارس ۲۰۲۳) به بازی اضافه شد. این ماب با Sniffer Egg از Archaeology به‌دست می‌آید و بزرگ‌ترین ماب صلح‌جوی بازی است.",
+    "اسنیفر با ۳۰ سلامتی شناخته می‌شود و با قابلیت حفاری، Torchflower Seed و Pitcher Pod را پیدا می‌کند. این ماب پس از sniffing، در زمین حفاری می‌کند و یک Seed دراپ می‌کند.",
+    "اسنیفر با کشته‌شدن، هیچ‌چیز دراپ نمی‌کند. این ماب در نسخه‌ی ۱.۲۰ با Archaeology به بازی اضافه شد و یکی از محبوب‌ترین ماب‌های جدید ۱.۲۰ است."
+  ],
+  "behavior": [
+    "اسنیفر با Sniffer Egg از Archaeology به‌دست می‌آید. این ماب با ۳۰ سلامتی شناخته می‌شود و آسیب تماسی ۰ وارد می‌کند. اسنیفر با قابلیت حفاری، Torchflower Seed و Pitcher Pod را پیدا می‌کند.",
+    "اسنیفر پس از sniffing، در زمین حفاری می‌کند و یک Seed دراپ می‌کند. این ماب با Torchflower Seeds در دست بازیکن قابل تکثیر است. اسنیفر با بزرگ‌ترین سایز، یکی از بزرگ‌ترین ماب‌های صلح‌جوی بازی است.",
+    "اسنیفر با کشته‌شدن، هیچ‌چیز دراپ نمی‌کند. این ماب در نسخه‌ی ۱.۲۰ با Archaeology به بازی اضافه شد."
+  ],
+  "trivia": [
+    "اسنیفر در نسخه‌ی ۱.۲۰ (۲۰۲۳) به بازی اضافه شد — از طریق رأی‌گیری MineCon Live ۲۰۲۲.",
+    "این ماب با قابلیت حفاری، Torchflower Seed را پیدا می‌کند — منحصر‌به‌فرد.",
+    "اسنیفر بزرگ‌ترین ماب صلح‌جوی بازی است — بزرگ‌تر از اسب.",
+    "اسنیفر با Sniffer Egg از Archaeology به‌دست می‌آید — تنها ماب بازی با این روش.",
+    "اسنیفر با ۳۰ سلامتی، یکی از قوی‌ترین حیوانات بازی است — سخت‌تر از اسب."
+  ],
+  "history": [
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "اسنیفر به بازی اضافه شد — همراه با Archaeology."
+    },
+    {
+      "version": "Bedrock 1.19.70 (2023)",
+      "change": "تطبیق اسنیفر با نسخه‌ی Java (preview)."
+    },
+    {
+      "version": "Java 1.20.2 (2023)",
+      "change": "بهبود انیمیشن اسنیفر هنگام sniffing."
+    },
+    {
+      "version": "Bedrock 1.20.50 (2023)",
+      "change": "افزودن جلوه‌ی بصری حفاری اسنیفر."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت اسنیفر در Archaeology."
+    }
+  ],
+  "differences": [
+    "در Java، اسنیفر با ۳۰ سلامتی شناخته می‌شود؛ در Bedrock ۳۰ — یکسان.",
+    "در Java، اسنیفر با حفاری Seed پیدا می‌کند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، اسنیفر با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "frog",
+      "nameEn": "Frog",
+      "nameFa": "قورباغه",
+      "type": "mob"
+    },
+    {
+      "id": "allay",
+      "nameEn": "Allay",
+      "nameFa": "الای",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.0,
+    "width": 1.6,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "creature"
+  },
+  "hasRealTexture": true
+}

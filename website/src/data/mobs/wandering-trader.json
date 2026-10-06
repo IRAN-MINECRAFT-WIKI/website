@@ -1,0 +1,106 @@
+{
+  "id": "wandering-trader",
+  "nameEn": "Wandering Trader",
+  "nameFa": "تاجر ولگرد",
+  "category": "utility",
+  "icon": "wandering-trader",
+  "health": 20,
+  "damage": {
+    "contact": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.11.0+"
+  },
+  "description": "تاجر ولگرد ماب کاربردی ۱.۱۴ است که در سطح اسپاون می‌شه و با Emerald آیتم‌های مختلف (Sapling، Flower) مبادله می‌کنه.",
+  "drops": [
+    {
+      "item": "lead",
+      "count": "2",
+      "condition": "هنگام کشته‌شدن (وقتی از Llama جدا شده)"
+    },
+    {
+      "item": "potion_of_invisibility",
+      "count": "1",
+      "condition": "گاهی (در شب)"
+    }
+  ],
+  "locations": [
+    "Surface (random spawn)"
+  ],
+  "combat": [
+    "با یک ضربه بزن",
+    "با Emerald مبادله کن",
+    "از Trader Llama محافظت کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Wandering_Trader",
+  "intro": [
+    "تاجر ولگرد (Wandering Trader) یک ماب کاربردی ماینکرفت است که در نسخه‌ی Java 1.14 (آوریل ۲۰۱۹) به بازی اضافه شد. این ماب در سطح به‌طور تصادفی اسپاون می‌شود و با Emerald آیتم‌های مختلفی مبادله می‌کند.",
+    "تاجر ولگرد با ۲۰ سلامتی شناخته می‌شود و با Emerald، آیتم‌های مختلفی مانند Sapling‌ها، Flower‌ها و Seed‌ها مبادله می‌کند. این ماب پس از ۴۰ دقیقه از بین می‌رود و در صورت کشته‌شدن، ۲ Lead دراپ می‌کند.",
+    "تاجر ولگرد با Trader Llama (نسخه‌ی Llama) همراه است و در صورت کشته‌شدن، ۲ Lead دراپ می‌کند. این ماب در نسخه‌ی ۱.۱۴ با Village & Pillage به بازی اضافه شد."
+  ],
+  "behavior": [
+    "تاجر ولگرد در سطح به‌طور تصادفی اسپاون می‌شود. این ماب با ۲۰ سلامتی شناخته می‌شود و آسیب تماسی ۰ وارد می‌کند. تاجر ولگرد با Emerald، آیتم‌های مختلفی مانند Sapling‌ها، Flower‌ها و Seed‌ها مبادله می‌کند.",
+    "تاجر ولگرد پس از ۴۰ دقیقه از بین می‌رود. این ماب با Trader Llama همراه است و در صورت کشته‌شدن، ۲ Lead دراپ می‌کند. تاجر ولگرد در شب با Potion of Invisibility پنهان می‌شود.",
+    "تاجر ولگرد با Trader Llama همراه است و در صورت کشته‌شدن، ۲ Lead دراپ می‌کند. این ماب در نسخه‌ی ۱.۱۴ با Village & Pillage به بازی اضافه شد."
+  ],
+  "trivia": [
+    "تاجر ولگرد در نسخه‌ی ۱.۱۴ (۲۰۱۹) به بازی اضافه شد — همراه با Village & Pillage.",
+    "این ماب با Emerald، آیتم‌های مختلفی مبادله می‌کند — منحصر‌به‌فرد.",
+    "تاجر ولگرد پس از ۴۰ دقیقه از بین می‌رود — ویژگی منحصر‌به‌فرد.",
+    "تاجر ولگرد با Trader Llama همراه است — تنها ماب با همراه.",
+    "تاجر ولگرد در شب با Potion of Invisibility پنهان می‌شود — ویژگی منحصر‌به‌فرد."
+  ],
+  "history": [
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "تاجر ولگرد به بازی اضافه شد — همراه با Village & Pillage."
+    },
+    {
+      "version": "Bedrock 1.11.0 (2019)",
+      "change": "تطبیق تاجر ولگرد با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود انیمیشن تاجر ولگرد هنگام مبادله."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "افزایش قابلیت تاجر ولگرد در سطح."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت تاجر ولگرد با آیتم‌های جدید."
+    }
+  ],
+  "differences": [
+    "در Java، تاجر ولگرد با ۲۰ سلامتی شناخته می‌شود؛ در Bedrock ۲۰ — یکسان.",
+    "در Java، تاجر ولگرد پس از ۴۰ دقیقه از بین می‌رود؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، تاجر ولگرد با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "villager",
+      "nameEn": "Villager",
+      "nameFa": "روستایی",
+      "type": "mob"
+    },
+    {
+      "id": "llama",
+      "nameEn": "Llama",
+      "nameFa": "لاما",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.95,
+    "width": 0.6,
+    "spawnLightLevel": "any",
+    "xp": 0,
+    "boss": false,
+    "spawnGroup": "creature"
+  },
+  "hasRealTexture": true
+}

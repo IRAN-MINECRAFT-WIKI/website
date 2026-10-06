@@ -1,0 +1,113 @@
+{
+  "id": "vindicator",
+  "nameEn": "Vindicator",
+  "nameFa": "ویندیکاتور",
+  "category": "hostile",
+  "icon": "vindicator",
+  "health": 24,
+  "damage": {
+    "contact": 13
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.11+",
+    "bedrock": "1.11.0+"
+  },
+  "description": "ویندیکاتور ماب متخاصم ۱.۱۱ است که در Woodland Mansion پیدا می‌شه. با Iron Axe حمله می‌کنه و در حالت Johnny به همه حمله می‌کنه.",
+  "drops": [
+    {
+      "item": "emerald",
+      "count": "0-1",
+      "condition": "اگه بازیکن بکشه"
+    },
+    {
+      "item": "iron_axe",
+      "count": "1",
+      "condition": "گاهی"
+    }
+  ],
+  "locations": [
+    "Woodland Mansion",
+    "Raid (Wave 2+)"
+  ],
+  "combat": [
+    "با شمشیر نزدیک نزن چون Iron Axe داره",
+    "با کمان از دور بزن",
+    "با سپر ضربه رو بلاک کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Vindicator",
+  "intro": [
+    "ویندیکاتور (Vindicator) یک ماب متخاصم ماینکرفت است که در نسخه‌ی Java 1.11 (نوامبر ۲۰۱۶) به بازی اضافه شد. این ماب در Woodland Mansion و Raid اسپاون می‌شود و با Iron Axe حمله می‌کند.",
+    "ویندیکاتور با ۲۴ سلامتی شناخته می‌شود و با Iron Axe، ۱۳ آسیب وارد می‌کند. این ماب در حالت Johnny (با نام‌گذاری Name Tag) به همه‌ی ماب‌ها حمله می‌کند — ویژگی منحصر‌به‌فرد.",
+    "ویندیکاتور با کشته‌شدن، ۰ تا ۱ Emerald و گاهی ۱ Iron Axe دراپ می‌کند. این ماب در نسخه‌ی ۱.۱۴ با Raid به بازی اضافه شد."
+  ],
+  "behavior": [
+    "ویندیکاتور در Woodland Mansion و Raid اسپاون می‌شود. این ماب با ۲۴ سلامتی شناخته می‌شود و با Iron Axe حمله می‌کند. ویندیکاتور با Iron Axe، ۱۳ آسیب وارد می‌کند.",
+    "ویندیکاتور در حالت Johnny (با نام‌گذاری Name Tag) به همه‌ی ماب‌ها حمله می‌کند. این ماب با سرعت بالا به بازیکن نزدیک می‌شود و در صورت نزدیک‌شدن، حمله می‌کند. ویندیکاتور با Iron Axe حمله می‌کند.",
+    "ویندیکاتور با کشته‌شدن، ۰ تا ۱ Emerald و گاهی ۱ Iron Axe دراپ می‌کند. این ماب در نسخه‌ی ۱.۱۴ با Raid به بازی اضافه شد."
+  ],
+  "trivia": [
+    "ویندیکاتور در نسخه‌ی ۱.۱۱ (۲۰۱۶) به بازی اضافه شد — همراه با Woodland Mansion.",
+    "این ماب با Iron Axe، ۱۳ آسیب وارد می‌کند — یکی از قوی‌ترین حمله‌های تماسی در بازی.",
+    "ویندیکاتور در حالت Johnny به همه‌ی ماب‌ها حمله می‌کند — منحصر‌به‌فرد.",
+    "ویندیکاتور با سرعت بالا به بازیکن نزدیک می‌شود — خطرناک در نبردهای نزدیک.",
+    "ویندیکاتور با ۲۴ سلامتی، یکی از متوسط‌ترین Illager‌ها است — نیاز به تجهیزات قوی."
+  ],
+  "history": [
+    {
+      "version": "Java 1.11 (2016)",
+      "change": "ویندیکاتور به بازی اضافه شد — همراه با Woodland Mansion."
+    },
+    {
+      "version": "Bedrock 1.11.0 (2018)",
+      "change": "تطبیق ویندیکاتور با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزایش قابلیت ویندیکاتور در Raid."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "بهبود انیمیشن ویندیکاتور هنگام حمله."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت ویندیکاتور در Woodland Mansion."
+    }
+  ],
+  "differences": [
+    "در Java، ویندیکاتور با ۲۴ سلامتی شناخته می‌شود؛ در Bedrock ۲۴ — یکسان.",
+    "در Java، ویندیکاتور با Iron Axe حمله می‌کند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، ویندیکاتور با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "evoker",
+      "nameEn": "Evoker",
+      "nameFa": "اووکر",
+      "type": "mob"
+    },
+    {
+      "id": "pillager",
+      "nameEn": "Pillager",
+      "nameFa": "پیلجر",
+      "type": "mob"
+    },
+    {
+      "id": "vex",
+      "nameEn": "Vex",
+      "nameFa": "وکس",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.95,
+    "width": 0.6,
+    "spawnLightLevel": "any",
+    "xp": 10,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

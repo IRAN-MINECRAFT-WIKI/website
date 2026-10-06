@@ -1,0 +1,115 @@
+{
+  "id": "piglin",
+  "nameEn": "Piglin",
+  "nameFa": "پیگلین",
+  "category": "neutral",
+  "icon": "piglin",
+  "health": 16,
+  "damage": {
+    "contact": 8,
+    "ranged": 4
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.16+",
+    "bedrock": "1.16.0+"
+  },
+  "description": "پیگلین ماب خنثی ۱.۱۶ است که در Nether Wastes پیدا می‌شه. اگه Gold Armor نداشته باشی حمله می‌کنه و با Gold Ingot قابل باره.",
+  "drops": [
+    {
+      "item": "gold_ingot",
+      "count": "1",
+      "condition": "اگه با Gold Ingot مبادله بشه"
+    },
+    {
+      "item": "rotten_flesh",
+      "count": "1",
+      "condition": "اگه بازیکن بکشه"
+    }
+  ],
+  "locations": [
+    "Nether Wastes",
+    "Crimson Forest",
+    "Bastion Remnant"
+  ],
+  "combat": [
+    "با Gold Armor بپوش",
+    "با Gold Ingot مبادله کن",
+    "نزدیک نشو چون Crossbow داره"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Piglin",
+  "intro": [
+    "پیگلین (Piglin) یک ماب خنثی ماینکرفت است که در نسخه‌ی Java 1.16 (ژوئن ۲۰۲۰) به بازی اضافه شد. این ماب در Nether Wastes، Crimson Forest و Bastion Remnant اسپاون می‌شود و با Gold Armor بازیکن قابل کنترل است.",
+    "پیگلین با ۱۶ سلامتی شناخته می‌شود و در صورت عدم پوشیدن Gold Armor توسط بازیکن، حمله می‌کند. این ماب با Crossbow از دور حمله می‌کند و با Gold Ingot قابل مبادله است.",
+    "پیگلین با کشته‌شدن، ۱ Rotten Flesh دراپ می‌کند. این ماب با Gold Ingot در مبادله، آیتم‌های مختلفی دراپ می‌کند — مانند Ender Pearl، Nether Quartz و Obsidian."
+  ],
+  "behavior": [
+    "پیگلین در Nether Wastes، Crimson Forest و Bastion Remnant اسپاون می‌شود. این ماب با ۱۶ سلامتی شناخته می‌شود و در صورت عدم پوشیدن Gold Armor توسط بازیکن، حمله می‌کند.",
+    "پیگلین با Crossbow از دور حمله می‌کند. این ماب با Gold Ingot قابل مبادله است و آیتم‌های مختلفی دراپ می‌کند — مانند Ender Pearl، Nether Quartz و Obsidian. پیگلین در نسخه‌ی ۱.۱۶ با Bastion Remnant به بازی اضافه شد.",
+    "پیگلین با کشته‌شدن، ۱ Rotten Flesh دراپ می‌کند. این ماب با Gold Ingot در مبادله، آیتم‌های مختلفی دراپ می‌کند. پیگلین با hunting به Gold شدید است و در صورت دیدن Gold Item، آن را برمی‌دارد."
+  ],
+  "trivia": [
+    "پیگلین در نسخه‌ی ۱.۱۶ (۲۰۲۰) به بازی اضافه شد — همراه با Nether Update.",
+    "این ماب با Gold Armor بازیکن قابل کنترل است — منحصر‌به‌فرد.",
+    "پیگلین با Gold Ingot قابل مبادله است — تنها ماب بازی با این رفتار.",
+    "پیگلین با hunting به Gold شدید است — ویژگی منحصر‌به‌فرد.",
+    "پیگلین با ۱۶ سلامتی، یکی از ضعیف‌ترین ماب‌های ندر است — به‌سادگی با یک ضربه‌ی شمشیر آهنی کشته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "پیگلین به بازی اضافه شد — همراه با Nether Update."
+    },
+    {
+      "version": "Bedrock 1.16.0 (2020)",
+      "change": "تطبیق پیگلین با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود انیمیشن پیگلین هنگام مبادله."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "افزایش قابلیت پیگلین در Bastion Remnant."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت پیگلین در ندر."
+    }
+  ],
+  "differences": [
+    "در Java، پیگلین با ۱۶ سلامتی شناخته می‌شود؛ در Bedrock ۱۶ — یکسان.",
+    "در Java، پیگلین با Gold Ingot قابل مبادله است؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، پیگلین با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "piglin-brute",
+      "nameEn": "Piglin Brute",
+      "nameFa": "پیگلین بروت",
+      "type": "mob"
+    },
+    {
+      "id": "hoglin",
+      "nameEn": "Hoglin",
+      "nameFa": "هاگلین",
+      "type": "mob"
+    },
+    {
+      "id": "zombified-piglin",
+      "nameEn": "Zombified Piglin",
+      "nameFa": "پیگلین زامبی‌شده",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.95,
+    "width": 0.6,
+    "spawnLightLevel": "any",
+    "xp": 5,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

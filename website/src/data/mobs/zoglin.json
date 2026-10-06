@@ -1,0 +1,101 @@
+{
+  "id": "zoglin",
+  "nameEn": "Zoglin",
+  "nameFa": "زوگلین",
+  "category": "hostile",
+  "icon": "zoglin",
+  "health": 40,
+  "damage": {
+    "contact": 6,
+    "knockback": 5
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.16+",
+    "bedrock": "1.16.0+"
+  },
+  "description": "زوگلین ماب متخاصم ۱.۱۶ است که با انتقال Hoglin به Overworld به‌وجود میاد. با Knockback قوی حمله می‌کنه.",
+  "drops": [
+    {
+      "item": "rotten_flesh",
+      "count": "1-3"
+    }
+  ],
+  "locations": [
+    "Overworld (from Hoglin transfer)"
+  ],
+  "combat": [
+    "با شمشیر نزدیک نزن چون Knockback می‌زنه",
+    "از دور با کمان بزن",
+    "با سپر ضربه رو بلاک کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Zoglin",
+  "intro": [
+    "زوگلین (Zoglin) یک ماب متخاصم ماینکرفت است که در نسخه‌ی Java 1.16 (ژوئن ۲۰۲۰) به بازی اضافه شد. این ماب با انتقال Hoglin به Overworld به‌وجود می‌آید — پس از ۱۵ ثانیه تبدیل می‌شود.",
+    "زوگلین با ۴۰ سلامتی شناخته می‌شود و با حمله‌ی تماسی ۶ آسیب وارد می‌کند. این ماب با Knockback ۵، بازیکن را به‌عقب هل می‌دهد. زوگلین برخلاف Hoglin قابل تکثیر نیست.",
+    "زوگلین با کشته‌شدن، ۱ تا ۳ Rotten Flesh دراپ می‌کند. این ماب در نسخه‌ی ۱.۱۶ با Hoglin به بازی اضافه شد و در صورت انتقال Hoglin به Overworld به‌وجود می‌آید."
+  ],
+  "behavior": [
+    "زوگلین با انتقال Hoglin به Overworld به‌وجود می‌آید — پس از ۱۵ ثانیه تبدیل می‌شود. این ماب با ۴۰ سلامتی شناخته می‌شود و با حمله‌ی تماسی ۶ آسیب وارد می‌کند. زوگلین با Knockback ۵، بازیکن را به‌عقب هل می‌دهد.",
+    "زوگلین برخلاف Hoglin قابل تکثیر نیست. این ماب با Warped Fungus فرار نمی‌کند — برخلاف Hoglin. زوگلین با سرعت متوسط حرکت می‌کند و در صورت دیدن بازیکن، حمله می‌کند.",
+    "زوگلین با کشته‌شدن، ۱ تا ۳ Rotten Flesh دراپ می‌کند. این ماب در نسخه‌ی ۱.۱۶ با Hoglin به بازی اضافه شد."
+  ],
+  "trivia": [
+    "زوگلین در نسخه‌ی ۱.۱۶ (۲۰۲۰) به بازی اضافه شد — همراه با Nether Update.",
+    "این ماب با انتقال Hoglin به Overworld به‌وجود می‌آید — منحصر‌به‌فرد.",
+    "زوگلین با Knockback ۵ حمله می‌کند — ویژگی مشابه با Hoglin.",
+    "زوگلین برخلاف Hoglin قابل تکثیر نیست — ویژگی منحصر‌به‌فرد.",
+    "زوگلین با ۴۰ سلامتی، یکی از قوی‌ترین ماب‌های متوسط بازی است — نیاز به تجهیزات قوی."
+  ],
+  "history": [
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "زوگلین به بازی اضافه شد — همراه با Nether Update."
+    },
+    {
+      "version": "Bedrock 1.16.0 (2020)",
+      "change": "تطبیق زوگلین با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود انیمیشن زوگلین هنگام حمله."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "رفع باگ‌های جزئی در رفتار زوگلین."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت زوگلین در Overworld."
+    }
+  ],
+  "differences": [
+    "در Java، زوگلین با ۴۰ سلامتی شناخته می‌شود؛ در Bedrock ۴۰ — یکسان.",
+    "در Java، زوگلین با Knockback ۵ حمله می‌کند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، زوگلین با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "hoglin",
+      "nameEn": "Hoglin",
+      "nameFa": "هاگلین",
+      "type": "mob"
+    },
+    {
+      "id": "zombie",
+      "nameEn": "Zombie",
+      "nameFa": "زامبی",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.4,
+    "width": 1.4,
+    "spawnLightLevel": "any",
+    "xp": 5,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

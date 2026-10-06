@@ -1,0 +1,103 @@
+{
+  "id": "creaking",
+  "nameEn": "Creaking",
+  "nameFa": "کرکینگ",
+  "category": "hostile",
+  "icon": "creaking",
+  "health": 24,
+  "damage": {
+    "contact": 4,
+    "ranged": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.21.4+",
+    "bedrock": "1.21.50+"
+  },
+  "description": "کرکینگ ماب متخاصم ۱.۲۱.۴ است که در Pale Garden پیدا می‌شه. وقتی بازیکن بهش نگاه نمی‌کنه حمله می‌کنه — مثل Weeping Angels.",
+  "drops": [
+    {
+      "item": "creaking_heart",
+      "count": "1",
+      "condition": "اگه Creaking Heart بشکنه"
+    }
+  ],
+  "locations": [
+    "Pale Garden",
+    "Pale Oak Forest"
+  ],
+  "combat": [
+    "با نگاه‌کردن متوقفش کن",
+    "Creaking Heart رو بشکن",
+    "با شمشیر از دور نزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Creaking",
+  "intro": [
+    "کرکینگ (Creaking) یک ماب متخاصم ماینکرفت است که در نسخه‌ی Java 1.21.4 (دسامبر ۲۰۲۴) به بازی اضافه شد. این ماب در بایوم جدید Pale Garden اسپاون می‌شود و با رفتار منحصر‌به‌فرد شناخته می‌شود.",
+    "کرکینگ با ۲۴ سلامتی شناخته می‌شود و در صورت دیدن بازیکن، متوقف می‌شود — اما در صورتی که بازیکن به او نگاه نکند، با سرعت بالا به سمت بازیکن حرکت می‌کند. این رفتار شبیه به Weeping Angels در Doctor Who است.",
+    "کرکینگ با Creaking Heart (قلب درونی) درون درختان Pale Oak اسپاون می‌شود. این ماب با شکسته‌شدن Creaking Heart، از بین می‌رود و Creaking Heart را دراپ می‌کند. این مکانیک منحصر‌به‌فرد، کرکینگ را به یک دشمن چالش‌برانگیز تبدیل می‌کند."
+  ],
+  "behavior": [
+    "کرکینگ در بایوم جدید Pale Garden اسپاون می‌شود. این ماب با ۲۴ سلامتی شناخته می‌شود و در صورت دیدن بازیکن، متوقف می‌شود.",
+    "کرکینگ با رفتار منحصر‌به‌فرد شناخته می‌شود — در صورتی که بازیکن به او نگاه نکند، با سرعت بالا به سمت بازیکن حرکت می‌کند. این رفتار شبیه به Weeping Angels در Doctor Who است.",
+    "کرکینگ با Creaking Heart درون درختان Pale Oak اسپاون می‌شود. این ماب با شکسته‌شدن Creaking Heart، از بین می‌رود و Creaking Heart را دراپ می‌کند. کرکینگ با حمله‌ی تماسی، ۴ آسیب وارد می‌کند."
+  ],
+  "trivia": [
+    "کرکینگ در نسخه‌ی ۱.۲۱.۴ (دسامبر ۲۰۲۴) به بازی اضافه شد — همراه با Pale Garden.",
+    "این ماب با رفتار شبیه به Weeping Angels در Doctor Who شناخته می‌شود — منحصر‌به‌فرد.",
+    "کرکینگ با Creaking Heart اسپاون می‌شود — تنها ماب بازی که با یک بلاک درونی اسپاون می‌شود.",
+    "کرکینگ با ۲۴ سلامتی، یکی از متوسط‌ترین ماب‌های جدید ۱.۲۱ است.",
+    "کرکینگ با حمله‌ی تماسی ۴ آسیب وارد می‌کند — کم‌تر از Zombie (۴) اما با رفتار منحصر‌به‌فرد."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21.4 (2024)",
+      "change": "کرکینگ به بازی اضافه شد — همراه با Pale Garden."
+    },
+    {
+      "version": "Bedrock 1.21.50 (2024)",
+      "change": "تطبیق کرکینگ با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.21.5 (2025)",
+      "change": "بهبود انیمیشن کرکینگ هنگام حرکت."
+    },
+    {
+      "version": "Bedrock 1.21.60 (2025)",
+      "change": "افزودن جلوه‌ی بصری Creaking Heart."
+    },
+    {
+      "version": "Java 1.21.6 (2025)",
+      "change": "افزایش قابلیت کرکینگ در Pale Garden."
+    }
+  ],
+  "differences": [
+    "در Java، کرکینگ با ۲۴ سلامتی شناخته می‌شود؛ در Bedrock ۲۴ — یکسان.",
+    "در Java، کرکینگ با Creaking Heart اسپاون می‌شود؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، کرکینگ با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "warden",
+      "nameEn": "Warden",
+      "nameFa": "واردن",
+      "type": "mob"
+    },
+    {
+      "id": "enderman",
+      "nameEn": "Enderman",
+      "nameFa": "اندرمن",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 2.0,
+    "width": 0.6,
+    "spawnLightLevel": "any",
+    "xp": 5,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

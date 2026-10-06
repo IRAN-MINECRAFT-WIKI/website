@@ -1,0 +1,102 @@
+{
+  "id": "illusioner",
+  "nameEn": "Illusioner",
+  "nameFa": "ایلیوژنر",
+  "category": "hostile",
+  "icon": "illusioner",
+  "health": 32,
+  "damage": {
+    "contact": 0,
+    "ranged": 2,
+    "illusion": 0
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.17+ (Java-only)",
+    "bedrock": "—"
+  },
+  "description": "ایلیوژنر ماب متخاصم Java-only است که با /summon احضار می‌شه. با Illusion (نسخه‌های کاذب) و کمان حمله می‌کنه.",
+  "drops": [
+    {
+      "item": "nothing",
+      "count": "0"
+    }
+  ],
+  "locations": [
+    "Only via /summon (Java only)"
+  ],
+  "combat": [
+    "با /summon احضارش کن",
+    "نسخه‌های کاذب رو تشخیص بده",
+    "با سپر تیرها رو بلاک کن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Illusioner",
+  "intro": [
+    "ایلیوژنر (Illusioner) یک ماب متخاصم Java-only ماینکرفت است که در نسخه‌ی Java 1.17 (ژوئن ۲۰۲۱) به بازی اضافه شد. این ماب در نسخه‌ی Bedrock وجود ندارد و تنها با /summon در Java قابل احضار است.",
+    "ایلیوژنر با ۳۲ سلامتی شناخته می‌شود و با Illusion (نسخه‌های کاذب) و کمان حمله می‌کند. این ماب با ۴ نسخه‌ی کاذب از خود، بازیکن را گمراه می‌کند و با کمان از دور حمله می‌کند.",
+    "ایلیوژنر با کشته‌شدن، هیچ‌چیز دراپ نمی‌کند. این ماب در نسخه‌ی ۱.۱۷ با عدم اسپاون طبیعی شناخته می‌شود — تنها با /summon قابل احضار است."
+  ],
+  "behavior": [
+    "ایلیوژنر تنها با /summon در Java قابل احضار است. این ماب با ۳۲ سلامتی شناخته می‌شود و با Illusion و کمان حمله می‌کند.",
+    "ایلیوژنر با Illusion، ۴ نسخه‌ی کاذب از خود تولید می‌کند. این نسخه‌ها با بازیکن تعامل ندارند اما با ضربه‌ی کمان، نسخه‌ی اصلی آسیب می‌بیند.",
+    "ایلیوژنر با کشته‌شدن، هیچ‌چیز دراپ نمی‌کند. این ماب در نسخه‌ی ۱.۱۷ با عدم اسپاون طبیعی شناخته می‌شود."
+  ],
+  "trivia": [
+    "ایلیوژنر در نسخه‌ی ۱.۱۷ (۲۰۲۱) به بازی اضافه شد — Java-only.",
+    "این ماب با Illusion، ۴ نسخه‌ی کاذب از خود تولید می‌کند — منحصر‌به‌فرد.",
+    "ایلیوژنر تنها با /summon قابل احضار است — عدم اسپاون طبیعی.",
+    "این ماب در نسخه‌ی Bedrock وجود ندارد — Java-only.",
+    "ایلیوژنر با ۳۲ سلامتی، یکی از قوی‌ترین Illager‌ها است — نیاز به تجهیزات قوی."
+  ],
+  "history": [
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "ایلیوژنر به بازی اضافه شد — Java-only."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "بهبود انیمیشن Illusion ایلیوژنر."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "رفع باگ‌های جزئی در رفتار Illusioner."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بهبود رفتار Illusioner در /summon."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت Illusioner در Java."
+    }
+  ],
+  "differences": [
+    "ایلیوژنر در Java با ۳۲ سلامتی شناخته می‌شود؛ در Bedrock وجود ندارد.",
+    "در Java، ایلیوژنر با /summon قابل احضار است؛ در Bedrock موجود نیست.",
+    "این ماب یکی از معدود ماب‌های Java-only است — به‌علاوه‌ی Giant و... ."
+  ],
+  "related": [
+    {
+      "id": "evoker",
+      "nameEn": "Evoker",
+      "nameFa": "اووکر",
+      "type": "mob"
+    },
+    {
+      "id": "vindicator",
+      "nameEn": "Vindicator",
+      "nameFa": "ویندیکاتور",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.95,
+    "width": 0.6,
+    "spawnLightLevel": "any",
+    "xp": 10,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

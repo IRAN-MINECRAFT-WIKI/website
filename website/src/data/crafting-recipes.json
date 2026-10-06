@@ -946,14 +946,14 @@
       ],
       "grid": [
         [
-          "wheat",
-          "wheat",
-          "wheat"
-        ],
-        [
           null,
           null,
           null
+        ],
+        [
+          "wheat",
+          "wheat",
+          "wheat"
         ],
         [
           null,
@@ -2598,18 +2598,18 @@
       "category": "tools",
       "grid": [
         [
-          "paper",
+          null,
           "paper",
           null
         ],
         [
+          null,
           "paper",
+          null
+        ],
+        [
+          null,
           "leather",
-          null
-        ],
-        [
-          "paper",
-          "paper",
           null
         ]
       ],
@@ -2776,9 +2776,9 @@
       "category": "tools",
       "grid": [
         [
-          null,
-          null,
-          null
+          "paper",
+          "paper",
+          "paper"
         ],
         [
           "paper",
@@ -2786,9 +2786,9 @@
           "paper"
         ],
         [
-          null,
-          null,
-          null
+          "paper",
+          "paper",
+          "paper"
         ]
       ],
       "output": {

@@ -1,0 +1,115 @@
+{
+  "id": "evoker",
+  "nameEn": "Evoker",
+  "nameFa": "اووکر",
+  "category": "hostile",
+  "icon": "evoker",
+  "health": 24,
+  "damage": {
+    "contact": 0,
+    "ranged": 12,
+    "summon": 6
+  },
+  "speed": 0.25,
+  "versions": {
+    "java": "1.11+",
+    "bedrock": "1.11.0+"
+  },
+  "description": "اووکر ماب متخاصم و رهبر Illager است که در Woodland Mansion پیدا می‌شه. با Vex و Fangs حمله می‌کنه و Totem of Undying دراپ می‌کنه.",
+  "drops": [
+    {
+      "item": "emerald",
+      "count": "1",
+      "condition": "اگه بازیکن بکشه"
+    },
+    {
+      "item": "totem_of_undying",
+      "count": "1",
+      "condition": "همیشه (در Woodland Mansion)"
+    }
+  ],
+  "locations": [
+    "Woodland Mansion",
+    "Raid (Wave 5+)"
+  ],
+  "combat": [
+    "با سپر Fangs رو بلاک کن",
+    "Vex‌ها رو اول بکش",
+    "با شمشیر نزدیک نزن"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Evoker",
+  "intro": [
+    "اووکر (Evoker) یک ماب متخاصم و رهبر Illager ماینکرفت است که در نسخه‌ی Java 1.11 (نوامبر ۲۰۱۶) به بازی اضافه شد. این ماب در Woodland Mansion و در Raid (موج پنجم به بعد) اسپاون می‌شود.",
+    "اووکر با ۲۴ سلامتی شناخته می‌شود و با دو حمله‌ی متفاوت حمله می‌کند: Vex Summon (احضار سه Vex) و Evoker Fangs (دندان‌های زمینی). این حمله‌ها با آسیب ۱۲ و ۶ شناخته می‌شوند.",
+    "اووکر با کشته‌شدن، یک Totem of Undying دراپ می‌کند — تنها منبع این آیتم در بازی. این Totem با نگه‌داشتن در دست غیرفعال، پس از مرگ بازیکن، او را احیا می‌کند."
+  ],
+  "behavior": [
+    "اووکر در Woodland Mansion و در Raid (موج پنجم به بعد) اسپاون می‌شود. این ماب با ۲۴ سلامتی شناخته می‌شود و با دو حمله‌ی متفاوت حمله می‌کند: Vex Summon و Evoker Fangs.",
+    "اووکر با Vex Summon، سه Vex احضار می‌کند. این Vex‌ها با آسیب ۳ به بازیکن حمله می‌کنند. اووکر با Evoker Fangs، دندان‌های زمینی تولید می‌کند که از زیر بازیکن بیرون می‌آیند و ۱۲ آسیب وارد می‌کنند.",
+    "اووکر با کشته‌شدن، یک Totem of Undying دراپ می‌کند — تنها منبع این آیتم در بازی. اووکر در نسخه‌ی ۱.۱۴ با Raid به بازی اضافه شد."
+  ],
+  "trivia": [
+    "اووکر در نسخه‌ی ۱.۱۱ (۲۰۱۶) به بازی اضافه شد — همراه با Woodland Mansion.",
+    "این ماب تنها منبع Totem of Undying در بازی است — آیتم احیای پس از مرگ.",
+    "اووکر با Vex Summon، سه Vex احضار می‌کند — تنها ماب بازی که Vex احضار می‌کند.",
+    "اووکر با Evoker Fangs، دندان‌های زمینی تولید می‌کند — منحصر‌به‌فرد.",
+    "اووکر با ۲۴ سلامتی، یکی از قوی‌ترین Illager‌ها است — نیاز به تجهیزات قوی."
+  ],
+  "history": [
+    {
+      "version": "Java 1.11 (2016)",
+      "change": "اووکر به بازی اضافه شد — همراه با Woodland Mansion."
+    },
+    {
+      "version": "Bedrock 1.11.0 (2018)",
+      "change": "تطبیق اووکر با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "افزایش قابلیت اووکر در Raid."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "بهبود انیمیشن اووکر هنگام Summon Vex."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت اووکر در Woodland Mansion."
+    }
+  ],
+  "differences": [
+    "در Java، اووکر با ۲۴ سلامتی شناخته می‌شود؛ در Bedrock ۲۴ — یکسان.",
+    "در Java، اووکر با Vex Summon حمله می‌کند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، اووکر با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "vindicator",
+      "nameEn": "Vindicator",
+      "nameFa": "ویندیکاتور",
+      "type": "mob"
+    },
+    {
+      "id": "vex",
+      "nameEn": "Vex",
+      "nameFa": "وکس",
+      "type": "mob"
+    },
+    {
+      "id": "pillager",
+      "nameEn": "Pillager",
+      "nameFa": "پیلجر",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.95,
+    "width": 0.6,
+    "spawnLightLevel": "any",
+    "xp": 10,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

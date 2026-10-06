@@ -1,0 +1,105 @@
+{
+  "id": "hoglin",
+  "nameEn": "Hoglin",
+  "nameFa": "هاگلین",
+  "category": "hostile",
+  "icon": "hoglin",
+  "health": 40,
+  "damage": {
+    "contact": 4,
+    "knockback": 5
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.16+",
+    "bedrock": "1.16.0+"
+  },
+  "description": "هاگلین ماب متخاصم ۱.۱۶ است که در Crimson Forest پیدا می‌شه. تنها منبع غذا در ندر — با Porkchop دراپ می‌کنه.",
+  "drops": [
+    {
+      "item": "raw_porkchop",
+      "count": "2-4"
+    },
+    {
+      "item": "leather",
+      "count": "0-1"
+    }
+  ],
+  "locations": [
+    "Crimson Forest (Nether)"
+  ],
+  "combat": [
+    "با شمشیر نزدیک نزن چون Knockback می‌زنه",
+    "از دور با کمان بزن",
+    "با Warped Fungus فرارش بده"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Hoglin",
+  "intro": [
+    "هاگلین (Hoglin) یک ماب متخاصم ماینکرفت است که در نسخه‌ی Java 1.16 (ژوئن ۲۰۲۰) به بازی اضافه شد. این ماب در Crimson Forest (ندر) اسپاون می‌شود و تنها منبع غذا در ندر است.",
+    "هاگلین با ۴۰ سلامتی شناخته می‌شود و با حمله‌ی تماسی ۴ آسیب وارد می‌کند. این ماب با Knockback ۵، بازیکن را به‌عقب هل می‌دهد. هاگلین در صورت دیدن Warped Fungus فرار می‌کند.",
+    "هاگلین با کشته‌شدن، ۲ تا ۴ Raw Porkchop و ۰ تا ۱ Leather دراپ می‌کند. این ماب در صورت انتقال به Overworld، پس از ۱۵ ثانیه به Zoglin تبدیل می‌شود."
+  ],
+  "behavior": [
+    "هاگلین در Crimson Forest (ندر) اسپاون می‌شود. این ماب با ۴۰ سلامتی شناخته می‌شود و با حمله‌ی تماسی ۴ آسیب وارد می‌کند. هاگلین با Knockback ۵، بازیکن را به‌عقب هل می‌دهد.",
+    "هاگلین در صورت دیدن Warped Fungus فرار می‌کند. این ماب با Crimson Fungus در دست بازیکن قابل تکثیر است. هاگلین با تذکر Warped Fungus به‌عنوان دفع‌کننده شناخته می‌شود.",
+    "هاگلین با کشته‌شدن، ۲ تا ۴ Raw Porkchop و ۰ تا ۱ Leather دراپ می‌کند. این ماب در صورت انتقال به Overworld، پس از ۱۵ ثانیه به Zoglin تبدیل می‌شود."
+  ],
+  "trivia": [
+    "هاگلین در نسخه‌ی ۱.۱۶ (۲۰۲۰) به بازی اضافه شد — همراه با Nether Update.",
+    "این ماب تنها منبع غذا در ندر است — با Porkchop دراپ می‌کند.",
+    "هاگلین با Warped Fungus فرار می‌کند — منحصر‌به‌فرد.",
+    "هاگلین در Overworld به Zoglin تبدیل می‌شود — مکانیکی منحصر‌به‌فرد.",
+    "هاگلین با ۴۰ سلامتی، یکی از قوی‌ترین ماب‌های ندر است — نیاز به تجهیزات قوی."
+  ],
+  "history": [
+    {
+      "version": "Java 1.16 (2020)",
+      "change": "هاگلین به بازی اضافه شد — همراه با Nether Update."
+    },
+    {
+      "version": "Bedrock 1.16.0 (2020)",
+      "change": "تطبیق هاگلین با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بهبود انیمیشن هاگلین هنگام حمله."
+    },
+    {
+      "version": "Java 1.19 (2022)",
+      "change": "افزایش قابلیت هاگلین در Crimson Forest."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزایش قابلیت هاگلین در ندر."
+    }
+  ],
+  "differences": [
+    "در Java، هاگلین با ۴۰ سلامتی شناخته می‌شود؛ در Bedrock ۴۰ — یکسان.",
+    "در Java، هاگلین با Knockback ۵ حمله می‌کند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، هاگلین با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "zoglin",
+      "nameEn": "Zoglin",
+      "nameFa": "زوگلین",
+      "type": "mob"
+    },
+    {
+      "id": "piglin",
+      "nameEn": "Piglin",
+      "nameFa": "پیگلین",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.4,
+    "width": 1.4,
+    "spawnLightLevel": "any",
+    "xp": 5,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

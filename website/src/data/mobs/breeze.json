@@ -1,0 +1,103 @@
+{
+  "id": "breeze",
+  "nameEn": "Breeze",
+  "nameFa": "برییز",
+  "category": "hostile",
+  "icon": "breeze",
+  "health": 30,
+  "damage": {
+    "contact": 0,
+    "ranged": 1,
+    "explosion": 0
+  },
+  "speed": 0.3,
+  "versions": {
+    "java": "1.21+",
+    "bedrock": "1.21.0+"
+  },
+  "description": "برییز ماب متخاصم ۱.۲۱ است که در Trial Chambers پیدا می‌شه و با Breeze Wind Charge از دور حمله می‌کنه. نسخه‌ی ندرِ Breeze است.",
+  "drops": [
+    {
+      "item": "breeze_rod",
+      "count": "1-2",
+      "condition": "اگه بازیکن بکشه"
+    }
+  ],
+  "locations": [
+    "Trial Chambers"
+  ],
+  "combat": [
+    "با سپر Wind Charge رو بلاک کن",
+    "از دور با کمان بزن",
+    "نزدیک نشو چون Wind Charge پرتابت می‌کنه"
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Breeze",
+  "intro": [
+    "برییز (Breeze) یک ماب متخاصم ماینکرفت است که در نسخه‌ی Java 1.21 (ژوئن ۲۰۲۴) به بازی اضافه شد. این ماب در ساختار جدید Trial Chambers اسپاون می‌شود و نسخه‌ی ندرِ Blaze است — با همان ظاهر بادمانند.",
+    "برییز با ۳۰ سلامتی شناخته می‌شود و با Breeze Wind Charge (آیتم پرتاب‌شونده‌ی باد) از دور حمله می‌کند. این Wind Charge پس از برخورد، یک انفجار باد تولید می‌کند که بازیکن را به‌عقب هل می‌دهد و ۱ آسیب وارد می‌کند.",
+    "برییز با کشته‌شدن، ۱ تا ۲ Breeze Rod دراپ می‌کند. این Breeze Rod در ساخت Wind Charge و Mace (اسلحه‌ی جدید ۱.۲۱) استفاده می‌شود. برییز در Trial Chambers با spawner قابل ملاقاته است."
+  ],
+  "behavior": [
+    "برییز در Trial Chambers (ساختار جدید ۱.۲۱) اسپاون می‌شود. این ماب با ۳۰ سلامتی شناخته می‌شود و با Breeze Wind Charge از دور حمله می‌کند.",
+    "برییز با Wind Charge، یک انفجار باد تولید می‌کند که بازیکن را به‌عقب هل می‌دهد و ۱ آسیب وارد می‌کند. این ماب با چند ضربه از Wind Charge می‌تواند بازیکن را در فاصله‌ی دور هل دهد.",
+    "برییز با کشته‌شدن، ۱ تا ۲ Breeze Rod دراپ می‌کند. این Breeze Rod در ساخت Wind Charge و Mace استفاده می‌شود. برییز در نسخه‌ی ۱.۲۱ با Trial Chambers و spawner‌های مخصوص خودش شناخته می‌شود."
+  ],
+  "trivia": [
+    "برییز در نسخه‌ی ۱.۲۱ (ژوئن ۲۰۲۴) به بازی اضافه شد — اولین بار در MineCon Live ۲۰۲۳ اعلام شد.",
+    "این ماب نسخه‌ی ندرِ Blaze است — با همان ظاهر بادمانند اما بدون آتش.",
+    "برییز با Breeze Wind Charge حمله می‌کند — تنها ماب بازی که با Wind Charge حمله می‌کند.",
+    "Breeze Rod از برییز در ساخت Mace استفاده می‌شود — اسلحه‌ی جدید ۱.۲۱.",
+    "برییز با ۳۰ سلامتی، یکی از قوی‌ترین ماب‌های جدید ۱.۲۱ است — نیاز به تجهیزات قوی."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "برییز به بازی اضافه شد — همراه با Trial Chambers."
+    },
+    {
+      "version": "Bedrock 1.21.0 (2024)",
+      "change": "تطبیق برییز با نسخه‌ی Java."
+    },
+    {
+      "version": "Java 1.21.2 (2024)",
+      "change": "بهبود انیمیشن برییز هنگام پرتاب Wind Charge."
+    },
+    {
+      "version": "Bedrock 1.21.50 (2024)",
+      "change": "افزودن جلوه‌ی بصری Wind Charge برییز."
+    },
+    {
+      "version": "Java 1.21.6 (2025)",
+      "change": "افزایش قابلیت برییز در Trial Chambers."
+    }
+  ],
+  "differences": [
+    "در Java، برییز با ۳۰ سلامتی شناخته می‌شود؛ در Bedrock ۳۰ — یکسان.",
+    "در Java، برییز با Breeze Wind Charge حمله می‌کند؛ در Bedrock رفتار یکسان است.",
+    "در Bedrock، برییز با رندر کمی متفاوت از Java نمایش داده می‌شود."
+  ],
+  "related": [
+    {
+      "id": "blaze",
+      "nameEn": "Blaze",
+      "nameFa": "بلیز",
+      "type": "mob"
+    },
+    {
+      "id": "bogged",
+      "nameEn": "Bogged",
+      "nameFa": "بگد",
+      "type": "mob"
+    }
+  ],
+  "extraStats": {
+    "armor": 0,
+    "height": 1.8,
+    "width": 0.6,
+    "spawnLightLevel": "any",
+    "xp": 10,
+    "boss": false,
+    "spawnGroup": "monster"
+  },
+  "hasRealTexture": true
+}

@@ -137,6 +137,126 @@
       "hasRealTexture": true
     },
     {
+      "id": "bogged",
+      "nameEn": "Bogged",
+      "nameFa": "بگد",
+      "category": "hostile",
+      "icon": "bogged",
+      "hasRealTexture": true
+    },
+    {
+      "id": "breeze",
+      "nameEn": "Breeze",
+      "nameFa": "برییز",
+      "category": "hostile",
+      "icon": "breeze",
+      "hasRealTexture": true
+    },
+    {
+      "id": "creaking",
+      "nameEn": "Creaking",
+      "nameFa": "کرکینگ",
+      "category": "hostile",
+      "icon": "creaking",
+      "hasRealTexture": true
+    },
+    {
+      "id": "endermite",
+      "nameEn": "Endermite",
+      "nameFa": "اندرمایت",
+      "category": "hostile",
+      "icon": "endermite",
+      "hasRealTexture": true
+    },
+    {
+      "id": "evoker",
+      "nameEn": "Evoker",
+      "nameFa": "اووکر",
+      "category": "hostile",
+      "icon": "evoker",
+      "hasRealTexture": true
+    },
+    {
+      "id": "guardian",
+      "nameEn": "Guardian",
+      "nameFa": "نگهبان",
+      "category": "hostile",
+      "icon": "guardian",
+      "hasRealTexture": true
+    },
+    {
+      "id": "hoglin",
+      "nameEn": "Hoglin",
+      "nameFa": "هاگلین",
+      "category": "hostile",
+      "icon": "hoglin",
+      "hasRealTexture": true
+    },
+    {
+      "id": "illusioner",
+      "nameEn": "Illusioner",
+      "nameFa": "ایلیوژنر",
+      "category": "hostile",
+      "icon": "illusioner",
+      "hasRealTexture": true
+    },
+    {
+      "id": "piglin-brute",
+      "nameEn": "Piglin Brute",
+      "nameFa": "پیگلین بروت",
+      "category": "hostile",
+      "icon": "piglin-brute",
+      "hasRealTexture": true
+    },
+    {
+      "id": "ravager",
+      "nameEn": "Ravager",
+      "nameFa": "راوگر",
+      "category": "hostile",
+      "icon": "ravager",
+      "hasRealTexture": true
+    },
+    {
+      "id": "shulker",
+      "nameEn": "Shulker",
+      "nameFa": "شالکر",
+      "category": "hostile",
+      "icon": "shulker",
+      "hasRealTexture": true
+    },
+    {
+      "id": "vex",
+      "nameEn": "Vex",
+      "nameFa": "وکس",
+      "category": "hostile",
+      "icon": "vex",
+      "hasRealTexture": true
+    },
+    {
+      "id": "vindicator",
+      "nameEn": "Vindicator",
+      "nameFa": "ویندیکاتور",
+      "category": "hostile",
+      "icon": "vindicator",
+      "hasRealTexture": true
+    },
+    {
+      "id": "zoglin",
+      "nameEn": "Zoglin",
+      "nameFa": "زوگلین",
+      "category": "hostile",
+      "icon": "zoglin",
+      "hasRealTexture": true
+    },
+    {
+      "id": "zombie-villager",
+      "nameEn": "Zombie Villager",
+      "nameFa": "روستایی زامبی",
+      "category": "hostile",
+      "icon": "zombie-villager",
+      "hasRealTexture": true
+    },
+    {
       "id": "pig",
       "nameEn": "Pig",
       "nameFa": "خوک",
@@ -257,6 +377,86 @@
       "hasRealTexture": true
     },
     {
+      "id": "armadillo",
+      "nameEn": "Armadillo",
+      "nameFa": "آرمادیلو",
+      "category": "passive",
+      "icon": "armadillo",
+      "hasRealTexture": true
+    },
+    {
+      "id": "camel",
+      "nameEn": "Camel",
+      "nameFa": "شتر",
+      "category": "passive",
+      "icon": "camel",
+      "hasRealTexture": true
+    },
+    {
+      "id": "cat",
+      "nameEn": "Cat",
+      "nameFa": "گربه",
+      "category": "passive",
+      "icon": "cat",
+      "hasRealTexture": true
+    },
+    {
+      "id": "mule",
+      "nameEn": "Mule",
+      "nameFa": "قاطر",
+      "category": "passive",
+      "icon": "mule",
+      "hasRealTexture": true
+    },
+    {
+      "id": "ocelot",
+      "nameEn": "Ocelot",
+      "nameFa": "اوسیلات",
+      "category": "passive",
+      "icon": "ocelot",
+      "hasRealTexture": true
+    },
+    {
+      "id": "skeleton-horse",
+      "nameEn": "Skeleton Horse",
+      "nameFa": "اسب اسکلتونی",
+      "category": "passive",
+      "icon": "skeleton-horse",
+      "hasRealTexture": true
+    },
+    {
+      "id": "sniffer",
+      "nameEn": "Sniffer",
+      "nameFa": "اسنیفر",
+      "category": "passive",
+      "icon": "sniffer",
+      "hasRealTexture": true
+    },
+    {
+      "id": "strider",
+      "nameEn": "Strider",
+      "nameFa": "استرایدر",
+      "category": "passive",
+      "icon": "strider",
+      "hasRealTexture": true
+    },
+    {
+      "id": "tadpole",
+      "nameEn": "Tadpole",
+      "nameFa": "بچه‌قورباغه",
+      "category": "passive",
+      "icon": "tadpole",
+      "hasRealTexture": true
+    },
+    {
+      "id": "zombie-horse",
+      "nameEn": "Zombie Horse",
+      "nameFa": "اسب زامبی",
+      "category": "passive",
+      "icon": "zombie-horse",
+      "hasRealTexture": true
+    },
+    {
       "id": "enderman",
       "nameEn": "Enderman",
       "nameFa": "اندرمن",
@@ -334,6 +534,14 @@
       "icon": "px-cow-face"
     },
     {
+      "id": "piglin",
+      "nameEn": "Piglin",
+      "nameFa": "پیگلین",
+      "category": "neutral",
+      "icon": "piglin",
+      "hasRealTexture": true
+    },
+    {
       "id": "ender-dragon",
       "nameEn": "Ender Dragon",
       "nameFa": "اژدهای اندر",
@@ -381,6 +589,14 @@
       "icon": "px-cow-face"
     },
     {
+      "id": "wandering-trader",
+      "nameEn": "Wandering Trader",
+      "nameFa": "تاجر ولگرد",
+      "category": "utility",
+      "icon": "wandering-trader",
+      "hasRealTexture": true
+    },
+    {
       "id": "bat",
       "nameEn": "Bat",
       "nameFa": "خفاش",
@@ -408,6 +624,14 @@
       "nameFa": "هشت‌پا",
       "category": "ambient",
       "icon": "squid",
+      "hasRealTexture": true
+    },
+    {
+      "id": "glow-squid",
+      "nameEn": "Glow Squid",
+      "nameFa": "هشت‌پای درخشان",
+      "category": "ambient",
+      "icon": "glow-squid",
       "hasRealTexture": true
     }
   ],
