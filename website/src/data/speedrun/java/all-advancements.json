@@ -5,9 +5,41 @@
   "category_name": "All Advancements",
   "category_slug": "all-advancements",
   "miscellaneous": false,
-  "fetched_at": "2026-10-07T02:37:33.611743+00:00",
+  "fetched_at": "2026-10-08T02:50:54.429702+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "zqop9w9y",
+      "weblink": "https://www.speedrun.com/mc/runs/zqop9w9y",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 10665.906,
+      "time_display": "2h 57m 45s 906ms",
+      "date": "2026-10-07",
+      "players": [
+        "magnissima"
+      ],
+      "seed": "-1526993644420476524",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "y64j7wqm",
+      "weblink": "https://www.speedrun.com/mc/runs/y64j7wqm",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 21852.216,
+      "time_display": "6h 4m 12s 216ms",
+      "date": "2026-10-04",
+      "players": [
+        "wasa374"
+      ],
+      "seed": "8758954522517523348",
+      "verified": true,
+      "version": "1.17.1",
+      "seed_type": "RSG"
+    },
     {
       "id": "z048x5oy",
       "weblink": "https://www.speedrun.com/mc/runs/z048x5oy",
@@ -1575,38 +1607,6 @@
       "verified": true,
       "version": "1.15.2",
       "seed_type": "RS"
-    },
-    {
-      "id": "zn60n4ly",
-      "weblink": "https://www.speedrun.com/mc/runs/zn60n4ly",
-      "category": "All Advancements",
-      "platform": "Java",
-      "time_primary": 21105.59,
-      "time_display": "5h 51m 45s 590ms",
-      "date": "2026-04-03",
-      "players": [
-        "Zesskyo"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.14.4",
-      "seed_type": "RSG"
-    },
-    {
-      "id": "y8le045m",
-      "weblink": "https://www.speedrun.com/mc/runs/y8le045m",
-      "category": "All Advancements",
-      "platform": "Java",
-      "time_primary": 58842.999,
-      "time_display": "16h 20m 42s 999ms",
-      "date": "2026-03-31",
-      "players": [
-        "InFect_Dilu"
-      ],
-      "seed": "7305993846884266372",
-      "verified": true,
-      "version": "26.1",
-      "seed_type": "RSG"
     }
   ]
 }
