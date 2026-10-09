@@ -5,7 +5,7 @@
   "category_name": "Any% Glitchless",
   "category_slug": "any-glitchless",
   "miscellaneous": false,
-  "fetched_at": "2026-10-08T02:50:54.429702+00:00",
+  "fetched_at": "2026-10-09T03:02:01.057019+00:00",
   "count": 100,
   "runs": [
     {
@@ -18,6 +18,22 @@
       "date": "2026-09-30",
       "players": [
         "HYPER_SHIV"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50+",
+      "seed_type": "Set Seed"
+    },
+    {
+      "id": "y64grq6m",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y64grq6m",
+      "category": "Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 108.1,
+      "time_display": "1m 48s 100ms",
+      "date": "2026-09-28",
+      "players": [
+        "Kihonneko72"
       ],
       "seed": null,
       "verified": true,
@@ -1583,22 +1599,6 @@
       "platform": "Bedrock",
       "time_primary": 69.567,
       "time_display": "1m 9s 567ms",
-      "date": "2026-08-11",
-      "players": [
-        "H4510"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "y84eg6dz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y84eg6dz",
-      "category": "Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 140.9,
-      "time_display": "2m 20s 900ms",
       "date": "2026-08-11",
       "players": [
         "H4510"
