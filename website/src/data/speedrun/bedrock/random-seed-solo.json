@@ -5,9 +5,41 @@
   "category_name": "Random Seed Solo",
   "category_slug": "random-seed-solo",
   "miscellaneous": false,
-  "fetched_at": "2026-10-10T02:35:53.212925+00:00",
+  "fetched_at": "2026-10-11T02:04:51.880391+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "yogn8r0m",
+      "weblink": "https://www.speedrun.com/mcbe/runs/yogn8r0m",
+      "category": "Random Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 6.633,
+      "time_display": "6s 633ms",
+      "date": "2026-09-07",
+      "players": [
+        "Just_Avr"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.45",
+      "seed_type": null
+    },
+    {
+      "id": "y642wn6m",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y642wn6m",
+      "category": "Random Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 216.867,
+      "time_display": "3m 36s 867ms",
+      "date": "2026-09-07",
+      "players": [
+        "Just_Avr"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.45",
+      "seed_type": null
+    },
     {
       "id": "mknv9l3m",
       "weblink": "https://www.speedrun.com/mcbe/runs/mknv9l3m",
@@ -1574,38 +1606,6 @@
       "seed": null,
       "verified": true,
       "version": "1.17.30",
-      "seed_type": null
-    },
-    {
-      "id": "zg9n9rvm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zg9n9rvm",
-      "category": "Random Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 151.155,
-      "time_display": "2m 31s 155ms",
-      "date": "2025-10-03",
-      "players": [
-        "GiancarloCastillo"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.21.51",
-      "seed_type": null
-    },
-    {
-      "id": "zg9nq7vm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zg9nq7vm",
-      "category": "Random Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 324.0,
-      "time_display": "5m 24s",
-      "date": "2025-09-30",
-      "players": [
-        "roguhe"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.21.101",
       "seed_type": null
     }
   ]

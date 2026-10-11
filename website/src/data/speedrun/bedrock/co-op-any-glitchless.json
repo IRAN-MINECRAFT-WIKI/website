@@ -5,7 +5,7 @@
   "category_name": "Co-op Any% Glitchless",
   "category_slug": "co-op-any-glitchless",
   "miscellaneous": false,
-  "fetched_at": "2026-10-10T02:35:53.212925+00:00",
+  "fetched_at": "2026-10-11T02:04:51.880391+00:00",
   "count": 100,
   "runs": [
     {
@@ -73,6 +73,40 @@
       "seed": null,
       "verified": true,
       "version": "26.50+",
+      "seed_type": "Random Seed"
+    },
+    {
+      "id": "z54kexem",
+      "weblink": "https://www.speedrun.com/mcbe/runs/z54kexem",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 724.931,
+      "time_display": "12m 4s 931ms",
+      "date": "2026-08-11",
+      "players": [
+        "imPreshR",
+        "DrinkWater1966"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
+      "seed_type": "Set Seed"
+    },
+    {
+      "id": "m34ko1qz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/m34ko1qz",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 1196.0,
+      "time_display": "19m 56s",
+      "date": "2026-09-08",
+      "players": [
+        "Yossysand",
+        "SatumaimoNiki"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
       "seed_type": "Random Seed"
     },
     {
@@ -1741,45 +1775,6 @@
       "verified": true,
       "version": "1.18-26.45",
       "seed_type": "Random Seed"
-    },
-    {
-      "id": "mkw1w9xm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/mkw1w9xm",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 677.0,
-      "time_display": "11m 17s",
-      "date": "2025-08-02",
-      "players": [
-        "TheSauce4443",
-        "yuetex",
-        "Hashbrown1806",
-        "emeraldxd",
-        "Survivor051",
-        "Demoo"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.16",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "yoex9x5z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yoex9x5z",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 168.58,
-      "time_display": "2m 48s 580ms",
-      "date": "2025-07-30",
-      "players": [
-        "FlopSetz_",
-        "Boomko",
-        "Wonder_Goku"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
-      "seed_type": "Set Seed"
     }
   ]
 }

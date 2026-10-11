@@ -5,9 +5,41 @@
   "category_name": "All Advancements",
   "category_slug": "all-advancements",
   "miscellaneous": false,
-  "fetched_at": "2026-10-10T02:35:53.212925+00:00",
+  "fetched_at": "2026-10-11T02:04:51.880391+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "y44no6ny",
+      "weblink": "https://www.speedrun.com/mc/runs/y44no6ny",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 9537.525,
+      "time_display": "2h 38m 57s 525ms",
+      "date": "2026-10-06",
+      "players": [
+        "queenkac"
+      ],
+      "seed": "-5437100939159187449",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
+    {
+      "id": "yw72673z",
+      "weblink": "https://www.speedrun.com/mc/runs/yw72673z",
+      "category": "All Advancements",
+      "platform": "Java",
+      "time_primary": 10855.959,
+      "time_display": "3h 55s 959ms",
+      "date": "2026-10-06",
+      "players": [
+        "ItsJustLenny"
+      ],
+      "seed": "-2787192819066860117",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "RSG"
+    },
     {
       "id": "zqop9w9y",
       "weblink": "https://www.speedrun.com/mc/runs/zqop9w9y",
@@ -1574,38 +1606,6 @@
       "seed": "-149289094859724373",
       "verified": true,
       "version": "1.6.4",
-      "seed_type": "RS"
-    },
-    {
-      "id": "ydpwg9xy",
-      "weblink": "https://www.speedrun.com/mc/runs/ydpwg9xy",
-      "category": "All Advancements",
-      "platform": "Java",
-      "time_primary": 1154.722,
-      "time_display": "19m 14s 722ms",
-      "date": "2026-04-05",
-      "players": [
-        "zelario12"
-      ],
-      "seed": "3762760186278426446",
-      "verified": true,
-      "version": "1.6.4",
-      "seed_type": "SS"
-    },
-    {
-      "id": "yveqg6em",
-      "weblink": "https://www.speedrun.com/mc/runs/yveqg6em",
-      "category": "All Advancements",
-      "platform": "Java",
-      "time_primary": 11227.092,
-      "time_display": "3h 7m 7s 92ms",
-      "date": "2026-04-03",
-      "players": [
-        "Zesskyo"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.15.2",
       "seed_type": "RS"
     }
   ]
