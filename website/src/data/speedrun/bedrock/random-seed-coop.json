@@ -5,8 +5,8 @@
   "category_name": "Random Seed Coop",
   "category_slug": "random-seed-coop",
   "miscellaneous": false,
-  "fetched_at": "2026-10-11T02:04:51.880391+00:00",
-  "count": 93,
+  "fetched_at": "2026-10-12T02:35:34.256226+00:00",
+  "count": 92,
   "runs": [
     {
       "id": "znljl2vy",
@@ -23,23 +23,6 @@
       "seed": null,
       "verified": true,
       "version": "26.45",
-      "seed_type": null
-    },
-    {
-      "id": "y2439ewz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y2439ewz",
-      "category": "Random Seed Coop",
-      "platform": "Bedrock",
-      "time_primary": 83.5,
-      "time_display": "1m 23s 500ms",
-      "date": "2026-06-29",
-      "players": [
-        "eliterorr",
-        "Rikyboy"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "26.32",
       "seed_type": null
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:04:51.880391+00:00",
+  "generated_at": "2026-10-12T02:35:34.256226+00:00",
   "api_base": "https://www.speedrun.com/api/v1",
   "games": {
     "java": {
@@ -215,7 +215,7 @@
         "slug": "random-seed-coop",
         "miscellaneous": false,
         "runs_file": "bedrock/random-seed-coop.json",
-        "runs_count": 93
+        "runs_count": 92
       },
       {
         "id": "xd1gpjrd",

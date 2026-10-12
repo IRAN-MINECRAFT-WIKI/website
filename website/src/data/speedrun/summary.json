@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-11T02:04:51.880391+00:00",
+  "fetched_at": "2026-10-12T02:35:34.256226+00:00",
   "top_per_cat": 100,
   "status_filter": "verified",
   "include_misc": false,
@@ -18,7 +18,7 @@
       "game_id": "yd4ovvg1",
       "categories_count": 14,
       "categories_processed": 9,
-      "runs_collected": 887,
+      "runs_collected": 886,
       "files_written": 9,
       "files_preserved": 0
     }
@@ -153,11 +153,11 @@
         "slug": "random-seed-coop",
         "misc": false,
         "runs_file": "bedrock/random-seed-coop.json",
-        "runs_count": 93
+        "runs_count": 92
       }
     ]
   },
-  "runs_total": 1187,
+  "runs_total": 1186,
   "files_written": 16,
   "files_preserved": 0,
   "errors": []

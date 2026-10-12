@@ -5,7 +5,7 @@
   "category_name": "Co-op Any% Glitchless",
   "category_slug": "co-op-any-glitchless",
   "miscellaneous": false,
-  "fetched_at": "2026-10-11T02:04:51.880391+00:00",
+  "fetched_at": "2026-10-12T02:35:34.256226+00:00",
   "count": 100,
   "runs": [
     {
@@ -73,6 +73,23 @@
       "seed": null,
       "verified": true,
       "version": "26.50+",
+      "seed_type": "Random Seed"
+    },
+    {
+      "id": "y84w2gxz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y84w2gxz",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 2537.0,
+      "time_display": "42m 17s",
+      "date": "2026-09-15",
+      "players": [
+        "Aqua8",
+        "Denishko"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
       "seed_type": "Random Seed"
     },
     {
@@ -1753,27 +1770,6 @@
       "seed": null,
       "verified": true,
       "version": "Pre 1.11",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "y6jg166m",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y6jg166m",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 890.0,
-      "time_display": "14m 50s",
-      "date": "2025-08-08",
-      "players": [
-        "Verdanttttt",
-        "Hashbrown1806",
-        "Why2k4",
-        "wayneypooo",
-        "IrisMynds",
-        "roguechalk1337"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
       "seed_type": "Random Seed"
     }
   ]

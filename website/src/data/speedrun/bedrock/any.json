@@ -5,7 +5,7 @@
   "category_name": "Any%",
   "category_slug": "any",
   "miscellaneous": false,
-  "fetched_at": "2026-10-11T02:04:51.880391+00:00",
+  "fetched_at": "2026-10-12T02:35:34.256226+00:00",
   "count": 100,
   "runs": [
     {
@@ -71,6 +71,22 @@
       "verified": true,
       "version": "1.2.13",
       "seed_type": "Set Seed"
+    },
+    {
+      "id": "y44kpo3y",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y44kpo3y",
+      "category": "Any%",
+      "platform": "Bedrock",
+      "time_primary": 241.0,
+      "time_display": "4m 1s",
+      "date": "2026-09-14",
+      "players": [
+        "Khalooody"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.2.13",
+      "seed_type": "Random Seed"
     },
     {
       "id": "z04jlkey",
@@ -1591,22 +1607,6 @@
       "verified": true,
       "version": "1.2.13.60",
       "seed_type": "Random Seed"
-    },
-    {
-      "id": "m3jvn3dz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/m3jvn3dz",
-      "category": "Any%",
-      "platform": "Bedrock",
-      "time_primary": 155.0,
-      "time_display": "2m 35s",
-      "date": "2024-10-18",
-      "players": [
-        "e7vyn"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.21.23",
-      "seed_type": "Set Seed"
     }
   ]
 }
