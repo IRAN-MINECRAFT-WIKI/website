@@ -5,9 +5,25 @@
   "category_name": "Any%",
   "category_slug": "any",
   "miscellaneous": false,
-  "fetched_at": "2026-10-12T02:35:34.256226+00:00",
+  "fetched_at": "2026-10-13T03:45:23.960309+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "y248po7z",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y248po7z",
+      "category": "Any%",
+      "platform": "Bedrock",
+      "time_primary": 214.0,
+      "time_display": "3m 34s",
+      "date": "2026-10-07",
+      "players": [
+        "Khalooody"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.2.13",
+      "seed_type": "Random Seed"
+    },
     {
       "id": "zxrjx2kz",
       "weblink": "https://www.speedrun.com/mcbe/runs/zxrjx2kz",
@@ -16,6 +32,38 @@
       "time_primary": 222.867,
       "time_display": "3m 42s 867ms",
       "date": "2026-10-01",
+      "players": [
+        "Khalooody"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.2.13",
+      "seed_type": "Random Seed"
+    },
+    {
+      "id": "ylwp4erz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/ylwp4erz",
+      "category": "Any%",
+      "platform": "Bedrock",
+      "time_primary": 280.0,
+      "time_display": "4m 40s",
+      "date": "2026-09-27",
+      "players": [
+        "Debonair53"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.2.13",
+      "seed_type": "Random Seed"
+    },
+    {
+      "id": "yw7xlk3z",
+      "weblink": "https://www.speedrun.com/mcbe/runs/yw7xlk3z",
+      "category": "Any%",
+      "platform": "Bedrock",
+      "time_primary": 226.0,
+      "time_display": "3m 46s",
+      "date": "2026-09-27",
       "players": [
         "Khalooody"
       ],
@@ -1559,54 +1607,6 @@
       "verified": true,
       "version": "1.2.13",
       "seed_type": "Set Seed"
-    },
-    {
-      "id": "y2nvqxwy",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y2nvqxwy",
-      "category": "Any%",
-      "platform": "Bedrock",
-      "time_primary": 149.0,
-      "time_display": "2m 29s",
-      "date": "2024-06-19",
-      "players": [
-        "Phorux"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "Unsorted",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "y2w8p56y",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y2w8p56y",
-      "category": "Any%",
-      "platform": "Bedrock",
-      "time_primary": 153.0,
-      "time_display": "2m 33s",
-      "date": "2024-10-19",
-      "players": [
-        "e7vyn"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.21.31",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "yj9q533z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yj9q533z",
-      "category": "Any%",
-      "platform": "Bedrock",
-      "time_primary": 566.0,
-      "time_display": "9m 26s",
-      "date": "2024-10-19",
-      "players": [
-        "DemP3369"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.2.13.60",
-      "seed_type": "Random Seed"
     }
   ]
 }

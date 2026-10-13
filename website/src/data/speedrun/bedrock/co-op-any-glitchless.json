@@ -5,9 +5,80 @@
   "category_name": "Co-op Any% Glitchless",
   "category_slug": "co-op-any-glitchless",
   "miscellaneous": false,
-  "fetched_at": "2026-10-12T02:35:34.256226+00:00",
+  "fetched_at": "2026-10-13T03:45:23.960309+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "z54l62jm",
+      "weblink": "https://www.speedrun.com/mcbe/runs/z54l62jm",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 1748.0,
+      "time_display": "29m 8s",
+      "date": "2026-08-19",
+      "players": [
+        "LunarIsFine",
+        "SteadyWatermelon",
+        "TsuyuxTyger2k"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
+      "seed_type": "Random Seed"
+    },
+    {
+      "id": "me5nvpqm",
+      "weblink": "https://www.speedrun.com/mcbe/runs/me5nvpqm",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 115.967,
+      "time_display": "1m 55s 967ms",
+      "date": "2026-09-27",
+      "players": [
+        "k33055",
+        "Gus330128"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50+",
+      "seed_type": "Set Seed"
+    },
+    {
+      "id": "zpexj6ny",
+      "weblink": "https://www.speedrun.com/mcbe/runs/zpexj6ny",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 104.383,
+      "time_display": "1m 44s 383ms",
+      "date": "2026-09-26",
+      "players": [
+        "Khalooody",
+        "alimbis",
+        "JookDoobs"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50+",
+      "seed_type": "Set Seed"
+    },
+    {
+      "id": "z14nq47z",
+      "weblink": "https://www.speedrun.com/mcbe/runs/z14nq47z",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 106.833,
+      "time_display": "1m 46s 833ms",
+      "date": "2026-09-24",
+      "players": [
+        "Kihonneko72",
+        "StonePainter607",
+        "SATQU"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50+",
+      "seed_type": "Set Seed"
+    },
     {
       "id": "y9qd7xez",
       "weblink": "https://www.speedrun.com/mcbe/runs/y9qd7xez",
@@ -1696,80 +1767,6 @@
       "seed": null,
       "verified": true,
       "version": "1.18-26.45",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "zng66x8m",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zng66x8m",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 2047.0,
-      "time_display": "34m 7s",
-      "date": "2025-08-26",
-      "players": [
-        "Glqk",
-        "Lk gaming7243"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "z002nkoz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/z002nkoz",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 2782.0,
-      "time_display": "46m 22s",
-      "date": "2025-08-24",
-      "players": [
-        "reve42",
-        "Mimilcestmoi"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "zngg6d3m",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zngg6d3m",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 1262.0,
-      "time_display": "21m 2s",
-      "date": "2025-08-14",
-      "players": [
-        "level7cr7",
-        "alexadidas07"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "mrd0g24z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/mrd0g24z",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 788.0,
-      "time_display": "13m 8s",
-      "date": "2025-08-09",
-      "players": [
-        "Khalooody",
-        "guccigang",
-        "emeraldxd",
-        "Dragoblu",
-        "Ma_ehy",
-        "lol869",
-        "Parsphere",
-        "Psemcovici"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "Pre 1.11",
       "seed_type": "Random Seed"
     }
   ]

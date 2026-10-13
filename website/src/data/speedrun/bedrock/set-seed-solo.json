@@ -5,9 +5,217 @@
   "category_name": "Set Seed Solo",
   "category_slug": "set-seed-solo",
   "miscellaneous": false,
-  "fetched_at": "2026-10-12T02:35:34.256226+00:00",
+  "fetched_at": "2026-10-13T03:45:23.960309+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "z54wvvgm",
+      "weblink": "https://www.speedrun.com/mcbe/runs/z54wvvgm",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 10.333,
+      "time_display": "10s 333ms",
+      "date": "2026-10-06",
+      "players": [
+        "JojoNova"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50",
+      "seed_type": null
+    },
+    {
+      "id": "zqopvdxy",
+      "weblink": "https://www.speedrun.com/mcbe/runs/zqopvdxy",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 9.19,
+      "time_display": "9s 190ms",
+      "date": "2026-10-06",
+      "players": [
+        "FauzySwezy"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.52",
+      "seed_type": null
+    },
+    {
+      "id": "y248336z",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y248336z",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 1772.283,
+      "time_display": "29m 32s 283ms",
+      "date": "2026-10-04",
+      "players": [
+        "yuetex"
+      ],
+      "seed": "-7479003461945683959",
+      "verified": true,
+      "version": "26.51",
+      "seed_type": null
+    },
+    {
+      "id": "zqop665y",
+      "weblink": "https://www.speedrun.com/mcbe/runs/zqop665y",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 1772.283,
+      "time_display": "29m 32s 283ms",
+      "date": "2026-10-04",
+      "players": [
+        "yuetex"
+      ],
+      "seed": "-7479003461945683959",
+      "verified": true,
+      "version": "26.51",
+      "seed_type": null
+    },
+    {
+      "id": "z54woogm",
+      "weblink": "https://www.speedrun.com/mcbe/runs/z54woogm",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 1772.283,
+      "time_display": "29m 32s 283ms",
+      "date": "2026-10-04",
+      "players": [
+        "yuetex"
+      ],
+      "seed": "-7479003461945683959",
+      "verified": true,
+      "version": "26.51",
+      "seed_type": null
+    },
+    {
+      "id": "mknw44vm",
+      "weblink": "https://www.speedrun.com/mcbe/runs/mknw44vm",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 1767.267,
+      "time_display": "29m 27s 267ms",
+      "date": "2026-10-04",
+      "players": [
+        "yuetex"
+      ],
+      "seed": "-7479003461945683959",
+      "verified": true,
+      "version": "26.51",
+      "seed_type": null
+    },
+    {
+      "id": "z14633gz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/z14633gz",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 1194.55,
+      "time_display": "19m 54s 550ms",
+      "date": "2026-10-04",
+      "players": [
+        "yuetex"
+      ],
+      "seed": "-7479003461945683959",
+      "verified": true,
+      "version": "26.51",
+      "seed_type": null
+    },
+    {
+      "id": "zpeoqq8y",
+      "weblink": "https://www.speedrun.com/mcbe/runs/zpeoqq8y",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 1194.55,
+      "time_display": "19m 54s 550ms",
+      "date": "2026-10-04",
+      "players": [
+        "yuetex"
+      ],
+      "seed": "-7479003461945683959",
+      "verified": true,
+      "version": "26.51",
+      "seed_type": null
+    },
+    {
+      "id": "mrpxxegz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/mrpxxegz",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 12.0,
+      "time_display": "12s",
+      "date": "2026-09-25",
+      "players": [
+        "krankk"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.17+",
+      "seed_type": null
+    },
+    {
+      "id": "m74ooq4m",
+      "weblink": "https://www.speedrun.com/mcbe/runs/m74ooq4m",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 12.0,
+      "time_display": "12s",
+      "date": "2026-09-25",
+      "players": [
+        "krankk"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.17+",
+      "seed_type": null
+    },
+    {
+      "id": "y44lgp3y",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y44lgp3y",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 6.592,
+      "time_display": "6s 592ms",
+      "date": "2026-09-24",
+      "players": [
+        "penguin816_816"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.51",
+      "seed_type": null
+    },
+    {
+      "id": "mkn1lolm",
+      "weblink": "https://www.speedrun.com/mcbe/runs/mkn1lolm",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 19.667,
+      "time_display": "19s 667ms",
+      "date": "2026-09-20",
+      "players": [
+        "Fireant_est"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.51",
+      "seed_type": null
+    },
+    {
+      "id": "me5gv43m",
+      "weblink": "https://www.speedrun.com/mcbe/runs/me5gv43m",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 6.133,
+      "time_display": "6s 133ms",
+      "date": "2026-09-20",
+      "players": [
+        "KingMan732"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50",
+      "seed_type": null
+    },
     {
       "id": "mknp6o3m",
       "weblink": "https://www.speedrun.com/mcbe/runs/mknp6o3m",
@@ -1398,214 +1606,6 @@
       "seed": null,
       "verified": true,
       "version": "1.20.41",
-      "seed_type": null
-    },
-    {
-      "id": "yjrwpxnz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yjrwpxnz",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 16.8,
-      "time_display": "16s 800ms",
-      "date": "2026-05-03",
-      "players": [
-        "fahim012260_56144"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "26.13",
-      "seed_type": null
-    },
-    {
-      "id": "z02n1wjm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/z02n1wjm",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 51.833,
-      "time_display": "51s 833ms",
-      "date": "2026-04-19",
-      "players": [
-        "Seobel"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "26.13",
-      "seed_type": null
-    },
-    {
-      "id": "zqnvx48z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zqnvx48z",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 0.767,
-      "time_display": "0s 767ms",
-      "date": "2026-04-03",
-      "players": [
-        "AhmadEssam"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18.33",
-      "seed_type": null
-    },
-    {
-      "id": "m387egqy",
-      "weblink": "https://www.speedrun.com/mcbe/runs/m387egqy",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 0.767,
-      "time_display": "0s 767ms",
-      "date": "2026-04-03",
-      "players": [
-        "AhmadEssam"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18.33",
-      "seed_type": null
-    },
-    {
-      "id": "y6w94l1z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y6w94l1z",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 0.6,
-      "time_display": "0s 600ms",
-      "date": "2026-04-02",
-      "players": [
-        "AhmadEssam"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18.33",
-      "seed_type": null
-    },
-    {
-      "id": "m7j76j0m",
-      "weblink": "https://www.speedrun.com/mcbe/runs/m7j76j0m",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 70.9,
-      "time_display": "1m 10s 900ms",
-      "date": "2026-03-31",
-      "players": [
-        "ArshChandani"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "Unsorted",
-      "seed_type": null
-    },
-    {
-      "id": "ydpedpwy",
-      "weblink": "https://www.speedrun.com/mcbe/runs/ydpedpwy",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 14.615,
-      "time_display": "14s 615ms",
-      "date": "2026-03-31",
-      "players": [
-        "ArshChandani"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "Unsorted",
-      "seed_type": null
-    },
-    {
-      "id": "m3875pdy",
-      "weblink": "https://www.speedrun.com/mcbe/runs/m3875pdy",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 16.0,
-      "time_display": "16s",
-      "date": "2026-03-30",
-      "players": [
-        "ShwetaChandani"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "Unsorted",
-      "seed_type": null
-    },
-    {
-      "id": "y6w6w51z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y6w6w51z",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 25.64,
-      "time_display": "25s 640ms",
-      "date": "2026-03-23",
-      "players": [
-        "alimbis"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.16.10",
-      "seed_type": null
-    },
-    {
-      "id": "yve2558m",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yve2558m",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 40.1,
-      "time_display": "40s 100ms",
-      "date": "2026-03-23",
-      "players": [
-        "alimbis"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.16.10",
-      "seed_type": null
-    },
-    {
-      "id": "y8lvkgwm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y8lvkgwm",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 86.467,
-      "time_display": "1m 26s 467ms",
-      "date": "2026-03-22",
-      "players": [
-        "alimbis"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.16.10",
-      "seed_type": null
-    },
-    {
-      "id": "zqn4nw8z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zqn4nw8z",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 32.833,
-      "time_display": "32s 833ms",
-      "date": "2026-03-19",
-      "players": [
-        "alimbis"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.17+",
-      "seed_type": null
-    },
-    {
-      "id": "yve9e4xm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yve9e4xm",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 35.733,
-      "time_display": "35s 733ms",
-      "date": "2026-03-19",
-      "players": [
-        "alimbis"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.17+",
       "seed_type": null
     }
   ]

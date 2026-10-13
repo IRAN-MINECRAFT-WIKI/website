@@ -5,7 +5,7 @@
   "category_name": "Any% Glitchless",
   "category_slug": "any-glitchless",
   "miscellaneous": false,
-  "fetched_at": "2026-10-12T02:35:34.256226+00:00",
+  "fetched_at": "2026-10-13T03:45:23.960309+00:00",
   "count": 100,
   "runs": [
     {
@@ -153,6 +153,22 @@
       "seed_type": "Random Seed"
     },
     {
+      "id": "z54g8vdm",
+      "weblink": "https://www.speedrun.com/mc/runs/z54g8vdm",
+      "category": "Any% Glitchless",
+      "platform": "Java",
+      "time_primary": 1261.476,
+      "time_display": "21m 1s 476ms",
+      "date": "2026-09-25",
+      "players": [
+        "SharkIsThere"
+      ],
+      "seed": "1945976781781758826",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "Random Seed"
+    },
+    {
       "id": "yw7xnq2z",
       "weblink": "https://www.speedrun.com/mc/runs/yw7xnq2z",
       "category": "Any% Glitchless",
@@ -217,6 +233,22 @@
       "seed_type": "Random Seed"
     },
     {
+      "id": "z54gv0em",
+      "weblink": "https://www.speedrun.com/mc/runs/z54gv0em",
+      "category": "Any% Glitchless",
+      "platform": "Java",
+      "time_primary": 1306.581,
+      "time_display": "21m 46s 581ms",
+      "date": "2026-08-09",
+      "players": [
+        "IamDimon"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "Random Seed"
+    },
+    {
       "id": "zpex8evy",
       "weblink": "https://www.speedrun.com/mc/runs/zpex8evy",
       "category": "Any% Glitchless",
@@ -231,6 +263,22 @@
       "verified": true,
       "version": "1.16.1",
       "seed_type": "Set Seed"
+    },
+    {
+      "id": "y9qdndez",
+      "weblink": "https://www.speedrun.com/mc/runs/y9qdndez",
+      "category": "Any% Glitchless",
+      "platform": "Java",
+      "time_primary": 1681.428,
+      "time_display": "28m 1s 428ms",
+      "date": "2026-09-22",
+      "players": [
+        "Sinosagi1225"
+      ],
+      "seed": "-260366258155501669",
+      "verified": true,
+      "version": "1.16.1",
+      "seed_type": "Random Seed"
     },
     {
       "id": "y24wv25z",
@@ -1556,54 +1604,6 @@
         "watagumo_m8q"
       ],
       "seed": null,
-      "verified": true,
-      "version": "1.16.1",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "znle56ly",
-      "weblink": "https://www.speedrun.com/mc/runs/znle56ly",
-      "category": "Any% Glitchless",
-      "platform": "Java",
-      "time_primary": 899.922,
-      "time_display": "14m 59s 922ms",
-      "date": "2026-09-13",
-      "players": [
-        "Oppaceted"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.16.1",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "yjvw75dy",
-      "weblink": "https://www.speedrun.com/mc/runs/yjvw75dy",
-      "category": "Any% Glitchless",
-      "platform": "Java",
-      "time_primary": 484.79,
-      "time_display": "8m 4s 790ms",
-      "date": "2026-09-13",
-      "players": [
-        "Kind"
-      ],
-      "seed": "-5677407945883033111",
-      "verified": true,
-      "version": "1.16.1",
-      "seed_type": "Random Seed"
-    },
-    {
-      "id": "me50259m",
-      "weblink": "https://www.speedrun.com/mc/runs/me50259m",
-      "category": "Any% Glitchless",
-      "platform": "Java",
-      "time_primary": 905.573,
-      "time_display": "15m 5s 573ms",
-      "date": "2026-09-12",
-      "players": [
-        "Axnak"
-      ],
-      "seed": "8341285519334786536",
       "verified": true,
       "version": "1.16.1",
       "seed_type": "Random Seed"
