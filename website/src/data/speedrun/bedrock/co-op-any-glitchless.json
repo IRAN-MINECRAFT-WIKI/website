@@ -5,9 +5,43 @@
   "category_name": "Co-op Any% Glitchless",
   "category_slug": "co-op-any-glitchless",
   "miscellaneous": false,
-  "fetched_at": "2026-10-13T03:45:23.960309+00:00",
+  "fetched_at": "2026-10-14T02:05:24.638420+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "y64jek6m",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y64jek6m",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 1475.0,
+      "time_display": "24m 35s",
+      "date": "2026-10-08",
+      "players": [
+        "McYardstick",
+        "LowlyDuke10"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
+      "seed_type": "Random Seed"
+    },
+    {
+      "id": "zpeo68ny",
+      "weblink": "https://www.speedrun.com/mcbe/runs/zpeo68ny",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 1081.0,
+      "time_display": "18m 1s",
+      "date": "2026-10-08",
+      "players": [
+        "Yossysand",
+        "SatumaimoNiki"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
+      "seed_type": "Random Seed"
+    },
     {
       "id": "z54l62jm",
       "weblink": "https://www.speedrun.com/mcbe/runs/z54l62jm",
@@ -1734,40 +1768,6 @@
       "verified": true,
       "version": "1.16",
       "seed_type": "Set Seed"
-    },
-    {
-      "id": "y284vd9y",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y284vd9y",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 635.0,
-      "time_display": "10m 35s",
-      "date": "2025-08-29",
-      "players": [
-        "emmarie9653",
-        "Joeyisbraindead"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "y8gl5knz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y8gl5knz",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 3913.0,
-      "time_display": "1h 5m 13s",
-      "date": "2025-08-27",
-      "players": [
-        "Deeeeesan",
-        "punchaare"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
-      "seed_type": "Random Seed"
     }
   ]
 }
