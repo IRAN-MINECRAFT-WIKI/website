@@ -5,9 +5,41 @@
   "category_name": "Any% Glitchless",
   "category_slug": "any-glitchless",
   "miscellaneous": false,
-  "fetched_at": "2026-10-14T02:05:24.638420+00:00",
+  "fetched_at": "2026-10-15T01:42:11.128619+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "y24re06z",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y24re06z",
+      "category": "Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 1339.0,
+      "time_display": "22m 19s",
+      "date": "2026-10-14",
+      "players": [
+        "Drdinonoob"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
+      "seed_type": "Random Seed"
+    },
+    {
+      "id": "y24re5wz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y24re5wz",
+      "category": "Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 1452.0,
+      "time_display": "24m 12s",
+      "date": "2026-10-14",
+      "players": [
+        "Insaniae"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
+      "seed_type": "Random Seed"
+    },
     {
       "id": "zpe5928y",
       "weblink": "https://www.speedrun.com/mcbe/runs/zpe5928y",
@@ -23,6 +55,86 @@
       "verified": true,
       "version": "1.11-1.14",
       "seed_type": "Set Seed"
+    },
+    {
+      "id": "ydxod90z",
+      "weblink": "https://www.speedrun.com/mcbe/runs/ydxod90z",
+      "category": "Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 87.067,
+      "time_display": "1m 27s 67ms",
+      "date": "2026-10-09",
+      "players": [
+        "LoderSR"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
+      "seed_type": "Set Seed"
+    },
+    {
+      "id": "me5pjg0m",
+      "weblink": "https://www.speedrun.com/mcbe/runs/me5pjg0m",
+      "category": "Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 141.85,
+      "time_display": "2m 21s 850ms",
+      "date": "2026-10-13",
+      "players": [
+        "Madders_2020"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50+",
+      "seed_type": "Set Seed"
+    },
+    {
+      "id": "mknrev1m",
+      "weblink": "https://www.speedrun.com/mcbe/runs/mknrev1m",
+      "category": "Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 282.0,
+      "time_display": "4m 42s",
+      "date": "2026-10-13",
+      "players": [
+        "kuugacuy"
+      ],
+      "seed": "156411688805915282",
+      "verified": true,
+      "version": "26.50+",
+      "seed_type": "Set Seed"
+    },
+    {
+      "id": "y9qwnxkz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y9qwnxkz",
+      "category": "Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 257.0,
+      "time_display": "4m 17s",
+      "date": "2026-10-03",
+      "players": [
+        "rsv6758"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50+",
+      "seed_type": "Set Seed"
+    },
+    {
+      "id": "zqoplq9y",
+      "weblink": "https://www.speedrun.com/mcbe/runs/zqoplq9y",
+      "category": "Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 4943.0,
+      "time_display": "1h 22m 23s",
+      "date": "2026-10-10",
+      "players": [
+        "FunnyMonkey34"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.18-26.45",
+      "seed_type": "Random Seed"
     },
     {
       "id": "ydx47nqz",
@@ -1494,118 +1606,6 @@
       "seed": null,
       "verified": true,
       "version": "1.18-26.45",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "y84w5owz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/y84w5owz",
-      "category": "Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 720.5,
-      "time_display": "12m 0s 500ms",
-      "date": "2026-09-20",
-      "players": [
-        "8N0or"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.16",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "m74nrx4m",
-      "weblink": "https://www.speedrun.com/mcbe/runs/m74nrx4m",
-      "category": "Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 352.966,
-      "time_display": "5m 52s 966ms",
-      "date": "2026-09-20",
-      "players": [
-        "PlaneWarrior59"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "26.50+",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "z54897gm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/z54897gm",
-      "category": "Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 104.833,
-      "time_display": "1m 44s 833ms",
-      "date": "2026-09-20",
-      "players": [
-        "yuto4653"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.18-26.45",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "mrpvgx4z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/mrpvgx4z",
-      "category": "Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 902.2,
-      "time_display": "15m 2s 200ms",
-      "date": "2026-09-20",
-      "players": [
-        "Kuzeyy"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "26.50+",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "yw7g91pz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yw7g91pz",
-      "category": "Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 969.267,
-      "time_display": "16m 9s 267ms",
-      "date": "2026-09-20",
-      "players": [
-        "FastSTREAM39"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "26.50+",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "yw7g7o9z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yw7g7o9z",
-      "category": "Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 170.759,
-      "time_display": "2m 50s 759ms",
-      "date": "2026-09-20",
-      "players": [
-        "EpicTurtle1707"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "26.50+",
-      "seed_type": "Set Seed"
-    },
-    {
-      "id": "zg0l15vm",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zg0l15vm",
-      "category": "Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 424.233,
-      "time_display": "7m 4s 233ms",
-      "date": "2026-09-18",
-      "players": [
-        "fufumiao"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "26.50+",
       "seed_type": "Set Seed"
     }
   ]

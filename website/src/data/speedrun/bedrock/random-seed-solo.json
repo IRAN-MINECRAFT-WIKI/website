@@ -5,9 +5,25 @@
   "category_name": "Random Seed Solo",
   "category_slug": "random-seed-solo",
   "miscellaneous": false,
-  "fetched_at": "2026-10-14T02:05:24.638420+00:00",
+  "fetched_at": "2026-10-15T01:42:11.128619+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "y44034ky",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y44034ky",
+      "category": "Random Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 65.618,
+      "time_display": "1m 5s 618ms",
+      "date": "2026-10-11",
+      "players": [
+        "LastSound"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.52",
+      "seed_type": null
+    },
     {
       "id": "yogn8r0m",
       "weblink": "https://www.speedrun.com/mcbe/runs/yogn8r0m",
@@ -1590,22 +1606,6 @@
       "seed": null,
       "verified": true,
       "version": "Unsorted",
-      "seed_type": null
-    },
-    {
-      "id": "yl5v4gnz",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yl5v4gnz",
-      "category": "Random Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 9.717,
-      "time_display": "9s 717ms",
-      "date": "2025-10-25",
-      "players": [
-        "Just_Avr"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.17.30",
       "seed_type": null
     }
   ]

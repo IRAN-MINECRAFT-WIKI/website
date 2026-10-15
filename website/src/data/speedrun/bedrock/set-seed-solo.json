@@ -5,9 +5,25 @@
   "category_name": "Set Seed Solo",
   "category_slug": "set-seed-solo",
   "miscellaneous": false,
-  "fetched_at": "2026-10-14T02:05:24.638420+00:00",
+  "fetched_at": "2026-10-15T01:42:11.128619+00:00",
   "count": 100,
   "runs": [
+    {
+      "id": "y9qe4vrz",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y9qe4vrz",
+      "category": "Set Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 46.5,
+      "time_display": "46s 500ms",
+      "date": "2026-10-10",
+      "players": [
+        "advaithraj2804"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.52",
+      "seed_type": null
+    },
     {
       "id": "z54wvvgm",
       "weblink": "https://www.speedrun.com/mcbe/runs/z54wvvgm",
@@ -1590,22 +1606,6 @@
       "seed": null,
       "verified": true,
       "version": "26.13",
-      "seed_type": null
-    },
-    {
-      "id": "zqnd785z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zqnd785z",
-      "category": "Set Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 3.6,
-      "time_display": "3s 600ms",
-      "date": "2026-05-03",
-      "players": [
-        "PaoComAlfacLLE"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.20.41",
       "seed_type": null
     }
   ]
