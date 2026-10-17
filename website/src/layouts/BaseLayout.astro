@@ -155,46 +155,83 @@ const orgLd = organizationJsonLd();
       })();
     </script>
 
-    <!-- MediaAd/Tapsell — loads on ALL devices + re-triggers on page navigation -->
+    <!-- MediaAd/Tapsell — re-triggers on EVERY page navigation -->
     <script is:inline>
       (function () {
+        var MEDIAAD_URL = 'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js';
+        var loaded = false;
+
         function loadMediaAd () {
-          // Remove old MediaAd script if exists (for re-trigger)
+          // Remove old script tag so MediaAd re-scans the DOM
           var old = document.getElementById('mediaad-loader');
           if (old) old.remove();
+
+          // Also clear ad slot contents so MediaAd sees empty slots
+          var slots = document.querySelectorAll('.ad-slot-content');
+          slots.forEach(function (s) {
+            // Only clear if MediaAd hasn't filled yet (don't clear paid ads)
+            if (!s.getAttribute('data-ad-filled')) {
+              s.innerHTML = '';
+            }
+          });
+
           var script = document.createElement('script');
           script.id = 'mediaad-loader';
           script.type = 'text/javascript';
           script.async = true;
-          script.src = 'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js';
+          script.src = MEDIAAD_URL + '?t=' + Date.now(); // cache bust
           document.head.appendChild(script);
+          loaded = true;
         }
-        // Initial load
-        loadMediaAd();
-        // Re-trigger on every Astro view transition (page navigation)
-        document.addEventListener('astro:page-load', loadMediaAd);
+
+        // Initial load (slight delay so page renders first)
+        setTimeout(loadMediaAd, 300);
+
+        // Re-trigger on every Astro view transition
+        document.addEventListener('astro:page-load', function () {
+          setTimeout(loadMediaAd, 500);
+        });
       })();
     </script>
 
-    <!-- Yektanet — second Iranian ad network (more revenue) -->
+    <!-- Yektanet — second Iranian ad network (Najva push + display ads) -->
     <script is:inline>
       (function () {
+        // Yektanet ad slot: "Minecraft-Wiki-Float"
+        // Format: image (bottom of article, sidebar, top of article)
+        // Desktop: 2 rows x 3 cols, Mobile: 3 rows x 2 cols
+        // Title: "منتخب روز" (desktop), "پیشنهاد امروز" (mobile)
+        // Sign up at yektanet.com → add your publisher ID below
+
+        var YEKTA_PUBLISHER_ID = ''; // ← اینجا ID یکتانت خودت رو بذار
+
         function loadYektanet () {
+          if (!YEKTA_PUBLISHER_ID) return; // Skip if not configured
           var old = document.getElementById('yektanet-loader');
           if (old) old.remove();
-          // Yektanet loader — replace YEKTA-PLACEHOLDER with your actual Yektanet ID
-          // Sign up at https://yektanet.com to get your ID
-          // For now, this is a placeholder — uncomment when you have your ID
-          /*
           var script = document.createElement('script');
           script.id = 'yektanet-loader';
           script.async = true;
-          script.src = 'https://cdn.yektanet.com/template/YOUR-YEKTA-ID/loader.js';
+          script.src = 'https://cdn.yektanet.com/template/' + YEKTA_PUBLISHER_ID + '/loader.js';
           document.head.appendChild(script);
-          */
         }
+
         loadYektanet();
         document.addEventListener('astro:page-load', loadYektanet);
+      })();
+    </script>
+
+    <!-- Najva Push Notification (for Tapsell revenue boost + 40% discount) -->
+    <script is:inline>
+      (function () {
+        // Najva push notification service — increases Tapsell revenue by ~25%
+        // Sign up at najva.com → get your project ID → paste below
+        var NAJVA_PROJECT_ID = ''; // ← اینجا ID نجوا خودت رو بذار
+        if (!NAJVA_PROJECT_ID) return;
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://api.najva.com/project/' + NAJVA_PROJECT_ID + '/najva-web.js';
+        document.head.appendChild(script);
       })();
     </script>
 

@@ -18,8 +18,8 @@ const { slotId = 'mediaad-default', format = 'banner', class: cls = '' } = Astro
     removes them from keyboard navigation so screen-reader/keyboard
     users don't accidentally land on external ad links. aria-hidden
     also hides the container from screen readers (ads are decorative). */}
-<div class={`ad-slot ${format} ${cls}`} data-ad-slot={slotId} tabindex="-1" aria-hidden="true" transition:persist={slotId}>
-  <div id={slotId} class="ad-slot-content" data-ad-format={format}>
+<div class={`ad-slot ${format} ${cls}`} data-ad-slot={slotId} tabindex="-1" aria-hidden="true">
+  <div id={slotId} class="ad-slot-content" data-ad-format={format} key={slotId}>
     <!-- Ad network will inject content here -->
   </div>
 </div>

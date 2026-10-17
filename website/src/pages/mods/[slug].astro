@@ -177,7 +177,9 @@ const gallery = mod.gallery || [];
       <!-- Download box -->
       <div class="mc-panel p-5 sticky top-20">
         <h3 class="font-extrabold text-mc-text mb-3">دانلود</h3>
-        <a href={mod.downloadUrl} target="_blank" rel="noopener" class="mc-btn w-full mb-3">دانلود مستقیم</a>
+        <button id="downloadBtn" class="mc-btn w-full mb-3" data-download-url={mod.downloadUrl}>
+          دانلود مستقیم
+        </button>
         <p class="text-xs text-mc-text-3 mb-4">
           حجم: {mod.size} • نسخه: {mod.version}
         </p>
@@ -234,9 +236,79 @@ const gallery = mod.gallery || [];
       هنوز نظری برای این ماد ثبت نشده. اولین نفر باش!
     </div>
   </section>
+
+  <!-- Download interstitial: shows ad before download starts -->
+  <div class="download-interstitial" id="dlInterstitial">
+    <div class="download-interstitial-content">
+      <h3>در حال آماده‌سازی دانلود…</h3>
+      <p class="text-sm text-mc-text-3 mb-3">لطفاً ۵ ثانیه صبر کنید تا دانلود آماده بشه</p>
+      <div class="download-interstitial-ad" id="dlAdSlot">
+        <!-- MediaAd injects ad here -->
+      </div>
+      <p class="download-interstitial-countdown" id="dlCountdown">دانلود در ۵ ثانیه شروع می‌شه…</p>
+      <a href="#" id="dlStartBtn" class="download-interstitial-btn" style="display:none;">
+        دانلود را شروع کن
+      </a>
+    </div>
+  </div>
 </BaseLayout>
 
 <style>
+  /* Download interstitial modal */
+  .download-interstitial {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+  }
+  .download-interstitial.active { display: flex; }
+  .download-interstitial-content {
+    background: var(--panel, #1c1c34);
+    border: 2px solid var(--grass-2, #7cc84a);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+  }
+  .download-interstitial-content h3 {
+    color: var(--grass-2, #7cc84a);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .download-interstitial-ad {
+    min-height: 200px;
+    margin: 1rem 0;
+    border: 1px dashed var(--line, #2e2e4a);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .download-interstitial-countdown {
+    font-size: 0.875rem;
+    color: var(--text-2, #9a9ab8);
+    margin-top: 1rem;
+  }
+  .download-interstitial-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 2rem;
+    background: var(--grass-2, #7cc84a);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .download-interstitial-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
   .mod-desc-text {
     white-space: pre-wrap;
     line-height: 1.85;
@@ -247,6 +319,68 @@ const gallery = mod.gallery || [];
 
 <script is:inline define:vars={{ modId: mod.id }}>
   (function () {
+    // === Download interstitial ===
+    function setupDownloadInterstitial() {
+      var btn = document.getElementById('downloadBtn');
+      if (!btn) return;
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var downloadUrl = btn.getAttribute('data-download-url');
+        var modal = document.getElementById('dlInterstitial');
+        var countdown = document.getElementById('dlCountdown');
+        var startBtn = document.getElementById('dlStartBtn');
+        if (!modal) return;
+
+        // Show modal
+        modal.classList.add('active');
+
+        // Re-trigger MediaAd to fill the ad slot in the modal
+        var old = document.getElementById('mediaad-loader');
+        if (old) old.remove();
+        var script = document.createElement('script');
+        script.id = 'mediaad-loader';
+        script.async = true;
+        script.src = 'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js?t=' + Date.now();
+        document.head.appendChild(script);
+
+        // Countdown timer (5 seconds)
+        var seconds = 5;
+        countdown.textContent = 'دانلود در ' + seconds + ' ثانیه شروع می‌شه…';
+        var timer = setInterval(function () {
+          seconds--;
+          if (seconds > 0) {
+            countdown.textContent = 'دانلود در ' + seconds + ' ثانیه شروع می‌شه…';
+          } else {
+            clearInterval(timer);
+            countdown.style.display = 'none';
+            startBtn.style.display = 'inline-block';
+            startBtn.href = downloadUrl;
+            startBtn.target = '_blank';
+            startBtn.rel = 'noopener';
+            startBtn.textContent = 'دانلود را شروع کن';
+            // Auto-open download after 1 more second
+            setTimeout(function () {
+              window.open(downloadUrl, '_blank', 'noopener');
+              modal.classList.remove('active');
+              countdown.style.display = 'block';
+              startBtn.style.display = 'none';
+            }, 1000);
+          }
+        }, 1000);
+
+        // Allow closing modal by clicking outside
+        modal.addEventListener('click', function (ev) {
+          if (ev.target === modal) {
+            clearInterval(timer);
+            modal.classList.remove('active');
+            countdown.style.display = 'block';
+            startBtn.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // === Comments ===
     function setupComments() {
       const nameInput = document.getElementById('commentName');
       const textInput = document.getElementById('commentText');
@@ -363,11 +497,16 @@ const gallery = mod.gallery || [];
       renderComments();
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupComments);
-    } else {
+    function setupAll () {
+      setupDownloadInterstitial();
       setupComments();
     }
-    document.addEventListener('astro:page-load', setupComments);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupAll);
+    } else {
+      setupAll();
+    }
+    document.addEventListener('astro:page-load', setupAll);
   })();
 </script>
