@@ -155,19 +155,46 @@ const orgLd = organizationJsonLd();
       })();
     </script>
 
-    <!-- Tapsell (deferred, only on fast connections) -->
-    <script is:inline defer>
+    <!-- MediaAd/Tapsell — loads on ALL devices + re-triggers on page navigation -->
+    <script is:inline>
       (function () {
-        var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        var slow = conn && (conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g' || conn.saveData);
-        var mobile = window.matchMedia('(max-width: 900px)').matches;
-        if (slow || mobile) return;
-        var head = document.getElementsByTagName('head')[0];
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.async = true;
-        script.src = 'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js';
-        head.appendChild(script);
+        function loadMediaAd () {
+          // Remove old MediaAd script if exists (for re-trigger)
+          var old = document.getElementById('mediaad-loader');
+          if (old) old.remove();
+          var script = document.createElement('script');
+          script.id = 'mediaad-loader';
+          script.type = 'text/javascript';
+          script.async = true;
+          script.src = 'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js';
+          document.head.appendChild(script);
+        }
+        // Initial load
+        loadMediaAd();
+        // Re-trigger on every Astro view transition (page navigation)
+        document.addEventListener('astro:page-load', loadMediaAd);
+      })();
+    </script>
+
+    <!-- Yektanet — second Iranian ad network (more revenue) -->
+    <script is:inline>
+      (function () {
+        function loadYektanet () {
+          var old = document.getElementById('yektanet-loader');
+          if (old) old.remove();
+          // Yektanet loader — replace YEKTA-PLACEHOLDER with your actual Yektanet ID
+          // Sign up at https://yektanet.com to get your ID
+          // For now, this is a placeholder — uncomment when you have your ID
+          /*
+          var script = document.createElement('script');
+          script.id = 'yektanet-loader';
+          script.async = true;
+          script.src = 'https://cdn.yektanet.com/template/YOUR-YEKTA-ID/loader.js';
+          document.head.appendChild(script);
+          */
+        }
+        loadYektanet();
+        document.addEventListener('astro:page-load', loadYektanet);
       })();
     </script>
 
