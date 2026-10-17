@@ -188,11 +188,11 @@ const orgLd = organizationJsonLd();
     <script is:inline>
       (function () {
         function loadYektanet () {
-          var old = document.getElementById('yektanet-script');
-          if (old) old.remove();
-          var oldLink = document.getElementById('yektanet-preload');
-          if (oldLink) oldLink.remove();
-
+          // Don't reload if already loaded (prevents "already loaded" warning)
+          if (window.yektanet && window.yektanet.q) {
+            // Already loaded — Yektanet auto-scans for new yn-bnr elements
+            return;
+          }
           var a = document.getElementsByTagName('head')[0];
           var r = new Date();
           var c = 'https://cdn.yektanet.com/superscript-v2/BOJqH06m/native-48902/yn_pub.js?v='
@@ -213,8 +213,14 @@ const orgLd = organizationJsonLd();
         }
 
         loadYektanet();
+        // On navigation: Yektanet auto-scans, just give it a moment
         document.addEventListener('astro:page-load', function () {
-          setTimeout(loadYektanet, 400);
+          setTimeout(function () {
+            // Trigger yektanet to re-scan by dispatching a DOM event
+            if (window.yektanet) {
+              try { window.yektanet('refresh'); } catch(e) {}
+            }
+          }, 500);
         });
       })();
     </script>
