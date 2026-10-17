@@ -155,83 +155,67 @@ const orgLd = organizationJsonLd();
       })();
     </script>
 
-    <!-- MediaAd/Tapsell — re-triggers on EVERY page navigation -->
+    <!-- Tapsell/MediaAd — re-triggers on EVERY page navigation -->
     <script is:inline>
       (function () {
         var MEDIAAD_URL = 'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js';
-        var loaded = false;
 
         function loadMediaAd () {
-          // Remove old script tag so MediaAd re-scans the DOM
           var old = document.getElementById('mediaad-loader');
           if (old) old.remove();
-
-          // Also clear ad slot contents so MediaAd sees empty slots
           var slots = document.querySelectorAll('.ad-slot-content');
           slots.forEach(function (s) {
-            // Only clear if MediaAd hasn't filled yet (don't clear paid ads)
             if (!s.getAttribute('data-ad-filled')) {
               s.innerHTML = '';
             }
           });
-
           var script = document.createElement('script');
           script.id = 'mediaad-loader';
           script.type = 'text/javascript';
           script.async = true;
-          script.src = MEDIAAD_URL + '?t=' + Date.now(); // cache bust
+          script.src = MEDIAAD_URL + '?t=' + Date.now();
           document.head.appendChild(script);
-          loaded = true;
         }
 
-        // Initial load (slight delay so page renders first)
         setTimeout(loadMediaAd, 300);
-
-        // Re-trigger on every Astro view transition
         document.addEventListener('astro:page-load', function () {
           setTimeout(loadMediaAd, 500);
         });
       })();
     </script>
 
-    <!-- Yektanet — second Iranian ad network (Najva push + display ads) -->
+    <!-- Yektanet — REAL script (ID: BOJqH06m, native-48902) -->
     <script is:inline>
       (function () {
-        // Yektanet ad slot: "Minecraft-Wiki-Float"
-        // Format: image (bottom of article, sidebar, top of article)
-        // Desktop: 2 rows x 3 cols, Mobile: 3 rows x 2 cols
-        // Title: "منتخب روز" (desktop), "پیشنهاد امروز" (mobile)
-        // Sign up at yektanet.com → add your publisher ID below
-
-        var YEKTA_PUBLISHER_ID = ''; // ← اینجا ID یکتانت خودت رو بذار
-
         function loadYektanet () {
-          if (!YEKTA_PUBLISHER_ID) return; // Skip if not configured
-          var old = document.getElementById('yektanet-loader');
+          var old = document.getElementById('yektanet-script');
           if (old) old.remove();
-          var script = document.createElement('script');
-          script.id = 'yektanet-loader';
-          script.async = true;
-          script.src = 'https://cdn.yektanet.com/template/' + YEKTA_PUBLISHER_ID + '/loader.js';
-          document.head.appendChild(script);
+          var oldLink = document.getElementById('yektanet-preload');
+          if (oldLink) oldLink.remove();
+
+          var a = document.getElementsByTagName('head')[0];
+          var r = new Date();
+          var c = 'https://cdn.yektanet.com/superscript-v2/BOJqH06m/native-48902/yn_pub.js?v='
+            + r.getFullYear().toString() + '0' + r.getMonth() + '0' + r.getDate() + '0' + r.getHours();
+
+          var s = document.createElement('link');
+          s.id = 'yektanet-preload';
+          s.rel = 'preload';
+          s.as = 'script';
+          s.href = c;
+          a.appendChild(s);
+
+          var l = document.createElement('script');
+          l.id = 'yektanet-script';
+          l.async = true;
+          l.src = c;
+          a.appendChild(l);
         }
 
         loadYektanet();
-        document.addEventListener('astro:page-load', loadYektanet);
-      })();
-    </script>
-
-    <!-- Najva Push Notification (for Tapsell revenue boost + 40% discount) -->
-    <script is:inline>
-      (function () {
-        // Najva push notification service — increases Tapsell revenue by ~25%
-        // Sign up at najva.com → get your project ID → paste below
-        var NAJVA_PROJECT_ID = ''; // ← اینجا ID نجوا خودت رو بذار
-        if (!NAJVA_PROJECT_ID) return;
-        var script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://api.najva.com/project/' + NAJVA_PROJECT_ID + '/najva-web.js';
-        document.head.appendChild(script);
+        document.addEventListener('astro:page-load', function () {
+          setTimeout(loadYektanet, 400);
+        });
       })();
     </script>
 

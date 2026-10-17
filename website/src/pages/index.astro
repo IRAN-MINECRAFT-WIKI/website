@@ -94,9 +94,14 @@ const heroStats = [
 
   <div class="pixel-divider mb-8"></div>
 
-  <!-- ============ AD BANNER (TOP) ============ -->
+  <!-- ============ AD BANNER (TOP) — Tapsell ============ -->
   <div class="my-6">
     <AdSlot slotId="mediaad-JRBY2" format="banner" />
+  </div>
+
+  <!-- ============ AD BANNER (TOP) — Yektanet ============ -->
+  <div class="my-6">
+    <div class="yn-bnr" id="ynpos-21105"></div>
   </div>
 
   <!-- ============ FEATURED MODS ============ -->
@@ -205,9 +210,14 @@ const heroStats = [
     </div>
   </section>
 
-  <!-- ============ AD BANNER (MIDDLE) ============ -->
+  <!-- ============ AD BANNER (MIDDLE) — Tapsell ============ -->
   <div class="my-8">
     <AdSlot slotId="mediaad-nwmnG" format="native" />
+  </div>
+
+  <!-- ============ AD BANNER (MIDDLE) — Yektanet ============ -->
+  <div class="my-8">
+    <div id="pos-article-display-123588"></div>
   </div>
 
   <!-- ============ WHY US ============ -->
@@ -256,6 +266,12 @@ const heroStats = [
     </div>
     <MiniGame duration={60} />
   </section>
+
+  <!-- ============ AD BANNER (BOTTOM) — Tapsell + Yektanet ============ -->
+  <div class="my-8 space-y-4">
+    <AdSlot slotId="mediaad-homebottom" format="banner" />
+    <div class="yn-bnr" id="ynpos-21105"></div>
+  </div>
 </BaseLayout>
 
 <style>
