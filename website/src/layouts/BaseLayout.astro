@@ -155,31 +155,49 @@ const orgLd = organizationJsonLd();
       })();
     </script>
 
-    <!-- Tapsell/MediaAd — re-triggers on EVERY page navigation -->
+    <!-- Tapsell/MediaAd — load once, re-trigger on navigation (NO cache-bust = fast) -->
     <script is:inline>
       (function () {
         var MEDIAAD_URL = 'https://s1.mediaad.org/serve/iran-minecraft-wiki.github.io/loader.js';
+        var loaded = false;
 
         function loadMediaAd () {
-          var old = document.getElementById('mediaad-loader');
-          if (old) old.remove();
-          var slots = document.querySelectorAll('.ad-slot-content');
-          slots.forEach(function (s) {
-            if (!s.getAttribute('data-ad-filled')) {
-              s.innerHTML = '';
+          // If already loaded, don't re-download — just re-execute
+          if (loaded) {
+            // Try to call MediaAd's internal refresh if available
+            if (window.mediaad && typeof window.mediaad === 'function') {
+              try { window.mediaad('refresh'); } catch (e) {}
             }
-          });
+            // Also try re-scanning by re-executing the cached script
+            var scripts = document.querySelectorAll('script[src="' + MEDIAAD_URL + '"]');
+            if (scripts.length > 0) {
+              // Re-create the script element (browser uses cached version)
+              var old = document.getElementById('mediaad-loader');
+              if (old) old.remove();
+              var script = document.createElement('script');
+              script.id = 'mediaad-loader';
+              script.async = true;
+              script.src = MEDIAAD_URL; // NO cache-bust = uses cached = fast
+              document.head.appendChild(script);
+            }
+            return;
+          }
+
+          // First load
           var script = document.createElement('script');
           script.id = 'mediaad-loader';
           script.type = 'text/javascript';
           script.async = true;
-          script.src = MEDIAAD_URL + '?t=' + Date.now();
+          script.src = MEDIAAD_URL; // NO cache-bust
           document.head.appendChild(script);
+          loaded = true;
         }
 
-        setTimeout(loadMediaAd, 300);
+        // Initial load
+        setTimeout(loadMediaAd, 200);
+        // Re-trigger on every navigation (fast — uses cached script)
         document.addEventListener('astro:page-load', function () {
-          setTimeout(loadMediaAd, 500);
+          setTimeout(loadMediaAd, 300);
         });
       })();
     </script>
