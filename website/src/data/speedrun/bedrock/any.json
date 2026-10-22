@@ -5,7 +5,7 @@
   "category_name": "Any%",
   "category_slug": "any",
   "miscellaneous": false,
-  "fetched_at": "2026-10-21T01:52:06.843416+00:00",
+  "fetched_at": "2026-10-22T01:42:41.943462+00:00",
   "count": 100,
   "runs": [
     {
@@ -141,8 +141,8 @@
       "weblink": "https://www.speedrun.com/mcbe/runs/z04jlkey",
       "category": "Any%",
       "platform": "Bedrock",
-      "time_primary": 128.733,
-      "time_display": "2m 8s 733ms",
+      "time_primary": 128.0,
+      "time_display": "2m 8s",
       "date": "2026-09-05",
       "players": [
         "Tenma_xD"
