@@ -38,6 +38,8 @@ export type SeoMeta = {
   modifiedTime?: string;
   tags?: string[];
   noindex?: boolean;
+  keywords?: string[];
+  seoText?: string;
 };
 
 /** Build standard <meta> + OpenGraph + Twitter card strings */

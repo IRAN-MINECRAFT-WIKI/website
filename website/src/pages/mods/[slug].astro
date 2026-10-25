@@ -32,6 +32,9 @@ const breadcrumb = [
 const ldMod = modJsonLd({
   name: mod.name,
   nameFa: mod.nameFa,
+  persianName: mod.persianName || mod.name,
+  seoKeywords: mod.seoKeywords || [],
+  seoDescription: mod.seoDescription || mod.tagline,
   tagline: mod.tagline,
   desc: mod.desc,
   downloadUrl: mod.downloadUrl,
@@ -57,10 +60,12 @@ const gallery = mod.gallery || [];
 
 <BaseLayout
   path={`/mods/${mod.id}`}
-  title={`${mod.nameFa || mod.name} — دانلود افزونه ماینکرفت بدراک ${mod.version}`}
-  description={mod.tagline || mod.desc.slice(0, 160)}
-  image={mod.cover}
+  title={mod.seoDescription ? `${mod.nameFa} — ${mod.persianName || mod.name} | ماین بد (MineBed)` : `${mod.nameFa} — دانلود ماینکرفت بدراک`}
+  description={mod.seoDescription || mod.tagline || mod.desc.slice(0, 160)}
+  keywords={mod.seoKeywords}
+  seoText={`جستجوهای مرتبط: ${mod.name}، ${mod.persianName || mod.name}، دانلود ${mod.name}، ${mod.name} مود ماینکرفت، ${mod.persianName || ''} ماینکرفت بدراک، مود ماینکرفت بدراک، ماین بد (MineBed)`}
   type="article"
+  image={mod.cover}
 >
   <Breadcrumbs items={breadcrumb} />
   <BackButton />

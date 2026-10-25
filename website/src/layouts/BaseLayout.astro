@@ -42,6 +42,9 @@ const orgLd = organizationJsonLd();
     <meta name="color-scheme" content="dark" />
     <title>{headMeta.title}</title>
     <meta name="description" content={headMeta.description} />
+    {meta.keywords && meta.keywords.length > 0 && (
+      <meta name="keywords" content={meta.keywords.join(', ')} />
+    )}
     <meta name="robots" content={headMeta.robots} />
     <meta name="author" content={siteConfig.author} />
     <meta name="generator" content="Astro" />
@@ -263,6 +266,14 @@ const orgLd = organizationJsonLd();
     <main id="main-content" class="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <slot />
     </main>
+
+    <!-- Hidden SEO text — visible to Google, invisible to users. 
+         Contains alternative Persian/English search terms for each page. -->
+    {meta.seoText && (
+      <div class="sr-only" aria-hidden="false">
+        {meta.seoText}
+      </div>
+    )}
     <Footer />
 
     <!-- Floating UI: music player + back-to-top + stats widget -->
