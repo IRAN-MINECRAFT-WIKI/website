@@ -1,0 +1,14 @@
+name: Google Indexing
+on:
+  schedule:
+    - cron: '0 0 * * *'   # هر روز نیمه‌شب اجرا می‌شود
+  workflow_dispatch:       # امکان اجرای دستی
+
+jobs:
+  google-indexing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: robingenz/google-indexing-action@main
+        with:
+          siteUrl: 'iran-minecraft-wiki.github.io/website/'
+          gcpServiceAccountKey: ${{ secrets.GCP_SA_KEY }}
