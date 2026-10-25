@@ -46,6 +46,14 @@ export type Mod = {
   isNew?: boolean;
   author?: string;
   updated?: string;
+  // Extra fields present in mods.json but not strictly required by all
+  // pages. Used by the mods index page search (ModCard.astro) so that
+  // searching by Persian name, SEO keywords, etc. all work.
+  persianName?: string;
+  seoKeywords?: string[] | string;
+  seoDescription?: string;
+  coverAlt?: string;
+  download?: string;
 };
 
 export type Seed = {
@@ -449,13 +457,25 @@ export function searchMods(query: string): Mod[] {
   const q = query.trim().toLowerCase();
   if (!q) return mods;
   return mods.filter((m) => {
+    // Search ALL text fields — name, nameFa, persianName, tagline,
+    // keywords, catName, author, desc, seoKeywords. This matches the
+    // behavior of the client-side mods index page filter (see
+    // ModCard.astro data-search + mods/index.astro setupModsSearch).
+    const seoKeywordsStr = Array.isArray(m.seoKeywords)
+      ? m.seoKeywords.join(' ')
+      : (m.seoKeywords || '');
     const haystack = [
       m.name,
       m.nameFa,
+      m.persianName || '',
       m.tagline,
       m.keywords || '',
       m.catName || '',
       m.author || '',
+      m.desc || '',
+      m.version || '',
+      m.size || '',
+      seoKeywordsStr,
     ]
       .join(' ')
       .toLowerCase();

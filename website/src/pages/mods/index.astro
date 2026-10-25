@@ -132,6 +132,12 @@ const ldItemList = itemListJsonLd(
       function getCards() {
         return Array.from(grid.children).map(function (card) {
           var cat = card.getAttribute("data-cat") || "";
+          // data-search holds a normalized lowercase blob of ALL searchable
+          // fields (name, nameFa, persianName, keywords, tagline, desc,
+          // seoKeywords, catName, size, version, author) built in
+          // ModCard.astro. We ALSO keep reading data-keywords for backwards
+          // compatibility (older cached cards) and fold it in.
+          var searchBlob = (card.getAttribute("data-search") || "").toLowerCase();
           var keywords = (card.getAttribute("data-keywords") || "").toLowerCase();
           var titleEl = card.querySelector(".mod-title-link") || card.querySelector("a");
           var taglineEl = card.querySelector(".mod-tagline");
@@ -141,10 +147,11 @@ const ldItemList = itemListJsonLd(
           var tagline = taglineEl ? taglineEl.textContent.trim().toLowerCase() : "";
           var size = sizeEl ? sizeEl.textContent.trim().toLowerCase() : "";
           var version = versionEl ? versionEl.textContent.trim().toLowerCase() : "";
+          var haystack = searchBlob + " " + name + " " + tagline + " " + keywords + " " + size + " " + version + " " + cat;
           return {
             el: card,
             name: name,
-            haystack: name + " " + tagline + " " + keywords + " " + size + " " + version + " " + cat,
+            haystack: haystack,
             cat: cat,
             isNew: !!card.querySelector(".mod-badge.new"),
             isFeatured: !!card.querySelector(".mod-badge.featured")

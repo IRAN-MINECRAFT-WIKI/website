@@ -47,9 +47,30 @@ const textureMap: Record<string, string> = {
   utility: 'iron-ingot',
 };
 const textureName = textureMap[mod.category] || 'stick';
+
+// Build a single normalized lowercase search-haystack blob of ALL searchable
+// fields so the mods index page filter can match on name + nameFa +
+// persianName + keywords + tagline + desc + seoKeywords + category name
+// + size + version + author. We do NOT render desc/seoKeywords visibly,
+// but they must be searchable (fixes "simple-arsenal" not being found by
+// its persianName/keywords/desc).
+const searchHaystackParts: string[] = [
+  mod.name,
+  mod.nameFa,
+  mod.persianName,
+  mod.keywords,
+  mod.tagline,
+  mod.desc,
+  mod.catName,
+  mod.size,
+  mod.version,
+  mod.author,
+  Array.isArray(mod.seoKeywords) ? mod.seoKeywords.join(' ') : (mod.seoKeywords as string | undefined)
+].filter((s): s is string => Boolean(s && typeof s === 'string'));
+const searchHaystack = searchHaystackParts.join(' ').toLowerCase();
 ---
 
-<article class="mc-card group mod-card mc-block-panel" data-keywords={mod.keywords || ''} data-cat={mod.category}>
+<article class="mc-card group mod-card mc-block-panel" data-keywords={mod.keywords || ''} data-cat={mod.category} data-search={searchHaystack}>
   <!-- Cover -->
   <a href={base(`/mods/${mod.id}`)} class="block mod-cover">
     <img

@@ -122,20 +122,10 @@ const ldArticle = articleJsonLd({
         <span class="text-mc-text-3 mt-0.5 inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-hashtag"/></svg> نسخه‌ی عددی:</span>
         <span class="text-mc-text-2" dir="ltr">{version.version}</span>
       </div>
-      {version.wikiLink && (
-        <div class="sm:col-span-2 flex items-start gap-2 mt-2 pt-3 border-t border-mc-line">
-          <span class="text-mc-text-3 mt-0.5 inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-book-open"/></svg> ویکی:</span>
-          <a
-            href={version.wikiLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-mc-grass-2 hover:underline break-all"
-            dir="ltr"
-          >
-            {version.wikiLink} ↗
-          </a>
-        </div>
-      )}
+      <!-- (The minecraft.wiki external link that used to be here was
+           removed to keep users on the site. The wikiLink field remains
+           in versions.json for future reference, but no external link
+           is rendered on this page.) -->
     </div>
   </section>
 

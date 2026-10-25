@@ -1764,12 +1764,14 @@
     },
     {
       "id": "crossbow",
-      "nameFa": "کمان-coltوی",
+      "nameFa": "کراس‌بو",
       "nameEn": "Crossbow",
       "aliases": [
-        "کمان coltوی",
+        "کراس‌بو",
+        "کراس بو",
+        "کمان زنبورکی",
         "crossbow",
-        "کراس‌بو"
+        "کمان coltوی"
       ],
       "category": "combat",
       "grid": [
@@ -5928,11 +5930,13 @@
     },
     {
       "id": "end-stone-bricks",
-      "nameFa": "آجر end stone",
+      "nameFa": "آجر اند استون",
       "nameEn": "End Stone Bricks",
       "aliases": [
+        "آجر اند استون",
         "آجر end stone",
-        "end stone bricks"
+        "end stone bricks",
+        "آجرهای استون اند"
       ],
       "category": "building",
       "grid": [
@@ -9341,11 +9345,13 @@
     },
     {
       "id": "blaze-powder",
-      "nameFa": "پودر blaze",
+      "nameFa": "پودر بلیز",
       "nameEn": "Blaze Powder",
       "aliases": [
+        "پودر بلیز",
         "پودر blaze",
-        "blaze powder"
+        "blaze powder",
+        "پودر شعله"
       ],
       "category": "brewing",
       "grid": [
@@ -9588,11 +9594,13 @@
     },
     {
       "id": "nether-wart-block",
-      "nameFa": "بلوک wart ندر",
+      "nameFa": "بلوک وارت ندر",
       "nameEn": "Nether Wart Block",
       "aliases": [
+        "بلوک وارت ندر",
         "بلوک wart ندر",
-        "nether wart block"
+        "nether wart block",
+        "بلوک زگیل ندر"
       ],
       "category": "brewing",
       "grid": [
@@ -9695,11 +9703,13 @@
     },
     {
       "id": "ender-chest",
-      "nameFa": "صندوق ender",
+      "nameFa": "صندوق اندر",
       "nameEn": "Ender Chest",
       "aliases": [
+        "صندوق اندر",
         "صندوق ender",
-        "ender chest"
+        "ender chest",
+        "اندر چست"
       ],
       "category": "misc",
       "grid": [
@@ -10235,11 +10245,13 @@
     },
     {
       "id": "end-crystal",
-      "nameFa": "کریستال end",
+      "nameFa": "کریستال اند",
       "nameEn": "End Crystal",
       "aliases": [
+        "کریستال اند",
         "کریستال end",
-        "end crystal"
+        "end crystal",
+        "کریستال پایان"
       ],
       "category": "misc",
       "grid": [

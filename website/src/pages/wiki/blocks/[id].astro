@@ -145,8 +145,9 @@ const relatedLinks = (block.related || []).map((r) => {
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
-    <!-- MAIN CONTENT -->
-    <div class="space-y-6 min-w-0">
+    <!-- MAIN CONTENT — id="main-content" is the scroll target for the
+         "محتوای کامل" button (replaces the old minecraft.wiki link). -->
+    <div id="main-content" class="space-y-6 min-w-0 scroll-mt-24">
       <!-- Intro (معرفی) -->
       {block.intro && block.intro.length > 0 && (
         <section class="mc-panel p-5">
@@ -304,18 +305,17 @@ const relatedLinks = (block.related || []).map((r) => {
         </section>
       )}
 
-      <!-- Wiki link button -->
-      {block.wikiLink && (
-        <a
-          href={block.wikiLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-3 text-sm font-bold text-mc-grass-2 hover:text-mc-grass-2"
-        >
-          <span>مشاهده در Minecraft Wiki</span>
-          <span class="text-xs text-mc-text-3" dir="ltr">↗</span>
-        </a>
-      )}
+      <!-- "محتوای کامل" button — scrolls down to content sections.
+           We no longer link out to minecraft.wiki; the wikiLink field
+           is kept in the data file for future reference but not shown
+           as an external link/button. -->
+      <a
+        href="#main-content"
+        class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-3 text-sm font-bold text-mc-grass-2 hover:text-mc-grass-2"
+      >
+        <span>محتوای کامل</span>
+        <span class="text-xs text-mc-text-3" dir="ltr">↓</span>
+      </a>
 
       <!-- Back to blocks -->
       <a
@@ -390,17 +390,15 @@ const relatedLinks = (block.related || []).map((r) => {
         </div>
       </section>
 
-      <!-- Wiki reference button (sidebar) -->
-      {block.wikiLink && (
-        <a
-          href={block.wikiLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="block text-center mc-panel hoverable p-3 text-xs font-bold text-mc-grass-2 hover:text-mc-grass-2"
-        >
-          Minecraft Wiki ↗
-        </a>
-      )}
+      <!-- Sidebar "محتوای کامل" button — scrolls to content sections.
+           We no longer link out to minecraft.wiki; wikiLink field is
+           kept in the data file for future reference only. -->
+      <a
+        href="#main-content"
+        class="block text-center mc-panel hoverable p-3 text-xs font-bold text-mc-grass-2 hover:text-mc-grass-2"
+      >
+        محتوای کامل ↓
+      </a>
     </aside>
   </div>
 </BaseLayout>

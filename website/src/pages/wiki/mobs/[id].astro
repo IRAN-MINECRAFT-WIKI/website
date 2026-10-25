@@ -166,18 +166,18 @@ function faNum(n: number | string | undefined): string {
           </table>
         </div>
 
-        <!-- Wiki link -->
-        {mob.wikiLink && (
-          <a href={mob.wikiLink} target="_blank" rel="noopener" class="infobox-wiki-link">
-            Minecraft Wiki ↗
-          </a>
-        )}
+        <!-- Infobox "محتوای کامل" button — scrolls down to content sections.
+             We no longer link out to minecraft.wiki; wikiLink field is kept
+             in the data file for future reference only. -->
+        <a href="#main-content" class="infobox-wiki-link">
+          محتوای کامل ↓
+        </a>
       </aside>
 
       <!-- ═══════════════════════════════════════════════════════════════
            CONTENT (main column)
            ═══════════════════════════════════════════════════════════════ -->
-      <div class="mob-content">
+      <div class="mob-content" id="main-content">
         <!-- Intro (3-5 paragraphs) -->
         {mob.intro && mob.intro.length > 0 && (
           <section class="mob-section">
@@ -310,14 +310,9 @@ function faNum(n: number | string | undefined): string {
           </section>
         )}
 
-        <!-- Wiki source link -->
-        {mob.wikiLink && (
-          <section class="mob-section">
-            <a href={mob.wikiLink} target="_blank" rel="noopener" class="mc-btn ghost small">
-              مطالعه‌ی بیشتر در Minecraft Wiki ↗
-            </a>
-          </section>
-        )}
+        <!-- (The minecraft.wiki external link section that used to be here
+             was removed to keep users on our site. The "محتوای کامل"
+             button in the infobox sidebar above scrolls to this content.) -->
       </div>
     </div>
   </div>
