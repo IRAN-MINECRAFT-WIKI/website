@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22' # آپدیت به نسخه 22 برای رفع هشدار
 
       - name: Install Dependencies
         run: npm install googleapis xml2js axios
@@ -29,7 +29,24 @@ jobs:
           const axios = require('axios');
           const xml2js = require('xml2js');
 
-          const key = JSON.parse(process.env.GCP_SA_KEY);
+          if (!process.env.GCP_SA_KEY) {
+            console.error("❌ خطا: متغیر GCP_SA_KEY خالی است. لطفا سکرت را در گیت‌هاب چک کنید.");
+            process.exit(1);
+          }
+
+          let key;
+          try {
+            key = JSON.parse(process.env.GCP_SA_KEY);
+          } catch (e) {
+            console.error("❌ خطا: محتوای GCP_SA_KEY یک JSON معتبر نیست. لطفا کل فایل را کپی کنید.");
+            process.exit(1);
+          }
+
+          if (!key.client_email || !key.private_key) {
+            console.error("❌ خطا: فیلدهای client_email یا private_key در JSON وجود ندارند.");
+            process.exit(1);
+          }
+
           const jwtClient = new google.auth.JWT(
             key.client_email,
             null,
@@ -38,18 +55,15 @@ jobs:
             null
           );
 
-          // پراپرتی دقیق شما در سرچ کنسول
           const siteUrl = 'https://iran-minecraft-wiki.github.io/website/';
 
           async function getUrls() {
             const urls = [];
             console.log(`Fetching sitemap from: ${siteUrl}sitemap-index.xml`);
-            // خواندن فایل sitemap-index
             const indexRes = await axios.get(`${siteUrl}sitemap-index.xml`);
             const indexParsed = await xml2js.parseStringPromise(indexRes.data);
             const sitemaps = indexParsed.sitemapindex.sitemap.map(s => s.loc[0]);
 
-            // خواندن فایل‌های sitemap داخلی
             for (const sitemap of sitemaps) {
               console.log(`Fetching inner sitemap: ${sitemap}`);
               const res = await axios.get(sitemap);
