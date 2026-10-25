@@ -13,7 +13,7 @@
     "java": "1.2+",
     "bedrock": "1.2.0+"
   },
-  "description": "گربه ماب صلح‌جوی بازی است که در Village و Witch Hut پیدا می‌شه و با Fish اهلی می‌شه. از Creeper فرار می‌کنه!",
+  "description": "گربه ماب صلح‌جوی بازی است که در Village و Witch Hut پیدا می‌شه و با Fish اهلی می‌شه. از Creeper فرار می‌کنه! در ماینکرفت.",
   "drops": [
     {
       "item": "string",

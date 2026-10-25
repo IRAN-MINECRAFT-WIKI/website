@@ -15,7 +15,7 @@
     "java": "1.17+ (Java-only)",
     "bedrock": "—"
   },
-  "description": "ایلیوژنر ماب متخاصم Java-only است که با /summon احضار می‌شه. با Illusion (نسخه‌های کاذب) و کمان حمله می‌کنه.",
+  "description": "ایلیوژنر ماب متخاصم Java-only است که با /summon احضار می‌شه. با Illusion (نسخه‌های کاذب) و کمان حمله می‌کنه. در ماینکرفت.",
   "drops": [
     {
       "item": "nothing",

@@ -13,7 +13,7 @@
     "java": "1.16+",
     "bedrock": "1.16.0+"
   },
-  "description": "خرده‌سنگ باستانی کمیاب‌ترین سنگ نادر هست و در عمق نادر پیدا می‌شه. برای ساخت Netherite Scrap و Netherite Ingot استفاده می‌شه.",
+  "description": "خرده‌سنگ باستانی کمیاب‌ترین سنگ نادر هست و در عمق نادر پیدا می‌شه. برای ساخت Netherite Scrap و Netherite Ingot استفاده می‌شه. در ماینکرفت.",
   "uses": [
     "ساخت Netherite Scrap",
     "ساخت Netherite Ingot",

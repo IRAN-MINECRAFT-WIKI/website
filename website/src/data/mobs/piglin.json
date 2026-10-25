@@ -14,7 +14,7 @@
     "java": "1.16+",
     "bedrock": "1.16.0+"
   },
-  "description": "پیگلین ماب خنثی ۱.۱۶ است که در Nether Wastes پیدا می‌شه. اگه Gold Armor نداشته باشی حمله می‌کنه و با Gold Ingot قابل باره.",
+  "description": "پیگلین ماب خنثی ۱.۱۶ است که در Nether Wastes پیدا می‌شه. اگه Gold Armor نداشته باشی حمله می‌کنه و با Gold Ingot قابل باره. در ماینکرفت.",
   "drops": [
     {
       "item": "gold_ingot",

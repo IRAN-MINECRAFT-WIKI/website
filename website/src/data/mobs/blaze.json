@@ -14,7 +14,7 @@
     "java": "Beta 1.9+",
     "bedrock": "0.1+"
   },
-  "description": "بلیز در Nether Fortress پیدا می‌شه و با شلیک Fireball حمله می‌کنه. Blaze Rod می‌ده که برای ساخت Brewing Stand لازم هست.",
+  "description": "بلیز در Nether Fortress پیدا می‌شه و با شلیک Fireball حمله می‌کنه. Blaze Rod می‌ده که برای ساخت Brewing Stand لازم هست. در ماینکرفت.",
   "drops": [
     {
       "item": "blaze_rod",

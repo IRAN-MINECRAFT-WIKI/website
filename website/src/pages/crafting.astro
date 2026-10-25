@@ -35,7 +35,7 @@ const recipes = recipesJson.recipes;
 const itemIcons: Record<string, string> = (recipesJson as any).itemIcons || {};
 
 // Scan the /public/textures/ folders at build time so we know which items
-// have a real image asset. Used to decide whether to render <img> or emoji
+// have a real image asset. Used to decide whether to render <img alt="ماینکرفت بدراک | ماین بد (MineBed)"> or emoji
 // fallback. Order of preference (highest first):
 //   1. ccvaults.com CDN URL      (no GitHub Pages bandwidth cost)
 //   2. /textures/items-render/{name}.webp  (3D item render — dev fallback)
@@ -67,7 +67,7 @@ const blocksRenderWebps = listWebp(blocksRenderDir);
 
 function pngExists(name: string | null | undefined): boolean {
   if (!name) return false;
-  // CDN match counts as "has an image" so the client renders an <img>
+  // CDN match counts as "has an image" so the client renders an <img alt="ماینکرفت بدراک | ماین بد (MineBed)">
   // (whose src will be the ccvaults.com URL — no GitHub Pages hit).
   if (itemImgUrl(name) || blockImgUrl(name)) return true;
   return (
@@ -128,7 +128,7 @@ const recipesData = JSON.stringify(
 const itemIconsJson = JSON.stringify(itemIcons);
 
 // Build a list of all item names that HAVE any image asset (3D render OR
-// flat PNG). Used by the client to skip <img> loads for items that would 404.
+// flat PNG). Used by the client to skip <img alt="ماینکرفت بدراک | ماین بد (MineBed)"> loads for items that would 404.
 // (Task SA-ITEMS: extended to also cover items-render/ and blocks-render/.)
 const pngItemsList: string[] = [];
 for (const r of recipes) {
@@ -216,13 +216,13 @@ function texPath(name?: string | null): string | null {
   return `${BASE}textures/${folder}/${name}.png`;
 }
 
-// Render either an <img> (when an image asset exists — 3D render preferred
+// Render either an <img alt="ماینکرفت بدراک | ماین بد (MineBed)"> (when an image asset exists — 3D render preferred
 // over flat PNG) or a <span class="emoji-icon"> fallback (using r.icon or
 // itemIcons[name]) — used in chip strip + recipe list.
 function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls = ''): string {
   if (pngExists(name)) {
     const src = texPath(name) || '';
-    return `<img src="${src}" alt="" width="16" height="16" class="pixel-img ${cls}" loading="lazy" decoding="async" onerror="this.style.display='none'; const e=this.parentElement?.getAttribute('data-emoji'); if(e){this.parentElement.textContent=e;}" />`;
+    return `<img src="${src}" alt="ماینکرفت بدراک | ماین بد (MineBed)" width="16" height="16" class="pixel-img ${cls}" loading="lazy" decoding="async" onerror="this.style.display='none'; const e=this.parentElement?.getAttribute('data-emoji'); if(e){this.parentElement.textContent=e;}" />`;
   }
   const emoji = fallbackEmoji || (name ? (itemIcons[name] || '📦') : '📦');
   return `<span class="emoji-icon ${cls}" aria-hidden="true">${emoji}</span>`;
@@ -241,7 +241,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     <div class="craft-header-icon">
       <img
         src={`${BASE}textures/blocks/crafting-table-top.png`}
-        alt=""
+        alt="ماینکرفت بدراک | ماین بد (MineBed)"
         width="48"
         height="48"
         class="pixel-img"
@@ -961,7 +961,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
     // ── Render a single grid-slot or result-slot item ────────
     // If the item has any image asset (3D render preferred, else flat PNG),
-    // render an <img> (with onerror → emoji swap). Otherwise, render the
+    // render an <img alt="ماینکرفت بدراک | ماین بد (MineBed)"> (with onerror → emoji swap). Otherwise, render the
     // emoji directly as text — no failed HTTP req.
     function renderItemIcon(parentEl, itemName, fallbackEmoji, large) {
       parentEl.innerHTML = '';

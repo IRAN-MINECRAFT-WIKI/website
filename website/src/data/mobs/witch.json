@@ -14,7 +14,7 @@
     "java": "1.4+",
     "bedrock": "0.14.0+"
   },
-  "description": "ویچ با Splash Potion حمله می‌کنه و خودش با شفایافت potion، شفا می‌ده. در Swamp Hut پیدا می‌شه.",
+  "description": "ویچ با Splash Potion حمله می‌کنه و خودش با شفایافت potion، شفا می‌ده. در Swamp Hut پیدا می‌شه. در ماینکرفت.",
   "drops": [
     {
       "item": "sugar",

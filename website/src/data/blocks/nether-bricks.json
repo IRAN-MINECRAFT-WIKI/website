@@ -13,7 +13,7 @@
     "java": "Beta 1.9+",
     "bedrock": "0.1+"
   },
-  "description": "آجر نادر در Nether Fortress پیدا می‌شه و ظاهر قرمز تیره داره.",
+  "description": "آجر نادر در Nether Fortress پیدا می‌شه و ظاهر قرمز تیره داره. در ماینکرفت.",
   "uses": [
     "ساخت Nether Fortress",
     "دکوراسیون تیره"

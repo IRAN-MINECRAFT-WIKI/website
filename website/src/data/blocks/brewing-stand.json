@@ -13,7 +13,7 @@
     "java": "Beta 1.9+",
     "bedrock": "0.1+"
   },
-  "description": "میز جوش از ۳ Cobblestone و ۱ Blaze Rod ساخته می‌شه و برای ساخت معجون استفاده می‌شه.",
+  "description": "میز جوش از ۳ Cobblestone و ۱ Blaze Rod ساخته می‌شه و برای ساخت معجون استفاده می‌شه. در ماینکرفت.",
   "uses": [
     "ساخت معجون",
     "ساخت Splash Potion"

@@ -13,7 +13,7 @@
     "java": "1.8+",
     "bedrock": "1.8.0+"
   },
-  "description": "اندرمایت ماب متخاصم کوچک است که با Ender Pearl اسپاون می‌شه. شبیه به Silverfish اما با رنگ بنفش.",
+  "description": "اندرمایت ماب متخاصم کوچک است که با Ender Pearl اسپاون می‌شه. شبیه به Silverfish اما با رنگ بنفش. در ماینکرفت.",
   "drops": [
     {
       "item": "nothing",

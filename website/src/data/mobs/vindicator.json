@@ -13,7 +13,7 @@
     "java": "1.11+",
     "bedrock": "1.11.0+"
   },
-  "description": "ویندیکاتور ماب متخاصم ۱.۱۱ است که در Woodland Mansion پیدا می‌شه. با Iron Axe حمله می‌کنه و در حالت Johnny به همه حمله می‌کنه.",
+  "description": "ویندیکاتور ماب متخاصم ۱.۱۱ است که در Woodland Mansion پیدا می‌شه. با Iron Axe حمله می‌کنه و در حالت Johnny به همه حمله می‌کنه. در ماینکرفت.",
   "drops": [
     {
       "item": "emerald",

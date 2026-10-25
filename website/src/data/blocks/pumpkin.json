@@ -13,7 +13,7 @@
     "java": "Beta 1.8+",
     "bedrock": "0.1+"
   },
-  "description": "کدو در بایوم‌های چمنی پیدا می‌شه و برای ساخت Jack o'Lantern و Pumpkin Pie استفاده می‌شه.",
+  "description": "کدو در بایوم‌های چمنی پیدا می‌شه و برای ساخت Jack o'Lantern و Pumpkin Pie استفاده می‌شه. در ماینکرفت.",
   "uses": [
     "ساخت Jack o'Lantern",
     "ساخت Pumpkin Pie",

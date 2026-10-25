@@ -13,7 +13,7 @@
     "java": "1.16+",
     "bedrock": "1.16.0+"
   },
-  "description": "استرایدر ماب صلح‌جوی ۱.۱۶ است که روی لابه در ندر زندگی می‌کنه. با Saddle و Warped Fungus on a Stick قابل سواره‌شدنه.",
+  "description": "استرایدر ماب صلح‌جوی ۱.۱۶ است که روی لابه در ندر زندگی می‌کنه. با Saddle و Warped Fungus on a Stick قابل سواره‌شدنه. در ماینکرفت.",
   "drops": [
     {
       "item": "string",

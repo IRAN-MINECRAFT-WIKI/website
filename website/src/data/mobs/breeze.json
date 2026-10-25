@@ -15,7 +15,7 @@
     "java": "1.21+",
     "bedrock": "1.21.0+"
   },
-  "description": "برییز ماب متخاصم ۱.۲۱ است که در Trial Chambers پیدا می‌شه و با Breeze Wind Charge از دور حمله می‌کنه. نسخه‌ی ندرِ Breeze است.",
+  "description": "برییز ماب متخاصم ۱.۲۱ است که در Trial Chambers پیدا می‌شه و با Breeze Wind Charge از دور حمله می‌کنه. نسخه‌ی ندرِ Breeze است. در ماینکرفت.",
   "drops": [
     {
       "item": "breeze_rod",

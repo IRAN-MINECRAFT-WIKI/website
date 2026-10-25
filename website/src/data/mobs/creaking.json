@@ -14,7 +14,7 @@
     "java": "1.21.4+",
     "bedrock": "1.21.50+"
   },
-  "description": "کرکینگ ماب متخاصم ۱.۲۱.۴ است که در Pale Garden پیدا می‌شه. وقتی بازیکن بهش نگاه نمی‌کنه حمله می‌کنه — مثل Weeping Angels.",
+  "description": "کرکینگ ماب متخاصم ۱.۲۱.۴ است که در Pale Garden پیدا می‌شه. وقتی بازیکن بهش نگاه نمی‌کنه حمله می‌کنه — مثل Weeping Angels. در ماینکرفت.",
   "drops": [
     {
       "item": "creaking_heart",

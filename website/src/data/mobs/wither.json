@@ -15,7 +15,7 @@
     "java": "1.4+",
     "bedrock": "0.16.0+"
   },
-  "description": "ویدر بوس دعوت‌شونده هست که با ۳ Wither Skeleton Skull و ۴ Soul Sand ساخته می‌شه. وقتی می‌میره Nether Star می‌ده.",
+  "description": "ویدر بوس دعوت‌شونده هست که با ۳ Wither Skeleton Skull و ۴ Soul Sand ساخته می‌شه. وقتی می‌میره Nether Star می‌ده. در ماینکرفت.",
   "drops": [
     {
       "item": "nether_star",

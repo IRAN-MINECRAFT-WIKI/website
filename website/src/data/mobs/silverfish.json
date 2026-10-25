@@ -13,7 +13,7 @@
     "java": "Beta 1.8+",
     "bedrock": "0.1+"
   },
-  "description": "ماهی نقره از سنگ Stronghold بیرون میاد و به سرعت حمله می‌کنه. اگر کوب‌استون Stronghold رو بشکنی ظاهر می‌شه.",
+  "description": "ماهی نقره از سنگ Stronghold بیرون میاد و به سرعت حمله می‌کنه. اگر کوب‌استون Stronghold رو بشکنی ظاهر می‌شه. در ماینکرفت.",
   "drops": [
     {
       "item": "nothing",

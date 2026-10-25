@@ -14,7 +14,7 @@
     "java": "1.8+",
     "bedrock": "1.8.0+"
   },
-  "description": "نگهبان ماب متخاصم ۱.۸ است که در Ocean Monument پیدا می‌شه. با اشعه لیزر از دور حمله می‌کنه و Prismarine دراپ می‌کنه.",
+  "description": "نگهبان ماب متخاصم ۱.۸ است که در Ocean Monument پیدا می‌شه. با اشعه لیزر از دور حمله می‌کنه و Prismarine دراپ می‌کنه. در ماینکرفت.",
   "drops": [
     {
       "item": "prismarine_shard",

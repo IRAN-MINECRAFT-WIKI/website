@@ -15,7 +15,7 @@
     "java": "1.8+",
     "bedrock": "1.0.0+"
   },
-  "description": "نگهبان کهنه بوس Ocean Monument هست و ۳ عدد در هر Monument پیدا می‌شه. با حمله، Mining Fatigue به بازیکن می‌ده.",
+  "description": "نگهبان کهنه بوس Ocean Monument هست و ۳ عدد در هر Monument پیدا می‌شه. با حمله، Mining Fatigue به بازیکن می‌ده. در ماینکرفت.",
   "drops": [
     {
       "item": "prismarine_shard",

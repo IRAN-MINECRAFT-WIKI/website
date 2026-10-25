@@ -15,7 +15,7 @@
     "java": "1.11+",
     "bedrock": "1.11.0+"
   },
-  "description": "اووکر ماب متخاصم و رهبر Illager است که در Woodland Mansion پیدا می‌شه. با Vex و Fangs حمله می‌کنه و Totem of Undying دراپ می‌کنه.",
+  "description": "اووکر ماب متخاصم و رهبر Illager است که در Woodland Mansion پیدا می‌شه. با Vex و Fangs حمله می‌کنه و Totem of Undying دراپ می‌کنه. در ماینکرفت.",
   "drops": [
     {
       "item": "emerald",

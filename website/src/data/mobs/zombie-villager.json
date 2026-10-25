@@ -13,7 +13,7 @@
     "java": "1.4.2+",
     "bedrock": "1.0.0+"
   },
-  "description": "روستایی زامبی ماب متخاصم ۱.۴ است که با Zombie infecting Villager به‌وجود میاد. با Weakness Potion و Golden Apple قابل درمانه.",
+  "description": "روستایی زامبی ماب متخاصم ۱.۴ است که با Zombie infecting Villager به‌وجود میاد. با Weakness Potion و Golden Apple قابل درمانه. در ماینکرفت.",
   "drops": [
     {
       "item": "rotten_flesh",

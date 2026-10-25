@@ -13,7 +13,7 @@
     "java": "1.13+",
     "bedrock": "1.5.0+"
   },
-  "description": "کاندوییت از ۸ Nautilus Shell و ۱ Heart of the Sea ساخته می‌شه و زیر آب، اکسیژن و سرعت می‌ده.",
+  "description": "کاندوییت از ۸ Nautilus Shell و ۱ Heart of the Sea ساخته می‌شه و زیر آب، اکسیژن و سرعت می‌ده. در ماینکرفت.",
   "uses": [
     "نفس زیر آب",
     "سرعت شنا",

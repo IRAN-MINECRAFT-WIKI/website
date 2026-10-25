@@ -14,7 +14,7 @@
     "java": "1.4+",
     "bedrock": "0.16.0+"
   },
-  "description": "اسکلتون ویدر در Nether Fortress پیدا می‌شه و با ضربه، Wither اثر می‌ده. با احتمال کم Wither Skeleton Skull می‌ده.",
+  "description": "اسکلتون ویدر در Nether Fortress پیدا می‌شه و با ضربه، Wither اثر می‌ده. با احتمال کم Wither Skeleton Skull می‌ده. در ماینکرفت.",
   "drops": [
     {
       "item": "coal",

@@ -14,7 +14,7 @@
     "java": "Beta 1.9+",
     "bedrock": "0.1+"
   },
-  "description": "مکعب ماگما نسخه‌ی نادری از اسلایم هست که در Nether پیدا می‌شه و Magma Cream می‌ده.",
+  "description": "مکعب ماگما نسخه‌ی نادری از اسلایم هست که در Nether پیدا می‌شه و Magma Cream می‌ده. در ماینکرفت.",
   "drops": [
     {
       "item": "magma_cream",

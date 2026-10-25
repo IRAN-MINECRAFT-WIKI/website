@@ -14,7 +14,7 @@
     "java": "1.16+",
     "bedrock": "1.16.0+"
   },
-  "description": "هاگلین ماب متخاصم ۱.۱۶ است که در Crimson Forest پیدا می‌شه. تنها منبع غذا در ندر — با Porkchop دراپ می‌کنه.",
+  "description": "هاگلین ماب متخاصم ۱.۱۶ است که در Crimson Forest پیدا می‌شه. تنها منبع غذا در ندر — با Porkchop دراپ می‌کنه. در ماینکرفت.",
   "drops": [
     {
       "item": "raw_porkchop",

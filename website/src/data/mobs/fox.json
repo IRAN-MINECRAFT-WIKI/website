@@ -13,7 +13,7 @@
     "java": "1.14+",
     "bedrock": "1.13.0+"
   },
-  "description": "روباه در جنگل‌های کهنه (Old Growth Taiga) پیدا می‌شه و شب فعال هست. می‌تونی با Sweet Berry اهلیش کنی.",
+  "description": "روباه در جنگل‌های کهنه (Old Growth Taiga) پیدا می‌شه و شب فعال هست. می‌تونی با Sweet Berry اهلیش کنی. در ماینکرفت.",
   "drops": [
     {
       "item": "nothing",

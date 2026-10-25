@@ -13,7 +13,7 @@
     "java": "1.20.5+",
     "bedrock": "1.20.70+"
   },
-  "description": "آرمادیلو ماب صلح‌جوی جدید ۱.۲۱ است که در بایوم‌های Badlands پیدا می‌شه. با Brush ازش Wolf Armor می‌گیریم و با Spider Eyes فرار می‌کنه.",
+  "description": "آرمادیلو ماب صلح‌جوی جدید ۱.۲۱ است که در بایوم‌های Badlands پیدا می‌شه. با Brush ازش Wolf Armor می‌گیریم و با Spider Eyes فرار می‌کنه. در ماینکرفت.",
   "drops": [
     {
       "item": "armadillo_scute",

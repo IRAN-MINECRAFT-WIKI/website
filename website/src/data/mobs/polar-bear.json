@@ -13,7 +13,7 @@
     "java": "1.10+",
     "bedrock": "1.0.0+"
   },
-  "description": "خرس قطبی در Snowy Tundra و Ice Spikes پیدا می‌شه و اگه بچه‌اش نزدیک باشه، حمله می‌کنه.",
+  "description": "خرس قطبی در Snowy Tundra و Ice Spikes پیدا می‌شه و اگه بچه‌اش نزدیک باشه، حمله می‌کنه. در ماینکرفت.",
   "drops": [
     {
       "item": "raw_cod",

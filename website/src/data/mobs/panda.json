@@ -13,7 +13,7 @@
     "java": "1.14+",
     "bedrock": "1.8.0+"
   },
-  "description": "پاندا در Jungle و Bamboo Jungle پیدا می‌شه و در ۷ شخصیت مختلف (playful, lazy, worried و...) موجود هست.",
+  "description": "پاندا در Jungle و Bamboo Jungle پیدا می‌شه و در ۷ شخصیت مختلف (playful, lazy, worried و...) موجود هست. در ماینکرفت.",
   "drops": [
     {
       "item": "bamboo",

@@ -13,7 +13,7 @@
     "java": "1.16+",
     "bedrock": "1.16.0+"
   },
-  "description": "لنگر اسپاون از ۶ Crying Obsidian و ۳ Glowstone ساخته می‌شه و با شارژ با Glowstone، نقطه‌ی اسپاون در نادر رو تنظیم می‌کنه.",
+  "description": "لنگر اسپاون از ۶ Crying Obsidian و ۳ Glowstone ساخته می‌شه و با شارژ با Glowstone، نقطه‌ی اسپاون در نادر رو تنظیم می‌کنه. در ماینکرفت.",
   "uses": [
     "تنظیم اسپاون در نادر"
   ],

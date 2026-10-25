@@ -14,7 +14,7 @@
     "java": "1.16+",
     "bedrock": "1.16.0+"
   },
-  "description": "زوگلین ماب متخاصم ۱.۱۶ است که با انتقال Hoglin به Overworld به‌وجود میاد. با Knockback قوی حمله می‌کنه.",
+  "description": "زوگلین ماب متخاصم ۱.۱۶ است که با انتقال Hoglin به Overworld به‌وجود میاد. با Knockback قوی حمله می‌کنه. در ماینکرفت.",
   "drops": [
     {
       "item": "rotten_flesh",

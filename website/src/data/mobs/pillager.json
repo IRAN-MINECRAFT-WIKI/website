@@ -14,7 +14,7 @@
     "java": "1.14+",
     "bedrock": "1.10.0+"
   },
-  "description": "پیلجر با Crossbow حمله می‌کنه و در Raid و Pillager Outpost پیدا می‌شه. اگه Banner بدی، Raid آغاز می‌شه.",
+  "description": "پیلجر با Crossbow حمله می‌کنه و در Raid و Pillager Outpost پیدا می‌شه. اگه Banner بدی، Raid آغاز می‌شه. در ماینکرفت.",
   "drops": [
     {
       "item": "crossbow",

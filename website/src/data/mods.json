@@ -3,7 +3,7 @@
     {
       "id": "action-and-stuff",
       "name": "Action and Stuff",
-      "nameFa": "اکشن و استاف",
+      "nameFa": "دانلود مود Action and Stuff ماینکرفت بدراک",
       "keywords": "اکشن انیمیشن مبارزه گیم پلی روان واقع گرایانه حرکت پرش دویدن ضربه شمشیر",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -21,12 +21,13 @@
       "featured": true,
       "isNew": true,
       "author": "Actions & Stuff",
-      "updated": "1405/3/9"
+      "updated": "1405/3/9",
+      "coverAlt": "Action and Stuff — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "luckyblock-world-hyubi",
       "name": "LuckyBlock World Hyubi",
-      "nameFa": "دنیای لاکی بلاک",
+      "nameFa": "دانلود مود LuckyBlock World Hyubi ماینکرفت بدراک",
       "keywords": "لاکی بلاک لاکی بلاک شانس بخت مپ نقشه سرگرم کننده بلوک جادویی",
       "category": "maps",
       "catName": "مپ",
@@ -44,12 +45,13 @@
       "featured": true,
       "isNew": true,
       "author": "Lucky Block",
-      "updated": "1405/1/12"
+      "updated": "1405/1/12",
+      "coverAlt": "LuckyBlock World Hyubi — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "ultimate-morph-v2-5",
       "name": "Ultimate Morph v2.5",
-      "nameFa": "تبدیل موجودات (مورف)",
+      "nameFa": "دانلود مود Ultimate Morph v2.5 ماینکرفت بدراک",
       "keywords": "مورف تبدیل موجودات مسخره بازی شکل عوض کردن زامبی گاو اژدها ناروتو مرد عنکبوتی",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -67,12 +69,13 @@
       "featured": true,
       "isNew": true,
       "author": "DanteGaming",
-      "updated": "1404/3/2"
+      "updated": "1404/3/2",
+      "coverAlt": "Ultimate Morph v2.5 — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "shooter-map",
       "name": "shooter map iran❤️",
-      "nameFa": "مپ شوتر ایرانی",
+      "nameFa": "دانلود مود shooter map iran❤️ ماینکرفت بدراک",
       "keywords": "شوتر تیراندازی مپ نقشه ایرانی تفنگ جنگ اول شخص کشتن امتیاز دوستانه",
       "category": "maps",
       "catName": "مپ",
@@ -88,12 +91,13 @@
       "featured": true,
       "isNew": true,
       "author": "amirali-gholampuor",
-      "updated": "1405/3/5"
+      "updated": "1405/3/5",
+      "coverAlt": "shooter map iran❤️ — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "bslb-dreamy-visuals",
       "name": "BSLB Dreamy Visuals",
-      "nameFa": "گرافیک رویایی BSLB",
+      "nameFa": "دانلود ریسورس پک BSLB Dreamy Visuals ماینکرفت بدراک",
       "keywords": "گرافیک رویایی رنگی شیدر بافت آب آسمون برگ گیاه زیبا",
       "category": "graphics",
       "catName": "گرافیک",
@@ -111,12 +115,13 @@
       "featured": true,
       "isNew": true,
       "author": "BSLB",
-      "updated": "1405/3/27"
+      "updated": "1405/3/27",
+      "coverAlt": "BSLB Dreamy Visuals — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "combine-weapons",
       "name": "Combine Weapons Mod",
-      "nameFa": "سلاح‌های ترکیبی",
+      "nameFa": "دانلود مود Combine Weapons Mod ماینکرفت بدراک",
       "keywords": "سلاح ترکیبی اسلحه شمشیر تبر نیزه کمان جنگ مبارزه ترکیب قدرتمند",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -132,12 +137,13 @@
       "featured": true,
       "isNew": true,
       "author": "Mods Studio",
-      "updated": "1405/6/27"
+      "updated": "1405/6/27",
+      "coverAlt": "Combine Weapons Mod — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "dark-mode",
       "name": "Dark Mode",
-      "nameFa": "حالت تاریک",
+      "nameFa": "دانلود ریسورس پک Dark Mode ماینکرفت بدراک",
       "keywords": "تاریک شب حالت شبانه چشم راحت رابط کاربری منو تیره",
       "category": "graphics",
       "catName": "گرافیک",
@@ -156,12 +162,13 @@
       "featured": false,
       "isNew": true,
       "author": "DarkTeam",
-      "updated": "1405/6/22"
+      "updated": "1405/6/22",
+      "coverAlt": "Dark Mode — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "hot-cold-bucket",
       "name": "Hot and Cold Bucket",
-      "nameFa": "سطل گدازه و یخ",
+      "nameFa": "دانلود مود Hot and Cold Bucket ماینکرفت بدراک",
       "keywords": "سطل گدازه یخ آب ابزار حمل جابجایی",
       "category": "utility",
       "catName": "ابزار",
@@ -177,12 +184,13 @@
       "featured": false,
       "isNew": true,
       "author": "BE Team",
-      "updated": "1405/6/1"
+      "updated": "1405/6/1",
+      "coverAlt": "Hot and Cold Bucket — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "java-saturation",
       "name": "Java Saturation V1.5",
-      "nameFa": "سیستم سیری جاوا",
+      "nameFa": "دانلود مود Java Saturation V1.5 ماینکرفت بدراک",
       "keywords": "گرسنگی سیری غذا خوردن جاوا سیستم سلامت",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -198,12 +206,13 @@
       "featured": false,
       "isNew": true,
       "author": "JavaTeam",
-      "updated": "1404/5/07"
+      "updated": "1404/5/07",
+      "coverAlt": "Java Saturation V1.5 — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "java-combat",
       "name": "JavaCombat V2.6.5",
-      "nameFa": "سیستم مبارزه جاوا",
+      "nameFa": "دانلود مود JavaCombat V2.6.5 ماینکرفت بدراک",
       "keywords": "مبارزه جنگ جاوا حمله کول داون شمشیر ضربه",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -219,12 +228,13 @@
       "featured": true,
       "isNew": true,
       "author": "Beharvior",
-      "updated": "1405/6/27"
+      "updated": "1405/6/27",
+      "coverAlt": "JavaCombat V2.6.5 — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "more-totems",
       "name": "More Totems",
-      "nameFa": "توتم‌های بیشتر",
+      "nameFa": "دانلود مود More Totems ماینکرفت بدراک",
       "keywords": "توتم طلسم محافظت جاودانگی آتش آب خاک باد زمان",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -240,12 +250,13 @@
       "featured": true,
       "isNew": true,
       "author": "TotemTeam",
-      "updated": "1405/6/27"
+      "updated": "1405/6/27",
+      "coverAlt": "More Totems — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "raft-survival",
       "name": "Raft Survival",
-      "nameFa": "بقا روی قایق",
+      "nameFa": "دانلود مود Raft Survival ماینکرفت بدراک",
       "keywords": "قایق بقا شنا اقیانوس ماهیگیری ماجراجویی چالش زنده ماندن",
       "category": "maps",
       "catName": "مپ",
@@ -261,12 +272,13 @@
       "featured": true,
       "isNew": true,
       "author": "Акакий",
-      "updated": "1405/6/27"
+      "updated": "1405/6/27",
+      "coverAlt": "Raft Survival — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "gravestone-death-chest",
       "name": "Gravestone | Death Chest",
-      "nameFa": "قبر | صندوق مرگ",
+      "nameFa": "دانلود مود Gravestone | Death Chest ماینکرفت بدراک",
       "keywords": "قبر جست‌جوی آیتم سربایو ماجراجویی Bedrock ماینکرفت MCaddon Gravestone",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -290,12 +302,13 @@
       "featured": false,
       "isNew": true,
       "author": "ZeroTeam",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Gravestone | Death Chest — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "durability-hud-viewer",
       "name": "Durability HUD Viewer",
-      "nameFa": "نمایشگر استقامت HUD",
+      "nameFa": "دانلود مود Durability HUD Viewer ماینکرفت بدراک",
       "keywords": "Durability HUD نمایشگر استقامت Minecraft Bedrock HUD سفارشی ابزار و زره مدیریت موجودی افزونه کاربردی ZeroTeam",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -316,12 +329,13 @@
       "isNew": true,
       "author": "ZeroTeam",
       "updated": "2026/09/23",
-      "download": ""
+      "download": "",
+      "coverAlt": "Durability HUD Viewer — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "simple-storage-addon",
       "name": "Simple Storage Addon",
-      "nameFa": "ذخیره‌سازی ساده (Simple Storage)",
+      "nameFa": "دانلود مود Simple Storage Addon ماینکرفت بدراک",
       "keywords": "ماد ذخیره‌سازی کشو مودرن ساخت‌وساز Storage ماینکرافت موبایل MCPE",
       "category": "utility",
       "catName": "ابزار",
@@ -337,12 +351,13 @@
       "featured": false,
       "isNew": true,
       "author": "Mrs. Trader",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Simple Storage Addon — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "naruto-uzumaki-bedstudio",
       "name": "NARUTO UZUMAKI (BedStudio)",
-      "nameFa": "نرتو اوزامکی (بدروک استودیو)",
+      "nameFa": "دانلود مود NARUTO UZUMAKI (BedStudio) ماینکرفت بدراک",
       "keywords": "نرتو اوزامکی نینجا بدروک استودیو Minecraft Bedrock ریوریک پکیج رفتاری",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -361,12 +376,13 @@
       "featured": false,
       "isNew": true,
       "author": "Bedrock Studio 1",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "NARUTO UZUMAKI (BedStudio) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "pandamines-vibrant-visuals-optimizer",
       "name": "PandaMine's Vibrant Visuals Optimizer | Vibrant Visuals FPS Boost | Vibrant Visuals Distant Horizons MCBE",
-      "nameFa": "پانداماین‌ز ویبرنت ویژوالس بهینه‌ساز",
+      "nameFa": "دانلود ریسورس پک PandaMine's Vibrant Visuals Optimizer | Vibrant Visuals FPS Boost | Vibrant Visuals Distant Horizons MCBE ماینکرفت بدراک",
       "keywords": "Vibrant Visuals بهینه‌سازی ماینکرفت فر دیستانس بالا MCBE Distant Horizons افزایش فرمت ویندوز اندروید",
       "category": "graphics",
       "catName": "گرافیک",
@@ -387,12 +403,13 @@
       "featured": false,
       "isNew": true,
       "author": "Panda-Mine5",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "PandaMine's Vibrant Visuals Optimizer | Vibrant Visuals FPS Boost | Vibrant Visuals Distant Horizons MCBE — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "megumin-explosiiiooonnnn",
       "name": "Megumin (EXPLOSIIIOOONNNN)",
-      "nameFa": "مگومین (انفجار)",
+      "nameFa": "دانلود مود Megumin (EXPLOSIIIOOONNNN) ماینکرفت بدراک",
       "keywords": "مگومین ماینکرافت ماد بکدراک انفجار کاراکتر جادو Mob",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -410,12 +427,13 @@
       "featured": false,
       "isNew": true,
       "author": "Bedrock Studio 1",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Megumin (EXPLOSIIIOOONNNN) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "mob-variants-add-on",
       "name": "Mob Variants Add-on",
-      "nameFa": "نسخه‌های متنوع موب‌ها (Mob Variants)",
+      "nameFa": "دانلود مود Mob Variants Add-on ماینکرفت بدراک",
       "keywords": "ماینکرفت ماد نسخه‌های متنوع موب‌های قوی Mob Variants بازی تک‌نفره چالش",
       "category": "mobs",
       "catName": "موجودات",
@@ -440,12 +458,13 @@
       "featured": false,
       "isNew": true,
       "author": "Bareneil",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Mob Variants Add-on — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "simple-more-dungeon-x-mob-variants",
       "name": "Mob Variants X Simple More Dungeon",
-      "nameFa": "تغییرات موجودات در غارهای ساده (Mob Variants)",
+      "nameFa": "دانلود مود Mob Variants X Simple More Dungeon ماینکرفت بدراک",
       "keywords": "ماینکرفت موبایل ماد ساختار دشمن‌های جدید بقا بیوم‌های تطبیقی Mob Variants Simple Dungeon داتال‌پک",
       "category": "mobs",
       "catName": "موجودات",
@@ -470,12 +489,13 @@
       "featured": false,
       "isNew": true,
       "author": "Bareneil",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Mob Variants X Simple More Dungeon — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "bacbu",
       "name": "Brewin' And Chewin' (Unofficial)",
-      "nameFa": "دمی و جویدن (رسمی‌نشد)",
+      "nameFa": "دانلود مود Brewin' And Chewin' (Unofficial) ماینکرفت بدراک",
       "keywords": "ماینکرفت موبایل بتهروک دمی و جویدن نوشیدنی پخت و پز MCAddon Moaswies بازی‌سازی",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -500,12 +520,13 @@
       "featured": false,
       "isNew": true,
       "author": "Moaswies",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Brewin' And Chewin' (Unofficial) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "aquman-ba",
       "name": "AQUMAN (BA)",
-      "nameFa": "آکوامن",
+      "nameFa": "دانلود مود AQUMAN (BA) ماینکرفت بدراک",
       "keywords": "آکوامن Minecraft Bedrock نفس‌گرفتن زیر آب Add-on آکوان پاور Bedrock Studio 1",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -523,12 +544,13 @@
       "featured": false,
       "isNew": true,
       "author": "Bedrock Studio 1",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "AQUMAN (BA) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "lotiif-visuals",
       "name": "Lotiif visuals",
-      "nameFa": "اتوهای لوتی",
+      "nameFa": "دانلود ریسورس پک Lotiif visuals ماینکرفت بدراک",
       "keywords": "شیدر لویت ماینکرفت 32x نورپردازی ری‌اَندِر گرافیک Lotiif",
       "category": "graphics",
       "catName": "گرافیک",
@@ -553,12 +575,13 @@
       "featured": false,
       "isNew": true,
       "author": "lotiif visuals",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Lotiif visuals — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "fates-log-slayer",
       "name": "Fate's Log | slayer",
-      "nameFa": "فیتس لوگ: اسلیر",
+      "nameFa": "دانلود مود Fate's Log | slayer ماینکرفت بدراک",
       "keywords": "فیتس لوگ اسلیر ماینکرفت بیداک لویزلوزی نسخه 26.30 ماد اکشن mcaddon",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -583,12 +606,13 @@
       "featured": false,
       "isNew": true,
       "author": "Louislouis",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Fate's Log | slayer — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "lazy-legend-red-hitbox",
       "name": "Lazy Legend Red Hitbox",
-      "nameFa": "هیت‌باکس قرمز لِیژند لاکی",
+      "nameFa": "دانلود مود Lazy Legend Red Hitbox ماینکرفت بدراک",
       "keywords": "هیت‌باکس لجند لاکی بافت ماینکرفت بدروک قهرمانی دیدبان پایه ۳۲ بر خ",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -606,12 +630,13 @@
       "featured": false,
       "isNew": true,
       "author": "Lazy Legend",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Lazy Legend Red Hitbox — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "storage-delight-bedrock",
       "name": "Storage Delight (Unoffical)",
-      "nameFa": "ذخیره‌دهی شاد",
+      "nameFa": "دانلود مود Storage Delight (Unoffical) ماینکرفت بدراک",
       "keywords": "ذخیره‌دهی انبار مدیریت آیتم بتراک Storage Mod افزونه",
       "category": "utility",
       "catName": "ابزار",
@@ -630,12 +655,13 @@
       "featured": false,
       "isNew": true,
       "author": "Moaswies",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Storage Delight (Unoffical) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "become-herobrine",
       "name": "Become Herobrine",
-      "nameFa": "تحول به هروبرین",
+      "nameFa": "دانلود مود Become Herobrine ماینکرفت بدراک",
       "keywords": "هروبرین Herobrine ماینکرافت قدرت‌های ویژه غلغله‌پذیری سرعت فوق‌العاده ModWorldStudio 1.21",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -654,12 +680,13 @@
       "featured": false,
       "isNew": true,
       "author": "ModWorldStudio",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Become Herobrine — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "dynamic-vibrant-visual-alien-edition",
       "name": "Dynamic Vibrant Visual (Alien Edition)",
-      "nameFa": "دیدن پویا و زنده (نسخه فضایی)",
+      "nameFa": "دانلود ریسورس پک Dynamic Vibrant Visual (Alien Edition) ماینکرفت بدراک",
       "keywords": "Visual 128x Sky Alien Atmosphere Shader Minecraft ZEPHYR",
       "category": "graphics",
       "catName": "گرافیک",
@@ -681,12 +708,13 @@
       "isNew": true,
       "author": "Z E P H Y R",
       "updated": "2026/09/23",
-      "download": ""
+      "download": "",
+      "coverAlt": "Dynamic Vibrant Visual (Alien Edition) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "animated-gojo-face-ui",
       "name": "Animated Gojo UI",
-      "nameFa": "نوار کاربری انیمیشنی گوگجو",
+      "nameFa": "دانلود مود Animated Gojo UI ماینکرفت بدراک",
       "keywords": "ماینکرفت مود انیمیشن گوگجو صفحه شروع سینمایی MCPACK دکوراسیون",
       "category": "decoration",
       "catName": "دکوراسیون",
@@ -703,12 +731,13 @@
       "isNew": true,
       "author": "SaifNeo",
       "updated": "2026/09/23",
-      "download": ""
+      "download": "",
+      "coverAlt": "Animated Gojo UI — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "animated-goku-ultra-instinct-ui",
       "name": "Animated Goku Ultra instinct UI",
-      "nameFa": "انیمیشنی کوکو اولتراینس",
+      "nameFa": "دانلود مود Animated Goku Ultra instinct UI ماینکرفت بدراک",
       "keywords": "Goku UI Minecraft MCPACK Anime Dragon Ball Ultra Instinct Custom UI",
       "category": "decoration",
       "catName": "دکوراسیون",
@@ -725,12 +754,13 @@
       "isNew": true,
       "author": "SaifNeo",
       "updated": "2026/09/23",
-      "download": ""
+      "download": "",
+      "coverAlt": "Animated Goku Ultra instinct UI — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "dr-strange-totem",
       "name": "Dr Strange Totem",
-      "nameFa": "توتم با طر دکتر استرنج",
+      "nameFa": "دانلود مود Dr Strange Totem ماینکرفت بدراک",
       "keywords": "دکتر استرنج جامگان نسخه ۳۲بیت ماینکرافت پک تیکسچر مارول نقشه‌کشی Magic",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -749,12 +779,13 @@
       "isNew": true,
       "author": "Lazy Legend",
       "updated": "2026/09/23",
-      "download": ""
+      "download": "",
+      "coverAlt": "Dr Strange Totem — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "batman-totem",
       "name": "Batman Totem",
-      "nameFa": "توتم با طرح بتمن",
+      "nameFa": "دانلود ریسورس پک Batman Totem ماینکرفت بدراک",
       "keywords": "Minecraft Batman Texture Pack Totem MCPack MCPack Modpack",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -773,12 +804,13 @@
       "isNew": true,
       "author": "Lazy Legend",
       "updated": "2026/09/23",
-      "download": ""
+      "download": "",
+      "coverAlt": "Batman Totem — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "not-enough-creepers",
       "name": "Not Enough Creepers",
-      "nameFa": "کریپر ها کافی نیستند؟",
+      "nameFa": "دانلود مود Not Enough Creepers ماینکرفت بدراک",
       "keywords": "Creeper Minecraft Bedrock MC Addon کرایپر ماینکرفت موبایل ادان Euforia",
       "category": "mobs",
       "catName": "موجودات",
@@ -804,12 +836,13 @@
       "isNew": true,
       "author": "Euforia",
       "updated": "2026/09/23",
-      "download": ""
+      "download": "",
+      "coverAlt": "Not Enough Creepers — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "dynamic-wave",
       "name": "Dynamic Wave",
-      "nameFa": "موج‌های دینامیک دریا",
+      "nameFa": "دانلود ریسورس پک Dynamic Wave ماینکرفت بدراک",
       "keywords": "موج آب افکت گرافیک دریا Realistic LuckyBlock Shader",
       "category": "world",
       "catName": "دنیا",
@@ -827,12 +860,13 @@
       "featured": false,
       "isNew": true,
       "author": "Game Hunter",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Dynamic Wave — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "chainsawman-addon-gh",
       "name": "CHAINSAWMAN ADDON (gh)",
-      "nameFa": "فرقهٔ اره‌برق‌دار",
+      "nameFa": "دانلود مود CHAINSAWMAN ADDON (gh) ماینکرفت بدراک",
       "keywords": "زنجیرماو Chainsawman موجودات FNAF فرهنگ ژاپنی انیمه فراخوان داده‌پک",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -848,12 +882,13 @@
       "featured": false,
       "isNew": true,
       "author": "Game Hunter",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "CHAINSAWMAN ADDON (gh) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "jujutsu-collection",
       "name": "JUJUTSU COLLECTION",
-      "nameFa": "دنیای جوجوتسو: رزمندگان و جادوگران",
+      "nameFa": "دانلود مود JUJUTSU COLLECTION ماینکرفت بدراک",
       "keywords": "جوجوتسو کایسن گوژو ساتورو سوکونا یوتا مگومی نوبارا انیمه جادو",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -875,12 +910,13 @@
       "featured": false,
       "isNew": true,
       "author": "Game Hunter",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "JUJUTSU COLLECTION — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "bosses-of-mass-destruction-unofficial-port",
       "name": "Bosses of Mass Destruction - Unofficial port",
-      "nameFa": "پادشاهان ویرانگر: نبرد با غول‌های نابودی",
+      "nameFa": "دانلود مود Bosses of Mass Destruction - Unofficial port ماینکرفت بدراک",
       "keywords": "باس غول نابودی مواجهه معماری چالش بی‌دردسر افسانه‌ای بی‌آرک افسانه",
       "category": "mobs",
       "catName": "موجودات",
@@ -902,12 +938,13 @@
       "featured": false,
       "isNew": true,
       "author": "Roguerapothic",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Bosses of Mass Destruction - Unofficial port — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "cinematic-visuals-shader-vibrant-visuals-pack",
       "name": "Cinematic Visuals Shader (Vibrant Visuals Pack)",
-      "nameFa": "جنگل سینمایی",
+      "nameFa": "دانلود ریسورس پک Cinematic Visuals Shader (Vibrant Visuals Pack) ماینکرفت بدراک",
       "keywords": "شیدر سینمایی نورپردازی سینمایی پنل رادیکال آب واقعی مائنکرفت ادیشن گرافیک برتر افکت",
       "category": "graphics",
       "catName": "گرافیک",
@@ -932,12 +969,13 @@
       "featured": false,
       "isNew": true,
       "author": "Wind's Scion",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Cinematic Visuals Shader (Vibrant Visuals Pack) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "diablo-visuals",
       "name": "Diablo Visuals for Vibrant Visuals",
-      "nameFa": "پک گرافیکی دایابلو - درخشش خارق‌العاده",
+      "nameFa": "دانلود ریسورس پک Diablo Visuals for Vibrant Visuals ماینکرفت بدراک",
       "keywords": "گرافیک دایابلو جلوه‌های بصری رنگ‌های پرشور پک گرافیکی وایبِرنت جلوه‌های سینمایی Minecraft Modpack",
       "category": "graphics",
       "catName": "گرافیک",
@@ -962,12 +1000,13 @@
       "featured": false,
       "isNew": true,
       "author": "Wind's Scion",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Diablo Visuals for Vibrant Visuals — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "gun-expansion-knight-shadow",
       "name": "gun expansion (knight shadow)",
-      "nameFa": "توسعهٔ اسلحه‌های نظامی",
+      "nameFa": "دانلود مود gun expansion (knight shadow) ماینکرفت بدراک",
       "keywords": "اسلحه جنگ Guns نظامی شلیک Knight Shadow اکشن",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -983,12 +1022,13 @@
       "featured": false,
       "isNew": true,
       "author": "Knight Shadow",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "gun expansion (knight shadow) — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "animated-menu-dark-naruto",
       "name": "Animated Menu - Dark Naruto",
-      "nameFa": "منوی متحرک تاریک ناریوتو",
+      "nameFa": "دانلود مود Animated Menu - Dark Naruto ماینکرفت بدراک",
       "keywords": "ناریوتو منوی متحرک انیمیشن تاریک گرافیک پکیج Minecraft نشن",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -1008,12 +1048,13 @@
       "featured": false,
       "isNew": true,
       "author": "Studio 38",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "Animated Menu - Dark Naruto — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "spleef-showdown",
       "name": "⚔️ SPLEEF SHOWDOWN",
-      "nameFa": "نبرد سنیف: رقابت سرنوشت‌ساز",
+      "nameFa": "دانلود مود ⚔️ SPLEEF SHOWDOWN ماینکرفت بدراک",
       "keywords": "سرنیف PvP چندبازیکنی نقشه مینی‌گیم مبارزه ساخت‌وشکن مپ ماجراجویی",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -1038,12 +1079,13 @@
       "featured": false,
       "isNew": true,
       "author": "DimaHappy7!",
-      "updated": "2026/09/23"
+      "updated": "2026/09/23",
+      "coverAlt": "⚔️ SPLEEF SHOWDOWN — ماینکرفت بدراک | ماین بد (MineBed)"
     },
     {
       "id": "simple-arsenal",
       "name": "🔥GUNS 3D Mod and Addon Pack Download – SIMPLE ARSENAL ADD-ON!!🔥",
-      "nameFa": "تفنگهای سه‌بعدی",
+      "nameFa": "دانلود مود 🔥GUNS 3D Mod and Addon Pack Download – SIMPLE ARSENAL ADD-ON!!🔥 ماینکرفت بدراک",
       "keywords": "اسلحه گنجان سه‌بعدی شلیک آمونیت نبرد Minecraft آد-آن",
       "category": "gameplay",
       "catName": "گیم‌پلی",
@@ -1069,7 +1111,8 @@
       "isNew": true,
       "author": "Warden Creations",
       "updated": "2026/09/23",
-      "download": ""
+      "download": "",
+      "coverAlt": "🔥GUNS 3D Mod and Addon Pack Download – SIMPLE ARSENAL ADD-ON!!🔥 — ماینکرفت بدراک | ماین بد (MineBed)"
     }
   ]
 }

@@ -11,7 +11,7 @@
       "minor": 3,
       "icon": "px-grass-block",
       "summary": "بزرگ‌ترین آپدیت جاوا در سال ۲۰۲۶ با تمرکز بر بیوم‌های وحشی، غارهای جدید و سیستم چابک‌سازی Survival.",
-      "description": "نسخه‌ی ۲۶.۳ جاوا با نام Wilderness Bound در سپتامبر ۲۰۲۶ عرضه شد و بزرگ‌ترین بازطراحی بیوم‌های وحشی از زمان The Wild Update را به ارمغان می‌آورد. اضافه شدن Wilderness Camp، Quick Travel Rope و سیستم های جدید Trail Marking، ماجراجویی را متحول می‌کند.",
+      "description": "نسخه‌ی ۲۶.۳ جاوا با نام Wilderness Bound در سپتامبر ۲۰۲۶ عرضه شد و بزرگ‌ترین بازطراحی بیوم‌های وحشی از زمان The Wild Update را به ارمغان می‌آورد. اضافه شدن Wilderness Camp، Quick Travel Rope و سیستم های جدید Trail Marking، ماجراجویی را متحول می‌کند. — ماینکرفت.",
       "highlights": [
         "Wilderness Camp جدید",
         "Quick Travel Rope",
@@ -50,7 +50,7 @@
       "minor": 2,
       "icon": "px-tnt",
       "summary": "آپدیت جاوا ۲۶.۲ با تمرکز بر ردمستون، ماشین‌آلات سیمی-چرخ‌دنده و منطق ضد ضعیف‌سازی مولر.",
-      "description": "نسخه‌ی ۲۶.۲ جاوا با نام Chaos Cubed در ژوئن ۲۰۲۶ عرضه شد. این نسخه ماشین‌آلات سیمی-چرخ‌دنده، قراضه‌های خرد شده و ابزارهای منطقی جدید را اضافه می‌کند تا بازیکنان حرفه‌ای‌تر بتوانند سیستم‌های پیچیده‌ی ردمستون بسازند.",
+      "description": "نسخه‌ی ۲۶.۲ جاوا با نام Chaos Cubed در ژوئن ۲۰۲۶ عرضه شد. این نسخه ماشین‌آلات سیمی-چرخ‌دنده، قراضه‌های خرد شده و ابزارهای منطقی جدید را اضافه می‌کند تا بازیکنان حرفه‌ای‌تر بتوانند سیستم‌های پیچیده‌ی ردمستون بسازند. — ماینکرفت.",
       "highlights": [
         "Cogwheel بلوک منطقی",
         "Redstone Dust جدید",
@@ -88,7 +88,7 @@
       "minor": 1,
       "icon": "px-grass-block",
       "summary": "نسخه‌ی ۲۶.۱ با موجودات کوچک جدید، Bee Queen، انیمیشن‌های جمع‌وجور و Mini Village.",
-      "description": "نسخه‌ی ۲۶.۱ جاوا با نام Tiny Takeover در مارس ۲۰۲۶ منتشر شد. این آپدیت تمرکز بر موجودات کوچک دارد: Bee Queen، Tiny Slime و Mini Village که در آن‌ها ویلجرهای کوچک زندگی می‌کنند. انیمیشن‌های منحصر بفرد برای هر موجود اضافه شده است.",
+      "description": "نسخه‌ی ۲۶.۱ جاوا با نام Tiny Takeover در مارس ۲۰۲۶ منتشر شد. این آپدیت تمرکز بر موجودات کوچک دارد: Bee Queen، Tiny Slime و Mini Village که در آن‌ها ویلجرهای کوچک زندگی می‌کنند. انیمیشن‌های منحصر بفرد برای هر موجود اضافه شده است. — ماینکرفت.",
       "highlights": [
         "Bee Queen",
         "Mini Village",
@@ -165,7 +165,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "نسخه‌ی آرام و ماجراجویانه با اضافه شدن Cherry Blossom، Bamboo Set و Archaeology.",
-      "description": "نسخه‌ی ۱.۲۰ جاوا با نام Trails & Tales عرضه شد و تم اصلی آن آرامش، ماجراجویی، و داستان‌گویی است. در این نسخه با بیوم جدید Cherry Blossom روبرو می‌شوید. Bamboo Set با نوع جدیدی از چوب‌ها اضافه شد. Archaeology سیستم جدیدی است که با Brush به شما امکان کاوش در خاک‌های باستانی را می‌دهد.",
+      "description": "نسخه‌ی ۱.۲۰ جاوا با نام Trails & Tales عرضه شد و تم اصلی آن آرامش، ماجراجویی، و داستان‌گویی است. در این نسخه با بیوم جدید Cherry Blossom روبرو می‌شوید. Bamboo Set با نوع جدیدی از چوب‌ها اضافه شد. Archaeology سیستم جدیدی است که با Brush به شما امکان کاوش در خاک‌های باستانی را می‌دهد. — ماینکرفت.",
       "highlights": [
         "Cherry Blossom Biome جدید",
         "Bamboo Wood Set کامل",
@@ -241,7 +241,7 @@
       "minor": 18,
       "icon": "px-stone",
       "summary": "بخش دوم Caves & Cliffs با World Generation جدید، غارهای بزرگ‌تر و کوه‌های بلندتر.",
-      "description": "نسخه‌ی ۱.۱۸ که بخش دوم آپدیت بزرگ Caves & Cliffs است، World Generation بازی را کاملاً دگرگون کرد. غارها به اشکال مختلف مثل Lush Caves و Dripstone Caves درآمدند و عمیق‌تر شدند. کوه‌ها به ارتفاع ۲۵۶ بلوک رسیدند و بیوم‌های Meadow و Grove اضافه شد.",
+      "description": "نسخه‌ی ۱.۱۸ که بخش دوم آپدیت بزرگ Caves & Cliffs است، World Generation بازی را کاملاً دگرگون کرد. غارها به اشکال مختلف مثل Lush Caves و Dripstone Caves درآمدند و عمیق‌تر شدند. کوه‌ها به ارتفاع ۲۵۶ بلوک رسیدند و بیوم‌های Meadow و Grove اضافه شد. — ماینکرفت.",
       "highlights": [
         "World Generation جدید با ارتفاع ۲۵۶",
         "Lush Caves و Dripstone Caves",
@@ -278,7 +278,7 @@
       "minor": 17,
       "icon": "px-diamond-ore",
       "summary": "بخش اول Caves & Cliffs با بلوک‌های جدید مثل Amethyst، Copper و Lightning Rod.",
-      "description": "نسخه‌ی ۱.۱۷ بخش اول آپدیت بزرگ Caves & Cliffs است. در این نسخه بلوک‌های جدید زیادی اضافه شد از جمله Copper که با گذشت زمان رنگش تغییر می‌کند، Amethyst Geodes که در اعماق زمین پیدا می‌شوند، و Lightning Rod برای جذب صاعقه. همچنین موجودات جدید Axolotl و Goat اضافه شدند.",
+      "description": "نسخه‌ی ۱.۱۷ بخش اول آپدیت بزرگ Caves & Cliffs است. در این نسخه بلوک‌های جدید زیادی اضافه شد از جمله Copper که با گذشت زمان رنگش تغییر می‌کند، Amethyst Geodes که در اعماق زمین پیدا می‌شوند، و Lightning Rod برای جذب صاعقه. همچنین موجودات جدید Axolotl و Goat اضافه شدند. — ماینکرفت.",
       "highlights": [
         "بلوک Copper با رنگ‌پذیری زمان",
         "Amethyst Geodes",
@@ -352,7 +352,7 @@
       "minor": 15,
       "icon": "px-grass-block",
       "summary": "آپدیت زنبورها با Bee، Hive و Honey Bottle.",
-      "description": "نسخه‌ی ۱.۱۵ با نام Buzzy Bees در دسامبر ۲۰۱۹ عرضه شد. این نسخه زنبورها، کندو و Honey Bottle را به بازی اضافه کرد. زنبورها در Hive زندگی می‌کنند و عسل تولید می‌کنند که می‌توانید آن را جمع‌آوری کنید. این نسخه همچنین رفع اشکال‌های فراوانی را شامل می‌شود.",
+      "description": "نسخه‌ی ۱.۱۵ با نام Buzzy Bees در دسامبر ۲۰۱۹ عرضه شد. این نسخه زنبورها، کندو و Honey Bottle را به بازی اضافه کرد. زنبورها در Hive زندگی می‌کنند و عسل تولید می‌کنند که می‌توانید آن را جمع‌آوری کنید. این نسخه همچنین رفع اشکال‌های فراوانی را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "زنبور (Bee) جدید",
         "Hive و Nest",
@@ -462,7 +462,7 @@
       "minor": 12,
       "icon": "px-grass-block",
       "summary": "آپدیت دنیای رنگ‌ها با ۱۶ رنگ جدید Concrete، Terracotta و Parrot.",
-      "description": "نسخه‌ی ۱.۱۲ با نام World of Color در ژوئن ۲۰۱۷ منتشر شد. این نسخه ۱۶ رنگ جدید Concrete، Terracotta و Glazed Terracotta را اضافه کرد. Parrot موجود جدیدی است که از مکعب‌های شکسته می‌خواند. تابع دستورالعمل‌ی (Recipe Book) نیز اضافه شد.",
+      "description": "نسخه‌ی ۱.۱۲ با نام World of Color در ژوئن ۲۰۱۷ منتشر شد. این نسخه ۱۶ رنگ جدید Concrete، Terracotta و Glazed Terracotta را اضافه کرد. Parrot موجود جدیدی است که از مکعب‌های شکسته می‌خواند. تابع دستورالعمل‌ی (Recipe Book) نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "۱۶ رنگ Concrete",
         "Glazed Terracotta",
@@ -499,7 +499,7 @@
       "minor": 11,
       "icon": "px-chest",
       "summary": "آپدیت کاوش با Woodland Mansion، Llamas و Observer.",
-      "description": "نسخه‌ی ۱.۱۱ با نام Exploration Update در نوامبر ۲۰۱۶ منتشر شد. این نسخه Woodland Mansion را به بازی اضافه کرد که یکی از کمیاب‌ترین ساختارها است. Llama موجود جدیدی است که می‌توانید در کاروان‌ها استفاده کنید. Shulker Box و Observer نیز اضافه شد.",
+      "description": "نسخه‌ی ۱.۱۱ با نام Exploration Update در نوامبر ۲۰۱۶ منتشر شد. این نسخه Woodland Mansion را به بازی اضافه کرد که یکی از کمیاب‌ترین ساختارها است. Llama موجود جدیدی است که می‌توانید در کاروان‌ها استفاده کنید. Shulker Box و Observer نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Woodland Mansion",
         "موجود Llama",
@@ -536,7 +536,7 @@
       "minor": 10,
       "icon": "px-ice",
       "summary": "آپدیت Frostburn با Polar Bear، Stray و ساختارهای یخی.",
-      "description": "نسخه‌ی 1.10 با نام Frostburn Update در ژوئن ۲۰۱۶ منتشر شد. این نسخه Polar Bear را به مناطق یخی اضافه کرد. Stray نسخه‌ی یخی اسکلت است. Structure Block برای سازندگان اضافه شد و ساختارهای یخی مثل Igloo اضافه شد.",
+      "description": "نسخه‌ی 1.10 با نام Frostburn Update در ژوئن ۲۰۱۶ منتشر شد. این نسخه Polar Bear را به مناطق یخی اضافه کرد. Stray نسخه‌ی یخی اسکلت است. Structure Block برای سازندگان اضافه شد و ساختارهای یخی مثل Igloo اضافه شد. — ماینکرفت.",
       "highlights": [
         "Polar Bear",
         "Stray اسکلت یخی",
@@ -573,7 +573,7 @@
       "minor": 9,
       "icon": "px-diamond-sword",
       "summary": "آپدیت مبارزه با سیستم Combat جدید، Shield و Elytra.",
-      "description": "نسخه‌ی ۱.۹ با نام Combat Update در فوریه ۲۰۱۶ منتشر شد و بزرگ‌ترین تغییر در سیستم مبارزه از زمان نسخه‌ی Beta را به ارمغان آورد. شروع Cool Down برای حملات، اضافه شدن Shield، و Elytra برای پرواز. End City و Shulker نیز اضافه شد.",
+      "description": "نسخه‌ی ۱.۹ با نام Combat Update در فوریه ۲۰۱۶ منتشر شد و بزرگ‌ترین تغییر در سیستم مبارزه از زمان نسخه‌ی Beta را به ارمغان آورد. شروع Cool Down برای حملات، اضافه شدن Shield، و Elytra برای پرواز. End City و Shulker نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "سیستم Combat جدید",
         "Shield",
@@ -610,7 +610,7 @@
       "minor": 8,
       "icon": "px-stone",
       "summary": "آپدیت فراوان با Ocean Monument، Guardian و Underwater Ruins.",
-      "description": "نسخه‌ی ۱.۸ با نام Bountiful Update در سپتامبر ۲۰۱۴ منتشر شد. این نسخه Ocean Monument را به اقیانوس‌ها اضافه کرد. Guardian و Elder Guardian موجودات دریایی جدیدی هستند. Rabbit و Slime Block نیز اضافه شد.",
+      "description": "نسخه‌ی ۱.۸ با نام Bountiful Update در سپتامبر ۲۰۱۴ منتشر شد. این نسخه Ocean Monument را به اقیانوس‌ها اضافه کرد. Guardian و Elder Guardian موجودات دریایی جدیدی هستند. Rabbit و Slime Block نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Ocean Monument",
         "Guardian",
@@ -647,7 +647,7 @@
       "minor": 7,
       "icon": "px-grass-block",
       "summary": "آپدیت جهان‌تغییر با بیوم‌های جدید، اضافه شدن قلمرو فیش و大幅度 بازی.",
-      "description": "نسخه‌ی ۱.۷ با نام The Update that Changed the World در اکتبر ۲۰۱۳ منتشر شد. این آپدیت بزرگ تغییرات بنیادی در World Generation ایجاد کرد. تعداد زیادی بیوم جدید اضافه شد. سیستم قلمرو فیش (Fishing) بهبود یافت. Terrain شکل‌های متنوع‌تری گرفت.",
+      "description": "نسخه‌ی ۱.۷ با نام The Update that Changed the World در اکتبر ۲۰۱۳ منتشر شد. این آپدیت بزرگ تغییرات بنیادی در World Generation ایجاد کرد. تعداد زیادی بیوم جدید اضافه شد. سیستم قلمرو فیش (Fishing) بهبود یافت. Terrain شکل‌های متنوع‌تری گرفت. — ماینکرفت.",
       "highlights": [
         "بازطراحی World Generation",
         "اضافه شدن بیوم‌های جدید",
@@ -683,7 +683,7 @@
       "minor": 6,
       "icon": "px-grass-block",
       "summary": "آپدیت اسب با Horse، Donkey و سیستم زین.",
-      "description": "نسخه‌ی ۱.۶ با نام Horse Update در مِ ۲۰۱۳ منتشر شد. این نسخه Horse و Donkey را به بازی اضافه کرد. سیستم زین و چرم Horse Armor اضافه شد. Hay Block و Carpet نیز اضافه شد. سیستم دستورالعمل Resources Pack بهبود یافت.",
+      "description": "نسخه‌ی ۱.۶ با نام Horse Update در مِ ۲۰۱۳ منتشر شد. این نسخه Horse و Donkey را به بازی اضافه کرد. سیستم زین و چرم Horse Armor اضافه شد. Hay Block و Carpet نیز اضافه شد. سیستم دستورالعمل Resources Pack بهبود یافت. — ماینکرفت.",
       "highlights": [
         "Horse و Donkey",
         "سیستم زین",
@@ -720,7 +720,7 @@
       "minor": 5,
       "icon": "px-tnt",
       "summary": "آپدیت ردمستون با بلوک‌های منطقی، Comparator و قاب‌های جدید.",
-      "description": "نسخه‌ی ۱.۵ با نام Redstone Update در مارس ۲۰۱۳ منتشر شد. این نسخه بلوک‌های ردمستون را به طور قابل توجهی گسترش داد: Comparator، Daylight Sensor، Block of Redstone و Hopper. سیستم Nether Quartz و Comparator اضافه شد.",
+      "description": "نسخه‌ی ۱.۵ با نام Redstone Update در مارس ۲۰۱۳ منتشر شد. این نسخه بلوک‌های ردمستون را به طور قابل توجهی گسترش داد: Comparator، Daylight Sensor، Block of Redstone و Hopper. سیستم Nether Quartz و Comparator اضافه شد. — ماینکرفت.",
       "highlights": [
         "Redstone Comparator",
         "Daylight Sensor",
@@ -757,7 +757,7 @@
       "minor": 4,
       "icon": "px-tnt",
       "summary": "آپدیت ترسناک با Wither، Anvil و Flower Pot.",
-      "description": "نسخه‌ی ۱.۴ با نام Pretty Scary Update در اکتبر ۲۰۱۲ منتشر شد. این نسخه Wither را به بازی اضافه کرد. سیستم Anvil برای تعمیر و تغییر نام ابزارها اضافه شد. Flower Pot و Decoration Blocks نیز اضافه شد.",
+      "description": "نسخه‌ی ۱.۴ با نام Pretty Scary Update در اکتبر ۲۰۱۲ منتشر شد. این نسخه Wither را به بازی اضافه کرد. سیستم Anvil برای تعمیر و تغییر نام ابزارها اضافه شد. Flower Pot و Decoration Blocks نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "موجود Wither",
         "Anvil",
@@ -831,7 +831,7 @@
       "minor": 2,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Iron Golem، Ocelot و Jungle Biome.",
-      "description": "نسخه‌ی ۱.۲ در مارس ۲۰۱۲ منتشر شد. این نسخه Iron Golem و Ocelot را اضافه کرد. Jungle Biome و ساختارهای جدید جنگلی اضافه شد. ارتفاع بازی به ۲۵۶ بلوک افزایش یافت.",
+      "description": "نسخه‌ی ۱.۲ در مارس ۲۰۱۲ منتشر شد. این نسخه Iron Golem و Ocelot را اضافه کرد. Jungle Biome و ساختارهای جدید جنگلی اضافه شد. ارتفاع بازی به ۲۵۶ بلوک افزایش یافت. — ماینکرفت.",
       "highlights": [
         "Iron Golem",
         "Ocelot",
@@ -868,7 +868,7 @@
       "minor": 1,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Spawn Egg، Bow Enchant و زبان‌های جدید.",
-      "description": "نسخه‌ی 1.1 در ژانویه ۲۰۱۲ منتشر شد. این نسخه Spawn Egg را برای صف پیش گفت‌گو اضافه کرد. Bow Enchant (Power و Flame) اضافه شد. پشتیبانی از زبان‌های اضافه شد.",
+      "description": "نسخه‌ی 1.1 در ژانویه ۲۰۱۲ منتشر شد. این نسخه Spawn Egg را برای صف پیش گفت‌گو اضافه کرد. Bow Enchant (Power و Flame) اضافه شد. پشتیبانی از زبان‌های اضافه شد. — ماینکرفت.",
       "highlights": [
         "Spawn Egg",
         "Bow Enchant",
@@ -942,7 +942,7 @@
       "minor": 8,
       "icon": "px-grass-block",
       "summary": "آپدیت ماجراجویی با Enderman، Stronghold و Creative Mode.",
-      "description": "نسخه‌ی بتا ۱.۸ با نام Adventure Update در سپتامبر ۲۰۱۱ منتشر شد. این آپدیت بزرگ با اضافه شدن Enderman، Creative Mode، و سیستم Hunger سیستم بازی را متحول کرد. Stronghold و End Portal به بازی اضافه شد. Mining و Combat نیز تغییر کرد.",
+      "description": "نسخه‌ی بتا ۱.۸ با نام Adventure Update در سپتامبر ۲۰۱۱ منتشر شد. این آپدیت بزرگ با اضافه شدن Enderman، Creative Mode، و سیستم Hunger سیستم بازی را متحول کرد. Stronghold و End Portal به بازی اضافه شد. Mining و Combat نیز تغییر کرد. — ماینکرفت.",
       "highlights": [
         "Enderman",
         "Creative Mode",
@@ -982,7 +982,7 @@
       "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.7",
       "icon": "px-stone",
       "summary": "افزودن Pistons، Shears و قابلیت پر کردن آب با Buckets.",
-      "description": "نسخه‌ی بتا ۱.۷ در ۳۰ ژوئن ۲۰۱۱ منتشر شد و Pistons (استفاده از رداستون برای حرکت دادن بلوک‌ها) را به بازی اضافه کرد. Shears برای برداشت پشم گوسفند بدون کشتن معرفی شد. TNT با رداستون قابل فعال‌سازی شد.",
+      "description": "نسخه‌ی بتا ۱.۷ در ۳۰ ژوئن ۲۰۱۱ منتشر شد و Pistons (استفاده از رداستون برای حرکت دادن بلوک‌ها) را به بازی اضافه کرد. Shears برای برداشت پشم گوسفند بدون کشتن معرفی شد. TNT با رداستون قابل فعال‌سازی شد. — ماینکرفت.",
       "highlights": [
         "Pistons — پیستون‌های رداستونی",
         "Shears — قیچی",
@@ -1018,7 +1018,7 @@
       "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.6",
       "icon": "px-stone",
       "summary": "افزودن Maps، Trapdoor و Dead Bush.",
-      "description": "نسخه‌ی بتا ۱.۶ در ۲۶ مه ۲۰۱۱ منتشر شد و Maps (نقشه‌های کارتوگرافی) را اضافه کرد. Wooden Trapdoor معرفی شد. Dead Bush در بیابان‌ها افزوده شد و سیستم رشد Grass بهبود یافت.",
+      "description": "نسخه‌ی بتا ۱.۶ در ۲۶ مه ۲۰۱۱ منتشر شد و Maps (نقشه‌های کارتوگرافی) را اضافه کرد. Wooden Trapdoor معرفی شد. Dead Bush در بیابان‌ها افزوده شد و سیستم رشد Grass بهبود یافت. — ماینکرفت.",
       "highlights": [
         "Maps — نقشه‌ی کارتوگرافی",
         "Wooden Trapdoor",
@@ -1054,7 +1054,7 @@
       "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.5",
       "icon": "px-stone",
       "summary": "افزودن Weather، Cobweb و Powered Rails تقویت‌شده.",
-      "description": "نسخه‌ی بتا ۱.۵ در ۱۹ آوریل ۲۰۱۱ منتشر شد و Weather (باران، برف و رعدوبرق) را به بازی اضافه کرد. Cobweb و Tall Grass معرفی شد. Powered Rails با قابلیت تقویت سرعت Minecart معرفی شد.",
+      "description": "نسخه‌ی بتا ۱.۵ در ۱۹ آوریل ۲۰۱۱ منتشر شد و Weather (باران، برف و رعدوبرق) را به بازی اضافه کرد. Cobweb و Tall Grass معرفی شد. Powered Rails با قابلیت تقویت سرعت Minecart معرفی شد. — ماینکرفت.",
       "highlights": [
         "Weather — باران و برف",
         "Cobweb",
@@ -1090,7 +1090,7 @@
       "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.4",
       "icon": "px-stone",
       "summary": "افزودن Wolves، Cookies و قابلیت رام کردن.",
-      "description": "نسخه‌ی بتا ۱.۴ در ۳۱ مارس ۲۰۱۱ منتشر شد و Wolves را به بازی اضافه کرد؛ اولین ماب قابل رام کردن با استخوان. Cookies نیز معرفی شدند. قابلیت خواب در تخت در multiplayer بهبود یافت و چندین باگ رفع شد.",
+      "description": "نسخه‌ی بتا ۱.۴ در ۳۱ مارس ۲۰۱۱ منتشر شد و Wolves را به بازی اضافه کرد؛ اولین ماب قابل رام کردن با استخوان. Cookies نیز معرفی شدند. قابلیت خواب در تخت در multiplayer بهبود یافت و چندین باگ رفع شد. — ماینکرفت.",
       "highlights": [
         "Wolves — گرگ‌های رام‌شدنی",
         "Cookies",
@@ -1126,7 +1126,7 @@
       "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.3",
       "icon": "px-stone",
       "summary": "افزودن تخت خواب، Powered Rails و Redstone Lamp.",
-      "description": "نسخه‌ی بتا ۱.۳ در ۲۲ فوریه ۲۰۱۱ منتشر شد و قابلیت خواب در تخت را برای رد کردن شب و تغییر اسپاون اضافه کرد. Powered Rails و Detector Rails برای ساخت مینی‌کارت‌های سریع معرفی شد. Slabs جدید و امکان چرخاندن آن‌ها به پایین نیز اضافه شد.",
+      "description": "نسخه‌ی بتا ۱.۳ در ۲۲ فوریه ۲۰۱۱ منتشر شد و قابلیت خواب در تخت را برای رد کردن شب و تغییر اسپاون اضافه کرد. Powered Rails و Detector Rails برای ساخت مینی‌کارت‌های سریع معرفی شد. Slabs جدید و امکان چرخاندن آن‌ها به پایین نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Bed — تخت خواب",
         "Powered Rails",
@@ -1163,7 +1163,7 @@
       "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.2",
       "icon": "px-stone",
       "summary": "افزودن Note Block، Squid، Sugar Cane و درخت‌های Birch و Spruce.",
-      "description": "نسخه‌ی بتا ۱.۲ در ۱۳ ژانویه ۲۰۱۱ منتشر شد و درخت‌های جدید (Birch و Spruce) را به بازی اضافه کرد. Note Block برای ساخت موسیقی، Squid برای جوهر، و Sugar Cane برای ساخت کاغذ و قند اضافه شد. بلوک‌های Lapis Lazuli و Ink Sac نیز معرفی شدند.",
+      "description": "نسخه‌ی بتا ۱.۲ در ۱۳ ژانویه ۲۰۱۱ منتشر شد و درخت‌های جدید (Birch و Spruce) را به بازی اضافه کرد. Note Block برای ساخت موسیقی، Squid برای جوهر، و Sugar Cane برای ساخت کاغذ و قند اضافه شد. بلوک‌های Lapis Lazuli و Ink Sac نیز معرفی شدند. — ماینکرفت.",
       "highlights": [
         "Note Block",
         "Squid و Ink Sac",
@@ -1200,7 +1200,7 @@
       "wikiLink": "https://minecraft.wiki/w/Java_Edition_Beta_1.1",
       "icon": "px-stone",
       "summary": "بهبود Server-side Inventory و Sneaking با ترجمه‌ی بازی.",
-      "description": "نسخه‌ی بتا ۱.۱ در ۲۲ دسامبر ۲۰۱۰ منتشر شد و بهبودهای جزئی نسبت به بتا ۱.۰ داشت. این نسخه مشکلات Server-side Inventory و سیستم Sneaking را رفع کرد و قابلیت چت در سرورها را پایدارتر کرد. پشتیبانی از زبان‌های جدید نیز به بازی اضافه شد.",
+      "description": "نسخه‌ی بتا ۱.۱ در ۲۲ دسامبر ۲۰۱۰ منتشر شد و بهبودهای جزئی نسبت به بتا ۱.۰ داشت. این نسخه مشکلات Server-side Inventory و سیستم Sneaking را رفع کرد و قابلیت چت در سرورها را پایدارتر کرد. پشتیبانی از زبان‌های جدید نیز به بازی اضافه شد. — ماینکرفت.",
       "highlights": [
         "بهبود Server-side Inventory",
         "رفع باگ Sneaking",
@@ -1342,7 +1342,7 @@
       "minor": 0,
       "icon": "px-grass-block",
       "summary": "نسخه‌ی In Development با Crafting و Inventory.",
-      "description": "نسخه‌ی Indev (In Development) در دسامبر ۲۰۰۹ شروع شد. این نسخه Crafting System و Inventory را اضافه کرد. سیستم Day/Night Cycle و TNT اضافه شد. این نسخه پایه‌ای برای Survival Mode بود.",
+      "description": "نسخه‌ی Indev (In Development) در دسامبر ۲۰۰۹ شروع شد. این نسخه Crafting System و Inventory را اضافه کرد. سیستم Day/Night Cycle و TNT اضافه شد. این نسخه پایه‌ای برای Survival Mode بود. — ماینکرفت.",
       "highlights": [
         "Crafting System",
         "Inventory",
@@ -1418,7 +1418,7 @@
       "minor": 50,
       "icon": "px-grass-block",
       "summary": "بزرگ‌ترین آپدیت بدراک در سال ۲۰۲۶ با تمرکز بر بیوم‌های وحشی و Quick Travel.",
-      "description": "نسخه‌ی ۲۶.۵۰ بدراک با نام Wilderness Bound در سپتامبر ۲۰۲۶ منتشر شد. این نسخه با نسخه‌ی ۲۶.۳ جاوا هماهنگ است و همان محتوا را به بدراک می‌آورد: Wilderness Camp، Quick Travel Rope و Trail Marking.",
+      "description": "نسخه‌ی ۲۶.۵۰ بدراک با نام Wilderness Bound در سپتامبر ۲۰۲۶ منتشر شد. این نسخه با نسخه‌ی ۲۶.۳ جاوا هماهنگ است و همان محتوا را به بدراک می‌آورد: Wilderness Camp، Quick Travel Rope و Trail Marking. — ماینکرفت.",
       "highlights": [
         "Wilderness Camp",
         "Quick Travel Rope",
@@ -1457,7 +1457,7 @@
       "minor": 45,
       "icon": "px-tnt",
       "summary": "هماهنگی با Java 26.2 با Cogwheel و Logic Gate Block.",
-      "description": "نسخه‌ی ۲۶.۴۵ بدراک در آگوست ۲۰۲۶ منتشر شد و با نسخه‌ی ۲۶.۲ جاوا هماهنگ است. این نسخه Cogwheel و Logic Gate Block را به بدراک می‌آورد.",
+      "description": "نسخه‌ی ۲۶.۴۵ بدراک در آگوست ۲۰۲۶ منتشر شد و با نسخه‌ی ۲۶.۲ جاوا هماهنگ است. این نسخه Cogwheel و Logic Gate Block را به بدراک می‌آورد. — ماینکرفت.",
       "highlights": [
         "Cogwheel",
         "Logic Gate Block",
@@ -1493,7 +1493,7 @@
       "minor": 21,
       "icon": "px-grass-block",
       "summary": "اضافه شدن نسخه‌ی نهایی Bundles و رفع اشکال فراوان.",
-      "description": "نسخه‌ی 1.21.80 بدراک در دسامبر ۲۰۲۴ منتشر شد. این نسخه Bundles را از حالت Experimental خارج کرد و به طور رسمی به بازی اضافه کرد. رفع اشکال فراوان و بهبود عملکرد.",
+      "description": "نسخه‌ی 1.21.80 بدراک در دسامبر ۲۰۲۴ منتشر شد. این نسخه Bundles را از حالت Experimental خارج کرد و به طور رسمی به بازی اضافه کرد. رفع اشکال فراوان و بهبود عملکرد. — ماینکرفت.",
       "highlights": [
         "Bundles رسمی",
         "رفع اشکال",
@@ -1529,7 +1529,7 @@
       "minor": 21,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Bundles به طور Experimental و رفع اشکال.",
-      "description": "نسخه‌ی 1.21.70 بدراک در نوامبر ۲۰۲۴ منتشر شد. این نسخه Bundles را به طور Experimental اضافه کرد. بهبود Wind Charge و Trial Chambers.",
+      "description": "نسخه‌ی 1.21.70 بدراک در نوامبر ۲۰۲۴ منتشر شد. این نسخه Bundles را به طور Experimental اضافه کرد. بهبود Wind Charge و Trial Chambers. — ماینکرفت.",
       "highlights": [
         "Bundles (Experimental)",
         "Wind Charge",
@@ -1565,7 +1565,7 @@
       "minor": 21,
       "icon": "px-grass-block",
       "summary": "اضافه شدن جدیدی برای Bundles و درایور جدید ردمستون.",
-      "description": "نسخه‌ی 1.21.60 بدراک در اکتبر ۲۰۲۴ منتشر شد. این نسخه بهبودهای ردمستون و درایور جدید را شامل می‌شود. سیستم Ticking Area بهبود یافت.",
+      "description": "نسخه‌ی 1.21.60 بدراک در اکتبر ۲۰۲۴ منتشر شد. این نسخه بهبودهای ردمستون و درایور جدید را شامل می‌شود. سیستم Ticking Area بهبود یافت. — ماینکرفت.",
       "highlights": [
         "درایور ردمستون",
         "Ticking Area",
@@ -1601,7 +1601,7 @@
       "minor": 21,
       "icon": "px-grass-block",
       "summary": "هماهنگی با Java 1.21 با Trial Chambers و Armadillo.",
-      "description": "نسخه‌ی 1.21.50 بدراک در سپتامبر ۲۰۲۴ منتشر شد و هماهنگی کامل با Java 1.21 را فراهم می‌کند. این نسخه Trial Chambers و Armadillo را به طور رسمی اضافه کرد. Wind Charge نیز اضافه شد.",
+      "description": "نسخه‌ی 1.21.50 بدراک در سپتامبر ۲۰۲۴ منتشر شد و هماهنگی کامل با Java 1.21 را فراهم می‌کند. این نسخه Trial Chambers و Armadillo را به طور رسمی اضافه کرد. Wind Charge نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Trial Chambers",
         "Armadillo",
@@ -1638,7 +1638,7 @@
       "minor": 21,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Trial Chambers به طور Experimental.",
-      "description": "نسخه‌ی 1.21.40 بدراک در ژوئیه ۲۰۲۴ منتشر شد. این نسخه Trial Chambers و Armadillo را به طور Experimental اضافه کرد. بهبود رفع اشکال و عملکرد.",
+      "description": "نسخه‌ی 1.21.40 بدراک در ژوئیه ۲۰۲۴ منتشر شد. این نسخه Trial Chambers و Armadillo را به طور Experimental اضافه کرد. بهبود رفع اشکال و عملکرد. — ماینکرفت.",
       "highlights": [
         "Trial Chambers (Experimental)",
         "Armadillo (Experimental)",
@@ -1674,7 +1674,7 @@
       "minor": 21,
       "icon": "px-grass-block",
       "summary": "هماهنگی با Java 1.21 و رفع اشکال فراوان.",
-      "description": "نسخه‌ی 1.21.30 بدراک در ژوئن ۲۰۲۴ منتشر شد. این نسخه هماهنگی با Java 1.21 را شروع کرد. رفع اشکال فراوان و بهبود Tomb از کارهای اصلی این نسخه بود.",
+      "description": "نسخه‌ی 1.21.30 بدراک در ژوئن ۲۰۲۴ منتشر شد. این نسخه هماهنگی با Java 1.21 را شروع کرد. رفع اشکال فراوان و بهبود Tomb از کارهای اصلی این نسخه بود. — ماینکرفت.",
       "highlights": [
         "هماهنگی با Java 1.21",
         "رفع اشکال",
@@ -1710,7 +1710,7 @@
       "minor": 21,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Crashing چندبخشی و رفع اشکال.",
-      "description": "نسخه‌ی 1.21.20 بدراک در آوریل ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Tomb را شامل می‌شود. سیستم Wolf Variants به طور Experimental اضافه شد.",
+      "description": "نسخه‌ی 1.21.20 بدراک در آوریل ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Tomb را شامل می‌شود. سیستم Wolf Variants به طور Experimental اضافه شد. — ماینکرفت.",
       "highlights": [
         "Wolf Variants (Experimental)",
         "رفع اشکال",
@@ -1746,7 +1746,7 @@
       "minor": 21,
       "icon": "px-grass-block",
       "summary": "هماهنگی با Java 1.21 با Trial Chambers و Armadillo.",
-      "description": "نسخه‌ی 1.21.0 بدراک با نام Tricky Trials در آوریل ۲۰۲۴ منتشر شد. این نسخه با Java 1.21 هماهنگ است و Trial Chambers و Armadillo را اضافه کرد. Copper Bulb و Wolf Variants نیز اضافه شد.",
+      "description": "نسخه‌ی 1.21.0 بدراک با نام Tricky Trials در آوریل ۲۰۲۴ منتشر شد. این نسخه با Java 1.21 هماهنگ است و Trial Chambers و Armadillo را اضافه کرد. Copper Bulb و Wolf Variants نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Trial Chambers",
         "Armadillo",
@@ -1783,7 +1783,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود Shield.",
-      "description": "نسخه‌ی 1.20.80 بدراک در آوریل ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Shield را شامل می‌شود.",
+      "description": "نسخه‌ی 1.20.80 بدراک در آوریل ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Shield را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "رفع اشکال Shield",
         "بهبود عملکرد",
@@ -1819,7 +1819,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Armadillo به طور Experimental و Tomb جدید.",
-      "description": "نسخه‌ی 1.20.70 بدراک در فوریه ۲۰۲۴ منتشر شد. این نسخه Armadillo را به طور Experimental اضافه کرد. Wolf Variants نیز اضافه شد. رفع اشکال فراوان.",
+      "description": "نسخه‌ی 1.20.70 بدراک در فوریه ۲۰۲۴ منتشر شد. این نسخه Armadillo را به طور Experimental اضافه کرد. Wolf Variants نیز اضافه شد. رفع اشکال فراوان. — ماینکرفت.",
       "highlights": [
         "Armadillo (Experimental)",
         "Wolf Variants",
@@ -1855,7 +1855,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود Ticking Area.",
-      "description": "نسخه‌ی 1.20.60 بدراک در ژانویه ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Ticking Area را شامل می‌شود.",
+      "description": "نسخه‌ی 1.20.60 بدراک در ژانویه ۲۰۲۴ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Ticking Area را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "بهبود Ticking Area",
         "رفع اشکال",
@@ -1891,7 +1891,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود Shield.",
-      "description": "نسخه‌ی 1.20.50 بدراک در نوامبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Shield را شامل می‌شود. بهبود Tomb.",
+      "description": "نسخه‌ی 1.20.50 بدراک در نوامبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Shield را شامل می‌شود. بهبود Tomb. — ماینکرفت.",
       "highlights": [
         "بهبود Shield",
         "رفع اشکال",
@@ -1927,7 +1927,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
-      "description": "نسخه‌ی 1.20.40 بدراک در اکتبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود. بهبود Tomb.",
+      "description": "نسخه‌ی 1.20.40 بدراک در اکتبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود. بهبود Tomb. — ماینکرفت.",
       "highlights": [
         "رفع اشکال",
         "بهبود عملکرد",
@@ -1963,7 +1963,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
-      "description": "نسخه‌ی 1.20.30 بدراک در سپتامبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود.",
+      "description": "نسخه‌ی 1.20.30 بدراک در سپتامبر ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "رفع اشکال",
         "بهبود عملکرد",
@@ -1999,7 +1999,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
-      "description": "نسخه‌ی 1.20.10 بدراک در ژوئیه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود.",
+      "description": "نسخه‌ی 1.20.10 بدراک در ژوئیه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "رفع اشکال",
         "بهبود عملکرد",
@@ -2035,7 +2035,7 @@
       "minor": 20,
       "icon": "px-grass-block",
       "summary": "نسخه‌ی آرام و ماجراجویانه با Cherry Blossom، Bamboo Set و Archaeology.",
-      "description": "نسخه‌ی 1.20.0 بدراک با نام Trails & Tales در ژوئن ۲۰۲۳ منتشر شد و با Java 1.20 هماهنگ است. این نسخه Cherry Blossom Biome، Bamboo Set و Archaeology را اضافه کرد. Hanging Signs و Armor Trims نیز اضافه شد.",
+      "description": "نسخه‌ی 1.20.0 بدراک با نام Trails & Tales در ژوئن ۲۰۲۳ منتشر شد و با Java 1.20 هماهنگ است. این نسخه Cherry Blossom Biome، Bamboo Set و Archaeology را اضافه کرد. Hanging Signs و Armor Trims نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Cherry Blossom Biome",
         "Bamboo Set",
@@ -2073,7 +2073,7 @@
       "minor": 19,
       "icon": "px-grass-block",
       "summary": "پیش‌نمایش Trails & Tales و رفع اشکال فراوان.",
-      "description": "نسخه‌ی 1.19.80 بدراک در آوریل ۲۰۲۳ منتشر شد. این نسخه پیش‌نمایش Trails & Tales (Cherry Blossom، Archaeology) را به طور Experimental اضافه کرد.",
+      "description": "نسخه‌ی 1.19.80 بدراک در آوریل ۲۰۲۳ منتشر شد. این نسخه پیش‌نمایش Trails & Tales (Cherry Blossom، Archaeology) را به طور Experimental اضافه کرد. — ماینکرفت.",
       "highlights": [
         "Cherry Blossom (Experimental)",
         "Archaeology (Experimental)",
@@ -2109,7 +2109,7 @@
       "minor": 19,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
-      "description": "نسخه‌ی 1.19.70 بدراک در فوریه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود.",
+      "description": "نسخه‌ی 1.19.70 بدراک در فوریه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "رفع اشکال",
         "بهبود عملکرد",
@@ -2145,7 +2145,7 @@
       "minor": 19,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود عملکرد.",
-      "description": "نسخه‌ی 1.19.60 بدراک در ژانویه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود.",
+      "description": "نسخه‌ی 1.19.60 بدراک در ژانویه ۲۰۲۳ منتشر شد. این نسخه رفع اشکال فراوان و بهبود عملکرد را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "رفع اشکال",
         "بهبود عملکرد",
@@ -2181,7 +2181,7 @@
       "minor": 19,
       "icon": "px-grass-block",
       "summary": "آپدیت وحشی با Deep Dark، Warden و Mangrove Swamp.",
-      "description": "نسخه‌ی 1.19.50 بدراک با نام The Wild Update در نوامبر ۲۰۲۲ منتشر شد و با Java 1.19 هماهنگ است. این نسخه Deep Dark، Warden و Mangrove Swamp را اضافه کرد. Allay و Frog نیز اضافه شد.",
+      "description": "نسخه‌ی 1.19.50 بدراک با نام The Wild Update در نوامبر ۲۰۲۲ منتشر شد و با Java 1.19 هماهنگ است. این نسخه Deep Dark، Warden و Mangrove Swamp را اضافه کرد. Allay و Frog نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Deep Dark و Warden",
         "Mangrove Swamp",
@@ -2219,7 +2219,7 @@
       "minor": 18,
       "icon": "px-stone",
       "summary": "هماهنگی کامل با Java 1.18 و رفع اشکال.",
-      "description": "نسخه‌ی 1.18.30 بدراک در فوریه ۲۰۲۲ منتشر شد و هماهنگی کامل با Java 1.18 را فراهم می‌کند. این نسخه World Generation جدید با ارتفاع ۳۸۴ بلوک، Lush Caves و Dripstone Caves را اضافه کرد.",
+      "description": "نسخه‌ی 1.18.30 بدراک در فوریه ۲۰۲۲ منتشر شد و هماهنگی کامل با Java 1.18 را فراهم می‌کند. این نسخه World Generation جدید با ارتفاع ۳۸۴ بلوک، Lush Caves و Dripstone Caves را اضافه کرد. — ماینکرفت.",
       "highlights": [
         "World Generation جدید",
         "Lush Caves",
@@ -2256,7 +2256,7 @@
       "minor": 17,
       "icon": "px-diamond-ore",
       "summary": "هماهنگی با Java 1.17 با Copper، Amethyst و Lightning Rod.",
-      "description": "نسخه‌ی 1.17.40 بدراک در اکتبر ۲۰۲۱ منتشر شد و هماهنگی با Java 1.17 را فراهم می‌کند. این نسخه Copper، Amethyst و Lightning Rod را اضافه کرد. Axolotl و Goat نیز اضافه شد.",
+      "description": "نسخه‌ی 1.17.40 بدراک در اکتبر ۲۰۲۱ منتشر شد و هماهنگی با Java 1.17 را فراهم می‌کند. این نسخه Copper، Amethyst و Lightning Rod را اضافه کرد. Axolotl و Goat نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Copper با رنگ‌پذیری",
         "Amethyst",
@@ -2293,7 +2293,7 @@
       "minor": 16,
       "icon": "px-tnt",
       "summary": "آپدیت Nether با Piglins، Netherite و بیوم‌های جدید.",
-      "description": "نسخه‌ی 1.16.0 بدراک با نام Nether Update در ژوئن ۲۰۲۰ منتشر شد و با Java 1.16 هماهنگ است. این نسخه Nether را کاملاً بازطراحی کرد. Piglins، Netherite و Bastion Remnants اضافه شد.",
+      "description": "نسخه‌ی 1.16.0 بدراک با نام Nether Update در ژوئن ۲۰۲۰ منتشر شد و با Java 1.16 هماهنگ است. این نسخه Nether را کاملاً بازطراحی کرد. Piglins، Netherite و Bastion Remnants اضافه شد. — ماینکرفت.",
       "highlights": [
         "بیوم‌های متنوع Nether",
         "Piglins",
@@ -2330,7 +2330,7 @@
       "minor": 14,
       "icon": "px-grass-block",
       "summary": "آپدیت زنبورها با Bee، Hive و Honey Bottle.",
-      "description": "نسخه‌ی 1.14.0 بدراک با نام Buzzy Bees در دسامبر ۲۰۱۹ منتشر شد و با Java 1.15 هماهنگ است. این نسخه Bee، Hive و Honey Bottle را اضافه کرد.",
+      "description": "نسخه‌ی 1.14.0 بدراک با نام Buzzy Bees در دسامبر ۲۰۱۹ منتشر شد و با Java 1.15 هماهنگ است. این نسخه Bee، Hive و Honey Bottle را اضافه کرد. — ماینکرفت.",
       "highlights": [
         "Bee",
         "Hive",
@@ -2367,7 +2367,7 @@
       "minor": 13,
       "icon": "px-grass-block",
       "summary": "رفع اشکال فراوان و بهبود Light Block.",
-      "description": "نسخه‌ی 1.13.0 بدراک در اکتبر ۲۰۱۹ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Light Block و Foxes (Experimental) را شامل می‌شود.",
+      "description": "نسخه‌ی 1.13.0 بدراک در اکتبر ۲۰۱۹ منتشر شد. این نسخه رفع اشکال فراوان و بهبود Light Block و Foxes (Experimental) را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "Foxes (Experimental)",
         "Light Block",
@@ -2403,7 +2403,7 @@
       "minor": 12,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Education Edition Features و رفع اشکال.",
-      "description": "نسخه‌ی 1.12.0 بدراک در ژوئیه ۲۰۱۹ منتشر شد. این نسخه Education Edition Features را شامل می‌شود. رفع اشکال فراوان.",
+      "description": "نسخه‌ی 1.12.0 بدراک در ژوئیه ۲۰۱۹ منتشر شد. این نسخه Education Edition Features را شامل می‌شود. رفع اشکال فراوان. — ماینکرفت.",
       "highlights": [
         "Education Features",
         "رفع اشکال",
@@ -2439,7 +2439,7 @@
       "minor": 11,
       "icon": "px-grass-block",
       "summary": "هماهنگی با Java 1.14 با بازطراحی دهکده‌ها و Pillager.",
-      "description": "نسخه‌ی 1.11.0 بدراک با نام Village & Pillage در آوریل ۲۰۱۹ منتشر شد و با Java 1.14 هماهنگ است. این نسخه دهکده‌ها را کاملاً بازطراحی کرد. Pillager، Crossbow و Bamboo اضافه شد.",
+      "description": "نسخه‌ی 1.11.0 بدراک با نام Village & Pillage در آوریل ۲۰۱۹ منتشر شد و با Java 1.14 هماهنگ است. این نسخه دهکده‌ها را کاملاً بازطراحی کرد. Pillager، Crossbow و Bamboo اضافه شد. — ماینکرفت.",
       "highlights": [
         "بازطراحی دهکده‌ها",
         "Pillager",
@@ -2476,7 +2476,7 @@
       "minor": 10,
       "icon": "px-grass-block",
       "summary": "پیش‌نمایش Village & Pillage و رفع اشکال.",
-      "description": "نسخه‌ی 1.10.0 بدراک در مارس ۲۰۱۹ منتشر شد. این نسخه پیش‌نمایش Village & Pillage (دهکده‌های جدید) را شامل می‌شود.",
+      "description": "نسخه‌ی 1.10.0 بدراک در مارس ۲۰۱۹ منتشر شد. این نسخه پیش‌نمایش Village & Pillage (دهکده‌های جدید) را شامل می‌شود. — ماینکرفت.",
       "highlights": [
         "دهکده‌های جدید (Experimental)",
         "رفع اشکال",
@@ -2512,7 +2512,7 @@
       "minor": 9,
       "icon": "px-grass-block",
       "summary": "پیش‌نمایش Pillage و رفع اشکال.",
-      "description": "نسخه‌ی 1.9.0 بدراک در فوریه ۲۰۱۹ منتشر شد. این نسخه پیش‌نمایش Pillage (Pillager، Crossbow) را شامل می‌شود. رفع اشکال فراوان.",
+      "description": "نسخه‌ی 1.9.0 بدراک در فوریه ۲۰۱۹ منتشر شد. این نسخه پیش‌نمایش Pillage (Pillager، Crossbow) را شامل می‌شود. رفع اشکال فراوان. — ماینکرفت.",
       "highlights": [
         "Pillager (Experimental)",
         "Crossbow (Experimental)",
@@ -2548,7 +2548,7 @@
       "minor": 8,
       "icon": "px-stone",
       "summary": "اضافه شدن Pandas، Cats و Bamboo.",
-      "description": "نسخه‌ی 1.8.0 بدراک در دسامبر ۲۰۱۸ منتشر شد. این نسخه Pandas، Cats جدید و Bamboo Jungle را اضافه کرد. Structure Block نیز اضافه شد.",
+      "description": "نسخه‌ی 1.8.0 بدراک در دسامبر ۲۰۱۸ منتشر شد. این نسخه Pandas، Cats جدید و Bamboo Jungle را اضافه کرد. Structure Block نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Panda",
         "گربه‌های جدید",
@@ -2585,7 +2585,7 @@
       "minor": 7,
       "icon": "px-water",
       "summary": "هماهنگی با Java 1.13 با اقیانوس‌های بازطراحی‌شده و Coral.",
-      "description": "نسخه‌ی 1.7.0 بدراک با نام Update Aquatic در اکتبر ۲۰۱۸ منتشر شد و با Java 1.13 هماهنگ است. این نسخه اقیانوس‌ها را کاملاً بازطراحی کرد. Coral، Kelp و Dolphin اضافه شد.",
+      "description": "نسخه‌ی 1.7.0 بدراک با نام Update Aquatic در اکتبر ۲۰۱۸ منتشر شد و با Java 1.13 هماهنگ است. این نسخه اقیانوس‌ها را کاملاً بازطراحی کرد. Coral، Kelp و Dolphin اضافه شد. — ماینکرفت.",
       "highlights": [
         "اقیانوس‌های بازطراحی‌شده",
         "Coral Reefs",
@@ -2622,7 +2622,7 @@
       "minor": 6,
       "icon": "px-water",
       "summary": "بخش دوم Update Aquatic با Coral و Drowned.",
-      "description": "نسخه‌ی 1.6.0 بدراک در آگوست ۲۰۱۸ منتشر شد. این نسخه بخش دوم Update Aquatic است. Coral Reefs، Drowned و Shipwrecks اضافه شد.",
+      "description": "نسخه‌ی 1.6.0 بدراک در آگوست ۲۰۱۸ منتشر شد. این نسخه بخش دوم Update Aquatic است. Coral Reefs، Drowned و Shipwrecks اضافه شد. — ماینکرفت.",
       "highlights": [
         "Coral Reefs",
         "Drowned",
@@ -2659,7 +2659,7 @@
       "minor": 5,
       "icon": "px-water",
       "summary": "بخش اول Update Aquatic با Coral و Ocean Monument.",
-      "description": "نسخه‌ی 1.5.0 بدراک در مِ ۲۰۱۸ منتشر شد. این نسخه بخش اول Update Aquatic است. Coral، Kelp و Ocean Monument بهبود یافت.",
+      "description": "نسخه‌ی 1.5.0 بدراک در مِ ۲۰۱۸ منتشر شد. این نسخه بخش اول Update Aquatic است. Coral، Kelp و Ocean Monument بهبود یافت. — ماینکرفت.",
       "highlights": [
         "Coral",
         "Kelp",
@@ -2696,7 +2696,7 @@
       "minor": 4,
       "icon": "px-water",
       "summary": "پیش‌نمایش Update Aquatic و رفع اشکال.",
-      "description": "نسخه‌ی 1.4.0 بدراک در دسامبر ۲۰۱۷ منتشر شد. این نسخه پیش‌نمایش Update Aquatic (Coral، Kelp) را شامل می‌شود. رفع اشکال فراوان.",
+      "description": "نسخه‌ی 1.4.0 بدراک در دسامبر ۲۰۱۷ منتشر شد. این نسخه پیش‌نمایش Update Aquatic (Coral، Kelp) را شامل می‌شود. رفع اشکال فراوان. — ماینکرفت.",
       "highlights": [
         "Coral (Experimental)",
         "Kelp (Experimental)",
@@ -2732,7 +2732,7 @@
       "minor": 2,
       "icon": "px-grass-block",
       "summary": "آپدیت Better Together با Cross-platform Multiplayer.",
-      "description": "نسخه‌ی 1.2.0 بدراک با نام Better Together Update در ژوئیه ۲۰۱۷ منتشر شد. این نسخه بزرگ‌ترین آپدیت تاریخ بدراک است: Cross-platform Multiplayer بین Windows 10، Xbox، Mobile و VR. New Host Options و Recipe Book اضافه شد.",
+      "description": "نسخه‌ی 1.2.0 بدراک با نام Better Together Update در ژوئیه ۲۰۱۷ منتشر شد. این نسخه بزرگ‌ترین آپدیت تاریخ بدراک است: Cross-platform Multiplayer بین Windows 10، Xbox، Mobile و VR. New Host Options و Recipe Book اضافه شد. — ماینکرفت.",
       "highlights": [
         "Cross-platform Multiplayer",
         "Recipe Book",
@@ -2769,7 +2769,7 @@
       "minor": 1,
       "icon": "px-grass-block",
       "summary": "آپدیت کاوش با Woodland Mansion و Llamas.",
-      "description": "نسخه‌ی 1.1.0 بدراک با نام Discovery Update در ژوئن ۲۰۱۷ منتشر شد. این نسخه Woodland Mansion و Llamas را اضافه کرد. Illager Beast (Vindicator) نیز اضافه شد.",
+      "description": "نسخه‌ی 1.1.0 بدراک با نام Discovery Update در ژوئن ۲۰۱۷ منتشر شد. این نسخه Woodland Mansion و Llamas را اضافه کرد. Illager Beast (Vindicator) نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Woodland Mansion",
         "Llamas",
@@ -2806,7 +2806,7 @@
       "minor": 0,
       "icon": "px-grass-block",
       "summary": "نسخه‌ی 1.0 بدراک با The End، Ender Dragon و World Market.",
-      "description": "نسخه‌ی 1.0.0 بدراک با نام Ender Update در دسامبر ۲۰۱۶ منتشر شد و نخستین نسخه‌ی رسمی بدراک است. این نسخه The End و Ender Dragon را اضافه کرد. World Market (بعداً Marketplace) اضافه شد.",
+      "description": "نسخه‌ی 1.0.0 بدراک با نام Ender Update در دسامبر ۲۰۱۶ منتشر شد و نخستین نسخه‌ی رسمی بدراک است. این نسخه The End و Ender Dragon را اضافه کرد. World Market (بعداً Marketplace) اضافه شد. — ماینکرفت.",
       "highlights": [
         "The End",
         "Ender Dragon",
@@ -2843,7 +2843,7 @@
       "minor": 16,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Elder Guardian، With Skul Wither و_commands.",
-      "description": "نسخه‌ی 0.16.0 Pocket Edition با نام Boss Update در اکتبر ۲۰۱۶ منتشر شد. این نسخه Elder Guardian و Wither را اضافه کرد. سیستم Slash Commands نیز اضافه شد.",
+      "description": "نسخه‌ی 0.16.0 Pocket Edition با نام Boss Update در اکتبر ۲۰۱۶ منتشر شد. این نسخه Elder Guardian و Wither را اضافه کرد. سیستم Slash Commands نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Elder Guardian",
         "Wither",
@@ -2880,7 +2880,7 @@
       "minor": 15,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Horse، Donkey و Piston.",
-      "description": "نسخه‌ی 0.15.0 Pocket Edition با نام Friendly Update در ژوئن ۲۰۱۶ منتشر شد. این نسخه Horse، Donkey و Piston را اضافه کرد. Multiplayer Realms نیز اضافه شد.",
+      "description": "نسخه‌ی 0.15.0 Pocket Edition با نام Friendly Update در ژوئن ۲۰۱۶ منتشر شد. این نسخه Horse، Donkey و Piston را اضافه کرد. Multiplayer Realms نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Horse و Donkey",
         "Piston و Sticky Piston",
@@ -2917,7 +2917,7 @@
       "minor": 14,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Redstone، Minecart و dropper.",
-      "description": "نسخه‌ی 0.14.0 Pocket Edition با نام Overworld Update در فوریه ۲۰۱۶ منتشر شد. این نسخه Redstone Mechanics، Minecart و Dropper را اضافه کرد.",
+      "description": "نسخه‌ی 0.14.0 Pocket Edition با نام Overworld Update در فوریه ۲۰۱۶ منتشر شد. این نسخه Redstone Mechanics، Minecart و Dropper را اضافه کرد. — ماینکرفت.",
       "highlights": [
         "Redstone Mechanics",
         "Minecart with Hopper",
@@ -2954,7 +2954,7 @@
       "minor": 13,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Crafting در بازی و Redstone.",
-      "description": "نسخه‌ی 0.13.0 Pocket Edition در نوامبر ۲۰۱۵ منتشر شد. این نسخه Crafting را در بازی اضافه کرد (نه تنها در Crafting Table). Redstone و Pressure Plates اضافه شد.",
+      "description": "نسخه‌ی 0.13.0 Pocket Edition در نوامبر ۲۰۱۵ منتشر شد. این نسخه Crafting را در بازی اضافه کرد (نه تنها در Crafting Table). Redstone و Pressure Plates اضافه شد. — ماینکرفت.",
       "highlights": [
         "Crafting در بازی",
         "Redstone Dust",
@@ -2991,7 +2991,7 @@
       "minor": 12,
       "icon": "px-tnt",
       "summary": "اضافه شدن Nether، Hunger و Brewing.",
-      "description": "نسخه‌ی 0.12.0 Pocket Edition با نام Nether Update در سپتامبر ۲۰۱۵ منتشر شد. این نسخه Nether، Hunger System و Brewing را اضافه کرد. XP و Enchanting نیز اضافه شد.",
+      "description": "نسخه‌ی 0.12.0 Pocket Edition با نام Nether Update در سپتامبر ۲۰۱۵ منتشر شد. این نسخه Nether، Hunger System و Brewing را اضافه کرد. XP و Enchanting نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Nether",
         "Hunger System",
@@ -3028,7 +3028,7 @@
       "minor": 11,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Skins و Fishing System.",
-      "description": "نسخه‌ی 0.11.0 Pocket Edition در آوریل ۲۰۱۵ منتشر شد. این نسخه Skins System و Fishing را اضافه کرد. Cave Spiders و Zombie Pigmen نیز اضافه شد.",
+      "description": "نسخه‌ی 0.11.0 Pocket Edition در آوریل ۲۰۱۵ منتشر شد. این نسخه Skins System و Fishing را اضافه کرد. Cave Spiders و Zombie Pigmen نیز اضافه شد. — ماینکرفت.",
       "highlights": [
         "Skins System",
         "Fishing",
@@ -3065,7 +3065,7 @@
       "minor": 10,
       "icon": "px-grass-block",
       "summary": "اضافه شدن Minecart و Glass Pane.",
-      "description": "نسخه‌ی 0.10.0 Pocket Edition در نوامبر ۲۰۱۴ منتشر شد. این نسخه Minecart و Glass Pane را اضافه کرد. Render و Water بهبود یافت.",
+      "description": "نسخه‌ی 0.10.0 Pocket Edition در نوامبر ۲۰۱۴ منتشر شد. این نسخه Minecart و Glass Pane را اضافه کرد. Render و Water بهبود یافت. — ماینکرفت.",
       "highlights": [
         "Minecart",
         "Glass Pane",
@@ -3102,7 +3102,7 @@
       "minor": 9,
       "icon": "px-grass-block",
       "summary": "آپدیت بی‌نهایت با نقشه‌ی بی‌نهایت و موجودات جدید.",
-      "description": "نسخه‌ی 0.9.0 Pocket Edition با نام Infinite Update در ژوئیه ۲۰۱۴ منتشر شد و بزرگ‌ترین آپدیت تاریخ پاکت بود. این نسخه نقشه‌ی بی‌نهایت را اضافه کرد. موجودات جدید مثل Enderman، Villager و Minecart اضافه شد.",
+      "description": "نسخه‌ی 0.9.0 Pocket Edition با نام Infinite Update در ژوئیه ۲۰۱۴ منتشر شد و بزرگ‌ترین آپدیت تاریخ پاکت بود. این نسخه نقشه‌ی بی‌نهایت را اضافه کرد. موجودات جدید مثل Enderman، Villager و Minecart اضافه شد. — ماینکرفت.",
       "highlights": [
         "نقشه‌ی بی‌نهایت",
         "Enderman",
@@ -3142,7 +3142,7 @@
       "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.8.0",
       "icon": "px-stone",
       "summary": "افزودن Minecart، Rails و Carpet.",
-      "description": "نسخه‌ی ۰.۸.0 Pocket Edition در ۱۲ دسامبر ۲۰۱۳ منتشر شد و Minecart و Rails را به موبایل آورد. Carpet و بلوک‌های تزئینی اضافه شد. بایوم‌های جدید و نقشه‌های بزرگ‌تر نیز معرفی شد.",
+      "description": "نسخه‌ی ۰.۸.0 Pocket Edition در ۱۲ دسامبر ۲۰۱۳ منتشر شد و Minecart و Rails را به موبایل آورد. Carpet و بلوک‌های تزئینی اضافه شد. بایوم‌های جدید و نقشه‌های بزرگ‌تر نیز معرفی شد. — ماینکرفت.",
       "highlights": [
         "Minecart و Rails",
         "Carpet",
@@ -3178,7 +3178,7 @@
       "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.7.0",
       "icon": "px-stone",
       "summary": "افزودن Minecraft Realms و دسترسی کامل به ندر.",
-      "description": "نسخه‌ی ۰.۷.۰ Pocket Edition در ۷ ژوئن ۲۰۱۳ منتشر شد و Minecraft Realms را در حالت بتا معرفی کرد. دسترسی به ندر بهبود یافت و بلوک‌های جدیدی مثل Bookshelf و Cake اضافه شد.",
+      "description": "نسخه‌ی ۰.۷.۰ Pocket Edition در ۷ ژوئن ۲۰۱۳ منتشر شد و Minecraft Realms را در حالت بتا معرفی کرد. دسترسی به ندر بهبود یافت و بلوک‌های جدیدی مثل Bookshelf و Cake اضافه شد. — ماینکرفت.",
       "highlights": [
         "Minecraft Realms (بتا)",
         "Bookshelf و Cake",
@@ -3214,7 +3214,7 @@
       "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.6.0",
       "icon": "px-stone",
       "summary": "افزودن Stonecutter و بلوک‌های جدید.",
-      "description": "نسخه‌ی ۰.۶.۰ Pocket Edition در ۳۰ ژانویه ۲۰۱۳ منتشر شد و Stonecutter را برای ساخت پلکانی و نیمه‌بلوک‌ها اضافه کرد. Nether Bricks و Quartz Block نیز معرفی شد. بافت‌ها بهبود یافت.",
+      "description": "نسخه‌ی ۰.۶.۰ Pocket Edition در ۳۰ ژانویه ۲۰۱۳ منتشر شد و Stonecutter را برای ساخت پلکانی و نیمه‌بلوک‌ها اضافه کرد. Nether Bricks و Quartz Block نیز معرفی شد. بافت‌ها بهبود یافت. — ماینکرفت.",
       "highlights": [
         "Stonecutter",
         "Nether Bricks",
@@ -3250,7 +3250,7 @@
       "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.5.0",
       "icon": "px-stone",
       "summary": "افزودن Nether Reactor و آیتم‌های ندر.",
-      "description": "نسخه‌ی ۰.۵.۰ Pocket Edition در ۱۶ نوامبر ۲۰۱۲ منتشر شد و Nether Reactor را معرفی کرد؛ سازه‌ای که چالش ندر را شبیه‌سازی می‌کرد. آیتم‌های ندر مثل Netherrack، Glowstone و Quartz اضافه شد.",
+      "description": "نسخه‌ی ۰.۵.۰ Pocket Edition در ۱۶ نوامبر ۲۰۱۲ منتشر شد و Nether Reactor را معرفی کرد؛ سازه‌ای که چالش ندر را شبیه‌سازی می‌کرد. آیتم‌های ندر مثل Netherrack، Glowstone و Quartz اضافه شد. — ماینکرفت.",
       "highlights": [
         "Nether Reactor",
         "Netherrack و Glowstone",
@@ -3286,7 +3286,7 @@
       "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.4.0",
       "icon": "px-stone",
       "summary": "افزودن Creeper، TNT و Chest.",
-      "description": "نسخه‌ی ۰.۴.۰ Pocket Edition در سپتامبر ۲۰۱۲ منتشر شد و Creeper را به موبایل آورد. TNT و Chest معرفی شد. حالت Peaceful نیز قابل انتخاب شد تا ماب‌های مهاجم غیرفعال شوند.",
+      "description": "نسخه‌ی ۰.۴.۰ Pocket Edition در سپتامبر ۲۰۱۲ منتشر شد و Creeper را به موبایل آورد. TNT و Chest معرفی شد. حالت Peaceful نیز قابل انتخاب شد تا ماب‌های مهاجم غیرفعال شوند. — ماینکرفت.",
       "highlights": [
         "Creeper",
         "TNT",
@@ -3322,7 +3322,7 @@
       "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.3.0",
       "icon": "px-stone",
       "summary": "افزودن Crafting، ماب‌های اهلی و درخت‌های جدید.",
-      "description": "نسخه‌ی ۰.۳.۰ Pocket Edition در ۱۱ آوریل ۲۰۱۲ منتشر شد و سیستم Crafting را به موبایل آورد. ماب‌های اهلی مثل Cow، Chicken، Pig و Sheep اضافه شد. درخت‌های Birch و Spruce نیز معرفی شد.",
+      "description": "نسخه‌ی ۰.۳.۰ Pocket Edition در ۱۱ آوریل ۲۰۱۲ منتشر شد و سیستم Crafting را به موبایل آورد. ماب‌های اهلی مثل Cow، Chicken، Pig و Sheep اضافه شد. درخت‌های Birch و Spruce نیز معرفی شد. — ماینکرفت.",
       "highlights": [
         "Crafting — ساخت آیتم",
         "ماب‌های اهلی",
@@ -3358,7 +3358,7 @@
       "wikiLink": "https://minecraft.wiki/w/Bedrock_Edition_0.2.0",
       "icon": "px-stone",
       "summary": "افزودن Survival Mode و چرخه‌ی روز/شب.",
-      "description": "نسخه‌ی ۰.۲.۰ Pocket Edition در ۲۲ فوریه ۲۰۱۲ منتشر شد و حالت Survival را اضافه کرد. چرخه‌ی روز/شب (هر دوره ۲۰ دقیقه) معرفی شد. ماب‌هایی مثل Zombie، Skeleton و Spider در شب ظاهر می‌شدند.",
+      "description": "نسخه‌ی ۰.۲.۰ Pocket Edition در ۲۲ فوریه ۲۰۱۲ منتشر شد و حالت Survival را اضافه کرد. چرخه‌ی روز/شب (هر دوره ۲۰ دقیقه) معرفی شد. ماب‌هایی مثل Zombie، Skeleton و Spider در شب ظاهر می‌شدند. — ماینکرفت.",
       "highlights": [
         "Survival Mode",
         "Day/Night Cycle",
