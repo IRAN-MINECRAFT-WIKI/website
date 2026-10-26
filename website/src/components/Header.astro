@@ -32,7 +32,9 @@ for (const item of nav) {
 
   <div class="header-inner">
     <a href={base('/')} class="brand">
-      <span class="brand-mark"></span>
+      <img src="https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main/ui/site-logo.png"
+           alt="ماین بد (MineBed) — لوگو" width="32" height="32"
+           class="brand-mark-img" loading="eager" decoding="async" />
       <span class="brand-text">MINEBED</span>
     </a>
 
@@ -112,6 +114,14 @@ for (const item of nav) {
     text-shadow: 2px 2px 0 #000;
     letter-spacing: 1.5px;
     white-space: nowrap;
+  }
+
+  .brand-mark-img {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    border-radius: 6px;
+    flex-shrink: 0;
   }
 
   .main-nav {
