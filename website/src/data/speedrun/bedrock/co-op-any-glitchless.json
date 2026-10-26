@@ -5,7 +5,7 @@
   "category_name": "Co-op Any% Glitchless",
   "category_slug": "co-op-any-glitchless",
   "miscellaneous": false,
-  "fetched_at": "2026-10-25T01:27:46.108197+00:00",
+  "fetched_at": "2026-10-26T01:31:14.351831+00:00",
   "count": 100,
   "runs": [
     {
@@ -60,6 +60,23 @@
       "verified": true,
       "version": "1.18-26.45",
       "seed_type": "Random Seed"
+    },
+    {
+      "id": "yjvq6jny",
+      "weblink": "https://www.speedrun.com/mcbe/runs/yjvq6jny",
+      "category": "Co-op Any% Glitchless",
+      "platform": "Bedrock",
+      "time_primary": 197.1,
+      "time_display": "3m 17s 100ms",
+      "date": "2026-10-05",
+      "players": [
+        "EXslvlt",
+        "Tizu9178"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "26.50+",
+      "seed_type": "Set Seed"
     },
     {
       "id": "z54l62jm",
@@ -1745,28 +1762,6 @@
       "verified": true,
       "version": "1.18-26.45",
       "seed_type": "Random Seed"
-    },
-    {
-      "id": "z004jx9z",
-      "weblink": "https://www.speedrun.com/mcbe/runs/z004jx9z",
-      "category": "Co-op Any% Glitchless",
-      "platform": "Bedrock",
-      "time_primary": 131.0,
-      "time_display": "2m 11s",
-      "date": "2025-08-30",
-      "players": [
-        "Khalooody",
-        "Ma_ehy",
-        "smitch",
-        "Slh",
-        "lol869",
-        "guccigang",
-        "Parsphere"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "1.16",
-      "seed_type": "Set Seed"
     }
   ]
 }

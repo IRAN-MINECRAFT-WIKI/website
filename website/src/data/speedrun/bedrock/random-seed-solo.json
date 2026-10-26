@@ -5,7 +5,7 @@
   "category_name": "Random Seed Solo",
   "category_slug": "random-seed-solo",
   "miscellaneous": false,
-  "fetched_at": "2026-10-25T01:27:46.108197+00:00",
+  "fetched_at": "2026-10-26T01:31:14.351831+00:00",
   "count": 100,
   "runs": [
     {
@@ -22,6 +22,22 @@
       "seed": null,
       "verified": true,
       "version": "26.52",
+      "seed_type": null
+    },
+    {
+      "id": "y24k2l9z",
+      "weblink": "https://www.speedrun.com/mcbe/runs/y24k2l9z",
+      "category": "Random Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 21.733,
+      "time_display": "21s 733ms",
+      "date": "2026-09-12",
+      "players": [
+        "EXslvlt"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.21.132",
       "seed_type": null
     },
     {
@@ -182,6 +198,22 @@
       "seed": null,
       "verified": true,
       "version": "1.17+",
+      "seed_type": null
+    },
+    {
+      "id": "zped41ry",
+      "weblink": "https://www.speedrun.com/mcbe/runs/zped41ry",
+      "category": "Random Seed Solo",
+      "platform": "Bedrock",
+      "time_primary": 9.167,
+      "time_display": "9s 167ms",
+      "date": "2026-08-22",
+      "players": [
+        "EXslvlt"
+      ],
+      "seed": null,
+      "verified": true,
+      "version": "1.16.10",
       "seed_type": null
     },
     {
@@ -1574,38 +1606,6 @@
       "seed": null,
       "verified": true,
       "version": "1.17.30",
-      "seed_type": null
-    },
-    {
-      "id": "zx5d21em",
-      "weblink": "https://www.speedrun.com/mcbe/runs/zx5d21em",
-      "category": "Random Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 64.933,
-      "time_display": "1m 4s 933ms",
-      "date": "2025-10-26",
-      "players": [
-        "xiaoheee"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "Unsorted",
-      "seed_type": null
-    },
-    {
-      "id": "yv593oem",
-      "weblink": "https://www.speedrun.com/mcbe/runs/yv593oem",
-      "category": "Random Seed Solo",
-      "platform": "Bedrock",
-      "time_primary": 64.9,
-      "time_display": "1m 4s 900ms",
-      "date": "2025-10-26",
-      "players": [
-        "xiaoheee"
-      ],
-      "seed": null,
-      "verified": true,
-      "version": "Unsorted",
       "seed_type": null
     }
   ]
