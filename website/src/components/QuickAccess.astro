@@ -19,9 +19,9 @@ const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BAS
 const HF = 'https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main';
 
 const links = [
-  { href: base('/'), label: 'خانه', icon: 'grass_block', type: 'ui', color: '#5fa838', img: `${HF}/ui/qa-home.png` },
+  { href: base('/'), label: 'خانه', icon: 'grass_block', type: 'ui', color: '#5fa838', img: null },
   { href: base('/mods'), label: 'افزونه‌ها', icon: 'chest', type: 'ui', color: '#9c7b4e', img: `${HF}/ui/qa-mods.png` },
-  { href: base('/crafting'), label: 'کرافت + ۳D', icon: 'crafting_table', type: 'ui', color: '#9c7b4e', img: null },
+  { href: base('/crafting'), label: 'کرافت + ۳D', icon: 'crafting_table', type: 'ui', color: '#9c7b4e', img: `${HF}/ui/qa-crafting.png` },
   { href: base('/wiki'), label: 'ویکی', icon: 'bookshelf', type: 'ui', color: '#7cc84a', img: null },
   { href: base('/wiki/blocks'), label: 'بلاک‌ها', icon: 'stone', type: 'ui', color: '#7e7e7e', img: `${HF}/ui/qa-blocks.png` },
   { href: base('/wiki/mobs'), label: 'ماب‌ها', icon: 'creeper_head', type: 'ui', color: '#5fa838', img: `${HF}/ui/qa-mobs.png` },
