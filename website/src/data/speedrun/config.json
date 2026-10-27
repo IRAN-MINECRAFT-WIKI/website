@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T01:31:14.351831+00:00",
+  "generated_at": "2026-10-27T02:20:14.575989+00:00",
   "api_base": "https://www.speedrun.com/api/v1",
   "games": {
     "java": {
@@ -2296,6 +2296,16 @@
             "mln0ejdq": "Normal",
             "810m6k5l": "Hard",
             "q65xj8nl": "Hardcore"
+          }
+        },
+        {
+          "id": "ylpxd4kn",
+          "name": "Highest Input (WIP)",
+          "scope": "category",
+          "values": {
+            "192egvkq": "Keyboard",
+            "12vjekkq": "Controller",
+            "1pykwzk1": "Touchscreen"
           }
         }
       ],
