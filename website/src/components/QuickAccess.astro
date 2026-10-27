@@ -16,20 +16,22 @@ import '@components/pixel-sprites.astro';
 const BASE = import.meta.env.BASE_URL;
 const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
 
+const HF = 'https://huggingface.co/datasets/Habib91700/minebed-assets/resolve/main';
+
 const links = [
-  { href: base('/'), label: 'خانه', icon: 'grass_block', type: 'ui', color: '#5fa838' },
-  { href: base('/mods'), label: 'افزونه‌ها', icon: 'chest', type: 'ui', color: '#9c7b4e' },
-  { href: base('/crafting'), label: 'کرافت + ۳D', icon: 'crafting_table', type: 'ui', color: '#9c7b4e' },
-  { href: base('/wiki'), label: 'ویکی', icon: 'bookshelf', type: 'ui', color: '#7cc84a' },
-  { href: base('/wiki/blocks'), label: 'بلاک‌ها', icon: 'stone', type: 'ui', color: '#7e7e7e' },
-  { href: base('/wiki/mobs'), label: 'ماب‌ها', icon: 'creeper_head', type: 'ui', color: '#5fa838' },
-  { href: base('/speedrun'), label: 'سرعت‌رانی', icon: 'clock', type: 'ui', color: '#fcb32b' },
-  { href: base('/versions'), label: 'نسخه‌ها', icon: 'command_block', type: 'ui', color: '#5fa838' },
-  { href: base('/seeds'), label: 'سیدها', icon: 'map', type: 'ui', color: '#5fa838' },
-  { href: base('/videos'), label: 'ویدیوها', icon: 'painting', type: 'ui', color: '#ff3b3b' },
-  { href: base('/blog'), label: 'وبلاگ', icon: 'book', type: 'ui', color: '#fcb32b' },
-  { href: base('/guide'), label: 'آموزش', icon: 'knowledge_book', type: 'ui', color: '#9c7b4e' },
-  { href: base('/about'), label: 'درباره', icon: 'player_head', type: 'ui', color: '#ff3b3b' },
+  { href: base('/'), label: 'خانه', icon: 'grass_block', type: 'ui', color: '#5fa838', img: `${HF}/ui/qa-home.png` },
+  { href: base('/mods'), label: 'افزونه‌ها', icon: 'chest', type: 'ui', color: '#9c7b4e', img: null },
+  { href: base('/crafting'), label: 'کرافت + ۳D', icon: 'crafting_table', type: 'ui', color: '#9c7b4e', img: null },
+  { href: base('/wiki'), label: 'ویکی', icon: 'bookshelf', type: 'ui', color: '#7cc84a', img: null },
+  { href: base('/wiki/blocks'), label: 'بلاک‌ها', icon: 'stone', type: 'ui', color: '#7e7e7e', img: `${HF}/ui/qa-blocks.png` },
+  { href: base('/wiki/mobs'), label: 'ماب‌ها', icon: 'creeper_head', type: 'ui', color: '#5fa838', img: `${HF}/ui/qa-mobs.png` },
+  { href: base('/speedrun'), label: 'سرعت‌رانی', icon: 'clock', type: 'ui', color: '#fcb32b', img: null },
+  { href: base('/versions'), label: 'نسخه‌ها', icon: 'command_block', type: 'ui', color: '#5fa838', img: null },
+  { href: base('/seeds'), label: 'سیدها', icon: 'map', type: 'ui', color: '#5fa838', img: null },
+  { href: base('/videos'), label: 'ویدیوها', icon: 'painting', type: 'ui', color: '#ff3b3b', img: null },
+  { href: base('/blog'), label: 'وبلاگ', icon: 'book', type: 'ui', color: '#fcb32b', img: null },
+  { href: base('/guide'), label: 'آموزش', icon: 'knowledge_book', type: 'ui', color: '#9c7b4e', img: null },
+  { href: base('/about'), label: 'درباره', icon: 'player_head', type: 'ui', color: '#ff3b3b', img: null },
 ];
 ---
 
@@ -63,15 +65,27 @@ const links = [
           data-route
         >
           <div class="qa-card-icon">
-            <img
-              src={`${BASE}textures/${link.type === 'ui' ? 'ui' : link.type === 'block' ? 'blocks' : 'items'}/${link.icon}.png`}
-              alt="ماینکرفت بدراک | ماین بد (MineBed)"
-              width="56"
-              height="56"
-              loading="lazy"
-              class="pixel-img"
-              onerror="this.style.display='none'"
-            />
+            {link.img ? (
+              <img
+                src={link.img}
+                alt={`ماینکرفت بدراک | ماین بد (MineBed) — ${link.label}`}
+                width="56"
+                height="56"
+                loading="lazy"
+                class="qa-card-custom-img"
+                onerror="this.onerror=null; this.src=`${BASE}textures/ui/${link.icon}.png`; this.classList.add('pixel-img');"
+              />
+            ) : (
+              <img
+                src={`${BASE}textures/${link.type === 'ui' ? 'ui' : link.type === 'block' ? 'blocks' : 'items'}/${link.icon}.png`}
+                alt={`ماینکرفت بدراک | ماین بد (MineBed) — ${link.label}`}
+                width="56"
+                height="56"
+                loading="lazy"
+                class="pixel-img"
+                onerror="this.style.display='none'"
+              />
+            )}
           </div>
           <span class="qa-card-label">{link.label}</span>
           <span class="qa-card-sub">{link.label === 'خانه' ? 'صفحه اصلی' : link.label === 'افزونه‌ها' ? 'ماد‌ها' : link.label === 'کرافت + ۳D' ? 'Crafting + Steve' : link.label === 'ویکی' ? 'Wiki' : link.label === 'سرعت‌رانی' ? 'Speedrun' : link.label === 'نسخه‌ها' ? 'Versions' : link.label === 'سیدها' ? 'Seeds' : link.label === 'دسته‌ها' ? 'Categories' : link.label === 'وبلاگ' ? 'Blog' : link.label === 'آموزش' ? 'Tutorials' : 'About'}</span>
@@ -318,6 +332,15 @@ const links = [
     box-shadow: inset 2px 2px 0 rgba(0,0,0,0.4), inset -2px -2px 0 rgba(255,255,255,0.25);
     border-radius: 12px;
     image-rendering: pixelated;
+    overflow: hidden;
+  }
+
+  /* Custom 3D render images (from HuggingFace) */
+  .qa-card-custom-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: auto;
   }
 
   .qa-card:hover .qa-card-icon {
