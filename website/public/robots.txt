@@ -25,6 +25,10 @@ Allow: /
 # Sitemap — note the /website/ base path (GitHub project page)
 Sitemap: https://iran-minecraft-wiki.github.io/website/sitemap-index.xml
 
+# HTML sitemap (alternative for crawlers that can't parse XML sitemap
+# served as text/html by GitHub Pages)
+Sitemap: https://iran-minecraft-wiki.github.io/website/sitemap-html
+
 # RSS feed — Persian-language blog posts (fa-IR)
 # https://www.rssboard.org/rss-2-0
 RSS: https://iran-minecraft-wiki.github.io/website/rss.xml

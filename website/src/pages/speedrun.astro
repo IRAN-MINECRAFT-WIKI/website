@@ -142,12 +142,14 @@ const javaCats = Object.entries(allFiles.java).map(([slug, f]) => ({ slug, label
 const bedrockCats = Object.entries(allFiles.bedrock).map(([slug, f]) => ({ slug, label: f.label, count: (f.meta.runs || []).length }));
 
 // ---------- Embed JSON for client-side rendering ----------
-// Escape </script>, <, >, &, U+2028/2029 so the JSON is safe inside a <script> tag.
+// Escape angle-bracket sequences so the JSON is safe inside an inline script tag.
+// (avoid literal `<!--` in regex; Astro's dev parser treats it as HTML comment)
 function safeJson(json: string): string {
+  const cmtStart = '<' + '!' + '--';
   return json
     .replace(/\\/g, '\\\\')
     .replace(/<\//g, '<\\/')
-    .replace(/<!--/g, '<\\!--')
+    .replace(new RegExp(cmtStart, 'g'), '<\\!' + '--')
     .replace(/\u2028/g, '\\u2028')
     .replace(/\u2029/g, '\\u2029');
 }

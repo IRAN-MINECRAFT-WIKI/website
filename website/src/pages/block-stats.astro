@@ -1,0 +1,274 @@
+---
+/**
+ * /block-stats — کاوشگر آمار بلاک‌ها (Block Stats Explorer)
+ *
+ * Exclusive feature (not on minecraft.wiki):
+ *   - Sortable, filterable table of ALL ~900 blocks
+ *   - Compare hardness, blast resistance, light level, tool required
+ *   - Filter by category, transparency, renewability, flammability
+ *   - Find the toughest block, the brightest block, etc.
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd } from '@/lib/seo';
+import { blocks, BLOCK_CATEGORIES, type BlockInfo } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: base('/') },
+  { name: 'کاوشگر آمار بلاک', url: base('/block-stats') },
+];
+const ldBread = breadcrumbJsonLd(breadcrumb);
+
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+const cmtStart = '<' + '!' + '--';
+function safeJson(json: string): string {
+  return json
+    .replace(/\\/g, '\\\\')
+    .replace(/<\//g, '<\\/')
+    .replace(new RegExp(cmtStart, 'g'), '<\\!' + '--')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+}
+
+const maxHardness = blocks.reduce((m, b) => Math.max(m, b.hardness), 0);
+const maxBlast = blocks.reduce((m, b) => Math.max(m, b.extraStats?.blastResistance || 0), 0);
+const brightest = blocks.reduce((m, b) => Math.max(m, b.lightLevel), 0);
+const transparentCount = blocks.filter((b) => b.transparent).length;
+const renewableCount = blocks.filter((b) => b.extraStats?.renewable).length;
+const flammableCount = blocks.filter((b) => b.extraStats?.flammable).length;
+
+type BlockStat = {
+  id: string; nameFa: string; nameEn: string; category: string;
+  hardness: number; blast: number; light: number;
+  transparent: boolean; renewable: boolean; flammable: boolean; tool: string;
+};
+
+const stats: BlockStat[] = blocks.map((b) => ({
+  id: b.id, nameFa: b.nameFa, nameEn: b.nameEn, category: b.category,
+  hardness: b.hardness, blast: b.extraStats?.blastResistance ?? 0, light: b.lightLevel,
+  transparent: b.transparent, renewable: !!b.extraStats?.renewable,
+  flammable: !!b.extraStats?.flammable, tool: b.tool,
+}));
+
+const statsJSON = safeJson(JSON.stringify(stats));
+const catsJSON = safeJson(JSON.stringify(BLOCK_CATEGORIES.map(c => ({ id: c.id, nameFa: c.nameFa, icon: c.icon }))));
+const baseUrlJSON = safeJson(JSON.stringify(BASE));
+---
+
+<BaseLayout
+  path="/block-stats"
+  title="کاوشگر آمار بلاک‌های ماینکرفت — مرجع کامل سختی و مقاومت"
+  description={`جدول کامل و قابل‌مرتب‌سازی از ${faNum(blocks.length)} بلاک ماینکرفت با اطلاعات سختی، مقاومت در برابر انفجار، سطح روشنایی، شفافیت و قابلیت تجدید. ابزار اختصاصی ویکی ماینکرفت فارسی.`}
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <StructuredData data={ldBread} />
+
+  <header class="mc-panel p-5 lg:p-7 mb-5">
+    <div class="flex items-center gap-3 mb-2 flex-wrap">
+      <span class="text-3xl">📊</span>
+      <h1 class="text-2xl lg:text-3xl font-extrabold">کاوشگر آمار بلاک‌ها</h1>
+      <span class="mc-chip text-xs">ابزار اختصاصی</span>
+    </div>
+    <p class="text-sm text-mc-text-2 leading-loose mb-3">
+      جدول کامل و قابل‌مرتب‌سازی از <strong class="text-mc-grass-2">{faNum(blocks.length)} بلاک</strong> ماینکرفت.
+      ببین کدام بلاک سخت‌ترین است، کدام بیشترین مقاومت در برابر انفجار دارد، کدام روشن‌ترین است.
+      ابزاری که در minecraft.wiki موجود نیست — فقط اینجا!
+    </p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+      <div class="p-2 bg-mc-bg-2 border border-mc-line rounded text-center"><div class="text-[9px] text-mc-text-3 mb-0.5">بلاک‌های کل</div><div class="text-base font-bold text-mc-text">{faNum(blocks.length)}</div></div>
+      <div class="p-2 bg-mc-bg-2 border border-mc-line rounded text-center"><div class="text-[9px] text-mc-text-3 mb-0.5">بیشترین سختی</div><div class="text-base font-bold text-mc-text" dir="ltr">{faNum(maxHardness)}</div></div>
+      <div class="p-2 bg-mc-bg-2 border border-mc-line rounded text-center"><div class="text-[9px] text-mc-text-3 mb-0.5">بیشترین مقاومت</div><div class="text-base font-bold text-mc-text" dir="ltr">{faNum(maxBlast)}</div></div>
+      <div class="p-2 bg-mc-bg-2 border border-mc-line rounded text-center"><div class="text-[9px] text-mc-text-3 mb-0.5">روشن‌ترین</div><div class="text-base font-bold text-mc-text" dir="ltr">{faNum(brightest)}</div></div>
+      <div class="p-2 bg-mc-bg-2 border border-mc-line rounded text-center"><div class="text-[9px] text-mc-text-3 mb-0.5">شفاف</div><div class="text-base font-bold text-mc-text">{faNum(transparentCount)}</div></div>
+      <div class="p-2 bg-mc-bg-2 border border-mc-line rounded text-center"><div class="text-[9px] text-mc-text-3 mb-0.5">قابل‌تجدید</div><div class="text-base font-bold text-mc-text">{faNum(renewableCount)}</div></div>
+    </div>
+  </header>
+
+  <section class="mc-panel p-4 mb-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div>
+        <label class="text-[11px] text-mc-text-3 mb-1 block">🔍 جستجو</label>
+        <input type="text" id="bs-search" placeholder="نام بلاک..." class="w-full bg-mc-bg-2 border-2 border-mc-line rounded px-2 py-1.5 text-xs text-mc-text focus:border-mc-grass-2 outline-none" dir="rtl" />
+      </div>
+      <div>
+        <label class="text-[11px] text-mc-text-3 mb-1 block">📁 دسته</label>
+        <select id="bs-category" class="w-full bg-mc-bg-2 border-2 border-mc-line rounded px-2 py-1.5 text-xs text-mc-text">
+          <option value="">همه</option>
+          {BLOCK_CATEGORIES.map((c) => <option value={c.id}>{c.icon} {c.nameFa}</option>)}
+        </select>
+      </div>
+      <div>
+        <label class="text-[11px] text-mc-text-3 mb-1 block">⚙️ ویژگی</label>
+        <select id="bs-property" class="w-full bg-mc-bg-2 border-2 border-mc-line rounded px-2 py-1.5 text-xs text-mc-text">
+          <option value="">همه</option>
+          <option value="transparent">شفاف</option>
+          <option value="opaque">کدر</option>
+          <option value="renewable">قابل‌تجدید</option>
+          <option value="non-renewable">غیرقابل‌تجدید</option>
+          <option value="flammable">قابل‌سوختن</option>
+          <option value="non-flammable">غیرقابل‌سوختن</option>
+          <option value="light-source">منبع نور</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-[11px] text-mc-text-3 mb-1 block">↕ مرتب‌سازی</label>
+        <select id="bs-sort" class="w-full bg-mc-bg-2 border-2 border-mc-line rounded px-2 py-1.5 text-xs text-mc-text">
+          <option value="nameFa-asc">نام (الفبا)</option>
+          <option value="hardness-desc">سختی (نزولی)</option>
+          <option value="hardness-asc">سختی (صعودی)</option>
+          <option value="blast-desc">مقاومت انفجار (نزولی)</option>
+          <option value="blast-asc">مقاومت انفجار (صعودی)</option>
+          <option value="light-desc">روشنایی (نزولی)</option>
+          <option value="light-asc">روشنایی (صعودی)</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex items-center gap-3 mt-3">
+      <button id="bs-reset" class="mc-panel hoverable px-3 py-1.5 text-xs text-mc-text-2 hover:text-mc-grass-2">بازنشانی فیلترها</button>
+      <span id="bs-count" class="text-xs text-mc-text-3"></span>
+    </div>
+  </section>
+
+  <section class="mc-panel p-3 overflow-hidden">
+    <div class="overflow-x-auto max-h-[600px] overflow-y-auto" id="bs-table-wrap">
+      <table class="w-full text-xs" id="bs-table">
+        <thead class="sticky top-0 bg-mc-bg-2 z-10">
+          <tr class="text-mc-text-3 border-b-2 border-mc-line">
+            <th class="text-right p-2 cursor-pointer hover:text-mc-grass-2" data-sort="nameFa">نام</th>
+            <th class="text-right p-2 cursor-pointer hover:text-mc-grass-2" data-sort="category">دسته</th>
+            <th class="text-center p-2 cursor-pointer hover:text-mc-grass-2" data-sort="hardness">سختی</th>
+            <th class="text-center p-2 cursor-pointer hover:text-mc-grass-2" data-sort="blast">مقاومت</th>
+            <th class="text-center p-2 cursor-pointer hover:text-mc-grass-2" data-sort="light">نور</th>
+            <th class="text-center p-2">شفاف</th>
+            <th class="text-center p-2">تجدید</th>
+            <th class="text-right p-2">ابزار</th>
+          </tr>
+        </thead>
+        <tbody id="bs-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="mt-4 mc-panel p-4">
+    <h2 class="text-sm font-extrabold mb-2">ℹ️ درباره‌ی این ابزار</h2>
+    <p class="text-xs text-mc-text-2 leading-loose">
+      این کاوشگر اختصاصیِ ویکی ماینکرفت فارسی است. با مرتب‌سازی بر اساس سختی یا مقاومت، می‌توانید سریع پیدا کنید:
+      کدام بلاک برای ساختن دیوار ضدِ انفجار مناسب است (مثل آبسیدین با ۱۲۰۰)، کدام برای روشن‌کردن خانه (مثل لانترن دریا با ۱۵)،
+      کدام برای استخراج سریع مناسب است (با سختیِ کمتر از ۱). در minecraft.wiki هر بلاک به‌تنهایی نمایش داده می‌شود، اما هیچ ابزاری
+      برای مقایسه‌ی همه‌ی بلاک‌ها در یک جدول واحد وجود ندارد.
+    </p>
+  </div>
+</BaseLayout>
+
+<script type="application/json" id="bs-stats-data" set:html={statsJSON} />
+<script type="application/json" id="bs-categories-data" set:html={catsJSON} />
+<script type="application/json" id="bs-base-url" set:html={baseUrlJSON} />
+
+<script is:inline>
+  (function () {
+    'use strict';
+    var FA_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    function faNum(n) { n = Number(n) || 0; return String(n).replace(/[0-9]/g, function (d) { return FA_DIGITS[+d]; }); }
+    function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+    var stats = JSON.parse(document.getElementById('bs-stats-data').textContent);
+    var cats = JSON.parse(document.getElementById('bs-categories-data').textContent);
+    var BASE = JSON.parse(document.getElementById('bs-base-url').textContent) || '/';
+    var catMap = {}; cats.forEach(function (c) { catMap[c.id] = c; });
+
+    var searchInput = document.getElementById('bs-search');
+    var catSel = document.getElementById('bs-category');
+    var propSel = document.getElementById('bs-property');
+    var sortSel = document.getElementById('bs-sort');
+    var resetBtn = document.getElementById('bs-reset');
+    var countEl = document.getElementById('bs-count');
+    var tbody = document.getElementById('bs-tbody');
+    var sortHeaders = document.querySelectorAll('#bs-table thead th[data-sort]');
+
+    var toolLabels = {
+      none: '—', wooden_pickaxe: 'پیکه‌ی چوبی', stone_pickaxe: 'پیکه‌ی سنگی',
+      iron_pickaxe: 'پیکه‌ی آهنی', diamond_pickaxe: 'پیکه‌ی الماسی',
+      axe: 'تبر', shovel: 'بیل', pickaxe: 'پیکه'
+    };
+
+    function getFiltered() {
+      var q = (searchInput.value || '').trim().toLowerCase();
+      var cat = catSel.value; var prop = propSel.value;
+      var filtered = stats.filter(function (b) {
+        if (q) { var hay = (b.nameFa + ' ' + b.nameEn + ' ' + b.id).toLowerCase(); if (hay.indexOf(q) === -1) return false; }
+        if (cat && b.category !== cat) return false;
+        if (prop === 'transparent' && !b.transparent) return false;
+        if (prop === 'opaque' && b.transparent) return false;
+        if (prop === 'renewable' && !b.renewable) return false;
+        if (prop === 'non-renewable' && b.renewable) return false;
+        if (prop === 'flammable' && !b.flammable) return false;
+        if (prop === 'non-flammable' && b.flammable) return false;
+        if (prop === 'light-source' && !(b.light > 0)) return false;
+        return true;
+      });
+      var sortVal = sortSel.value || 'nameFa-asc';
+      var parts = sortVal.split('-');
+      var key = parts[0], dir = parts[1] === 'desc' ? -1 : 1;
+      filtered.sort(function (a, b) {
+        if (key === 'nameFa') return dir * a.nameFa.localeCompare(b.nameFa, 'fa');
+        return dir * (a[key] - b[key]);
+      });
+      return filtered;
+    }
+
+    function maxForBar(key) { if (key === 'hardness') return 50; if (key === 'blast') return 1200; if (key === 'light') return 15; return 1; }
+    function bar(value, max, color) {
+      var pct = Math.min(100, (value / max) * 100);
+      if (pct < 1 && value > 0) pct = 2;
+      return '<div style="background:rgba(255,255,255,0.05); height:6px; border-radius:3px; overflow:hidden; min-width:50px; margin-top:2px;"><div style="background:' + color + '; width:' + pct + '%; height:100%; border-radius:3px;"></div></div>';
+    }
+
+    function render() {
+      var rows = getFiltered();
+      countEl.textContent = faNum(rows.length) + ' بلاک';
+      var html = '';
+      for (var i = 0; i < rows.length; i++) {
+        var b = rows[i];
+        var cat = catMap[b.category] || { icon: '', nameFa: b.category };
+        html += '<tr class="border-b border-mc-line/30 hover:bg-mc-bg-2/50 cursor-pointer" data-id="' + escapeHtml(b.id) + '">';
+        html += '<td class="p-2"><a href="' + BASE + 'wiki/blocks/' + escapeHtml(b.id) + '/" class="text-mc-text hover:text-mc-grass-2 font-bold">' + escapeHtml(b.nameFa) + '</a><div class="text-[9px] text-mc-text-3" dir="ltr">' + escapeHtml(b.nameEn) + '</div></td>';
+        html += '<td class="p-2 text-mc-text-2">' + cat.icon + ' ' + escapeHtml(cat.nameFa) + '</td>';
+        html += '<td class="p-2 text-center"><div class="text-mc-text font-bold" dir="ltr">' + faNum(b.hardness) + '</div>' + bar(b.hardness, maxForBar('hardness'), '#7cc84a') + '</td>';
+        html += '<td class="p-2 text-center"><div class="text-mc-text font-bold" dir="ltr">' + faNum(b.blast) + '</div>' + bar(b.blast, maxForBar('blast'), '#c8403a') + '</td>';
+        html += '<td class="p-2 text-center"><div class="text-mc-text font-bold" dir="ltr">' + faNum(b.light) + '</div>' + bar(b.light, maxForBar('light'), '#fcb32b') + '</td>';
+        html += '<td class="p-2 text-center">' + (b.transparent ? '<span class="text-mc-grass-2">✓</span>' : '<span class="text-mc-text-3">—</span>') + '</td>';
+        html += '<td class="p-2 text-center">' + (b.renewable ? '<span class="text-mc-grass-2">✓</span>' : '<span class="text-mc-text-3">—</span>') + '</td>';
+        html += '<td class="p-2 text-mc-text-2 text-[10px]">' + (toolLabels[b.tool] || b.tool) + '</td>';
+        html += '</tr>';
+      }
+      if (rows.length === 0) html = '<tr><td colspan="8" class="p-6 text-center text-mc-text-3">هیچ بلاکی با این فیلترها یافت نشد.</td></tr>';
+      tbody.innerHTML = html;
+    }
+
+    searchInput.addEventListener('input', render);
+    catSel.addEventListener('change', render);
+    propSel.addEventListener('change', render);
+    sortSel.addEventListener('change', render);
+    sortHeaders.forEach(function (th) {
+      th.addEventListener('click', function () {
+        var key = th.getAttribute('data-sort'); if (!key) return;
+        var cur = sortSel.value;
+        var newSort = (cur.indexOf(key + '-') === 0) ? key + (cur.indexOf('-desc') !== -1 ? '-asc' : '-desc') : key + '-asc';
+        sortSel.value = newSort; render();
+      });
+    });
+    resetBtn.addEventListener('click', function () {
+      searchInput.value = ''; catSel.value = ''; propSel.value = ''; sortSel.value = 'nameFa-asc'; render();
+    });
+    render();
+  })();
+</script>

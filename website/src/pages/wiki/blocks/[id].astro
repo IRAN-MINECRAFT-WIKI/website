@@ -89,14 +89,14 @@ const extraEntries = block.extraStats
     )
   : [];
 
-// Build related links with hrefs
+// Build related links with hrefs (use BASE prefix to ensure /website/ path)
 const relatedLinks = (block.related || []).map((r) => {
   let href = '#';
   if (r.type === 'mob' || (!r.type && r.id && getBlockById(r.id) === undefined)) {
     // If not found in blocks, assume mob
-    href = `/wiki/mobs/${r.id}`;
+    href = `${BASE}wiki/mobs/${r.id}`;
   } else {
-    href = `/wiki/blocks/${r.id}`;
+    href = `${BASE}wiki/blocks/${r.id}`;
   }
   return { ...r, href };
 });
@@ -319,7 +319,7 @@ const relatedLinks = (block.related || []).map((r) => {
 
       <!-- Back to blocks -->
       <a
-        href={`/wiki/blocks`}
+        href={`${BASE}wiki/blocks`}
         class="inline-flex items-center gap-2 mc-panel hoverable px-4 py-2 text-sm font-bold text-mc-text-2 hover:text-mc-grass-2"
       >
         <svg width="14" height="14"><use href="#icon-chevron-right" /></svg>

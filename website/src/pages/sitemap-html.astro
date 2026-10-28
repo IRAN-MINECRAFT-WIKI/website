@@ -1,0 +1,155 @@
+---
+/**
+ * /sitemap-html — HTML Sitemap (GitHub Pages XML workaround)
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd } from '@/lib/seo';
+import { blocks, mobs, BLOCK_CATEGORIES, versions, mods, seeds } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: base('/') },
+  { name: 'نقشه‌ی سایت (Sitemap)', url: base('/sitemap-html') },
+];
+const ldBread = breadcrumbJsonLd(breadcrumb);
+
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+const blocksByCat: Record<string, typeof blocks> = {};
+for (const b of blocks) {
+  if (!blocksByCat[b.category]) blocksByCat[b.category] = [];
+  blocksByCat[b.category].push(b);
+}
+
+const topLevelPages = [
+  { href: base('/'), label: 'خانه' },
+  { href: base('/mods'), label: 'افزونه‌ها' },
+  { href: base('/crafting'), label: 'کرافت + ۳D' },
+  { href: base('/calculator'), label: 'ماشین‌حساب کرافتینگ بازگشتی' },
+  { href: base('/block-stats'), label: 'کاوشگر آمار بلاک‌ها' },
+  { href: base('/wiki'), label: 'ویکی' },
+  { href: base('/wiki/blocks'), label: 'بلاک‌ها' },
+  { href: base('/wiki/mobs'), label: 'ماب‌ها' },
+  { href: base('/versions'), label: 'نسخه‌ها' },
+  { href: base('/seeds'), label: 'سیدها' },
+  { href: base('/speedrun'), label: 'سرعت‌رانی' },
+  { href: base('/videos'), label: 'ویدیوها' },
+  { href: base('/blog'), label: 'وبلاگ' },
+  { href: base('/tutorials'), label: 'آموزش‌ها' },
+  { href: base('/categories'), label: 'دسته‌بندی‌ها' },
+  { href: base('/tags'), label: 'برچسب‌ها' },
+  { href: base('/authors'), label: 'نویسندگان' },
+  { href: base('/faq'), label: 'سوالات متداول' },
+  { href: base('/about'), label: 'درباره' },
+  { href: base('/guide'), label: 'راهنما' },
+  { href: base('/privacy'), label: 'حریم خصوصی' },
+  { href: base('/terms'), label: 'قوانین' },
+  { href: base('/search'), label: 'جستجو' },
+  { href: base('/stats'), label: 'آمار سایت' },
+];
+---
+
+<BaseLayout
+  path="/sitemap-html"
+  title="نقشه‌ی سایت — ویکی ماینکرفت فارسی"
+  description="نقشه‌ی کامل سایت با همه‌ی لینک‌های مهم: صفحه‌های اصلی، بلاک‌ها، ماب‌ها، نسخه‌ها، افزونه‌ها، سیدها، آموزش‌ها و مقاله‌ها."
+  type="website"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <StructuredData data={ldBread} />
+
+  <header class="mc-panel p-5 lg:p-7 mb-5">
+    <div class="flex items-center gap-3 mb-2 flex-wrap">
+      <span class="text-3xl">🗺️</span>
+      <h1 class="text-2xl lg:text-3xl font-extrabold">نقشه‌ی سایت (Sitemap)</h1>
+    </div>
+    <p class="text-sm text-mc-text-2 leading-loose mb-2">
+      فهرست کامل همه‌ی صفحه‌های سایت با لینک مستقیم. این صفحه به گوگل کمک می‌کنه تا سایت رو
+      بهتر crawl و index کنه — جایگزینِ HTML برای sitemap.xml (که GitHub Pages با Content-Type اشتباه سرو می‌کنه).
+    </p>
+    <p class="text-xs text-mc-text-3">
+      مجموع: <strong class="text-mc-text">{faNum(blocks.length + mobs.length + versions.length + mods.length + seeds.length + topLevelPages.length + 50)}</strong> صفحه.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <section class="mc-panel p-5">
+      <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2"><span>📄</span> <span>صفحه‌های اصلی</span></h2>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {topLevelPages.map((p) => (
+          <li><a href={p.href} class="text-sm text-mc-text-2 hover:text-mc-grass-2 hover:underline flex items-center gap-2"><span class="text-mc-grass-2">→</span><span>{p.label}</span></a></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="mc-panel p-5">
+      <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2"><span>🎮</span> <span>نسخه‌ها ({faNum(versions.length)})</span></h2>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1 max-h-72 overflow-y-auto">
+        {versions.map((v) => (
+          <li><a href={base(`/versions/${v.id}/`)} class="text-xs text-mc-text-2 hover:text-mc-grass-2 hover:underline flex items-center gap-1.5"><span class="text-mc-gold">▸</span><span>{v.nameFa}</span><span class="text-[10px] text-mc-text-3" dir="ltr">{v.version}</span></a></li>
+        ))}
+      </ul>
+    </section>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+    {BLOCK_CATEGORIES.map((cat) => {
+      const catBlocks = blocksByCat[cat.id] || [];
+      if (catBlocks.length === 0) return null;
+      return (
+        <section class="mc-panel p-5">
+          <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2"><span>{cat.icon}</span> <span>{cat.nameFa} ({faNum(catBlocks.length)})</span></h2>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1 max-h-72 overflow-y-auto">
+            {catBlocks.map((b) => (
+              <li><a href={base(`/wiki/blocks/${b.id}/`)} class="text-xs text-mc-text-2 hover:text-mc-grass-2 hover:underline flex items-center gap-1.5"><span class="text-mc-grass-2">▸</span><span>{b.nameFa}</span><span class="text-[10px] text-mc-text-3" dir="ltr">{b.nameEn}</span></a></li>
+            ))}
+          </ul>
+        </section>
+      );
+    })}
+  </div>
+
+  <section class="mc-panel p-5 mt-5">
+    <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2"><span>👾</span> <span>ماب‌ها ({faNum(mobs.length)})</span></h2>
+    <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1 max-h-96 overflow-y-auto">
+      {mobs.map((m) => (
+        <li><a href={base(`/wiki/mobs/${m.id}/`)} class="text-xs text-mc-text-2 hover:text-mc-grass-2 hover:underline flex items-center gap-1.5"><span class="text-mc-gold">▸</span><span>{m.nameFa}</span></a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mc-panel p-5 mt-5">
+    <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2"><span>📦</span> <span>افزونه‌ها ({faNum(mods.length)})</span></h2>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 max-h-96 overflow-y-auto">
+      {mods.map((m) => (
+        <li><a href={base(`/mods/${m.slug || m.id}/`)} class="text-xs text-mc-text-2 hover:text-mc-grass-2 hover:underline flex items-center gap-1.5"><span class="text-mc-gold">▸</span><span>{m.nameFa || m.name}</span></a></li>
+      ))}
+    </ul>
+  </section>
+
+  {seeds.length > 0 && (
+    <section class="mc-panel p-5 mt-5">
+      <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2"><span>🌱</span> <span>سیدها ({faNum(seeds.length)})</span></h2>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 max-h-96 overflow-y-auto">
+        {seeds.map((s) => (
+          <li><a href={base(`/seeds/${s.slug || s.id}/`)} class="text-xs text-mc-text-2 hover:text-mc-grass-2 hover:underline flex items-center gap-1.5"><span class="text-mc-gold">▸</span><span>{s.title || s.nameFa || s.name}</span></a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section class="mc-panel p-4 mt-5 text-center">
+    <p class="text-xs text-mc-text-3 leading-loose">
+      برای موتورهای جستجو: <a href={base('/sitemap-index.xml')} class="text-mc-grass-2 hover:underline" dir="ltr">sitemap-index.xml</a> ·
+      <a href={base('/sitemap-0.xml')} class="text-mc-grass-2 hover:underline" dir="ltr">sitemap-0.xml</a> ·
+      <a href={base('/robots.txt')} class="text-mc-grass-2 hover:underline" dir="ltr">robots.txt</a>
+    </p>
+  </section>
+</BaseLayout>

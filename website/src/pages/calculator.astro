@@ -1,0 +1,334 @@
+---
+/**
+ * /calculator — ماشین‌حساب کرافتینگ بازگشتی (Recursive Crafting Calculator)
+ *
+ * Exclusive feature (not on minecraft.wiki):
+ *   - Enter a target item + desired quantity
+ *   - Recursively computes ALL raw materials needed
+ *   - Shows the breakdown tree (target → sub-components → raw materials)
+ *   - Shows total craft operations required
+ *
+ * Example: "I want 16 chests" → 96 oak planks → 24 oak logs (with stripping bark)
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd } from '@/lib/seo';
+import recipesJson from '@/data/crafting-recipes.json';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const recipes = recipesJson.recipes;
+const recipeByOutput: Record<string, any> = {};
+for (const r of recipes) {
+  const out = r.output?.item;
+  if (out && !recipeByOutput[out]) recipeByOutput[out] = r;
+}
+const recipeById: Record<string, any> = {};
+for (const r of recipes) {
+  recipeById[r.id] = r;
+}
+
+const featuredRecipeIds = [
+  'chest', 'crafting-table', 'furnace', 'stick', 'torch',
+  'diamond-sword', 'diamond-pickaxe', 'diamond-chestplate',
+  'iron-block', 'gold-block', 'diamond-block', 'netherite-sword',
+  'beacon', 'bookshelf', 'cake', 'enchanting-table', 'anvil',
+  'ender-chest', 'shulker-box', 'bucket', 'compass', 'clock',
+  'map', 'bow', 'crossbow', 'arrow', 'tnt', 'redstone-repeater',
+  'redstone-comparator', 'piston', 'sticky-piston', 'observer',
+  'hopper', 'dispenser', 'dropper', 'jukebox', 'note-block',
+];
+const featuredRecipes = featuredRecipeIds.map((id) => recipeById[id]).filter(Boolean);
+
+const breadcrumb = [
+  { name: 'خانه', url: base('/') },
+  { name: 'ماشین‌حساب کرافتینگ', url: base('/calculator') },
+];
+const ldBread = breadcrumbJsonLd(breadcrumb);
+
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+const cmtStart = '<' + '!' + '--';
+function safeJson(json: string): string {
+  return json
+    .replace(/\\/g, '\\\\')
+    .replace(/<\//g, '<\\/')
+    .replace(new RegExp(cmtStart, 'g'), '<\\!' + '--')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+}
+const recipesJSON = safeJson(JSON.stringify(recipes));
+const recipeByOutputJSON = safeJson(JSON.stringify(recipeByOutput));
+---
+
+<BaseLayout
+  path="/calculator"
+  title="ماشین‌حساب کرافتینگ بازگشتی — ویکی ماینکرفت فارسی"
+  description="یک ابزار اختصاصی که برای هر آیتم ماینکرفت، تمام مواد اولیه‌ی مورد نیاز را به‌صورت بازگشتی محاسبه می‌کند. مثلاً برای ساخت ۱۶ صندوق چند تخته و چند چوب درخت لازم داری؟ اینجا بفهم!"
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <StructuredData data={ldBread} />
+
+  <header class="mc-panel p-5 lg:p-7 mb-5">
+    <div class="flex items-center gap-3 mb-2 flex-wrap">
+      <span class="text-3xl">🧮</span>
+      <h1 class="text-2xl lg:text-3xl font-extrabold">ماشین‌حساب کرافتینگ بازگشتی</h1>
+      <span class="mc-chip text-xs">ابزار اختصاصی</span>
+    </div>
+    <p class="text-sm text-mc-text-2 leading-loose mb-3">
+      ابزاری که در هیچ ویکی دیگری پیدا نمی‌کنی! یک آیتم هدف و تعداد مورد نظر را وارد کن؛
+      این ماشین‌حساب به‌صورت <strong class="text-mc-grass-2">بازگشتی</strong> تمام مواد اولیه را
+      تا سطح پایه (چوب، سنگ، الماس...) محاسبه می‌کند و درخت کامل وابستگی‌ها را نشان می‌دهد.
+    </p>
+    <div class="flex flex-wrap gap-2 text-xs">
+      <span class="px-2 py-1 bg-mc-bg-2 border border-mc-line rounded">📚 {faNum(recipes.length)} دستورالعمل</span>
+      <span class="px-2 py-1 bg-mc-bg-2 border border-mc-line rounded">🔄 محاسبه بازگشتی</span>
+      <span class="px-2 py-1 bg-mc-bg-2 border border-mc-line rounded">🌳 نمایش درخت وابستگی</span>
+      <span class="px-2 py-1 bg-mc-bg-2 border border-mc-line rounded">🔢 محاسبه‌ی عملیات ساخت</span>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5">
+    <div class="space-y-5">
+      <section class="mc-panel p-5">
+        <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+          <span>۱.</span> <span>آیتم هدف را انتخاب کن</span>
+        </h2>
+        <div class="flex gap-2 mb-3">
+          <input type="text" id="calc-search" placeholder="جستجوی آیتم... (chest، صندوق، beacon)" class="flex-1 bg-mc-bg-2 border-2 border-mc-line rounded px-3 py-2 text-sm text-mc-text focus:border-mc-grass-2 outline-none" autocomplete="off" dir="rtl" />
+          <button id="calc-clear-btn" class="mc-panel hoverable px-3 py-2 text-xs text-mc-text-2 hover:text-mc-redstone">پاک‌کردن</button>
+        </div>
+        <div class="flex flex-wrap gap-1.5 max-h-44 overflow-y-auto" id="calc-chips">
+          {featuredRecipes.map((r) => (
+            <button class="calc-chip mc-panel hoverable px-2 py-1 text-[11px] text-mc-text-2 hover:text-mc-grass-2" data-recipe-id={r.id} data-recipe-name-fa={r.nameFa}>{r.nameFa}</button>
+          ))}
+        </div>
+      </section>
+
+      <section class="mc-panel p-5" id="calc-quantity-section" style="display:none;">
+        <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+          <span>۲.</span> <span>تعداد مورد نظر</span>
+          <span id="calc-target-name" class="text-mc-grass-2 text-sm font-normal"></span>
+        </h2>
+        <div class="flex items-center gap-3 flex-wrap">
+          <input type="number" id="calc-quantity" value="1" min="1" max="9999" class="w-28 bg-mc-bg-2 border-2 border-mc-line rounded px-3 py-2 text-lg font-bold text-center text-mc-text focus:border-mc-grass-2 outline-none" dir="ltr" />
+          <div class="flex gap-1">
+            <button class="calc-qty-btn mc-panel hoverable px-3 py-1.5 text-xs" data-qty="1">۱</button>
+            <button class="calc-qty-btn mc-panel hoverable px-3 py-1.5 text-xs" data-qty="8">۸</button>
+            <button class="calc-qty-btn mc-panel hoverable px-3 py-1.5 text-xs" data-qty="16">۱۶</button>
+            <button class="calc-qty-btn mc-panel hoverable px-3 py-1.5 text-xs" data-qty="32">۳۲</button>
+            <button class="calc-qty-btn mc-panel hoverable px-3 py-1.5 text-xs" data-qty="64">۶۴</button>
+            <button class="calc-qty-btn mc-panel hoverable px-3 py-1.5 text-xs" data-qty="128">۱۲۸</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="mc-panel p-5" id="calc-results-section" style="display:none;">
+        <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2"><span>۳.</span> <span>نتیجه‌ی محاسبه</span></h2>
+        <div id="calc-summary" class="mb-4"></div>
+        <div class="mb-4">
+          <h3 class="text-sm font-bold text-mc-text mb-2">🌳 درخت وابستگی</h3>
+          <div id="calc-tree" class="text-xs text-mc-text-2 leading-loose bg-mc-bg-2 border border-mc-line rounded p-3 max-h-96 overflow-y-auto">...</div>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-mc-text mb-2">📦 مواد اولیه‌ی پایه</h3>
+          <div id="calc-raw-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-sm font-bold text-mc-text mb-2">🔨 مراحل میانی (دستورالعمل‌های میانی)</h3>
+          <div id="calc-steps-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+        </div>
+        <div id="calc-empty" class="text-center py-8 text-mc-text-3 text-sm">ابتدا یک آیتم و تعداد را انتخاب کن.</div>
+      </section>
+    </div>
+
+    <aside class="space-y-4 lg:sticky lg:top-20 lg:self-start">
+      <section class="mc-panel p-4">
+        <h2 class="text-sm font-extrabold mb-2 border-b border-mc-line pb-2">📖 این ابزار چه می‌کند؟</h2>
+        <p class="text-xs text-mc-text-2 leading-loose mb-2">مثال: اگر <strong class="text-mc-grass-2">۱۶ صندوق</strong> بخوای:</p>
+        <ul class="text-xs text-mc-text-2 space-y-1">
+          <li>📦 ۱۶ صندوق × ۸ تخته = <strong>۱۲۸ تخته</strong></li>
+          <li>🪵 ۱۲۸ تخته ÷ ۴ = <strong>۳۲ چوب درخت</strong></li>
+          <li>🌳 ۳۲ چوب ÷ ۴ = <strong>۸ بلوک چوب</strong></li>
+          <li>🌲 یا: <strong>۲ درخت بلوط</strong> (هر کدام ۴ چوب)</li>
+        </ul>
+      </section>
+      <section class="mc-panel p-4">
+        <h2 class="text-sm font-extrabold mb-2 border-b border-mc-line pb-2">📊 آمار پایگاه داده</h2>
+        <dl class="text-xs space-y-1.5">
+          <div class="flex justify-between"><dt class="text-mc-text-3">دستورالعمل کل:</dt><dd class="text-mc-text font-bold">{faNum(recipes.length)}</dd></div>
+          <div class="flex justify-between"><dt class="text-mc-text-3">آیتم‌های ساخته‌شونده:</dt><dd class="text-mc-text font-bold">{faNum(Object.keys(recipeByOutput).length)}</dd></div>
+          <div class="flex justify-between"><dt class="text-mc-text-3">عمق محاسبه:</dt><dd class="text-mc-text font-bold">نامحدود</dd></div>
+        </dl>
+      </section>
+    </aside>
+  </div>
+</BaseLayout>
+
+<script type="application/json" id="calc-recipes-data" set:html={recipesJSON} />
+<script type="application/json" id="calc-recipe-by-output" set:html={recipeByOutputJSON} />
+
+<script is:inline>
+  (function () {
+    'use strict';
+    var FA_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    function faNum(n) { n = Math.ceil(Number(n) || 0); return String(n).replace(/[0-9]/g, function (d) { return FA_DIGITS[+d]; }); }
+    function faNumGrouped(n) { return Number(n).toLocaleString('fa-IR'); }
+    function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+
+    var recipes = JSON.parse(document.getElementById('calc-recipes-data').textContent);
+    var recipeByOutput = JSON.parse(document.getElementById('calc-recipe-by-output').textContent);
+
+    var searchIndex = [];
+    recipes.forEach(function (r) {
+      var names = [r.nameFa, r.nameEn, r.id].concat(r.aliases || []);
+      names.forEach(function (n) { if (n) searchIndex.push({ name: String(n).toLowerCase(), recipe: r }); });
+    });
+    Object.keys(recipeByOutput).forEach(function (out) { searchIndex.push({ name: out.toLowerCase(), recipe: recipeByOutput[out] }); });
+
+    var selectedRecipe = null;
+    var searchInput = document.getElementById('calc-search');
+    var chipsContainer = document.getElementById('calc-chips');
+    var clearBtn = document.getElementById('calc-clear-btn');
+    var qtySection = document.getElementById('calc-quantity-section');
+    var qtyInput = document.getElementById('calc-quantity');
+    var qtyBtns = document.querySelectorAll('.calc-qty-btn');
+    var resultsSection = document.getElementById('calc-results-section');
+    var summaryEl = document.getElementById('calc-summary');
+    var treeEl = document.getElementById('calc-tree');
+    var rawListEl = document.getElementById('calc-raw-list');
+    var stepsListEl = document.getElementById('calc-steps-list');
+    var emptyEl = document.getElementById('calc-empty');
+    var targetNameEl = document.getElementById('calc-target-name');
+
+    function findRecipe(query) {
+      query = String(query || '').trim().toLowerCase();
+      if (!query) return null;
+      for (var i = 0; i < searchIndex.length; i++) if (searchIndex[i].name === query) return searchIndex[i].recipe;
+      for (var i = 0; i < searchIndex.length; i++) if (searchIndex[i].name.indexOf(query) === 0) return searchIndex[i].recipe;
+      for (var i = 0; i < searchIndex.length; i++) if (searchIndex[i].name.indexOf(query) !== -1) return searchIndex[i].recipe;
+      return null;
+    }
+    function handleSearch() {
+      var q = searchInput.value; if (!q) { chipsContainer.style.display = ''; return; }
+      var r = findRecipe(q); if (r) selectRecipe(r);
+    }
+    searchInput.addEventListener('input', handleSearch);
+    searchInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') handleSearch(); });
+    clearBtn.addEventListener('click', function () {
+      searchInput.value = ''; selectedRecipe = null;
+      qtySection.style.display = 'none'; resultsSection.style.display = 'none';
+      chipsContainer.style.display = ''; searchInput.focus();
+    });
+    chipsContainer.addEventListener('click', function (e) {
+      var btn = e.target.closest('.calc-chip'); if (!btn) return;
+      var id = btn.getAttribute('data-recipe-id');
+      var r = recipes.find(function (x) { return x.id === id; });
+      if (r) { searchInput.value = r.nameFa; selectRecipe(r); }
+    });
+    qtyBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { qtyInput.value = btn.getAttribute('data-qty'); recompute(); });
+    });
+    qtyInput.addEventListener('input', recompute);
+
+    function selectRecipe(r) {
+      selectedRecipe = r;
+      targetNameEl.textContent = '(' + r.nameFa + ' — ' + r.nameEn + ')';
+      qtySection.style.display = ''; resultsSection.style.display = '';
+      chipsContainer.style.display = 'none';
+      recompute();
+      qtySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function computeMaterials(targetItem, neededQty, depth) {
+      depth = depth || 0;
+      if (depth > 12) return null;
+      var recipe = recipeByOutput[targetItem] || (function () {
+        for (var i = 0; i < recipes.length; i++) if (recipes[i].id === targetItem) return recipes[i];
+        return null;
+      })();
+      var raw = {}; var steps = {};
+      if (!recipe) { raw[targetItem] = (raw[targetItem] || 0) + neededQty; return { raw: raw, steps: steps, recipe: null, producedPerCraft: 1 }; }
+      var outputCount = recipe.output.count || 1;
+      var craftsNeeded = Math.ceil(neededQty / outputCount);
+      var actuallyProduced = craftsNeeded * outputCount;
+      steps[recipe.id] = { count: craftsNeeded, recipe: recipe };
+      var gridCounts = {};
+      for (var row = 0; row < recipe.grid.length; row++) {
+        for (var col = 0; col < recipe.grid[row].length; col++) {
+          var cell = recipe.grid[row][col];
+          if (cell) gridCounts[cell] = (gridCounts[cell] || 0) + 1;
+        }
+      }
+      for (var item in gridCounts) {
+        if (!gridCounts.hasOwnProperty(item)) continue;
+        var subQty = gridCounts[item] * craftsNeeded;
+        var sub = computeMaterials(item, subQty, depth + 1);
+        if (sub) {
+          for (var k in sub.raw) if (sub.raw.hasOwnProperty(k)) raw[k] = (raw[k] || 0) + sub.raw[k];
+          for (var rid in sub.steps) if (sub.steps.hasOwnProperty(rid)) {
+            if (steps[rid]) steps[rid].count += sub.steps[rid].count;
+            else steps[rid] = { count: sub.steps[rid].count, recipe: sub.steps[rid].recipe };
+          }
+        }
+      }
+      return { raw: raw, steps: steps, recipe: recipe, producedPerCraft: outputCount, actuallyProduced: actuallyProduced };
+    }
+
+    function recompute() {
+      if (!selectedRecipe) return;
+      var qty = parseInt(qtyInput.value, 10) || 1;
+      if (qty < 1) qty = 1; if (qty > 9999) qty = 9999;
+      var targetItem = selectedRecipe.output.item;
+      var result = computeMaterials(targetItem, qty);
+      if (!result) { emptyEl.style.display = ''; summaryEl.innerHTML = ''; treeEl.innerHTML = ''; rawListEl.innerHTML = ''; stepsListEl.innerHTML = ''; return; }
+      emptyEl.style.display = 'none';
+      var totalRaw = 0; for (var k in result.raw) totalRaw += result.raw[k];
+      var totalSteps = 0; for (var s in result.steps) totalSteps += result.steps[s].count;
+      var html = '<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">';
+      html += '<div class="p-3 bg-mc-bg-2 border border-mc-line rounded"><div class="text-[10px] text-mc-text-3 mb-1">آیتم هدف</div><div class="text-base font-bold text-mc-text">' + escapeHtml(selectedRecipe.nameFa) + '</div><div class="text-[10px] text-mc-grass-2 mt-1">' + faNum(qty) + ' عدد</div></div>';
+      html += '<div class="p-3 bg-mc-bg-2 border border-mc-line rounded"><div class="text-[10px] text-mc-text-3 mb-1">مواد اولیه (نوع)</div><div class="text-base font-bold text-mc-text" dir="ltr">' + faNum(Object.keys(result.raw).length) + '</div></div>';
+      html += '<div class="p-3 bg-mc-bg-2 border border-mc-line rounded"><div class="text-[10px] text-mc-text-3 mb-1">مجموع مواد اولیه</div><div class="text-base font-bold text-mc-text" dir="ltr">' + faNumGrouped(totalRaw) + '</div></div>';
+      html += '<div class="p-3 bg-mc-bg-2 border border-mc-line rounded"><div class="text-[10px] text-mc-text-3 mb-1">عملیات ساخت</div><div class="text-base font-bold text-mc-text" dir="ltr">' + faNumGrouped(totalSteps) + '</div></div>';
+      html += '</div>';
+      if (result.actuallyProduced && result.actuallyProduced > qty) {
+        html += '<div class="mt-2 text-[11px] text-mc-gold bg-mc-bg-2 border border-mc-line rounded px-2 py-1">⚠ توجه: چون هر کرافت ' + faNum(result.producedPerCraft) + ' عدد تولید می‌کند، در مجموع ' + faNum(result.actuallyProduced) + ' عدد ساخته می‌شود.</div>';
+      }
+      summaryEl.innerHTML = html;
+      treeEl.innerHTML = renderTree(targetItem, qty, 0);
+      var rawArr = Object.keys(result.raw).sort(function (a, b) { return result.raw[b] - result.raw[a]; });
+      rawListEl.innerHTML = rawArr.map(function (item) {
+        var qty2 = result.raw[item];
+        var stacks = Math.floor(qty2 / 64); var rem = qty2 % 64;
+        var stackStr = stacks > 0 ? faNum(stacks) + ' استک' + (rem > 0 ? ' + ' + faNum(rem) : '') : faNum(qty2);
+        return '<div class="flex items-center justify-between gap-2 p-2 bg-mc-bg-2 border border-mc-line rounded"><span class="text-xs font-mono text-mc-text-2" dir="ltr">' + escapeHtml(item) + '</span><div class="text-right"><div class="text-sm font-bold text-mc-text" dir="ltr">' + faNumGrouped(qty2) + '</div><div class="text-[10px] text-mc-text-3">' + stackStr + '</div></div></div>';
+      }).join('');
+      var stepsArr = Object.keys(result.steps).map(function (rid) { return result.steps[rid]; }).sort(function (a, b) { return b.count - a.count; });
+      stepsListEl.innerHTML = stepsArr.map(function (s) {
+        return '<div class="flex items-center justify-between gap-2 p-2 bg-mc-bg-2 border border-mc-line rounded"><div><div class="text-xs font-bold text-mc-text">' + escapeHtml(s.recipe.nameFa) + '</div><div class="text-[10px] text-mc-text-3" dir="ltr">' + escapeHtml(s.recipe.id) + '</div></div><div class="text-right"><div class="text-sm font-bold text-mc-gold" dir="ltr">×' + faNumGrouped(s.count) + '</div><div class="text-[10px] text-mc-text-3">کرافت</div></div></div>';
+      }).join('');
+    }
+
+    function renderTree(item, qty, depth) {
+      var recipe = recipeByOutput[item] || (function () { for (var i = 0; i < recipes.length; i++) if (recipes[i].id === item) return recipes[i]; return null; })();
+      var pad = ''; for (var i = 0; i < depth; i++) pad += '│  ';
+      var prefix = depth === 0 ? '' : (pad + '└─ ');
+      if (depth > 8) return prefix + '... (عمق بیش از حد)\n';
+      if (!recipe) return prefix + '<span class="text-mc-grass-2">' + escapeHtml(item) + '</span> × ' + faNum(qty) + ' <span class="text-mc-text-3">(مواد اولیه)</span>\n';
+      var outCount = recipe.output.count || 1;
+      var crafts = Math.ceil(qty / outCount);
+      var html = prefix + '<span class="text-mc-text">' + escapeHtml(recipe.nameFa) + '</span> × ' + faNum(qty) + ' <span class="text-mc-text-3">(نیاز به ' + faNum(crafts) + ' کرافت)</span>\n';
+      var gridCounts = {};
+      for (var r = 0; r < recipe.grid.length; r++) for (var c = 0; c < recipe.grid[r].length; c++) { var cell = recipe.grid[r][c]; if (cell) gridCounts[cell] = (gridCounts[cell] || 0) + 1; }
+      var items = Object.keys(gridCounts);
+      for (var k = 0; k < items.length; k++) { var subItem = items[k]; var subQty = gridCounts[subItem] * crafts; html += renderTree(subItem, subQty, depth + 1); }
+      return html;
+    }
+  })();
+</script>
