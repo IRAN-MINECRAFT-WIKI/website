@@ -1,0 +1,389 @@
+---
+title: 'بلوک‌های ماینکرفت — راهنمای کامل'
+description: 'راهنمای کامل بلوک‌های ماینکرفت بدراک و جاوا: انواع، سختی، کاربردها، نکات پیشرفته و تفاوت Java و Bedrock برای ۹۰۰+ بلوک.'
+pubDate: 2024-12-07
+author: 'MineBed Team'
+topic: 'blocks'
+mcVersion: '1.21'
+cover: '/img/wiki/articles/blocks-hero.png'
+---
+
+ماینکرفت دارای بیش از ۹۰۰ بلوک مختلف است که هر کدام ویژگی‌ها، کاربردها و نکات پیشرفته‌ی منحصربه‌فردی دارن. در این راهنمای کامل، مهم‌ترین بلوک‌ها رو با دسته‌بندی، سختی، ابزار لازم و کاربردها معرفی می‌کنیم. برای دیدن همه‌ی ۸۹۹ بلوک در یک جدول قابل‌مرتب‌سازی، صفحه‌ی [کاوشگر آمار بلاک‌ها](/website/block-stats) رو ببین.
+
+![انواع بلوک‌های ماینکرفت: سنگ، کوب‌استون، تخته، آجر، سنگ‌ماسه، شیشه، پشم، بتن](/website/img/wiki/articles/blocks-hero.png)
+
+## دسته‌بندی بلوک‌ها
+
+### 🧱 بلوک‌های ساختمانی پایه (Building Blocks)
+
+این بلوک‌ها پایه‌ی ساخت‌وساز در ماینکرفت هستن و معمولاً از چوب یا سنگ ساخته می‌شن.
+
+#### سنگ (Stone)
+- **سختی:** ۱.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** زیرزمین در همه‌جا، با Silk Touch خود سنگ، بدون اون Cobblestone
+- **کاربرد:** ساخت Stone Bricks، Smooth Stone، Andesite/Granite/Diorite
+- **نکته:** وقتی آب و لاوا کنار هم قرار می‌گیرن، Stone یا Cobblestone تولید می‌شه (بسته به جهت جریان)
+
+#### کوب‌استون (Cobblestone)
+- **سختی:** ۲.۰ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** از استخراج Stone بدون Silk Touch
+- **کاربرد:** ساخت Furnace، Stone Bricks، Cobblestone Slab/Stairs/Wall
+- **نکته:** با Cobblestone Generator (آب + لاوا) بی‌نهایت تولید می‌شه
+
+#### تخته‌ها (Planks)
+- **سختی:** ۲.۰ — **ابزار:** تبر (هر درجه)
+- **انواع:** Oak، Spruce، Birch، Jungle، Acacia، Dark Oak، Mangrove، Cherry، Bamboo، Crimson، Warped
+- **کاربرد:** ساخت Crafting Table، Chest، Stick، Door، Fence، Stairs، Slab و...
+- **نکته:** با ۱ Log → ۴ Plank (بدون اتلاف)
+
+#### آجر‌ها (Bricks)
+- **سختی:** ۲.۰ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** با پختن Clay Ball در Furnace → Brick Item → ۴ Brick → ۱ Brick Block
+- **کاربرد:** Brick Block، Brick Stairs، Brick Slab، Brick Wall، Flower Pot
+- **نکته:** با ۴ Clay Ball → ۴ Brick Item → ۱ Brick Block (تناسب ۱:۱)
+
+#### سنگ‌ماسه (Sandstone)
+- **سختی:** ۰.۸ — **ابزار:** پیکه (هر درجه)
+- **انواع:** Sandstone، Red Sandstone، Smooth Sandstone، Cut Sandstone، Chiseled Sandstone
+- **کاربرد:** ساختمان‌های بیابانی، تزئینی
+- **نکته:** با ۴ Sand (در Crafting Table) → ۱ Sandstone
+
+#### شیشه (Glass)
+- **سختی:** ۰.۳ — **ابزار:** هیچی (با Silk Touch هم دراپ نمی‌شه)
+- **تولید:** با پختن Sand در Furnace → ۱ Glass
+- **انواع:** شیشه‌ی رنگی (۱۶ رنگ)، Stained Glass Pane
+- **کاربرد:** پنجره، تزئین، آکواریوم، گلخانه
+- **نکته:** با Silk Touch پیکه، شیشه دراپ نمی‌شه (در Java)؛ در Bedrock با Silk Touch دراپ می‌شه
+
+#### پشم (Wool)
+- **سختی:** ۰.۸ — **ابزار:** قیچی یا هر ابزار
+- **انواع:** ۱۶ رنگ (سفید، نارنجی، مغولی، آبی روشن، زرد، سبز روشن، صورتی، خاکستری، خاکستری روشن، سیاه، بنفش، قرمز، نارنجی، آبی، قهوه‌ای، سبز)
+- **کاربرد:** تخته‌ی موسیقی Note Block، Bed، Carpet، Banner، تزئین
+- **نکته:** با ۴ String → ۱ Wool (یا با Shears از گوسفنده)
+
+#### بتن (Concrete)
+- **سختی:** ۱.۸ — **ابزار:** پیکه‌ی چوبی+
+- **انواع:** ۱۶ رنگ
+- **تولید:** با Concrete Powder (۴ Sand + 4 Gravel + 1 Dye) → Concrete (با لمس آب)
+- **کاربرد:** ساختمان‌های مدرن، تزئین رنگی
+- **نکته:** با Concrete Powder در آب، تبدیل به Concrete می‌شه
+
+### 🌿 بلوک‌های طبیعی (Natural Blocks)
+
+#### خاک (Dirt)
+- **سختی:** ۰.۵ — **ابزار:** بیل
+- **تولید:** در سطح زمین در همه‌جا
+- **کاربرد:** Farmland (با Hoe)، Coarse Dirt (با ۲ Dirt + ۲ Gravel)، Grass Block (با رشد)
+- **نکته:** با Bonemeal روی Dirt، Grass Block درست می‌شه (اگه چمن در نزدیکی باشه)
+
+#### چمن (Grass Block)
+- **سختی:** ۰.۶ — **ابزار:** بیل (با Silk Touch)
+- **تولید:** در سطح زمین در بایوم‌های سبز
+- **کاربرد:** تزئین، چمن‌زار
+- **نکته:** بدون Silk Touch، Dirt دراپ می‌شه
+
+#### چوب (Log)
+- **سختی:** ۲.۰ — **ابزار:** تبر
+- **انواع:** Oak، Spruce، Birch، Jungle، Acacia، Dark Oak، Mangrove، Cherry، Bamboo، Crimson Stem، Warped Stem
+- **کاربرد:** ساخت Plank، تزئین، ساخت房子的 wood texture
+- **نکته:** با کلیک راست + Axe می‌تونی Stripped Wood بسازی (تمیزتر)
+
+#### برگ‌ها (Leaves)
+- **سختی:** ۰.۲ — **ابزار:** قیچی یا Hoe (در 1.16+)
+- **انواع:** ۶ نوع درخت + ۲ نوع Nether
+- **دراپ‌ها:** Sapling (۵٪)، Apple (۰.۵٪ Oak/Birch)، Stick (۲٪)
+- **نکته:** با Shears خود Leaves دراپ می‌شه؛ بدون اون، Sapling/Apple/Stick
+
+#### ماسه (Sand)
+- **سختی:** ۰.۵ — **ابزار:** بیل
+- **انواع:** Sand، Red Sand
+- **تولید:** در بیابان، ساحل، رودخانه
+- **کاربرد:** Glass، Sandstone، TNT، Concrete Powder
+- **نکته:** تحت تأثیر gravity (می‌فته)
+
+#### شن (Gravel)
+- **سختی:** ۰.۶ — **ابزار:** بیل
+- **تولید:** در رودخانه، غار،沙滩
+- **دراپ‌ها:** ۱ Flint (۱۰٪ شانس)
+- **کاربرد:** Concrete Powder، Coarse Dirt، Arrow (با Flint + Stick + Feather)
+- **نکته:** تحت تأثیر gravity
+
+### 💎 سنگ‌های معدنی (Ores)
+
+#### زغال‌سنگ (Coal Ore)
+- **سختی:** ۳.۰ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** y=۱۲۸ تا y=-۱ (بیشترین در y=۹۶)
+- **دراپ:** ۱ Coal (یا خود Ore با Silk Touch)
+- **کاربرد:** Torch، Campfire، Furnace سوخت (۸ آیتم/هر زغال)
+
+#### آهن (Iron Ore)
+- **سختی:** ۳.۰ (Overworld) / ۴.۵ (Deepslate) — **ابزار:** پیکه‌ی سنگی+
+- **تولید:** y=۷۲ تا y=۸۰ (Overworld)، y=-۲۴ (بیشترین Deepslate)
+- **دراپ:** ۱ Raw Iron (یا خود Ore با Silk Touch)
+- **کاربرد:** Iron Ingot → Tool/Armor/Bucket/Rail/Hopper/Cauldron/Anvil و...
+
+#### طلا (Gold Ore)
+- **سختی:** ۳.۰ (Overworld) / ۴.۵ (Deepslate) — **ابزار:** پیکه‌ی آهنی+
+- **تولید:** y=۳۲ تا y=-۶۴ (Overworld، کم)، Badlands (زیاد)، Nether (در Netherrack)
+- **دراپ:** ۱ Raw Gold (یا خود Ore با Silk Touch)
+- **کاربرد:** Gold Ingot → Clock، Golden Apple، Gold Block، Bartering با Piglin
+
+#### الماس (Diamond Ore)
+- **سختی:** ۳.۰ (Overworld) / ۴.۵ (Deepslate) — **ابزار:** پیکه‌ی آهنی+
+- **تولید:** y=۱۵ تا y=-۶۴ (بیشترین در y=-۵۹)
+- **دراپ:** ۱ Diamond (با Fortune III تا ۴)
+- **کاربرد:** Diamond Tools/Armor، Enchanting Table، Diamond Block، Netherite (با ۴ Diamond + ۱ Netherite Ingot)
+
+#### زمرد (Emerald Ore)
+- **سختی:** ۳.۰ (Overworld) / ۴.۵ (Deepslate) — **ابزار:** پیکه‌ی آهنی+
+- **تولید:** در Mountains biome، y=۲۵۶ تا y=-۱۶ (کمیاب)
+- **دراپ:** ۱ Emerald (با Fortune III تا ۴)
+- **کاربرد:** Trading با Villager، Beacon، Emerald Block
+
+#### رداستون (Redstone Ore)
+- **سختی:** ۳.۰ (Overworld) / ۴.۵ (Deepslate) — **ابزار:** پیکه‌ی آهنی+
+- **تولید:** y=۱۵ تا y=-۶۴
+- **دراپ:** ۱-۵ Redstone (با Fortune III تا ۸)
+- **کاربرد:** مدارهای Redstone، Piston، Dispenser، Observer، Comparator، Repeater و...
+- **نکته:** وقتی روشن می‌شه (با کلیک یا fall damage)، نور emit می‌کنه
+
+#### لازورد (Lapis Lazuli Ore)
+- **سختی:** ۳.0 (Overworld) / 4.5 (Deepslate) — **ابزار:** پیکه‌ی سنگی+
+- **تولید:** y=۶۴ تا y=-۶۴ (بیشترین در y=-۱)
+- **دراپ:** ۴-۸ Lapis Lazuli (با Fortune III تا ۳۲)
+- **کاربرد:** Enchanting (با ۱-۳ Lapis)، رنگ آبی برای Wool، Glass، Banner و...
+
+#### مس (Copper Ore)
+- **سختی:** ۳.0 (Overworld) / 4.5 (Deepslate) — **ابزار:** پیکه‌ی سنگی+
+- **تولید:** y=۱۱۲ تا y=-۱۶
+- **دراپ:** ۲-۵ Raw Copper (با Fortune III تا ۲۰)
+- **کاربرد:** Copper Ingot → Copper Block، Lightning Rod، Spyglass، Brush
+
+#### آبسیدین (Obsidian)
+- **سختی:** ۵۰ — **ابزار:** پیکه‌ی الماسی یا ندرایت
+- **تولید:** وقتی آب静止 روی لاوا قرار می‌گیره (source block)
+- **دراپ:** خودش (همیشه)
+- **کاربرد:** Nether Portal، Ender Chest، Beacon base، Enchanting Table
+- **نکته:** با سرعت ۹.۴ ثانیه برای الماس، ۸.۳۵ ثانیه برای ندرایت شکسته می‌شه
+
+#### آبسیدین گریان (Crying Obsidian)
+- **سختی:** ۵۰ — **ابزار:** پیکه‌ی الماسی یا ندرایت
+- **تولید:** در Nether Fortress و Bastion Remnant (به‌طور طبیعی)، با Piglin Bartering (۸٪ شانس)
+- **کاربرد:** Respawn Anchor (با ۶ Crying Obsidian + ۳ Glowstone)
+- **نکته:** ذرات بنفش تولید می‌کنه
+
+#### خرده‌سنگ باستانی (Ancient Debris)
+- **سختی:** ۳۰ — **ابزار:** پیکه‌ی الماسی+
+- **تولید:** در Nether، y=۱۵ (بیشترین) تا y=۸
+- **دراپ:** خودش (با Silk Touch)
+- **کاربرد:** با ۴ Ancient Debris → ۴ Netherite Scrap + ۴ Gold Ingot → ۱ Netherite Ingot → upgrade Diamond Tool/Armor
+- **نکته:** با Bed Mining (در ندر، با بستر انفجاری) سریع‌تر پیدا می‌شه
+
+### 🎨 بلوک‌های تزئینی (Decoration Blocks)
+
+#### Banner
+- **سختی:** ۱.۰ — **ابزار:** قیچی
+- **تولید:** ۶ Wool + ۱ Stick → ۱ Banner
+- **کاربرد:** تزئین، نشان قبیله
+- **نکته:** با Loom + ۱ Banner + ۱ Dye → طرح‌های مختلف (با pattern list)
+
+#### Bed
+- **سختی:** ۰.۲ — **ابزار:** هر ابزار
+- **انواع:** ۱۶ رنگ
+- **تولید:** ۳ Wool (همرنگ) + ۳ Plank → ۱ Bed
+- **کاربرد:** خواب، set spawn point
+- **نکته:** در ندر با Click و فعال شدن، انفجار بزرگ (بزرگ‌تر از TNT)
+
+#### Painting
+- **سختی:** ن/ا — **ابزار:** هر چیزی (breakable by hand)
+- **تولید:** ۸ Stick + ۱ Wool → ۱ Painting
+- **کاربرد:** تزئین، روی دیوار با فضای خالی
+- **نکته:** در Java، ۲۶ اندازه مختلف؛ در Bedrock، اندازه‌ها کمتر
+
+#### Flower Pot
+- **سختی:** ۰.۰ — **ابزار:** هر چیزی
+- **تولید:** ۳ Brick → ۱ Flower Pot
+- **کاربرد:** قرار دادن گل، Sapling، Mushroom، Cactus و...
+
+### 🔴 بلوک‌های رداستون (Redstone Blocks)
+
+#### رداستون (Redstone Dust)
+- **سختی:** ۰.۰ — **ابزار:** هر چیزی
+- **تولید:** از استخراج Redstone Ore
+- **کاربرد:** انتقال سیگنال (تا ۱۵ بلاک)
+- **نکته:** با Redstone Wire، می‌تونی سیگنال رو بالا، پایین و side-ways منتقل کنی
+
+#### پیستون (Piston)
+- **سختی:** ۱.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۳ Plank + ۴ Cobblestone + ۱ Iron Ingot + ۱ Redstone → ۱ Piston
+- **کاربرد:** هل دادن بلاک‌ها (۱۲ بلاک max)
+- **نکته:** با Sticky Piston (Piston + Slimeball) بلاک رو هم هل می‌ده هم می‌کشه
+
+#### Observer
+- **سختی:** ۳.۰ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۶ Cobblestone + ۲ Redstone + ۱ Nether Quartz → ۱ Observer
+- **کاربرد:** detect block state change (هم در جلوی خودش)
+- **نکته:** با redstone pulse کوتاه، عمل می‌کنه
+
+#### Repeater
+- **سختی:** ۰.0 — **ابزار:** هر چیزی
+- **تولید:** ۳ Stone + ۲ Redstone Torch + ۱ Redstone → ۱ Repeater
+- **کاربرد:** تأخیر ۱-۴ tick (۰.۱-۰.۴ ثانیه)، فقط یک‌سویه
+- **نکته:** با کلیک راست، تأخیر رو تنظیم کن
+
+#### Comparator
+- **سختی:** ۰.0 — **ابزار:** هر چیزی
+- **تولید:** ۳ Stone + ۳ Redstone Torch + ۱ Nether Quartz + ۱ Glowstone → ۱ Comparator
+- **کاربرد:** مقایسه signal strength، measure container fullness
+- **نکته:** mode subtract/add با کلیک
+
+### ⚙️ بلوک‌های مکانیزم (Mechanism Blocks)
+
+#### کوره (Furnace)
+- **سختی:** ۳.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۸ Cobblestone → ۱ Furnace
+- **کاربرد:** پختن ore، غذا، تبدیل Sand → Glass، Cobblestone → Stone
+- **نکته:** با ۸ آیتم به ازای هر ۱ زغال‌سنگ
+
+#### Blast Furnace
+- **سختی:** ۳.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۵ Iron Ingot + ۱ Furnace + ۳ Smooth Stone → ۱ Blast Furnace
+- **کاربرد:** ۲x سریع‌تر برای ore (نه غذا)
+
+#### Smoker
+- **سختی:** ۳.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۴ Log + ۱ Furnace → ۱ Smoker
+- **کاربرد:** ۲x سریع‌تر برای غذا (نه ore)
+
+#### Crafting Table
+- **سختی:** ۲.۵ — **ابزار:** تبر
+- **تولید:** ۴ Plank → ۱ Crafting Table
+- **کاربرد:** ۳×۳ crafting grid
+
+#### Chest
+- **سختی:** ۲.۵ — **ابزار:** تبر
+- **تولید:** ۸ Plank → ۱ Chest
+- **کاربرد:** ۲۷ slot storage
+- **نکته:** با ۲ Chest کنار هم → Large Chest (۵۴ slot)
+
+#### Ender Chest
+- **سختی:** ۲۲.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۸ Obsidian + ۱ Eye of Ender → ۱ Ender Chest
+- **کاربرد:** storage share شده بین همه‌ی Ender Chest‌ها
+- **نکته:** با Silk Touch دراپ می‌شه؛ بدون اون، ۸ Obsidian دراپ می‌کنه
+
+#### Hopper
+- **سختی:** ۳.0 — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۵ Iron Ingot + ۱ Chest → ۱ Hopper
+- **کاربرد:** انتقال آیتم به container یا به hopper بعدی
+- **نکته:** با کلیک راست روی container (هیچی attach نمی‌شه)، یا کلیک shift روی container
+
+#### Dispenser
+- **سختی:** ۳.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۷ Cobblestone + ۱ Bow + ۱ Redstone → ۱ Dispenser
+- **کاربرد:** استفاده‌ی آیتم (Arrow، Water Bucket، Flint and Steel، Boat، Splash Potion و...)
+
+#### Dropper
+- **سختی:** ۳.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۷ Cobblestone + ۱ Redstone → ۱ Dropper
+- **کاربرد:** drop آیتم به عنوان item entity
+
+### 🛠️ بلوک‌های کاربردی (Utility Blocks)
+
+#### Beacon
+- **سختی:** ۳.0 — **ابزار:** هر چیزی
+- **تولید:** ۵ Glass + ۳ Netherite Ingot (هر کدام در پشت سر... ولی با ۳ Obsidian + ۵ Glass + ۱ Nether Star = 1 Beacon? Actually the recipe is 3 Obsidian + 5 Glass + 1 Nether Star) — درست: ۳ Obsidian + ۵ Glass + ۱ Nether Star → ۱ Beacon
+- **کاربرد:** buf of Speed/Haste/Resistance/Jump Boost/Strength/Regeneration
+- **نکته:** نیاز به پایه‌ی ۴ طبقه (حداقل ۱۰۴ بلاک): Iron، Gold، Diamond، Emerald، یا Netherite
+
+#### Enchanting Table
+- **سختی:** ۵.0 — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۴ Obsidian + ۲ Diamond + ۱ Book → ۱ Enchanting Table
+- **کاربرد:** enchanting items با Lapis + XP
+- **نکته:** با ۱۵ Bookshelf در فاصله‌ی ۲ بلاک، Level ۳۰ enchanting فعال می‌شه
+
+#### Anvil
+- **سختی:** ۵.0 — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۴ Iron Ingot + ۳ Iron Block → ۱ Anvil (۳۱ Iron Ingot کل)
+- **کاربرد:** rename item، repair item، combine enchantments
+- **نکته:** هر استفاده، durability کم می‌کنه (۳ استفاده: Anvil → Chipped Anvil → Damaged Anvil → بمیره)
+
+#### Brewing Stand
+- **سختی:** ۰.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۱ Blaze Rod + ۳ Cobblestone → ۱ Brewing Stand
+- **کاربرد:** ساخت Potion
+- **نکته:** با ۱ Blaze Powder به‌عنوان سوخت، ۲۰ brew انجام می‌شه
+
+#### Cartography Table
+- **سختی:** ۲.۵ — **ابزار:** تبر
+- **تولید:** ۲ Paper + ۴ Plank → ۱ Cartography Table
+- **کاربرد:** copy map، expand map، lock map
+
+#### Fletching Table
+- **سختی:** ۲.۵ — **ابزار:** تبر
+- **تولید:** ۲ Flint + ۴ Plank → ۱ Fletching Table
+- **کاربرد:** convert villager به Fletcher
+
+#### Loom
+- **سختی:** ۲.۵ — **ابزار:** تبر
+- **تولید:** ۲ String + ۲ Plank → ۱ Loom
+- **کاربرد:** apply banner patterns
+
+#### Smithing Table
+- **سختی:** ۲.۵ — **ابزار:** تبر
+- **تولید:** ۲ Iron Ingot + ۴ Plank → ۱ Smithing Table
+- **کاربرد:** upgrade Diamond → Netherite (با Netherite Ingot + Diamond item)
+
+#### Stonecutter
+- **سختی:** ۳.۵ — **ابزار:** پیکه‌ی چوبی+
+- **تولید:** ۱ Iron Ingot + ۳ Stone → ۱ Stonecutter
+- **کاربرد:** cut stone variants to stairs/slabs/walls (با نسبت ۱:۱، بهتر از crafting table)
+
+#### Composter
+- **سختی:** ۲.0 — **ابزار:** تبر
+- **تولید:** ۷ Slab → ۱ Composter (هر نوع wood)
+- **کاربرد:** convert plant items به Bone Meal (با ۷ مرحله → ۱ Bone Meal)
+- **نکته:** villager Farmer از اون به‌عنوان workstation استفاده می‌کنه
+
+#### Note Block
+- **سختی:** ۰.۸ — **ابزار:** تبر
+- **تولید:** ۸ Plank + ۱ Redstone → ۱ Note Block
+- **کاربرد:** پخش نت موسیقی (۲۵ نت، ۲ octave)
+- **نکته:** با بلاک زیرش، instrument تغییر می‌کنه (Wood، Sand، Glass، Stone، Gold، Clay، Wool، Bone، Soul Sand، Pumpkin، Iron Block، Emerald Block، Hay، Glowstone، Head، Block of Diamond)
+
+#### Jukebox
+- **سختی:** ۲.0 — **ابزار:** تبر
+- **تولید:** ۸ Plank + ۱ Diamond → ۱ Jukebox
+- **کاربرد:** پخش Music Disc (۱۲+ disc موجود)
+
+## نکات پیشرفته
+
+### ساخت متریال
+- با ۱ Log → ۴ Plank → ۸ Stick (نسبت ۱:۸، با ۲ Plank → ۴ Stick)
+- با ۴ Sand + ۵ Gravel → ۸ Concrete Powder (با dye، رنگی)
+- با ۴ Iron Ingot + ۳ Iron Block = ۳۱ Iron Ingot → ۱ Anvil
+- با ۴ Iron Block + ۱ Pumpkin → ۱ Iron Golem
+
+### دوام و سختی
+- **سخت‌ترین بلاک (غیر از Bedrock):** Water، Lava (۱۰۰)، Obsidian، Crying Obsidian (۵۰)
+- **با کمترین سختی (با ۰):** TNT، Redstone Dust، Torch، Slime Block، Honey Block
+- **سنگین‌ترین برای استخراج:** Obsidian (۹.۴s با Diamond Pickaxe)
+
+### Best Building Materials
+- **دیوار ضدِ انفجار:** Obsidian (۱۲۰۰ blast resistance) یا Bedrock (۳۶۰۰۰۰۰، unbreakable)
+- **زمین:** Smooth Stone (سختی ۱.۵، تمیز) یا Concrete (سختی ۱.۸، رنگی)
+- **سقف:** Stairs (با شکل) یا Slab (با نصف قیمت)
+- **پنجره:** Glass (شفاف) یا Stained Glass (رنگی)
+- **تزئین:** Banner، Painting، Flower Pot، Head
+
+## تفاوت Java و Bedrock
+
+- در Java، **blockstates** دیتای بلاک‌ها رو در ۱.۱۳+ ذخیره می‌کنه (در Bedrock، data values قدیمی)
+- در Java، ** observers** به block updates حساس هستن؛ در Bedrock، به block state changes
+- در Bedrock، **Concrete** سریع‌تر harden می‌شه (با آب source block)
+- در Java، **Stonecutter** نسبت ۱:۱ داره؛ در Bedrock، نسبت ۱:۲ (کمتر efficient)
+- در Java، **Piston** می‌تونه ۱۲ بلاک هل بده؛ در Bedrock، کمتر (۱۰ بلاک max)
+
+## نتیجه
+
+بلوک‌های ماینکرفت پایه‌ی همه‌ی ساخت‌وساز و مکانیزم‌ها هستن. با شناخت ویژگی‌ها، سختی و کاربردهای هر بلوک، می‌تونی بهتر بسازی، فِرم طراحی کنی و به‌طور کلی به بازی مسلط بشی. برای دیدن همه‌ی ۸۹۹ بلوک با جزئیات کامل، به `/website/wiki/blocks/` برو و هر بلاک رو جداگانه بررسی کن.
