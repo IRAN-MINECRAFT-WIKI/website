@@ -8,141 +8,295 @@ mcVersion: '1.21'
 cover: '/img/wiki/articles/items-hero.png'
 ---
 
-ماینکرفت دارای صدها آیتم مختلف است که هر کدام کاربرد خاصی دارند. در این راهنمای کامل، مهم‌ترین آیتم‌های ماینکرفت بدراک و جاوا را معرفی می‌کنیم و کاربردها، نکات پیشرفته و تفاوت‌های نسخه‌ها را برای هر کدام شرح می‌دهیم.
-
-![آیتم‌های اصلی ماینکرفت: شمشیر، پیکه، تبر، بیل، داس، کمان، کراس‌بو، ترایدنت، سپر](/website/img/wiki/articles/items-hero.png)
+ماینکرفت دارای صدها آیتم مختلف است که هر کدام کاربرد خاصی دارند. در این راهنمای کامل، مهم‌ترین آیتم‌های ماینکرفت بدراک و جاوا را با **عکس‌های واقعی خودشون** معرفی می‌کنیم و کاربردها، نکات پیشرفته و تفاوت‌های نسخه‌ها را برای هر کدام شرح می‌دهیم.
 
 ## ابزارها (Tools)
 
-ابزارها پایه‌ی پیشرفت تو ماینکرفت هستن. بدون ابزار درست، نمی‌تونی منابع رو استخراج کنی، غذا به‌دست بیاری یا با ماب‌ها بجنگی. هر ابزار ۶ درجه‌ی متریال داره: چوبی، سنگی، آهنی، طلایی، الماسی و ندرایت (قوی‌ترین).
+ابزارها پایه‌ی پیشرفت تو ماینکرفت هستن. هر ابزار ۶ درجه‌ی متریال داره: چوبی، سنگی، آهنی، طلایی، الماسی و ندرایت.
 
 ### شمشیر (Sword)
-شمشیر سلاح اصلی برای مبارزه‌ی نزدیک‌به‌نزدیک است. ساختار: ۱ متریال + ۱ استیک._damage هر درجه:
-- چوبی: ۴ قلب، ۶۰ استفاده
-- سنگی: ۵ قلب، ۱۳۲ استفاده
-- آهنی: ۶ قلب، ۲۵۱ استفاده (بهترین هزینه-بهره)
-- طلایی: ۴ قلب، ۳۲ استفاده (سریع‌ترین attack speed)
-- الماسی: ۷ قلب، ۱۵۶۲ استفاده
-- ندرایت: ۸ قلب، ۲۰۳۱ استفاده (قوی‌ترین + knockback resistance)
 
-شمشیرهای الماسی و ندرایت قابلیت **Sweep Attack** دارند که در ۱.۱۳+ اضافه شد — یک ضربه می‌تونه چندین ماب رو هم‌زمان بزنه.
+شمشیر سلاح اصلی برای مبارزه‌ی نزدیک‌به‌نزدیک است. ساختار: ۱ متریال + ۱ استیک.
+
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/wooden-sword.png" alt="شمشیر چوبی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/stone-sword.png" alt="شمشیر سنگی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/iron-sword.png" alt="شمشیر آهنی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/golden-sword.png" alt="شمشیر طلایی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/diamond-sword.png" alt="شمشیر الماسی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/netherite-sword.png" alt="شمشیر ندرایت" width="48" height="48" loading="lazy" /></td>
+  </tr>
+  <tr>
+    <td align="center">چوبی<br />۴ قلب</td>
+    <td align="center">سنگی<br />۵ قلب</td>
+    <td align="center">آهنی<br />۶ قلب</td>
+    <td align="center">طلایی<br />۴ قلب</td>
+    <td align="center">الماسی<br />۷ قلب</td>
+    <td align="center">ندرایت<br />۸ قلب</td>
+  </tr>
+</table>
+
+- **Durability:** چوبی ۶۰، سنگی ۱۳۲، آهنی ۲۵۱ (بهترین هزینه-بهره)، طلایی ۳۲، الماسی ۱۵۶۲، ندرایت ۲۰۳۱
+- شمشیرهای الماسی و ندرایت قابلیت **Sweep Attack** دارند (در ۱.۱۳+ اضافه شد) — یک ضربه می‌تونه چندین ماب رو هم‌زمان بزنه
 
 ### پیکه (Pickaxe)
-برای معدن‌کشی سنگ، سنگ‌های معدنی و بلاک‌های سخت استفاده می‌شه. ساختمان: ۳ متریال + ۲ استیک.
-- پیکه‌ی چوبی: فقط سنگ و زغال‌سنگ
-- پیکه‌ی سنگی: + آهن، مس
-- پیکه‌ی آهنی: + طلا، الماس، زمرد، رداستون
-- پیکه‌ی الماسی: + آبسیدین، بلوک‌های ندرایت
-- پیکه‌ی طلایی: سریع‌ترین ولی کم‌دوام‌ترین
+
+برای معدن‌کشی سنگ، سنگ‌های معدنی و بلاک‌های سخت استفاده می‌شه. ساختار: ۳ متریال + ۲ استیک.
+
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/wooden-pickaxe.png" alt="پیکه چوبی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/stone-pickaxe.png" alt="پیکه سنگی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/iron-pickaxe.png" alt="پیکه آهنی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/golden-pickaxe.png" alt="پیکه طلایی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/diamond-pickaxe.png" alt="پیکه الماسی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/netherite-pickaxe.png" alt="پیکه ندرایت" width="48" height="48" loading="lazy" /></td>
+  </tr>
+  <tr>
+    <td align="center">چوبی<br />سنگ + زغال</td>
+    <td align="center">سنگی<br />+ آهن، مس</td>
+    <td align="center">آهنی<br />+ طلا، الماس</td>
+    <td align="center">طلایی<br />سریع‌ترین</td>
+    <td align="center">الماسی<br />+ آبسیدین</td>
+    <td align="center">ندرایت<br />+ ندرایت</td>
+  </tr>
+</table>
 
 **نکته‌ی پیشرفته:** با جادوی **Unbreaking III + Efficiency V + Mending** روی پیکه‌ی الماسی، عملاً یه پیکه‌ی ابدی داری.
 
 ### تبر (Axe)
-برای قطع درختان سریع و در پیکار با ماب‌ها. ساختمان: ۳ متریال + ۲ استیک.
+
+برای قطع درختان سریع و پیکار با ماب‌ها. ساختار: ۳ متریال + ۲ استیک.
+
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/wooden-axe.png" alt="تبر چوبی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/stone-axe.png" alt="تبر سنگی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/iron-axe.png" alt="تبر آهنی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/golden-axe.png" alt="تبر طلایی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/diamond-axe.png" alt="تبر الماسی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/netherite-axe.png" alt="تبر ندرایت" width="48" height="48" loading="lazy" /></td>
+  </tr>
+</table>
+
 - آسیب شمشیر رو داره ولی کندتره
 - در ۱.۱۶+ با جادوی **Chopping** می‌تونه سپر ماب‌ها رو بشکنه
 - برای Shield stunning عالیه
 
 ### بیل (Shovel)
-برای کندن خاک، ماسه، شن و گِل. ساختمان: ۱ متریال + ۲ استیک.
+
+برای کندن خاک، ماسه، شن و گِل. ساختار: ۱ متریال + ۲ استیک.
+
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/wooden-shovel.png" alt="بیل چوبی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/stone-shovel.png" alt="بیل سنگی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/iron-shovel.png" alt="بیل آهنی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/golden-shovel.png" alt="بیل طلایی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/diamond-shovel.png" alt="بیل الماسی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/netherite-shovel.png" alt="بیل ندرایت" width="48" height="48" loading="lazy" /></td>
+  </tr>
+</table>
+
 - در ۱.۱۴+ با کلیک راست روی خاک، می‌تونی Path Block بسازی
 - با جادوی **Silk Touch** می‌تونی Grass Block (با چمن) رو برداری
 
 ### داس (Hoe)
-برای آماده‌سازی Farmland جهت کاشت. ساختمان: ۲ متریال + ۲ استیک.
+
+برای آماده‌سازی Farmland جهت کاشت. ساختار: ۲ متریال + ۲ استیک.
+
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/wooden-hoe.png" alt="داس چوبی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/stone-hoe.png" alt="داس سنگی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/iron-hoe.png" alt="داس آهنی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/golden-hoe.png" alt="داس طلایی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/diamond-hoe.png" alt="داس الماسی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/netherite-hoe.png" alt="داس ندرایت" width="48" height="48" loading="lazy" /></td>
+  </tr>
+</table>
+
 - در ۱.۱۶+ نرخ استخراج Leaves رو به‌شدت بالا می‌بره
-- بهترین ابزار برای برداشت محصول Scythe یا Hoe با Fortune/Mending
+- بهترین ابزار برای برداشت محصول با Fortune/Mending
 
 ### قیچی (Shears)
+
+<img src="/website/textures/items/shears.png" alt="قیچی" width="48" height="48" loading="lazy" style="float:left;margin:0 1rem 1rem 0;image-rendering:pixelated;" />
+
 برای برداشت پشم گوسفنده، برگ‌ها، تار عنکبوت و گل‌های قارچی. ساختمان: ۲ آهن.
+
 - با جادوی Unbreaking III دوامش چند برابر می‌شه
+- با Silk Touch روی قیچی، می‌تونی Cobweb رو برداری (در ۱.۱۶+)
+
+<br clear="all" />
 
 ### چوب‌دستی (Stick)
+
+<img src="/website/textures/items/stick.png" alt="چوب‌دستی" width="48" height="48" loading="lazy" style="float:left;margin:0 1rem 1rem 0;image-rendering:pixelated;" />
+
 پایه‌ی همه‌ی ابزارها و سلاح‌ها. ساختمان: ۲ تخته → ۴ استیک.
+
 - برای ساخت Torch، Arrow، Rail، Ladder هم لازمه
 - یک استک (۶۴ تا) همیشه همراهت داشته باش
+
+<br clear="all" />
 
 ## سلاح‌ها
 
 ### کمان (Bow)
+
+<img src="/website/textures/items/bow.png" alt="کمان" width="48" height="48" loading="lazy" style="float:left;margin:0 1rem 1rem 0;image-rendering:pixelated;" />
+
 سلاح دوردست اصلی. ساختمان: ۳ استیک + ۳ String.
+
 - با جادوی **Power V** آسیب رو ۵۰٪ افزایش می‌ده
 - با **Punch II** knockback رو ۶ بلاک می‌کنه
 - با **Flame** هدف رو آتیش می‌زنه (۴ ثانیه)
 - با **Infinity** نیاز به ۱ تیر داره ولی تیر نامحدود
 - **Unbreaking III** بهترین گزینه برای دوام
 
+<br clear="all" />
+
 ### کراس‌بو (Crossbow)
+
+<img src="/website/textures/items/crossbow.png" alt="کراس‌بو" width="48" height="48" loading="lazy" style="float:left;margin:0 1rem 1rem 0;image-rendering:pixelated;" />
+
 قوی‌تر از Bow ولی کندتر. ساختمان: ۳ استیک + ۲ String + ۱ Iron Ingot + ۱ Tripwire Hook.
+
 - با **Multishot** ۳ تیر شلیک می‌کنه
 - با **Piercing IV** از میان ماب‌ها عبور می‌کنه + از سپر ماب‌ها رد می‌شه
 - با **Quick Charge III** reload رو به ۰.۶ ثانیه می‌رسونه
 - **Piercing** بهت اجازه می‌ده تیر رو از جسد ماب‌ها برداری (re-usable)
 
+<br clear="all" />
+
 ### ترایدنت (Trident)
+
+<img src="/website/textures/items/trident.png" alt="ترایدنت" width="48" height="48" loading="lazy" style="float:left;margin:0 1rem 1rem 0;image-rendering:pixelated;" />
+
 سلاح کمیاب که از Drowned‌ها (۲.۵٪ شانس) می‌افته.
+
 - با **Loyalty III** به دستت برمی‌گرده بعد از پرتاب
 - با **Channeling** هنگام رعدوبرق، صاعقه به هدف می‌زنه
 - با **Riptide III** تو آب یا بارون، خودت رو به جلو هل می‌ده
 - با **Impaling V** آسیب به ماب‌های آبی رو ۲.۵ برابر می‌کنه
 - آسیب پایه: ۹ قلب (قوی‌ترین سلاح نزدیک‌به‌نزدیک بعد از ندرایت)
 
+<br clear="all" />
+
 ### سپر (Shield)
+
+<img src="/website/textures/items/shield.png" alt="سپر" width="48" height="48" loading="lazy" style="float:left;margin:0 1rem 1rem 0;image-rendering:pixelated;" />
+
 سپر دفاعی برای دفاع در برابر حمله. ساختمان: ۶ Plank + ۱ Iron Ingot.
+
 - ۱۰۰٪ آسیب رو دفاع می‌کنه (موقع درست قرار گرفتن)
 - در ۱.۱۱+ با axe ماب‌ها (Vindicator) قابل شکسته
 - می‌تونی با Banner با این ترکیب: ۱ سپر + ۱ Banner، طرح بدل کنی
+
+<br clear="all" />
 
 ## غذا
 
 ### غذاهای کاشتی (Croppable Foods)
 
-- **نان (Bread)**: ۳ گندم → ۱ نان، ۵ قلب، ۶ اشباع (غذای پایه)
-- **سیب (Apple)**: از Oak/Birch Leaves با شانس ۰.۵٪ می‌افته
-- **هویج (Carrot)**: از روستاها یا کاشت، ۳ قلب
-- **سیب‌زمینی (Potato)**: از روستاها، پخته: ۵ قلب
-- **چغندر (Beetroot)**: از روستاها یا کاشت، ۱ قلب
-- **هندوانه (Melon)**: از Melon Stem، ۲ قلب/هر برش
-- **کدو (Pumpkin)**: از Pumpkin Stem، برای Pumpkin Pie استفاده می‌شه
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/bread.png" alt="نان" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/apple.png" alt="سیب" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/carrot.png" alt="هویج" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/potato.png" alt="سیب‌زمینی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/beetroot.png" alt="چغندر" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/golden-apple.png" alt="سیب طلایی" width="48" height="48" loading="lazy" /></td>
+  </tr>
+  <tr>
+    <td align="center">نان<br />۵ قلب</td>
+    <td align="center">سیب<br />۴ قلب</td>
+    <td align="center">هویج<br />۳ قلب</td>
+    <td align="center">سیب‌زمینی<br />۱ قلب</td>
+    <td align="center">چغندر<br />۱ قلب</td>
+    <td align="center">سیب طلایی<br />۸ قلب + buff</td>
+  </tr>
+</table>
 
 ### غذاهای پخته (Cooked Foods)
 
-- **گوشت پخته (Cooked Meat)**: از پختن گوشت خام تو Furnace یا Smoker
-  - Cooked Beef: ۸ قلب، ۱۲.۸ اشباع (بهترین hunger-to-satiation)
-  - Cooked Porkchop: ۸ قلب، ۱۲.۸ اشباع
-  - Cooked Chicken: ۶ قلب، ۷.۲ اشباع
-  - Cooked Mutton: ۶ قلب، ۹.۶ اشباع
-- **سمکه پخته (Cooked Cod/Salmon)**: از پختن raw fish
-  - Cooked Cod: ۵ قلب، ۶ اشباع
-  - Cooked Salmon: ۶.۵ قلب، ۹.۶ اشباع
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/cooked-beef.png" alt="گوشت پخته" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/cooked-porkchop.png" alt="گوشت خوک پخته" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/cooked-chicken.png" alt="مرغ پخته" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/cooked-mutton.png" alt="گوشت گوسفند پخته" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/cooked-cod.png" alt="سمکه پخته" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/cooked-salmon.png" alt="سالمون پخته" width="48" height="48" loading="lazy" /></td>
+  </tr>
+  <tr>
+    <td align="center">گوشت پخته<br />۸ قلب، ۱۲.۸ اشباع</td>
+    <td align="center">گوشت خوک<br />۸ قلب، ۱۲.۸ اشباع</td>
+    <td align="center">مرغ<br />۶ قلب، ۷.۲ اشباع</td>
+    <td align="center">گوسفند<br />۶ قلب، ۹.۶ اشباع</td>
+    <td align="center">سمکه<br />۵ قلب، ۶ اشباع</td>
+    <td align="center">سالمون<br />۶.۵ قلب، ۹.۶ اشباع</td>
+  </tr>
+</table>
 
 ### غذاهای پیچیده (Complex Foods)
 
-- **کیک (Cake)**: ۳ شیر + ۲ شکر + ۱ Egg + ۳ Wheat → ۱ کیک، ۷ قلب/هر برش (۷ بار استفاده)
-- **پای کدو (Pumpkin Pie)**: ۱ Pumpkin + ۱ Sugar + ۱ Egg → ۱ پیک، ۸ قلب، ۴.۸ اشباع
-- **سوپ قارچ (Mushroom Stew)**: ۱ Red Mushroom + ۱ Brown Mushroom + ۱ Bowl → ۱ سوپ، ۶ قلب
-- **سوپ ربعی (Rabbit Stew)**: ۱ Cooked Rabbit + ۱ Carrot + 1 Baked Potato + 1 Mushroom + 1 Bowl → ۱۰ قلب (قوی‌ترین food item)
-- **خروس‌بی (Beetroot Soup)**: ۴ Beetroot + ۱ Bowl → ۶ قلب
-- **نان گندم+حیات وحش (Bread)**: همون نان ساده، ولی مهم‌ترین غذای تولید انبوه
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/cake.png" alt="کیک" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/pumpkin-pie.png" alt="پای کدو" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/mushroom-stew.png" alt="سوپ قارچ" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/rabbit-stew.png" alt="سوپ ربعی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/beetroot-soup.png" alt="سوپ چغندر" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/cookie.png" alt="کلوچه" width="48" height="48" loading="lazy" /></td>
+  </tr>
+  <tr>
+    <td align="center">کیک<br />۷ قلب/هر برش</td>
+    <td align="center">پای کدو<br />۸ قلب</td>
+    <td align="center">سوپ قارچ<br />۶ قلب</td>
+    <td align="center">سوپ ربعی<br />۱۰ قلب (قوی‌ترین)</td>
+    <td align="center">سوپ چغندر<br />۶ قلب</td>
+    <td align="center">کلوچه<br />۲ قلب</td>
+  </tr>
+</table>
 
 ## پاتیل‌ها (Potions)
 
 ### مواد لازم
 
-- **Brewing Stand**: ۱ Blaze Rod + ۳ Cobblestone → ۱ Brewing Stand
-- **Blaze Powder**: ۱ Blaze Rod → ۲ Blaze Powder (هم سوخت، هم Strength II ingredient)
-- **Nether Wart**: پایه‌ی همه پاتیل‌ها (Awkward Potion)
-- **Glass Bottles**: ۳ Glass → ۳ Bottle
-- **Water Bottle**: Bottle + Water Source
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/blaze-powder.png" alt="Blaze Powder" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/nether-wart.png" alt="Nether Wart" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/glass-bottle.png" alt="Glass Bottle" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/water-bottle.png" alt="Water Bottle" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/redstone.png" alt="Redstone" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/glowstone-dust.png" alt="Glowstone Dust" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/gunpowder.png" alt="Gunpowder" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/dragons-breath.png" alt="Dragon's Breath" width="48" height="48" loading="lazy" /></td>
+  </tr>
+  <tr>
+    <td align="center">Blaze Powder<br />سوخت</td>
+    <td align="center">Nether Wart<br />پایه</td>
+    <td align="center">Glass Bottle<br />ظرف</td>
+    <td align="center">Water Bottle<br />آب</td>
+    <td align="center">Redstone<br />+۳x مدت</td>
+    <td align="center">Glowstone<br />+Level II</td>
+    <td align="center">Gunpowder<br />Splash</td>
+    <td align="center">Dragon's Breath<br />Lingering</td>
+  </tr>
+</table>
 
 ### پاتیل‌های ابتدایی (Primary)
 
 | پاتیل | ماده اولیه | اثر | مدت |
 |---|---|---|---|
 | Awkward Potion | Nether Wart | پایه (بدون اثر) | — |
-| Healing (Level 1) | Glistering Melon | ۳ قلب درمان | فوری |
-| Speed (Level 1) | Sugar | +۲۰٪ speed | ۳:۰۰ |
-| Strength (Level 1) | Blaze Powder | +۳ damage | ۳:۰۰ |
+| Healing | Glistering Melon | ۳ قلب درمان | فوری |
+| Speed | Sugar | +۲۰٪ speed | ۳:۰۰ |
+| Strength | Blaze Powder | +۳ damage | ۳:۰۰ |
 | Regeneration | Ghast Tear | ۲ قلب/ثانیه | ۰:۴۵ |
 | Poison | Spider Eye | ۱.۵ قلب/ثانیه (دشمن) | ۱:۳۰ |
 | Fire Resistance | Magma Cream | ضد آتیش | ۳:۰۰ |
@@ -152,24 +306,28 @@ cover: '/img/wiki/articles/items-hero.png'
 | Jump Boost | Rabbit's Foot | +۲ بلاک jump | ۳:۰۰ |
 | Slow Falling | Phantom Membrane | سقوط آهسته | ۱:۳۰ |
 
-### ارتقاها (Modifiers)
-
-- **Redstone**: مدت پاتیل رو ۳ برابر می‌کنه (Speed: ۳:۰۰ → ۸:۰۰)
-- **Glowstone Dust**: سطح پاتیل رو به Level II می‌رسونه (Speed II: +۴۰٪)
-- **Gunpowder**: پاتیل رو به Splash Potion تبدیل می‌کنه (داری بر ساحله)
-- **Dragon's Breath**: Splash رو به Lingering Potion تبدیل می‌کنه (ابر با ۳۰ ثانیه اثر)
-- **Fermented Spider Eye**: پاتیل رو Invert می‌کنه (Speed → Slowness, Healing → Harming)
-
 ## تجهیزات زرهی (Armor)
 
 ### درجات زره
 
-- چرمی: قابل رنگ‌آمیزی، ضعیف (گاهی به اسم "noob armor" یاد می‌شه)
-- زنجیری: از لحاظ آسیب بین آهن و الماسی، ولی سنگین
-- آهنی: بهترین هزینه-بهره
-- طلایی: کم‌دوام ولی باعث می‌شه Piglin‌ها بهت حمله نکنن
-- الماسی: ۸۰٪ کاهش آسیب با ۴ تکه
-- ندرایت: + knockback resistance، + ۱.۵ armor toughness
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/leather-helmet.png" alt="چرمی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/golden-helmet.png" alt="طلایی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/chainmail-helmet.png" alt="زنجیری" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/iron-helmet.png" alt="آهنی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/diamond-helmet.png" alt="الماسی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/netherite-helmet.png" alt="ندرایت" width="48" height="48" loading="lazy" /></td>
+  </tr>
+  <tr>
+    <td align="center">چرمی<br />قابل رنگ</td>
+    <td align="center">طلایی<br />Piglin safe</td>
+    <td align="center">زنجیری<br />بین آهن و الماس</td>
+    <td align="center">آهنی<br />بهترین هزینه</td>
+    <td align="center">الماسی<br />۸۰٪ کاهش</td>
+    <td align="center">ندرایت<br />+knockback resist</td>
+  </tr>
+</table>
 
 ### جادوهای مفید برای زره
 
@@ -180,6 +338,31 @@ cover: '/img/wiki/articles/items-hero.png'
 - **Thorns III**: ۱۵٪ شانس متقابل‌زنی
 - **Mending**: XP رو به دوام زره تبدیل می‌کنه
 - **Unbreaking III**: ۳۰٪ شانس عدم مصرف
+
+## آیتم‌های کاربردی دیگر
+
+<table class="item-grid">
+  <tr>
+    <td><img src="/website/textures/items/bucket.png" alt="سطل" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/compass.png" alt="قطب‌نما" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/clock.png" alt="ساعت" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/map.png" alt="نقشه" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/empty-map.png" alt="نقشه خالی" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/fishing-rod.png" alt="چوب ماهی‌گیری" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/flint-and-steel.png" alt="چخماق و فولاد" width="48" height="48" loading="lazy" /></td>
+    <td><img src="/website/textures/items/shears.png" alt="قیچی" width="48" height="48" loading="lazy" /></td>
+  </tr>
+  <tr>
+    <td align="center">سطل<br />آب/لاوا/شیر</td>
+    <td align="center">قطب‌نما<br />پیدا کردن اسپاون</td>
+    <td align="center">ساعت<br />وقت روز</td>
+    <td align="center">نقشه<br />کشف محیط</td>
+    <td align="center">نقشه خالی<br />ساخت نقشه جدید</td>
+    <td align="center">چوب ماهی<br />غذای آب</td>
+    <td align="center">چخماق<br />روشن‌کردن آتیش</td>
+    <td align="center">قیچی<br />پشم/برگ/تار</td>
+  </tr>
+</table>
 
 ## نکات پیشرفته
 

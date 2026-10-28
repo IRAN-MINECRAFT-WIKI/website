@@ -87,6 +87,40 @@ const ldBread = breadcrumbJsonLd(breadcrumb);
     <div class="prose prose-invert max-w-none">
       <Content />
     </div>
+
+    <style is:global>
+      /* Item image grid (used in items.mdx and similar articles) */
+      .item-grid {
+        border-collapse: collapse;
+        margin: 1rem 0;
+        background: rgba(28, 28, 52, 0.4);
+        border: 2px solid var(--line, #2e2e4a);
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+      }
+      .item-grid td {
+        padding: 0.5rem;
+        text-align: center;
+        border: 1px solid var(--line, #2e2e4a);
+        font-size: 0.75rem;
+      }
+      .item-grid img {
+        image-rendering: pixelated;
+        background: rgba(13, 13, 24, 0.6);
+        border-radius: 4px;
+        padding: 0.25rem;
+        width: 48px;
+        height: 48px;
+        display: inline-block;
+      }
+      .prose p img[style*="float"] {
+        image-rendering: pixelated;
+        width: 48px;
+        height: 48px;
+        margin: 0 1rem 1rem 0;
+      }
+    </style>
   </article>
 
   <PrevNextNav kind="wiki" currentId={entry.id} />

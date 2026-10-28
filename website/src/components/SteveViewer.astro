@@ -49,7 +49,40 @@ const BASE = import.meta.env.BASE_URL;
       <select id="steveSkin" class="steve-skin-select">
         <option value="steve">Steve (کلاسیک)</option>
         <option value="alex">Alex</option>
+        <option value="custom">آپلود فایل...</option>
+        <option value="username">از نام کاربری...</option>
+        <option value="url">از URL...</option>
       </select>
+    </div>
+
+    <!-- Custom skin upload (file input) -->
+    <div class="steve-custom-row" id="steveCustomRow" hidden>
+      <input type="file" id="steveSkinFile" accept="image/png" class="steve-file-input" />
+      <p class="steve-custom-hint">یه فایل PNG با ابعاد ۶۴×۶۴ یا ۶۴×۳۲ (ساختار استاندارد Minecraft) آپلود کن.</p>
+    </div>
+
+    <!-- Username input (fetches skin from Mojang via Crafatar) -->
+    <div class="steve-custom-row" id="steveUsernameRow" hidden>
+      <input type="text" id="steveUsernameInput" placeholder="مثلاً: Notch یا Habib91700" class="steve-text-input" dir="ltr" autocomplete="off" />
+      <button id="steveUsernameBtn" class="steve-btn">دریافت</button>
+      <p class="steve-custom-hint">پوسته از دیتابیس رسمی Mojang دریافت می‌شه (از طریق Crafatar API).</p>
+    </div>
+
+    <!-- URL input -->
+    <div class="steve-custom-row" id="steveUrlRow" hidden>
+      <input type="text" id="steveUrlInput" placeholder="https://example.com/skin.png" class="steve-text-input" dir="ltr" autocomplete="off" />
+      <button id="steveUrlBtn" class="steve-btn">بارگذاری</button>
+      <p class="steve-custom-hint">URL فایل PNG با ساختار Minecraft رو وارد کن.</p>
+    </div>
+
+    <!-- Download / Share -->
+    <div class="steve-action-row">
+      <button class="steve-btn-ghost" id="steveDownload" title="دانلود پوسته‌ی فعلی">
+        ⬇ دانلود پوسته
+      </button>
+      <button class="steve-btn-ghost" id="steveSnapshot" title="عکس‌ گرفتن از استیو">
+        📸 عکس‌ گرفتن
+      </button>
     </div>
   </div>
 </div>
@@ -206,6 +239,62 @@ const BASE = import.meta.env.BASE_URL;
     cursor: pointer;
   }
 
+  .steve-custom-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 0.5rem;
+    background: rgba(28, 28, 52, 0.5);
+    border: 1px dashed var(--line, #2e2e4a);
+    border-radius: 6px;
+  }
+
+  .steve-custom-row[hidden] {
+    display: none;
+  }
+
+  .steve-file-input,
+  .steve-text-input {
+    background: rgba(13, 13, 24, 0.8);
+    color: var(--text, #e6e6f2);
+    border: 1px solid var(--line, #2e2e4a);
+    border-radius: 4px;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.75rem;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .steve-file-input::file-selector-button {
+    background: var(--grass, #5fa838);
+    color: #fff;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    margin-left: 0.25rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.7rem;
+  }
+
+  .steve-text-input:focus {
+    outline: none;
+    border-color: var(--grass-2, #7cc84a);
+  }
+
+  .steve-custom-hint {
+    font-size: 0.65rem;
+    color: var(--text-3, #8585a3);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .steve-custom-row > .steve-btn {
+    align-self: flex-start;
+    margin-top: 0.25rem;
+  }
+
   @media (max-width: 640px) {
     .steve-canvas-wrap {
       max-height: 350px;
@@ -289,15 +378,170 @@ const BASE = import.meta.env.BASE_URL;
 
       // Skin selector
       const skinSelect = document.getElementById('steveSkin');
+      const customRow = document.getElementById('steveCustomRow');
+      const usernameRow = document.getElementById('steveUsernameRow');
+      const urlRow = document.getElementById('steveUrlRow');
       if (skinSelect) {
         skinSelect.addEventListener('change', async () => {
           if (!viewer) return;
           const skin = skinSelect.value;
           const BASE = import.meta.env.BASE_URL || '/';
+          // Hide all custom rows first
+          if (customRow) customRow.hidden = true;
+          if (usernameRow) usernameRow.hidden = true;
+          if (urlRow) urlRow.hidden = true;
+
           if (skin === 'steve') {
             await viewer.loadSkin(BASE + 'textures/steve.png');
           } else if (skin === 'alex') {
             await viewer.loadSkin(BASE + 'textures/alex.png');
+          } else if (skin === 'custom') {
+            if (customRow) customRow.hidden = false;
+          } else if (skin === 'username') {
+            if (usernameRow) usernameRow.hidden = false;
+          } else if (skin === 'url') {
+            if (urlRow) urlRow.hidden = false;
+          }
+        });
+      }
+
+      // File upload (reads as Data URL, loads into viewer)
+      const skinFile = document.getElementById('steveSkinFile');
+      if (skinFile) {
+        skinFile.addEventListener('change', (e) => {
+          if (!viewer) return;
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          if (!file.type.startsWith('image/')) {
+            alert('فقط فایل تصویری (PNG) قابل قبوله');
+            return;
+          }
+          if (file.size > 200 * 1024) {
+            alert('فایل خیلی بزرگه (بیشتر از ۲۰۰KB). فقط پوسته‌ی استاندارد ۶۴×۶۴ رو آپلود کن.');
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            viewer.loadSkin(ev.target.result).catch((err) => {
+              alert('خطا در بارگذاری پوسته: ' + err.message);
+            });
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // Username input (Crafatar API fetches the skin texture)
+      const usernameBtn = document.getElementById('steveUsernameBtn');
+      const usernameInput = document.getElementById('steveUsernameInput');
+      if (usernameBtn && usernameInput) {
+        usernameBtn.addEventListener('click', async () => {
+          if (!viewer) return;
+          const username = usernameInput.value.trim();
+          if (!username) {
+            alert('نام کاربری رو وارد کن');
+            return;
+          }
+          usernameBtn.textContent = 'در حال بارگذاری…';
+          usernameBtn.disabled = true;
+          try {
+            // Crafatar serves the skin texture at this endpoint
+            const skinUrl = 'https://crafatar.com/skins/' + encodeURIComponent(username);
+            await viewer.loadSkin(skinUrl);
+          } catch (err) {
+            alert('پوسته پیدا نشد. آیا نام کاربری درسته؟ (این کاربر شاید حساب Minecraft نداره)');
+          } finally {
+            usernameBtn.textContent = 'دریافت';
+            usernameBtn.disabled = false;
+          }
+        });
+        // Submit on Enter
+        usernameInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') usernameBtn.click();
+        });
+      }
+
+      // URL input
+      const urlBtn = document.getElementById('steveUrlBtn');
+      const urlInput = document.getElementById('steveUrlInput');
+      if (urlBtn && urlInput) {
+        urlBtn.addEventListener('click', async () => {
+          if (!viewer) return;
+          const url = urlInput.value.trim();
+          if (!url) {
+            alert('URL رو وارد کن');
+            return;
+          }
+          if (!/^https?:\/\//.test(url)) {
+            alert('URL باید با http:// یا https:// شروع بشه');
+            return;
+          }
+          urlBtn.textContent = 'در حال بارگذاری…';
+          urlBtn.disabled = true;
+          try {
+            await viewer.loadSkin(url);
+          } catch (err) {
+            alert('خطا در بارگذاری URL: ' + err.message);
+          } finally {
+            urlBtn.textContent = 'بارگذاری';
+            urlBtn.disabled = false;
+          }
+        });
+        urlInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') urlBtn.click();
+        });
+      }
+
+      // Download current skin (if it has a source URL or file, fetch + download)
+      const downloadBtn = document.getElementById('steveDownload');
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+          if (!viewer) return;
+          try {
+            // skinview3d exposes the skin texture via viewer.skinCanvas or similar
+            const canvas = viewer.skinCanvas;
+            if (!canvas) {
+              alert('دسترسی به تکسچر پوسته ممکن نیست.');
+              return;
+            }
+            // Convert canvas to PNG and download
+            canvas.toBlob((blob) => {
+              if (!blob) return;
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'minebed-skin.png';
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+              setTimeout(() => URL.revokeObjectURL(url), 1000);
+            }, 'image/png');
+          } catch (e) {
+            alert('دانلود پوسته ناموفق بود: ' + e.message);
+          }
+        });
+      }
+
+      // Snapshot (save current canvas render as PNG)
+      const snapshotBtn = document.getElementById('steveSnapshot');
+      if (snapshotBtn) {
+        snapshotBtn.addEventListener('click', () => {
+          if (!viewer) return;
+          try {
+            const canvas = document.getElementById('steveCanvas');
+            if (!canvas) return;
+            canvas.toBlob((blob) => {
+              if (!blob) return;
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'steve-snapshot.png';
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+              setTimeout(() => URL.revokeObjectURL(url), 1000);
+            }, 'image/png');
+          } catch (e) {
+            alert('عکس‌ گرفتن ناموفق بود: ' + e.message);
           }
         });
       }

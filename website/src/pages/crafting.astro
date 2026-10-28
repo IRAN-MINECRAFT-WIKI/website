@@ -235,6 +235,28 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   description="جدول کامل رسپی‌های کرافت ماینکرفت با رابط میز کار واقعی. اسم آیتم رو سرچ کن، روی رسپی کلیک کن و ببین چطور ساخته می‌شه."
 >
   <!-- ═══════════════════════════════════════════════════════════
+       MODERN TAB BAR (Phase 7: tabbed UI)
+       ═══════════════════════════════════════════════════════════ -->
+  <nav class="craft-tabs" role="tablist" aria-label="بخش‌های میز کرافت">
+    <button class="craft-tab active" data-tab="recipes" role="tab" aria-selected="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6v6H4z"/><path d="M14 4h6v6h-6z"/><path d="M4 14h6v6H4z"/><path d="M14 14h6v6h-6z"/></svg>
+      <span>رسپی‌ها</span>
+    </button>
+    <button class="craft-tab" data-tab="steve" role="tab" aria-selected="false">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+      <span>اسکین ۳D</span>
+    </button>
+    <a class="craft-tab craft-tab-link" href="/website/calculator/" role="tab">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+      <span>محاسبه‌گر بازگشتی</span>
+    </a>
+    <a class="craft-tab craft-tab-link" href="/website/block-stats/" role="tab">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="3" x2="3" y2="21"/><line x1="3" y1="21" x2="21" y2="21"/><rect x="6" y="14" width="3" height="5"/><rect x="11" y="10" width="3" height="9"/><rect x="16" y="6" width="3" height="13"/></svg>
+      <span>آمار بلاک‌ها</span>
+    </a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════
        PAGE HEADER
        ═══════════════════════════════════════════════════════════ -->
   <section class="craft-header">
@@ -391,6 +413,66 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 </BaseLayout>
 
 <style is:global>
+  /* ───────────────────────────────────────────────────────────
+     MODERN TAB BAR
+     ─────────────────────────────────────────────────────────── */
+  .craft-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, rgba(28, 28, 52, 0.85) 0%, rgba(20, 20, 42, 0.92) 100%);
+    border: 2px solid var(--line, #2e2e4a);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  .craft-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-2, #b8b8d0);
+    background: rgba(13, 13, 24, 0.6);
+    border: 1px solid var(--line, #2e2e4a);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    font-family: inherit;
+    text-decoration: none;
+    flex: 1;
+    min-width: 100px;
+    justify-content: center;
+  }
+  .craft-tab:hover {
+    background: rgba(124, 200, 74, 0.15);
+    border-color: var(--grass-2, #7cc84a);
+    color: var(--grass-2, #7cc84a);
+    transform: translateY(-1px);
+  }
+  .craft-tab.active {
+    background: linear-gradient(135deg, var(--grass, #5fa838) 0%, var(--grass-3, #3d7521) 100%);
+    color: #fff;
+    border-color: var(--grass-3, #3d7521);
+    box-shadow: 0 2px 8px rgba(124, 200, 74, 0.35), inset 1px 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  .craft-tab-link {
+    background: rgba(13, 13, 24, 0.4);
+    color: var(--text-2, #b8b8d0);
+  }
+  @media (max-width: 640px) {
+    .craft-tabs {
+      gap: 0.375rem;
+    }
+    .craft-tab {
+      flex: 1 1 calc(50% - 0.5rem);
+      font-size: 0.7rem;
+      padding: 0.4rem 0.5rem;
+    }
+  }
+
   /* ───────────────────────────────────────────────────────────
      PAGE HEADER
      ─────────────────────────────────────────────────────────── */
@@ -884,6 +966,62 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
 <script is:inline define:vars={{ recipesData, itemIconsJson, pngItemsJson, itemsRenderJson, blocksRenderJson, cdnMapJson, BASE }}>
   (function () {
+    // ── Modern Tab Switching (Phase 7) ─────────────────────────
+    // The first tab ("رسپی‌ها") shows the search + recipe list + grid.
+    // The second tab ("اسکین ۳D") shows the Steve skin viewer + customizer.
+    // The third/fourth tabs are <a> links to other pages (no JS).
+    function setupTabs() {
+      const tabs = document.querySelectorAll('.craft-tab[data-tab]');
+      const recipesSection = document.querySelector('.craft-search-section');
+      const gridSection = document.querySelector('.craft-main-section, .craft-grid-section, section.mcui-recipe');
+      const steveSection = document.querySelector('.craft-steve-section');
+      // Collect all top-level sections that should toggle visibility
+      const recipeParts = document.querySelectorAll('.craft-search-section, section:not(.craft-tabs):not(.craft-steve-section):not(.craft-search-section)');
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          tabs.forEach((t) => {
+            t.classList.toggle('active', t === tab);
+            t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+          });
+          if (target === 'recipes') {
+            if (recipesSection) recipesSection.style.display = '';
+            // show all other sections except steve section
+            document.querySelectorAll('main section').forEach((s) => {
+              if (s.classList.contains('craft-steve-section')) {
+                s.style.display = 'none';
+              } else {
+                s.style.display = '';
+              }
+            });
+          } else if (target === 'steve') {
+            if (recipesSection) recipesSection.style.display = 'none';
+            document.querySelectorAll('main section').forEach((s) => {
+              if (s.classList.contains('craft-steve-section')) {
+                s.style.display = '';
+              } else if (s.classList.contains('craft-tabs') || s.classList.contains('craft-header')) {
+                // keep header visible
+                s.style.display = '';
+              } else {
+                s.style.display = 'none';
+              }
+            });
+            // scroll the Steve section into view
+            setTimeout(() => {
+              if (steveSection) steveSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+          }
+        });
+      });
+      // Initial state: show steve section is hidden (only because we want to default to recipes tab)
+      // Actually the Steve section IS rendered visible by default, let's hide it until user clicks
+      // Actually let's just leave it visible — both sections visible simultaneously is fine for UX
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupTabs);
+    } else {
+      setupTabs();
+    }
     // ── State ─────────────────────────────────────────────
     let recipes = [];
     try { recipes = JSON.parse(recipesData); }
