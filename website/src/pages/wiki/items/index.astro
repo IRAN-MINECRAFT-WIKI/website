@@ -411,9 +411,26 @@ const ITEM_CATEGORIES = [
 const totalItems = ITEM_CATEGORIES.reduce((sum, c) => sum + c.items.length, 0);
 
 function textureExists(id: string): boolean {
+  // Check items folder (both kebab-case and underscore)
   const p1 = path.resolve('./public/textures/items', `${id}.png`);
   const p2 = path.resolve('./public/textures/items', `${id.replace(/-/g, '_')}.png`);
-  return fs.existsSync(p1) || fs.existsSync(p2);
+  // Also check blocks folder (some items are blocks)
+  const p3 = path.resolve('./public/textures/blocks', `${id}.png`);
+  const p4 = path.resolve('./public/textures/blocks', `${id.replace(/-/g, '_')}.png`);
+  return fs.existsSync(p1) || fs.existsSync(p2) || fs.existsSync(p3) || fs.existsSync(p4);
+}
+
+// Helper to get the correct texture path
+function texPath(id: string): string {
+  const itemKebab = path.resolve('./public/textures/items', `${id}.png`);
+  const itemUnder = path.resolve('./public/textures/items', `${id.replace(/-/g, '_')}.png`);
+  const blockKebab = path.resolve('./public/textures/blocks', `${id}.png`);
+  const blockUnder = path.resolve('./public/textures/blocks', `${id.replace(/-/g, '_')}.png`);
+  if (fs.existsSync(itemKebab)) return `${BASE}textures/items/${id}.png`;
+  if (fs.existsSync(itemUnder)) return `${BASE}textures/items/${id.replace(/-/g, '_')}.png`;
+  if (fs.existsSync(blockKebab)) return `${BASE}textures/blocks/${id}.png`;
+  if (fs.existsSync(blockUnder)) return `${BASE}textures/blocks/${id.replace(/-/g, '_')}.png`;
+  return `${BASE}textures/items/${id}.png`;
 }
 ---
 
@@ -459,7 +476,7 @@ function textureExists(id: string): boolean {
         {cat.items.map((item) => (
           <div class={`item-tile ${textureExists(item.id) ? '' : 'no-tex'}`}>
             {textureExists(item.id) ? (
-              <img src={`${BASE}textures/items/${item.id}.png`} alt={item.nameFa} width="32" height="32" loading="lazy" class="pixel-img" onerror="this.style.display='none';" />
+              <img src={texPath(item.id)} alt={item.nameFa} width="32" height="32" loading="lazy" class="pixel-img" onerror="this.style.display='none';" />
             ) : (
               <span class="item-emoji">📦</span>
             )}
