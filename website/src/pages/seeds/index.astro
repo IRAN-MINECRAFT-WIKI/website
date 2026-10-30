@@ -206,6 +206,9 @@ const badgeLetter = (code: string) => {
               <div>
                 <div class="legend-sec-title"><span>لایه‌ها</span></div>
                 <div class="chip-wrap">
+                  <button id="toggleTextures" type="button" class="struct-chip on" aria-pressed="true">
+                    <span class="dot" style="background:#8fbf4d"></span>تکسچر بلاک‌ها
+                  </button>
                   <button id="toggleSlime" type="button" class="struct-chip" aria-pressed="false">
                     <span class="dot" style="background:#6ee75a"></span>چانک‌های اسلایم
                   </button>
@@ -423,7 +426,7 @@ const badgeLetter = (code: string) => {
       jungle_pyramid: 'Jt', swamp_hut: 'Hu', igloo: 'Ig', pillager_outpost: 'Po',
       ruined_portal: 'Rp', shipwreck: 'Sh', ocean_ruin: 'Or', ancient_city: 'Ac',
       trail_ruins: 'Tr', trial_chambers: 'Tc', buried_treasure: 'Bt', mineshaft: 'Ms',
-      desert_well: 'Dw', fortress: 'Fo', bastion_remnant: 'Ba'
+      desert_well: 'Dw', dungeon: 'Sp', fortress: 'Fo', bastion_remnant: 'Ba'
     };
 
     // curated legend biomes (first existing alias wins)
@@ -448,7 +451,7 @@ const badgeLetter = (code: string) => {
       'savanna', 'desert', 'badlands', 'mushroom_fields', 'grove', 'pale_garden'
     ];
 
-    var LADDER = [1, 2, 4, 8, 16];
+    var LADDER = [0.25, 0.5, 1, 2, 4, 8, 16];
     var MAX_COLS = 2400;
     var MAX_ROWS = 1400;
     var WORLD_LIMIT = 29990000;
@@ -550,21 +553,30 @@ const badgeLetter = (code: string) => {
       pin: null,
       showSlime: false,
       showGrid: false,
-      showSpawn: true
+      showSpawn: true,
+      showTextures: true
     };
 
     var cssW = 0, cssH = 0;
     var spawn = null;
-    var cache = null;          // { x0, z0, cols, rows, cell, data, canvas }
+    var cache = null;          // { x0, z0, cols, rows, cell, data, canvas, texCanvas }
     var markers = [];          // [{ id, x, z }]
     var slimeCache = new Map();
     var enabledStructs = new Set();
-    var DEFAULT_OFF = { mineshaft: 1, buried_treasure: 1, desert_well: 1 }; // very dense region-1 types
+    var DEFAULT_OFF = { mineshaft: 1, buried_treasure: 1, desert_well: 1, dungeon: 1 }; // very dense region-1 types
     var MAX_MARKERS = 500;
     var structMeta = new Map();
     var biomeNameToId = new Map();   // lowercase english name -> id
     var colorCache = new Map();      // biome id -> [r,g,b]
     var lastPointer = null;
+
+    /* texture layer: texCache maps filename -> HTMLImageElement (or null while
+     * loading). texReady flips true once every requested image has settled. */
+    var TEX_TILE = 16;            // px per cell in the offscreen texCanvas (full block-texture detail)
+    var TEX_MIN_CELLPX = 6;       // don't bother tiling textures below this on-screen cell size
+    var texCache = new Map();     // filename -> HTMLImageElement | null
+    var texRequested = new Set(); // filenames already asked for
+    var texSettled = 0, texTotal = 0, texReady = false;
 
     var genToken = 0, genInFlight = false, overlayTimer = null, ovProgressVisible = false;
     var rafPending = false;
@@ -727,6 +739,7 @@ const badgeLetter = (code: string) => {
       structMeta = new Map();
       (engine.structures || []).forEach(function (s) { structMeta.set(s.id, s); });
       rebuildBiomeIndex();
+      preloadTextures();
 
       // very dense region-1 structures start disabled (like Chunkbase)
       enabledStructs = new Set(availableStructIds().filter(function (id) { return !DEFAULT_OFF[id]; }));
@@ -738,7 +751,7 @@ const badgeLetter = (code: string) => {
       state.seedStr = params.get('seed') || String(engine.randomSeed());
       seedInput.value = state.seedStr;
       try { engine.setSeed(String(state.seedStr)); } catch (e) { /* keep default */ }
-      var zoom = parseInt(params.get('zoom'), 10);
+      var zoom = parseFloat(params.get('zoom'));
       state.zoom = LADDER.indexOf(zoom) !== -1 ? zoom : 4;
       var x = parseFloat(params.get('x'));
       var z = parseFloat(params.get('z'));
@@ -808,6 +821,7 @@ const badgeLetter = (code: string) => {
       }
       state.versionLabel = label;
       rebuildBiomeIndex();
+      preloadTextures();
       enabledStructs = new Set(availableStructIds().filter(function (id) { return !DEFAULT_OFF[id]; }));
       buildLegendStructs();
       buildLegendBiomes();
@@ -864,6 +878,104 @@ const badgeLetter = (code: string) => {
       return biomeNameOf(biomeAtBlock(bx, bz));
     }
 
+    /* ════════════════════ biome textures ════════════════════ */
+
+    /* Build the full texture URL for a filename (lives under /textures/blocks/). */
+    function texUrl(filename) {
+      return BASE + 'textures/blocks/' + filename + '.png';
+    }
+
+    /* Lazily request a texture image. Returns the HTMLImageElement if already
+     * loaded, null if still loading or failed. Calling repeatedly is cheap. */
+    function requestTex(filename) {
+      if (!filename) return null;
+      var cached = texCache.get(filename);
+      if (cached !== undefined) return cached;
+      // reserve a slot so concurrent callers don't double-fetch
+      texCache.set(filename, null);
+      if (!texRequested.has(filename)) {
+        texRequested.add(filename);
+        texTotal++;
+      }
+      var img = new Image();
+      img.onload = function () {
+        texCache.set(filename, img);
+        texSettled++;
+        onTexSettled();
+      };
+      img.onerror = function () {
+        // keep null slot — renderer falls back to flat color for this biome
+        texSettled++;
+        onTexSettled();
+      };
+      img.src = texUrl(filename);
+      return null;
+    }
+
+    function onTexSettled() {
+      var wasReady = texReady;
+      texReady = texTotal > 0 && texSettled >= texTotal;
+      if (texReady && !wasReady) {
+        // textures just finished loading — build the texCanvas for the existing
+        // cache if we're zoomed in enough to show them.
+        ensureTexCache();
+        scheduleDraw();
+      }
+    }
+
+    /* Pre-fetch every texture that the current biome set might need, so the
+     * texCanvas builder never stalls on a missing image. Safe to call after
+     * engine ready / version change. */
+    function preloadTextures() {
+      if (!engine) return;
+      var names = engine.biomeNames;
+      if (!names || !names.forEach) return;
+      names.forEach(function (name, id) {
+        var fn = null;
+        try { fn = engine.biomeTexture(id); } catch (e) { fn = null; }
+        if (fn) requestTex(fn);
+      });
+      // also preload the dungeon/spawner marker icon
+      requestTex('monster-spawner');
+      if (texTotal === 0) texReady = true; // nothing to load (engine gave no biomes)
+    }
+
+    /* Build (or rebuild) the offscreen texture canvas for a given cache.
+     * Each biome cell is painted as a TEX_TILE×TEX_TILE block texture tile;
+     * biomes without a texture fall back to their flat color. The result is
+     * drawn with a single drawImage() per frame — as cheap as the flat cache. */
+    function buildTexCache(c) {
+      if (!c) return;
+      var cols = c.cols, rows = c.rows, data = c.data;
+      var off = document.createElement('canvas');
+      off.width = cols * TEX_TILE;
+      off.height = rows * TEX_TILE;
+      var octx = off.getContext('2d');
+      octx.imageSmoothingEnabled = false;
+      // base pass: flat colors everywhere (so missing textures still render)
+      for (var j = 0; j < rows; j++) {
+        var base = j * cols;
+        for (var i = 0; i < cols; i++) {
+          var rgb = colorFor(data[base + i]);
+          octx.fillStyle = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
+          octx.fillRect(i * TEX_TILE, j * TEX_TILE, TEX_TILE, TEX_TILE);
+        }
+      }
+      // texture pass: stamp the representative block texture per cell where loaded
+      for (var jj = 0; jj < rows; jj++) {
+        var b = jj * cols;
+        for (var ii = 0; ii < cols; ii++) {
+          var id = data[b + ii];
+          var fn = null;
+          try { fn = engine ? engine.biomeTexture(id) : null; } catch (e) { fn = null; }
+          if (!fn) continue;
+          var img = texCache.get(fn);
+          if (img) octx.drawImage(img, ii * TEX_TILE, jj * TEX_TILE, TEX_TILE, TEX_TILE);
+        }
+      }
+      c.texCanvas = off;
+    }
+
     /* ════════════════════ region generation ════════════════════ */
 
     function computePlan() {
@@ -912,6 +1024,9 @@ const badgeLetter = (code: string) => {
         if (vw > coveredW * 1.25 || vh > coveredH * 1.25) { startRegen(); return; }
       }
       if (Math.abs(state.cx - bcx) > thrX || Math.abs(state.cz - bcz) > thrZ) startRegen();
+      // lazy texture layer: build the texCanvas if the user just zoomed in
+      // close enough to see textures (no biome regen needed)
+      ensureTexCache();
     }
 
     function startRegen() {
@@ -969,7 +1084,24 @@ const badgeLetter = (code: string) => {
         }
       }
       octx.putImageData(img, 0, 0);
-      cache = { x0: plan.x0, z0: plan.z0, cols: cols, rows: rows, cell: cell, data: data, canvas: off, wasClamped: !!plan.clamped };
+      cache = { x0: plan.x0, z0: plan.z0, cols: cols, rows: rows, cell: cell, data: data, canvas: off, texCanvas: null, wasClamped: !!plan.clamped };
+      // build the texture-tiled cache lazily (see ensureTexCache) — only when
+      // zoomed in close enough that textures are actually visible. Building it
+      // here unconditionally would waste 50–100ms at far zoom-out for nothing.
+    }
+
+    /* Build the texCanvas for the current cache if textures are enabled and
+     * zoomed-in enough to show them. Called on view changes (zoom/pan) so the
+     * texture layer appears as soon as the user zooms in, without regenerating
+     * the biome data. No-op if already built or not needed. */
+    function ensureTexCache() {
+      if (!cache || !state.showTextures || !texReady) return;
+      if (cache.texCanvas) return;
+      var cellPx = cache.cell / state.zoom;
+      if (cellPx < TEX_MIN_CELLPX) return;
+      var wantPx = cache.cols * TEX_TILE * cache.rows * TEX_TILE;
+      if (wantPx > 268435456) return; // ≤256MB guard
+      buildTexCache(cache);
     }
 
     /* ════════════════════ structures scan ════════════════════ */
@@ -1046,7 +1178,12 @@ const badgeLetter = (code: string) => {
         var dy = b2sZ(cache.z0);
         var dw = (cache.cols * cache.cell) / state.zoom;
         var dh = (cache.rows * cache.cell) / state.zoom;
-        ctx.drawImage(cache.canvas, dx, dy, dw, dh);
+        // pick the texture-tiled cache when textures are on AND zoomed in
+        // close enough that each cell is ≥ TEX_MIN_CELLPX on screen — at far
+        // zoom-out textures are sub-pixel so the flat color cache is used.
+        var cellPx = cache.cell / state.zoom;
+        var useTex = state.showTextures && texReady && cache.texCanvas && cellPx >= TEX_MIN_CELLPX;
+        ctx.drawImage(useTex ? cache.texCanvas : cache.canvas, dx, dy, dw, dh);
       }
 
       drawChunkGrid();
@@ -1090,14 +1227,14 @@ const badgeLetter = (code: string) => {
     function drawSlime() {
       if (!state.showSlime) return;
       var size = 16 / state.zoom;
-      if (size < 2) return; // sub-pixel chunks at far zoom-out
+      if (size < 6) return; // sub-pixel chunks at far zoom-out — skip the whole layer (was 2 → caused huge lag at zoom 4/8)
       var vx0 = state.cx - cssW / 2, vz0 = state.cz - cssH / 2;
       var vx1 = state.cx + cssW / 2, vz1 = state.cz + cssH / 2;
       var cx0 = Math.floor(vx0 / 16), cx1 = Math.floor(vx1 / 16);
       var cz0 = Math.floor(vz0 / 16), cz1 = Math.floor(vz1 / 16);
-      // budget: max NEW isSlimeChunk computations per frame (cache warms up
-      // over successive frames on first draw / after seed change)
-      var budget = 80000;
+      // budget: max NEW isSlimeChunk wasm calls per frame. The cache warms up
+      // over 2–3 frames so panning stays smooth. Was 80000 (froze the page).
+      var budget = 2000;
       ctx.fillStyle = 'rgba(110,231,90,0.30)';
       if (size >= 8) {
         ctx.strokeStyle = 'rgba(110,231,90,0.55)';
@@ -1130,6 +1267,9 @@ const badgeLetter = (code: string) => {
           return da - db;
         }).slice(0, 800);
       }
+      // pre-resolve the spawner icon once (dungeon markers render as the
+      // monster-spawner texture instead of a colored circle)
+      var spawnerImg = texReady ? texCache.get('monster-spawner') : null;
       ctx.font = '700 7px Tahoma, Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -1139,6 +1279,21 @@ const badgeLetter = (code: string) => {
         var meta = structMeta.get(m.id);
         var x = b2sX(m.x), y = b2sZ(m.z);
         if (x < -16 || y < -16 || x > cssW + 16 || y > cssH + 16) continue;
+        // structures with an `icon` texture (e.g. dungeon → spawner) render as
+        // a small block-texture marker with a dark ring; everything else keeps
+        // the classic colored-circle + 2-letter badge.
+        if (meta && meta.icon && spawnerImg) {
+          var r = 10;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(0,0,0,0.55)';
+          ctx.fill();
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+          ctx.stroke();
+          ctx.drawImage(spawnerImg, x - 7, y - 7, 14, 14);
+          continue;
+        }
         ctx.beginPath();
         ctx.arc(x, y, 8, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(0,0,0,0.45)';
@@ -1226,7 +1381,13 @@ const badgeLetter = (code: string) => {
     /* ════════════════════ info bar + url ════════════════════ */
 
     function updateScale() {
-      infoScale.textContent = 'مقیاس: ' + faNum(state.zoom) + ' بلاک/پیکسل';
+      // zoom can be fractional (0.25 / 0.5) — convert without rounding so the
+      // scale label stays accurate when zoomed in close enough to see textures.
+      var z = state.zoom;
+      var label;
+      if (z % 1 === 0) label = faNum(z);
+      else label = toFa(String(z));
+      infoScale.textContent = 'مقیاس: ' + label + ' بلاک/پیکسل';
     }
 
     function updateInfoBar() {
@@ -1349,7 +1510,7 @@ const badgeLetter = (code: string) => {
         if (pinch && pointers.size === 2) {
           var pts = Array.from(pointers.values());
           var d = Math.max(8, Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y));
-          var z = Math.min(16, Math.max(1, pinch.z0 * pinch.d0 / d));
+          var z = Math.min(16, Math.max(0.25, pinch.z0 * pinch.d0 / d));
           var mid = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
           zoomTo(z, mid.x, mid.y);
           onViewChanged(false);
@@ -1578,6 +1739,24 @@ const badgeLetter = (code: string) => {
       bindLayerToggle($('toggleSlime'), 'showSlime');
       bindLayerToggle($('toggleGrid'), 'showGrid');
       bindLayerToggle($('toggleSpawn'), 'showSpawn');
+
+      // textures toggle: when turned on, rebuild the texCanvas for the current
+      // cache (the cache may have been built without it). When off, a plain
+      // redraw falls back to the flat-color cache.
+      (function () {
+        var btn = $('toggleTextures');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          state.showTextures = !state.showTextures;
+          btn.classList.toggle('on', state.showTextures);
+          btn.setAttribute('aria-pressed', state.showTextures ? 'true' : 'false');
+          if (state.showTextures && texReady && cache && !cache.texCanvas) {
+            var wantPx = cache.cols * TEX_TILE * cache.rows * TEX_TILE;
+            if (wantPx <= 268435456) buildTexCache(cache);
+          }
+          scheduleDraw();
+        });
+      })();
 
       // collapsible on mobile, always open on desktop
       var lgMq = window.matchMedia('(min-width: 1024px)');

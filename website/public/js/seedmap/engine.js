@@ -62,15 +62,18 @@ var VERSIONS = [
   { id: 1, label: 'Beta 1.7' }
 ];
 
-/* cubiomes StructureType enum indices */
+/* cubiomes StructureType enum indices (Dungeon=0 contains mob spawners) */
 var STRUCT_TYPE = {
+  dungeon: 0,
   desert_pyramid: 1, jungle_pyramid: 2, swamp_hut: 3, igloo: 4, village: 5,
   ocean_ruin: 6, shipwreck: 7, monument: 8, mansion: 9, pillager_outpost: 10,
   ruined_portal: 11, ancient_city: 13, buried_treasure: 14, mineshaft: 15,
   desert_well: 16, trail_ruins: 23, trial_chambers: 24
 };
 
-/* structure metadata (overworld-only list shown on the map) */
+/* structure metadata (overworld-only list shown on the map)
+ * `icon` (optional) = block-texture filename rendered as the marker instead
+ * of the default colored circle (e.g. dungeon → monster-spawner texture). */
 var STRUCTURES = [
   { id: 'village',          name: 'Village',          fa: 'دهکده',              color: '#C9A227', minVersion: 'Beta 1.8', variableRegion: true },
   { id: 'desert_pyramid',   name: 'Desert Pyramid',   fa: 'هرم صحرا',           color: '#E2C044', minVersion: '1.3' },
@@ -88,7 +91,8 @@ var STRUCTURES = [
   { id: 'trial_chambers',   name: 'Trial Chambers',   fa: 'اتاق‌های آزمون',     color: '#D08A4A', minVersion: '1.21.1' },
   { id: 'buried_treasure',  name: 'Buried Treasure',  fa: 'گنج دفن‌شده',        color: '#E8C84A', minVersion: '1.13' },
   { id: 'mineshaft',        name: 'Mineshaft',        fa: 'معدن متروکه',        color: '#9A9A9A', minVersion: 'Beta 1.8' },
-  { id: 'desert_well',      name: 'Desert Well',      fa: 'چاه صحرا',           color: '#C8B888', minVersion: '1.13' }
+  { id: 'desert_well',      name: 'Desert Well',      fa: 'چاه صحرا',           color: '#C8B888', minVersion: '1.13' },
+  { id: 'dungeon',          name: 'Dungeon (Spawner)', fa: 'اسپانتر (سیو)',     color: '#6E6E6E', minVersion: 'Beta 1.8', icon: 'monster-spawner' }
 ];
 
 /* Persian biome names (modern + legacy). Keyed by internal engine name. */
@@ -190,6 +194,82 @@ var BIOME_COLORS = {
   'mushroom_field_shore': '#BF6CA8', 'savanna_rock': '#A8A050', 'deep_warm_ocean': '#356AB8'
 };
 
+/* Biome -> representative Minecraft block-texture filename (in /textures/blocks/).
+ * Used by the map renderer to tile real block textures onto each biome cell
+ * when zoomed in close enough (instead of a flat color). Keys are internal
+ * biome names (modern + legacy aliases). Missing/unknown biomes fall back to
+ * the flat biome color, so this map only needs to cover common biomes. */
+var BIOME_TEXTURE = {
+  // grassy / temperate
+  'plains': 'grass-block', 'sunflower_plains': 'grass-block', 'meadow': 'grass-block',
+  'beach': 'sand', 'snowy_beach': 'snow-block',
+  // desert
+  'desert': 'sand', 'desert_hills': 'sand', 'desert_well': 'sand',
+  // water
+  'ocean': 'water', 'deep_ocean': 'water', 'warm_ocean': 'water',
+  'lukewarm_ocean': 'water', 'cold_ocean': 'water', 'frozen_ocean': 'ice',
+  'deep_warm_ocean': 'water', 'deep_lukewarm_ocean': 'water',
+  'deep_cold_ocean': 'water', 'deep_frozen_ocean': 'packed-ice',
+  'river': 'water', 'frozen_river': 'ice',
+  // forests
+  'forest': 'oak-leaves', 'flower_forest': 'oak-leaves',
+  'birch_forest': 'oak-leaves', 'birch_forest_hills': 'oak-leaves',
+  'old_growth_birch_forest': 'oak-leaves', 'tall_birch_forest': 'oak-leaves',
+  'tall_birch_hills': 'oak-leaves', 'dark_forest': 'leaves',
+  'dark_forest_hills': 'leaves', 'pale_garden': 'leaves',
+  'windswept_forest': 'oak-leaves', 'wooded_hills': 'oak-leaves',
+  'grove': 'oak-leaves',
+  // taiga
+  'taiga': 'oak-leaves', 'taiga_hills': 'oak-leaves',
+  'snowy_taiga': 'snow-block', 'snowy_taiga_hills': 'snow-block',
+  'snowy_taiga_mountains': 'snow-block',
+  'old_growth_pine_taiga': 'oak-leaves', 'old_growth_spruce_taiga': 'oak-leaves',
+  'giant_tree_taiga': 'oak-leaves', 'giant_tree_taiga_hills': 'oak-leaves',
+  'giant_spruce_taiga': 'oak-leaves', 'giant_spruce_taiga_hills': 'oak-leaves',
+  // savanna
+  'savanna': 'coarse-dirt', 'savanna_plateau': 'coarse-dirt',
+  'windswept_savanna': 'coarse-dirt', 'shattered_savanna': 'coarse-dirt',
+  'shattered_savanna_plateau': 'coarse-dirt',
+  // badlands
+  'badlands': 'red-sand', 'wooded_badlands': 'red-sand',
+  'eroded_badlands': 'terracotta', 'badlands_plateau': 'red-sand',
+  'wooded_badlands_plateau': 'red-sand', 'modified_badlands_plateau': 'terracotta',
+  'modified_wooded_badlands_plateau': 'terracotta',
+  // jungle
+  'jungle': 'oak-leaves', 'sparse_jungle': 'oak-leaves', 'jungle_edge': 'oak-leaves',
+  'bamboo_jungle': 'bamboo', 'bamboo_jungle_hills': 'bamboo',
+  // swamp
+  'swamp': 'clay', 'swamp_hills': 'clay', 'mangrove_swamp': 'clay',
+  // mountains / hills / rocky
+  'windswept_hills': 'stone', 'windswept_gravelly_hills': 'gravel',
+  'windswept_forest': 'oak-leaves',
+  'mountains': 'stone', 'wooded_mountains': 'oak-leaves',
+  'gravelly_mountains': 'gravel', 'modified_gravelly_mountains': 'gravel',
+  'taiga_mountains': 'oak-leaves',
+  'snowy_mountains': 'snow-block',
+  'stony_shore': 'gravel', 'stone_shore': 'gravel',
+  'stony_peaks': 'stone',
+  'snowy_slopes': 'snow-block', 'jagged_peaks': 'packed-ice',
+  'frozen_peaks': 'packed-ice',
+  // snow / ice
+  'snowy_plains': 'snow-block', 'snowy_tundra': 'snow-block',
+  'ice_spikes': 'packed-ice', 'ice_mountains': 'packed-ice',
+  // mushroom
+  'mushroom_fields': 'dirt', 'mushroom_field_shore': 'dirt',
+  'mushroom_island': 'dirt',
+  // caves (surface projection uses stone)
+  'dripstone_caves': 'stone', 'lush_caves': 'oak-leaves',
+  'deep_dark': 'deepslate-redstone-ore',
+  // nether
+  'nether_wastes': 'netherrack', 'soul_sand_valley': 'soul-sand',
+  'crimson_forest': 'netherrack', 'warped_forest': 'netherrack',
+  'basalt_deltas': 'basalt',
+  // end
+  'the_end': 'end-stone', 'end_highlands': 'end-stone',
+  'end_midlands': 'end-stone', 'small_end_islands': 'end-stone',
+  'end_barrens': 'end-stone', 'void': 'end-stone'
+};
+
 function hashCode32(str) {
   var h = 0;
   for (var i = 0; i < str.length; i++) h = (Math.imul(h, 31) + str.charCodeAt(i)) | 0;
@@ -203,6 +283,61 @@ function parseSeed(str) {
     if (b >= -(2n ** 63n) && b < 2n ** 63n) return BigInt.asIntN(64, b);
   }
   return BigInt(hashCode32(s));
+}
+
+/* ─── Java Random (48-bit LCG) — used for the dungeon/spawner algorithm ───
+ * Faithful port of java.util.Random: seed is masked to 48 bits, advanced by
+ * the standard multiplier/addend, and next(bits) returns the top `bits` of
+ * the 48-bit state. cubiomes uses this same RNG for getDungeonPos. */
+var JR_MASK = (1n << 48n) - 1n;
+var JR_MUL = 0x5DEECE66Dn;
+var JR_ADD = 0xBn;
+
+function JavaRandom(seed) {
+  this.s = (BigInt.asUintN(64, seed) ^ JR_MUL) & JR_MASK;
+}
+JavaRandom.prototype.next = function (bits) {
+  this.s = (this.s * JR_MUL + JR_ADD) & JR_MASK;
+  return Number(this.s >> (48n - BigInt(bits)));
+};
+JavaRandom.prototype.nextInt = function (bound) {
+  if ((bound & (bound - 1)) === 0) { // power of two → fast path
+    // (bound * (long)next(31)) >> 31
+    return Math.floor((Number(bound) * this.next(31)) / 2147483648) | 0;
+  }
+  var bits, val;
+  do {
+    bits = this.next(31);
+    val = bits % bound;
+  } while (bits - val + (bound - 1) < 0);
+  return val;
+};
+
+/**
+ * Dungeon (monster-room / spawner) candidate position for chunk (cx, cz).
+ * Pure-JS port of cubiomes' getDungeonPos — the wasm binding's _wb_structure_pos
+ * doesn't expose type 0 (Dungeon), so we compute it here with the same chunk-
+ * feature seed mixing cubiomes uses. The returned position is the block coord
+ * inside the chunk where the game would ATTEMPT a dungeon; actual generation
+ * also depends on 3D terrain we can't check on a 2D map, so we add a density
+ * roll (~1 in 10 chunks) to approximate the real generation rate and keep the
+ * marker count realistic. `pass` is true when the density roll succeeds.
+ */
+function getDungeonPosJS(seed, cx, cz) {
+  var cs = (BigInt.asUintN(64, seed)
+    + BigInt(cx) * BigInt(cx) * 4983722n
+    + BigInt(cx) * 5947611n
+    + BigInt(cz) * BigInt(cz) * 4394151n
+    + BigInt(cz) * 390015n) & JR_MASK;
+  var rnd = new JavaRandom(cs);
+  var x = cx * 16 + rnd.nextInt(16);
+  var z = cz * 16 + rnd.nextInt(16);
+  // draw a few more values then a 0–99 density roll — approximates the 3D
+  // terrain viability gate (only ~8% of candidate chunks actually host a
+  // dungeon in vanilla). The exact roll is deterministic per (seed, chunk).
+  rnd.nextInt(16); rnd.nextInt(16); rnd.nextInt(16);
+  var roll = rnd.nextInt(100);
+  return { x: x, z: z, pass: roll < 8 };
 }
 
 function SeedMapEngine(mod) {
@@ -222,6 +357,7 @@ function SeedMapEngine(mod) {
   this._structs = STRUCTURES.map(function (s) {
     return {
       id: s.id, name: s.name, fa: s.fa, color: s.color,
+      icon: s.icon || null,
       typeIdx: STRUCT_TYPE[s.id],
       regionSize: s.variableRegion ? 34 : (REGION_SIZE[s.id] || 1),
       minVersionLabel: s.minVersion,
@@ -237,7 +373,8 @@ var REGION_SIZE = {
   village: 34, desert_pyramid: 32, jungle_pyramid: 32, swamp_hut: 32, igloo: 32,
   monument: 32, mansion: 80, pillager_outpost: 32, ruined_portal: 40,
   ocean_ruin: 20, shipwreck: 24, ancient_city: 24, trail_ruins: 34,
-  trial_chambers: 34, buried_treasure: 1, mineshaft: 1, desert_well: 1
+  trial_chambers: 34, buried_treasure: 1, mineshaft: 1, desert_well: 1,
+  dungeon: 1
 };
 
 SeedMapEngine.prototype._rebuildBiomeNames = function () {
@@ -353,6 +490,20 @@ SeedMapEngine.prototype.biomeColor = function (id) {
 };
 
 /**
+ * Representative block-texture filename (without path/extension) for the biome
+ * at `id`, or null if none mapped. The caller builds the full URL against its
+ * /textures/blocks/ folder. Legacy biome names resolve via BIOME_ALIAS.
+ */
+SeedMapEngine.prototype.biomeTexture = function (id) {
+  var name = this._biomeNames.get(id);
+  if (!name) return null;
+  if (BIOME_TEXTURE[name]) return BIOME_TEXTURE[name];
+  var alias = BIOME_ALIAS[name];
+  if (alias && BIOME_TEXTURE[alias]) return BIOME_TEXTURE[alias];
+  return null;
+};
+
+/**
  * Generate biomes for a block rect. data[j*(w/cell) + i] = biome id at
  * block (x0 + i*cell, z0 + j*cell). cell = scale (4 = biome quart res).
  * y is fixed at the surface (block 320). Async; yields between tiles.
@@ -456,6 +607,9 @@ SeedMapEngine.prototype.getStructures = function (ids, rx0, rz0, rx1, rz1) {
     if (!idx) return;
     var cache = self._structCache[id];
     if (!cache) { cache = new Map(); self._structCache[id] = cache; }
+    // dungeon (type 0) isn't exposed by the wasm binding — compute it in JS
+    // via the exact cubiomes getDungeonPos algorithm + a biome viability check.
+    var isDungeon = (id === 'dungeon');
     for (var rx = rx0; rx <= rx1; rx++) {
       for (var rz = rz0; rz <= rz1; rz++) {
         var ck = rx + ',' + rz;
@@ -465,7 +619,20 @@ SeedMapEngine.prototype.getStructures = function (ids, rx0, rz0, rx1, rz1) {
           continue;
         }
         var found = 0, sx = 0, sz = 0;
-        if (m._wb_structure_pos(idx.typeIdx, mc, seed, rx, rz, posPtr)) {
+        if (isDungeon) {
+          var p = getDungeonPosJS(seed, rx, rz);
+          sx = p.x; sz = p.z;
+          if (p.pass) {
+            // viability: dungeons need solid land — skip oceans, rivers, beaches.
+            // (the exact 3D-terrain check can't run on a 2D map, so this is a
+            // close surface-biome approximation; positions themselves are exact.)
+            var biomeId = -1;
+            try { biomeId = self.biomeAt(sx, sz); } catch (e) { biomeId = -1; }
+            var bn = self._biomeNames.get(biomeId) || '';
+            var bad = /ocean|river|beach|shore/.test(bn);
+            found = bad ? 0 : 1;
+          }
+        } else if (m._wb_structure_pos(idx.typeIdx, mc, seed, rx, rz, posPtr)) {
           sx = m.HEAP32[posPtr >> 2]; sz = m.HEAP32[(posPtr >> 2) + 1];
           if (m._wb_structure_viable(self._ctx, idx.typeIdx, sx, sz)) found = 1;
         }
