@@ -1,0 +1,132 @@
+{
+  "id": "acacia-sapling",
+  "nameEn": "Acacia Sapling",
+  "nameFa": "نهال اقاقیا",
+  "category": "natural",
+  "icon": "acacia-sapling",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.7.2+",
+    "bedrock": "0.9.0+"
+  },
+  "description": "نهال اقاقیا یک نهال است که از leaves مربوطه دراپ می‌شود و با Bone Meal یا زمان به درخت کامل رشد می‌کند.",
+  "uses": [
+    "کاشتن در Dirt یا Farmland برای رشد درخت",
+    "تزئین باغچه",
+    "ذخیره‌ی فشرده برای مزرع چوب"
+  ],
+  "locations": [
+    "Savanna",
+    "Savanna Plateau",
+    "Windswept Savanna"
+  ],
+  "drops": [
+    {
+      "item": "acacia-sapling",
+      "count": "1",
+      "condition": "از leaves مربوطه با шанс ۵٪ (یا ۲.۵٪ برای Jungle)"
+    },
+    {
+      "item": "stick",
+      "count": "1-2",
+      "condition": "از leaves مربوطه با шанс ۲٪"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Acacia_Sapling",
+  "intro": [
+    "نهال اقاقیا (Acacia Sapling) یک بلاک طبیعی ماینکرفت است که در نسخه‌ی Java 1.7.2+ و Bedrock 0.9.0+ به بازی اضافه شد. این نهال از leaves مربوطه با шанс ۵٪ (یا ۲.۵٪ برای Jungle) دراپ می‌شود و در Dirt یا Farmland کاشته می‌شود.",
+    "نهال اقاقیا با گذشت زمان یا با استفاده از Bone Meal به درخت کامل رشد می‌کند. برای رشد، نیاز به فضای کافی و نور مناسب دارد (Light Level ۹ یا بالاتر).",
+    "این نهال در ساخت مزرع چوب کاربرد دارد و با چیدمان گروهی (۴ نهال برای Giant Jungle یا ۲×۲ برای Dark Oak) می‌توان درختان بزرگ‌تر ساخت."
+  ],
+  "behavior": [
+    "نهال اقاقیا یک بلاک شفاف و غیرجامد است و با هر ابزاری قابل شکستن است.",
+    "این نهال با گذشت زمان یا با Bone Meal رشد می‌کند و به درخت تبدیل می‌شود.",
+    "برای رشد، نیاز به فضای کافی (۳×۳ یا بیشتر) و نور مناسب دارد."
+  ],
+  "trivia": [
+    "نهال اقاقیا در نسخه‌ی Java 1.7.2+ به بازی اضافه شد.",
+    "این نهال از leaves مربوطه با шанс ۵٪ (یا ۲.۵٪ برای Jungle) دراپ می‌شود.",
+    "نهال اقاقیا با Bone Meal یا با گذشت زمان رشد می‌کند.",
+    "برای ساخت درخت Giant Jungle، ۴ نهال را در چیدمان ۲×۲ بکارید.",
+    "برای ساخت درخت Dark Oak، ۴ نهال را در چیدمان ۲×۲ بکارید."
+  ],
+  "history": [
+    {
+      "version": "Java 1.7.2+",
+      "change": "نهال اقاقیا به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 0.9.0+",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رفتار رشد."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار رشد نهال یکسان است.",
+    "در Java، بافت نهال کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سبز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "acacia-leaves",
+      "nameEn": "Acacia Leaves",
+      "nameFa": "برگ اقاقیا",
+      "type": "block"
+    },
+    {
+      "id": "acacia-log",
+      "nameEn": "Acacia Log",
+      "nameFa": "تنه اقاقیا",
+      "type": "block"
+    },
+    {
+      "id": "bone-meal",
+      "nameEn": "Bone Meal",
+      "nameFa": "استخوان پودرشده",
+      "type": "item"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 100
+  },
+  "tips": [
+    "برای رشد سریع نهال اقاقیا، از Bone Meal استفاده کنید.",
+    "برای مزرع چوب، نهال‌ها را در فاصله‌ی ۴ بلاک از هم بکارید.",
+    "برای ساخت Giant Jungle یا Dark Oak، ۴ نهال را در چیدمان ۲×۲ بکارید."
+  ],
+  "interactions": [
+    "نهال اقاقیا با Dirt یا Farmland تعامل دارد و کاشته می‌شود.",
+    "این نهال با Bone Meal تعامل دارد و سریع‌تر رشد می‌کند.",
+    "نهال اقاقیا با Light Level ۹ یا بالاتر تعامل دارد و رشد می‌کند."
+  ],
+  "buildingIdeas": [
+    "ساخت باغچه‌ی تزئینی با نهال‌های مختلف.",
+    "ساخت مزرع چوب اتوماتیک با نهال.",
+    "تزئین خانه‌های جنگلی با نهال گیلاس یا بلوط رنگ‌پریده."
+  ],
+  "technical": [
+    "نهال اقاقیا شناسه‌ی minecraft:acacia_sapling دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل رشد تعریف شده است."
+  ],
+  "farming": [
+    "برای کشت نهال اقاقیا، آن را در Dirt یا Farmland بکارید و منتظر رشد بمانید.",
+    "با Bone Meal می‌توانید رشد را تسریع کنید.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت چوب استفاده کنید."
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "id": "bush",
+  "nameEn": "Bush",
+  "nameFa": "بوته",
+  "category": "natural",
+  "icon": "bush",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.21.6+",
+    "bedrock": "1.21.70+"
+  },
+  "description": "بوته یک بلاک طبیعی جدید است که در Forest و Plains یافت می‌شود و به‌عنوان تزئین طبیعی کاربرد دارد.",
+  "uses": [
+    "تزئین باغچه",
+    "منبع طبیعی در Forest"
+  ],
+  "locations": [
+    "Forest",
+    "Plains",
+    "Sunflower Plains",
+    "Meadow"
+  ],
+  "drops": [
+    {
+      "item": "bush",
+      "count": "1",
+      "condition": "با Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Bush",
+  "intro": [
+    "بوته (Bush) یک بلاک طبیعی جدید در ماینکرفت است که در نسخه‌ی Java 1.21.6 (Spring to Life drop, ۲۰۲۵) به بازی اضافه شد. این بلاک در بایوم‌های Forest و Plains به‌وفور یافت می‌شود و به‌عنوان تزئین طبیعی کاربرد دارد.",
+    "سختی بوته ۰ است و با هر ابزاری قابل شکستن است. این بلاک تنها با Silk Touch به‌عنوان بلاک قابل برداشت است؛ در غیر این صورت چیزی دراپ نمی‌کند.",
+    "بوته در رنگ سبز-تیره شناخته می‌شود و در تزئینات باغچه و ساخت محیط‌های طبیعی کاربرد دارد. این بلاک با Bone Meal قابل تکثیر نیست."
+  ],
+  "behavior": [
+    "بوته یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "بوته تنها با Silk Touch به‌عنوان بلاک قابل برداشت است."
+  ],
+  "trivia": [
+    "بوته در نسخه‌ی Java 1.21.6 (۲۰۲۵) به بازی اضافه شد.",
+    "این بلاک در Forest و Plains به‌وفور یافت می‌شود.",
+    "بوته تنها با Silk Touch به‌عنوان بلاک قابل برداشت است.",
+    "این بلاک با Bone Meal قابل تکثیر نیست.",
+    "بوته در رنگ سبز-تیره شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21.6 (2025)",
+      "change": "بوته به بازی اضافه شد (Spring to Life drop)."
+    },
+    {
+      "version": "Bedrock 1.21.70 (2025)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار بوته یکسان است.",
+    "در Java، بافت بوته کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سبز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "dead-bush",
+      "nameEn": "Dead Bush",
+      "nameFa": "بوته خشک‌شده",
+      "type": "block"
+    },
+    {
+      "id": "short-grass",
+      "nameEn": "Short Grass",
+      "nameFa": "چمن کوتاه",
+      "type": "block"
+    },
+    {
+      "id": "azalea",
+      "nameEn": "Azalea",
+      "nameFa": "آزالیا",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": true,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "بوته تنها با Silk Touch قابل برداشت است.",
+    "از بوته در تزئینات باغچه و محیط‌های طبیعی استفاده کنید.",
+    "بوته در Forest و Plains به‌وفور یافت می‌شود."
+  ],
+  "interactions": [
+    "بوته با Silk Touch به‌عنوان بلاک قابل برداشت است.",
+    "این بلاک با رداستون تعامل خاصی ندارد.",
+    "بوته در برابر آتش می‌سوزد."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با بوته.",
+    "ساخت محیط‌های طبیعی با بوته.",
+    "تزئین Forest با بوته در کنار Short Grass."
+  ],
+  "technical": [
+    "بوته شناسه‌ی minecraft:bush دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و غیرجامد تعریف شده است."
+  ]
+}

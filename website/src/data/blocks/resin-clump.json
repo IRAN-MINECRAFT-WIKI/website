@@ -1,0 +1,121 @@
+{
+  "id": "resin-clump",
+  "nameEn": "Resin Clump",
+  "nameFa": "توده رزین",
+  "category": "natural",
+  "icon": "resin-clump",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.21.4+",
+    "bedrock": "1.21.50+"
+  },
+  "description": "توده رزین یک بلاک طبیعی جدید است که روی Pale Oak Logs رشد می‌کند و منبع اصلی رزین است.",
+  "uses": [
+    "منبع رزین",
+    "ساخت Resin Bricks",
+    "تزئین Pale Garden"
+  ],
+  "locations": [
+    "Pale Garden (روی Pale Oak Logs)"
+  ],
+  "drops": [
+    {
+      "item": "resin-clump",
+      "count": "1-3",
+      "condition": "بدون شرط"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Resin_Clump",
+  "intro": [
+    "توده رزین (Resin Clump) یک بلاک طبیعی جدید در ماینکرفت است که در نسخه‌ی Java 1.21.4 (دسامبر ۲۰۲۴) به بازی اضافه شد. این بلاک روی Pale Oak Logs رشد می‌کند و منبع اصلی رزین است.",
+    "سختی توده رزین ۰ است و با هر ابزاری قابل شکستن است. این بلاک در رنگ نارنجی-زرد شناخته می‌شود و در تزئینات Pale Garden کاربرد دارد.",
+    "توده رزین با شکستن، ۱ تا ۳ رزین دراپ می‌کند و در ساخت Resin Bricks کاربرد دارد. این بلاک با Bone Meal قابل تکثیر نیست."
+  ],
+  "behavior": [
+    "توده رزین یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "توده رزین با شکستن، ۱ تا ۳ رزین دراپ می‌کند."
+  ],
+  "trivia": [
+    "توده رزین در نسخه‌ی Java 1.21.4 (۲۰۲۴) به بازی اضافه شد.",
+    "این بلاک روی Pale Oak Logs رشد می‌کند.",
+    "توده رزین در رنگ نارنجی-زرد شناخته می‌شود.",
+    "این بلاک با شکستن، ۱ تا ۳ رزین دراپ می‌کند.",
+    "توده رزین با Bone Meal قابل تکثیر نیست."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21.4 (2024)",
+      "change": "توده رزین به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.21.50 (2024)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار توده رزین یکسان است.",
+    "در Java، بافت توده رزین کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به نارنجی-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "resin-block",
+      "nameEn": "Block of Resin",
+      "nameFa": "بلوک رزین",
+      "type": "block"
+    },
+    {
+      "id": "resin-bricks",
+      "nameEn": "Resin Bricks",
+      "nameFa": "آجر رزین",
+      "type": "block"
+    },
+    {
+      "id": "pale-oak-log",
+      "nameEn": "Pale Oak Log",
+      "nameFa": "تنه بلوط رنگ‌پریده",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": true,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "توده رزین را روی Pale Oak Logs در Pale Garden جستجو کنید.",
+    "توده رزین با شکستن، ۱ تا ۳ رزین دراپ می‌کند.",
+    "از توده رزین در ساخت Resin Bricks استفاده کنید."
+  ],
+  "interactions": [
+    "توده رزین روی Pale Oak Logs رشد می‌کند.",
+    "این بلاک با Bone Meal قابل تکثیر نیست.",
+    "توده رزین با شکستن، ۱ تا ۳ رزین دراپ می‌کند."
+  ],
+  "buildingIdeas": [
+    "تزئین Pale Garden با توده رزین.",
+    "ساخت مزرع رزین با Pale Oak و توده رزین.",
+    "تزئین خانه‌های Pale Oak با توده رزین."
+  ],
+  "technical": [
+    "توده رزین شناسه‌ی minecraft:resin_clump دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و غیرجامد تعریف شده است."
+  ],
+  "farming": [
+    "برای کشت توده رزین، Pale Oak Logs را بکارید و منتظر رشد توده رزین بمانید.",
+    "توده رزین با Bone Meal قابل تکثیر نیست.",
+    "توده رزین با شکستن، ۱ تا ۳ رزین دراپ می‌کند."
+  ]
+}

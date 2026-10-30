@@ -1,0 +1,129 @@
+{
+  "id": "monster-spawner",
+  "nameEn": "Monster Spawner",
+  "nameFa": "اسپانر هیولا",
+  "category": "mechanism",
+  "icon": "monster-spawner",
+  "hardness": 5.0,
+  "tool": "pickaxe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.2+",
+    "bedrock": "0.1+"
+  },
+  "description": "اسپانر هیولا یک بلاک مکانیزمی است که ماب‌های hostile را در محدوده‌ی خود اسپان می‌کند.",
+  "uses": [
+    "مزرع ماب (Mob Farm)",
+    "تزئین Dungeon",
+    "منبع XP"
+  ],
+  "locations": [
+    "Dungeon",
+    "Mineshaft (Cave Spider)",
+    "Stronghold (Silverfish)",
+    "Nether Fortress (Blaze)",
+    "Bastion Remnant (Magma Cube)"
+  ],
+  "drops": [
+    {
+      "item": "xp",
+      "count": "0",
+      "condition": "بدون دراپ آیتم (تنها با Silk Touch در Creative)"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Monster_Spawner",
+  "intro": [
+    "اسپانر هیولا (Monster Spawner) یک بلاک مکانیزمی در ماینکرفت است که در نسخه‌ی Java Beta 1.2 (ژانویه‌ی ۲۰۱۱) به بازی اضافه شد. این بلاک ماب‌های hostile را در محدوده‌ی خود اسپان می‌کند و در Dungeon و Mineshaft یافت می‌شود.",
+    "سختی اسپانر هیولا ۵ است و با پیکه‌ی چوبی یا بالاتر قابل شکستن است. این بلاک در برابر انفجار مقاوم است (مقاومت انفجاری ۵) و تنها در Creative Mode با Silk Touch قابل برداشت است.",
+    "اسپانر هیولا در Dungeon، Mineshaft، Stronghold و Nether Fortress یافت می‌شود و در ساخت مزرع ماب (Mob Farm) کاربرد دارد. این بلاک با Torch یا Light Level بالا قابل غیرفعال‌کردن است."
+  ],
+  "behavior": [
+    "اسپانر هیولا یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با پیکه‌ی چوبی یا بالاتر قابل شکستن است.",
+    "اسپانر هیولا ماب‌های hostile را در محدوده‌ی خود اسپان می‌کند."
+  ],
+  "trivia": [
+    "اسپانر هیولا در نسخه‌ی Java Beta 1.2 (۲۰۱۱) به بازی اضافه شد.",
+    "این بلاک در Dungeon، Mineshaft و Stronghold یافت می‌شود.",
+    "اسپانر هیولا ماب‌های hostile را اسپان می‌کند.",
+    "این بلاک با Torch یا Light Level بالا قابل غیرفعال‌کردن است.",
+    "اسپانر هیولا تنها در Creative Mode با Silk Touch قابل برداشت است."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.2 (2011)",
+      "change": "اسپانر هیولا به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.8 (2014)",
+      "change": "افزودن قابلیت سفارشی‌سازی با Spawn Egg."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزودن Trial Spawner به‌عنوان نسخه‌ی جدید."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار اسپانر هیولا یکسان است.",
+    "در Java، بافت اسپانر هیولا کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به خاکستری-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "trial-spawner",
+      "nameEn": "Trial Spawner",
+      "nameFa": "اسپانر آزمایشی",
+      "type": "block"
+    },
+    {
+      "id": "ominous-trial-spawner",
+      "nameEn": "Ominous Trial Spawner",
+      "nameFa": "اسپانر آزمایشی شوم",
+      "type": "block"
+    },
+    {
+      "id": "dungeon",
+      "nameEn": "Dungeon",
+      "nameFa": "زیرزمین",
+      "type": "structure"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 5,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "wooden",
+    "burnTime": 0
+  },
+  "tips": [
+    "اسپانر هیولا را با Torch یا Light Level بالا غیرفعال کنید.",
+    "از اسپانر هیولا در ساخت مزرع ماب (Mob Farm) استفاده کنید.",
+    "اسپانر هیولا تنها در Creative Mode با Silk Touch قابل برداشت است."
+  ],
+  "interactions": [
+    "اسپانر هیولا با Light Level بالا قابل غیرفعال‌کردن است.",
+    "این بلاک با Spawn Egg در Creative Mode قابل سفارشی‌سازی است.",
+    "اسپانر هیولا ماب‌های hostile را اسپان می‌کند."
+  ],
+  "buildingIdeas": [
+    "ساخت مزرع ماب (Mob Farm) با اسپانر هیولا.",
+    "تزئین Dungeon با اسپانر هیولا.",
+    "ساخت XP Farm با اسپانر هیولا."
+  ],
+  "technical": [
+    "اسپانر هیولا شناسه‌ی minecraft:spawner دارد و در دسته‌بندی mechanism قرار می‌گیرد.",
+    "سختی ۵ و مقاومت انفجاری ۵ دارد و با پیکه‌ی چوبی یا بالاتر قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک اسپانر تعریف شده است."
+  ],
+  "redstone": [
+    "اسپانر هیولا با Light Level بالا قابل غیرفعال‌کردن است.",
+    "از Torch یا Redstone Lamp برای کنترل Light Level استفاده کنید.",
+    "اسپانر هیولا با رداستون قابل کنترل نیست، ولی Light Level قابل کنترل است."
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "id": "ominous-vault",
+  "nameEn": "Ominous Vault",
+  "nameFa": "گنجینه‌ی شوم",
+  "category": "mechanism",
+  "icon": "ominous-vault",
+  "hardness": 50.0,
+  "tool": "pickaxe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.21+",
+    "bedrock": "1.21.0+"
+  },
+  "description": "گنجینه‌ی شوم نسخه‌ی شوم Vault است که با Ominous Trial Key باز می‌شود و لوت بهتری دراپ می‌کند.",
+  "uses": [
+    "لوت بهتر در Trial Chambers",
+    "منبع Emerald و Enchanted Book"
+  ],
+  "locations": [
+    "Trial Chambers (با فعال‌شدن Bad Omen)"
+  ],
+  "drops": [
+    {
+      "item": "emerald",
+      "count": "1-4",
+      "condition": "با Ominous Trial Key"
+    },
+    {
+      "item": "enchanted-book",
+      "count": "1",
+      "condition": "با Ominous Trial Key"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Ominous_Vault",
+  "intro": [
+    "گنجینه‌ی شوم (Ominous Vault) یک بلاک مکانیزمی شوم در ماینکرفت است که در نسخه‌ی Java 1.21 (ژوئن ۲۰۲۴) به بازی اضافه شد. این بلاک نسخه‌ی شوم Vault است که با Ominous Trial Key باز می‌شود و لوت بهتری دراپ می‌کند.",
+    "سختی گنجینه‌ی شوم ۵۰ است و با هر پیکه‌ای قابل شکستن نیست (تنها در Creative Mode قابل برداشت است). این بلاک در رنگ آبی-بنفش شناخته می‌شود و در Trial Chambers یافت می‌شود.",
+    "گنجینه‌ی شوم با Ominous Trial Key باز می‌شود و لوت بهتری (از جمله Emerald و Enchanted Book) دراپ می‌کند. این بلاک با فعال‌شدن Bad Omen در Trial Chambers ظاهر می‌شود."
+  ],
+  "behavior": [
+    "گنجینه‌ی شوم یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر پیکه‌ای قابل شکستن نیست (تنها در Creative Mode قابل برداشت است).",
+    "گنجینه‌ی شوم با Ominous Trial Key باز می‌شود."
+  ],
+  "trivia": [
+    "گنجینه‌ی شوم در نسخه‌ی Java 1.21 (۲۰۲۴) به بازی اضافه شد.",
+    "این بلاک با Ominous Trial Key باز می‌شود.",
+    "گنجینه‌ی شوم لوت بهتری (از جمله Emerald و Enchanted Book) دراپ می‌کند.",
+    "این بلاک با فعال‌شدن Bad Omen در Trial Chambers ظاهر می‌شود.",
+    "گنجینه‌ی شوم در رنگ آبی-بنفش شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "گنجینه‌ی شوم به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.21.0 (2024)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار گنجینه‌ی شوم یکسان است.",
+    "در Java، بافت گنجینه‌ی شوم کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به بنفش-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "vault",
+      "nameEn": "Vault",
+      "nameFa": "گنجینه",
+      "type": "block"
+    },
+    {
+      "id": "ominous-trial-spawner",
+      "nameEn": "Ominous Trial Spawner",
+      "nameFa": "اسپانر آزمایشی شوم",
+      "type": "block"
+    },
+    {
+      "id": "ominous-banner",
+      "nameEn": "Ominous Banner",
+      "nameFa": "بیرق شوم",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 50,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "گنجینه‌ی شوم با Ominous Trial Key باز می‌شود.",
+    "این بلاک لوت بهتری (از جمله Emerald و Enchanted Book) دراپ می‌کند.",
+    "گنجینه‌ی شوم با فعال‌شدن Bad Omen در Trial Chambers ظاهر می‌شود."
+  ],
+  "interactions": [
+    "گنجینه‌ی شوم با Ominous Trial Key باز می‌شود.",
+    "این بلاک با هر پیکه‌ای قابل شکستن نیست.",
+    "گنجینه‌ی شوم لوت بهتری دراپ می‌کند."
+  ],
+  "buildingIdeas": [
+    "لوت بهتر در Trial Chambers با گنجینه‌ی شوم.",
+    "منبع Emerald و Enchanted Book.",
+    "تزئین Trial Chambers با گنجینه‌ی شوم."
+  ],
+  "technical": [
+    "گنجینه‌ی شوم شناسه‌ی minecraft:vault دارد و در دسته‌بندی mechanism قرار می‌گیرد.",
+    "سختی ۵۰ و مقاومت انفجاری ۵۰ دارد و با هر پیکه‌ای قابل شکستن نیست.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شوم تعریف شده است."
+  ],
+  "redstone": [
+    "گنجینه‌ی شوم با Ominous Trial Key باز می‌شود.",
+    "این بلاک با رداستون قابل کنترل نیست.",
+    "گنجینه‌ی شوم لوت بهتری دراپ می‌کند."
+  ]
+}

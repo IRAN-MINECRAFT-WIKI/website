@@ -1,0 +1,129 @@
+{
+  "id": "short-grass",
+  "nameEn": "Short Grass",
+  "nameFa": "چمن کوتاه",
+  "category": "natural",
+  "icon": "short-grass",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.6+",
+    "bedrock": "0.1+"
+  },
+  "description": "چمن کوتاه یک بلاک گیاهی تک‌بلاکی سبز است که در Plains یافت می‌شود.",
+  "uses": [
+    "تزئین باغچه و چمنزار",
+    "تغذیه Sheep",
+    "منبع Seed (با شکستن)"
+  ],
+  "locations": [
+    "Plains",
+    "Forest",
+    "Sunflower Plains",
+    "Meadow",
+    "Jungle"
+  ],
+  "drops": [
+    {
+      "item": "wheat-seeds",
+      "count": "0-1",
+      "condition": "بدون شرط، با шанс ۱۲.۵٪"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Short_Grass",
+  "intro": [
+    "چمن کوتاه (Short Grass) یک بلاک گیاهی تک‌بلاکی در ماینکرفت است که در نسخه‌ی Java Beta 1.6+ به بازی اضافه شد. این بلاک در بایوم‌های Plains, Forest, Sunflower Plains به‌وفور یافت می‌شود. این بلاک در نسخه‌ی ۱.۲۱.۴ از Grass به Short Grass تغییر نام داد.",
+    "سختی چمن کوتاه ۰ است و با هر ابزاری قابل شکستن است. این بلاک در رنگ سبز-روشن شناخته می‌شود. با Shears به‌عنوان بلاک قابل برداشت است.",
+    "چمن کوتاه با Bone Meal در Dirt یا Grass Block تکثیر می‌شود و در تزئینات باغچه کاربرد دارد."
+  ],
+  "behavior": [
+    "چمن کوتاه یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "چمن کوتاه با Shears به‌عنوان بلاک قابل برداشت است."
+  ],
+  "trivia": [
+    "چمن کوتاه در نسخه‌ی Java Beta 1.6+ به بازی اضافه شد.",
+    "این بلاک در Plains, Forest به‌وفور یافت می‌شود.",
+    "چمن کوتاه تک‌بلاکی ارتفاع دارد.",
+    "چمن کوتاه با Bone Meal قابل تکثیر است.",
+    "چمن کوتاه در رنگ سبز-روشن شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.6+",
+      "change": "چمن کوتاه به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 0.1+",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار گیاه یکسان است.",
+    "در Java، بافت گیاه کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سبز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    },
+    {
+      "id": "tall-grass",
+      "nameEn": "Tall Grass",
+      "nameFa": "چمن بلند",
+      "type": "block"
+    },
+    {
+      "id": "fern",
+      "nameEn": "Fern",
+      "nameFa": "سرخس",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "چمن کوتاه را با Shears به‌عنوان بلاک برداشت کنید.",
+    "با Bone Meal چمن کوتاه را در Dirt یا Grass Block تکثیر کنید.",
+    "چمن کوتاه با Sheep تعامل دارد و آن‌ها را تغذیه می‌کند."
+  ],
+  "interactions": [
+    "چمن کوتاه با Bone Meal در Dirt یا Grass Block تکثیر می‌شود.",
+    "چمن کوتاه با Shears به‌عنوان بلاک قابل برداشت است.",
+    "چمن کوتاه با Sheep تعامل دارد و آن‌ها را تغذیه می‌کند."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با چمن کوتاه.",
+    "ساخت چمنزار طبیعی با چمن کوتاه.",
+    "تزئین خانه‌های روستایی با چمن کوتاه."
+  ],
+  "technical": [
+    "چمن کوتاه شناسه‌ی minecraft:short_grass دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل تکثیر تعریف شده است."
+  ],
+  "farming": [
+    "برای تکثیر چمن کوتاه، از Bone Meal در Dirt یا Grass Block استفاده کنید.",
+    "چمن کوتاه در Plains, Forest به‌وفور یافت می‌شود.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت استفاده کنید."
+  ]
+}

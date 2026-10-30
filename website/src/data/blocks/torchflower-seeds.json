@@ -1,0 +1,125 @@
+{
+  "id": "torchflower-seeds",
+  "nameEn": "Torchflower Crop",
+  "nameFa": "کاشت گل مشعل",
+  "category": "natural",
+  "icon": "torchflower-seeds",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.20+",
+    "bedrock": "1.20.0+"
+  },
+  "description": "کاشت گل مشعل یک بلاک گیاهی است که از بذر گل مشعل در Farmland رشد می‌کند و در نهایت به گل مشعل تبدیل می‌شود.",
+  "uses": [
+    "کشت گل مشعل",
+    "تزئین باغچه"
+  ],
+  "locations": [
+    "ساخت‌شده توسط بازیکن (در Farmland)"
+  ],
+  "drops": [
+    {
+      "item": "torchflower-seeds",
+      "count": "1",
+      "condition": "قبل از رشد کامل"
+    },
+    {
+      "item": "torchflower",
+      "count": "1",
+      "condition": "بعد از رشد کامل"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Torchflower_Seeds",
+  "intro": [
+    "کاشت گل مشعل (Torchflower Crop) یک بلاک گیاهی در ماینکرفت است که در نسخه‌ی Java 1.20 (ژوئن ۲۰۲۳) به بازی اضافه شد. این بلاک از بذر گل مشعل در Farmland رشد می‌کند و در نهایت به گل مشعل تبدیل می‌شود.",
+    "سختی کاشت گل مشعل ۰ است و با هر ابزاری قابل شکستن است. این بلاک سه مرحله‌ی رشد دارد و در Farmland کاشته می‌شود.",
+    "بذر گل مشعل از Sniffer به‌دست می‌آید و در ساخت گل مشعل کاربرد دارد. این بلاک با Bone Meal قابل تسریع رشد است."
+  ],
+  "behavior": [
+    "کاشت گل مشعل یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "کاشت گل مشعل سه مرحله‌ی رشد دارد و در Farmland کاشته می‌شود."
+  ],
+  "trivia": [
+    "کاشت گل مشعل در نسخه‌ی Java 1.20 (۲۰۲۳) به بازی اضافه شد.",
+    "این بلاک سه مرحله‌ی رشد دارد.",
+    "بذر گل مشعل از Sniffer به‌دست می‌آید.",
+    "کاشت گل مشعل در Farmland کاشته می‌شود.",
+    "این بلاک با Bone Meal قابل تسریع رشد است."
+  ],
+  "history": [
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "کاشت گل مشعل به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.20.0 (2023)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار کاشت گل مشعل یکسان است.",
+    "در Java، بافت کاشت گل مشعل کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سبز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "torchflower",
+      "nameEn": "Torchflower",
+      "nameFa": "گل مشعل",
+      "type": "block"
+    },
+    {
+      "id": "pitcher-pod",
+      "nameEn": "Pitcher Pod",
+      "nameFa": "بذر گل کوزه‌ای",
+      "type": "block"
+    },
+    {
+      "id": "wheat-seeds",
+      "nameEn": "Wheat Crop",
+      "nameFa": "کاشت گندم",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "بذر گل مشعل را در Farmland بکارید و با Bone Meal رشد دهید.",
+    "بذر گل مشعل از Sniffer به‌دست می‌آید — احضار Sniffer با Sniffer Egg.",
+    "کاشت گل مشعل سه مرحله‌ی رشد دارد."
+  ],
+  "interactions": [
+    "کاشت گل مشعل با Farmland تعامل دارد و کاشته می‌شود.",
+    "این بلاک با Bone Meal تعامل دارد و سریع‌تر رشد می‌کند.",
+    "کاشت گل مشعل با Light Level ۹ یا بالاتر رشد می‌کند."
+  ],
+  "buildingIdeas": [
+    "ساخت باغچه‌ی گل مشعل.",
+    "ساخت مزرع گل مشعل اتوماتیک.",
+    "تزئین خانه‌های گل‌دار با کاشت گل مشعل."
+  ],
+  "technical": [
+    "کاشت گل مشعل شناسه‌ی minecraft:torchflower_crop دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل رشد تعریف شده است."
+  ],
+  "farming": [
+    "برای کشت گل مشعل، بذر را در Farmland بکارید.",
+    "با Bone Meal می‌توانید رشد را تسریع کنید.",
+    "بذر گل مشعل از Sniffer به‌دست می‌آید — احضار Sniffer با Sniffer Egg."
+  ]
+}

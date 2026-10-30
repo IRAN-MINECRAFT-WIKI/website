@@ -1,0 +1,129 @@
+{
+  "id": "cornflower",
+  "nameEn": "Cornflower",
+  "nameFa": "گل آبیر",
+  "category": "natural",
+  "icon": "cornflower",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.10.0+"
+  },
+  "description": "گل آبیر یک گل طبیعی است که در Plains, Sunflower Plains یافت می‌شود و در رنگ‌آمیزی رنگ آبی کاربرد دارد.",
+  "uses": [
+    "تزئین باغچه",
+    "رنگ‌آمیزی رنگ آبی",
+    "ساخت Suspicious Stew (با Poison)"
+  ],
+  "locations": [
+    "Plains",
+    "Sunflower Plains",
+    "Forest",
+    "Flower Forest",
+    "Meadow"
+  ],
+  "drops": [
+    {
+      "item": "cornflower",
+      "count": "1",
+      "condition": "بدون شرط"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Cornflower",
+  "intro": [
+    "گل آبیر (Cornflower) یک گل طبیعی در ماینکرفت است که در نسخه‌ی Java 1.14+ به بازی اضافه شد. این گل در بایوم‌های Plains, Sunflower Plains, Forest به‌وفور یافت می‌شود و در رنگ‌آمیزی رنگ آبی کاربرد دارد.",
+    "سختی گل آبیر ۰ است و با هر ابزاری قابل شکستن است. این گل در رنگ آبی-روشن #4A86F7 شناخته می‌شود و در تزئینات باغچه کاربرد دارد.",
+    "گل آبیر با Bone Meal در Dirt یا Grass Block تکثیر می‌شود و در ساخت Suspicious Stew (با اثر Poison) قابل استفاده است."
+  ],
+  "behavior": [
+    "گل آبیر یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این گل با هر ابزاری قابل شکستن است.",
+    "گل آبیر با Bone Meal در Dirt یا Grass Block تکثیر می‌شود."
+  ],
+  "trivia": [
+    "گل آبیر در نسخه‌ی Java 1.14+ به بازی اضافه شد.",
+    "این گل در Plains, Sunflower Plains به‌وفور یافت می‌شود.",
+    "گل آبیر در رنگ‌آمیزی رنگ آبی کاربرد دارد.",
+    "این گل در رنگ آبی-روشن #4A86F7 شناخته می‌شود.",
+    "گل آبیر با Bone Meal در Dirt یا Grass Block تکثیر می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.14+",
+      "change": "گل آبیر به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.10.0+",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار گل یکسان است.",
+    "در Java، بافت گل کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به آبی-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "allium",
+      "nameEn": "Allium",
+      "nameFa": "گل پیازی",
+      "type": "block"
+    },
+    {
+      "id": "azure-bluet",
+      "nameEn": "Azure Bluet",
+      "nameFa": "آبی‌روشن",
+      "type": "block"
+    },
+    {
+      "id": "dandelion",
+      "nameEn": "Dandelion",
+      "nameFa": "قاصدک",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "گل آبیر را با Bone Meal در Dirt یا Grass Block تکثیر کنید.",
+    "از گل آبیر در رنگ‌آمیزی رنگ آبی استفاده کنید.",
+    "گل آبیر در تزئینات باغچه کاربرد دارد."
+  ],
+  "interactions": [
+    "گل آبیر با Bone Meal در Dirt یا Grass Block تکثیر می‌شود.",
+    "این گل با رداستون تعامل خاصی ندارد.",
+    "گل آبیر در برابر آتش می‌سوزد."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با گل آبیر.",
+    "ساخت مزرع رنگ آبی با گل آبیر.",
+    "تزئین خانه‌های آبی با گل آبیر."
+  ],
+  "technical": [
+    "گل آبیر شناسه‌ی minecraft:cornflower دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل تکثیر تعریف شده است."
+  ],
+  "farming": [
+    "برای تکثیر گل آبیر، از Bone Meal در Dirt یا Grass Block استفاده کنید.",
+    "گل آبیر در Plains, Sunflower Plains به‌وفور یافت می‌شود.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت استفاده کنید."
+  ]
+}

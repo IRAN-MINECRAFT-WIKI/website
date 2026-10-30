@@ -1,0 +1,119 @@
+{
+  "id": "end-portal",
+  "nameEn": "End Portal",
+  "nameFa": "پورتال اند",
+  "category": "mechanism",
+  "icon": "end-portal",
+  "hardness": -1.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "پورتال اند یک بلاک فنی است که با End Portal Frame ساخته می‌شود و بازیکن را به End می‌برد.",
+  "uses": [
+    "سفر به End",
+    "ساخت End Portal"
+  ],
+  "locations": [
+    "Stronghold (با چیدمان ۱۲ End Portal Frame)"
+  ],
+  "drops": [
+    {
+      "item": "none",
+      "count": "0",
+      "condition": "بدون دراپ (در Survival قابل شکستن نیست)"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/End_Portal_(block)",
+  "intro": [
+    "پورتال اند (End Portal) یک بلاک فنی در ماینکرفت است که در نسخه‌ی Java Beta 1.9 (اکتبر ۲۰۱۱) به بازی اضافه شد. این بلاک با چیدمان ۱۲ End Portal Frame در Stronghold ساخته می‌شود و بازیکن را به End می‌برد.",
+    "سختی پورتال اند -۱ است و در Survival قابل شکستن نیست (تنها در Creative Mode قابل برداشت است). این بلاک نور قوی (Light Level ۱۵) تولید می‌کند و در رنگ سیاه-تیره شناخته می‌شود.",
+    "پورتال اند با چیدمان ۱۲ End Portal Frame (با Eye of Ender در هر کدام) در Stronghold ساخته می‌شود و بازیکن را به End می‌برد. این بلاک در Survival قابل شکستن نیست."
+  ],
+  "behavior": [
+    "پورتال اند یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک در Survival قابل شکستن نیست (تنها در Creative Mode قابل برداشت است).",
+    "پورتال اند با چیدمان ۱۲ End Portal Frame ساخته می‌شود."
+  ],
+  "trivia": [
+    "پورتال اند در نسخه‌ی Java Beta 1.9 (۲۰۱۱) به بازی اضافه شد.",
+    "این بلاک با چیدمان ۱۲ End Portal Frame در Stronghold ساخته می‌شود.",
+    "پورتال اند بازیکن را به End می‌برد.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "پورتال اند نور قوی (Light Level ۱۵) تولید می‌کند."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.9 (2011)",
+      "change": "پورتال اند به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.0 (2011)",
+      "change": "افزودن قابلیت ساخت با End Portal Frame."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار پورتال اند یکسان است.",
+    "در Java، بافت پورتال اند کمی تیره‌تر است؛ در Bedrock، رنگ آن متمایل به سیاه-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "end-portal-frame",
+      "nameEn": "End Portal Frame",
+      "nameFa": "قاب پورتال اند",
+      "type": "block"
+    },
+    {
+      "id": "end-gateway",
+      "nameEn": "End Gateway",
+      "nameFa": "دروازه‌ی اند",
+      "type": "block"
+    },
+    {
+      "id": "nether-portal",
+      "nameEn": "Nether Portal",
+      "nameFa": "پورتال ندر",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3600000,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 15,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "پورتال اند را با چیدمان ۱۲ End Portal Frame (با Eye of Ender) بسازید.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "Eye of Ender را در Stronghold برای پیدا‌کردن چیدمان دنبال کنید."
+  ],
+  "interactions": [
+    "پورتال اند بازیکن را به End می‌برد.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "پورتال اند با Eye of Ender ساخته می‌شود."
+  ],
+  "buildingIdeas": [
+    "سفر به End با پورتال اند.",
+    "ساخت End Portal با ۱۲ End Portal Frame.",
+    "تزئین Stronghold با پورتال اند."
+  ],
+  "technical": [
+    "پورتال اند شناسه‌ی minecraft:end_portal دارد و در دسته‌بندی mechanism قرار می‌گیرد.",
+    "سختی -۱ و مقاومت انفجاری ۳۶۰۰۰۰۰ دارد و در Survival قابل شکستن نیست.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک فنی و غیرقابل-شکستن تعریف شده است."
+  ]
+}

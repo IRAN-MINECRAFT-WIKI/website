@@ -1,0 +1,125 @@
+{
+  "id": "torchflower",
+  "nameEn": "Torchflower",
+  "nameFa": "گل مشعل",
+  "category": "natural",
+  "icon": "torchflower",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.20+",
+    "bedrock": "1.20.0+"
+  },
+  "description": "گل مشعل یک گل قرمز-نارنجی جدید است که از Torchflower Seeds رشد می‌کند و در رنگ‌آمیزی رنگ نارنجی کاربرد دارد.",
+  "uses": [
+    "تزئین باغچه",
+    "رنگ‌آمیزی رنگ نارنجی",
+    "ساخت Suspicious Stew (با Saturation)"
+  ],
+  "locations": [
+    "ساخت‌شده توسط بازیکن (از Torchflower Seeds)"
+  ],
+  "drops": [
+    {
+      "item": "torchflower",
+      "count": "1",
+      "condition": "بدون شرط"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Torchflower",
+  "intro": [
+    "گل مشعل (Torchflower) یک گل طبیعی جدید در ماینکرفت است که در نسخه‌ی Java 1.20 (ژوئن ۲۰۲۳) به بازی اضافه شد. این گل از Torchflower Seeds رشد می‌کند و در رنگ قرمز-نارنجی شناخته می‌شود.",
+    "سختی گل مشعل ۰ است و با هر ابزاری قابل شکستن است. این گل در رنگ قرمز-نارنجی #FF6A00 شناخته می‌شود و در رنگ‌آمیزی رنگ نارنجی کاربرد دارد.",
+    "گل مشعل از Torchflower Seeds (که از Sniffer به‌دست می‌آید) رشد می‌کند و در تزئینات باغچه و ساخت Suspicious Stew (با اثر Saturation) کاربرد دارد."
+  ],
+  "behavior": [
+    "گل مشعل یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این گل با هر ابزاری قابل شکستن است.",
+    "گل مشعل از Torchflower Seeds رشد می‌کند."
+  ],
+  "trivia": [
+    "گل مشعل در نسخه‌ی Java 1.20 (۲۰۲۳) به بازی اضافه شد.",
+    "این گل از Torchflower Seeds رشد می‌کند.",
+    "گل مشعل در رنگ قرمز-نارنجی #FF6A00 شناخته می‌شود.",
+    "Torchflower Seeds از Sniffer به‌دست می‌آید.",
+    "گل مشعل در رنگ‌آمیزی رنگ نارنجی کاربرد دارد."
+  ],
+  "history": [
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "گل مشعل به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.20.0 (2023)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار گل مشعل یکسان است.",
+    "در Java، بافت گل مشعل کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به نارنجی-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "torchflower-seeds",
+      "nameEn": "Torchflower Seeds",
+      "nameFa": "بذر گل مشعل",
+      "type": "block"
+    },
+    {
+      "id": "pitcher-plant",
+      "nameEn": "Pitcher Plant",
+      "nameFa": "گل کوزه‌ای",
+      "type": "block"
+    },
+    {
+      "id": "cornflower",
+      "nameEn": "Cornflower",
+      "nameFa": "گل آبیر",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "گل مشعل را با Torchflower Seeds در Farmland بکارید و با Bone Meal رشد دهید.",
+    "از گل مشعل در رنگ‌آمیزی رنگ نارنجی استفاده کنید.",
+    "Torchflower Seeds را از Sniffer به‌دست آورید."
+  ],
+  "interactions": [
+    "گل مشعل از Torchflower Seeds رشد می‌کند.",
+    "این گل با رداستون تعامل خاصی ندارد.",
+    "گل مشعل در برابر آتش می‌سوزد."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با گل مشعل.",
+    "ساخت مزرع رنگ نارنجی با گل مشعل.",
+    "تزئین خانه‌های نارنجی با گل مشعل."
+  ],
+  "technical": [
+    "گل مشعل شناسه‌ی minecraft:torchflower دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل رشد تعریف شده است."
+  ],
+  "farming": [
+    "برای کشت گل مشعل، Torchflower Seeds را در Farmland بکارید.",
+    "با Bone Meal می‌توانید رشد را تسریع کنید.",
+    "Torchflower Seeds از Sniffer به‌دست می‌آید — احضار Sniffer با Sniffer Egg."
+  ]
+}

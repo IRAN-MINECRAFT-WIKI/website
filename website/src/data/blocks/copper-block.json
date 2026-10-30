@@ -1,0 +1,124 @@
+{
+  "id": "copper-block",
+  "nameEn": "Block of Copper",
+  "nameFa": "بلوک مس",
+  "category": "building",
+  "icon": "copper-block",
+  "hardness": 3.0,
+  "tool": "stone_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.17+",
+    "bedrock": "1.17.0+"
+  },
+  "description": "بلوک مس از ۹ اینگوت مس ساخته می‌شود و در طول زمان اکسید می‌شود؛ چهار مرحله‌ی رنگی دارد.",
+  "uses": [
+    "تزئینات متغیر",
+    "ساخت Waxed Copper",
+    "پایه‌ی صاعقه‌ی جذب (Lightning Rod)"
+  ],
+  "locations": [
+    "ساخت‌شده توسط بازیکن"
+  ],
+  "drops": [
+    {
+      "item": "copper-block",
+      "count": "1",
+      "condition": "با Stone Pickaxe یا بالاتر"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Block_of_Copper",
+  "intro": [
+    "بلوک مس (Block of Copper) یک بلاک ساختمانی پویا در ماینکرفت است که در نسخه‌ی Java 1.17 (ژوئن ۲۰۲۱) به بازی اضافه شد. این بلاک از ۹ اینگوت مس ساخته می‌شود و به‌مرور زمان اکسید می‌شود و رنگ آن از نارنجی-روشن به سبز-تیره تغییر می‌کند.",
+    "سختی بلوک مس ۳ است و با پیکه‌ی سنگی یا بالاتر قابل شکستن است. این بلاک چهار مرحله‌ی اکسیداسیون دارد: Copper، Exposed Copper، Weathered Copper و Oxidized Copper. هر مرحله با رنگ متفاوتی شناخته می‌شود.",
+    "بلوک مس می‌تواند با عسل مومی (Honeycomb) پوشش داده شود تا فرآیند اکسیداسیون متوقف شود (Waxed Copper). با کلیک راست روی بلوک با تبر، می‌توان مرحله‌ی اکسیداسیون را یک درجه بازگرداند."
+  ],
+  "behavior": [
+    "بلوک مس یک بلاک کدر و غیرشفاف است و نور را کاملاً مسدود می‌کند.",
+    "این بلاک با پیکه‌ی سنگی یا بالاتر قابل شکستن است.",
+    "بلوک مس در طول زمان اکسید می‌شود؛ با Honeycomb می‌توان آن را مومی کرد تا اکسیداسیون متوقف شود."
+  ],
+  "trivia": [
+    "بلوک مس در نسخه‌ی Java 1.17 (۲۰۲۱) به بازی اضافه شد.",
+    "این بلاک چهار مرحله‌ی اکسیداسیون دارد: Copper، Exposed Copper، Weathered Copper و Oxidized Copper.",
+    "با Honeycomb می‌توان بلوک مس را مومی کرد تا اکسیداسیون متوقف شود.",
+    "با تبر می‌توان مرحله‌ی اکسیداسیون را یک درجه بازگرداند.",
+    "بلوک مس در رنگ نارنجی-روشن #C9A98C شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.17 (2021)",
+      "change": "بلوک مس به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.18 (2021)",
+      "change": "تغییرات جزئی در تولید Copper Ore."
+    },
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "افزودن Copper Trapdoor و Copper Door."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "افزودن Copper Bulb و Copper Grate."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، فرآیند اکسیداسیون رفتار یکسانی دارد.",
+    "در Java، بافت بلوک مس کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به نارنجی-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "copper-ore",
+      "nameEn": "Copper Ore",
+      "nameFa": "سنگ معدنی مس",
+      "type": "block"
+    },
+    {
+      "id": "cut-copper",
+      "nameEn": "Cut Copper",
+      "nameFa": "مس برش‌خورده",
+      "type": "block"
+    },
+    {
+      "id": "exposed-copper",
+      "nameEn": "Exposed Copper",
+      "nameFa": "مس در معرض",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 6,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": true,
+    "minPickaxe": "stone",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای جلوگیری از اکسیداسیون، بلوک مس را با Honeycomb مومی کنید.",
+    "با تبر می‌توانید مرحله‌ی اکسیداسیون را یک درجه بازگردانید.",
+    "از چهار مرحله‌ی رنگی برای تزئینات متغیر استفاده کنید."
+  ],
+  "interactions": [
+    "بلوک مس با Honeycomb تعامل دارد و به Waxed Copper تبدیل می‌شود.",
+    "این بلاک با تبر تعامل دارد و مرحله‌ی اکسیداسیون بازمی‌گردد.",
+    "بلوک مس در برابر صاعقه‌ی جذب‌شده توسط Lightning Rod نقش خاصی ندارد."
+  ],
+  "buildingIdeas": [
+    "ساخت بام‌های متغیر با چهار مرحله‌ی رنگی مس.",
+    "تزئین کلیسا و قصر با بلوک مس مومی.",
+    "ساخت مجسمه‌های مسی در کنار Bronze و Iron."
+  ],
+  "technical": [
+    "بلوک مس شناسه‌ی minecraft:copper_block دارد و در دسته‌بندی building قرار می‌گیرد.",
+    "سختی ۳ و مقاومت انفجاری ۶ دارد و با پیکه‌ی سنگی یا بالاتر قابل شکستن است.",
+    "این بلاک چهار مرحله‌ی blockstate برای اکسیداسیون دارد: none، exposed، weathered، oxidized."
+  ]
+}

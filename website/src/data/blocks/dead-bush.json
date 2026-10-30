@@ -1,0 +1,122 @@
+{
+  "id": "dead-bush",
+  "nameEn": "Dead Bush",
+  "nameFa": "بوته خشک‌شده",
+  "category": "natural",
+  "icon": "dead-bush",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.6+",
+    "bedrock": "0.1+"
+  },
+  "description": "بوته خشک‌شده یک بلاک تزئینی است که در Desert و Badlands یافت می‌شود و با شکستن، Stick دراپ می‌کند.",
+  "uses": [
+    "تزئین صحرا",
+    "منبع Stick در صحرا"
+  ],
+  "locations": [
+    "Desert",
+    "Badlands",
+    "Mesa",
+    "Swamp"
+  ],
+  "drops": [
+    {
+      "item": "stick",
+      "count": "0-2",
+      "condition": "بدون شرط"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Dead_Bush",
+  "intro": [
+    "بوته خشک‌شده (Dead Bush) یک بلاک تزئینی طبیعی در ماینکرفت است که در نسخه‌ی Java Beta 1.6 (مه ۲۰۱۱) به بازی اضافه شد. این بلاک در بایوم‌های Desert و Badlands (Mesa) به‌وفور یافت می‌شود و در هنگام شکستن، ۰ تا ۲ Stick دراپ می‌کند.",
+    "سختی بوته خشک‌شده ۰ است و با هر ابزاری قابل شکستن است. این بلاک در رنگ قهوه‌ای-تیره شناخته می‌شود و در تزئینات صحرا کاربرد دارد.",
+    "بوته خشک‌شده تنها روی Sand، Red Sand، Terracotta یا Dirt Block قابل قرار دادن است و در ساخت Suspicious Stew کاربرد ندارد. این بلاک در Swamp و Badlands نیز یافت می‌شود."
+  ],
+  "behavior": [
+    "بوته خشک‌شده یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "بوته خشک‌شده در هنگام شکستن، ۰ تا ۲ Stick دراپ می‌کند."
+  ],
+  "trivia": [
+    "بوته خشک‌شده در نسخه‌ی Java Beta 1.6 (۲۰۱۱) به بازی اضافه شد.",
+    "این بلاک در Desert و Badlands به‌وفور یافت می‌شود.",
+    "بوته خشک‌شده در هنگام شکستن، ۰ تا ۲ Stick دراپ می‌کند.",
+    "این بلاک تنها روی Sand، Red Sand، Terracotta یا Dirt Block قابل قرار دادن است.",
+    "بوته خشک‌شده در رنگ قهوه‌ای-تیره شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.6 (2011)",
+      "change": "بوته خشک‌شده به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.7.2 (2013)",
+      "change": "افزایش تولید در Badlands."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار بوته خشک‌شده یکسان است.",
+    "در Java، بافت بوته خشک‌شده کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به قهوه‌ای-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "short-grass",
+      "nameEn": "Short Grass",
+      "nameFa": "چمن کوتاه",
+      "type": "block"
+    },
+    {
+      "id": "bush",
+      "nameEn": "Bush",
+      "nameFa": "بوته",
+      "type": "block"
+    },
+    {
+      "id": "stick",
+      "nameEn": "Stick",
+      "nameFa": "چوب",
+      "type": "item"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": false,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "بوته خشک‌شده را در Desert و Badlands برای جمع‌آوری Stick بشکنید.",
+    "این بلاک با Silk Touch به‌عنوان بلاک قابل برداشت است.",
+    "از بوته خشک‌شده در تزئینات صحرا استفاده کنید."
+  ],
+  "interactions": [
+    "بوته خشک‌شده با Silk Touch به‌عنوان بلاک قابل برداشت است.",
+    "این بلاک با رداستون تعامل خاصی ندارد.",
+    "بوته خشک‌شده در برابر آتش می‌سوزد."
+  ],
+  "buildingIdeas": [
+    "تزئین صحرا و Badlands با بوته خشک‌شده.",
+    "ساخت باغچه‌ی خشک با بوته خشک‌شده.",
+    "تزئین خانه‌های صحرایی با بوته خشک‌شده."
+  ],
+  "technical": [
+    "بوته خشک‌شده شناسه‌ی minecraft:dead_bush دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و غیرجامد تعریف شده است."
+  ]
+}

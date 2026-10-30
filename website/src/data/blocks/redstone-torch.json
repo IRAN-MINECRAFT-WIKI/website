@@ -1,0 +1,125 @@
+{
+  "id": "redstone-torch",
+  "nameEn": "Redstone Torch",
+  "nameFa": "مشعل رداستون",
+  "category": "redstone",
+  "icon": "redstone-torch",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 7,
+  "versions": {
+    "java": "Alpha 1.0.1+",
+    "bedrock": "0.1+"
+  },
+  "description": "مشعل رداستون یک بلاک رداستون-پاسخگو است که نور ضعیفی تولید می‌کند و سیگنال رداستون را معکوس می‌کند.",
+  "uses": [
+    "معکوس‌کننده‌ی سیگنال رداستون (NOT Gate)",
+    "روشنایی ضعیف",
+    "ساخت Redstone Comparator و Repeater"
+  ],
+  "locations": [
+    "ساخت‌شده توسط بازیکن"
+  ],
+  "drops": [
+    {
+      "item": "redstone-torch",
+      "count": "1",
+      "condition": "بدون شرط"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Redstone_Torch",
+  "intro": [
+    "مشعل رداستون (Redstone Torch) یک بلاک رداستون-پاسخگو در ماینکرفت است که در نسخه‌ی Java Alpha 1.0.1 (سپتامبر ۲۰۱۰) به بازی اضافه شد. این بلاک نور ضعیفی (Light Level ۷) تولید می‌کند و سیگنال رداستون را معکوس می‌کند.",
+    "سختی مشعل رداستون ۰ است و با هر ابزاری قابل شکستن است. این بلاک در رنگ قرمز-روشن شناخته می‌شود و در ساخت Redstone Comparator و Repeater کاربرد دارد.",
+    "مشعل رداستون یک NOT Gate رداستون است: وقتی بلاکی که به آن متصل است فعال باشد، مشعل خاموش می‌شود و برعکس. این بلاک در ساخت مدارهای منطقی رداستون کاربرد گسترده‌ای دارد."
+  ],
+  "behavior": [
+    "مشعل رداستون یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "مشعل رداستون سیگنال رداستون را معکوس می‌کند (NOT Gate)."
+  ],
+  "trivia": [
+    "مشعل رداستون در نسخه‌ی Java Alpha 1.0.1 (۲۰۱۰) به بازی اضافه شد.",
+    "این بلاک نور ضعیفی (Light Level ۷) تولید می‌کند.",
+    "مشعل رداستون یک NOT Gate رداستون است.",
+    "این بلاک در ساخت Redstone Comparator و Repeater کاربرد دارد.",
+    "مشعل رداستون در رنگ قرمز-روشن شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java Alpha 1.0.1 (2010)",
+      "change": "مشعل رداستون به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "استانداردسازی شناسه‌ی minecraft:redstone_torch."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار مشعل رداستون یکسان است.",
+    "در Java، بافت مشعل رداستون کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به قرمز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "redstone-block",
+      "nameEn": "Block of Redstone",
+      "nameFa": "بلوک رداستون",
+      "type": "block"
+    },
+    {
+      "id": "redstone-wire",
+      "nameEn": "Redstone Wire",
+      "nameFa": "سیم رداستون",
+      "type": "block"
+    },
+    {
+      "id": "repeater",
+      "nameEn": "Redstone Repeater",
+      "nameFa": "تکرارکننده‌ی رداستون",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 7,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "از مشعل رداستون برای ساخت NOT Gate در مدارهای رداستون استفاده کنید.",
+    "مشعل رداستون نور ضعیفی (Light Level ۷) تولید می‌کند.",
+    "از مشعل رداستون در ساخت Redstone Comparator و Repeater استفاده کنید."
+  ],
+  "interactions": [
+    "مشعل رداستون سیگنال رداستون را معکوس می‌کند.",
+    "این بلاک با رداستون تعامل گسترده‌ای دارد.",
+    "مشعل رداستون نور ضعیفی تولید می‌کند."
+  ],
+  "buildingIdeas": [
+    "ساخت مدارهای منطقی رداستون با مشعل رداستون.",
+    "روشنایی ضعیف تزئینی با مشعل رداستون.",
+    "ساخت Redstone Comparator و Repeater با مشعل رداستون."
+  ],
+  "technical": [
+    "مشعل رداستون شناسه‌ی minecraft:redstone_torch دارد و در دسته‌بندی redstone قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک رداستون-پاسخگو تعریف شده است."
+  ],
+  "redstone": [
+    "مشعل رداستون یک NOT Gate رداستون است.",
+    "وقتی بلاکی که به مشعل متصل است فعال باشد، مشعل خاموش می‌شود.",
+    "مشعل رداستون در ساخت Redstone Comparator و Repeater کاربرد دارد."
+  ]
+}

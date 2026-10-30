@@ -1,0 +1,124 @@
+{
+  "id": "wildflowers",
+  "nameEn": "Wildflowers",
+  "nameFa": "گل‌های وحشی",
+  "category": "natural",
+  "icon": "wildflowers",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.21.6+",
+    "bedrock": "1.21.70+"
+  },
+  "description": "گل‌های وحشی یک بلاک گل چندرنگ جدید است که در Forest و Birch Forest یافت می‌شود.",
+  "uses": [
+    "تزئین باغچه",
+    "ساخت Suspicious Stew (با Regeneration)"
+  ],
+  "locations": [
+    "Forest",
+    "Birch Forest",
+    "Old Growth Birch Forest",
+    "Meadow",
+    "Flower Forest"
+  ],
+  "drops": [
+    {
+      "item": "wildflowers",
+      "count": "1-3",
+      "condition": "بدون شرط"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Wildflowers",
+  "intro": [
+    "گل‌های وحشی (Wildflowers) یک بلاک گل چندرنگ جدید در ماینکرفت است که در نسخه‌ی Java 1.21.6 (Spring to Life drop, ۲۰۲۵) به بازی اضافه شد. این بلاک در بایوم Forest و Birch Forest به‌وفور یافت می‌شود و در رنگ‌های مختلف (زرد، سفید، صورتی، بنفش) شناخته می‌شود.",
+    "سختی گل‌های وحشی ۰ است و با هر ابزاری قابل شکستن است. این بلاک چندگل روی یک سلول قرار می‌گیرد (تا ۳ گل در یک سلول) و در رنگ‌های مختلف شناخته می‌شود.",
+    "گل‌های وحشی با Bone Meal در Dirt یا Grass Block تکثیر می‌شوند و در ساخت Suspicious Stew (با اثر Regeneration) کاربرد دارند. این بلاک در Meadow و Flower Forest نیز یافت می‌شود."
+  ],
+  "behavior": [
+    "گل‌های وحشی یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "گل‌های وحشی چندگل روی یک سلول قرار می‌گیرند (تا ۳ گل در یک سلول)."
+  ],
+  "trivia": [
+    "گل‌های وحشی در نسخه‌ی Java 1.21.6 (۲۰۲۵) به بازی اضافه شد.",
+    "این بلاک در Forest و Birch Forest به‌وفور یافت می‌شود.",
+    "گل‌های وحشی چندگل روی یک سلول قرار می‌گیرند (تا ۳ گل در یک سلول).",
+    "این بلاک در رنگ‌های مختلف (زرد، سفید، صورتی، بنفش) شناخته می‌شود.",
+    "گل‌های وحشی در ساخت Suspicious Stew (با اثر Regeneration) کاربرد دارند."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21.6 (2025)",
+      "change": "گل‌های وحشی به بازی اضافه شد (Spring to Life drop)."
+    },
+    {
+      "version": "Bedrock 1.21.70 (2025)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار گل‌های وحشی یکسان است.",
+    "در Java، بافت گل‌های وحشی کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "cornflower",
+      "nameEn": "Cornflower",
+      "nameFa": "گل آبیر",
+      "type": "block"
+    },
+    {
+      "id": "allium",
+      "nameEn": "Allium",
+      "nameFa": "گل پیازی",
+      "type": "block"
+    },
+    {
+      "id": "oxeye-daisy",
+      "nameEn": "Oxeye Daisy",
+      "nameFa": "گل مارگاریت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "گل‌های وحشی را با Bone Meal در Dirt یا Grass Block تکثیر کنید.",
+    "از گل‌های وحشی در تزئینات باغچه استفاده کنید.",
+    "گل‌های وحشی در ساخت Suspicious Stew (با اثر Regeneration) قابل استفاده هستند."
+  ],
+  "interactions": [
+    "گل‌های وحشی با Bone Meal در Dirt یا Grass Block تکثیر می‌شوند.",
+    "این بلاک چندگل روی یک سلول قرار می‌گیرد (تا ۳ گل در یک سلول).",
+    "گل‌های وحشی در برابر آتش می‌سوزند."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با گل‌های وحشی چندرنگ.",
+    "ساخت مزرع گل با گل‌های وحشی.",
+    "تزئین خانه‌های روستایی با گل‌های وحشی."
+  ],
+  "technical": [
+    "گل‌های وحشی شناسه‌ی minecraft:wildflowers دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و چندگل تعریف شده است."
+  ],
+  "farming": [
+    "برای تکثیر گل‌های وحشی، از Bone Meal در Dirt یا Grass Block استفاده کنید.",
+    "گل‌های وحشی در Forest و Birch Forest به‌وفور یافت می‌شوند.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت استفاده کنید."
+  ]
+}

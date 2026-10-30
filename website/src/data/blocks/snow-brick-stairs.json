@@ -1,0 +1,115 @@
+{
+  "id": "snow-brick-stairs",
+  "nameEn": "Snow Brick Stairs",
+  "nameFa": "پله‌ی آجر برف",
+  "category": "building",
+  "icon": "snow-brick-stairs",
+  "hardness": 0.2,
+  "tool": "shovel",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.21.4+",
+    "bedrock": "1.21.50+"
+  },
+  "description": "پله‌ی آجر برف یک بلاک تزئینی جدید از خانواده‌ی آجر برف است.",
+  "uses": [
+    "تزئین برفی",
+    "ساخت محیط قطبی"
+  ],
+  "locations": [
+    "ساخت‌شده توسط بازیکن"
+  ],
+  "drops": [
+    {
+      "item": "snow-brick-stairs",
+      "count": "1",
+      "condition": "با Shovel یا Silk Touch"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Snow_Brick_Stairs",
+  "intro": [
+    "پله‌ی آجر برف (Snow Brick Stairs) یک بلاک تزئینی جدید در ماینکرفت است که در نسخه‌ی Java 1.21.4 (دسامبر ۲۰۲۴) به بازی اضافه شد. این بلاک از خانواده‌ی آجر برف است.",
+    "سختی پله‌ی آجر برف ۰.۲ است و با Shovel یا Silk Touch قابل شکستن است. این بلاک در رنگ سفید-روشن شناخته می‌شود و در تزئینات برفی کاربرد دارد.",
+    "پله‌ی آجر برف در ساخت محیط قطبی و تزئینات برفی کاربرد دارد. این بلاک با Shovel قابل شکستن است."
+  ],
+  "behavior": [
+    "پله‌ی آجر برف یک بلاک کدر و غیرشفاف است و نور را کاملاً مسدود می‌کند.",
+    "این بلاک با Shovel یا Silk Touch قابل شکستن است.",
+    "پله‌ی آجر برف در برابر آتش نمی‌سوزد."
+  ],
+  "trivia": [
+    "پله‌ی آجر برف در نسخه‌ی Java 1.21.4 (۲۰۲۴) به بازی اضافه شد.",
+    "این بلاک از خانواده‌ی آجر برف است.",
+    "پله‌ی آجر برف با Shovel قابل شکستن است.",
+    "این بلاک در رنگ سفید-روشن شناخته می‌شود.",
+    "پله‌ی آجر برف در ساخت محیط قطبی کاربرد دارد."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21.4 (2024)",
+      "change": "پله‌ی آجر برف به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.21.50 (2024)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار بلاک یکسان است.",
+    "در Java، بافت بلاک کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سفید-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "snow-bricks",
+      "nameEn": "Snow Bricks",
+      "nameFa": "آجر برف",
+      "type": "block"
+    },
+    {
+      "id": "snow-block",
+      "nameEn": "Snow Block",
+      "nameFa": "بلوک برف",
+      "type": "block"
+    },
+    {
+      "id": "packed-ice-bricks",
+      "nameEn": "Packed Ice Bricks",
+      "nameFa": "آجر یخ فشرده",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.2,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": true,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "پله‌ی آجر برف با Shovel قابل شکستن است.",
+    "از پله‌ی آجر برف در تزئینات برفی استفاده کنید.",
+    "پله‌ی آجر برف در ساخت محیط قطبی کاربرد دارد."
+  ],
+  "interactions": [
+    "پله‌ی آجر برف با Shovel قابل شکستن است.",
+    "این بلاک در برابر آتش نمی‌سوزد.",
+    "پله‌ی آجر برف با رداستون تعامل خاصی ندارد."
+  ],
+  "buildingIdeas": [
+    "تزئین برفی با پله‌ی آجر برف.",
+    "ساخت محیط قطبی با پله‌ی آجر برف.",
+    "تزئین کاخ برفی با پله‌ی آجر برف."
+  ],
+  "technical": [
+    "پله‌ی آجر برف شناسه‌ی minecraft:snow_brick_stairs دارد و در دسته‌بندی building قرار می‌گیرد.",
+    "سختی ۰.۲ و مقاومت انفجاری ۰.۲ دارد و با Shovel یا Silk Touch قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک برفی تعریف شده است."
+  ]
+}

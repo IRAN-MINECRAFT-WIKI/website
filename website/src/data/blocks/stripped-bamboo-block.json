@@ -1,0 +1,119 @@
+{
+  "id": "stripped-bamboo-block",
+  "nameEn": "Block of Stripped Bamboo",
+  "nameFa": "بلوک بامبو Strip‌شده",
+  "category": "building",
+  "icon": "stripped-bamboo-block",
+  "hardness": 2.0,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.20+",
+    "bedrock": "1.20.0+"
+  },
+  "description": "بلوک بامبو Strip‌شده از بلوک بامبو با تبر Strip می‌شود و رنگ روشن‌تری دارد.",
+  "uses": [
+    "تزئینات چوبی",
+    "ساخت Stripped Bamboo Planks"
+  ],
+  "locations": [
+    "ساخت‌شده توسط بازیکن"
+  ],
+  "drops": [
+    {
+      "item": "stripped-bamboo-block",
+      "count": "1",
+      "condition": "با Axe یا بالاتر"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Block_of_Stripped_Bamboo",
+  "intro": [
+    "بلوک بامبو Strip‌شده (Block of Stripped Bamboo) یک بلاک ساختمانی چوبی در ماینکرفت است که در نسخه‌ی Java 1.20 (ژوئن ۲۰۲۳) به بازی اضافه شد. این بلاک با Strip کردن بلوک بامبو با تبر به‌دست می‌آید و رنگ روشن‌تری نسبت به بلوک بامبو دارد.",
+    "سختی بلوک بامبو Strip‌شده ۲ است و با تبر یا بالاتر قابل شکستن است. این بلاک در رنگ زرد-روشن شناخته می‌شود و در تزئینات چوبی کاربرد دارد.",
+    "بلوک بامبو Strip‌شده نمی‌تواند دوباره Strip شود و در ساخت Stripped Bamboo Planks قابل استفاده است."
+  ],
+  "behavior": [
+    "بلوک بامبو Strip‌شده یک بلاک کدر و غیرشفاف است و نور را کاملاً مسدود می‌کند.",
+    "این بلاک با تبر یا بالاتر قابل شکستن است.",
+    "بلوک بامبو Strip‌شده در برابر آتش می‌سوزد و در ساخت Stripped Bamboo Planks قابل استفاده است."
+  ],
+  "trivia": [
+    "بلوک بامبو Strip‌شده در نسخه‌ی Java 1.20 (۲۰۲۳) به بازی اضافه شد.",
+    "این بلاک با Strip کردن بلوک بامبو با تبر به‌دست می‌آید.",
+    "بلوک بامبو Strip‌شده در رنگ زرد-روشن شناخته می‌شود.",
+    "این بلاک نمی‌تواند دوباره Strip شود.",
+    "بلوک بامبو Strip‌شده در ساخت Stripped Bamboo Planks قابل استفاده است."
+  ],
+  "history": [
+    {
+      "version": "Java 1.20 (2023)",
+      "change": "بلوک بامبو Strip‌شده به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.20.2 (2023)",
+      "change": "تغییرات جزئی در رندر نور."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رفتار بلاک."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار بلوک بامبو Strip‌شده یکسان است.",
+    "در Java، بافت بلوک بامبو Strip‌شده کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به زرد-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "bamboo-block",
+      "nameEn": "Block of Bamboo",
+      "nameFa": "بلوک بامبو",
+      "type": "block"
+    },
+    {
+      "id": "bamboo",
+      "nameEn": "Bamboo",
+      "nameFa": "بامبو",
+      "type": "block"
+    },
+    {
+      "id": "bamboo-planks",
+      "nameEn": "Bamboo Planks",
+      "nameFa": "تخته‌های بامبو",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 15,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": true,
+    "minPickaxe": "wooden",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای Strip کردن بلوک بامبو، با تبر روی آن کلیک راست کنید.",
+    "از بلوک بامبو Strip‌شده در ساخت Stripped Bamboo Planks استفاده کنید.",
+    "بلوک بامبو Strip‌شده در رنگ زرد-روشن شناخته می‌شود."
+  ],
+  "interactions": [
+    "بلوک بامبو Strip‌شده با رداستون تعامل خاصی ندارد.",
+    "این بلاک در برابر آتش می‌سوزد.",
+    "بلوک بامبو Strip‌شده نمی‌تواند دوباره Strip شود."
+  ],
+  "buildingIdeas": [
+    "ساخت خانه‌های بامبو-محور با بلوک بامبو Strip‌شده.",
+    "تزئین باغ‌های ژاپنی با بلوک بامبو Strip‌شده.",
+    "ساخت Stripped Bamboo Planks با بلوک بامبو Strip‌شده."
+  ],
+  "technical": [
+    "بلوک بامبو Strip‌شده شناسه‌ی minecraft:stripped_bamboo_block دارد و در دسته‌بندی building قرار می‌گیرد.",
+    "سختی ۲ و مقاومت انفجاری ۱۵ دارد و با تبر یا بالاتر قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک چوبی با axis blockstate تعریف شده است."
+  ]
+}

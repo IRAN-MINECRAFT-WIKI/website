@@ -1,0 +1,120 @@
+{
+  "id": "ominous-trial-spawner",
+  "nameEn": "Ominous Trial Spawner",
+  "nameFa": "اسپانر آزمایشی شوم",
+  "category": "mechanism",
+  "icon": "ominous-trial-spawner",
+  "hardness": 50.0,
+  "tool": "pickaxe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 4,
+  "versions": {
+    "java": "1.21+",
+    "bedrock": "1.21.0+"
+  },
+  "description": "اسپانر آزمایشی شوم نسخه‌ی شوم Trial Spawner است که با فعال‌شدن Bad Omen در Trial Chambers ایجاد می‌شود.",
+  "uses": [
+    "چالش اضافی در Trial Chambers",
+    "منبع Vault Key"
+  ],
+  "locations": [
+    "Trial Chambers (با فعال‌شدن Bad Omen)"
+  ],
+  "drops": [
+    {
+      "item": "ominous-trial-key",
+      "count": "1",
+      "condition": "بعد از شکست دادن موج‌ها"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Ominous_Trial_Spawner",
+  "intro": [
+    "اسپانر آزمایشی شوم (Ominous Trial Spawner) یک بلاک مکانیزمی شوم در ماینکرفت است که در نسخه‌ی Java 1.21 (ژوئن ۲۰۲۴) به بازی اضافه شد. این بلاک نسخه‌ی شوم Trial Spawner است که با فعال‌شدن Bad Omen در Trial Chambers ایجاد می‌شود.",
+    "سختی اسپانر آزمایشی شوم ۵۰ است و با هر پیکه‌ای قابل شکستن نیست (تنها در Creative Mode قابل برداشت است). این بلاک نور ضعیفی (Light Level ۴) تولید می‌کند و در رنگ آبی-بنفش شناخته می‌شود.",
+    "اسپانر آزمایشی شوم با فعال‌شدن Bad Omen در Trial Chambers ایجاد می‌شود و چالش اضافی تولید می‌کند. این بلاک بعد از شکست دادن موج‌ها، Ominous Trial Key دراپ می‌کند."
+  ],
+  "behavior": [
+    "اسپانر آزمایشی شوم یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر پیکه‌ای قابل شکستن نیست (تنها در Creative Mode قابل برداشت است).",
+    "اسپانر آزمایشی شوم با فعال‌شدن Bad Omen در Trial Chambers ایجاد می‌شود."
+  ],
+  "trivia": [
+    "اسپانر آزمایشی شوم در نسخه‌ی Java 1.21 (۲۰۲۴) به بازی اضافه شد.",
+    "این بلاک با فعال‌شدن Bad Omen در Trial Chambers ایجاد می‌شود.",
+    "اسپانر آزمایشی شوم نور ضعیفی (Light Level ۴) تولید می‌کند.",
+    "این بلاک در رنگ آبی-بنفش شناخته می‌شود.",
+    "اسپانر آزمایشی شوم بعد از شکست دادن موج‌ها، Ominous Trial Key دراپ می‌کند."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "اسپانر آزمایشی شوم به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.21.0 (2024)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار اسپانر آزمایشی شوم یکسان است.",
+    "در Java، بافت اسپانر آزمایشی شوم کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به بنفش-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "trial-spawner",
+      "nameEn": "Trial Spawner",
+      "nameFa": "اسپانر آزمایشی",
+      "type": "block"
+    },
+    {
+      "id": "ominous-vault",
+      "nameEn": "Ominous Vault",
+      "nameFa": "گنجینه‌ی شوم",
+      "type": "block"
+    },
+    {
+      "id": "ominous-banner",
+      "nameEn": "Ominous Banner",
+      "nameFa": "بیرق شوم",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 50,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 4,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "اسپانر آزمایشی شوم با فعال‌شدن Bad Omen در Trial Chambers ایجاد می‌شود.",
+    "این بلاک با هر پیکه‌ای قابل شکستن نیست.",
+    "بعد از شکست دادن موج‌ها، Ominous Trial Key دراپ می‌کند."
+  ],
+  "interactions": [
+    "اسپانر آزمایشی شوم با Bad Omen در Trial Chambers ایجاد می‌شود.",
+    "این بلاک نور ضعیفی (Light Level ۴) تولید می‌کند.",
+    "اسپانر آزمایشی شوم با Trial Key به Vault Key ارتقا می‌یابد."
+  ],
+  "buildingIdeas": [
+    "چالش اضافی در Trial Chambers با اسپانر آزمایشی شوم.",
+    "منبع Ominous Trial Key برای Ominous Vault.",
+    "تزئین Trial Chambers با اسپانر آزمایشی شوم."
+  ],
+  "technical": [
+    "اسپانر آزمایشی شوم شناسه‌ی minecraft:trial_spawner دارد و در دسته‌بندی mechanism قرار می‌گیرد.",
+    "سختی ۵۰ و مقاومت انفجاری ۵۰ دارد و با هر پیکه‌ای قابل شکستن نیست.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شوم تعریف شده است."
+  ],
+  "redstone": [
+    "اسپانر آزمایشی شوم با Bad Omen در Trial Chambers ایجاد می‌شود.",
+    "این بلاک با رداستون قابل کنترل نیست.",
+    "اسپانر آزمایشی شوم با Trial Key به Vault Key ارتقا می‌یابد."
+  ]
+}

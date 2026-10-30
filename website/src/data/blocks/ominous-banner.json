@@ -1,0 +1,121 @@
+{
+  "id": "ominous-banner",
+  "nameEn": "Ominous Banner",
+  "nameFa": "بیرق شوم",
+  "category": "decoration",
+  "icon": "ominous-banner",
+  "hardness": 1.0,
+  "tool": "axe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.14+",
+    "bedrock": "1.11.0+"
+  },
+  "description": "بیرق شوم یک بیرق ویژه است که توسط Captain Illager حمل می‌شود و Bad Omen effect می‌دهد.",
+  "uses": [
+    "تزئین",
+    "فعال‌کردن Raid",
+    "نشان Pilot از Illager"
+  ],
+  "locations": [
+    "Patrol (Captain Illager)",
+    "Pillager Outpost (Captain Illager)"
+  ],
+  "drops": [
+    {
+      "item": "ominous-banner",
+      "count": "1",
+      "condition": "از Captain Illager"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Ominous_Banner",
+  "intro": [
+    "بیرق شوم (Ominous Banner) یک بیرق ویژه در ماینکرفت است که در نسخه‌ی Java 1.14 (آوریل ۲۰۱۹) به بازی اضافه شد. این بیرق توسط Captain Illager حمل می‌شود و با برداشتن، Bad Omen effect به بازیکن می‌دهد.",
+    "سختی بیرق شوم ۱ است و با تبر یا بالاتر قابل شکستن است. این بیرق در رنگ سیاه-سفید با نماد Illager شناخته می‌شود و در تزئینات و فعال‌کردن Raid کاربرد دارد.",
+    "بیرق شوم با برداشتن از Captain Illager (در Patrol یا Pillager Outpost) به‌دست می‌آید و با ورود به Village، Bad Omen effect را فعال می‌کند و Raid را آغاز می‌کند."
+  ],
+  "behavior": [
+    "بیرق شوم یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بیرق با تبر یا بالاتر قابل شکستن است.",
+    "بیرق شوم با برداشتن از Captain Illager به‌دست می‌آید و Bad Omen effect می‌دهد."
+  ],
+  "trivia": [
+    "بیرق شوم در نسخه‌ی Java 1.14 (۲۰۱۹) به بازی اضافه شد.",
+    "این بیرق توسط Captain Illager حمل می‌شود.",
+    "بیرق شوم با برداشتن، Bad Omen effect به بازیکن می‌دهد.",
+    "این بیرق در رنگ سیاه-سفید با نماد Illager شناخته می‌شود.",
+    "بیرق شوم با ورود به Village، Raid را آغاز می‌کند."
+  ],
+  "history": [
+    {
+      "version": "Java 1.14 (2019)",
+      "change": "بیرق شوم به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.11.0 (2019)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییر نام از Illager Banner به Ominous Banner."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار بیرق شوم یکسان است.",
+    "در Java، بافت بیرق شوم کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سیاه-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "banner",
+      "nameEn": "Banner",
+      "nameFa": "بیرق",
+      "type": "block"
+    },
+    {
+      "id": "ominous-trial-spawner",
+      "nameEn": "Ominous Trial Spawner",
+      "nameFa": "اسپانر آزمایشی شوم",
+      "type": "block"
+    },
+    {
+      "id": "ominous-vault",
+      "nameEn": "Ominous Vault",
+      "nameFa": "گنجینه‌ی شوم",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 1,
+    "renewable": false,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": true,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "بیرق شوم را از Captain Illager (در Patrol یا Pillager Outpost) به‌دست آورید.",
+    "با برداشتن بیرق شوم، Bad Omen effect به بازیکن می‌دهد.",
+    "با ورود به Village با Bad Omen، Raid آغاز می‌شود."
+  ],
+  "interactions": [
+    "بیرق شوم با برداشتن، Bad Omen effect به بازیکن می‌دهد.",
+    "این بیرق با تبر قابل شکستن است.",
+    "بیرق شوم با ورود به Village، Raid را آغاز می‌کند."
+  ],
+  "buildingIdeas": [
+    "تزئین قلعه‌ی Illager با بیرق شوم.",
+    "نشان Pilot از Illager.",
+    "فعال‌کردن Raid با بیرق شوم."
+  ],
+  "technical": [
+    "بیرق شوم شناسه‌ی minecraft:ominous_banner (پیش‌تر illager_banner) دارد و در دسته‌بندی decoration قرار می‌گیرد.",
+    "سختی ۱ و مقاومت انفجاری ۱ دارد و با تبر یا بالاتر قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بیرق ویژه تعریف شده است."
+  ]
+}

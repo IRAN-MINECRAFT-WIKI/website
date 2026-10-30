@@ -1,0 +1,115 @@
+{
+  "id": "heavy-core",
+  "nameEn": "Heavy Core",
+  "nameFa": "هسته‌ی سنگین",
+  "category": "mechanism",
+  "icon": "heavy-core",
+  "hardness": 15.0,
+  "tool": "pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.21+",
+    "bedrock": "1.21.0+"
+  },
+  "description": "هسته‌ی سنگین یک بلاک کمیاب در Trial Chambers است که با ۱ Mace در Crafting Table ترکیب می‌شود.",
+  "uses": [
+    "ساخت Mace (با ۱ Breeze Rod)",
+    "تزئین Trial Chambers"
+  ],
+  "locations": [
+    "Trial Chambers (در Vault)"
+  ],
+  "drops": [
+    {
+      "item": "heavy-core",
+      "count": "1",
+      "condition": "با Pickaxe یا بالاتر"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Heavy_Core",
+  "intro": [
+    "هسته‌ی سنگین (Heavy Core) یک بلاک کمیاب در ماینکرفت است که در نسخه‌ی Java 1.21 (ژوئن ۲۰۲۴) به بازی اضافه شد. این بلاک در Trial Chambers (در Vault) یافت می‌شود و با ۱ Breeze Rod در Crafting Table به Mace تبدیل می‌شود.",
+    "سختی هسته‌ی سنگین ۱۵ است و با پیکه‌ی چوبی یا بالاتر قابل شکستن است. این بلاک در رنگ خاکستری-تیره با درخشش نارنجی شناخته می‌شود و در ساخت Mace کاربرد دارد.",
+    "هسته‌ی سنگین تنها در Trial Chambers (در Vault) یافت می‌شود و در ساخت Mace کاربرد دارد. این بلاک یکی از کمیاب‌ترین بلاک‌های ماینکرفت است."
+  ],
+  "behavior": [
+    "هسته‌ی سنگین یک بلاک کدر و غیرشفاف است و نور را کاملاً مسدود می‌کند.",
+    "این بلاک با پیکه‌ی چوبی یا بالاتر قابل شکستن است.",
+    "هسته‌ی سنگین با ۱ Breeze Rod در Crafting Table به Mace تبدیل می‌شود."
+  ],
+  "trivia": [
+    "هسته‌ی سنگین در نسخه‌ی Java 1.21 (۲۰۲۴) به بازی اضافه شد.",
+    "این بلاک در Trial Chambers (در Vault) یافت می‌شود.",
+    "هسته‌ی سنگین با ۱ Breeze Rod در Crafting Table به Mace تبدیل می‌شود.",
+    "این بلاک در رنگ خاکستری-تیره با درخشش نارنجی شناخته می‌شود.",
+    "هسته‌ی سنگین یکی از کمیاب‌ترین بلاک‌های ماینکرفت است."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "هسته‌ی سنگین به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.21.0 (2024)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار هسته‌ی سنگین یکسان است.",
+    "در Java، بافت هسته‌ی سنگین کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به خاکستری-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "trial-spawner",
+      "nameEn": "Trial Spawner",
+      "nameFa": "اسپانر آزمایشی",
+      "type": "block"
+    },
+    {
+      "id": "vault",
+      "nameEn": "Vault",
+      "nameFa": "گنجینه",
+      "type": "block"
+    },
+    {
+      "id": "breeze-rod",
+      "nameEn": "Breeze Rod",
+      "nameFa": "میله‌ی باد",
+      "type": "item"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 15,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": true,
+    "minPickaxe": "wooden",
+    "burnTime": 0
+  },
+  "tips": [
+    "هسته‌ی سنگین را در Trial Chambers (در Vault) جستجو کنید.",
+    "از هسته‌ی سنگین با ۱ Breeze Rod برای ساخت Mace استفاده کنید.",
+    "هسته‌ی سنگین یکی از کمیاب‌ترین بلاک‌های ماینکرفت است."
+  ],
+  "interactions": [
+    "هسته‌ی سنگین با Breeze Rod در Crafting Table به Mace تبدیل می‌شود.",
+    "این بلاک با رداستون تعامل خاصی ندارد.",
+    "هسته‌ی سنگین در برابر آتش نمی‌سوزد."
+  ],
+  "buildingIdeas": [
+    "تزئین Trial Chambers با هسته‌ی سنگین.",
+    "ساخت Mace با هسته‌ی سنگین و Breeze Rod.",
+    "تزئین خانه‌های جنگجو با هسته‌ی سنگین."
+  ],
+  "technical": [
+    "هسته‌ی سنگین شناسه‌ی minecraft:heavy_core دارد و در دسته‌بندی mechanism قرار می‌گیرد.",
+    "سختی ۱۵ و مقاومت انفجاری ۱۵ دارد و با پیکه‌ی چوبی یا بالاتر قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک کمیاب و سازنده‌ی Mace تعریف شده است."
+  ]
+}

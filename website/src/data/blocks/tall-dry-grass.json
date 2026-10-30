@@ -1,0 +1,128 @@
+{
+  "id": "tall-dry-grass",
+  "nameEn": "Tall Dry Grass",
+  "nameFa": "چمن خشک بلند",
+  "category": "natural",
+  "icon": "tall-dry-grass",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.21.6+",
+    "bedrock": "1.21.70+"
+  },
+  "description": "چمن خشک بلند یک بلاک گیاهی دو-بلاکی قهوه‌ای-زرد است که در Desert یافت می‌شود.",
+  "uses": [
+    "تزئین باغچه و چمنزار",
+    "تزئین صحرا و بایوم خشک",
+    "تزئین طبیعی"
+  ],
+  "locations": [
+    "Desert",
+    "Badlands",
+    "Savanna",
+    "Windswept Savanna"
+  ],
+  "drops": [
+    {
+      "item": "tall-dry-grass",
+      "count": "1",
+      "condition": "با Silk Touch و Shears"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Tall_Dry_Grass",
+  "intro": [
+    "چمن خشک بلند (Tall Dry Grass) یک بلاک گیاهی دو-بلاکی در ماینکرفت است که در نسخه‌ی Java 1.21.6+ به بازی اضافه شد. این بلاک در بایوم‌های Desert, Badlands, Savanna به‌وفور یافت می‌شود.",
+    "سختی چمن خشک بلند ۰ است و با هر ابزاری قابل شکستن است. این بلاک در رنگ قهوه‌ای-زرد-روشن شناخته می‌شود. تنها با Silk Touch یا Shears قابل برداشت است.",
+    "چمن خشک بلند با Bone Meal در Dirt یا Grass Block تکثیر می‌شود و در دو بلاک قابل رشد است."
+  ],
+  "behavior": [
+    "چمن خشک بلند یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "چمن خشک بلند تنها با Silk Touch یا Shears قابل برداشت است."
+  ],
+  "trivia": [
+    "چمن خشک بلند در نسخه‌ی Java 1.21.6+ به بازی اضافه شد.",
+    "این بلاک در Desert, Badlands به‌وفور یافت می‌شود.",
+    "چمن خشک بلند دو-بلاکی ارتفاع دارد.",
+    "چمن خشک بلند با Bone Meal قابل تکثیر است.",
+    "چمن خشک بلند در رنگ قهوه‌ای-زرد-روشن شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21.6+",
+      "change": "چمن خشک بلند به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.21.70+",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار گیاه یکسان است.",
+    "در Java، بافت گیاه کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به قهوه‌ای-زرد-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    },
+    {
+      "id": "short-grass",
+      "nameEn": "Short Grass",
+      "nameFa": "چمن کوتاه",
+      "type": "block"
+    },
+    {
+      "id": "fern",
+      "nameEn": "Fern",
+      "nameFa": "سرخس",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "چمن خشک بلند را با Shears به‌عنوان بلاک برداشت کنید.",
+    "با Bone Meal چمن خشک بلند را در Dirt یا Grass Block تکثیر کنید.",
+    "چمن خشک بلند در تزئین بایوم خشک کاربرد دارد."
+  ],
+  "interactions": [
+    "چمن خشک بلند با Bone Meal در Dirt یا Grass Block تکثیر می‌شود.",
+    "چمن خشک بلند با Shears به‌عنوان بلاک قابل برداشت است.",
+    "چمن خشک بلند در برابر آتش می‌سوزد."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با چمن خشک بلند.",
+    "ساخت چمنزار طبیعی با چمن خشک بلند.",
+    "تزئین خانه‌های روستایی با چمن خشک بلند."
+  ],
+  "technical": [
+    "چمن خشک بلند شناسه‌ی minecraft:tall_dry_grass دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل تکثیر تعریف شده است."
+  ],
+  "farming": [
+    "برای تکثیر چمن خشک بلند، از Bone Meal در Dirt یا Grass Block استفاده کنید.",
+    "چمن خشک بلند در Desert, Badlands به‌وفور یافت می‌شود.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت استفاده کنید."
+  ]
+}

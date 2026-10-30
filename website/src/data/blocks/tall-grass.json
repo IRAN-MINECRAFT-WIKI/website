@@ -1,0 +1,128 @@
+{
+  "id": "tall-grass",
+  "nameEn": "Tall Grass",
+  "nameFa": "چمن بلند",
+  "category": "natural",
+  "icon": "tall-grass",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.6+",
+    "bedrock": "0.1+"
+  },
+  "description": "چمن بلند یک بلاک گیاهی دو-بلاکی سبز است که در Jungle یافت می‌شود.",
+  "uses": [
+    "تزئین باغچه و چمنزار",
+    "تغذیه Sheep",
+    "منبع Seed (با شکستن)"
+  ],
+  "locations": [
+    "Jungle",
+    "Dark Oak Forest",
+    "Swamp",
+    "Mangrove Swamp"
+  ],
+  "drops": [
+    {
+      "item": "wheat-seeds",
+      "count": "0-1",
+      "condition": "بدون شرط، با шанс ۱۲.۵٪"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Tall_Grass",
+  "intro": [
+    "چمن بلند (Tall Grass) یک بلاک گیاهی دو-بلاکی در ماینکرفت است که در نسخه‌ی Java Beta 1.6+ به بازی اضافه شد. این بلاک در بایوم‌های Jungle, Dark Oak Forest, Swamp به‌وفور یافت می‌شود.",
+    "سختی چمن بلند ۰ است و با هر ابزاری قابل شکستن است. این بلاک در رنگ سبز-روشن شناخته می‌شود. با Shears به‌عنوان بلاک قابل برداشت است.",
+    "چمن بلند با Bone Meal در Dirt یا Grass Block تکثیر می‌شود و در دو بلاک قابل رشد است."
+  ],
+  "behavior": [
+    "چمن بلند یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "چمن بلند با Shears به‌عنوان بلاک قابل برداشت است."
+  ],
+  "trivia": [
+    "چمن بلند در نسخه‌ی Java Beta 1.6+ به بازی اضافه شد.",
+    "این بلاک در Jungle, Dark Oak Forest به‌وفور یافت می‌شود.",
+    "چمن بلند دو-بلاکی ارتفاع دارد.",
+    "چمن بلند با Bone Meal قابل تکثیر است.",
+    "چمن بلند در رنگ سبز-روشن شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.6+",
+      "change": "چمن بلند به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 0.1+",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار گیاه یکسان است.",
+    "در Java، بافت گیاه کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سبز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    },
+    {
+      "id": "short-grass",
+      "nameEn": "Short Grass",
+      "nameFa": "چمن کوتاه",
+      "type": "block"
+    },
+    {
+      "id": "fern",
+      "nameEn": "Fern",
+      "nameFa": "سرخس",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "چمن بلند را با Shears به‌عنوان بلاک برداشت کنید.",
+    "با Bone Meal چمن بلند را در Dirt یا Grass Block تکثیر کنید.",
+    "چمن بلند با Sheep تعامل دارد و آن‌ها را تغذیه می‌کند."
+  ],
+  "interactions": [
+    "چمن بلند با Bone Meal در Dirt یا Grass Block تکثیر می‌شود.",
+    "چمن بلند با Shears به‌عنوان بلاک قابل برداشت است.",
+    "چمن بلند با Sheep تعامل دارد و آن‌ها را تغذیه می‌کند."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با چمن بلند.",
+    "ساخت چمنزار طبیعی با چمن بلند.",
+    "تزئین خانه‌های روستایی با چمن بلند."
+  ],
+  "technical": [
+    "چمن بلند شناسه‌ی minecraft:tall_grass دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل تکثیر تعریف شده است."
+  ],
+  "farming": [
+    "برای تکثیر چمن بلند، از Bone Meal در Dirt یا Grass Block استفاده کنید.",
+    "چمن بلند در Jungle, Dark Oak Forest به‌وفور یافت می‌شود.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت استفاده کنید."
+  ]
+}

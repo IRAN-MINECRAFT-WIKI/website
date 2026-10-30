@@ -1,0 +1,123 @@
+{
+  "id": "rose-bush",
+  "nameEn": "Rose Bush",
+  "nameFa": "بوته گل رز",
+  "category": "natural",
+  "icon": "rose-bush",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.7.2+",
+    "bedrock": "0.9.0+"
+  },
+  "description": "بوته گل رز یک گل دو-بلاکی قرمز-روشن است که در Forest و Flower Forest یافت می‌شود.",
+  "uses": [
+    "تزئین باغچه",
+    "ساخت Suspicious Stew (با Saturation)"
+  ],
+  "locations": [
+    "Forest",
+    "Flower Forest",
+    "Birch Forest",
+    "Dark Oak Forest"
+  ],
+  "drops": [
+    {
+      "item": "rose-bush",
+      "count": "1",
+      "condition": "بدون شرط"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Rose_Bush",
+  "intro": [
+    "بوته گل رز (Rose Bush) یک گل طبیعی دو-بلاکی در ماینکرفت است که در نسخه‌ی Java 1.7.2 (سپتامبر ۲۰۱۳) به بازی اضافه شد. این گل در بایوم Forest و Flower Forest به‌وفور یافت می‌شود و در رنگ‌آمیزی رنگ قرمز روشن کاربرد دارد.",
+    "سختی بوته گل رز ۰ است و با هر ابزاری قابل شکستن است. این گل دو بلاک ارتفاع دارد و در رنگ قرمز-روشن #FF0000 شناخته می‌شود.",
+    "بوته گل رز جایگزین Rose (گل رز قدیمی) شد و در تزئینات باغچه و ساخت Suspicious Stew (با اثر Saturation) کاربرد دارد."
+  ],
+  "behavior": [
+    "بوته گل رز یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این گل با هر ابزاری قابل شکستن است.",
+    "بوته گل رز با Bone Meal در Dirt یا Grass Block تکثیر می‌شود."
+  ],
+  "trivia": [
+    "بوته گل رز در نسخه‌ی Java 1.7.2 (۲۰۱۳) به بازی اضافه شد.",
+    "این گل در Forest و Flower Forest به‌وفور یافت می‌شود.",
+    "بوته گل رز دو بلاک ارتفاع دارد.",
+    "این گل جایگزین Rose (گل رز قدیمی) شد.",
+    "بوته گل رز در رنگ قرمز-روشن #FF0000 شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.7.2 (2013)",
+      "change": "بوته گل رز به بازی اضافه شد (جایگزین Rose)."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار بوته گل رز یکسان است.",
+    "در Java، بافت بوته گل رز کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به قرمز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "sunflower",
+      "nameEn": "Sunflower",
+      "nameFa": "گل آفتابگردان",
+      "type": "block"
+    },
+    {
+      "id": "lilac",
+      "nameEn": "Lilac",
+      "nameFa": "یاس",
+      "type": "block"
+    },
+    {
+      "id": "peony",
+      "nameEn": "Peony",
+      "nameFa": "پیونی",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "بوته گل رز را با Bone Meal در Dirt یا Grass Block تکثیر کنید.",
+    "از بوته گل رز در تزئینات باغچه استفاده کنید.",
+    "بوته گل رز در ساخت Suspicious Stew (با اثر Saturation) قابل استفاده است."
+  ],
+  "interactions": [
+    "بوته گل رز با Bone Meal در Dirt یا Grass Block تکثیر می‌شود.",
+    "این گل با رداستون تعامل خاصی ندارد.",
+    "بوته گل رز در برابر آتش می‌سوزد."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با بوته گل رز.",
+    "ساخت مزرع گل دو-بلاکی با بوته گل رز.",
+    "تزئین خانه‌های رمانتیک با بوته گل رز."
+  ],
+  "technical": [
+    "بوته گل رز شناسه‌ی minecraft:rose_bush دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و دو-بلاکی تعریف شده است."
+  ],
+  "farming": [
+    "برای تکثیر بوته گل رز، از Bone Meal در Dirt یا Grass Block استفاده کنید.",
+    "بوته گل رز در Forest و Flower Forest به‌وفور یافت می‌شود.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت استفاده کنید."
+  ]
+}

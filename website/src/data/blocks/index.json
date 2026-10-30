@@ -26,105 +26,105 @@
       "nameEn": "Spruce Planks",
       "nameFa": "تخته‌های نجوکا",
       "category": "building",
-      "icon": "oak-planks"
+      "icon": "px-spruce-planks"
     },
     {
       "id": "birch-planks",
       "nameEn": "Birch Planks",
       "nameFa": "تخته‌های توس",
       "category": "building",
-      "icon": "oak-planks"
+      "icon": "px-birch-planks"
     },
     {
       "id": "bricks",
       "nameEn": "Bricks",
       "nameFa": "آجر",
       "category": "building",
-      "icon": "brick"
+      "icon": "px-bricks"
     },
     {
       "id": "sandstone",
       "nameEn": "Sandstone",
       "nameFa": "ماسه‌سنگ",
       "category": "building",
-      "icon": "sand"
+      "icon": "px-sandstone"
     },
     {
       "id": "quartz-block",
       "nameEn": "Block of Quartz",
       "nameFa": "بلوک کوارتز",
       "category": "building",
-      "icon": "diamond-ore"
+      "icon": "px-quartz-block"
     },
     {
       "id": "stone-bricks",
       "nameEn": " Stone Bricks",
       "nameFa": "آجر سنگی",
       "category": "building",
-      "icon": "px-stone-block"
+      "icon": "px-stone-bricks"
     },
     {
       "id": "deepslate",
       "nameEn": "Deepslate",
       "nameFa": "سنگ تیره عمیق",
       "category": "building",
-      "icon": "px-stone-block"
+      "icon": "px-deepslate"
     },
     {
       "id": "deepslate-bricks",
       "nameEn": "Deepslate Bricks",
       "nameFa": "آجر دیپ‌اسلیت",
       "category": "building",
-      "icon": "px-stone-block"
+      "icon": "px-deepslate-bricks"
     },
     {
       "id": "nether-bricks",
       "nameEn": "Nether Bricks",
       "nameFa": "آجر نادر",
       "category": "building",
-      "icon": "brick"
+      "icon": "px-nether-bricks"
     },
     {
       "id": "blackstone",
       "nameEn": "Blackstone",
       "nameFa": "سنگ سیاه",
       "category": "building",
-      "icon": "obsidian"
+      "icon": "px-blackstone"
     },
     {
       "id": "basalt",
       "nameEn": "Basalt",
       "nameFa": "باسالت",
       "category": "building",
-      "icon": "obsidian"
+      "icon": "px-basalt"
     },
     {
       "id": "end-stone",
       "nameEn": "End Stone",
       "nameFa": "سنگ اند",
       "category": "building",
-      "icon": "sand"
+      "icon": "px-end-stone"
     },
     {
       "id": "terracotta",
       "nameEn": "Terracotta",
       "nameFa": "تراکوتا",
       "category": "building",
-      "icon": "diamond-ore"
+      "icon": "px-terracotta"
     },
     {
       "id": "concrete",
       "nameEn": "Concrete",
       "nameFa": "بتن",
       "category": "building",
-      "icon": "cobblestone"
+      "icon": "px-concrete"
     },
     {
       "id": "glass",
       "nameEn": "Glass",
       "nameFa": "شیشه",
       "category": "building",
-      "icon": "ice"
+      "icon": "px-glass"
     },
     {
       "id": "obsidian",
@@ -159,7 +159,7 @@
       "nameEn": "Coarse Dirt",
       "nameFa": "خاک زبر",
       "category": "natural",
-      "icon": "dirt"
+      "icon": "px-coarse-dirt"
     },
     {
       "id": "sand",
@@ -173,7 +173,7 @@
       "nameEn": "Red Sand",
       "nameFa": "ماسه قرمز",
       "category": "natural",
-      "icon": "sand"
+      "icon": "px-red-sand"
     },
     {
       "id": "gravel",
@@ -187,14 +187,14 @@
       "nameEn": "Clay",
       "nameFa": "گل",
       "category": "natural",
-      "icon": "cobblestone"
+      "icon": "px-clay"
     },
     {
       "id": "snow-block",
       "nameEn": "Snow Block",
       "nameFa": "بلوک برف",
       "category": "natural",
-      "icon": "ice"
+      "icon": "px-snow-block"
     },
     {
       "id": "ice",
@@ -208,21 +208,21 @@
       "nameEn": "Packed Ice",
       "nameFa": "یخ فشرده",
       "category": "natural",
-      "icon": "ice"
+      "icon": "px-packed-ice"
     },
     {
       "id": "water",
       "nameEn": "Water",
       "nameFa": "آب",
       "category": "natural",
-      "icon": "px-water-bucket"
+      "icon": "px-water"
     },
     {
       "id": "lava",
       "nameEn": "Lava",
       "nameFa": "لاوا",
       "category": "natural",
-      "icon": "px-water-bucket"
+      "icon": "px-lava"
     },
     {
       "id": "bedrock",
@@ -243,14 +243,14 @@
       "nameEn": "Spruce Log",
       "nameFa": "تنه‌ی نجوکا",
       "category": "natural",
-      "icon": "oak-log"
+      "icon": "px-spruce-log"
     },
     {
       "id": "birch-log",
       "nameEn": "Birch Log",
       "nameFa": "تنه‌ی توس",
       "category": "natural",
-      "icon": "oak-log"
+      "icon": "px-birch-log"
     },
     {
       "id": "oak-leaves",
@@ -320,7 +320,7 @@
       "nameEn": "Lapis Lazuli Ore",
       "nameFa": "سنگ معدن لاجورد",
       "category": "ore",
-      "icon": "lapis-lazuli-ore"
+      "icon": "px-lapis-ore"
     },
     {
       "id": "redstone-ore",
@@ -334,98 +334,98 @@
       "nameEn": "Copper Ore",
       "nameFa": "سنگ مس",
       "category": "ore",
-      "icon": "iron-ore"
+      "icon": "px-copper-ore"
     },
     {
       "id": "nether-quartz-ore",
       "nameEn": "Nether Quartz Ore",
       "nameFa": "سنگ معدن کوارتز ندر",
       "category": "ore",
-      "icon": "diamond-ore"
+      "icon": "px-nether-quartz-ore"
     },
     {
       "id": "nether-gold-ore",
       "nameEn": "Nether Gold Ore",
       "nameFa": "سنگ معدن طلا‌ی ندر",
       "category": "ore",
-      "icon": "gold-ore"
+      "icon": "px-nether-gold-ore"
     },
     {
       "id": "ancient-debris",
       "nameEn": "Ancient Debris",
       "nameFa": "خرده‌سنگ باستانی",
       "category": "ore",
-      "icon": "iron-ore"
+      "icon": "px-ancient-debris"
     },
     {
       "id": "deepslate-coal-ore",
       "nameEn": "Deepslate Coal Ore",
       "nameFa": "سنگ معدن زغالِ عمیق",
       "category": "ore",
-      "icon": "coal-ore"
+      "icon": "px-deepslate-coal-ore"
     },
     {
       "id": "deepslate-iron-ore",
       "nameEn": "Deepslate Iron Ore",
       "nameFa": "سنگ معدن آهنِ عمیق",
       "category": "ore",
-      "icon": "iron-ore"
+      "icon": "px-deepslate-iron-ore"
     },
     {
       "id": "deepslate-gold-ore",
       "nameEn": "Deepslate Gold Ore",
       "nameFa": "سنگ معدن طلا‌ی عمیق",
       "category": "ore",
-      "icon": "gold-ore"
+      "icon": "px-deepslate-gold-ore"
     },
     {
       "id": "deepslate-diamond-ore",
       "nameEn": "Deepslate Diamond Ore",
       "nameFa": "سنگ معدن دایمندِ عمیق",
       "category": "ore",
-      "icon": "diamond-ore"
+      "icon": "px-deepslate-diamond-ore"
     },
     {
       "id": "deepslate-emerald-ore",
       "nameEn": "Deepslate Emerald Ore",
       "nameFa": "سنگ معدن امرالدِ عمیق",
       "category": "ore",
-      "icon": "emerald-ore"
+      "icon": "px-deepslate-emerald-ore"
     },
     {
       "id": "deepslate-redstone-ore",
       "nameEn": "Deepslate Redstone Ore",
       "nameFa": "سنگ معدن رداستونِ عمیق",
       "category": "ore",
-      "icon": "redstone-ore"
+      "icon": "px-deepslate-redstone-ore"
     },
     {
       "id": "glass-pane",
       "nameEn": "Glass Pane",
       "nameFa": "قاب شیشه",
       "category": "decoration",
-      "icon": "ice"
+      "icon": "px-glass-pane"
     },
     {
       "id": "bookshelf",
       "nameEn": "Bookshelf",
       "nameFa": "کتابخانه",
       "category": "decoration",
-      "icon": "px-crafting-table"
+      "icon": "px-bookshelf"
     },
     {
       "id": "lantern",
       "nameEn": "Lantern",
       "nameFa": "فانوس",
       "category": "decoration",
-      "icon": "px-torch"
+      "icon": "px-lantern"
     },
     {
       "id": "soul-lantern",
       "nameEn": "Soul Lantern",
       "nameFa": "فانوس روح",
       "category": "decoration",
-      "icon": "px-torch"
+      "icon": "px-soul-lantern"
     },
     {
       "id": "torch",
@@ -439,56 +439,56 @@
       "nameEn": "Painting",
       "nameFa": "نقاشی",
       "category": "decoration",
-      "icon": "px-crafting-table"
+      "icon": "px-painting"
     },
     {
       "id": "item-frame",
       "nameEn": "Item Frame",
       "nameFa": "قاب آیتم",
       "category": "decoration",
-      "icon": "px-stick"
+      "icon": "px-item-frame"
     },
     {
       "id": "flower-pot",
       "nameEn": "Flower Pot",
       "nameFa": "گل‌دان",
       "category": "decoration",
-      "icon": "px-bone"
+      "icon": "px-flower-pot"
     },
     {
       "id": "carpet",
       "nameEn": "Carpet",
       "nameFa": "فرش",
       "category": "decoration",
-      "icon": "px-stick"
+      "icon": "px-carpet"
     },
     {
       "id": "banner",
       "nameEn": "Banner",
       "nameFa": "پرچم",
       "category": "decoration",
-      "icon": "px-stick"
+      "icon": "px-banner"
     },
     {
       "id": "bed",
       "nameEn": "Bed",
       "nameFa": "تختی‌خواب",
       "category": "decoration",
-      "icon": "px-bread"
+      "icon": "px-bed"
     },
     {
       "id": "sea-lantern",
       "nameEn": "Sea Lantern",
       "nameFa": "فانوس دریایی",
       "category": "decoration",
-      "icon": "glowstone"
+      "icon": "px-sea-lantern"
     },
     {
       "id": "cake",
       "nameEn": "Cake",
       "nameFa": "کیک",
       "category": "decoration",
-      "icon": "px-bread"
+      "icon": "px-cake"
     },
     {
       "id": "pumpkin",
@@ -502,196 +502,196 @@
       "nameEn": "Jack o'Lantern",
       "nameFa": "جک لانتورن",
       "category": "decoration",
-      "icon": "px-pumpkin"
+      "icon": "px-jack-o-lantern"
     },
     {
       "id": "redstone-block",
       "nameEn": "Block of Redstone",
       "nameFa": "بلوک رداستون",
       "category": "redstone",
-      "icon": "tnt"
+      "icon": "px-redstone-block"
     },
     {
       "id": "redstone-wire",
       "nameEn": "Redstone Wire",
       "nameFa": "سیم رداستون",
       "category": "redstone",
-      "icon": "tnt"
+      "icon": "px-redstone-wire"
     },
     {
       "id": "piston",
       "nameEn": "Piston",
       "nameFa": "پیستون",
       "category": "redstone",
-      "icon": "cobblestone"
+      "icon": "px-piston"
     },
     {
       "id": "sticky-piston",
       "nameEn": "Sticky Piston",
       "nameFa": "پیستون چسبناک",
       "category": "redstone",
-      "icon": "cobblestone"
+      "icon": "px-sticky-piston"
     },
     {
       "id": "dispenser",
       "nameEn": "Dispenser",
       "nameFa": "توزیع‌کننده",
       "category": "redstone",
-      "icon": "px-furnace"
+      "icon": "px-dispenser"
     },
     {
       "id": "observer",
       "nameEn": "Observer",
       "nameFa": "ناظر",
       "category": "redstone",
-      "icon": "px-furnace"
+      "icon": "px-observer"
     },
     {
       "id": "repeater",
       "nameEn": "Redstone Repeater",
       "nameFa": "تکرارکننده‌ی رداستون",
       "category": "redstone",
-      "icon": "px-stone-block"
+      "icon": "px-repeater"
     },
     {
       "id": "comparator",
       "nameEn": "Redstone Comparator",
       "nameFa": "مقایسه‌کننده‌ی رداستون",
       "category": "redstone",
-      "icon": "px-stone-block"
+      "icon": "px-comparator"
     },
     {
       "id": "lever",
       "nameEn": "Lever",
       "nameFa": "اهرم",
       "category": "redstone",
-      "icon": "px-stick"
+      "icon": "px-lever"
     },
     {
       "id": "button",
       "nameEn": "Button",
       "nameFa": "دکمه",
       "category": "redstone",
-      "icon": "px-stone-block"
+      "icon": "px-button"
     },
     {
       "id": "pressure-plate",
       "nameEn": "Pressure Plate",
       "nameFa": "صفحه‌ی فشار",
       "category": "redstone",
-      "icon": "px-stone-block"
+      "icon": "px-pressure-plate"
     },
     {
       "id": "note-block",
       "nameEn": "Note Block",
       "nameFa": "بلوک نت",
       "category": "redstone",
-      "icon": "px-crafting-table"
+      "icon": "px-note-block"
     },
     {
       "id": "daylight-detector",
       "nameEn": "Daylight Detector",
       "nameFa": "تشخیص‌دهنده‌ی نور",
       "category": "redstone",
-      "icon": "px-stone-block"
+      "icon": "px-daylight-detector"
     },
     {
       "id": "tripwire-hook",
       "nameEn": "Tripwire Hook",
       "nameFa": "قلاب سیم",
       "category": "redstone",
-      "icon": "px-stick"
+      "icon": "px-tripwire-hook"
     },
     {
       "id": "redstone-lamp",
       "nameEn": "Redstone Lamp",
       "nameFa": "لامپ رداستون",
       "category": "redstone",
-      "icon": "glowstone"
+      "icon": "px-redstone-lamp"
     },
     {
       "id": "hopper",
       "nameEn": "Hopper",
       "nameFa": "قیف",
       "category": "mechanism",
-      "icon": "px-furnace"
+      "icon": "px-hopper"
     },
     {
       "id": "dropper",
       "nameEn": "Dropper",
       "nameFa": "دراپر",
       "category": "mechanism",
-      "icon": "px-furnace"
+      "icon": "px-dropper"
     },
     {
       "id": "blast-furnace",
       "nameEn": "Blast Furnace",
       "nameFa": "کوره‌ی انفجاری",
       "category": "mechanism",
-      "icon": "px-furnace"
+      "icon": "px-blast-furnace"
     },
     {
       "id": "smoker",
       "nameEn": "Smoker",
       "nameFa": "دودکش",
       "category": "mechanism",
-      "icon": "px-furnace"
+      "icon": "px-smoker"
     },
     {
       "id": "brewing-stand",
       "nameEn": "Brewing Stand",
       "nameFa": "میز جوشان",
       "category": "mechanism",
-      "icon": "px-furnace"
+      "icon": "px-brewing-stand"
     },
     {
       "id": "cauldron",
       "nameEn": "Cauldron",
       "nameFa": "دیگ",
       "category": "mechanism",
-      "icon": "px-furnace"
+      "icon": "px-cauldron"
     },
     {
       "id": "enchanting-table",
       "nameEn": "Enchanting Table",
       "nameFa": "میز جادو",
       "category": "mechanism",
-      "icon": "px-crafting-table"
+      "icon": "px-enchanting-table"
     },
     {
       "id": "anvil",
       "nameEn": "Anvil",
       "nameFa": "آهن‌روس",
       "category": "mechanism",
-      "icon": "px-iron-ingot"
+      "icon": "px-anvil"
     },
     {
       "id": "grindstone",
       "nameEn": "Grindstone",
       "nameFa": "سنگ‌ساب",
       "category": "mechanism",
-      "icon": "px-furnace"
+      "icon": "px-grindstone"
     },
     {
       "id": "stonecutter",
       "nameEn": "Stonecutter",
       "nameFa": "سنگ‌بُر",
       "category": "mechanism",
-      "icon": "px-furnace"
+      "icon": "px-stonecutter"
     },
     {
       "id": "crafting-table",
       "nameEn": "Crafting Table",
       "nameFa": "میز کرافت",
       "category": "utility",
-      "icon": "crafting-table-top"
+      "icon": "px-crafting-table"
     },
     {
       "id": "furnace",
       "nameEn": "Furnace",
       "nameFa": "کوره",
       "category": "utility",
-      "icon": "furnace-side"
+      "icon": "px-furnace"
     },
     {
       "id": "chest",
@@ -705,84 +705,84 @@
       "nameEn": "Ender Chest",
       "nameFa": "صندوق اندر",
       "category": "utility",
-      "icon": "chest"
+      "icon": "px-ender-chest"
     },
     {
       "id": "trapped-chest",
       "nameEn": "Trapped Chest",
       "nameFa": "صندوق تله",
       "category": "utility",
-      "icon": "chest"
+      "icon": "px-trapped-chest"
     },
     {
       "id": "barrel",
       "nameEn": "Barrel",
       "nameFa": "بشکه",
       "category": "utility",
-      "icon": "px-furnace"
+      "icon": "px-barrel"
     },
     {
       "id": "shulker-box",
       "nameEn": "Shulker Box",
       "nameFa": "جعبه‌ی شالکر",
       "category": "utility",
-      "icon": "chest"
+      "icon": "px-shulker-box"
     },
     {
       "id": "beacon",
       "nameEn": "Beacon",
       "nameFa": "فانوس دریایی",
       "category": "utility",
-      "icon": "diamond-ore"
+      "icon": "px-beacon"
     },
     {
       "id": "conduit",
       "nameEn": "Conduit",
       "nameFa": "کاندویت",
       "category": "utility",
-      "icon": "diamond-ore"
+      "icon": "px-conduit"
     },
     {
       "id": "loom",
       "nameEn": "Loom",
       "nameFa": "میز نساجی",
       "category": "utility",
-      "icon": "px-crafting-table"
+      "icon": "px-loom"
     },
     {
       "id": "cartography-table",
       "nameEn": "Cartography Table",
       "nameFa": "میز نقشه‌کش",
       "category": "utility",
-      "icon": "px-crafting-table"
+      "icon": "px-cartography-table"
     },
     {
       "id": "fletching-table",
       "nameEn": "Fletching Table",
       "nameFa": "میز تیرساز",
       "category": "utility",
-      "icon": "px-crafting-table"
+      "icon": "px-fletching-table"
     },
     {
       "id": "smithing-table",
       "nameEn": "Smithing Table",
       "nameFa": "میز آهنگری",
       "category": "utility",
-      "icon": "px-crafting-table"
+      "icon": "px-smithing-table"
     },
     {
       "id": "jukebox",
       "nameEn": "Jukebox",
       "nameFa": "گرامافون",
       "category": "utility",
-      "icon": "px-crafting-table"
+      "icon": "px-jukebox"
     },
     {
       "id": "respawn-anchor",
       "nameEn": "Respawn Anchor",
       "nameFa": "لنگر اسپاون",
       "category": "utility",
-      "icon": "glowstone"
+      "icon": "px-respawn-anchor"
     },
     {
       "id": "activator-rail",
@@ -1560,6 +1560,5221 @@
       "nameFa": "بلوک مرز",
       "category": "utility",
       "icon": "border-block"
+    },
+    {
+      "id": "acacia-button",
+      "nameEn": "Acacia Button",
+      "nameFa": "اقاقیا دکمه",
+      "category": "other",
+      "icon": "px-acacia-button"
+    },
+    {
+      "id": "acacia-door",
+      "nameEn": "Acacia Door",
+      "nameFa": "اقاقیا در",
+      "category": "other",
+      "icon": "px-acacia-door"
+    },
+    {
+      "id": "acacia-fence",
+      "nameEn": "Acacia Fence",
+      "nameFa": "اقاقیا حصار",
+      "category": "other",
+      "icon": "px-acacia-fence"
+    },
+    {
+      "id": "acacia-fence-gate",
+      "nameEn": "Acacia Fence Gate",
+      "nameFa": "اقاقیا حصار gate",
+      "category": "other",
+      "icon": "px-acacia-fence-gate"
+    },
+    {
+      "id": "acacia-leaves",
+      "nameEn": "Acacia Leaves",
+      "nameFa": "اقاقیا برگ",
+      "category": "other",
+      "icon": "px-acacia-leaves"
+    },
+    {
+      "id": "acacia-log",
+      "nameEn": "Acacia Log",
+      "nameFa": "اقاقیا تنه",
+      "category": "other",
+      "icon": "px-acacia-log"
+    },
+    {
+      "id": "acacia-planks",
+      "nameEn": "Acacia Planks",
+      "nameFa": "اقاقیا تخته",
+      "category": "other",
+      "icon": "px-acacia-planks"
+    },
+    {
+      "id": "acacia-pressure-plate",
+      "nameEn": "Acacia Pressure Plate",
+      "nameFa": "اقاقیا pressure plate",
+      "category": "other",
+      "icon": "px-acacia-pressure-plate"
+    },
+    {
+      "id": "acacia-sapling",
+      "nameEn": "Acacia Sapling",
+      "nameFa": "نهال اقاقیا",
+      "category": "natural",
+      "icon": "acacia-sapling"
+    },
+    {
+      "id": "acacia-slab",
+      "nameEn": "Acacia Slab",
+      "nameFa": "اقاقیا اسلب",
+      "category": "other",
+      "icon": "px-acacia-slab"
+    },
+    {
+      "id": "acacia-stairs",
+      "nameEn": "Acacia Stairs",
+      "nameFa": "اقاقیا پله",
+      "category": "other",
+      "icon": "px-acacia-stairs"
+    },
+    {
+      "id": "acacia-trapdoor",
+      "nameEn": "Acacia Trapdoor",
+      "nameFa": "اقاقیا تله‌در",
+      "category": "other",
+      "icon": "px-acacia-trapdoor"
+    },
+    {
+      "id": "acacia-wood",
+      "nameEn": "Acacia Wood",
+      "nameFa": "اقاقیا چوب",
+      "category": "other",
+      "icon": "px-acacia-wood"
+    },
+    {
+      "id": "amethyst-block",
+      "nameEn": "Block of Amethyst",
+      "nameFa": "بلوک آمتیست",
+      "category": "building",
+      "icon": "amethyst-block"
+    },
+    {
+      "id": "andesite",
+      "nameEn": "Andesite",
+      "nameFa": "andesite",
+      "category": "other",
+      "icon": "px-andesite"
+    },
+    {
+      "id": "andesite-slab",
+      "nameEn": "Andesite Slab",
+      "nameFa": "andesite اسلب",
+      "category": "other",
+      "icon": "px-andesite-slab"
+    },
+    {
+      "id": "andesite-stairs",
+      "nameEn": "Andesite Stairs",
+      "nameFa": "andesite پله",
+      "category": "other",
+      "icon": "px-andesite-stairs"
+    },
+    {
+      "id": "andesite-wall",
+      "nameEn": "Andesite Wall",
+      "nameFa": "andesite دیوار",
+      "category": "other",
+      "icon": "px-andesite-wall"
+    },
+    {
+      "id": "azalea",
+      "nameEn": "Azalea",
+      "nameFa": "azalea",
+      "category": "other",
+      "icon": "px-azalea"
+    },
+    {
+      "id": "azalea-leaves",
+      "nameEn": "Azalea Leaves",
+      "nameFa": "azalea برگ",
+      "category": "other",
+      "icon": "px-azalea-leaves"
+    },
+    {
+      "id": "bamboo-block",
+      "nameEn": "Block of Bamboo",
+      "nameFa": "بلوک بامبو",
+      "category": "building",
+      "icon": "bamboo-block"
+    },
+    {
+      "id": "bamboo-button",
+      "nameEn": "Bamboo Button",
+      "nameFa": "بامبو دکمه",
+      "category": "other",
+      "icon": "px-bamboo-button"
+    },
+    {
+      "id": "bamboo-door",
+      "nameEn": "Bamboo Door",
+      "nameFa": "بامبو در",
+      "category": "other",
+      "icon": "px-bamboo-door"
+    },
+    {
+      "id": "bamboo-fence",
+      "nameEn": "Bamboo Fence",
+      "nameFa": "بامبو حصار",
+      "category": "other",
+      "icon": "px-bamboo-fence"
+    },
+    {
+      "id": "bamboo-fence-gate",
+      "nameEn": "Bamboo Fence Gate",
+      "nameFa": "بامبو حصار gate",
+      "category": "other",
+      "icon": "px-bamboo-fence-gate"
+    },
+    {
+      "id": "bamboo-mosaic",
+      "nameEn": "Bamboo Mosaic",
+      "nameFa": "بامبو mosaic",
+      "category": "other",
+      "icon": "px-bamboo-mosaic"
+    },
+    {
+      "id": "bamboo-mosaic-slab",
+      "nameEn": "Bamboo Mosaic Slab",
+      "nameFa": "بامبو mosaic اسلب",
+      "category": "other",
+      "icon": "px-bamboo-mosaic-slab"
+    },
+    {
+      "id": "bamboo-mosaic-stairs",
+      "nameEn": "Bamboo Mosaic Stairs",
+      "nameFa": "بامبو mosaic پله",
+      "category": "other",
+      "icon": "px-bamboo-mosaic-stairs"
+    },
+    {
+      "id": "bamboo-planks",
+      "nameEn": "Bamboo Planks",
+      "nameFa": "بامبو تخته",
+      "category": "other",
+      "icon": "px-bamboo-planks"
+    },
+    {
+      "id": "bamboo-pressure-plate",
+      "nameEn": "Bamboo Pressure Plate",
+      "nameFa": "بامبو pressure plate",
+      "category": "other",
+      "icon": "px-bamboo-pressure-plate"
+    },
+    {
+      "id": "bamboo-slab",
+      "nameEn": "Bamboo Slab",
+      "nameFa": "بامبو اسلب",
+      "category": "other",
+      "icon": "px-bamboo-slab"
+    },
+    {
+      "id": "bamboo-stairs",
+      "nameEn": "Bamboo Stairs",
+      "nameFa": "بامبو پله",
+      "category": "other",
+      "icon": "px-bamboo-stairs"
+    },
+    {
+      "id": "bamboo-trapdoor",
+      "nameEn": "Bamboo Trapdoor",
+      "nameFa": "بامبو تله‌در",
+      "category": "other",
+      "icon": "px-bamboo-trapdoor"
+    },
+    {
+      "id": "barrier",
+      "nameEn": "Barrier",
+      "nameFa": "barrier",
+      "category": "other",
+      "icon": "px-barrier"
+    },
+    {
+      "id": "bee-nest",
+      "nameEn": "Bee Nest",
+      "nameFa": "bee nest",
+      "category": "other",
+      "icon": "px-bee-nest"
+    },
+    {
+      "id": "beehive",
+      "nameEn": "Beehive",
+      "nameFa": "beehive",
+      "category": "other",
+      "icon": "px-beehive"
+    },
+    {
+      "id": "bell",
+      "nameEn": "Bell",
+      "nameFa": "bell",
+      "category": "other",
+      "icon": "px-bell"
+    },
+    {
+      "id": "birch-button",
+      "nameEn": "Birch Button",
+      "nameFa": "توس دکمه",
+      "category": "other",
+      "icon": "px-birch-button"
+    },
+    {
+      "id": "birch-door",
+      "nameEn": "Birch Door",
+      "nameFa": "توس در",
+      "category": "other",
+      "icon": "px-birch-door"
+    },
+    {
+      "id": "birch-fence",
+      "nameEn": "Birch Fence",
+      "nameFa": "توس حصار",
+      "category": "other",
+      "icon": "px-birch-fence"
+    },
+    {
+      "id": "birch-fence-gate",
+      "nameEn": "Birch Fence Gate",
+      "nameFa": "توس حصار gate",
+      "category": "other",
+      "icon": "px-birch-fence-gate"
+    },
+    {
+      "id": "birch-leaves",
+      "nameEn": "Birch Leaves",
+      "nameFa": "توس برگ",
+      "category": "other",
+      "icon": "px-birch-leaves"
+    },
+    {
+      "id": "birch-pressure-plate",
+      "nameEn": "Birch Pressure Plate",
+      "nameFa": "توس pressure plate",
+      "category": "other",
+      "icon": "px-birch-pressure-plate"
+    },
+    {
+      "id": "birch-sapling",
+      "nameEn": "Birch Sapling",
+      "nameFa": "نهال توس",
+      "category": "natural",
+      "icon": "birch-sapling"
+    },
+    {
+      "id": "birch-slab",
+      "nameEn": "Birch Slab",
+      "nameFa": "توس اسلب",
+      "category": "other",
+      "icon": "px-birch-slab"
+    },
+    {
+      "id": "birch-stairs",
+      "nameEn": "Birch Stairs",
+      "nameFa": "توس پله",
+      "category": "other",
+      "icon": "px-birch-stairs"
+    },
+    {
+      "id": "birch-trapdoor",
+      "nameEn": "Birch Trapdoor",
+      "nameFa": "توس تله‌در",
+      "category": "other",
+      "icon": "px-birch-trapdoor"
+    },
+    {
+      "id": "birch-wood",
+      "nameEn": "Birch Wood",
+      "nameFa": "توس چوب",
+      "category": "other",
+      "icon": "px-birch-wood"
+    },
+    {
+      "id": "black-banner",
+      "nameEn": "Black Banner",
+      "nameFa": "black بیرق",
+      "category": "other",
+      "icon": "px-black-banner"
+    },
+    {
+      "id": "black-bed",
+      "nameEn": "Black Bed",
+      "nameFa": "black تختاب",
+      "category": "other",
+      "icon": "px-black-bed"
+    },
+    {
+      "id": "black-carpet",
+      "nameEn": "Black Carpet",
+      "nameFa": "black فرش",
+      "category": "other",
+      "icon": "px-black-carpet"
+    },
+    {
+      "id": "black-concrete",
+      "nameEn": "Black Concrete",
+      "nameFa": "black بتن",
+      "category": "other",
+      "icon": "px-black-concrete"
+    },
+    {
+      "id": "black-concrete-powder",
+      "nameEn": "Black Concrete Powder",
+      "nameFa": "black بتن powder",
+      "category": "other",
+      "icon": "px-black-concrete-powder"
+    },
+    {
+      "id": "black-glazed-terracotta",
+      "nameEn": "Black Glazed Terracotta",
+      "nameFa": "black رنگی سفال",
+      "category": "other",
+      "icon": "px-black-glazed-terracotta"
+    },
+    {
+      "id": "black-shulker-box",
+      "nameEn": "Black Shulker Box",
+      "nameFa": "مشکی شالکر Box",
+      "category": "other",
+      "icon": "px-black-shulker-box"
+    },
+    {
+      "id": "black-stained-glass",
+      "nameEn": "Black Stained Glass",
+      "nameFa": "مشکی رنگی شیشه",
+      "category": "other",
+      "icon": "px-black-stained-glass"
+    },
+    {
+      "id": "black-stained-glass-pane",
+      "nameEn": "Black Stained Glass Pane",
+      "nameFa": "مشکی رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-black-stained-glass-pane"
+    },
+    {
+      "id": "black-terracotta",
+      "nameEn": "Black Terracotta",
+      "nameFa": "مشکی سفال",
+      "category": "other",
+      "icon": "px-black-terracotta"
+    },
+    {
+      "id": "black-wool",
+      "nameEn": "Black Wool",
+      "nameFa": "مشکی پشم",
+      "category": "other",
+      "icon": "px-black-wool"
+    },
+    {
+      "id": "blackstone-slab",
+      "nameEn": "Blackstone Slab",
+      "nameFa": "سنگ سیاه اسلب",
+      "category": "other",
+      "icon": "px-blackstone-slab"
+    },
+    {
+      "id": "blackstone-stairs",
+      "nameEn": "Blackstone Stairs",
+      "nameFa": "سنگ سیاه پله",
+      "category": "other",
+      "icon": "px-blackstone-stairs"
+    },
+    {
+      "id": "blackstone-wall",
+      "nameEn": "Blackstone Wall",
+      "nameFa": "سنگ سیاه دیوار",
+      "category": "other",
+      "icon": "px-blackstone-wall"
+    },
+    {
+      "id": "blue-banner",
+      "nameEn": "Blue Banner",
+      "nameFa": "آبی بیرق",
+      "category": "other",
+      "icon": "px-blue-banner"
+    },
+    {
+      "id": "blue-bed",
+      "nameEn": "Blue Bed",
+      "nameFa": "آبی تختاب",
+      "category": "other",
+      "icon": "px-blue-bed"
+    },
+    {
+      "id": "blue-carpet",
+      "nameEn": "Blue Carpet",
+      "nameFa": "آبی فرش",
+      "category": "other",
+      "icon": "px-blue-carpet"
+    },
+    {
+      "id": "blue-concrete",
+      "nameEn": "Blue Concrete",
+      "nameFa": "آبی بتن",
+      "category": "other",
+      "icon": "px-blue-concrete"
+    },
+    {
+      "id": "blue-concrete-powder",
+      "nameEn": "Blue Concrete Powder",
+      "nameFa": "آبی بتن Powder",
+      "category": "other",
+      "icon": "px-blue-concrete-powder"
+    },
+    {
+      "id": "blue-glazed-terracotta",
+      "nameEn": "Blue Glazed Terracotta",
+      "nameFa": "آبی رنگی سفال",
+      "category": "other",
+      "icon": "px-blue-glazed-terracotta"
+    },
+    {
+      "id": "blue-ice",
+      "nameEn": "Blue Ice",
+      "nameFa": "آبی یخ",
+      "category": "other",
+      "icon": "px-blue-ice"
+    },
+    {
+      "id": "blue-shulker-box",
+      "nameEn": "Blue Shulker Box",
+      "nameFa": "آبی شالکر Box",
+      "category": "other",
+      "icon": "px-blue-shulker-box"
+    },
+    {
+      "id": "blue-stained-glass",
+      "nameEn": "Blue Stained Glass",
+      "nameFa": "آبی رنگی شیشه",
+      "category": "other",
+      "icon": "px-blue-stained-glass"
+    },
+    {
+      "id": "blue-stained-glass-pane",
+      "nameEn": "Blue Stained Glass Pane",
+      "nameFa": "آبی رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-blue-stained-glass-pane"
+    },
+    {
+      "id": "blue-terracotta",
+      "nameEn": "Blue Terracotta",
+      "nameFa": "آبی سفال",
+      "category": "other",
+      "icon": "px-blue-terracotta"
+    },
+    {
+      "id": "blue-wool",
+      "nameEn": "Blue Wool",
+      "nameFa": "آبی پشم",
+      "category": "other",
+      "icon": "px-blue-wool"
+    },
+    {
+      "id": "bone-block",
+      "nameEn": "Bone Block",
+      "nameFa": "استخوان بلوک",
+      "category": "other",
+      "icon": "px-bone-block"
+    },
+    {
+      "id": "brain-coral-block",
+      "nameEn": "Brain Coral Block",
+      "nameFa": "Brain مرجان بلوک",
+      "category": "other",
+      "icon": "px-brain-coral-block"
+    },
+    {
+      "id": "brick-slab",
+      "nameEn": "Brick Slab",
+      "nameFa": "Brick اسلب",
+      "category": "other",
+      "icon": "px-brick-slab"
+    },
+    {
+      "id": "brick-stairs",
+      "nameEn": "Brick Stairs",
+      "nameFa": "Brick پله",
+      "category": "other",
+      "icon": "px-brick-stairs"
+    },
+    {
+      "id": "brick-wall",
+      "nameEn": "Brick Wall",
+      "nameFa": "Brick دیوار",
+      "category": "other",
+      "icon": "px-brick-wall"
+    },
+    {
+      "id": "brown-banner",
+      "nameEn": "Brown Banner",
+      "nameFa": "قهوه‌ای بیرق",
+      "category": "other",
+      "icon": "px-brown-banner"
+    },
+    {
+      "id": "brown-bed",
+      "nameEn": "Brown Bed",
+      "nameFa": "قهوه‌ای تختاب",
+      "category": "other",
+      "icon": "px-brown-bed"
+    },
+    {
+      "id": "brown-carpet",
+      "nameEn": "Brown Carpet",
+      "nameFa": "قهوه‌ای فرش",
+      "category": "other",
+      "icon": "px-brown-carpet"
+    },
+    {
+      "id": "brown-concrete",
+      "nameEn": "Brown Concrete",
+      "nameFa": "قهوه‌ای بتن",
+      "category": "other",
+      "icon": "px-brown-concrete"
+    },
+    {
+      "id": "brown-concrete-powder",
+      "nameEn": "Brown Concrete Powder",
+      "nameFa": "قهوه‌ای بتن Powder",
+      "category": "other",
+      "icon": "px-brown-concrete-powder"
+    },
+    {
+      "id": "brown-glazed-terracotta",
+      "nameEn": "Brown Glazed Terracotta",
+      "nameFa": "قهوه‌ای رنگی سفال",
+      "category": "other",
+      "icon": "px-brown-glazed-terracotta"
+    },
+    {
+      "id": "brown-mushroom-block",
+      "nameEn": "Brown Mushroom Block",
+      "nameFa": "قهوه‌ای Mushroom بلوک",
+      "category": "other",
+      "icon": "px-brown-mushroom-block"
+    },
+    {
+      "id": "brown-shulker-box",
+      "nameEn": "Brown Shulker Box",
+      "nameFa": "قهوه‌ای شالکر Box",
+      "category": "other",
+      "icon": "px-brown-shulker-box"
+    },
+    {
+      "id": "brown-stained-glass",
+      "nameEn": "Brown Stained Glass",
+      "nameFa": "قهوه‌ای رنگی شیشه",
+      "category": "other",
+      "icon": "px-brown-stained-glass"
+    },
+    {
+      "id": "brown-stained-glass-pane",
+      "nameEn": "Brown Stained Glass Pane",
+      "nameFa": "قهوه‌ای رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-brown-stained-glass-pane"
+    },
+    {
+      "id": "brown-terracotta",
+      "nameEn": "Brown Terracotta",
+      "nameFa": "قهوه‌ای سفال",
+      "category": "other",
+      "icon": "px-brown-terracotta"
+    },
+    {
+      "id": "brown-wool",
+      "nameEn": "Brown Wool",
+      "nameFa": "قهوه‌ای پشم",
+      "category": "other",
+      "icon": "px-brown-wool"
+    },
+    {
+      "id": "bubble-column",
+      "nameEn": "Bubble Column",
+      "nameFa": "ستون حباب",
+      "category": "natural",
+      "icon": "bubble-column"
+    },
+    {
+      "id": "bubble-coral-block",
+      "nameEn": "Bubble Coral Block",
+      "nameFa": "Bubble مرجان بلوک",
+      "category": "other",
+      "icon": "px-bubble-coral-block"
+    },
+    {
+      "id": "budding-amethyst",
+      "nameEn": "Budding Amethyst",
+      "nameFa": "جوانه‌زننده آمتیست",
+      "category": "other",
+      "icon": "px-budding-amethyst"
+    },
+    {
+      "id": "bush",
+      "nameEn": "Bush",
+      "nameFa": "بوته",
+      "category": "natural",
+      "icon": "bush"
+    },
+    {
+      "id": "cactus",
+      "nameEn": "Cactus",
+      "nameFa": "کاکتوس",
+      "category": "other",
+      "icon": "px-cactus"
+    },
+    {
+      "id": "cactus-flower",
+      "nameEn": "Cactus Flower",
+      "nameFa": "گل کاکتوس",
+      "category": "natural",
+      "icon": "cactus-flower"
+    },
+    {
+      "id": "calcite",
+      "nameEn": "Calcite",
+      "nameFa": "کلسیت",
+      "category": "other",
+      "icon": "px-calcite"
+    },
+    {
+      "id": "calibrated-sculk-sensor",
+      "nameEn": "Calibrated Sculk Sensor",
+      "nameFa": "Calibrated اسکالک Sensor",
+      "category": "other",
+      "icon": "px-calibrated-sculk-sensor"
+    },
+    {
+      "id": "carved-pumpkin",
+      "nameEn": "Carved Pumpkin",
+      "nameFa": "Carved کدو",
+      "category": "other",
+      "icon": "px-carved-pumpkin"
+    },
+    {
+      "id": "chain-command-block",
+      "nameEn": "Chain Command Block",
+      "nameFa": "زنجیر Command بلوک",
+      "category": "other",
+      "icon": "px-chain-command-block"
+    },
+    {
+      "id": "cherry-button",
+      "nameEn": "Cherry Button",
+      "nameFa": "گیلاس دکمه",
+      "category": "other",
+      "icon": "px-cherry-button"
+    },
+    {
+      "id": "cherry-door",
+      "nameEn": "Cherry Door",
+      "nameFa": "گیلاس در",
+      "category": "other",
+      "icon": "px-cherry-door"
+    },
+    {
+      "id": "cherry-fence",
+      "nameEn": "Cherry Fence",
+      "nameFa": "گیلاس حصار",
+      "category": "other",
+      "icon": "px-cherry-fence"
+    },
+    {
+      "id": "cherry-fence-gate",
+      "nameEn": "Cherry Fence Gate",
+      "nameFa": "گیلاس حصار Gate",
+      "category": "other",
+      "icon": "px-cherry-fence-gate"
+    },
+    {
+      "id": "cherry-leaves",
+      "nameEn": "Cherry Leaves",
+      "nameFa": "گیلاس برگ",
+      "category": "other",
+      "icon": "px-cherry-leaves"
+    },
+    {
+      "id": "cherry-log",
+      "nameEn": "Cherry Log",
+      "nameFa": "گیلاس تنه",
+      "category": "other",
+      "icon": "px-cherry-log"
+    },
+    {
+      "id": "cherry-planks",
+      "nameEn": "Cherry Planks",
+      "nameFa": "گیلاس تخته",
+      "category": "other",
+      "icon": "px-cherry-planks"
+    },
+    {
+      "id": "cherry-pressure-plate",
+      "nameEn": "Cherry Pressure Plate",
+      "nameFa": "گیلاس Pressure Plate",
+      "category": "other",
+      "icon": "px-cherry-pressure-plate"
+    },
+    {
+      "id": "cherry-sapling",
+      "nameEn": "Cherry Sapling",
+      "nameFa": "نهال گیلاس",
+      "category": "natural",
+      "icon": "cherry-sapling"
+    },
+    {
+      "id": "cherry-slab",
+      "nameEn": "Cherry Slab",
+      "nameFa": "گیلاس اسلب",
+      "category": "other",
+      "icon": "px-cherry-slab"
+    },
+    {
+      "id": "cherry-stairs",
+      "nameEn": "Cherry Stairs",
+      "nameFa": "گیلاس پله",
+      "category": "other",
+      "icon": "px-cherry-stairs"
+    },
+    {
+      "id": "cherry-trapdoor",
+      "nameEn": "Cherry Trapdoor",
+      "nameFa": "گیلاس تله‌در",
+      "category": "other",
+      "icon": "px-cherry-trapdoor"
+    },
+    {
+      "id": "cherry-wood",
+      "nameEn": "Cherry Wood",
+      "nameFa": "گیلاس چوب",
+      "category": "other",
+      "icon": "px-cherry-wood"
+    },
+    {
+      "id": "chipped-anvil",
+      "nameEn": "Chipped Anvil",
+      "nameFa": "Chipped سندان",
+      "category": "other",
+      "icon": "px-chipped-anvil"
+    },
+    {
+      "id": "chiseled-bookshelf",
+      "nameEn": "Chiseled Bookshelf",
+      "nameFa": "کنده‌کاری‌شده کتابخانه",
+      "category": "other",
+      "icon": "px-chiseled-bookshelf"
+    },
+    {
+      "id": "chiseled-copper",
+      "nameEn": "Chiseled Copper",
+      "nameFa": "کنده‌کاری‌شده مس",
+      "category": "other",
+      "icon": "px-chiseled-copper"
+    },
+    {
+      "id": "chiseled-deepslate",
+      "nameEn": "Chiseled Deepslate",
+      "nameFa": "کنده‌کاری‌شده تیسنگ",
+      "category": "other",
+      "icon": "px-chiseled-deepslate"
+    },
+    {
+      "id": "chiseled-nether-bricks",
+      "nameEn": "Chiseled Nether Bricks",
+      "nameFa": "کنده‌کاری‌شده ندر آجر",
+      "category": "other",
+      "icon": "px-chiseled-nether-bricks"
+    },
+    {
+      "id": "chiseled-packed-ice",
+      "nameEn": "Chiseled Packed Ice",
+      "nameFa": "یخ فشرده‌ی کنده‌کاری‌شده",
+      "category": "building",
+      "icon": "chiseled-packed-ice"
+    },
+    {
+      "id": "chiseled-polished-blackstone",
+      "nameEn": "Chiseled Polished Blackstone",
+      "nameFa": "کنده‌کاری‌شده صیقلی سنگ سیاه",
+      "category": "other",
+      "icon": "px-chiseled-polished-blackstone"
+    },
+    {
+      "id": "chiseled-quartz-block",
+      "nameEn": "Chiseled Quartz Block",
+      "nameFa": "کنده‌کاری‌شده کوارتز بلوک",
+      "category": "other",
+      "icon": "px-chiseled-quartz-block"
+    },
+    {
+      "id": "chiseled-red-sandstone",
+      "nameEn": "Chiseled Red Sandstone",
+      "nameFa": "کنده‌کاری‌شده قرمز ماسه‌سنگ",
+      "category": "other",
+      "icon": "px-chiseled-red-sandstone"
+    },
+    {
+      "id": "chiseled-resin-bricks",
+      "nameEn": "Chiseled Resin Bricks",
+      "nameFa": "کنده‌کاری‌شده رزین آجر",
+      "category": "other",
+      "icon": "px-chiseled-resin-bricks"
+    },
+    {
+      "id": "chiseled-sandstone",
+      "nameEn": "Chiseled Sandstone",
+      "nameFa": "کنده‌کاری‌شده ماسه‌سنگ",
+      "category": "other",
+      "icon": "px-chiseled-sandstone"
+    },
+    {
+      "id": "chiseled-stone-bricks",
+      "nameEn": "Chiseled Stone Bricks",
+      "nameFa": "کنده‌کاری‌شده سنگ آجر",
+      "category": "other",
+      "icon": "px-chiseled-stone-bricks"
+    },
+    {
+      "id": "chiseled-tuff",
+      "nameEn": "Chiseled Tuff",
+      "nameFa": "کنده‌کاری‌شده توف",
+      "category": "other",
+      "icon": "px-chiseled-tuff"
+    },
+    {
+      "id": "chiseled-tuff-bricks",
+      "nameEn": "Chiseled Tuff Bricks",
+      "nameFa": "کنده‌کاری‌شده توف آجر",
+      "category": "other",
+      "icon": "px-chiseled-tuff-bricks"
+    },
+    {
+      "id": "chorus-flower",
+      "nameEn": "Chorus Flower",
+      "nameFa": "کوروس Flower",
+      "category": "other",
+      "icon": "px-chorus-flower"
+    },
+    {
+      "id": "chorus-plant",
+      "nameEn": "Chorus Plant",
+      "nameFa": "کوروس Plant",
+      "category": "other",
+      "icon": "px-chorus-plant"
+    },
+    {
+      "id": "coal-block",
+      "nameEn": "Block of Coal",
+      "nameFa": "بلوک زغال",
+      "category": "building",
+      "icon": "coal-block"
+    },
+    {
+      "id": "cobbled-deepslate",
+      "nameEn": "Cobbled Deepslate",
+      "nameFa": "Cobbled تیسنگ",
+      "category": "other",
+      "icon": "px-cobbled-deepslate"
+    },
+    {
+      "id": "cobbled-deepslate-slab",
+      "nameEn": "Cobbled Deepslate Slab",
+      "nameFa": "Cobbled تیسنگ اسلب",
+      "category": "other",
+      "icon": "px-cobbled-deepslate-slab"
+    },
+    {
+      "id": "cobbled-deepslate-stairs",
+      "nameEn": "Cobbled Deepslate Stairs",
+      "nameFa": "Cobbled تیسنگ پله",
+      "category": "other",
+      "icon": "px-cobbled-deepslate-stairs"
+    },
+    {
+      "id": "cobbled-deepslate-wall",
+      "nameEn": "Cobbled Deepslate Wall",
+      "nameFa": "Cobbled تیسنگ دیوار",
+      "category": "other",
+      "icon": "px-cobbled-deepslate-wall"
+    },
+    {
+      "id": "cobblestone-slab",
+      "nameEn": "Cobblestone Slab",
+      "nameFa": "قلوه‌سنگ اسلب",
+      "category": "other",
+      "icon": "px-cobblestone-slab"
+    },
+    {
+      "id": "cobblestone-stairs",
+      "nameEn": "Cobblestone Stairs",
+      "nameFa": "قلوه‌سنگ پله",
+      "category": "other",
+      "icon": "px-cobblestone-stairs"
+    },
+    {
+      "id": "cobblestone-wall",
+      "nameEn": "Cobblestone Wall",
+      "nameFa": "قلوه‌سنگ دیوار",
+      "category": "other",
+      "icon": "px-cobblestone-wall"
+    },
+    {
+      "id": "command-block",
+      "nameEn": "Command Block",
+      "nameFa": "Command بلوک",
+      "category": "other",
+      "icon": "px-command-block"
+    },
+    {
+      "id": "composter",
+      "nameEn": "Composter",
+      "nameFa": "کمپوست‌ساز",
+      "category": "other",
+      "icon": "px-composter"
+    },
+    {
+      "id": "copper-block",
+      "nameEn": "Block of Copper",
+      "nameFa": "بلوک مس",
+      "category": "building",
+      "icon": "copper-block"
+    },
+    {
+      "id": "copper-bulb",
+      "nameEn": "Copper Bulb",
+      "nameFa": "مس Bulb",
+      "category": "other",
+      "icon": "px-copper-bulb"
+    },
+    {
+      "id": "copper-door",
+      "nameEn": "Copper Door",
+      "nameFa": "مس در",
+      "category": "other",
+      "icon": "px-copper-door"
+    },
+    {
+      "id": "copper-grate",
+      "nameEn": "Copper Grate",
+      "nameFa": "مس Grate",
+      "category": "other",
+      "icon": "px-copper-grate"
+    },
+    {
+      "id": "copper-trapdoor",
+      "nameEn": "Copper Trapdoor",
+      "nameFa": "مس تله‌در",
+      "category": "other",
+      "icon": "px-copper-trapdoor"
+    },
+    {
+      "id": "cornflower",
+      "nameEn": "Cornflower",
+      "nameFa": "گل آبیر",
+      "category": "natural",
+      "icon": "cornflower"
+    },
+    {
+      "id": "cracked-deepslate-bricks",
+      "nameEn": "Cracked Deepslate Bricks",
+      "nameFa": "ترک‌خورده تیسنگ آجر",
+      "category": "other",
+      "icon": "px-cracked-deepslate-bricks"
+    },
+    {
+      "id": "cracked-deepslate-tiles",
+      "nameEn": "Cracked Deepslate Tiles",
+      "nameFa": "ترک‌خورده تیسنگ Tiles",
+      "category": "other",
+      "icon": "px-cracked-deepslate-tiles"
+    },
+    {
+      "id": "cracked-nether-bricks",
+      "nameEn": "Cracked Nether Bricks",
+      "nameFa": "ترک‌خورده ندر آجر",
+      "category": "other",
+      "icon": "px-cracked-nether-bricks"
+    },
+    {
+      "id": "cracked-polished-blackstone-bricks",
+      "nameEn": "Cracked Polished Blackstone Bricks",
+      "nameFa": "ترک‌خورده صیقلی سنگ سیاه آجر",
+      "category": "other",
+      "icon": "px-cracked-polished-blackstone-bricks"
+    },
+    {
+      "id": "cracked-stone-bricks",
+      "nameEn": "Cracked Stone Bricks",
+      "nameFa": "ترک‌خورده سنگ آجر",
+      "category": "other",
+      "icon": "px-cracked-stone-bricks"
+    },
+    {
+      "id": "crafter",
+      "nameEn": "Crafter",
+      "nameFa": "Crafter",
+      "category": "other",
+      "icon": "px-crafter"
+    },
+    {
+      "id": "creaking-heart",
+      "nameEn": "Creaking Heart",
+      "nameFa": "کرک‌دار قلب",
+      "category": "other",
+      "icon": "px-creaking-heart"
+    },
+    {
+      "id": "creeper-head",
+      "nameEn": "Creeper Head",
+      "nameFa": "کرپر Head",
+      "category": "other",
+      "icon": "px-creeper-head"
+    },
+    {
+      "id": "crimson-button",
+      "nameEn": "Crimson Button",
+      "nameFa": "سرخابی دکمه",
+      "category": "other",
+      "icon": "px-crimson-button"
+    },
+    {
+      "id": "crimson-door",
+      "nameEn": "Crimson Door",
+      "nameFa": "سرخابی در",
+      "category": "other",
+      "icon": "px-crimson-door"
+    },
+    {
+      "id": "crimson-fence",
+      "nameEn": "Crimson Fence",
+      "nameFa": "سرخابی حصار",
+      "category": "other",
+      "icon": "px-crimson-fence"
+    },
+    {
+      "id": "crimson-fence-gate",
+      "nameEn": "Crimson Fence Gate",
+      "nameFa": "سرخابی حصار Gate",
+      "category": "other",
+      "icon": "px-crimson-fence-gate"
+    },
+    {
+      "id": "crimson-hyphae",
+      "nameEn": "Crimson Hyphae",
+      "nameFa": "سرخابی هیفه",
+      "category": "other",
+      "icon": "px-crimson-hyphae"
+    },
+    {
+      "id": "crimson-nylium",
+      "nameEn": "Crimson Nylium",
+      "nameFa": "سرخابی نایلیوم",
+      "category": "other",
+      "icon": "px-crimson-nylium"
+    },
+    {
+      "id": "crimson-planks",
+      "nameEn": "Crimson Planks",
+      "nameFa": "سرخابی تخته",
+      "category": "other",
+      "icon": "px-crimson-planks"
+    },
+    {
+      "id": "crimson-pressure-plate",
+      "nameEn": "Crimson Pressure Plate",
+      "nameFa": "سرخابی Pressure Plate",
+      "category": "other",
+      "icon": "px-crimson-pressure-plate"
+    },
+    {
+      "id": "crimson-slab",
+      "nameEn": "Crimson Slab",
+      "nameFa": "سرخابی اسلب",
+      "category": "other",
+      "icon": "px-crimson-slab"
+    },
+    {
+      "id": "crimson-stairs",
+      "nameEn": "Crimson Stairs",
+      "nameFa": "سرخابی پله",
+      "category": "other",
+      "icon": "px-crimson-stairs"
+    },
+    {
+      "id": "crimson-stem",
+      "nameEn": "Crimson Stem",
+      "nameFa": "سرخابی ساقه",
+      "category": "other",
+      "icon": "px-crimson-stem"
+    },
+    {
+      "id": "crimson-trapdoor",
+      "nameEn": "Crimson Trapdoor",
+      "nameFa": "سرخابی تله‌در",
+      "category": "other",
+      "icon": "px-crimson-trapdoor"
+    },
+    {
+      "id": "crying-obsidian",
+      "nameEn": "Crying Obsidian",
+      "nameFa": "Crying اوبسیدین",
+      "category": "other",
+      "icon": "px-crying-obsidian"
+    },
+    {
+      "id": "cut-copper",
+      "nameEn": "Cut Copper",
+      "nameFa": "Cut مس",
+      "category": "other",
+      "icon": "px-cut-copper"
+    },
+    {
+      "id": "cut-copper-slab",
+      "nameEn": "Cut Copper Slab",
+      "nameFa": "Cut مس اسلب",
+      "category": "other",
+      "icon": "px-cut-copper-slab"
+    },
+    {
+      "id": "cut-copper-stairs",
+      "nameEn": "Cut Copper Stairs",
+      "nameFa": "Cut مس پله",
+      "category": "other",
+      "icon": "px-cut-copper-stairs"
+    },
+    {
+      "id": "cut-red-sandstone",
+      "nameEn": "Cut Red Sandstone",
+      "nameFa": "Cut قرمز ماسه‌سنگ",
+      "category": "other",
+      "icon": "px-cut-red-sandstone"
+    },
+    {
+      "id": "cut-red-sandstone-slab",
+      "nameEn": "Cut Red Sandstone Slab",
+      "nameFa": "Cut قرمز ماسه‌سنگ اسلب",
+      "category": "other",
+      "icon": "px-cut-red-sandstone-slab"
+    },
+    {
+      "id": "cut-sandstone",
+      "nameEn": "Cut Sandstone",
+      "nameFa": "Cut ماسه‌سنگ",
+      "category": "other",
+      "icon": "px-cut-sandstone"
+    },
+    {
+      "id": "cut-sandstone-slab",
+      "nameEn": "Cut Sandstone Slab",
+      "nameFa": "Cut ماسه‌سنگ اسلب",
+      "category": "other",
+      "icon": "px-cut-sandstone-slab"
+    },
+    {
+      "id": "cyan-banner",
+      "nameEn": "Cyan Banner",
+      "nameFa": "فیروزه‌ای بیرق",
+      "category": "other",
+      "icon": "px-cyan-banner"
+    },
+    {
+      "id": "cyan-bed",
+      "nameEn": "Cyan Bed",
+      "nameFa": "فیروزه‌ای تختاب",
+      "category": "other",
+      "icon": "px-cyan-bed"
+    },
+    {
+      "id": "cyan-carpet",
+      "nameEn": "Cyan Carpet",
+      "nameFa": "فیروزه‌ای فرش",
+      "category": "other",
+      "icon": "px-cyan-carpet"
+    },
+    {
+      "id": "cyan-concrete",
+      "nameEn": "Cyan Concrete",
+      "nameFa": "فیروزه‌ای بتن",
+      "category": "other",
+      "icon": "px-cyan-concrete"
+    },
+    {
+      "id": "cyan-concrete-powder",
+      "nameEn": "Cyan Concrete Powder",
+      "nameFa": "فیروزه‌ای بتن Powder",
+      "category": "other",
+      "icon": "px-cyan-concrete-powder"
+    },
+    {
+      "id": "cyan-glazed-terracotta",
+      "nameEn": "Cyan Glazed Terracotta",
+      "nameFa": "فیروزه‌ای رنگی سفال",
+      "category": "other",
+      "icon": "px-cyan-glazed-terracotta"
+    },
+    {
+      "id": "cyan-shulker-box",
+      "nameEn": "Cyan Shulker Box",
+      "nameFa": "فیروزه‌ای شالکر Box",
+      "category": "other",
+      "icon": "px-cyan-shulker-box"
+    },
+    {
+      "id": "cyan-stained-glass",
+      "nameEn": "Cyan Stained Glass",
+      "nameFa": "فیروزه‌ای رنگی شیشه",
+      "category": "other",
+      "icon": "px-cyan-stained-glass"
+    },
+    {
+      "id": "cyan-stained-glass-pane",
+      "nameEn": "Cyan Stained Glass Pane",
+      "nameFa": "فیروزه‌ای رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-cyan-stained-glass-pane"
+    },
+    {
+      "id": "cyan-terracotta",
+      "nameEn": "Cyan Terracotta",
+      "nameFa": "فیروزه‌ای سفال",
+      "category": "other",
+      "icon": "px-cyan-terracotta"
+    },
+    {
+      "id": "cyan-wool",
+      "nameEn": "Cyan Wool",
+      "nameFa": "فیروزه‌ای پشم",
+      "category": "other",
+      "icon": "px-cyan-wool"
+    },
+    {
+      "id": "damaged-anvil",
+      "nameEn": "Damaged Anvil",
+      "nameFa": "Damaged سندان",
+      "category": "other",
+      "icon": "px-damaged-anvil"
+    },
+    {
+      "id": "dark-oak-button",
+      "nameEn": "Dark Oak Button",
+      "nameFa": "Dark بلوط دکمه",
+      "category": "other",
+      "icon": "px-dark-oak-button"
+    },
+    {
+      "id": "dark-oak-door",
+      "nameEn": "Dark Oak Door",
+      "nameFa": "Dark بلوط در",
+      "category": "other",
+      "icon": "px-dark-oak-door"
+    },
+    {
+      "id": "dark-oak-fence",
+      "nameEn": "Dark Oak Fence",
+      "nameFa": "Dark بلوط حصار",
+      "category": "other",
+      "icon": "px-dark-oak-fence"
+    },
+    {
+      "id": "dark-oak-fence-gate",
+      "nameEn": "Dark Oak Fence Gate",
+      "nameFa": "Dark بلوط حصار Gate",
+      "category": "other",
+      "icon": "px-dark-oak-fence-gate"
+    },
+    {
+      "id": "dark-oak-leaves",
+      "nameEn": "Dark Oak Leaves",
+      "nameFa": "Dark بلوط برگ",
+      "category": "other",
+      "icon": "px-dark-oak-leaves"
+    },
+    {
+      "id": "dark-oak-log",
+      "nameEn": "Dark Oak Log",
+      "nameFa": "Dark بلوط تنه",
+      "category": "other",
+      "icon": "px-dark-oak-log"
+    },
+    {
+      "id": "dark-oak-planks",
+      "nameEn": "Dark Oak Planks",
+      "nameFa": "Dark بلوط تخته",
+      "category": "other",
+      "icon": "px-dark-oak-planks"
+    },
+    {
+      "id": "dark-oak-pressure-plate",
+      "nameEn": "Dark Oak Pressure Plate",
+      "nameFa": "Dark بلوط Pressure Plate",
+      "category": "other",
+      "icon": "px-dark-oak-pressure-plate"
+    },
+    {
+      "id": "dark-oak-sapling",
+      "nameEn": "Dark Oak Sapling",
+      "nameFa": "نهال بلوط تیره",
+      "category": "natural",
+      "icon": "dark-oak-sapling"
+    },
+    {
+      "id": "dark-oak-slab",
+      "nameEn": "Dark Oak Slab",
+      "nameFa": "Dark بلوط اسلب",
+      "category": "other",
+      "icon": "px-dark-oak-slab"
+    },
+    {
+      "id": "dark-oak-stairs",
+      "nameEn": "Dark Oak Stairs",
+      "nameFa": "Dark بلوط پله",
+      "category": "other",
+      "icon": "px-dark-oak-stairs"
+    },
+    {
+      "id": "dark-oak-trapdoor",
+      "nameEn": "Dark Oak Trapdoor",
+      "nameFa": "Dark بلوط تله‌در",
+      "category": "other",
+      "icon": "px-dark-oak-trapdoor"
+    },
+    {
+      "id": "dark-oak-wood",
+      "nameEn": "Dark Oak Wood",
+      "nameFa": "Dark بلوط چوب",
+      "category": "other",
+      "icon": "px-dark-oak-wood"
+    },
+    {
+      "id": "dark-prismarine",
+      "nameEn": "Dark Prismarine",
+      "nameFa": "Dark پریزمارین",
+      "category": "other",
+      "icon": "px-dark-prismarine"
+    },
+    {
+      "id": "dark-prismarine-slab",
+      "nameEn": "Dark Prismarine Slab",
+      "nameFa": "Dark پریزمارین اسلب",
+      "category": "other",
+      "icon": "px-dark-prismarine-slab"
+    },
+    {
+      "id": "dark-prismarine-stairs",
+      "nameEn": "Dark Prismarine Stairs",
+      "nameFa": "Dark پریزمارین پله",
+      "category": "other",
+      "icon": "px-dark-prismarine-stairs"
+    },
+    {
+      "id": "dead-brain-coral-block",
+      "nameEn": "Dead Brain Coral Block",
+      "nameFa": "Dead Brain مرجان بلوک",
+      "category": "other",
+      "icon": "px-dead-brain-coral-block"
+    },
+    {
+      "id": "dead-bubble-coral-block",
+      "nameEn": "Dead Bubble Coral Block",
+      "nameFa": "Dead Bubble مرجان بلوک",
+      "category": "other",
+      "icon": "px-dead-bubble-coral-block"
+    },
+    {
+      "id": "dead-bush",
+      "nameEn": "Dead Bush",
+      "nameFa": "بوته خشک‌شده",
+      "category": "natural",
+      "icon": "dead-bush"
+    },
+    {
+      "id": "dead-fire-coral-block",
+      "nameEn": "Dead Fire Coral Block",
+      "nameFa": "Dead Fire مرجان بلوک",
+      "category": "other",
+      "icon": "px-dead-fire-coral-block"
+    },
+    {
+      "id": "dead-horn-coral-block",
+      "nameEn": "Dead Horn Coral Block",
+      "nameFa": "Dead Horn مرجان بلوک",
+      "category": "other",
+      "icon": "px-dead-horn-coral-block"
+    },
+    {
+      "id": "dead-tube-coral-block",
+      "nameEn": "Dead Tube Coral Block",
+      "nameFa": "Dead Tube مرجان بلوک",
+      "category": "other",
+      "icon": "px-dead-tube-coral-block"
+    },
+    {
+      "id": "decorated-pot",
+      "nameEn": "Decorated Pot",
+      "nameFa": "Decorated Pot",
+      "category": "other",
+      "icon": "px-decorated-pot"
+    },
+    {
+      "id": "deepslate-brick-slab",
+      "nameEn": "Deepslate Brick Slab",
+      "nameFa": "تیسنگ Brick اسلب",
+      "category": "other",
+      "icon": "px-deepslate-brick-slab"
+    },
+    {
+      "id": "deepslate-brick-stairs",
+      "nameEn": "Deepslate Brick Stairs",
+      "nameFa": "تیسنگ Brick پله",
+      "category": "other",
+      "icon": "px-deepslate-brick-stairs"
+    },
+    {
+      "id": "deepslate-brick-wall",
+      "nameEn": "Deepslate Brick Wall",
+      "nameFa": "تیسنگ Brick دیوار",
+      "category": "other",
+      "icon": "px-deepslate-brick-wall"
+    },
+    {
+      "id": "deepslate-copper-ore",
+      "nameEn": "Deepslate Copper Ore",
+      "nameFa": "سنگ معدن مسِ عمیق",
+      "category": "other",
+      "icon": "px-deepslate-copper-ore"
+    },
+    {
+      "id": "deepslate-tile-slab",
+      "nameEn": "Deepslate Tile Slab",
+      "nameFa": "تیسنگ Tile اسلب",
+      "category": "other",
+      "icon": "px-deepslate-tile-slab"
+    },
+    {
+      "id": "deepslate-tile-stairs",
+      "nameEn": "Deepslate Tile Stairs",
+      "nameFa": "تیسنگ Tile پله",
+      "category": "other",
+      "icon": "px-deepslate-tile-stairs"
+    },
+    {
+      "id": "deepslate-tile-wall",
+      "nameEn": "Deepslate Tile Wall",
+      "nameFa": "تیسنگ Tile دیوار",
+      "category": "other",
+      "icon": "px-deepslate-tile-wall"
+    },
+    {
+      "id": "deepslate-tiles",
+      "nameEn": "Deepslate Tiles",
+      "nameFa": "تیسنگ Tiles",
+      "category": "other",
+      "icon": "px-deepslate-tiles"
+    },
+    {
+      "id": "diamond-block",
+      "nameEn": "Block of Diamond",
+      "nameFa": "بلوک الماس",
+      "category": "building",
+      "icon": "diamond-block"
+    },
+    {
+      "id": "diorite",
+      "nameEn": "Diorite",
+      "nameFa": "دیوریت",
+      "category": "other",
+      "icon": "px-diorite"
+    },
+    {
+      "id": "diorite-slab",
+      "nameEn": "Diorite Slab",
+      "nameFa": "دیوریت اسلب",
+      "category": "other",
+      "icon": "px-diorite-slab"
+    },
+    {
+      "id": "diorite-stairs",
+      "nameEn": "Diorite Stairs",
+      "nameFa": "دیوریت پله",
+      "category": "other",
+      "icon": "px-diorite-stairs"
+    },
+    {
+      "id": "diorite-wall",
+      "nameEn": "Diorite Wall",
+      "nameFa": "دیوریت دیوار",
+      "category": "other",
+      "icon": "px-diorite-wall"
+    },
+    {
+      "id": "dirt-path",
+      "nameEn": "Dirt Path",
+      "nameFa": "خاک Path",
+      "category": "other",
+      "icon": "px-dirt-path"
+    },
+    {
+      "id": "dragon-egg",
+      "nameEn": "Dragon Egg",
+      "nameFa": "اژدها Egg",
+      "category": "other",
+      "icon": "px-dragon-egg"
+    },
+    {
+      "id": "dragon-head",
+      "nameEn": "Dragon Head",
+      "nameFa": "اژدها Head",
+      "category": "other",
+      "icon": "px-dragon-head"
+    },
+    {
+      "id": "dried-ghast",
+      "nameEn": "Dried Ghast",
+      "nameFa": "Dried گاست",
+      "category": "other",
+      "icon": "px-dried-ghast"
+    },
+    {
+      "id": "dried-kelp-block",
+      "nameEn": "Dried Kelp Block",
+      "nameFa": "Dried کلسرخ‌مار بلوک",
+      "category": "other",
+      "icon": "px-dried-kelp-block"
+    },
+    {
+      "id": "dripstone-block",
+      "nameEn": "Dripstone Block",
+      "nameFa": "چکه‌سنگ بلوک",
+      "category": "other",
+      "icon": "px-dripstone-block"
+    },
+    {
+      "id": "emerald-block",
+      "nameEn": "Block of Emerald",
+      "nameFa": "بلوک زمرد",
+      "category": "building",
+      "icon": "emerald-block"
+    },
+    {
+      "id": "end-gateway",
+      "nameEn": "End Gateway",
+      "nameFa": "دروازه‌ی اند",
+      "category": "mechanism",
+      "icon": "end-gateway"
+    },
+    {
+      "id": "end-portal",
+      "nameEn": "End Portal",
+      "nameFa": "پورتال اند",
+      "category": "mechanism",
+      "icon": "end-portal"
+    },
+    {
+      "id": "end-portal-frame",
+      "nameEn": "End Portal Frame",
+      "nameFa": "اند Portal Frame",
+      "category": "other",
+      "icon": "px-end-portal-frame"
+    },
+    {
+      "id": "end-rod",
+      "nameEn": "End Rod",
+      "nameFa": "اند Rod",
+      "category": "other",
+      "icon": "px-end-rod"
+    },
+    {
+      "id": "end-stone-brick-slab",
+      "nameEn": "End Stone Brick Slab",
+      "nameFa": "اند سنگ Brick اسلب",
+      "category": "other",
+      "icon": "px-end-stone-brick-slab"
+    },
+    {
+      "id": "end-stone-brick-stairs",
+      "nameEn": "End Stone Brick Stairs",
+      "nameFa": "اند سنگ Brick پله",
+      "category": "other",
+      "icon": "px-end-stone-brick-stairs"
+    },
+    {
+      "id": "end-stone-brick-wall",
+      "nameEn": "End Stone Brick Wall",
+      "nameFa": "اند سنگ Brick دیوار",
+      "category": "other",
+      "icon": "px-end-stone-brick-wall"
+    },
+    {
+      "id": "end-stone-bricks",
+      "nameEn": "End Stone Bricks",
+      "nameFa": "اند سنگ آجر",
+      "category": "other",
+      "icon": "px-end-stone-bricks"
+    },
+    {
+      "id": "exposed-chiseled-copper",
+      "nameEn": "Exposed Chiseled Copper",
+      "nameFa": "نمودار کنده‌کاری‌شده مس",
+      "category": "other",
+      "icon": "px-exposed-chiseled-copper"
+    },
+    {
+      "id": "exposed-copper",
+      "nameEn": "Exposed Copper",
+      "nameFa": "نمودار مس",
+      "category": "other",
+      "icon": "px-exposed-copper"
+    },
+    {
+      "id": "exposed-copper-bulb",
+      "nameEn": "Exposed Copper Bulb",
+      "nameFa": "نمودار مس Bulb",
+      "category": "other",
+      "icon": "px-exposed-copper-bulb"
+    },
+    {
+      "id": "exposed-copper-door",
+      "nameEn": "Exposed Copper Door",
+      "nameFa": "نمودار مس در",
+      "category": "other",
+      "icon": "px-exposed-copper-door"
+    },
+    {
+      "id": "exposed-copper-grate",
+      "nameEn": "Exposed Copper Grate",
+      "nameFa": "نمودار مس Grate",
+      "category": "other",
+      "icon": "px-exposed-copper-grate"
+    },
+    {
+      "id": "exposed-copper-trapdoor",
+      "nameEn": "Exposed Copper Trapdoor",
+      "nameFa": "نمودار مس تله‌در",
+      "category": "other",
+      "icon": "px-exposed-copper-trapdoor"
+    },
+    {
+      "id": "exposed-cut-copper",
+      "nameEn": "Exposed Cut Copper",
+      "nameFa": "نمودار Cut مس",
+      "category": "other",
+      "icon": "px-exposed-cut-copper"
+    },
+    {
+      "id": "exposed-cut-copper-slab",
+      "nameEn": "Exposed Cut Copper Slab",
+      "nameFa": "نمودار Cut مس اسلب",
+      "category": "other",
+      "icon": "px-exposed-cut-copper-slab"
+    },
+    {
+      "id": "exposed-cut-copper-stairs",
+      "nameEn": "Exposed Cut Copper Stairs",
+      "nameFa": "نمودار Cut مس پله",
+      "category": "other",
+      "icon": "px-exposed-cut-copper-stairs"
+    },
+    {
+      "id": "farmland",
+      "nameEn": "Farmland",
+      "nameFa": "زمین کشاورزی",
+      "category": "other",
+      "icon": "px-farmland"
+    },
+    {
+      "id": "fire",
+      "nameEn": "Fire",
+      "nameFa": "آتش",
+      "category": "natural",
+      "icon": "fire"
+    },
+    {
+      "id": "fire-coral-block",
+      "nameEn": "Fire Coral Block",
+      "nameFa": "Fire مرجان بلوک",
+      "category": "other",
+      "icon": "px-fire-coral-block"
+    },
+    {
+      "id": "firefly-bush",
+      "nameEn": "Firefly Bush",
+      "nameFa": "بوته کورغول",
+      "category": "natural",
+      "icon": "firefly-bush"
+    },
+    {
+      "id": "flowering-azalea",
+      "nameEn": "Flowering Azalea",
+      "nameFa": "Flowering ازالهای",
+      "category": "other",
+      "icon": "px-flowering-azalea"
+    },
+    {
+      "id": "flowering-azalea-leaves",
+      "nameEn": "Flowering Azalea Leaves",
+      "nameFa": "Flowering ازالهای برگ",
+      "category": "other",
+      "icon": "px-flowering-azalea-leaves"
+    },
+    {
+      "id": "gilded-blackstone",
+      "nameEn": "Gilded Blackstone",
+      "nameFa": "Gilded سنگ سیاه",
+      "category": "other",
+      "icon": "px-gilded-blackstone"
+    },
+    {
+      "id": "glow-item-frame",
+      "nameEn": "Glow Item Frame",
+      "nameFa": "قاب آیتم نورانی",
+      "category": "utility",
+      "icon": "glow-item-frame"
+    },
+    {
+      "id": "gold-block",
+      "nameEn": "Block of Gold",
+      "nameFa": "بلوک طلا",
+      "category": "building",
+      "icon": "gold-block"
+    },
+    {
+      "id": "granite",
+      "nameEn": "Granite",
+      "nameFa": "گرانیت",
+      "category": "other",
+      "icon": "px-granite"
+    },
+    {
+      "id": "granite-slab",
+      "nameEn": "Granite Slab",
+      "nameFa": "گرانیت اسلب",
+      "category": "other",
+      "icon": "px-granite-slab"
+    },
+    {
+      "id": "granite-stairs",
+      "nameEn": "Granite Stairs",
+      "nameFa": "گرانیت پله",
+      "category": "other",
+      "icon": "px-granite-stairs"
+    },
+    {
+      "id": "granite-wall",
+      "nameEn": "Granite Wall",
+      "nameFa": "گرانیت دیوار",
+      "category": "other",
+      "icon": "px-granite-wall"
+    },
+    {
+      "id": "gray-banner",
+      "nameEn": "Gray Banner",
+      "nameFa": "خاکستری بیرق",
+      "category": "other",
+      "icon": "px-gray-banner"
+    },
+    {
+      "id": "gray-bed",
+      "nameEn": "Gray Bed",
+      "nameFa": "خاکستری تختاب",
+      "category": "other",
+      "icon": "px-gray-bed"
+    },
+    {
+      "id": "gray-carpet",
+      "nameEn": "Gray Carpet",
+      "nameFa": "خاکستری فرش",
+      "category": "other",
+      "icon": "px-gray-carpet"
+    },
+    {
+      "id": "gray-concrete",
+      "nameEn": "Gray Concrete",
+      "nameFa": "خاکستری بتن",
+      "category": "other",
+      "icon": "px-gray-concrete"
+    },
+    {
+      "id": "gray-concrete-powder",
+      "nameEn": "Gray Concrete Powder",
+      "nameFa": "خاکستری بتن Powder",
+      "category": "other",
+      "icon": "px-gray-concrete-powder"
+    },
+    {
+      "id": "gray-glazed-terracotta",
+      "nameEn": "Gray Glazed Terracotta",
+      "nameFa": "خاکستری رنگی سفال",
+      "category": "other",
+      "icon": "px-gray-glazed-terracotta"
+    },
+    {
+      "id": "gray-shulker-box",
+      "nameEn": "Gray Shulker Box",
+      "nameFa": "خاکستری شالکر Box",
+      "category": "other",
+      "icon": "px-gray-shulker-box"
+    },
+    {
+      "id": "gray-stained-glass",
+      "nameEn": "Gray Stained Glass",
+      "nameFa": "خاکستری رنگی شیشه",
+      "category": "other",
+      "icon": "px-gray-stained-glass"
+    },
+    {
+      "id": "gray-stained-glass-pane",
+      "nameEn": "Gray Stained Glass Pane",
+      "nameFa": "خاکستری رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-gray-stained-glass-pane"
+    },
+    {
+      "id": "gray-terracotta",
+      "nameEn": "Gray Terracotta",
+      "nameFa": "خاکستری سفال",
+      "category": "other",
+      "icon": "px-gray-terracotta"
+    },
+    {
+      "id": "gray-wool",
+      "nameEn": "Gray Wool",
+      "nameFa": "خاکستری پشم",
+      "category": "other",
+      "icon": "px-gray-wool"
+    },
+    {
+      "id": "green-banner",
+      "nameEn": "Green Banner",
+      "nameFa": "سبز بیرق",
+      "category": "other",
+      "icon": "px-green-banner"
+    },
+    {
+      "id": "green-bed",
+      "nameEn": "Green Bed",
+      "nameFa": "سبز تختاب",
+      "category": "other",
+      "icon": "px-green-bed"
+    },
+    {
+      "id": "green-carpet",
+      "nameEn": "Green Carpet",
+      "nameFa": "سبز فرش",
+      "category": "other",
+      "icon": "px-green-carpet"
+    },
+    {
+      "id": "green-concrete",
+      "nameEn": "Green Concrete",
+      "nameFa": "سبز بتن",
+      "category": "other",
+      "icon": "px-green-concrete"
+    },
+    {
+      "id": "green-concrete-powder",
+      "nameEn": "Green Concrete Powder",
+      "nameFa": "سبز بتن Powder",
+      "category": "other",
+      "icon": "px-green-concrete-powder"
+    },
+    {
+      "id": "green-glazed-terracotta",
+      "nameEn": "Green Glazed Terracotta",
+      "nameFa": "سبز رنگی سفال",
+      "category": "other",
+      "icon": "px-green-glazed-terracotta"
+    },
+    {
+      "id": "green-shulker-box",
+      "nameEn": "Green Shulker Box",
+      "nameFa": "سبز شالکر Box",
+      "category": "other",
+      "icon": "px-green-shulker-box"
+    },
+    {
+      "id": "green-stained-glass",
+      "nameEn": "Green Stained Glass",
+      "nameFa": "سبز رنگی شیشه",
+      "category": "other",
+      "icon": "px-green-stained-glass"
+    },
+    {
+      "id": "green-stained-glass-pane",
+      "nameEn": "Green Stained Glass Pane",
+      "nameFa": "سبز رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-green-stained-glass-pane"
+    },
+    {
+      "id": "green-terracotta",
+      "nameEn": "Green Terracotta",
+      "nameFa": "سبز سفال",
+      "category": "other",
+      "icon": "px-green-terracotta"
+    },
+    {
+      "id": "green-wool",
+      "nameEn": "Green Wool",
+      "nameFa": "سبز پشم",
+      "category": "other",
+      "icon": "px-green-wool"
+    },
+    {
+      "id": "heavy-core",
+      "nameEn": "Heavy Core",
+      "nameFa": "هسته‌ی سنگین",
+      "category": "mechanism",
+      "icon": "heavy-core"
+    },
+    {
+      "id": "heavy-weighted-pressure-plate",
+      "nameEn": "Heavy Weighted Pressure Plate",
+      "nameFa": "Heavy Weighted Pressure Plate",
+      "category": "other",
+      "icon": "px-heavy-weighted-pressure-plate"
+    },
+    {
+      "id": "honey-block",
+      "nameEn": "Honey Block",
+      "nameFa": "عسل بلوک",
+      "category": "other",
+      "icon": "px-honey-block"
+    },
+    {
+      "id": "honeycomb-block",
+      "nameEn": "Honeycomb Block",
+      "nameFa": "لانه‌ی زنبور بلوک",
+      "category": "other",
+      "icon": "px-honeycomb-block"
+    },
+    {
+      "id": "horn-coral-block",
+      "nameEn": "Horn Coral Block",
+      "nameFa": "Horn مرجان بلوک",
+      "category": "other",
+      "icon": "px-horn-coral-block"
+    },
+    {
+      "id": "infested-chiseled-stone-bricks",
+      "nameEn": "Infested Chiseled Stone Bricks",
+      "nameFa": "آلوده کنده‌کاری‌شده سنگ آجر",
+      "category": "other",
+      "icon": "px-infested-chiseled-stone-bricks"
+    },
+    {
+      "id": "infested-cobblestone",
+      "nameEn": "Infested Cobblestone",
+      "nameFa": "آلوده قلوه‌سنگ",
+      "category": "other",
+      "icon": "px-infested-cobblestone"
+    },
+    {
+      "id": "infested-cracked-stone-bricks",
+      "nameEn": "Infested Cracked Stone Bricks",
+      "nameFa": "آلوده ترک‌خورده سنگ آجر",
+      "category": "other",
+      "icon": "px-infested-cracked-stone-bricks"
+    },
+    {
+      "id": "infested-deepslate",
+      "nameEn": "Infested Deepslate",
+      "nameFa": "آلوده تیسنگ",
+      "category": "other",
+      "icon": "px-infested-deepslate"
+    },
+    {
+      "id": "infested-mossy-stone-bricks",
+      "nameEn": "Infested Mossy Stone Bricks",
+      "nameFa": "آلوده خزه‌دار سنگ آجر",
+      "category": "other",
+      "icon": "px-infested-mossy-stone-bricks"
+    },
+    {
+      "id": "infested-stone",
+      "nameEn": "Infested Stone",
+      "nameFa": "آلوده سنگ",
+      "category": "other",
+      "icon": "px-infested-stone"
+    },
+    {
+      "id": "infested-stone-bricks",
+      "nameEn": "Infested Stone Bricks",
+      "nameFa": "آلوده سنگ آجر",
+      "category": "other",
+      "icon": "px-infested-stone-bricks"
+    },
+    {
+      "id": "iron-bars",
+      "nameEn": "Iron Bars",
+      "nameFa": "آهن Bars",
+      "category": "other",
+      "icon": "px-iron-bars"
+    },
+    {
+      "id": "iron-block",
+      "nameEn": "Block of Iron",
+      "nameFa": "بلوک آهن",
+      "category": "building",
+      "icon": "iron-block"
+    },
+    {
+      "id": "iron-door",
+      "nameEn": "Iron Door",
+      "nameFa": "در آهنی",
+      "category": "utility",
+      "icon": "iron-door"
+    },
+    {
+      "id": "iron-trapdoor",
+      "nameEn": "Iron Trapdoor",
+      "nameFa": "تله‌در آهنی",
+      "category": "utility",
+      "icon": "iron-trapdoor"
+    },
+    {
+      "id": "jungle-button",
+      "nameEn": "Jungle Button",
+      "nameFa": "جنگلی دکمه",
+      "category": "other",
+      "icon": "px-jungle-button"
+    },
+    {
+      "id": "jungle-door",
+      "nameEn": "Jungle Door",
+      "nameFa": "جنگلی در",
+      "category": "other",
+      "icon": "px-jungle-door"
+    },
+    {
+      "id": "jungle-fence",
+      "nameEn": "Jungle Fence",
+      "nameFa": "جنگلی حصار",
+      "category": "other",
+      "icon": "px-jungle-fence"
+    },
+    {
+      "id": "jungle-fence-gate",
+      "nameEn": "Jungle Fence Gate",
+      "nameFa": "جنگلی حصار Gate",
+      "category": "other",
+      "icon": "px-jungle-fence-gate"
+    },
+    {
+      "id": "jungle-leaves",
+      "nameEn": "Jungle Leaves",
+      "nameFa": "جنگلی برگ",
+      "category": "other",
+      "icon": "px-jungle-leaves"
+    },
+    {
+      "id": "jungle-log",
+      "nameEn": "Jungle Log",
+      "nameFa": "جنگلی تنه",
+      "category": "other",
+      "icon": "px-jungle-log"
+    },
+    {
+      "id": "jungle-planks",
+      "nameEn": "Jungle Planks",
+      "nameFa": "جنگلی تخته",
+      "category": "other",
+      "icon": "px-jungle-planks"
+    },
+    {
+      "id": "jungle-pressure-plate",
+      "nameEn": "Jungle Pressure Plate",
+      "nameFa": "جنگلی Pressure Plate",
+      "category": "other",
+      "icon": "px-jungle-pressure-plate"
+    },
+    {
+      "id": "jungle-sapling",
+      "nameEn": "Jungle Sapling",
+      "nameFa": "نهال جنگل",
+      "category": "natural",
+      "icon": "jungle-sapling"
+    },
+    {
+      "id": "jungle-slab",
+      "nameEn": "Jungle Slab",
+      "nameFa": "جنگلی اسلب",
+      "category": "other",
+      "icon": "px-jungle-slab"
+    },
+    {
+      "id": "jungle-stairs",
+      "nameEn": "Jungle Stairs",
+      "nameFa": "جنگلی پله",
+      "category": "other",
+      "icon": "px-jungle-stairs"
+    },
+    {
+      "id": "jungle-trapdoor",
+      "nameEn": "Jungle Trapdoor",
+      "nameFa": "جنگلی تله‌در",
+      "category": "other",
+      "icon": "px-jungle-trapdoor"
+    },
+    {
+      "id": "jungle-wood",
+      "nameEn": "Jungle Wood",
+      "nameFa": "جنگلی چوب",
+      "category": "other",
+      "icon": "px-jungle-wood"
+    },
+    {
+      "id": "ladder",
+      "nameEn": "Ladder",
+      "nameFa": "نردبان",
+      "category": "other",
+      "icon": "px-ladder"
+    },
+    {
+      "id": "lapis-block",
+      "nameEn": "Block of Lapis Lazuli",
+      "nameFa": "بلوک لاجورد",
+      "category": "building",
+      "icon": "lapis-block"
+    },
+    {
+      "id": "leaf-litter",
+      "nameEn": "Leaf Litter",
+      "nameFa": "ریشه‌برگ",
+      "category": "natural",
+      "icon": "leaf-litter"
+    },
+    {
+      "id": "lectern",
+      "nameEn": "Lectern",
+      "nameFa": "روخوان",
+      "category": "other",
+      "icon": "px-lectern"
+    },
+    {
+      "id": "light-blue-banner",
+      "nameEn": "Light Blue Banner",
+      "nameFa": "Light آبی بیرق",
+      "category": "other",
+      "icon": "px-light-blue-banner"
+    },
+    {
+      "id": "light-blue-bed",
+      "nameEn": "Light Blue Bed",
+      "nameFa": "Light آبی تختاب",
+      "category": "other",
+      "icon": "px-light-blue-bed"
+    },
+    {
+      "id": "light-blue-carpet",
+      "nameEn": "Light Blue Carpet",
+      "nameFa": "Light آبی فرش",
+      "category": "other",
+      "icon": "px-light-blue-carpet"
+    },
+    {
+      "id": "light-blue-concrete",
+      "nameEn": "Light Blue Concrete",
+      "nameFa": "Light آبی بتن",
+      "category": "other",
+      "icon": "px-light-blue-concrete"
+    },
+    {
+      "id": "light-blue-concrete-powder",
+      "nameEn": "Light Blue Concrete Powder",
+      "nameFa": "Light آبی بتن Powder",
+      "category": "other",
+      "icon": "px-light-blue-concrete-powder"
+    },
+    {
+      "id": "light-blue-glazed-terracotta",
+      "nameEn": "Light Blue Glazed Terracotta",
+      "nameFa": "Light آبی رنگی سفال",
+      "category": "other",
+      "icon": "px-light-blue-glazed-terracotta"
+    },
+    {
+      "id": "light-blue-shulker-box",
+      "nameEn": "Light Blue Shulker Box",
+      "nameFa": "Light آبی شالکر Box",
+      "category": "other",
+      "icon": "px-light-blue-shulker-box"
+    },
+    {
+      "id": "light-blue-stained-glass",
+      "nameEn": "Light Blue Stained Glass",
+      "nameFa": "Light آبی رنگی شیشه",
+      "category": "other",
+      "icon": "px-light-blue-stained-glass"
+    },
+    {
+      "id": "light-blue-stained-glass-pane",
+      "nameEn": "Light Blue Stained Glass Pane",
+      "nameFa": "Light آبی رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-light-blue-stained-glass-pane"
+    },
+    {
+      "id": "light-blue-terracotta",
+      "nameEn": "Light Blue Terracotta",
+      "nameFa": "Light آبی سفال",
+      "category": "other",
+      "icon": "px-light-blue-terracotta"
+    },
+    {
+      "id": "light-blue-wool",
+      "nameEn": "Light Blue Wool",
+      "nameFa": "Light آبی پشم",
+      "category": "other",
+      "icon": "px-light-blue-wool"
+    },
+    {
+      "id": "light-gray-banner",
+      "nameEn": "Light Gray Banner",
+      "nameFa": "Light خاکستری بیرق",
+      "category": "other",
+      "icon": "px-light-gray-banner"
+    },
+    {
+      "id": "light-gray-bed",
+      "nameEn": "Light Gray Bed",
+      "nameFa": "Light خاکستری تختاب",
+      "category": "other",
+      "icon": "px-light-gray-bed"
+    },
+    {
+      "id": "light-gray-carpet",
+      "nameEn": "Light Gray Carpet",
+      "nameFa": "Light خاکستری فرش",
+      "category": "other",
+      "icon": "px-light-gray-carpet"
+    },
+    {
+      "id": "light-gray-concrete",
+      "nameEn": "Light Gray Concrete",
+      "nameFa": "Light خاکستری بتن",
+      "category": "other",
+      "icon": "px-light-gray-concrete"
+    },
+    {
+      "id": "light-gray-concrete-powder",
+      "nameEn": "Light Gray Concrete Powder",
+      "nameFa": "Light خاکستری بتن Powder",
+      "category": "other",
+      "icon": "px-light-gray-concrete-powder"
+    },
+    {
+      "id": "light-gray-glazed-terracotta",
+      "nameEn": "Light Gray Glazed Terracotta",
+      "nameFa": "Light خاکستری رنگی سفال",
+      "category": "other",
+      "icon": "px-light-gray-glazed-terracotta"
+    },
+    {
+      "id": "light-gray-shulker-box",
+      "nameEn": "Light Gray Shulker Box",
+      "nameFa": "Light خاکستری شالکر Box",
+      "category": "other",
+      "icon": "px-light-gray-shulker-box"
+    },
+    {
+      "id": "light-gray-stained-glass",
+      "nameEn": "Light Gray Stained Glass",
+      "nameFa": "Light خاکستری رنگی شیشه",
+      "category": "other",
+      "icon": "px-light-gray-stained-glass"
+    },
+    {
+      "id": "light-gray-stained-glass-pane",
+      "nameEn": "Light Gray Stained Glass Pane",
+      "nameFa": "Light خاکستری رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-light-gray-stained-glass-pane"
+    },
+    {
+      "id": "light-gray-terracotta",
+      "nameEn": "Light Gray Terracotta",
+      "nameFa": "Light خاکستری سفال",
+      "category": "other",
+      "icon": "px-light-gray-terracotta"
+    },
+    {
+      "id": "light-gray-wool",
+      "nameEn": "Light Gray Wool",
+      "nameFa": "Light خاکستری پشم",
+      "category": "other",
+      "icon": "px-light-gray-wool"
+    },
+    {
+      "id": "light-weighted-pressure-plate",
+      "nameEn": "Light Weighted Pressure Plate",
+      "nameFa": "Light Weighted Pressure Plate",
+      "category": "other",
+      "icon": "px-light-weighted-pressure-plate"
+    },
+    {
+      "id": "lightning-rod",
+      "nameEn": "Lightning Rod",
+      "nameFa": "Lightning Rod",
+      "category": "other",
+      "icon": "px-lightning-rod"
+    },
+    {
+      "id": "lime-banner",
+      "nameEn": "Lime Banner",
+      "nameFa": "لیمویی بیرق",
+      "category": "other",
+      "icon": "px-lime-banner"
+    },
+    {
+      "id": "lime-bed",
+      "nameEn": "Lime Bed",
+      "nameFa": "لیمویی تختاب",
+      "category": "other",
+      "icon": "px-lime-bed"
+    },
+    {
+      "id": "lime-carpet",
+      "nameEn": "Lime Carpet",
+      "nameFa": "لیمویی فرش",
+      "category": "other",
+      "icon": "px-lime-carpet"
+    },
+    {
+      "id": "lime-concrete",
+      "nameEn": "Lime Concrete",
+      "nameFa": "لیمویی بتن",
+      "category": "other",
+      "icon": "px-lime-concrete"
+    },
+    {
+      "id": "lime-concrete-powder",
+      "nameEn": "Lime Concrete Powder",
+      "nameFa": "لیمویی بتن Powder",
+      "category": "other",
+      "icon": "px-lime-concrete-powder"
+    },
+    {
+      "id": "lime-glazed-terracotta",
+      "nameEn": "Lime Glazed Terracotta",
+      "nameFa": "لیمویی رنگی سفال",
+      "category": "other",
+      "icon": "px-lime-glazed-terracotta"
+    },
+    {
+      "id": "lime-shulker-box",
+      "nameEn": "Lime Shulker Box",
+      "nameFa": "لیمویی شالکر Box",
+      "category": "other",
+      "icon": "px-lime-shulker-box"
+    },
+    {
+      "id": "lime-stained-glass",
+      "nameEn": "Lime Stained Glass",
+      "nameFa": "لیمویی رنگی شیشه",
+      "category": "other",
+      "icon": "px-lime-stained-glass"
+    },
+    {
+      "id": "lime-stained-glass-pane",
+      "nameEn": "Lime Stained Glass Pane",
+      "nameFa": "لیمویی رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-lime-stained-glass-pane"
+    },
+    {
+      "id": "lime-terracotta",
+      "nameEn": "Lime Terracotta",
+      "nameFa": "لیمویی سفال",
+      "category": "other",
+      "icon": "px-lime-terracotta"
+    },
+    {
+      "id": "lime-wool",
+      "nameEn": "Lime Wool",
+      "nameFa": "لیمویی پشم",
+      "category": "other",
+      "icon": "px-lime-wool"
+    },
+    {
+      "id": "lodestone",
+      "nameEn": "Lodestone",
+      "nameFa": "سنگ قطب‌نما",
+      "category": "other",
+      "icon": "px-lodestone"
+    },
+    {
+      "id": "magenta-banner",
+      "nameEn": "Magenta Banner",
+      "nameFa": "سرخابی بیرق",
+      "category": "other",
+      "icon": "px-magenta-banner"
+    },
+    {
+      "id": "magenta-bed",
+      "nameEn": "Magenta Bed",
+      "nameFa": "سرخابی تختاب",
+      "category": "other",
+      "icon": "px-magenta-bed"
+    },
+    {
+      "id": "magenta-carpet",
+      "nameEn": "Magenta Carpet",
+      "nameFa": "سرخابی فرش",
+      "category": "other",
+      "icon": "px-magenta-carpet"
+    },
+    {
+      "id": "magenta-concrete",
+      "nameEn": "Magenta Concrete",
+      "nameFa": "سرخابی بتن",
+      "category": "other",
+      "icon": "px-magenta-concrete"
+    },
+    {
+      "id": "magenta-concrete-powder",
+      "nameEn": "Magenta Concrete Powder",
+      "nameFa": "سرخابی بتن Powder",
+      "category": "other",
+      "icon": "px-magenta-concrete-powder"
+    },
+    {
+      "id": "magenta-glazed-terracotta",
+      "nameEn": "Magenta Glazed Terracotta",
+      "nameFa": "سرخابی رنگی سفال",
+      "category": "other",
+      "icon": "px-magenta-glazed-terracotta"
+    },
+    {
+      "id": "magenta-shulker-box",
+      "nameEn": "Magenta Shulker Box",
+      "nameFa": "سرخابی شالکر Box",
+      "category": "other",
+      "icon": "px-magenta-shulker-box"
+    },
+    {
+      "id": "magenta-stained-glass",
+      "nameEn": "Magenta Stained Glass",
+      "nameFa": "سرخابی رنگی شیشه",
+      "category": "other",
+      "icon": "px-magenta-stained-glass"
+    },
+    {
+      "id": "magenta-stained-glass-pane",
+      "nameEn": "Magenta Stained Glass Pane",
+      "nameFa": "سرخابی رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-magenta-stained-glass-pane"
+    },
+    {
+      "id": "magenta-terracotta",
+      "nameEn": "Magenta Terracotta",
+      "nameFa": "سرخابی سفال",
+      "category": "other",
+      "icon": "px-magenta-terracotta"
+    },
+    {
+      "id": "magenta-wool",
+      "nameEn": "Magenta Wool",
+      "nameFa": "سرخابی پشم",
+      "category": "other",
+      "icon": "px-magenta-wool"
+    },
+    {
+      "id": "magma-block",
+      "nameEn": "Magma Block",
+      "nameFa": "ماگما بلوک",
+      "category": "other",
+      "icon": "px-magma-block"
+    },
+    {
+      "id": "mangrove-button",
+      "nameEn": "Mangrove Button",
+      "nameFa": "مانگرو دکمه",
+      "category": "other",
+      "icon": "px-mangrove-button"
+    },
+    {
+      "id": "mangrove-door",
+      "nameEn": "Mangrove Door",
+      "nameFa": "مانگرو در",
+      "category": "other",
+      "icon": "px-mangrove-door"
+    },
+    {
+      "id": "mangrove-fence",
+      "nameEn": "Mangrove Fence",
+      "nameFa": "مانگرو حصار",
+      "category": "other",
+      "icon": "px-mangrove-fence"
+    },
+    {
+      "id": "mangrove-fence-gate",
+      "nameEn": "Mangrove Fence Gate",
+      "nameFa": "مانگرو حصار Gate",
+      "category": "other",
+      "icon": "px-mangrove-fence-gate"
+    },
+    {
+      "id": "mangrove-leaves",
+      "nameEn": "Mangrove Leaves",
+      "nameFa": "مانگرو برگ",
+      "category": "other",
+      "icon": "px-mangrove-leaves"
+    },
+    {
+      "id": "mangrove-log",
+      "nameEn": "Mangrove Log",
+      "nameFa": "مانگرو تنه",
+      "category": "other",
+      "icon": "px-mangrove-log"
+    },
+    {
+      "id": "mangrove-planks",
+      "nameEn": "Mangrove Planks",
+      "nameFa": "مانگرو تخته",
+      "category": "other",
+      "icon": "px-mangrove-planks"
+    },
+    {
+      "id": "mangrove-pressure-plate",
+      "nameEn": "Mangrove Pressure Plate",
+      "nameFa": "مانگرو Pressure Plate",
+      "category": "other",
+      "icon": "px-mangrove-pressure-plate"
+    },
+    {
+      "id": "mangrove-roots",
+      "nameEn": "Mangrove Roots",
+      "nameFa": "مانگرو Roots",
+      "category": "other",
+      "icon": "px-mangrove-roots"
+    },
+    {
+      "id": "mangrove-slab",
+      "nameEn": "Mangrove Slab",
+      "nameFa": "مانگرو اسلب",
+      "category": "other",
+      "icon": "px-mangrove-slab"
+    },
+    {
+      "id": "mangrove-stairs",
+      "nameEn": "Mangrove Stairs",
+      "nameFa": "مانگرو پله",
+      "category": "other",
+      "icon": "px-mangrove-stairs"
+    },
+    {
+      "id": "mangrove-trapdoor",
+      "nameEn": "Mangrove Trapdoor",
+      "nameFa": "مانگرو تله‌در",
+      "category": "other",
+      "icon": "px-mangrove-trapdoor"
+    },
+    {
+      "id": "mangrove-wood",
+      "nameEn": "Mangrove Wood",
+      "nameFa": "مانگرو چوب",
+      "category": "other",
+      "icon": "px-mangrove-wood"
+    },
+    {
+      "id": "melon",
+      "nameEn": "Melon",
+      "nameFa": "طربی",
+      "category": "other",
+      "icon": "px-melon"
+    },
+    {
+      "id": "monster-spawner",
+      "nameEn": "Monster Spawner",
+      "nameFa": "اسپانر هیولا",
+      "category": "mechanism",
+      "icon": "monster-spawner"
+    },
+    {
+      "id": "moss-block",
+      "nameEn": "Moss Block",
+      "nameFa": "خزه بلوک",
+      "category": "other",
+      "icon": "px-moss-block"
+    },
+    {
+      "id": "moss-carpet",
+      "nameEn": "Moss Carpet",
+      "nameFa": "خزه فرش",
+      "category": "other",
+      "icon": "px-moss-carpet"
+    },
+    {
+      "id": "mossy-cobblestone",
+      "nameEn": "Mossy Cobblestone",
+      "nameFa": "خزه‌دار قلوه‌سنگ",
+      "category": "other",
+      "icon": "px-mossy-cobblestone"
+    },
+    {
+      "id": "mossy-cobblestone-slab",
+      "nameEn": "Mossy Cobblestone Slab",
+      "nameFa": "خزه‌دار قلوه‌سنگ اسلب",
+      "category": "other",
+      "icon": "px-mossy-cobblestone-slab"
+    },
+    {
+      "id": "mossy-cobblestone-stairs",
+      "nameEn": "Mossy Cobblestone Stairs",
+      "nameFa": "خزه‌دار قلوه‌سنگ پله",
+      "category": "other",
+      "icon": "px-mossy-cobblestone-stairs"
+    },
+    {
+      "id": "mossy-cobblestone-wall",
+      "nameEn": "Mossy Cobblestone Wall",
+      "nameFa": "خزه‌دار قلوه‌سنگ دیوار",
+      "category": "other",
+      "icon": "px-mossy-cobblestone-wall"
+    },
+    {
+      "id": "mossy-stone-brick-slab",
+      "nameEn": "Mossy Stone Brick Slab",
+      "nameFa": "خزه‌دار سنگ Brick اسلب",
+      "category": "other",
+      "icon": "px-mossy-stone-brick-slab"
+    },
+    {
+      "id": "mossy-stone-brick-stairs",
+      "nameEn": "Mossy Stone Brick Stairs",
+      "nameFa": "خزه‌دار سنگ Brick پله",
+      "category": "other",
+      "icon": "px-mossy-stone-brick-stairs"
+    },
+    {
+      "id": "mossy-stone-brick-wall",
+      "nameEn": "Mossy Stone Brick Wall",
+      "nameFa": "خزه‌دار سنگ Brick دیوار",
+      "category": "other",
+      "icon": "px-mossy-stone-brick-wall"
+    },
+    {
+      "id": "mossy-stone-bricks",
+      "nameEn": "Mossy Stone Bricks",
+      "nameFa": "خزه‌دار سنگ آجر",
+      "category": "other",
+      "icon": "px-mossy-stone-bricks"
+    },
+    {
+      "id": "mud",
+      "nameEn": "Mud",
+      "nameFa": "گل",
+      "category": "other",
+      "icon": "px-mud"
+    },
+    {
+      "id": "mud-brick-slab",
+      "nameEn": "Mud Brick Slab",
+      "nameFa": "گل Brick اسلب",
+      "category": "other",
+      "icon": "px-mud-brick-slab"
+    },
+    {
+      "id": "mud-brick-stairs",
+      "nameEn": "Mud Brick Stairs",
+      "nameFa": "گل Brick پله",
+      "category": "other",
+      "icon": "px-mud-brick-stairs"
+    },
+    {
+      "id": "mud-brick-wall",
+      "nameEn": "Mud Brick Wall",
+      "nameFa": "گل Brick دیوار",
+      "category": "other",
+      "icon": "px-mud-brick-wall"
+    },
+    {
+      "id": "mud-bricks",
+      "nameEn": "Mud Bricks",
+      "nameFa": "گل آجر",
+      "category": "other",
+      "icon": "px-mud-bricks"
+    },
+    {
+      "id": "muddy-mangrove-roots",
+      "nameEn": "Muddy Mangrove Roots",
+      "nameFa": "Muddy مانگرو Roots",
+      "category": "other",
+      "icon": "px-muddy-mangrove-roots"
+    },
+    {
+      "id": "mushroom-stem",
+      "nameEn": "Mushroom Stem",
+      "nameFa": "Mushroom ساقه",
+      "category": "other",
+      "icon": "px-mushroom-stem"
+    },
+    {
+      "id": "mycelium",
+      "nameEn": "Mycelium",
+      "nameFa": "مایسلیوم",
+      "category": "other",
+      "icon": "px-mycelium"
+    },
+    {
+      "id": "nether-brick-fence",
+      "nameEn": "Nether Brick Fence",
+      "nameFa": "ندر Brick حصار",
+      "category": "other",
+      "icon": "px-nether-brick-fence"
+    },
+    {
+      "id": "nether-brick-slab",
+      "nameEn": "Nether Brick Slab",
+      "nameFa": "ندر Brick اسلب",
+      "category": "other",
+      "icon": "px-nether-brick-slab"
+    },
+    {
+      "id": "nether-brick-stairs",
+      "nameEn": "Nether Brick Stairs",
+      "nameFa": "ندر Brick پله",
+      "category": "other",
+      "icon": "px-nether-brick-stairs"
+    },
+    {
+      "id": "nether-brick-wall",
+      "nameEn": "Nether Brick Wall",
+      "nameFa": "ندر Brick دیوار",
+      "category": "other",
+      "icon": "px-nether-brick-wall"
+    },
+    {
+      "id": "nether-portal",
+      "nameEn": "Nether Portal",
+      "nameFa": "پورتال ندر",
+      "category": "mechanism",
+      "icon": "nether-portal"
+    },
+    {
+      "id": "nether-wart",
+      "nameEn": "Nether Wart",
+      "nameFa": "زگیل ندر",
+      "category": "natural",
+      "icon": "nether-wart"
+    },
+    {
+      "id": "nether-wart-block",
+      "nameEn": "Nether Wart Block",
+      "nameFa": "ندر Wart بلوک",
+      "category": "other",
+      "icon": "px-nether-wart-block"
+    },
+    {
+      "id": "netherite-block",
+      "nameEn": "Block of Netherite",
+      "nameFa": "بلوک ندرایت",
+      "category": "building",
+      "icon": "netherite-block"
+    },
+    {
+      "id": "oak-button",
+      "nameEn": "Oak Button",
+      "nameFa": "بلوط دکمه",
+      "category": "other",
+      "icon": "px-oak-button"
+    },
+    {
+      "id": "oak-door",
+      "nameEn": "Oak Door",
+      "nameFa": "بلوط در",
+      "category": "other",
+      "icon": "px-oak-door"
+    },
+    {
+      "id": "oak-fence",
+      "nameEn": "Oak Fence",
+      "nameFa": "بلوط حصار",
+      "category": "other",
+      "icon": "px-oak-fence"
+    },
+    {
+      "id": "oak-fence-gate",
+      "nameEn": "Oak Fence Gate",
+      "nameFa": "بلوط حصار Gate",
+      "category": "other",
+      "icon": "px-oak-fence-gate"
+    },
+    {
+      "id": "oak-pressure-plate",
+      "nameEn": "Oak Pressure Plate",
+      "nameFa": "بلوط Pressure Plate",
+      "category": "other",
+      "icon": "px-oak-pressure-plate"
+    },
+    {
+      "id": "oak-sapling",
+      "nameEn": "Oak Sapling",
+      "nameFa": "نهال بلوط",
+      "category": "natural",
+      "icon": "oak-sapling"
+    },
+    {
+      "id": "oak-slab",
+      "nameEn": "Oak Slab",
+      "nameFa": "بلوط اسلب",
+      "category": "other",
+      "icon": "px-oak-slab"
+    },
+    {
+      "id": "oak-stairs",
+      "nameEn": "Oak Stairs",
+      "nameFa": "بلوط پله",
+      "category": "other",
+      "icon": "px-oak-stairs"
+    },
+    {
+      "id": "oak-trapdoor",
+      "nameEn": "Oak Trapdoor",
+      "nameFa": "بلوط تله‌در",
+      "category": "other",
+      "icon": "px-oak-trapdoor"
+    },
+    {
+      "id": "oak-wood",
+      "nameEn": "Oak Wood",
+      "nameFa": "بلوط چوب",
+      "category": "other",
+      "icon": "px-oak-wood"
+    },
+    {
+      "id": "ochre-froglight",
+      "nameEn": "Ochre Froglight",
+      "nameFa": "Ochre فورگ‌لایت",
+      "category": "other",
+      "icon": "px-ochre-froglight"
+    },
+    {
+      "id": "ominous-banner",
+      "nameEn": "Ominous Banner",
+      "nameFa": "بیرق شوم",
+      "category": "decoration",
+      "icon": "ominous-banner"
+    },
+    {
+      "id": "ominous-trial-spawner",
+      "nameEn": "Ominous Trial Spawner",
+      "nameFa": "اسپانر آزمایشی شوم",
+      "category": "mechanism",
+      "icon": "ominous-trial-spawner"
+    },
+    {
+      "id": "ominous-vault",
+      "nameEn": "Ominous Vault",
+      "nameFa": "گنجینه‌ی شوم",
+      "category": "mechanism",
+      "icon": "ominous-vault"
+    },
+    {
+      "id": "orange-banner",
+      "nameEn": "Orange Banner",
+      "nameFa": "نارنجی بیرق",
+      "category": "other",
+      "icon": "px-orange-banner"
+    },
+    {
+      "id": "orange-bed",
+      "nameEn": "Orange Bed",
+      "nameFa": "نارنجی تختاب",
+      "category": "other",
+      "icon": "px-orange-bed"
+    },
+    {
+      "id": "orange-carpet",
+      "nameEn": "Orange Carpet",
+      "nameFa": "نارنجی فرش",
+      "category": "other",
+      "icon": "px-orange-carpet"
+    },
+    {
+      "id": "orange-concrete",
+      "nameEn": "Orange Concrete",
+      "nameFa": "نارنجی بتن",
+      "category": "other",
+      "icon": "px-orange-concrete"
+    },
+    {
+      "id": "orange-concrete-powder",
+      "nameEn": "Orange Concrete Powder",
+      "nameFa": "نارنجی بتن Powder",
+      "category": "other",
+      "icon": "px-orange-concrete-powder"
+    },
+    {
+      "id": "orange-glazed-terracotta",
+      "nameEn": "Orange Glazed Terracotta",
+      "nameFa": "نارنجی رنگی سفال",
+      "category": "other",
+      "icon": "px-orange-glazed-terracotta"
+    },
+    {
+      "id": "orange-shulker-box",
+      "nameEn": "Orange Shulker Box",
+      "nameFa": "نارنجی شالکر Box",
+      "category": "other",
+      "icon": "px-orange-shulker-box"
+    },
+    {
+      "id": "orange-stained-glass",
+      "nameEn": "Orange Stained Glass",
+      "nameFa": "نارنجی رنگی شیشه",
+      "category": "other",
+      "icon": "px-orange-stained-glass"
+    },
+    {
+      "id": "orange-stained-glass-pane",
+      "nameEn": "Orange Stained Glass Pane",
+      "nameFa": "نارنجی رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-orange-stained-glass-pane"
+    },
+    {
+      "id": "orange-terracotta",
+      "nameEn": "Orange Terracotta",
+      "nameFa": "نارنجی سفال",
+      "category": "other",
+      "icon": "px-orange-terracotta"
+    },
+    {
+      "id": "orange-wool",
+      "nameEn": "Orange Wool",
+      "nameFa": "نارنجی پشم",
+      "category": "other",
+      "icon": "px-orange-wool"
+    },
+    {
+      "id": "oxidized-chiseled-copper",
+      "nameEn": "Oxidized Chiseled Copper",
+      "nameFa": "اکسیده کنده‌کاری‌شده مس",
+      "category": "other",
+      "icon": "px-oxidized-chiseled-copper"
+    },
+    {
+      "id": "oxidized-copper",
+      "nameEn": "Oxidized Copper",
+      "nameFa": "اکسیده مس",
+      "category": "other",
+      "icon": "px-oxidized-copper"
+    },
+    {
+      "id": "oxidized-copper-bulb",
+      "nameEn": "Oxidized Copper Bulb",
+      "nameFa": "اکسیده مس Bulb",
+      "category": "other",
+      "icon": "px-oxidized-copper-bulb"
+    },
+    {
+      "id": "oxidized-copper-door",
+      "nameEn": "Oxidized Copper Door",
+      "nameFa": "اکسیده مس در",
+      "category": "other",
+      "icon": "px-oxidized-copper-door"
+    },
+    {
+      "id": "oxidized-copper-grate",
+      "nameEn": "Oxidized Copper Grate",
+      "nameFa": "اکسیده مس Grate",
+      "category": "other",
+      "icon": "px-oxidized-copper-grate"
+    },
+    {
+      "id": "oxidized-copper-trapdoor",
+      "nameEn": "Oxidized Copper Trapdoor",
+      "nameFa": "اکسیده مس تله‌در",
+      "category": "other",
+      "icon": "px-oxidized-copper-trapdoor"
+    },
+    {
+      "id": "oxidized-cut-copper",
+      "nameEn": "Oxidized Cut Copper",
+      "nameFa": "اکسیده Cut مس",
+      "category": "other",
+      "icon": "px-oxidized-cut-copper"
+    },
+    {
+      "id": "oxidized-cut-copper-slab",
+      "nameEn": "Oxidized Cut Copper Slab",
+      "nameFa": "اکسیده Cut مس اسلب",
+      "category": "other",
+      "icon": "px-oxidized-cut-copper-slab"
+    },
+    {
+      "id": "oxidized-cut-copper-stairs",
+      "nameEn": "Oxidized Cut Copper Stairs",
+      "nameFa": "اکسیده Cut مس پله",
+      "category": "other",
+      "icon": "px-oxidized-cut-copper-stairs"
+    },
+    {
+      "id": "packed-ice-brick-slab",
+      "nameEn": "Packed Ice Brick Slab",
+      "nameFa": "نیم‌بلوک آجر یخ فشرده",
+      "category": "building",
+      "icon": "packed-ice-brick-slab"
+    },
+    {
+      "id": "packed-ice-brick-stairs",
+      "nameEn": "Packed Ice Brick Stairs",
+      "nameFa": "پله‌ی آجر یخ فشرده",
+      "category": "building",
+      "icon": "packed-ice-brick-stairs"
+    },
+    {
+      "id": "packed-ice-brick-wall",
+      "nameEn": "Packed Ice Brick Wall",
+      "nameFa": "دیوار آجر یخ فشرده",
+      "category": "building",
+      "icon": "packed-ice-brick-wall"
+    },
+    {
+      "id": "packed-ice-bricks",
+      "nameEn": "Packed Ice Bricks",
+      "nameFa": "آجر یخ فشرده",
+      "category": "building",
+      "icon": "packed-ice-bricks"
+    },
+    {
+      "id": "packed-mud",
+      "nameEn": "Packed Mud",
+      "nameFa": "Packed گل",
+      "category": "other",
+      "icon": "px-packed-mud"
+    },
+    {
+      "id": "pale-hanging-moss",
+      "nameEn": "Pale Hanging Moss",
+      "nameFa": "کم‌رنگ Hanging خزه",
+      "category": "other",
+      "icon": "px-pale-hanging-moss"
+    },
+    {
+      "id": "pale-moss-block",
+      "nameEn": "Pale Moss Block",
+      "nameFa": "کم‌رنگ خزه بلوک",
+      "category": "other",
+      "icon": "px-pale-moss-block"
+    },
+    {
+      "id": "pale-moss-carpet",
+      "nameEn": "Pale Moss Carpet",
+      "nameFa": "کم‌رنگ خزه فرش",
+      "category": "other",
+      "icon": "px-pale-moss-carpet"
+    },
+    {
+      "id": "pale-oak-button",
+      "nameEn": "Pale Oak Button",
+      "nameFa": "کم‌رنگ بلوط دکمه",
+      "category": "other",
+      "icon": "px-pale-oak-button"
+    },
+    {
+      "id": "pale-oak-leaves",
+      "nameEn": "Pale Oak Leaves",
+      "nameFa": "کم‌رنگ بلوط برگ",
+      "category": "other",
+      "icon": "px-pale-oak-leaves"
+    },
+    {
+      "id": "pale-oak-log",
+      "nameEn": "Pale Oak Log",
+      "nameFa": "کم‌رنگ بلوط تنه",
+      "category": "other",
+      "icon": "px-pale-oak-log"
+    },
+    {
+      "id": "pale-oak-planks",
+      "nameEn": "Pale Oak Planks",
+      "nameFa": "کم‌رنگ بلوط تخته",
+      "category": "other",
+      "icon": "px-pale-oak-planks"
+    },
+    {
+      "id": "pale-oak-pressure-plate",
+      "nameEn": "Pale Oak Pressure Plate",
+      "nameFa": "کم‌رنگ بلوط Pressure Plate",
+      "category": "other",
+      "icon": "px-pale-oak-pressure-plate"
+    },
+    {
+      "id": "pale-oak-sapling",
+      "nameEn": "Pale Oak Sapling",
+      "nameFa": "نهال بلوط رنگ‌پریده",
+      "category": "natural",
+      "icon": "pale-oak-sapling"
+    },
+    {
+      "id": "pale-oak-slab",
+      "nameEn": "Pale Oak Slab",
+      "nameFa": "کم‌رنگ بلوط اسلب",
+      "category": "other",
+      "icon": "px-pale-oak-slab"
+    },
+    {
+      "id": "pale-oak-stairs",
+      "nameEn": "Pale Oak Stairs",
+      "nameFa": "کم‌رنگ بلوط پله",
+      "category": "other",
+      "icon": "px-pale-oak-stairs"
+    },
+    {
+      "id": "pale-oak-trapdoor",
+      "nameEn": "Pale Oak Trapdoor",
+      "nameFa": "کم‌رنگ بلوط تله‌در",
+      "category": "other",
+      "icon": "px-pale-oak-trapdoor"
+    },
+    {
+      "id": "pale-oak-wood",
+      "nameEn": "Pale Oak Wood",
+      "nameFa": "کم‌رنگ بلوط چوب",
+      "category": "other",
+      "icon": "px-pale-oak-wood"
+    },
+    {
+      "id": "pearlescent-froglight",
+      "nameEn": "Pearlescent Froglight",
+      "nameFa": "Pearlescent فورگ‌لایت",
+      "category": "other",
+      "icon": "px-pearlescent-froglight"
+    },
+    {
+      "id": "petrified-oak-slab",
+      "nameEn": "Petrified Oak Slab",
+      "nameFa": "نیم‌بلوک بلوط سنگی",
+      "category": "building",
+      "icon": "petrified-oak-slab"
+    },
+    {
+      "id": "piglin-head",
+      "nameEn": "Piglin Head",
+      "nameFa": "پیگلین Head",
+      "category": "other",
+      "icon": "px-piglin-head"
+    },
+    {
+      "id": "pink-banner",
+      "nameEn": "Pink Banner",
+      "nameFa": "صورتی بیرق",
+      "category": "other",
+      "icon": "px-pink-banner"
+    },
+    {
+      "id": "pink-bed",
+      "nameEn": "Pink Bed",
+      "nameFa": "صورتی تختاب",
+      "category": "other",
+      "icon": "px-pink-bed"
+    },
+    {
+      "id": "pink-carpet",
+      "nameEn": "Pink Carpet",
+      "nameFa": "صورتی فرش",
+      "category": "other",
+      "icon": "px-pink-carpet"
+    },
+    {
+      "id": "pink-concrete",
+      "nameEn": "Pink Concrete",
+      "nameFa": "صورتی بتن",
+      "category": "other",
+      "icon": "px-pink-concrete"
+    },
+    {
+      "id": "pink-concrete-powder",
+      "nameEn": "Pink Concrete Powder",
+      "nameFa": "صورتی بتن Powder",
+      "category": "other",
+      "icon": "px-pink-concrete-powder"
+    },
+    {
+      "id": "pink-glazed-terracotta",
+      "nameEn": "Pink Glazed Terracotta",
+      "nameFa": "صورتی رنگی سفال",
+      "category": "other",
+      "icon": "px-pink-glazed-terracotta"
+    },
+    {
+      "id": "pink-shulker-box",
+      "nameEn": "Pink Shulker Box",
+      "nameFa": "صورتی شالکر Box",
+      "category": "other",
+      "icon": "px-pink-shulker-box"
+    },
+    {
+      "id": "pink-stained-glass",
+      "nameEn": "Pink Stained Glass",
+      "nameFa": "صورتی رنگی شیشه",
+      "category": "other",
+      "icon": "px-pink-stained-glass"
+    },
+    {
+      "id": "pink-stained-glass-pane",
+      "nameEn": "Pink Stained Glass Pane",
+      "nameFa": "صورتی رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-pink-stained-glass-pane"
+    },
+    {
+      "id": "pink-terracotta",
+      "nameEn": "Pink Terracotta",
+      "nameFa": "صورتی سفال",
+      "category": "other",
+      "icon": "px-pink-terracotta"
+    },
+    {
+      "id": "pink-wool",
+      "nameEn": "Pink Wool",
+      "nameFa": "صورتی پشم",
+      "category": "other",
+      "icon": "px-pink-wool"
+    },
+    {
+      "id": "player-head",
+      "nameEn": "Player Head",
+      "nameFa": "بازیکن Head",
+      "category": "other",
+      "icon": "px-player-head"
+    },
+    {
+      "id": "podzol",
+      "nameEn": "Podzol",
+      "nameFa": "پودزول",
+      "category": "other",
+      "icon": "px-podzol"
+    },
+    {
+      "id": "pointed-dripstone",
+      "nameEn": "Pointed Dripstone",
+      "nameFa": "Pointed چکه‌سنگ",
+      "category": "other",
+      "icon": "px-pointed-dripstone"
+    },
+    {
+      "id": "polished-andesite",
+      "nameEn": "Polished Andesite",
+      "nameFa": "صیقلی آندزیت",
+      "category": "other",
+      "icon": "px-polished-andesite"
+    },
+    {
+      "id": "polished-andesite-slab",
+      "nameEn": "Polished Andesite Slab",
+      "nameFa": "صیقلی آندزیت اسلب",
+      "category": "other",
+      "icon": "px-polished-andesite-slab"
+    },
+    {
+      "id": "polished-andesite-stairs",
+      "nameEn": "Polished Andesite Stairs",
+      "nameFa": "صیقلی آندزیت پله",
+      "category": "other",
+      "icon": "px-polished-andesite-stairs"
+    },
+    {
+      "id": "polished-basalt",
+      "nameEn": "Polished Basalt",
+      "nameFa": "صیقلی بازالت",
+      "category": "other",
+      "icon": "px-polished-basalt"
+    },
+    {
+      "id": "polished-blackstone",
+      "nameEn": "Polished Blackstone",
+      "nameFa": "صیقلی سنگ سیاه",
+      "category": "other",
+      "icon": "px-polished-blackstone"
+    },
+    {
+      "id": "polished-blackstone-brick-slab",
+      "nameEn": "Polished Blackstone Brick Slab",
+      "nameFa": "صیقلی سنگ سیاه Brick اسلب",
+      "category": "other",
+      "icon": "px-polished-blackstone-brick-slab"
+    },
+    {
+      "id": "polished-blackstone-brick-stairs",
+      "nameEn": "Polished Blackstone Brick Stairs",
+      "nameFa": "صیقلی سنگ سیاه Brick پله",
+      "category": "other",
+      "icon": "px-polished-blackstone-brick-stairs"
+    },
+    {
+      "id": "polished-blackstone-brick-wall",
+      "nameEn": "Polished Blackstone Brick Wall",
+      "nameFa": "صیقلی سنگ سیاه Brick دیوار",
+      "category": "other",
+      "icon": "px-polished-blackstone-brick-wall"
+    },
+    {
+      "id": "polished-blackstone-bricks",
+      "nameEn": "Polished Blackstone Bricks",
+      "nameFa": "صیقلی سنگ سیاه آجر",
+      "category": "other",
+      "icon": "px-polished-blackstone-bricks"
+    },
+    {
+      "id": "polished-blackstone-button",
+      "nameEn": "Polished Blackstone Button",
+      "nameFa": "صیقلی سنگ سیاه دکمه",
+      "category": "other",
+      "icon": "px-polished-blackstone-button"
+    },
+    {
+      "id": "polished-blackstone-pressure-plate",
+      "nameEn": "Polished Blackstone Pressure Plate",
+      "nameFa": "صیقلی سنگ سیاه Pressure Plate",
+      "category": "other",
+      "icon": "px-polished-blackstone-pressure-plate"
+    },
+    {
+      "id": "polished-blackstone-slab",
+      "nameEn": "Polished Blackstone Slab",
+      "nameFa": "صیقلی سنگ سیاه اسلب",
+      "category": "other",
+      "icon": "px-polished-blackstone-slab"
+    },
+    {
+      "id": "polished-blackstone-stairs",
+      "nameEn": "Polished Blackstone Stairs",
+      "nameFa": "صیقلی سنگ سیاه پله",
+      "category": "other",
+      "icon": "px-polished-blackstone-stairs"
+    },
+    {
+      "id": "polished-blackstone-wall",
+      "nameEn": "Polished Blackstone Wall",
+      "nameFa": "صیقلی سنگ سیاه دیوار",
+      "category": "other",
+      "icon": "px-polished-blackstone-wall"
+    },
+    {
+      "id": "polished-deepslate",
+      "nameEn": "Polished Deepslate",
+      "nameFa": "صیقلی تیسنگ",
+      "category": "other",
+      "icon": "px-polished-deepslate"
+    },
+    {
+      "id": "polished-deepslate-slab",
+      "nameEn": "Polished Deepslate Slab",
+      "nameFa": "صیقلی تیسنگ اسلب",
+      "category": "other",
+      "icon": "px-polished-deepslate-slab"
+    },
+    {
+      "id": "polished-deepslate-stairs",
+      "nameEn": "Polished Deepslate Stairs",
+      "nameFa": "صیقلی تیسنگ پله",
+      "category": "other",
+      "icon": "px-polished-deepslate-stairs"
+    },
+    {
+      "id": "polished-deepslate-wall",
+      "nameEn": "Polished Deepslate Wall",
+      "nameFa": "صیقلی تیسنگ دیوار",
+      "category": "other",
+      "icon": "px-polished-deepslate-wall"
+    },
+    {
+      "id": "polished-diorite",
+      "nameEn": "Polished Diorite",
+      "nameFa": "صیقلی دیوریت",
+      "category": "other",
+      "icon": "px-polished-diorite"
+    },
+    {
+      "id": "polished-diorite-slab",
+      "nameEn": "Polished Diorite Slab",
+      "nameFa": "صیقلی دیوریت اسلب",
+      "category": "other",
+      "icon": "px-polished-diorite-slab"
+    },
+    {
+      "id": "polished-diorite-stairs",
+      "nameEn": "Polished Diorite Stairs",
+      "nameFa": "صیقلی دیوریت پله",
+      "category": "other",
+      "icon": "px-polished-diorite-stairs"
+    },
+    {
+      "id": "polished-granite",
+      "nameEn": "Polished Granite",
+      "nameFa": "صیقلی گرانیت",
+      "category": "other",
+      "icon": "px-polished-granite"
+    },
+    {
+      "id": "polished-granite-slab",
+      "nameEn": "Polished Granite Slab",
+      "nameFa": "صیقلی گرانیت اسلب",
+      "category": "other",
+      "icon": "px-polished-granite-slab"
+    },
+    {
+      "id": "polished-granite-stairs",
+      "nameEn": "Polished Granite Stairs",
+      "nameFa": "صیقلی گرانیت پله",
+      "category": "other",
+      "icon": "px-polished-granite-stairs"
+    },
+    {
+      "id": "polished-tuff",
+      "nameEn": "Polished Tuff",
+      "nameFa": "صیقلی توف",
+      "category": "other",
+      "icon": "px-polished-tuff"
+    },
+    {
+      "id": "polished-tuff-slab",
+      "nameEn": "Polished Tuff Slab",
+      "nameFa": "صیقلی توف اسلب",
+      "category": "other",
+      "icon": "px-polished-tuff-slab"
+    },
+    {
+      "id": "polished-tuff-stairs",
+      "nameEn": "Polished Tuff Stairs",
+      "nameFa": "صیقلی توف پله",
+      "category": "other",
+      "icon": "px-polished-tuff-stairs"
+    },
+    {
+      "id": "polished-tuff-wall",
+      "nameEn": "Polished Tuff Wall",
+      "nameFa": "صیقلی توف دیوار",
+      "category": "other",
+      "icon": "px-polished-tuff-wall"
+    },
+    {
+      "id": "powder-snow",
+      "nameEn": "Powder Snow",
+      "nameFa": "برف پودری",
+      "category": "natural",
+      "icon": "powder-snow"
+    },
+    {
+      "id": "prismarine",
+      "nameEn": "Prismarine",
+      "nameFa": "پریزمارین",
+      "category": "other",
+      "icon": "px-prismarine"
+    },
+    {
+      "id": "prismarine-brick-slab",
+      "nameEn": "Prismarine Brick Slab",
+      "nameFa": "پریزمارین Brick اسلب",
+      "category": "other",
+      "icon": "px-prismarine-brick-slab"
+    },
+    {
+      "id": "prismarine-brick-stairs",
+      "nameEn": "Prismarine Brick Stairs",
+      "nameFa": "پریزمارین Brick پله",
+      "category": "other",
+      "icon": "px-prismarine-brick-stairs"
+    },
+    {
+      "id": "prismarine-bricks",
+      "nameEn": "Prismarine Bricks",
+      "nameFa": "پریزمارین آجر",
+      "category": "other",
+      "icon": "px-prismarine-bricks"
+    },
+    {
+      "id": "prismarine-slab",
+      "nameEn": "Prismarine Slab",
+      "nameFa": "پریزمارین اسلب",
+      "category": "other",
+      "icon": "px-prismarine-slab"
+    },
+    {
+      "id": "prismarine-stairs",
+      "nameEn": "Prismarine Stairs",
+      "nameFa": "پریزمارین پله",
+      "category": "other",
+      "icon": "px-prismarine-stairs"
+    },
+    {
+      "id": "prismarine-wall",
+      "nameEn": "Prismarine Wall",
+      "nameFa": "پریزمارین دیوار",
+      "category": "other",
+      "icon": "px-prismarine-wall"
+    },
+    {
+      "id": "purple-banner",
+      "nameEn": "Purple Banner",
+      "nameFa": "بنفش بیرق",
+      "category": "other",
+      "icon": "px-purple-banner"
+    },
+    {
+      "id": "purple-bed",
+      "nameEn": "Purple Bed",
+      "nameFa": "بنفش تختاب",
+      "category": "other",
+      "icon": "px-purple-bed"
+    },
+    {
+      "id": "purple-carpet",
+      "nameEn": "Purple Carpet",
+      "nameFa": "بنفش فرش",
+      "category": "other",
+      "icon": "px-purple-carpet"
+    },
+    {
+      "id": "purple-concrete",
+      "nameEn": "Purple Concrete",
+      "nameFa": "بنفش بتن",
+      "category": "other",
+      "icon": "px-purple-concrete"
+    },
+    {
+      "id": "purple-concrete-powder",
+      "nameEn": "Purple Concrete Powder",
+      "nameFa": "بنفش بتن Powder",
+      "category": "other",
+      "icon": "px-purple-concrete-powder"
+    },
+    {
+      "id": "purple-glazed-terracotta",
+      "nameEn": "Purple Glazed Terracotta",
+      "nameFa": "بنفش رنگی سفال",
+      "category": "other",
+      "icon": "px-purple-glazed-terracotta"
+    },
+    {
+      "id": "purple-shulker-box",
+      "nameEn": "Purple Shulker Box",
+      "nameFa": "بنفش شالکر Box",
+      "category": "other",
+      "icon": "px-purple-shulker-box"
+    },
+    {
+      "id": "purple-stained-glass",
+      "nameEn": "Purple Stained Glass",
+      "nameFa": "بنفش رنگی شیشه",
+      "category": "other",
+      "icon": "px-purple-stained-glass"
+    },
+    {
+      "id": "purple-stained-glass-pane",
+      "nameEn": "Purple Stained Glass Pane",
+      "nameFa": "بنفش رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-purple-stained-glass-pane"
+    },
+    {
+      "id": "purple-terracotta",
+      "nameEn": "Purple Terracotta",
+      "nameFa": "بنفش سفال",
+      "category": "other",
+      "icon": "px-purple-terracotta"
+    },
+    {
+      "id": "purple-wool",
+      "nameEn": "Purple Wool",
+      "nameFa": "بنفش پشم",
+      "category": "other",
+      "icon": "px-purple-wool"
+    },
+    {
+      "id": "purpur-block",
+      "nameEn": "Purpur Block",
+      "nameFa": "پورپور بلوک",
+      "category": "other",
+      "icon": "px-purpur-block"
+    },
+    {
+      "id": "purpur-pillar",
+      "nameEn": "Purpur Pillar",
+      "nameFa": "پورپور Pillar",
+      "category": "other",
+      "icon": "px-purpur-pillar"
+    },
+    {
+      "id": "purpur-slab",
+      "nameEn": "Purpur Slab",
+      "nameFa": "پورپور اسلب",
+      "category": "other",
+      "icon": "px-purpur-slab"
+    },
+    {
+      "id": "purpur-stairs",
+      "nameEn": "Purpur Stairs",
+      "nameFa": "پورپور پله",
+      "category": "other",
+      "icon": "px-purpur-stairs"
+    },
+    {
+      "id": "quartz-bricks",
+      "nameEn": "Quartz Bricks",
+      "nameFa": "کوارتز آجر",
+      "category": "other",
+      "icon": "px-quartz-bricks"
+    },
+    {
+      "id": "quartz-pillar",
+      "nameEn": "Quartz Pillar",
+      "nameFa": "کوارتز Pillar",
+      "category": "other",
+      "icon": "px-quartz-pillar"
+    },
+    {
+      "id": "quartz-slab",
+      "nameEn": "Quartz Slab",
+      "nameFa": "کوارتز اسلب",
+      "category": "other",
+      "icon": "px-quartz-slab"
+    },
+    {
+      "id": "quartz-stairs",
+      "nameEn": "Quartz Stairs",
+      "nameFa": "کوارتز پله",
+      "category": "other",
+      "icon": "px-quartz-stairs"
+    },
+    {
+      "id": "raw-copper-block",
+      "nameEn": "Block of Raw Copper",
+      "nameFa": "بلوک مس خام",
+      "category": "building",
+      "icon": "raw-copper-block"
+    },
+    {
+      "id": "raw-gold-block",
+      "nameEn": "Block of Raw Gold",
+      "nameFa": "بلوک طلا خام",
+      "category": "building",
+      "icon": "raw-gold-block"
+    },
+    {
+      "id": "raw-iron-block",
+      "nameEn": "Block of Raw Iron",
+      "nameFa": "بلوک آهن خام",
+      "category": "building",
+      "icon": "raw-iron-block"
+    },
+    {
+      "id": "red-banner",
+      "nameEn": "Red Banner",
+      "nameFa": "قرمز بیرق",
+      "category": "other",
+      "icon": "px-red-banner"
+    },
+    {
+      "id": "red-bed",
+      "nameEn": "Red Bed",
+      "nameFa": "قرمز تختاب",
+      "category": "other",
+      "icon": "px-red-bed"
+    },
+    {
+      "id": "red-candle",
+      "nameEn": "Red Candle",
+      "nameFa": "قرمز شمع",
+      "category": "other",
+      "icon": "px-red-candle"
+    },
+    {
+      "id": "red-carpet",
+      "nameEn": "Red Carpet",
+      "nameFa": "قرمز فرش",
+      "category": "other",
+      "icon": "px-red-carpet"
+    },
+    {
+      "id": "red-concrete",
+      "nameEn": "Red Concrete",
+      "nameFa": "قرمز بتن",
+      "category": "other",
+      "icon": "px-red-concrete"
+    },
+    {
+      "id": "red-concrete-powder",
+      "nameEn": "Red Concrete Powder",
+      "nameFa": "قرمز بتن Powder",
+      "category": "other",
+      "icon": "px-red-concrete-powder"
+    },
+    {
+      "id": "red-glazed-terracotta",
+      "nameEn": "Red Glazed Terracotta",
+      "nameFa": "قرمز رنگی سفال",
+      "category": "other",
+      "icon": "px-red-glazed-terracotta"
+    },
+    {
+      "id": "red-mushroom-block",
+      "nameEn": "Red Mushroom Block",
+      "nameFa": "قرمز Mushroom بلوک",
+      "category": "other",
+      "icon": "px-red-mushroom-block"
+    },
+    {
+      "id": "red-nether-brick-slab",
+      "nameEn": "Red Nether Brick Slab",
+      "nameFa": "قرمز ندر Brick اسلب",
+      "category": "other",
+      "icon": "px-red-nether-brick-slab"
+    },
+    {
+      "id": "red-nether-brick-stairs",
+      "nameEn": "Red Nether Brick Stairs",
+      "nameFa": "قرمز ندر Brick پله",
+      "category": "other",
+      "icon": "px-red-nether-brick-stairs"
+    },
+    {
+      "id": "red-nether-brick-wall",
+      "nameEn": "Red Nether Brick Wall",
+      "nameFa": "قرمز ندر Brick دیوار",
+      "category": "other",
+      "icon": "px-red-nether-brick-wall"
+    },
+    {
+      "id": "red-nether-bricks",
+      "nameEn": "Red Nether Bricks",
+      "nameFa": "قرمز ندر آجر",
+      "category": "other",
+      "icon": "px-red-nether-bricks"
+    },
+    {
+      "id": "red-sandstone",
+      "nameEn": "Red Sandstone",
+      "nameFa": "قرمز ماسه‌سنگ",
+      "category": "other",
+      "icon": "px-red-sandstone"
+    },
+    {
+      "id": "red-sandstone-slab",
+      "nameEn": "Red Sandstone Slab",
+      "nameFa": "قرمز ماسه‌سنگ اسلب",
+      "category": "other",
+      "icon": "px-red-sandstone-slab"
+    },
+    {
+      "id": "red-sandstone-stairs",
+      "nameEn": "Red Sandstone Stairs",
+      "nameFa": "قرمز ماسه‌سنگ پله",
+      "category": "other",
+      "icon": "px-red-sandstone-stairs"
+    },
+    {
+      "id": "red-sandstone-wall",
+      "nameEn": "Red Sandstone Wall",
+      "nameFa": "قرمز ماسه‌سنگ دیوار",
+      "category": "other",
+      "icon": "px-red-sandstone-wall"
+    },
+    {
+      "id": "red-shulker-box",
+      "nameEn": "Red Shulker Box",
+      "nameFa": "قرمز شالکر Box",
+      "category": "other",
+      "icon": "px-red-shulker-box"
+    },
+    {
+      "id": "red-stained-glass",
+      "nameEn": "Red Stained Glass",
+      "nameFa": "قرمز رنگی شیشه",
+      "category": "other",
+      "icon": "px-red-stained-glass"
+    },
+    {
+      "id": "red-stained-glass-pane",
+      "nameEn": "Red Stained Glass Pane",
+      "nameFa": "قرمز رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-red-stained-glass-pane"
+    },
+    {
+      "id": "red-terracotta",
+      "nameEn": "Red Terracotta",
+      "nameFa": "قرمز سفال",
+      "category": "other",
+      "icon": "px-red-terracotta"
+    },
+    {
+      "id": "red-wool",
+      "nameEn": "Red Wool",
+      "nameFa": "قرمز پشم",
+      "category": "other",
+      "icon": "px-red-wool"
+    },
+    {
+      "id": "redstone-torch",
+      "nameEn": "Redstone Torch",
+      "nameFa": "مشعل رداستون",
+      "category": "redstone",
+      "icon": "redstone-torch"
+    },
+    {
+      "id": "reinforced-deepslate",
+      "nameEn": "Reinforced Deepslate",
+      "nameFa": "Reinforced تیسنگ",
+      "category": "other",
+      "icon": "px-reinforced-deepslate"
+    },
+    {
+      "id": "repeating-command-block",
+      "nameEn": "Repeating Command Block",
+      "nameFa": "Repeating Command بلوک",
+      "category": "other",
+      "icon": "px-repeating-command-block"
+    },
+    {
+      "id": "resin-block",
+      "nameEn": "Block of Resin",
+      "nameFa": "بلوک رزین",
+      "category": "building",
+      "icon": "resin-block"
+    },
+    {
+      "id": "resin-brick-slab",
+      "nameEn": "Resin Brick Slab",
+      "nameFa": "رزین Brick اسلب",
+      "category": "other",
+      "icon": "px-resin-brick-slab"
+    },
+    {
+      "id": "resin-brick-stairs",
+      "nameEn": "Resin Brick Stairs",
+      "nameFa": "رزین Brick پله",
+      "category": "other",
+      "icon": "px-resin-brick-stairs"
+    },
+    {
+      "id": "resin-brick-wall",
+      "nameEn": "Resin Brick Wall",
+      "nameFa": "رزین Brick دیوار",
+      "category": "other",
+      "icon": "px-resin-brick-wall"
+    },
+    {
+      "id": "resin-bricks",
+      "nameEn": "Resin Bricks",
+      "nameFa": "رزین آجر",
+      "category": "other",
+      "icon": "px-resin-bricks"
+    },
+    {
+      "id": "resin-clump",
+      "nameEn": "Resin Clump",
+      "nameFa": "توده رزین",
+      "category": "natural",
+      "icon": "resin-clump"
+    },
+    {
+      "id": "rooted-dirt",
+      "nameEn": "Rooted Dirt",
+      "nameFa": "Rooted خاک",
+      "category": "other",
+      "icon": "px-rooted-dirt"
+    },
+    {
+      "id": "rose-bush",
+      "nameEn": "Rose Bush",
+      "nameFa": "بوته گل رز",
+      "category": "natural",
+      "icon": "rose-bush"
+    },
+    {
+      "id": "sandstone-slab",
+      "nameEn": "Sandstone Slab",
+      "nameFa": "ماسه‌سنگ اسلب",
+      "category": "other",
+      "icon": "px-sandstone-slab"
+    },
+    {
+      "id": "sandstone-stairs",
+      "nameEn": "Sandstone Stairs",
+      "nameFa": "ماسه‌سنگ پله",
+      "category": "other",
+      "icon": "px-sandstone-stairs"
+    },
+    {
+      "id": "sandstone-wall",
+      "nameEn": "Sandstone Wall",
+      "nameFa": "ماسه‌سنگ دیوار",
+      "category": "other",
+      "icon": "px-sandstone-wall"
+    },
+    {
+      "id": "scaffolding",
+      "nameEn": "Scaffolding",
+      "nameFa": "داربست",
+      "category": "other",
+      "icon": "px-scaffolding"
+    },
+    {
+      "id": "sculk",
+      "nameEn": "Sculk",
+      "nameFa": "اسکالک",
+      "category": "other",
+      "icon": "px-sculk"
+    },
+    {
+      "id": "sculk-catalyst",
+      "nameEn": "Sculk Catalyst",
+      "nameFa": "اسکالک Catalyst",
+      "category": "other",
+      "icon": "px-sculk-catalyst"
+    },
+    {
+      "id": "sculk-sensor",
+      "nameEn": "Sculk Sensor",
+      "nameFa": "اسکالک Sensor",
+      "category": "other",
+      "icon": "px-sculk-sensor"
+    },
+    {
+      "id": "sculk-shrieker",
+      "nameEn": "Sculk Shrieker",
+      "nameFa": "اسکالک Shrieker",
+      "category": "other",
+      "icon": "px-sculk-shrieker"
+    },
+    {
+      "id": "short-dry-grass",
+      "nameEn": "Short Dry Grass",
+      "nameFa": "چمن خشک کوتاه",
+      "category": "natural",
+      "icon": "short-dry-grass"
+    },
+    {
+      "id": "short-grass",
+      "nameEn": "Short Grass",
+      "nameFa": "چمن کوتاه",
+      "category": "natural",
+      "icon": "short-grass"
+    },
+    {
+      "id": "shroomlight",
+      "nameEn": "Shroomlight",
+      "nameFa": "لامپ قارچ",
+      "category": "other",
+      "icon": "px-shroomlight"
+    },
+    {
+      "id": "skeleton-skull",
+      "nameEn": "Skeleton Skull",
+      "nameFa": "اسکلتون Skull",
+      "category": "other",
+      "icon": "px-skeleton-skull"
+    },
+    {
+      "id": "slime-block",
+      "nameEn": "Slime Block",
+      "nameFa": "اسلایم بلوک",
+      "category": "other",
+      "icon": "px-slime-block"
+    },
+    {
+      "id": "smooth-basalt",
+      "nameEn": "Smooth Basalt",
+      "nameFa": "صاف بازالت",
+      "category": "other",
+      "icon": "px-smooth-basalt"
+    },
+    {
+      "id": "smooth-quartz-slab",
+      "nameEn": "Smooth Quartz Slab",
+      "nameFa": "صاف کوارتز اسلب",
+      "category": "other",
+      "icon": "px-smooth-quartz-slab"
+    },
+    {
+      "id": "smooth-quartz-stairs",
+      "nameEn": "Smooth Quartz Stairs",
+      "nameFa": "صاف کوارتز پله",
+      "category": "other",
+      "icon": "px-smooth-quartz-stairs"
+    },
+    {
+      "id": "smooth-red-sandstone",
+      "nameEn": "Smooth Red Sandstone",
+      "nameFa": "صاف قرمز ماسه‌سنگ",
+      "category": "other",
+      "icon": "px-smooth-red-sandstone"
+    },
+    {
+      "id": "smooth-red-sandstone-slab",
+      "nameEn": "Smooth Red Sandstone Slab",
+      "nameFa": "صاف قرمز ماسه‌سنگ اسلب",
+      "category": "other",
+      "icon": "px-smooth-red-sandstone-slab"
+    },
+    {
+      "id": "smooth-red-sandstone-stairs",
+      "nameEn": "Smooth Red Sandstone Stairs",
+      "nameFa": "صاف قرمز ماسه‌سنگ پله",
+      "category": "other",
+      "icon": "px-smooth-red-sandstone-stairs"
+    },
+    {
+      "id": "smooth-sandstone",
+      "nameEn": "Smooth Sandstone",
+      "nameFa": "صاف ماسه‌سنگ",
+      "category": "other",
+      "icon": "px-smooth-sandstone"
+    },
+    {
+      "id": "smooth-sandstone-slab",
+      "nameEn": "Smooth Sandstone Slab",
+      "nameFa": "صاف ماسه‌سنگ اسلب",
+      "category": "other",
+      "icon": "px-smooth-sandstone-slab"
+    },
+    {
+      "id": "smooth-sandstone-stairs",
+      "nameEn": "Smooth Sandstone Stairs",
+      "nameFa": "صاف ماسه‌سنگ پله",
+      "category": "other",
+      "icon": "px-smooth-sandstone-stairs"
+    },
+    {
+      "id": "smooth-stone",
+      "nameEn": "Smooth Stone",
+      "nameFa": "صاف سنگ",
+      "category": "other",
+      "icon": "px-smooth-stone"
+    },
+    {
+      "id": "smooth-stone-slab",
+      "nameEn": "Smooth Stone Slab",
+      "nameFa": "صاف سنگ اسلب",
+      "category": "other",
+      "icon": "px-smooth-stone-slab"
+    },
+    {
+      "id": "snow",
+      "nameEn": "Snow",
+      "nameFa": "برف",
+      "category": "other",
+      "icon": "px-snow"
+    },
+    {
+      "id": "snow-brick-slab",
+      "nameEn": "Snow Brick Slab",
+      "nameFa": "نیم‌بلوک آجر برف",
+      "category": "building",
+      "icon": "snow-brick-slab"
+    },
+    {
+      "id": "snow-brick-stairs",
+      "nameEn": "Snow Brick Stairs",
+      "nameFa": "پله‌ی آجر برف",
+      "category": "building",
+      "icon": "snow-brick-stairs"
+    },
+    {
+      "id": "snow-brick-wall",
+      "nameEn": "Snow Brick Wall",
+      "nameFa": "دیوار آجر برف",
+      "category": "building",
+      "icon": "snow-brick-wall"
+    },
+    {
+      "id": "snow-bricks",
+      "nameEn": "Snow Bricks",
+      "nameFa": "آجر برف",
+      "category": "building",
+      "icon": "snow-bricks"
+    },
+    {
+      "id": "soul-campfire",
+      "nameEn": "Soul Campfire",
+      "nameFa": "Soul آتش‌دان",
+      "category": "other",
+      "icon": "px-soul-campfire"
+    },
+    {
+      "id": "soul-soil",
+      "nameEn": "Soul Soil",
+      "nameFa": "Soul Soil",
+      "category": "other",
+      "icon": "px-soul-soil"
+    },
+    {
+      "id": "soul-torch",
+      "nameEn": "Soul Torch",
+      "nameFa": "Soul مشعل",
+      "category": "other",
+      "icon": "px-soul-torch"
+    },
+    {
+      "id": "sponge",
+      "nameEn": "Sponge",
+      "nameFa": "اسفنج",
+      "category": "other",
+      "icon": "px-sponge"
+    },
+    {
+      "id": "spore-blossom",
+      "nameEn": "Spore Blossom",
+      "nameFa": "گل هاگ",
+      "category": "natural",
+      "icon": "spore-blossom"
+    },
+    {
+      "id": "spruce-button",
+      "nameEn": "Spruce Button",
+      "nameFa": "روشن دکمه",
+      "category": "other",
+      "icon": "px-spruce-button"
+    },
+    {
+      "id": "spruce-door",
+      "nameEn": "Spruce Door",
+      "nameFa": "روشن در",
+      "category": "other",
+      "icon": "px-spruce-door"
+    },
+    {
+      "id": "spruce-fence",
+      "nameEn": "Spruce Fence",
+      "nameFa": "روشن حصار",
+      "category": "other",
+      "icon": "px-spruce-fence"
+    },
+    {
+      "id": "spruce-fence-gate",
+      "nameEn": "Spruce Fence Gate",
+      "nameFa": "روشن حصار Gate",
+      "category": "other",
+      "icon": "px-spruce-fence-gate"
+    },
+    {
+      "id": "spruce-leaves",
+      "nameEn": "Spruce Leaves",
+      "nameFa": "روشن برگ",
+      "category": "other",
+      "icon": "px-spruce-leaves"
+    },
+    {
+      "id": "spruce-pressure-plate",
+      "nameEn": "Spruce Pressure Plate",
+      "nameFa": "روشن Pressure Plate",
+      "category": "other",
+      "icon": "px-spruce-pressure-plate"
+    },
+    {
+      "id": "spruce-sapling",
+      "nameEn": "Spruce Sapling",
+      "nameFa": "نهال نجوکا",
+      "category": "natural",
+      "icon": "spruce-sapling"
+    },
+    {
+      "id": "spruce-slab",
+      "nameEn": "Spruce Slab",
+      "nameFa": "روشن اسلب",
+      "category": "other",
+      "icon": "px-spruce-slab"
+    },
+    {
+      "id": "spruce-stairs",
+      "nameEn": "Spruce Stairs",
+      "nameFa": "روشن پله",
+      "category": "other",
+      "icon": "px-spruce-stairs"
+    },
+    {
+      "id": "spruce-trapdoor",
+      "nameEn": "Spruce Trapdoor",
+      "nameFa": "روشن تله‌در",
+      "category": "other",
+      "icon": "px-spruce-trapdoor"
+    },
+    {
+      "id": "spruce-wood",
+      "nameEn": "Spruce Wood",
+      "nameFa": "روشن چوب",
+      "category": "other",
+      "icon": "px-spruce-wood"
+    },
+    {
+      "id": "stone-brick-slab",
+      "nameEn": "Stone Brick Slab",
+      "nameFa": "سنگ Brick اسلب",
+      "category": "other",
+      "icon": "px-stone-brick-slab"
+    },
+    {
+      "id": "stone-brick-stairs",
+      "nameEn": "Stone Brick Stairs",
+      "nameFa": "سنگ Brick پله",
+      "category": "other",
+      "icon": "px-stone-brick-stairs"
+    },
+    {
+      "id": "stone-brick-wall",
+      "nameEn": "Stone Brick Wall",
+      "nameFa": "سنگ Brick دیوار",
+      "category": "other",
+      "icon": "px-stone-brick-wall"
+    },
+    {
+      "id": "stone-button",
+      "nameEn": "Stone Button",
+      "nameFa": "سنگ دکمه",
+      "category": "other",
+      "icon": "px-stone-button"
+    },
+    {
+      "id": "stone-pressure-plate",
+      "nameEn": "Stone Pressure Plate",
+      "nameFa": "سنگ Pressure Plate",
+      "category": "other",
+      "icon": "px-stone-pressure-plate"
+    },
+    {
+      "id": "stone-slab",
+      "nameEn": "Stone Slab",
+      "nameFa": "سنگ اسلب",
+      "category": "other",
+      "icon": "px-stone-slab"
+    },
+    {
+      "id": "stone-stairs",
+      "nameEn": "Stone Stairs",
+      "nameFa": "سنگ پله",
+      "category": "other",
+      "icon": "px-stone-stairs"
+    },
+    {
+      "id": "string",
+      "nameEn": "String (Tripwire)",
+      "nameFa": "نخ (تله سیم)",
+      "category": "redstone",
+      "icon": "string"
+    },
+    {
+      "id": "stripped-acacia-log",
+      "nameEn": "Stripped Acacia Log",
+      "nameFa": "تراش‌خورده اقاقیا تنه",
+      "category": "other",
+      "icon": "px-stripped-acacia-log"
+    },
+    {
+      "id": "stripped-acacia-wood",
+      "nameEn": "Stripped Acacia Wood",
+      "nameFa": "تراش‌خورده اقاقیا چوب",
+      "category": "other",
+      "icon": "px-stripped-acacia-wood"
+    },
+    {
+      "id": "stripped-bamboo-block",
+      "nameEn": "Block of Stripped Bamboo",
+      "nameFa": "بلوک بامبو Strip‌شده",
+      "category": "building",
+      "icon": "stripped-bamboo-block"
+    },
+    {
+      "id": "stripped-birch-log",
+      "nameEn": "Stripped Birch Log",
+      "nameFa": "تراش‌خورده توس تنه",
+      "category": "other",
+      "icon": "px-stripped-birch-log"
+    },
+    {
+      "id": "stripped-birch-wood",
+      "nameEn": "Stripped Birch Wood",
+      "nameFa": "تراش‌خورده توس چوب",
+      "category": "other",
+      "icon": "px-stripped-birch-wood"
+    },
+    {
+      "id": "stripped-cherry-log",
+      "nameEn": "Stripped Cherry Log",
+      "nameFa": "تراش‌خورده گیلاس تنه",
+      "category": "other",
+      "icon": "px-stripped-cherry-log"
+    },
+    {
+      "id": "stripped-cherry-wood",
+      "nameEn": "Stripped Cherry Wood",
+      "nameFa": "تراش‌خورده گیلاس چوب",
+      "category": "other",
+      "icon": "px-stripped-cherry-wood"
+    },
+    {
+      "id": "stripped-crimson-hyphae",
+      "nameEn": "Stripped Crimson Hyphae",
+      "nameFa": "تراش‌خورده سرخابی هیفه",
+      "category": "other",
+      "icon": "px-stripped-crimson-hyphae"
+    },
+    {
+      "id": "stripped-crimson-stem",
+      "nameEn": "Stripped Crimson Stem",
+      "nameFa": "تراش‌خورده سرخابی ساقه",
+      "category": "other",
+      "icon": "px-stripped-crimson-stem"
+    },
+    {
+      "id": "stripped-dark-oak-log",
+      "nameEn": "Stripped Dark Oak Log",
+      "nameFa": "تراش‌خورده Dark بلوط تنه",
+      "category": "other",
+      "icon": "px-stripped-dark-oak-log"
+    },
+    {
+      "id": "stripped-dark-oak-wood",
+      "nameEn": "Stripped Dark Oak Wood",
+      "nameFa": "تراش‌خورده Dark بلوط چوب",
+      "category": "other",
+      "icon": "px-stripped-dark-oak-wood"
+    },
+    {
+      "id": "stripped-jungle-log",
+      "nameEn": "Stripped Jungle Log",
+      "nameFa": "تراش‌خورده جنگلی تنه",
+      "category": "other",
+      "icon": "px-stripped-jungle-log"
+    },
+    {
+      "id": "stripped-jungle-wood",
+      "nameEn": "Stripped Jungle Wood",
+      "nameFa": "تراش‌خورده جنگلی چوب",
+      "category": "other",
+      "icon": "px-stripped-jungle-wood"
+    },
+    {
+      "id": "stripped-mangrove-log",
+      "nameEn": "Stripped Mangrove Log",
+      "nameFa": "تراش‌خورده مانگرو تنه",
+      "category": "other",
+      "icon": "px-stripped-mangrove-log"
+    },
+    {
+      "id": "stripped-mangrove-wood",
+      "nameEn": "Stripped Mangrove Wood",
+      "nameFa": "تراش‌خورده مانگرو چوب",
+      "category": "other",
+      "icon": "px-stripped-mangrove-wood"
+    },
+    {
+      "id": "stripped-oak-log",
+      "nameEn": "Stripped Oak Log",
+      "nameFa": "تراش‌خورده بلوط تنه",
+      "category": "other",
+      "icon": "px-stripped-oak-log"
+    },
+    {
+      "id": "stripped-oak-wood",
+      "nameEn": "Stripped Oak Wood",
+      "nameFa": "تراش‌خورده بلوط چوب",
+      "category": "other",
+      "icon": "px-stripped-oak-wood"
+    },
+    {
+      "id": "stripped-pale-oak-log",
+      "nameEn": "Stripped Pale Oak Log",
+      "nameFa": "تراش‌خورده کم‌رنگ بلوط تنه",
+      "category": "other",
+      "icon": "px-stripped-pale-oak-log"
+    },
+    {
+      "id": "stripped-pale-oak-wood",
+      "nameEn": "Stripped Pale Oak Wood",
+      "nameFa": "تراش‌خورده کم‌رنگ بلوط چوب",
+      "category": "other",
+      "icon": "px-stripped-pale-oak-wood"
+    },
+    {
+      "id": "stripped-spruce-log",
+      "nameEn": "Stripped Spruce Log",
+      "nameFa": "تراش‌خورده روشن تنه",
+      "category": "other",
+      "icon": "px-stripped-spruce-log"
+    },
+    {
+      "id": "stripped-spruce-wood",
+      "nameEn": "Stripped Spruce Wood",
+      "nameFa": "تراش‌خورده روشن چوب",
+      "category": "other",
+      "icon": "px-stripped-spruce-wood"
+    },
+    {
+      "id": "stripped-warped-hyphae",
+      "nameEn": "Stripped Warped Hyphae",
+      "nameFa": "تراش‌خورده پیچانده هیفه",
+      "category": "other",
+      "icon": "px-stripped-warped-hyphae"
+    },
+    {
+      "id": "stripped-warped-stem",
+      "nameEn": "Stripped Warped Stem",
+      "nameFa": "تراش‌خورده پیچانده ساقه",
+      "category": "other",
+      "icon": "px-stripped-warped-stem"
+    },
+    {
+      "id": "structure-block",
+      "nameEn": "Structure Block",
+      "nameFa": "Structure بلوک",
+      "category": "other",
+      "icon": "px-structure-block"
+    },
+    {
+      "id": "sunflower",
+      "nameEn": "Sunflower",
+      "nameFa": "گل آفتابگردان",
+      "category": "natural",
+      "icon": "sunflower"
+    },
+    {
+      "id": "suspicious-gravel",
+      "nameEn": "Suspicious Gravel",
+      "nameFa": "Suspicious قیل",
+      "category": "other",
+      "icon": "px-suspicious-gravel"
+    },
+    {
+      "id": "suspicious-sand",
+      "nameEn": "Suspicious Sand",
+      "nameFa": "Suspicious ماسه",
+      "category": "other",
+      "icon": "px-suspicious-sand"
+    },
+    {
+      "id": "tall-dry-grass",
+      "nameEn": "Tall Dry Grass",
+      "nameFa": "چمن خشک بلند",
+      "category": "natural",
+      "icon": "tall-dry-grass"
+    },
+    {
+      "id": "tall-grass",
+      "nameEn": "Tall Grass",
+      "nameFa": "چمن بلند",
+      "category": "natural",
+      "icon": "tall-grass"
+    },
+    {
+      "id": "target",
+      "nameEn": "Target",
+      "nameFa": "هدف",
+      "category": "other",
+      "icon": "px-target"
+    },
+    {
+      "id": "test-instance-block",
+      "nameEn": "Test Instance Block",
+      "nameFa": "Test Instance بلوک",
+      "category": "other",
+      "icon": "px-test-instance-block"
+    },
+    {
+      "id": "tinted-glass",
+      "nameEn": "Tinted Glass",
+      "nameFa": "Tinted شیشه",
+      "category": "other",
+      "icon": "px-tinted-glass"
+    },
+    {
+      "id": "torchflower",
+      "nameEn": "Torchflower",
+      "nameFa": "گل مشعل",
+      "category": "natural",
+      "icon": "torchflower"
+    },
+    {
+      "id": "torchflower-seeds",
+      "nameEn": "Torchflower Crop",
+      "nameFa": "کاشت گل مشعل",
+      "category": "natural",
+      "icon": "torchflower-seeds"
+    },
+    {
+      "id": "trial-spawner",
+      "nameEn": "Trial Spawner",
+      "nameFa": "محاکمه تولیدکننده",
+      "category": "other",
+      "icon": "px-trial-spawner"
+    },
+    {
+      "id": "tube-coral-block",
+      "nameEn": "Tube Coral Block",
+      "nameFa": "Tube مرجان بلوک",
+      "category": "other",
+      "icon": "px-tube-coral-block"
+    },
+    {
+      "id": "tuff",
+      "nameEn": "Tuff",
+      "nameFa": "توف",
+      "category": "other",
+      "icon": "px-tuff"
+    },
+    {
+      "id": "tuff-brick-slab",
+      "nameEn": "Tuff Brick Slab",
+      "nameFa": "توف Brick اسلب",
+      "category": "other",
+      "icon": "px-tuff-brick-slab"
+    },
+    {
+      "id": "tuff-brick-stairs",
+      "nameEn": "Tuff Brick Stairs",
+      "nameFa": "توف Brick پله",
+      "category": "other",
+      "icon": "px-tuff-brick-stairs"
+    },
+    {
+      "id": "tuff-brick-wall",
+      "nameEn": "Tuff Brick Wall",
+      "nameFa": "توف Brick دیوار",
+      "category": "other",
+      "icon": "px-tuff-brick-wall"
+    },
+    {
+      "id": "tuff-bricks",
+      "nameEn": "Tuff Bricks",
+      "nameFa": "توف آجر",
+      "category": "other",
+      "icon": "px-tuff-bricks"
+    },
+    {
+      "id": "tuff-slab",
+      "nameEn": "Tuff Slab",
+      "nameFa": "توف اسلب",
+      "category": "other",
+      "icon": "px-tuff-slab"
+    },
+    {
+      "id": "tuff-stairs",
+      "nameEn": "Tuff Stairs",
+      "nameFa": "توف پله",
+      "category": "other",
+      "icon": "px-tuff-stairs"
+    },
+    {
+      "id": "tuff-wall",
+      "nameEn": "Tuff Wall",
+      "nameFa": "توف دیوار",
+      "category": "other",
+      "icon": "px-tuff-wall"
+    },
+    {
+      "id": "vault",
+      "nameEn": "Vault",
+      "nameFa": "گنجینه",
+      "category": "other",
+      "icon": "px-vault"
+    },
+    {
+      "id": "verdant-froglight",
+      "nameEn": "Verdant Froglight",
+      "nameFa": "Verdant فورگ‌لایت",
+      "category": "other",
+      "icon": "px-verdant-froglight"
+    },
+    {
+      "id": "warped-button",
+      "nameEn": "Warped Button",
+      "nameFa": "پیچانده دکمه",
+      "category": "other",
+      "icon": "px-warped-button"
+    },
+    {
+      "id": "warped-door",
+      "nameEn": "Warped Door",
+      "nameFa": "پیچانده در",
+      "category": "other",
+      "icon": "px-warped-door"
+    },
+    {
+      "id": "warped-fence",
+      "nameEn": "Warped Fence",
+      "nameFa": "پیچانده حصار",
+      "category": "other",
+      "icon": "px-warped-fence"
+    },
+    {
+      "id": "warped-fence-gate",
+      "nameEn": "Warped Fence Gate",
+      "nameFa": "پیچانده حصار Gate",
+      "category": "other",
+      "icon": "px-warped-fence-gate"
+    },
+    {
+      "id": "warped-hyphae",
+      "nameEn": "Warped Hyphae",
+      "nameFa": "پیچانده هیفه",
+      "category": "other",
+      "icon": "px-warped-hyphae"
+    },
+    {
+      "id": "warped-nylium",
+      "nameEn": "Warped Nylium",
+      "nameFa": "پیچانده نایلیوم",
+      "category": "other",
+      "icon": "px-warped-nylium"
+    },
+    {
+      "id": "warped-planks",
+      "nameEn": "Warped Planks",
+      "nameFa": "پیچانده تخته",
+      "category": "other",
+      "icon": "px-warped-planks"
+    },
+    {
+      "id": "warped-pressure-plate",
+      "nameEn": "Warped Pressure Plate",
+      "nameFa": "پیچانده Pressure Plate",
+      "category": "other",
+      "icon": "px-warped-pressure-plate"
+    },
+    {
+      "id": "warped-slab",
+      "nameEn": "Warped Slab",
+      "nameFa": "پیچانده اسلب",
+      "category": "other",
+      "icon": "px-warped-slab"
+    },
+    {
+      "id": "warped-stairs",
+      "nameEn": "Warped Stairs",
+      "nameFa": "پیچانده پله",
+      "category": "other",
+      "icon": "px-warped-stairs"
+    },
+    {
+      "id": "warped-stem",
+      "nameEn": "Warped Stem",
+      "nameFa": "پیچانده ساقه",
+      "category": "other",
+      "icon": "px-warped-stem"
+    },
+    {
+      "id": "warped-trapdoor",
+      "nameEn": "Warped Trapdoor",
+      "nameFa": "پیچانده تله‌در",
+      "category": "other",
+      "icon": "px-warped-trapdoor"
+    },
+    {
+      "id": "warped-wart-block",
+      "nameEn": "Warped Wart Block",
+      "nameFa": "پیچانده Wart بلوک",
+      "category": "other",
+      "icon": "px-warped-wart-block"
+    },
+    {
+      "id": "waxed-chiseled-copper",
+      "nameEn": "Waxed Chiseled Copper",
+      "nameFa": "وکس‌دار کنده‌کاری‌شده مس",
+      "category": "other",
+      "icon": "px-waxed-chiseled-copper"
+    },
+    {
+      "id": "waxed-copper-bulb",
+      "nameEn": "Waxed Copper Bulb",
+      "nameFa": "وکس‌دار مس Bulb",
+      "category": "other",
+      "icon": "px-waxed-copper-bulb"
+    },
+    {
+      "id": "waxed-copper-door",
+      "nameEn": "Waxed Copper Door",
+      "nameFa": "وکس‌دار مس در",
+      "category": "other",
+      "icon": "px-waxed-copper-door"
+    },
+    {
+      "id": "waxed-copper-grate",
+      "nameEn": "Waxed Copper Grate",
+      "nameFa": "وکس‌دار مس Grate",
+      "category": "other",
+      "icon": "px-waxed-copper-grate"
+    },
+    {
+      "id": "waxed-copper-trapdoor",
+      "nameEn": "Waxed Copper Trapdoor",
+      "nameFa": "وکس‌دار مس تله‌در",
+      "category": "other",
+      "icon": "px-waxed-copper-trapdoor"
+    },
+    {
+      "id": "waxed-cut-copper",
+      "nameEn": "Waxed Cut Copper",
+      "nameFa": "وکس‌دار Cut مس",
+      "category": "other",
+      "icon": "px-waxed-cut-copper"
+    },
+    {
+      "id": "waxed-cut-copper-slab",
+      "nameEn": "Waxed Cut Copper Slab",
+      "nameFa": "وکس‌دار Cut مس اسلب",
+      "category": "other",
+      "icon": "px-waxed-cut-copper-slab"
+    },
+    {
+      "id": "waxed-cut-copper-stairs",
+      "nameEn": "Waxed Cut Copper Stairs",
+      "nameFa": "وکس‌دار Cut مس پله",
+      "category": "other",
+      "icon": "px-waxed-cut-copper-stairs"
+    },
+    {
+      "id": "waxed-exposed-chiseled-copper",
+      "nameEn": "Waxed Exposed Chiseled Copper",
+      "nameFa": "وکس‌دار نمودار کنده‌کاری‌شده مس",
+      "category": "other",
+      "icon": "px-waxed-exposed-chiseled-copper"
+    },
+    {
+      "id": "waxed-exposed-copper",
+      "nameEn": "Waxed Exposed Copper",
+      "nameFa": "وکس‌دار نمودار مس",
+      "category": "other",
+      "icon": "px-waxed-exposed-copper"
+    },
+    {
+      "id": "waxed-exposed-copper-bulb",
+      "nameEn": "Waxed Exposed Copper Bulb",
+      "nameFa": "وکس‌دار نمودار مس Bulb",
+      "category": "other",
+      "icon": "px-waxed-exposed-copper-bulb"
+    },
+    {
+      "id": "waxed-exposed-copper-door",
+      "nameEn": "Waxed Exposed Copper Door",
+      "nameFa": "وکس‌دار نمودار مس در",
+      "category": "other",
+      "icon": "px-waxed-exposed-copper-door"
+    },
+    {
+      "id": "waxed-exposed-copper-grate",
+      "nameEn": "Waxed Exposed Copper Grate",
+      "nameFa": "وکس‌دار نمودار مس Grate",
+      "category": "other",
+      "icon": "px-waxed-exposed-copper-grate"
+    },
+    {
+      "id": "waxed-exposed-copper-trapdoor",
+      "nameEn": "Waxed Exposed Copper Trapdoor",
+      "nameFa": "وکس‌دار نمودار مس تله‌در",
+      "category": "other",
+      "icon": "px-waxed-exposed-copper-trapdoor"
+    },
+    {
+      "id": "waxed-exposed-cut-copper",
+      "nameEn": "Waxed Exposed Cut Copper",
+      "nameFa": "وکس‌دار نمودار Cut مس",
+      "category": "other",
+      "icon": "px-waxed-exposed-cut-copper"
+    },
+    {
+      "id": "waxed-exposed-cut-copper-slab",
+      "nameEn": "Waxed Exposed Cut Copper Slab",
+      "nameFa": "وکس‌دار نمودار Cut مس اسلب",
+      "category": "other",
+      "icon": "px-waxed-exposed-cut-copper-slab"
+    },
+    {
+      "id": "waxed-exposed-cut-copper-stairs",
+      "nameEn": "Waxed Exposed Cut Copper Stairs",
+      "nameFa": "وکس‌دار نمودار Cut مس پله",
+      "category": "other",
+      "icon": "px-waxed-exposed-cut-copper-stairs"
+    },
+    {
+      "id": "waxed-oxidized-chiseled-copper",
+      "nameEn": "Waxed Oxidized Chiseled Copper",
+      "nameFa": "وکس‌دار اکسیده کنده‌کاری‌شده مس",
+      "category": "other",
+      "icon": "px-waxed-oxidized-chiseled-copper"
+    },
+    {
+      "id": "waxed-oxidized-copper",
+      "nameEn": "Waxed Oxidized Copper",
+      "nameFa": "وکس‌دار اکسیده مس",
+      "category": "other",
+      "icon": "px-waxed-oxidized-copper"
+    },
+    {
+      "id": "waxed-oxidized-copper-bulb",
+      "nameEn": "Waxed Oxidized Copper Bulb",
+      "nameFa": "وکس‌دار اکسیده مس Bulb",
+      "category": "other",
+      "icon": "px-waxed-oxidized-copper-bulb"
+    },
+    {
+      "id": "waxed-oxidized-copper-door",
+      "nameEn": "Waxed Oxidized Copper Door",
+      "nameFa": "وکس‌دار اکسیده مس در",
+      "category": "other",
+      "icon": "px-waxed-oxidized-copper-door"
+    },
+    {
+      "id": "waxed-oxidized-copper-grate",
+      "nameEn": "Waxed Oxidized Copper Grate",
+      "nameFa": "وکس‌دار اکسیده مس Grate",
+      "category": "other",
+      "icon": "px-waxed-oxidized-copper-grate"
+    },
+    {
+      "id": "waxed-oxidized-copper-trapdoor",
+      "nameEn": "Waxed Oxidized Copper Trapdoor",
+      "nameFa": "وکس‌دار اکسیده مس تله‌در",
+      "category": "other",
+      "icon": "px-waxed-oxidized-copper-trapdoor"
+    },
+    {
+      "id": "waxed-oxidized-cut-copper",
+      "nameEn": "Waxed Oxidized Cut Copper",
+      "nameFa": "وکس‌دار اکسیده Cut مس",
+      "category": "other",
+      "icon": "px-waxed-oxidized-cut-copper"
+    },
+    {
+      "id": "waxed-oxidized-cut-copper-slab",
+      "nameEn": "Waxed Oxidized Cut Copper Slab",
+      "nameFa": "وکس‌دار اکسیده Cut مس اسلب",
+      "category": "other",
+      "icon": "px-waxed-oxidized-cut-copper-slab"
+    },
+    {
+      "id": "waxed-oxidized-cut-copper-stairs",
+      "nameEn": "Waxed Oxidized Cut Copper Stairs",
+      "nameFa": "وکس‌دار اکسیده Cut مس پله",
+      "category": "other",
+      "icon": "px-waxed-oxidized-cut-copper-stairs"
+    },
+    {
+      "id": "waxed-weathered-chiseled-copper",
+      "nameEn": "Waxed Weathered Chiseled Copper",
+      "nameFa": "وکس‌دار هوازده کنده‌کاری‌شده مس",
+      "category": "other",
+      "icon": "px-waxed-weathered-chiseled-copper"
+    },
+    {
+      "id": "waxed-weathered-copper",
+      "nameEn": "Waxed Weathered Copper",
+      "nameFa": "وکس‌دار هوازده مس",
+      "category": "other",
+      "icon": "px-waxed-weathered-copper"
+    },
+    {
+      "id": "waxed-weathered-copper-bulb",
+      "nameEn": "Waxed Weathered Copper Bulb",
+      "nameFa": "وکس‌دار هوازده مس Bulb",
+      "category": "other",
+      "icon": "px-waxed-weathered-copper-bulb"
+    },
+    {
+      "id": "waxed-weathered-copper-door",
+      "nameEn": "Waxed Weathered Copper Door",
+      "nameFa": "وکس‌دار هوازده مس در",
+      "category": "other",
+      "icon": "px-waxed-weathered-copper-door"
+    },
+    {
+      "id": "waxed-weathered-copper-grate",
+      "nameEn": "Waxed Weathered Copper Grate",
+      "nameFa": "وکس‌دار هوازده مس Grate",
+      "category": "other",
+      "icon": "px-waxed-weathered-copper-grate"
+    },
+    {
+      "id": "waxed-weathered-copper-trapdoor",
+      "nameEn": "Waxed Weathered Copper Trapdoor",
+      "nameFa": "وکس‌دار هوازده مس تله‌در",
+      "category": "other",
+      "icon": "px-waxed-weathered-copper-trapdoor"
+    },
+    {
+      "id": "waxed-weathered-cut-copper",
+      "nameEn": "Waxed Weathered Cut Copper",
+      "nameFa": "وکس‌دار هوازده Cut مس",
+      "category": "other",
+      "icon": "px-waxed-weathered-cut-copper"
+    },
+    {
+      "id": "waxed-weathered-cut-copper-slab",
+      "nameEn": "Waxed Weathered Cut Copper Slab",
+      "nameFa": "وکس‌دار هوازده Cut مس اسلب",
+      "category": "other",
+      "icon": "px-waxed-weathered-cut-copper-slab"
+    },
+    {
+      "id": "waxed-weathered-cut-copper-stairs",
+      "nameEn": "Waxed Weathered Cut Copper Stairs",
+      "nameFa": "وکس‌دار هوازده Cut مس پله",
+      "category": "other",
+      "icon": "px-waxed-weathered-cut-copper-stairs"
+    },
+    {
+      "id": "weathered-chiseled-copper",
+      "nameEn": "Weathered Chiseled Copper",
+      "nameFa": "هوازده کنده‌کاری‌شده مس",
+      "category": "other",
+      "icon": "px-weathered-chiseled-copper"
+    },
+    {
+      "id": "weathered-copper",
+      "nameEn": "Weathered Copper",
+      "nameFa": "هوازده مس",
+      "category": "other",
+      "icon": "px-weathered-copper"
+    },
+    {
+      "id": "weathered-copper-bulb",
+      "nameEn": "Weathered Copper Bulb",
+      "nameFa": "هوازده مس Bulb",
+      "category": "other",
+      "icon": "px-weathered-copper-bulb"
+    },
+    {
+      "id": "weathered-copper-door",
+      "nameEn": "Weathered Copper Door",
+      "nameFa": "هوازده مس در",
+      "category": "other",
+      "icon": "px-weathered-copper-door"
+    },
+    {
+      "id": "weathered-copper-grate",
+      "nameEn": "Weathered Copper Grate",
+      "nameFa": "هوازده مس Grate",
+      "category": "other",
+      "icon": "px-weathered-copper-grate"
+    },
+    {
+      "id": "weathered-copper-trapdoor",
+      "nameEn": "Weathered Copper Trapdoor",
+      "nameFa": "هوازده مس تله‌در",
+      "category": "other",
+      "icon": "px-weathered-copper-trapdoor"
+    },
+    {
+      "id": "weathered-cut-copper",
+      "nameEn": "Weathered Cut Copper",
+      "nameFa": "هوازده Cut مس",
+      "category": "other",
+      "icon": "px-weathered-cut-copper"
+    },
+    {
+      "id": "weathered-cut-copper-slab",
+      "nameEn": "Weathered Cut Copper Slab",
+      "nameFa": "هوازده Cut مس اسلب",
+      "category": "other",
+      "icon": "px-weathered-cut-copper-slab"
+    },
+    {
+      "id": "weathered-cut-copper-stairs",
+      "nameEn": "Weathered Cut Copper Stairs",
+      "nameFa": "هوازده Cut مس پله",
+      "category": "other",
+      "icon": "px-weathered-cut-copper-stairs"
+    },
+    {
+      "id": "wet-sponge",
+      "nameEn": "Wet Sponge",
+      "nameFa": "Wet اسفنج",
+      "category": "other",
+      "icon": "px-wet-sponge"
+    },
+    {
+      "id": "wheat-seeds",
+      "nameEn": "Wheat Crop",
+      "nameFa": "کاشت گندم",
+      "category": "natural",
+      "icon": "wheat-seeds"
+    },
+    {
+      "id": "white-banner",
+      "nameEn": "White Banner",
+      "nameFa": "سفید بیرق",
+      "category": "other",
+      "icon": "px-white-banner"
+    },
+    {
+      "id": "white-bed",
+      "nameEn": "White Bed",
+      "nameFa": "سفید تختاب",
+      "category": "other",
+      "icon": "px-white-bed"
+    },
+    {
+      "id": "white-carpet",
+      "nameEn": "White Carpet",
+      "nameFa": "سفید فرش",
+      "category": "other",
+      "icon": "px-white-carpet"
+    },
+    {
+      "id": "white-concrete",
+      "nameEn": "White Concrete",
+      "nameFa": "سفید بتن",
+      "category": "other",
+      "icon": "px-white-concrete"
+    },
+    {
+      "id": "white-concrete-powder",
+      "nameEn": "White Concrete Powder",
+      "nameFa": "سفید بتن Powder",
+      "category": "other",
+      "icon": "px-white-concrete-powder"
+    },
+    {
+      "id": "white-glazed-terracotta",
+      "nameEn": "White Glazed Terracotta",
+      "nameFa": "سفید رنگی سفال",
+      "category": "other",
+      "icon": "px-white-glazed-terracotta"
+    },
+    {
+      "id": "white-shulker-box",
+      "nameEn": "White Shulker Box",
+      "nameFa": "سفید شالکر Box",
+      "category": "other",
+      "icon": "px-white-shulker-box"
+    },
+    {
+      "id": "white-stained-glass",
+      "nameEn": "White Stained Glass",
+      "nameFa": "سفید رنگی شیشه",
+      "category": "other",
+      "icon": "px-white-stained-glass"
+    },
+    {
+      "id": "white-stained-glass-pane",
+      "nameEn": "White Stained Glass Pane",
+      "nameFa": "سفید رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-white-stained-glass-pane"
+    },
+    {
+      "id": "white-terracotta",
+      "nameEn": "White Terracotta",
+      "nameFa": "سفید سفال",
+      "category": "other",
+      "icon": "px-white-terracotta"
+    },
+    {
+      "id": "white-wool",
+      "nameEn": "White Wool",
+      "nameFa": "سفید پشم",
+      "category": "other",
+      "icon": "px-white-wool"
+    },
+    {
+      "id": "wildflowers",
+      "nameEn": "Wildflowers",
+      "nameFa": "گل‌های وحشی",
+      "category": "natural",
+      "icon": "wildflowers"
+    },
+    {
+      "id": "wither-skeleton-skull",
+      "nameEn": "Wither Skeleton Skull",
+      "nameFa": "Wither اسکلتون Skull",
+      "category": "other",
+      "icon": "px-wither-skeleton-skull"
+    },
+    {
+      "id": "yellow-banner",
+      "nameEn": "Yellow Banner",
+      "nameFa": "زرد بیرق",
+      "category": "other",
+      "icon": "px-yellow-banner"
+    },
+    {
+      "id": "yellow-bed",
+      "nameEn": "Yellow Bed",
+      "nameFa": "زرد تختاب",
+      "category": "other",
+      "icon": "px-yellow-bed"
+    },
+    {
+      "id": "yellow-carpet",
+      "nameEn": "Yellow Carpet",
+      "nameFa": "زرد فرش",
+      "category": "other",
+      "icon": "px-yellow-carpet"
+    },
+    {
+      "id": "yellow-concrete",
+      "nameEn": "Yellow Concrete",
+      "nameFa": "زرد بتن",
+      "category": "other",
+      "icon": "px-yellow-concrete"
+    },
+    {
+      "id": "yellow-concrete-powder",
+      "nameEn": "Yellow Concrete Powder",
+      "nameFa": "زرد بتن Powder",
+      "category": "other",
+      "icon": "px-yellow-concrete-powder"
+    },
+    {
+      "id": "yellow-glazed-terracotta",
+      "nameEn": "Yellow Glazed Terracotta",
+      "nameFa": "زرد رنگی سفال",
+      "category": "other",
+      "icon": "px-yellow-glazed-terracotta"
+    },
+    {
+      "id": "yellow-shulker-box",
+      "nameEn": "Yellow Shulker Box",
+      "nameFa": "زرد شالکر Box",
+      "category": "other",
+      "icon": "px-yellow-shulker-box"
+    },
+    {
+      "id": "yellow-stained-glass",
+      "nameEn": "Yellow Stained Glass",
+      "nameFa": "زرد رنگی شیشه",
+      "category": "other",
+      "icon": "px-yellow-stained-glass"
+    },
+    {
+      "id": "yellow-stained-glass-pane",
+      "nameEn": "Yellow Stained Glass Pane",
+      "nameFa": "زرد رنگی شیشه Pane",
+      "category": "other",
+      "icon": "px-yellow-stained-glass-pane"
+    },
+    {
+      "id": "yellow-terracotta",
+      "nameEn": "Yellow Terracotta",
+      "nameFa": "زرد سفال",
+      "category": "other",
+      "icon": "px-yellow-terracotta"
+    },
+    {
+      "id": "yellow-wool",
+      "nameEn": "Yellow Wool",
+      "nameFa": "زرد پشم",
+      "category": "other",
+      "icon": "px-yellow-wool"
+    },
+    {
+      "id": "zombie-head",
+      "nameEn": "Zombie Head",
+      "nameFa": "زامبی Head",
+      "category": "other",
+      "icon": "px-zombie-head"
     }
   ],
   "intro": [

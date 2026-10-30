@@ -1,0 +1,123 @@
+{
+  "id": "nether-portal",
+  "nameEn": "Nether Portal",
+  "nameFa": "پورتال ندر",
+  "category": "mechanism",
+  "icon": "nether-portal",
+  "hardness": -1.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 11,
+  "versions": {
+    "java": "Beta 1.6+",
+    "bedrock": "0.1+"
+  },
+  "description": "پورتال ندر یک بلاک فنی است که با Flint and Steel در چیدمان Obsidian ساخته می‌شود و بازیکن را به ندر می‌برد.",
+  "uses": [
+    "سفر به ندر",
+    "ساخت Nether Portal"
+  ],
+  "locations": [
+    "با Flint and Steel در چیدمان Obsidian (۴×۵ حداقل)"
+  ],
+  "drops": [
+    {
+      "item": "none",
+      "count": "0",
+      "condition": "بدون دراپ (در Survival قابل شکستن نیست)"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Nether_Portal_(block)",
+  "intro": [
+    "پورتال ندر (Nether Portal) یک بلاک فنی در ماینکرفت است که در نسخه‌ی Java Beta 1.6 (مه ۲۰۱۱) به بازی اضافه شد. این بلاک با Flint and Steel در چیدمان Obsidian (حداقل ۴×۵) ساخته می‌شود و بازیکن را به ندر می‌برد.",
+    "سختی پورتال ندر -۱ است و در Survival قابل شکستن نیست (تنها با Water Bucket یا شکستن Obsidian اطراف قابل از بین بردن است). این بلاک نور متوسط (Light Level ۱۱) تولید می‌کند و در رنگ بنفش-تیره شناخته می‌شود.",
+    "پورتال ندر با Flint and Steel در چیدمان Obsidian (حداقل ۴×۵، با ۴ تا ۲۳ بلاک Obsidian) ساخته می‌شود و بازیکن را به ندر می‌برد. این بلاک در Survival قابل شکستن نیست."
+  ],
+  "behavior": [
+    "پورتال ندر یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک در Survival قابل شکستن نیست (تنها با Water Bucket یا شکستن Obsidian اطراف قابل از بین بردن است).",
+    "پورتال ندر با Flint and Steel در چیدمان Obsidian ساخته می‌شود."
+  ],
+  "trivia": [
+    "پورتال ندر در نسخه‌ی Java Beta 1.6 (۲۰۱۱) به بازی اضافه شد.",
+    "این بلاک با Flint and Steel در چیدمان Obsidian ساخته می‌شود.",
+    "پورتال ندر بازیکن را به ندر می‌برد.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "پورتال ندر نور متوسط (Light Level ۱۱) تولید می‌کند."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.6 (2011)",
+      "change": "پورتال ندر به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.0 (2011)",
+      "change": "افزودن مکانیک Fast Travel (۱ بلاک در ندر = ۸ بلاک در Overworld)."
+    },
+    {
+      "version": "Java 1.13 (2018)",
+      "change": "استانداردسازی شناسه‌ی minecraft:nether_portal."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار پورتال ندر یکسان است.",
+    "در Java، بافت پورتال ندر کمی تیره‌تر است؛ در Bedrock، رنگ آن متمایل به بنفش-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "obsidian",
+      "nameEn": "Obsidian",
+      "nameFa": "اوبسیدین",
+      "type": "block"
+    },
+    {
+      "id": "end-portal",
+      "nameEn": "End Portal",
+      "nameFa": "پورتال اند",
+      "type": "block"
+    },
+    {
+      "id": "flint-and-steel",
+      "nameEn": "Flint and Steel",
+      "nameFa": "چخماق و فولاد",
+      "type": "item"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3600000,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 11,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "پورتال ندر را با Flint and Steel در چیدمان Obsidian (حداقل ۴×۵) بسازید.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "از Water Bucket برای از بین بردن پورتال ندر استفاده کنید."
+  ],
+  "interactions": [
+    "پورتال ندر بازیکن را به ندر می‌برد.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "پورتال ندر با Water Bucket قابل از بین بردن است."
+  ],
+  "buildingIdeas": [
+    "سفر به ندر با پورتال ندر.",
+    "ساخت Nether Portal با Obsidian و Flint and Steel.",
+    "ساخت شبکه‌ی پورتال برای Fast Travel."
+  ],
+  "technical": [
+    "پورتال ندر شناسه‌ی minecraft:nether_portal دارد و در دسته‌بندی mechanism قرار می‌گیرد.",
+    "سختی -۱ و مقاومت انفجاری ۳۶۰۰۰۰۰ دارد و در Survival قابل شکستن نیست.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک فنی و غیرقابل-شکستن تعریف شده است."
+  ]
+}

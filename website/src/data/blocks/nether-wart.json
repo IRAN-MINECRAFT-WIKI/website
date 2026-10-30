@@ -1,0 +1,130 @@
+{
+  "id": "nether-wart",
+  "nameEn": "Nether Wart",
+  "nameFa": "زگیل ندر",
+  "category": "natural",
+  "icon": "nether-wart",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.9+",
+    "bedrock": "0.1+"
+  },
+  "description": "زگیل ندر یک بلاک گیاهی در ندر است که از Nether Wart در Soul Sand رشد می‌کند و در ساخت Potion کاربرد دارد.",
+  "uses": [
+    "کشت برای Potion",
+    "ساخت Potion of Healing",
+    "ساخت Potion of Fire Resistance"
+  ],
+  "locations": [
+    "Nether Fortress (در Soul Sand)"
+  ],
+  "drops": [
+    {
+      "item": "nether-wart",
+      "count": "2-4",
+      "condition": "بعد از رشد کامل"
+    },
+    {
+      "item": "nether-wart",
+      "count": "1",
+      "condition": "قبل از رشد کامل"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Nether_Wart",
+  "intro": [
+    "زگیل ندر (Nether Wart) یک بلاک گیاهی در ندر ماینکرفت است که در نسخه‌ی Java Beta 1.9 (اکتبر ۲۰۱۱) به بازی اضافه شد. این بلاک از Nether Wart در Soul Sand رشد می‌کند و در ساخت Potion کاربرد دارد.",
+    "سختی زگیل ندر ۰ است و با هر ابزاری قابل شکستن است. این بلاک سه مرحله‌ی رشد دارد و در Soul Sand کاشته می‌شود.",
+    "زگیل ندر در Nether Fortress (در Soul Sand) به‌وفور یافت می‌شود و در ساخت Potion of Healing و Potion of Fire Resistance کاربرد دارد. این بلاک با Bone Meal قابل تسریع رشد نیست."
+  ],
+  "behavior": [
+    "زگیل ندر یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "زگیل ندر سه مرحله‌ی رشد دارد و در Soul Sand کاشته می‌شود."
+  ],
+  "trivia": [
+    "زگیل ندر در نسخه‌ی Java Beta 1.9 (۲۰۱۱) به بازی اضافه شد.",
+    "این بلاک سه مرحله‌ی رشد دارد.",
+    "زگیل ندر در Soul Sand کاشته می‌شود.",
+    "این بلاک در Nether Fortress به‌وفور یافت می‌شود.",
+    "زگیل ندر با Bone Meal قابل تسریع رشد نیست."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.9 (2011)",
+      "change": "زگیل ندر به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.0 (2011)",
+      "change": "افزودن سه مرحله‌ی رشد."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار زگیل ندر یکسان است.",
+    "در Java، بافت زگیل ندر کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به قرمز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "nether-wart-block",
+      "nameEn": "Nether Wart Block",
+      "nameFa": "بلوک زگیل ندر",
+      "type": "block"
+    },
+    {
+      "id": "soul-sand",
+      "nameEn": "Soul Sand",
+      "nameFa": "ماسه‌ی روح",
+      "type": "block"
+    },
+    {
+      "id": "brewing-stand",
+      "nameEn": "Brewing Stand",
+      "nameFa": "میز Brewing",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "زگیل ندر را در Soul Sand بکارید.",
+    "زگیل ندر سه مرحله‌ی رشد دارد — صبور باشید.",
+    "از زگیل ندر در ساخت Potion of Healing و Potion of Fire Resistance استفاده کنید."
+  ],
+  "interactions": [
+    "زگیل ندر با Soul Sand تعامل دارد و کاشته می‌شود.",
+    "این بلاک با Bone Meal قابل تسریع رشد نیست.",
+    "زگیل ندر در ندر رشد می‌کند."
+  ],
+  "buildingIdeas": [
+    "ساخت مزرع زگیل ندر در ندر.",
+    "ساخت باغچه‌ی زگیل ندر در کنار Brewing Stand.",
+    "تزئین Nether Fortress با زگیل ندر."
+  ],
+  "technical": [
+    "زگیل ندر شناسه‌ی minecraft:nether_wart دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل رشد تعریف شده است."
+  ],
+  "farming": [
+    "برای کشت زگیل ندر، آن را در Soul Sand بکارید.",
+    "زگیل ندر سه مرحله‌ی رشد دارد — صبور باشید.",
+    "زگیل ندر در Nether Fortress به‌وفور یافت می‌شود."
+  ]
+}

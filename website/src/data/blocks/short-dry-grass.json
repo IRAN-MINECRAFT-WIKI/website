@@ -1,0 +1,128 @@
+{
+  "id": "short-dry-grass",
+  "nameEn": "Short Dry Grass",
+  "nameFa": "چمن خشک کوتاه",
+  "category": "natural",
+  "icon": "short-dry-grass",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.21.6+",
+    "bedrock": "1.21.70+"
+  },
+  "description": "چمن خشک کوتاه یک بلاک گیاهی تک‌بلاکی قهوه‌ای-زرد است که در Desert یافت می‌شود.",
+  "uses": [
+    "تزئین باغچه و چمنزار",
+    "تزئین صحرا و بایوم خشک",
+    "تزئین طبیعی"
+  ],
+  "locations": [
+    "Desert",
+    "Badlands",
+    "Savanna",
+    "Windswept Savanna"
+  ],
+  "drops": [
+    {
+      "item": "short-dry-grass",
+      "count": "1",
+      "condition": "با Silk Touch و Shears"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Short_Dry_Grass",
+  "intro": [
+    "چمن خشک کوتاه (Short Dry Grass) یک بلاک گیاهی تک‌بلاکی در ماینکرفت است که در نسخه‌ی Java 1.21.6+ به بازی اضافه شد. این بلاک در بایوم‌های Desert, Badlands, Savanna به‌وفور یافت می‌شود.",
+    "سختی چمن خشک کوتاه ۰ است و با هر ابزاری قابل شکستن است. این بلاک در رنگ قهوه‌ای-زرد-روشن شناخته می‌شود. تنها با Silk Touch یا Shears قابل برداشت است.",
+    "چمن خشک کوتاه با Bone Meal در Dirt یا Grass Block تکثیر می‌شود و در تزئینات باغچه کاربرد دارد."
+  ],
+  "behavior": [
+    "چمن خشک کوتاه یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "چمن خشک کوتاه تنها با Silk Touch یا Shears قابل برداشت است."
+  ],
+  "trivia": [
+    "چمن خشک کوتاه در نسخه‌ی Java 1.21.6+ به بازی اضافه شد.",
+    "این بلاک در Desert, Badlands به‌وفور یافت می‌شود.",
+    "چمن خشک کوتاه تک‌بلاکی ارتفاع دارد.",
+    "چمن خشک کوتاه با Bone Meal قابل تکثیر است.",
+    "چمن خشک کوتاه در رنگ قهوه‌ای-زرد-روشن شناخته می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.21.6+",
+      "change": "چمن خشک کوتاه به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.21.70+",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار گیاه یکسان است.",
+    "در Java، بافت گیاه کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به قهوه‌ای-زرد-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    },
+    {
+      "id": "tall-grass",
+      "nameEn": "Tall Grass",
+      "nameFa": "چمن بلند",
+      "type": "block"
+    },
+    {
+      "id": "fern",
+      "nameEn": "Fern",
+      "nameFa": "سرخس",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "چمن خشک کوتاه را با Shears به‌عنوان بلاک برداشت کنید.",
+    "با Bone Meal چمن خشک کوتاه را در Dirt یا Grass Block تکثیر کنید.",
+    "چمن خشک کوتاه در تزئین بایوم خشک کاربرد دارد."
+  ],
+  "interactions": [
+    "چمن خشک کوتاه با Bone Meal در Dirt یا Grass Block تکثیر می‌شود.",
+    "چمن خشک کوتاه با Shears به‌عنوان بلاک قابل برداشت است.",
+    "چمن خشک کوتاه در برابر آتش می‌سوزد."
+  ],
+  "buildingIdeas": [
+    "تزئین باغچه با چمن خشک کوتاه.",
+    "ساخت چمنزار طبیعی با چمن خشک کوتاه.",
+    "تزئین خانه‌های روستایی با چمن خشک کوتاه."
+  ],
+  "technical": [
+    "چمن خشک کوتاه شناسه‌ی minecraft:short_dry_grass دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل تکثیر تعریف شده است."
+  ],
+  "farming": [
+    "برای تکثیر چمن خشک کوتاه، از Bone Meal در Dirt یا Grass Block استفاده کنید.",
+    "چمن خشک کوتاه در Desert, Badlands به‌وفور یافت می‌شود.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت استفاده کنید."
+  ]
+}

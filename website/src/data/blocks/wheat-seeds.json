@@ -1,0 +1,136 @@
+{
+  "id": "wheat-seeds",
+  "nameEn": "Wheat Crop",
+  "nameFa": "کاشت گندم",
+  "category": "natural",
+  "icon": "wheat-seeds",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.9.0+"
+  },
+  "description": "کاشت گندم یک بلاک گیاهی است که از بذر گندم در Farmland رشد می‌کند و در نهایت به گندم تبدیل می‌شود.",
+  "uses": [
+    "کشت گندم",
+    "ساخت نان و کیک",
+    "تغذیه حیوانات"
+  ],
+  "locations": [
+    "ساخت‌شده توسط بازیکن (در Farmland)",
+    "Village farms"
+  ],
+  "drops": [
+    {
+      "item": "wheat",
+      "count": "1",
+      "condition": "بعد از رشد کامل"
+    },
+    {
+      "item": "wheat-seeds",
+      "count": "0-3",
+      "condition": "بعد از رشد کامل"
+    },
+    {
+      "item": "wheat-seeds",
+      "count": "1",
+      "condition": "قبل از رشد کامل"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Wheat_Seeds",
+  "intro": [
+    "کاشت گندم (Wheat Crop) یک بلاک گیاهی در ماینکرفت است که در نسخه‌ی Java Beta 1.8 (سپتامبر ۲۰۱۱) به بازی اضافه شد. این بلاک از بذر گندم در Farmland رشد می‌کند و در نهایت به گندم تبدیل می‌شود.",
+    "سختی کاشت گندم ۰ است و با هر ابزاری قابل شکستن است. این بلاک هشت مرحله‌ی رشد دارد و در Farmland کاشته می‌شود.",
+    "کاشت گندم در ساخت نان و کیک کاربرد دارد و با Bone Meal قابل تسریع رشد است. این بلاک در Village farms به‌وفور یافت می‌شود."
+  ],
+  "behavior": [
+    "کاشت گندم یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "کاشت گندم هشت مرحله‌ی رشد دارد و در Farmland کاشته می‌شود."
+  ],
+  "trivia": [
+    "کاشت گندم در نسخه‌ی Java Beta 1.8 (۲۰۱۱) به بازی اضافه شد.",
+    "این بلاک هشت مرحله‌ی رشد دارد.",
+    "کاشت گندم در Farmland کاشته می‌شود.",
+    "این بلاک در Village farms به‌وفور یافت می‌شود.",
+    "کاشت گندم با Bone Meal قابل تسریع رشد است."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.8 (2011)",
+      "change": "کاشت گندم به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.0 (2011)",
+      "change": "افزودن هشت مرحله‌ی رشد."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار کاشت گندم یکسان است.",
+    "در Java، بافت کاشت گندم کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سبز-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "beetroot-seeds",
+      "nameEn": "Beetroots",
+      "nameFa": "چغندر",
+      "type": "block"
+    },
+    {
+      "id": "torchflower-seeds",
+      "nameEn": "Torchflower Crop",
+      "nameFa": "کاشت گل مشعل",
+      "type": "block"
+    },
+    {
+      "id": "farmland",
+      "nameEn": "Farmland",
+      "nameFa": "زمین کشت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "بذر گندم را در Farmland بکارید و با Bone Meal رشد دهید.",
+    "کاشت گندم هشت مرحله‌ی رشد دارد.",
+    "از کاشت گندم در ساخت نان و کیک استفاده کنید."
+  ],
+  "interactions": [
+    "کاشت گندم با Farmland تعامل دارد و کاشته می‌شود.",
+    "این بلاک با Bone Meal تعامل دارد و سریع‌تر رشد می‌کند.",
+    "کاشت گندم با Light Level ۹ یا بالاتر رشد می‌کند."
+  ],
+  "buildingIdeas": [
+    "ساخت باغچه‌ی گندم.",
+    "ساخت مزرع گندم اتوماتیک.",
+    "تزئین خانه‌های روستایی با کاشت گندم."
+  ],
+  "technical": [
+    "کاشت گندم شناسه‌ی minecraft:wheat دارد و در دسته‌بندی natural قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک شفاف و قابل رشد تعریف شده است."
+  ],
+  "farming": [
+    "برای کشت گندم، بذر را در Farmland بکارید.",
+    "با Bone Meal می‌توانید رشد را تسریع کنید.",
+    "برای مزرع اتوماتیک، از Observer و Piston برای برداشت استفاده کنید."
+  ]
+}

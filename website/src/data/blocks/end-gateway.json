@@ -1,0 +1,119 @@
+{
+  "id": "end-gateway",
+  "nameEn": "End Gateway",
+  "nameFa": "دروازه‌ی اند",
+  "category": "mechanism",
+  "icon": "end-gateway",
+  "hardness": -1.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "1.9+",
+    "bedrock": "1.0+"
+  },
+  "description": "دروازه‌ی اند یک بلاک فنی است که پس از شکست دادن Ender Dragon در End ایجاد می‌شود و بازیکن را به جزایر دور End می‌برد.",
+  "uses": [
+    "سفر به جزایر دور End",
+    "دسترسی به End Cities"
+  ],
+  "locations": [
+    "در End (پس از شکست دادن Ender Dragon)"
+  ],
+  "drops": [
+    {
+      "item": "none",
+      "count": "0",
+      "condition": "بدون دراپ (در Survival قابل شکستن نیست)"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/End_Gateway_(block)",
+  "intro": [
+    "دروازه‌ی اند (End Gateway) یک بلاک فنی در ماینکرفت است که در نسخه‌ی Java 1.9 (فوریه‌ی ۲۰۱۶) به بازی اضافه شد. این بلاک پس از شکست دادن Ender Dragon در End ایجاد می‌شود و بازیکن را به جزایر دور End می‌برد.",
+    "سختی دروازه‌ی اند -۱ است و در Survival قابل شکستن نیست (تنها در Creative Mode قابل برداشت است). این بلاک نور قوی (Light Level ۱۵) تولید می‌کند و در رنگ سیاه با ستاره شناخته می‌شود.",
+    "دروازه‌ی اند پس از شکست دادن Ender Dragon در End ایجاد می‌شود (تا ۲۰ دروازه) و بازیکن را به جزایر دور End می‌برد. این بلاک در دسترسی به End Cities کاربرد دارد."
+  ],
+  "behavior": [
+    "دروازه‌ی اند یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک در Survival قابل شکستن نیست (تنها در Creative Mode قابل برداشت است).",
+    "دروازه‌ی اند پس از شکست دادن Ender Dragon ایجاد می‌شود."
+  ],
+  "trivia": [
+    "دروازه‌ی اند در نسخه‌ی Java 1.9 (۲۰۱۶) به بازی اضافه شد.",
+    "این بلاک پس از شکست دادن Ender Dragon ایجاد می‌شود.",
+    "دروازه‌ی اند بازیکن را به جزایر دور End می‌برد.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "تا ۲۰ دروازه پس از شکست دادن Ender Dragon ایجاد می‌شود."
+  ],
+  "history": [
+    {
+      "version": "Java 1.9 (2016)",
+      "change": "دروازه‌ی اند به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.0 (2016)",
+      "change": "افزودن به نسخه‌ی Bedrock."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار دروازه‌ی اند یکسان است.",
+    "در Java، بافت دروازه‌ی اند کمی تیره‌تر است؛ در Bedrock، رنگ آن متمایل به سیاه-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "end-portal",
+      "nameEn": "End Portal",
+      "nameFa": "پورتال اند",
+      "type": "block"
+    },
+    {
+      "id": "end-portal-frame",
+      "nameEn": "End Portal Frame",
+      "nameFa": "قاب پورتال اند",
+      "type": "block"
+    },
+    {
+      "id": "nether-portal",
+      "nameEn": "Nether Portal",
+      "nameFa": "پورتال ندر",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 3600000,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 15,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "دروازه‌ی اند پس از شکست دادن Ender Dragon در End ایجاد می‌شود.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "از دروازه‌ی اند برای دسترسی به End Cities استفاده کنید."
+  ],
+  "interactions": [
+    "دروازه‌ی اند بازیکن را به جزایر دور End می‌برد.",
+    "این بلاک در Survival قابل شکستن نیست.",
+    "دروازه‌ی اند پس از شکست دادن Ender Dragon ایجاد می‌شود."
+  ],
+  "buildingIdeas": [
+    "سفر به جزایر دور End با دروازه‌ی اند.",
+    "دسترسی به End Cities با دروازه‌ی اند.",
+    "تزئین End با دروازه‌ی اند."
+  ],
+  "technical": [
+    "دروازه‌ی اند شناسه‌ی minecraft:end_gateway دارد و در دسته‌بندی mechanism قرار می‌گیرد.",
+    "سختی -۱ و مقاومت انفجاری ۳۶۰۰۰۰۰ دارد و در Survival قابل شکستن نیست.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک فنی و غیرقابل-شکستن تعریف شده است."
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "id": "string",
+  "nameEn": "String (Tripwire)",
+  "nameFa": "نخ (تله سیم)",
+  "category": "redstone",
+  "icon": "string",
+  "hardness": 0.0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.1+"
+  },
+  "description": "نخ یک بلاک رداستون است که با Tripwire Hook ترکیب می‌شود و تله سیم می‌سازد.",
+  "uses": [
+    "ساخت تله سیم (Tripwire Hook)",
+    "دetection بازیکن و ماب"
+  ],
+  "locations": [
+    "ساخت‌شده توسط بازیکن"
+  ],
+  "drops": [
+    {
+      "item": "string",
+      "count": "1",
+      "condition": "بدون شرط"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/String",
+  "intro": [
+    "نخ (String/Tripwire) یک بلاک رداستون در ماینکرفت است که در نسخه‌ی Java Beta 1.8 (سپتامبر ۲۰۱۱) به بازی اضافه شد. این بلاک با Tripwire Hook ترکیب می‌شود و تله سیم می‌سازد.",
+    "سختی نخ ۰ است و با هر ابزاری قابل شکستن است. این بلاک در رنگ سفید-روشن شناخته می‌شود و در ساخت تله سیم کاربرد دارد.",
+    "نخ با Tripwire Hook ترکیب می‌شود و تله سیم می‌سازد که بازیکن و ماب‌ها را هنگام عبور detection می‌کند. این بلاک در ساخت تله و دزدگیر کاربرد دارد."
+  ],
+  "behavior": [
+    "نخ یک بلاک شفاف و غیرجامد است و نور را به‌صورت جزئی عبور می‌دهد.",
+    "این بلاک با هر ابزاری قابل شکستن است.",
+    "نخ با Tripwire Hook ترکیب می‌شود و تله سیم می‌سازد."
+  ],
+  "trivia": [
+    "نخ در نسخه‌ی Java Beta 1.8 (۲۰۱۱) به بازی اضافه شد.",
+    "این بلاک با Tripwire Hook ترکیب می‌شود.",
+    "نخ بازیکن و ماب‌ها را هنگام عبور detection می‌کند.",
+    "این بلاک در رنگ سفید-روشن شناخته می‌شود.",
+    "نخ در ساخت تله و دزدگیر کاربرد دارد."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.8 (2011)",
+      "change": "نخ به بازی اضافه شد."
+    },
+    {
+      "version": "Java 1.0 (2011)",
+      "change": "افزودن قابلیت Tripwire."
+    },
+    {
+      "version": "Java 1.21 (2024)",
+      "change": "تغییرات جزئی در رندر نور."
+    }
+  ],
+  "differences": [
+    "در نسخه‌ی Java و Bedrock، رفتار نخ یکسان است.",
+    "در Java، بافت نخ کمی روشن‌تر است؛ در Bedrock، رنگ آن متمایل به سفید-سرد است.",
+    "هر دو نسخه از نظر سختی و مقاومت انفجاری رفتار یکسانی دارند."
+  ],
+  "related": [
+    {
+      "id": "tripwire-hook",
+      "nameEn": "Tripwire Hook",
+      "nameFa": "قلاب تله سیم",
+      "type": "block"
+    },
+    {
+      "id": "redstone-wire",
+      "nameEn": "Redstone Wire",
+      "nameFa": "سیم رداستون",
+      "type": "block"
+    },
+    {
+      "id": "redstone-torch",
+      "nameEn": "Redstone Torch",
+      "nameFa": "مشعل رداستون",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "نخ را با Tripwire Hook ترکیب کنید تا تله سیم بسازید.",
+    "نخ بازیکن و ماب‌ها را هنگام عبور detection می‌کند.",
+    "از نخ در ساخت تله و دزدگیر استفاده کنید."
+  ],
+  "interactions": [
+    "نخ با Tripwire Hook ترکیب می‌شود و تله سیم می‌سازد.",
+    "این بلاک بازیکن و ماب‌ها را هنگام عبور detection می‌کند.",
+    "نخ با رداستون تعامل گسترده‌ای دارد."
+  ],
+  "buildingIdeas": [
+    "ساخت تله سیم با نخ و Tripwire Hook.",
+    "ساخت دزدگیر با نخ.",
+    "تزئین خانه با نخ (به‌عنوان تار عنکبوت)."
+  ],
+  "technical": [
+    "نخ شناسه‌ی minecraft:tripwire دارد و در دسته‌بندی redstone قرار می‌گیرد.",
+    "سختی ۰ و مقاومت انفجاری ۰ دارد و با هر ابزاری قابل شکستن است.",
+    "این بلاک در رجیستری بازی به‌عنوان یک بلاک رداستون-پاسخگو تعریف شده است."
+  ],
+  "redstone": [
+    "نخ با Tripwire Hook ترکیب می‌شود و تله سیم می‌سازد.",
+    "این بلاک بازیکن و ماب‌ها را هنگام عبور detection می‌کند.",
+    "نخ با رداستون تعامل گسترده‌ای دارد."
+  ]
+}
