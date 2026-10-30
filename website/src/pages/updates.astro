@@ -1,0 +1,689 @@
+---
+/**
+ * /updates — بخش آپدیت‌های ماینکرفت (Minecraft Updates Tracker)
+ *
+ * Features:
+ *   - Live countdown to next expected Minecraft update
+ *   - Latest released version cards (Java + Bedrock)
+ *   - Recent releases timeline with key features
+ *   - Upcoming snapshot/preview info
+ *   - Java vs Bedrock comparison
+ *
+ * Exclusive feature: Mojang doesn't have a Persian-language updates tracker
+ * with countdown timer + categorized feature lists.
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd } from '@/lib/seo';
+import { versions } from '@/lib/data';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: base('/') },
+  { name: 'آپدیت‌های ماینکرفت', url: base('/updates') },
+];
+const ldBread = breadcrumbJsonLd(breadcrumb);
+
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+// Split Java vs Bedrock
+const javaVersions = versions.filter((v) => v.platform === 'java' || !v.platform && v.id.startsWith('java'));
+const bedrockVersions = versions.filter((v) => v.platform === 'bedrock' || !v.platform && v.id.startsWith('bedrock'));
+
+// Latest released (sorted by releaseDate desc)
+const sortedByDate = [...versions].sort((a, b) => {
+  const aD = new Date(a.releaseDate || '1970-01-01').getTime();
+  const bD = new Date(b.releaseDate || '1970-01-01').getTime();
+  return bD - aD;
+});
+
+const latestJava = sortedByDate.find((v) => v.id.startsWith('java'));
+const latestBedrock = sortedByDate.find((v) => v.id.startsWith('bedrock'));
+
+// Recent 12 releases
+const recentReleases = sortedByDate.slice(0, 12);
+
+// Compute next expected update — Mojang typically releases every ~6-8 weeks
+// Use latest release date + 56 days (8 weeks) as next expected date
+function getNextExpected(latest: typeof latestJava) {
+  if (!latest || !latest.releaseDate) return null;
+  const release = new Date(latest.releaseDate);
+  // Add 56 days (Mojang's typical 8-week cadence)
+  const expected = new Date(release.getTime() + 56 * 24 * 60 * 60 * 1000);
+  return expected;
+}
+
+const nextJavaExpected = getNextExpected(latestJava);
+const nextBedrockExpected = getNextExpected(latestBedrock);
+
+// Use the sooner of the two
+const nextExpected = [nextJavaExpected, nextBedrockExpected]
+  .filter(Boolean)
+  .sort((a, b) => a!.getTime() - b!.getTime())[0] || null;
+
+// Format date for Persian display
+function formatDate(dateStr: string) {
+  if (!dateStr) return 'نامشخص';
+  try {
+    return new Intl.DateTimeFormat('fa-IR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(new Date(dateStr));
+  } catch {
+    return dateStr;
+  }
+}
+
+// Count upcoming/snapshot info
+const cmtStart = '<' + '!' + '--';
+function safeJson(json: string): string {
+  return json
+    .replace(/\\/g, '\\\\')
+    .replace(/<\//g, '<\\/')
+    .replace(new RegExp(cmtStart, 'g'), '<\\!' + '--')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+}
+
+const countdownData = safeJson(JSON.stringify({
+  nextExpected: nextExpected ? nextExpected.toISOString() : null,
+  latestJavaDate: latestJava?.releaseDate || null,
+  latestBedrockDate: latestBedrock?.releaseDate || null,
+}));
+
+// Upcoming features list (based on Mojang announcements for next major update)
+// These are announced features for the upcoming "Wilderness Bound" / 1.22 era
+const upcomingFeatures = [
+  { emoji: '🦋', title: 'بلاک‌های جدید', desc: 'بلاک‌های Wildflower، Pale Moss و Creaking Heart با قابلیت‌های منحصربه‌فرد.', category: 'block' },
+  { emoji: '🐻', title: 'ماب جدید: Creaking', desc: 'مابی که در Pale Garden اسپاون می‌شه و چشم‌های درخشان داره. فقط وقتی بازیکن بهش نگاه نمی‌کنه حرکت می‌کنه.', category: 'mob' },
+  { emoji: '🌲', title: 'Pale Garden بایوم', desc: 'بایوم جدید با درخت‌های Pale Oak و پوشش خاص Pale Moss. فضایی مرموز و آرام.', category: 'biome' },
+  { emoji: '🎨', title: 'Vibrant Visuals', desc: 'سیستم گرافیکی جدید با نورپردازی پویا، سایه‌های واقعی و افکت‌های آب بهبودیافته.', category: 'graphics' },
+  { emoji: '📦', title: 'Bundles (نهایی)', desc: 'بسته‌های قابل حمل که چندین آیتم رو در یه اسلات ذخیره می‌کنن. نهایی شده بعد از سال‌ها.', category: 'item' },
+  { emoji: '⚡', title: 'Redstone بهبودیافته', desc: 'قابلیت‌های جدید رداستون شامل Copper Bulbs با حالت‌های متنوع و Crafters.', category: 'redstone' },
+  { emoji: '🎵', title: 'آهنگ‌های جدید', desc: 'موزیک دیسک‌های جدید با آهنگ‌های Aaron Cherof برای Wildflowers و Creaking.', category: 'audio' },
+  { emoji: '🌐', title: 'Cross-platform بهبودیافته', desc: 'هماهنگ‌سازی بیشتر بین Java و Bedrock برای بازی مشترک بهتر.', category: 'technical' },
+];
+
+const cmtStart2 = '<' + '!' + '--';
+const upcomingJSON = safeJson(JSON.stringify(upcomingFeatures));
+---
+
+<BaseLayout
+  path="/updates"
+  title="آپدیت‌های ماینکرفت — آخرین نسخه‌ها + Countdown آپدیت بعدی"
+  description="آخرین آپدیت‌های ماینکرفت Java و Bedrock با Countdown زنده تا آپدیت بعدی. بلاک‌های جدید، ماب‌های جدید، بایوم‌های جدید و قابلیت‌های پیش رو رو ببین!"
+  type="article"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <StructuredData data={ldBread} />
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO + COUNTDOWN
+       ═══════════════════════════════════════════════════════════ -->
+  <header class="mc-panel p-5 lg:p-7 mb-5 relative overflow-hidden">
+    <div class="flex items-center gap-3 mb-3 flex-wrap">
+      <span class="text-3xl">🚀</span>
+      <h1 class="text-2xl lg:text-3xl font-extrabold">آپدیت‌های ماینکرفت</h1>
+      <span class="mc-chip text-xs">Live Tracker</span>
+    </div>
+    <p class="text-sm text-mc-text-2 leading-loose mb-4">
+      آخرین اخبار، تاریخچه‌ی نسخه‌ها و <strong class="text-mc-grass-2">Countdown زنده</strong> تا آپدیت بعدی ماینکرفت.
+      بلاک‌های جدید، ماب‌های جدید و قابلیت‌های پیش رو رو اینجا ببین.
+    </p>
+
+    <!-- Countdown card -->
+    <div class="countdown-card">
+      <div class="countdown-label">⏰ زمان تخمینی تا آپدیت بعدی</div>
+      <div class="countdown-grid" id="countdownGrid">
+        <div class="countdown-cell">
+          <div class="countdown-num" id="cd-days">—</div>
+          <div class="countdown-unit">روز</div>
+        </div>
+        <div class="countdown-cell">
+          <div class="countdown-num" id="cd-hours">—</div>
+          <div class="countdown-unit">ساعت</div>
+        </div>
+        <div class="countdown-cell">
+          <div class="countdown-num" id="cd-mins">—</div>
+          <div class="countdown-unit">دقیقه</div>
+        </div>
+        <div class="countdown-cell">
+          <div class="countdown-num" id="cd-secs">—</div>
+          <div class="countdown-unit">ثانیه</div>
+        </div>
+      </div>
+      <p class="countdown-sub" id="countdownSub">
+        تخمین بر اساس کیدنس ۸ هفته‌ای معمول Mojang. تاریخ رسمی، وقتی اعلام بشه، جایگزین می‌شه.
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       LATEST RELEASES — Java + Bedrock
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
+    {latestJava && (
+      <article class="mc-panel p-5 update-card">
+        <div class="update-card-header">
+          <span class="update-platform-badge java">Java Edition</span>
+          <span class="update-status released">منتشر شده</span>
+        </div>
+        <h2 class="update-version">{latestJava.name}</h2>
+        <div class="update-version-code" dir="ltr">{latestJava.version}</div>
+        <div class="update-meta">
+          <div class="update-meta-row">
+            <span>📅 تاریخ انتشار:</span>
+            <strong>{formatDate(latestJava.releaseDate)}</strong>
+          </div>
+          {latestJava.codename && (
+            <div class="update-meta-row">
+              <span>🏷️ نام رمز:</span>
+              <strong>{latestJava.codename}</strong>
+            </div>
+          )}
+        </div>
+        {latestJava.summary && <p class="update-summary">{latestJava.summary}</p>}
+        <a href={base(`/versions/${latestJava.id}/`)} class="update-link">مشاهده‌ی جزئیات کامل ←</a>
+      </article>
+    )}
+
+    {latestBedrock && (
+      <article class="mc-panel p-5 update-card">
+        <div class="update-card-header">
+          <span class="update-platform-badge bedrock">Bedrock Edition</span>
+          <span class="update-status released">منتشر شده</span>
+        </div>
+        <h2 class="update-version">{latestBedrock.name}</h2>
+        <div class="update-version-code" dir="ltr">{latestBedrock.version}</div>
+        <div class="update-meta">
+          <div class="update-meta-row">
+            <span>📅 تاریخ انتشار:</span>
+            <strong>{formatDate(latestBedrock.releaseDate)}</strong>
+          </div>
+          {latestBedrock.codename && (
+            <div class="update-meta-row">
+              <span>🏷️ نام رمز:</span>
+              <strong>{latestBedrock.codename}</strong>
+            </div>
+          )}
+        </div>
+        {latestBedrock.summary && <p class="update-summary">{latestBedrock.summary}</p>}
+        <a href={base(`/versions/${latestBedrock.id}/`)} class="update-link">مشاهده‌ی جزئیات کامل ←</a>
+      </article>
+    )}
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       UPCOMING FEATURES (next version)
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="mc-panel p-5 mb-5">
+    <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+      <span>🔮</span> <span>قابلیت‌های پیش رو (آپدیت بعدی)</span>
+    </h2>
+    <p class="text-xs text-mc-text-3 mb-4 leading-loose">
+      این قابلیت‌ها در snapshot‌ها و beta‌ها اعلام شدن یا در نسخه‌های preview دیده شدن. ممکنه قبل از انتشار نهایی تغییر کنن.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {upcomingFeatures.map((f) => (
+        <div class="feature-card">
+          <div class="feature-emoji">{f.emoji}</div>
+          <h3 class="feature-title">{f.title}</h3>
+          <p class="feature-desc">{f.desc}</p>
+          <span class="feature-cat" data-cat={f.category}>{f.category}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       RECENT RELEASES TIMELINE
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="mc-panel p-5 mb-5">
+    <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+      <span>📜</span> <span>نسخه‌های اخیر ({faNum(recentReleases.length)} نسخه‌ی آخر)</span>
+    </h2>
+    <div class="update-timeline">
+      {recentReleases.map((v, idx) => (
+        <div class="timeline-item" key={v.id}>
+          <div class={`timeline-dot ${v.id.startsWith('java') ? 'java' : 'bedrock'}`}></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <span class={`timeline-platform ${v.id.startsWith('java') ? 'java' : 'bedrock'}`}>
+                {v.id.startsWith('java') ? 'Java' : 'Bedrock'}
+              </span>
+              <a href={base(`/versions/${v.id}/`)} class="timeline-version">{v.name}</a>
+              <span class="timeline-version-code" dir="ltr">{v.version}</span>
+              <span class="timeline-date">{formatDate(v.releaseDate)}</span>
+            </div>
+            {v.summary && <p class="timeline-summary">{v.summary}</p>}
+            {(v.features && v.features.length > 0) && (
+              <ul class="timeline-features">
+                {v.features.slice(0, 3).map((feat, i) => (
+                  <li key={i}>✓ {feat}</li>
+                ))}
+                {v.features.length > 3 && <li class="more">+ {faNum(v.features.length - 3)} مورد دیگر</li>}
+              </ul>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+    <a href={base('/versions')} class="update-link mt-4 inline-block">مشاهده‌ی همه‌ی {faNum(versions.length)} نسخه ←</a>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HOW TO STAY UPDATED
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="mc-panel p-5 mb-5">
+    <h2 class="text-lg font-extrabold mb-3 flex items-center gap-2">
+      <span>🔔</span> <span>چطور همیشه به‌روز بمونیم؟</span>
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div class="howto-card">
+        <div class="howto-num">۱</div>
+        <h3>صفحه‌ی آپدیت‌ها رو بوکمارک کن</h3>
+        <p class="text-xs text-mc-text-2 leading-loose">این صفحه (/updates) رو در مرورگر بوکمارک کن. Countdown زنده و لیست آخرین نسخه‌ها هر بار که بیای اینجا، آپدیت شده می‌بینی.</p>
+      </div>
+      <div class="howto-card">
+        <div class="howto-num">۲</div>
+        <h3>کانال تلگرام ما رو دنبال کن</h3>
+        <p class="text-xs text-mc-text-2 leading-loose">به محض انتشار آپدیت جدید ماینکرفت (Java یا Bedrock)، در کانال تلگرام MineBedFarsi اطلاع‌رسانی می‌شه.</p>
+      </div>
+      <div class="howto-card">
+        <div class="howto-num">۳</div>
+        <h3>snapshot‌ها رو امتحان کن</h3>
+        <p class="text-xs text-mc-text-2 leading-loose">نسخه‌های snapshot ماینکرفت Java هر چهارشنبه منتشر می‌شن. از Minecraft Launcher می‌تونی snapshot‌ها رو فعال کنی و قابلیت‌های جدید رو زودتر ببینی.</p>
+      </div>
+      <div class="howto-card">
+        <div class="howto-num">۴</div>
+        <h3>Beta/Preview رو فعال کن</h3>
+        <p class="text-xs text-mc-text-2 leading-loose">در Bedrock، از تنظیمات Minecraft → Beta Programs می‌تونی Beta رو فعال کنی. به‌یاد داشته باش که بعد از فعال‌سازی، برگشت به نسخه‌ی عادی نیاز به پاک‌کردن دیتا داره.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom info -->
+  <div class="mc-panel p-4 text-center">
+    <p class="text-xs text-mc-text-3 leading-loose">
+      اطلاعات این صفحه از منابع رسمی Mojang + Minecraft Wiki + داده‌های داخلی MineBed جمع‌آوری می‌شه.
+      تخمین زمان آپدیت بعدی بر اساس کیدنس تاریخی Mojang (۸ هفته) است؛ ممکنه با تاریخ واقعی تفاوت داشته باشه.
+      برای اعلام رسمی، همیشه به <a href="https://minecraft.net" target="_blank" rel="noopener" class="text-mc-grass-2 hover:underline">minecraft.net</a> مراجعه کن.
+    </p>
+  </div>
+</BaseLayout>
+
+<script type="application/json" id="updates-data" set:html={countdownData} />
+
+<script is:inline>
+  (function () {
+    'use strict';
+
+    var FA_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    function faNum(n) {
+      n = Number(n) || 0;
+      return String(Math.floor(n)).replace(/[0-9]/g, function (d) { return FA_DIGITS[+d]; });
+    }
+
+    var data;
+    try {
+      data = JSON.parse(document.getElementById('updates-data').textContent);
+    } catch (e) {
+      console.error('Failed to parse updates data:', e);
+      return;
+    }
+
+    var target = data.nextExpected ? new Date(data.nextExpected) : null;
+    var daysEl = document.getElementById('cd-days');
+    var hoursEl = document.getElementById('cd-hours');
+    var minsEl = document.getElementById('cd-mins');
+    var secsEl = document.getElementById('cd-secs');
+    var subEl = document.getElementById('countdownSub');
+
+    function updateCountdown() {
+      if (!target) {
+        if (daysEl) daysEl.textContent = '؟';
+        if (hoursEl) hoursEl.textContent = '؟';
+        if (minsEl) minsEl.textContent = '؟';
+        if (secsEl) secsEl.textContent = '؟';
+        return;
+      }
+      var now = Date.now();
+      var diff = target.getTime() - now;
+
+      if (diff <= 0) {
+        if (daysEl) daysEl.textContent = '۰';
+        if (hoursEl) hoursEl.textContent = '۰';
+        if (minsEl) minsEl.textContent = '۰';
+        if (secsEl) secsEl.textContent = '۰';
+        if (subEl) subEl.textContent = '🎉 آپدیت جدید منتشر شده! برای جزئیات به پایین صفحه برو.';
+        return;
+      }
+
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (daysEl) daysEl.textContent = faNum(days);
+      if (hoursEl) hoursEl.textContent = faNum(hours);
+      if (minsEl) minsEl.textContent = faNum(mins);
+      if (secsEl) secsEl.textContent = faNum(secs);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+</script>
+
+<style is:global>
+  /* Countdown card */
+  .countdown-card {
+    background: linear-gradient(135deg, rgba(124, 200, 74, 0.12) 0%, rgba(252, 179, 43, 0.08) 100%);
+    border: 2px solid rgba(124, 200, 74, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .countdown-label {
+    font-size: 0.875rem;
+    color: var(--mc-text-2, #b8b8d0);
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .countdown-cell {
+    background: rgba(13, 13, 24, 0.6);
+    border: 2px solid var(--mc-line, #2e2e4a);
+    border-radius: 8px;
+    padding: 1rem 0.5rem;
+  }
+  .countdown-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--mc-grass-2, #7cc84a);
+    font-family: 'Vazirmatn', monospace;
+    direction: ltr;
+    line-height: 1;
+  }
+  .countdown-unit {
+    font-size: 0.7rem;
+    color: var(--mc-text-3, #8585a3);
+    margin-top: 0.375rem;
+    text-transform: uppercase;
+  }
+  .countdown-sub {
+    font-size: 0.7rem;
+    color: var(--mc-text-3, #8585a3);
+    margin: 0;
+    line-height: 1.5;
+  }
+  @media (max-width: 640px) {
+    .countdown-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .countdown-num {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Update card */
+  .update-card {
+    border-left: 4px solid var(--mc-grass-2, #7cc84a);
+  }
+  .update-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .update-platform-badge {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .update-platform-badge.java {
+    background: rgba(255, 165, 0, 0.15);
+    color: #ffa500;
+    border: 1px solid rgba(255, 165, 0, 0.3);
+  }
+  .update-platform-badge.bedrock {
+    background: rgba(124, 200, 74, 0.15);
+    color: #7cc84a;
+    border: 1px solid rgba(124, 200, 74, 0.3);
+  }
+  .update-status {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+  .update-status.released {
+    background: rgba(95, 168, 56, 0.2);
+    color: #5fa838;
+    border: 1px solid rgba(95, 168, 56, 0.4);
+  }
+  .update-version {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--mc-text, #e6e6f2);
+    margin: 0.5rem 0 0.25rem;
+  }
+  .update-version-code {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--mc-text-3, #8585a3);
+    margin-bottom: 1rem;
+  }
+  .update-meta {
+    margin-bottom: 1rem;
+  }
+  .update-meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--mc-text-2, #b8b8d0);
+    padding: 0.25rem 0;
+    border-bottom: 1px dashed rgba(46, 46, 74, 0.3);
+  }
+  .update-meta-row strong {
+    color: var(--mc-text, #e6e6f2);
+  }
+  .update-summary {
+    font-size: 0.8rem;
+    color: var(--mc-text-2, #b8b8d0);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .update-link {
+    color: var(--mc-grass-2, #7cc84a);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .update-link:hover {
+    color: var(--mc-grass, #5fa838);
+    text-decoration: underline;
+  }
+
+  /* Feature card */
+  .feature-card {
+    background: rgba(13, 13, 24, 0.6);
+    border: 1px solid var(--mc-line, #2e2e4a);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.15s ease;
+  }
+  .feature-card:hover {
+    border-color: var(--mc-grass-2, #7cc84a);
+    transform: translateY(-2px);
+  }
+  .feature-emoji {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .feature-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--mc-text, #e6e6f2);
+    margin-bottom: 0.375rem;
+  }
+  .feature-desc {
+    font-size: 0.75rem;
+    color: var(--mc-text-2, #b8b8d0);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .feature-cat {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    color: var(--mc-text-3, #8585a3);
+    background: rgba(28, 28, 52, 0.8);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid var(--mc-line, #2e2e4a);
+  }
+
+  /* Timeline */
+  .update-timeline {
+    position: relative;
+    padding-right: 1.5rem;
+    border-right: 2px solid var(--mc-line, #2e2e4a);
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px dashed rgba(46, 46, 74, 0.3);
+  }
+  .timeline-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .timeline-dot {
+    position: absolute;
+    right: -1.75rem;
+    top: 0.25rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--mc-bg, #0d0d18);
+  }
+  .timeline-dot.java {
+    background: #ffa500;
+    box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.3);
+  }
+  .timeline-dot.bedrock {
+    background: #7cc84a;
+    box-shadow: 0 0 0 2px rgba(124, 200, 74, 0.3);
+  }
+  .timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-platform {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .timeline-platform.java {
+    background: rgba(255, 165, 0, 0.15);
+    color: #ffa500;
+  }
+  .timeline-platform.bedrock {
+    background: rgba(124, 200, 74, 0.15);
+    color: #7cc84a;
+  }
+  .timeline-version {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--mc-text, #e6e6f2);
+    text-decoration: none;
+  }
+  .timeline-version:hover {
+    color: var(--mc-grass-2, #7cc84a);
+    text-decoration: underline;
+  }
+  .timeline-version-code {
+    font-size: 0.7rem;
+    color: var(--mc-text-3, #8585a3);
+    font-family: monospace;
+  }
+  .timeline-date {
+    font-size: 0.7rem;
+    color: var(--mc-text-3, #8585a3);
+    margin-right: auto;
+  }
+  .timeline-summary {
+    font-size: 0.75rem;
+    color: var(--mc-text-2, #b8b8d0);
+    line-height: 1.5;
+    margin: 0.25rem 0 0.5rem;
+  }
+  .timeline-features {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    font-size: 0.7rem;
+    color: var(--mc-text-2, #b8b8d0);
+  }
+  .timeline-features li {
+    padding: 0.15rem 0;
+    padding-right: 0.5rem;
+  }
+  .timeline-features li.more {
+    color: var(--mc-text-3, #8585a3);
+    font-size: 0.65rem;
+  }
+
+  /* Howto card */
+  .howto-card {
+    background: rgba(13, 13, 24, 0.4);
+    border: 1px solid var(--mc-line, #2e2e4a);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .howto-num {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--mc-grass, #5fa838) 0%, var(--mc-grass-3, #3d7521) 100%);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+  .howto-card h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--mc-text, #e6e6f2);
+    margin: 0.25rem 0 0.375rem;
+  }
+</style>
