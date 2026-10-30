@@ -1,0 +1,126 @@
+{
+  "id": "potent-sulfur",
+  "nameEn": "Potent Sulfur",
+  "nameFa": "سولفور قوی",
+  "category": "redstone",
+  "icon": "potent-sulfur",
+  "hardness": 3.0,
+  "tool": "stone_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.22+",
+    "bedrock": "1.22.0+"
+  },
+  "description": "سولفور غنی‌شده با خاصیت رداستون که در مدارهای پیشرفته استفاده می‌شه.",
+  "uses": [
+    "ساخت با سولفور قوی",
+    "تزئین با سولفور قوی",
+    "استفاده در ساختارهای مختلف"
+  ],
+  "locations": [
+    "در بایوم Potone",
+    "از استخراج یا crafting"
+  ],
+  "drops": [
+    {
+      "item": "potent-sulfur",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Potent_Sulfur",
+  "intro": [
+    "سولفور قوی (Potent Sulfur) بلوکی از نسخه‌ی 1.22+ ماینکرفت است. سولفور غنی‌شده با خاصیت رداستون که در مدارهای پیشرفته استفاده می‌شه.",
+    "این بلوک با سختی 3.0 و ابزار stone_pickaxe قابل استخراج است و 64 تا در inventory قابل stacking است.",
+    "سولفور قوی در دسته‌ی 'redstone' قرار می‌گیره و برای بازیکنان استفاده‌های متنوعی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن سولفور قوی رو با stone_pickaxe استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "کدر است و 0 سطح نور تولید می‌کنه."
+  ],
+  "trivia": [
+    "سولفور قوی در نسخه‌ی Java 1.22+ اضافه شد.",
+    "این بلوک در دسته‌ی 'redstone' قرار داره.",
+    "در Bedrock، شاید ویژگی‌های بصری کمی متفاوت باشه.",
+    "با ابزار stone_pickaxe و سختی 3.0 تعریف شده.",
+    "در ساخت‌وسازهای تزئینی هم استفاده می‌شه."
+  ],
+  "history": [
+    {
+      "version": "Java 1.22+",
+      "change": "سولفور قوی به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.22.0+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21.x",
+      "change": "ویژگی‌های بلوک بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، رفتار بلوک استاندارد است.",
+    "در Bedrock، شاید زمان rendering کمی متفاوت باشه.",
+    "هر دو نسخه بلوک رو در inventory یکسان نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "deepslate",
+      "nameEn": "Deepslate",
+      "nameFa": "اسلیت عمیق",
+      "type": "block"
+    },
+    {
+      "id": "andesite",
+      "nameEn": "Andesite",
+      "nameFa": "آندزیت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 6.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "stone_pickaxe",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای استخراج سولفور قوی، از stone_pickaxe استفاده کن.",
+    "در صورت نیاز به harvesting خودکار، مکانیزم Piston بساز.",
+    "با Silk Touch می‌تونی بلوک کامل برداری."
+  ],
+  "interactions": [
+    "سولفور قوی با بلاک‌های مجاور سازگاره.",
+    "این بلوک با آب تعامل خاصی نداره.",
+    "با Redstone شاید تعامل داشته باشه (بسته به دسته)."
+  ],
+  "buildingIdeas": [
+    "در ساختمان‌های تزئینی از سولفور قوی استفاده کن.",
+    "برای کف یا دیوار مناسب است.",
+    "در ترکیب با بلوک‌های مشابه، ترکیب‌های زیبا بساز."
+  ],
+  "technical": [
+    "سولفور قوی سختی 3.0 داره.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "category: redstone, tool: stone_pickaxe"
+  ],
+  "redstone": [
+    "سولفور قوی با سیگنال رداستون قابل کنترله.",
+    "این بلوک در مدارهای رداستون کاربرد داره.",
+    "با Repeater می‌تونی سیگنال رو تقویت کنی."
+  ]
+}

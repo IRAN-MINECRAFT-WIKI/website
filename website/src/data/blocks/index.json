@@ -1231,6 +1231,335 @@
       "nameFa": "گل ویزر",
       "category": "natural",
       "icon": "wither-rose"
+    },
+    {
+      "id": "sulfur",
+      "nameEn": "Sulfur",
+      "nameFa": "سولفور",
+      "category": "ore",
+      "icon": "sulfur"
+    },
+    {
+      "id": "sulfur-bricks",
+      "nameEn": "Sulfur Bricks",
+      "nameFa": "آجرهای سولفور",
+      "category": "building",
+      "icon": "sulfur-bricks"
+    },
+    {
+      "id": "sulfur-brick-slab",
+      "nameEn": "Sulfur Brick Slab",
+      "nameFa": "دال آجر سولفور",
+      "category": "building",
+      "icon": "sulfur-brick-slab"
+    },
+    {
+      "id": "sulfur-brick-stairs",
+      "nameEn": "Sulfur Brick Stairs",
+      "nameFa": "پله‌های آجر سولفور",
+      "category": "building",
+      "icon": "sulfur-brick-stairs"
+    },
+    {
+      "id": "sulfur-brick-wall",
+      "nameEn": "Sulfur Brick Wall",
+      "nameFa": "دیوار آجر سولفور",
+      "category": "building",
+      "icon": "sulfur-brick-wall"
+    },
+    {
+      "id": "sulfur-slab",
+      "nameEn": "Sulfur Slab",
+      "nameFa": "دال سولفور",
+      "category": "building",
+      "icon": "sulfur-slab"
+    },
+    {
+      "id": "sulfur-stairs",
+      "nameEn": "Sulfur Stairs",
+      "nameFa": "پله‌های سولفور",
+      "category": "building",
+      "icon": "sulfur-stairs"
+    },
+    {
+      "id": "sulfur-wall",
+      "nameEn": "Sulfur Wall",
+      "nameFa": "دیوار سولفور",
+      "category": "building",
+      "icon": "sulfur-wall"
+    },
+    {
+      "id": "sulfur-spike",
+      "nameEn": "Sulfur Spike",
+      "nameFa": "خار سولفور",
+      "category": "mechanism",
+      "icon": "sulfur-spike"
+    },
+    {
+      "id": "polished-sulfur",
+      "nameEn": "Polished Sulfur",
+      "nameFa": "سولفور صیقلی",
+      "category": "building",
+      "icon": "polished-sulfur"
+    },
+    {
+      "id": "polished-sulfur-slab",
+      "nameEn": "Polished Sulfur Slab",
+      "nameFa": "دال سولفور صیقلی",
+      "category": "building",
+      "icon": "polished-sulfur-slab"
+    },
+    {
+      "id": "polished-sulfur-stairs",
+      "nameEn": "Polished Sulfur Stairs",
+      "nameFa": "پله‌های سولفور صیقلی",
+      "category": "building",
+      "icon": "polished-sulfur-stairs"
+    },
+    {
+      "id": "polished-sulfur-wall",
+      "nameEn": "Polished Sulfur Wall",
+      "nameFa": "دیوار سولفور صیقلی",
+      "category": "building",
+      "icon": "polished-sulfur-wall"
+    },
+    {
+      "id": "potent-sulfur",
+      "nameEn": "Potent Sulfur",
+      "nameFa": "سولفور قوی",
+      "category": "redstone",
+      "icon": "potent-sulfur"
+    },
+    {
+      "id": "cinnabar",
+      "nameEn": "Cinnabar",
+      "nameFa": "سینابر",
+      "category": "ore",
+      "icon": "cinnabar"
+    },
+    {
+      "id": "cinnabar-bricks",
+      "nameEn": "Cinnabar Bricks",
+      "nameFa": "آجرهای سینابر",
+      "category": "building",
+      "icon": "cinnabar-bricks"
+    },
+    {
+      "id": "cinnabar-brick-slab",
+      "nameEn": "Cinnabar Brick Slab",
+      "nameFa": "دال آجر سینابر",
+      "category": "building",
+      "icon": "cinnabar-brick-slab"
+    },
+    {
+      "id": "cinnabar-brick-stairs",
+      "nameEn": "Cinnabar Brick Stairs",
+      "nameFa": "پله‌های آجر سینابر",
+      "category": "building",
+      "icon": "cinnabar-brick-stairs"
+    },
+    {
+      "id": "cinnabar-brick-wall",
+      "nameEn": "Cinnabar Brick Wall",
+      "nameFa": "دیوار آجر سینابر",
+      "category": "building",
+      "icon": "cinnabar-brick-wall"
+    },
+    {
+      "id": "cinnabar-slab",
+      "nameEn": "Cinnabar Slab",
+      "nameFa": "دال سینابر",
+      "category": "building",
+      "icon": "cinnabar-slab"
+    },
+    {
+      "id": "cinnabar-stairs",
+      "nameEn": "Cinnabar Stairs",
+      "nameFa": "پله‌های سینابر",
+      "category": "building",
+      "icon": "cinnabar-stairs"
+    },
+    {
+      "id": "cinnabar-wall",
+      "nameEn": "Cinnabar Wall",
+      "nameFa": "دیوار سینابر",
+      "category": "building",
+      "icon": "cinnabar-wall"
+    },
+    {
+      "id": "chiseled-cinnabar",
+      "nameEn": "Chiseled Cinnabar",
+      "nameFa": "سینابر حکاکی‌شده",
+      "category": "building",
+      "icon": "chiseled-cinnabar"
+    },
+    {
+      "id": "polished-cinnabar",
+      "nameEn": "Polished Cinnabar",
+      "nameFa": "سینابر صیقلی",
+      "category": "building",
+      "icon": "polished-cinnabar"
+    },
+    {
+      "id": "polished-cinnabar-slab",
+      "nameEn": "Polished Cinnabar Slab",
+      "nameFa": "دال سینابر صیقلی",
+      "category": "building",
+      "icon": "polished-cinnabar-slab"
+    },
+    {
+      "id": "polished-cinnabar-stairs",
+      "nameEn": "Polished Cinnabar Stairs",
+      "nameFa": "پله‌های سینابر صیقلی",
+      "category": "building",
+      "icon": "polished-cinnabar-stairs"
+    },
+    {
+      "id": "polished-cinnabar-wall",
+      "nameEn": "Polished Cinnabar Wall",
+      "nameFa": "دیوار سینابر صیقلی",
+      "category": "building",
+      "icon": "polished-cinnabar-wall"
+    },
+    {
+      "id": "potone",
+      "nameEn": "Potone",
+      "nameFa": "پوتون",
+      "category": "building",
+      "icon": "potone"
+    },
+    {
+      "id": "potone-slab",
+      "nameEn": "Potone Slab",
+      "nameFa": "دال پوتون",
+      "category": "building",
+      "icon": "potone-slab"
+    },
+    {
+      "id": "potone-stairs",
+      "nameEn": "Potone Stairs",
+      "nameFa": "پله‌های پوتون",
+      "category": "building",
+      "icon": "potone-stairs"
+    },
+    {
+      "id": "potone-wall",
+      "nameEn": "Potone Wall",
+      "nameFa": "دیوار پوتون",
+      "category": "building",
+      "icon": "potone-wall"
+    },
+    {
+      "id": "potone-copper-ore",
+      "nameEn": "Potone Copper Ore",
+      "nameFa": "سنگ مس پوتون",
+      "category": "ore",
+      "icon": "potone-copper-ore"
+    },
+    {
+      "id": "potone-diamond-ore",
+      "nameEn": "Potone Diamond Ore",
+      "nameFa": "سنگ الماس پوتون",
+      "category": "ore",
+      "icon": "potone-diamond-ore"
+    },
+    {
+      "id": "potone-gold-ore",
+      "nameEn": "Potone Gold Ore",
+      "nameFa": "سنگ طلا پوتون",
+      "category": "ore",
+      "icon": "potone-gold-ore"
+    },
+    {
+      "id": "potone-iron-ore",
+      "nameEn": "Potone Iron Ore",
+      "nameFa": "سنگ آهن پوتون",
+      "category": "ore",
+      "icon": "potone-iron-ore"
+    },
+    {
+      "id": "potone-lapis-lazuli-ore",
+      "nameEn": "Potone Lapis Lazuli Ore",
+      "nameFa": "سنگ لاجورد پوتون",
+      "category": "ore",
+      "icon": "potone-lapis-lazuli-ore"
+    },
+    {
+      "id": "potone-redstone-ore",
+      "nameEn": "Potone Redstone Ore",
+      "nameFa": "سنگ رداستون پوتون",
+      "category": "ore",
+      "icon": "potone-redstone-ore"
+    },
+    {
+      "id": "taterstone",
+      "nameEn": "Taterstone",
+      "nameFa": "تترستون",
+      "category": "building",
+      "icon": "taterstone"
+    },
+    {
+      "id": "taterstone-slab",
+      "nameEn": "Taterstone Slab",
+      "nameFa": "دال تترستون",
+      "category": "building",
+      "icon": "taterstone-slab"
+    },
+    {
+      "id": "taterstone-stairs",
+      "nameEn": "Taterstone Stairs",
+      "nameFa": "پله‌های تترستون",
+      "category": "building",
+      "icon": "taterstone-stairs"
+    },
+    {
+      "id": "taterstone-wall",
+      "nameEn": "Taterstone Wall",
+      "nameFa": "دیوار تترستون",
+      "category": "building",
+      "icon": "taterstone-wall"
+    },
+    {
+      "id": "structure-void",
+      "nameEn": "Structure Void",
+      "nameFa": "ساختار void",
+      "category": "utility",
+      "icon": "structure-void"
+    },
+    {
+      "id": "light-block",
+      "nameEn": "Light Block",
+      "nameFa": "بلوک نور",
+      "category": "utility",
+      "icon": "light-block"
+    },
+    {
+      "id": "jigsaw-block",
+      "nameEn": "Jigsaw Block",
+      "nameFa": "بلوک jigساو",
+      "category": "utility",
+      "icon": "jigsaw-block"
+    },
+    {
+      "id": "allow-block",
+      "nameEn": "Allow Block",
+      "nameFa": "بلوک اجازه",
+      "category": "utility",
+      "icon": "allow-block"
+    },
+    {
+      "id": "deny-block",
+      "nameEn": "Deny Block",
+      "nameFa": "بلوک رد",
+      "category": "utility",
+      "icon": "deny-block"
+    },
+    {
+      "id": "border-block",
+      "nameEn": "Border Block",
+      "nameFa": "بلوک مرز",
+      "category": "utility",
+      "icon": "border-block"
     }
   ],
   "intro": [

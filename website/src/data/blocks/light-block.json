@@ -1,0 +1,121 @@
+{
+  "id": "light-block",
+  "nameEn": "Light Block",
+  "nameFa": "بلوک نور",
+  "category": "utility",
+  "icon": "light-block",
+  "hardness": 0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 15,
+  "versions": {
+    "java": "1.17+",
+    "bedrock": "1.18.0+"
+  },
+  "description": "بلوک نامرئی که نور تولید می‌کنه و فقط با کامند قابل قرار گیریه. ۱۵ سطح نور.",
+  "uses": [
+    "ساخت با بلوک نور",
+    "تزئین با بلوک نور",
+    "استفاده در ساختارهای مختلف"
+  ],
+  "locations": [
+    "فقط با کامند قابل دسترسی",
+    "از استخراج یا crafting"
+  ],
+  "drops": [
+    {
+      "item": "light-block",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Light_Block",
+  "intro": [
+    "بلوک نور (Light Block) بلوکی از نسخه‌ی 1.17+ ماینکرفت است. بلوک نامرئی که نور تولید می‌کنه و فقط با کامند قابل قرار گیریه. ۱۵ سطح نور.",
+    "این بلوک با سختی 0 و ابزار none قابل استخراج است و 64 تا در inventory قابل stacking است.",
+    "بلوک نور در دسته‌ی 'utility' قرار می‌گیره و برای بازیکنان استفاده‌های متنوعی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن بلوک نور رو با none استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "شفاف است و 15 سطح نور تولید می‌کنه."
+  ],
+  "trivia": [
+    "بلوک نور در نسخه‌ی Java 1.17+ اضافه شد.",
+    "این بلوک در دسته‌ی 'utility' قرار داره.",
+    "در Bedrock، شاید ویژگی‌های بصری کمی متفاوت باشه.",
+    "با ابزار none و سختی 0 تعریف شده.",
+    "در ساخت‌وسازهای تزئینی هم استفاده می‌شه."
+  ],
+  "history": [
+    {
+      "version": "Java 1.17+",
+      "change": "بلوک نور به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.18.0+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21.x",
+      "change": "ویژگی‌های بلوک بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، رفتار بلوک استاندارد است.",
+    "در Bedrock، شاید زمان rendering کمی متفاوت باشه.",
+    "هر دو نسخه بلوک رو در inventory یکسان نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "deepslate",
+      "nameEn": "Deepslate",
+      "nameFa": "اسلیت عمیق",
+      "type": "block"
+    },
+    {
+      "id": "andesite",
+      "nameEn": "Andesite",
+      "nameFa": "آندزیت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 15,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای استخراج بلوک نور، از none استفاده کن.",
+    "در صورت نیاز به harvesting خودکار، مکانیزم Piston بساز.",
+    "با Silk Touch می‌تونی بلوک کامل برداری."
+  ],
+  "interactions": [
+    "بلوک نور با بلاک‌های مجاور سازگاره.",
+    "این بلوک با آب تعامل خاصی نداره.",
+    "با Redstone شاید تعامل داشته باشه (بسته به دسته)."
+  ],
+  "buildingIdeas": [
+    "در ساختمان‌های تزئینی از بلوک نور استفاده کن.",
+    "برای کف یا دیوار مناسب است.",
+    "در ترکیب با بلوک‌های مشابه، ترکیب‌های زیبا بساز."
+  ],
+  "technical": [
+    "بلوک نور سختی 0 داره.",
+    "در سطح blockstate، این بلوک 15 نور تولید می‌کنه.",
+    "category: utility, tool: none"
+  ]
+}

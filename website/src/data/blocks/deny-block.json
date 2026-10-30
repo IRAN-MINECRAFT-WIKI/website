@@ -1,0 +1,121 @@
+{
+  "id": "deny-block",
+  "nameEn": "Deny Block",
+  "nameFa": "بلوک رد",
+  "category": "utility",
+  "icon": "deny-block",
+  "hardness": -1,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Education+",
+    "bedrock": "Education+"
+  },
+  "description": "بلوک فنی Education Edition که جلوی قرار دادن بلاک رو می‌گیره.",
+  "uses": [
+    "ساخت با بلوک رد",
+    "تزئین با بلوک رد",
+    "استفاده در ساختارهای مختلف"
+  ],
+  "locations": [
+    "فقط با کامند قابل دسترسی",
+    "از استخراج یا crafting"
+  ],
+  "drops": [
+    {
+      "item": "deny-block",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Deny_Block",
+  "intro": [
+    "بلوک رد (Deny Block) بلوکی از نسخه‌ی Education+ ماینکرفت است. بلوک فنی Education Edition که جلوی قرار دادن بلاک رو می‌گیره.",
+    "این بلوک با سختی -1 و ابزار none قابل استخراج است و 64 تا در inventory قابل stacking است.",
+    "بلوک رد در دسته‌ی 'utility' قرار می‌گیره و برای بازیکنان استفاده‌های متنوعی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن بلوک رد رو با none استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "شفاف است و 0 سطح نور تولید می‌کنه."
+  ],
+  "trivia": [
+    "بلوک رد در نسخه‌ی Java Education+ اضافه شد.",
+    "این بلوک در دسته‌ی 'utility' قرار داره.",
+    "در Bedrock، شاید ویژگی‌های بصری کمی متفاوت باشه.",
+    "با ابزار none و سختی -1 تعریف شده.",
+    "در ساخت‌وسازهای تزئینی هم استفاده می‌شه."
+  ],
+  "history": [
+    {
+      "version": "Java Education+",
+      "change": "بلوک رد به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock Education+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21.x",
+      "change": "ویژگی‌های بلوک بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، رفتار بلوک استاندارد است.",
+    "در Bedrock، شاید زمان rendering کمی متفاوت باشه.",
+    "هر دو نسخه بلوک رو در inventory یکسان نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "deepslate",
+      "nameEn": "Deepslate",
+      "nameFa": "اسلیت عمیق",
+      "type": "block"
+    },
+    {
+      "id": "andesite",
+      "nameEn": "Andesite",
+      "nameFa": "آندزیت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای استخراج بلوک رد، از none استفاده کن.",
+    "در صورت نیاز به harvesting خودکار، مکانیزم Piston بساز.",
+    "با Silk Touch می‌تونی بلوک کامل برداری."
+  ],
+  "interactions": [
+    "بلوک رد با بلاک‌های مجاور سازگاره.",
+    "این بلوک با آب تعامل خاصی نداره.",
+    "با Redstone شاید تعامل داشته باشه (بسته به دسته)."
+  ],
+  "buildingIdeas": [
+    "در ساختمان‌های تزئینی از بلوک رد استفاده کن.",
+    "برای کف یا دیوار مناسب است.",
+    "در ترکیب با بلوک‌های مشابه، ترکیب‌های زیبا بساز."
+  ],
+  "technical": [
+    "بلوک رد سختی -1 داره.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "category: utility, tool: none"
+  ]
+}

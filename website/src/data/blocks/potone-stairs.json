@@ -1,0 +1,121 @@
+{
+  "id": "potone-stairs",
+  "nameEn": "Potone Stairs",
+  "nameFa": "پله‌های پوتون",
+  "category": "building",
+  "icon": "potone-stairs",
+  "hardness": 3.0,
+  "tool": "stone_pickaxe",
+  "stackSize": 64,
+  "transparent": false,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.22+",
+    "bedrock": "1.22.0+"
+  },
+  "description": "پله‌های ساخته‌شده از بلوک پوتون.",
+  "uses": [
+    "ساخت با پله‌های پوتون",
+    "تزئین با پله‌های پوتون",
+    "استفاده در ساختارهای مختلف"
+  ],
+  "locations": [
+    "در بایوم Potone",
+    "از استخراج یا crafting"
+  ],
+  "drops": [
+    {
+      "item": "potone-stairs",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Potone_Stairs",
+  "intro": [
+    "پله‌های پوتون (Potone Stairs) بلوکی از نسخه‌ی 1.22+ ماینکرفت است. پله‌های ساخته‌شده از بلوک پوتون.",
+    "این بلوک با سختی 3.0 و ابزار stone_pickaxe قابل استخراج است و 64 تا در inventory قابل stacking است.",
+    "پله‌های پوتون در دسته‌ی 'building' قرار می‌گیره و برای بازیکنان استفاده‌های متنوعی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن پله‌های پوتون رو با stone_pickaxe استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "کدر است و 0 سطح نور تولید می‌کنه."
+  ],
+  "trivia": [
+    "پله‌های پوتون در نسخه‌ی Java 1.22+ اضافه شد.",
+    "این بلوک در دسته‌ی 'building' قرار داره.",
+    "در Bedrock، شاید ویژگی‌های بصری کمی متفاوت باشه.",
+    "با ابزار stone_pickaxe و سختی 3.0 تعریف شده.",
+    "در ساخت‌وسازهای تزئینی هم استفاده می‌شه."
+  ],
+  "history": [
+    {
+      "version": "Java 1.22+",
+      "change": "پله‌های پوتون به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.22.0+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21.x",
+      "change": "ویژگی‌های بلوک بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، رفتار بلوک استاندارد است.",
+    "در Bedrock، شاید زمان rendering کمی متفاوت باشه.",
+    "هر دو نسخه بلوک رو در inventory یکسان نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "deepslate",
+      "nameEn": "Deepslate",
+      "nameFa": "اسلیت عمیق",
+      "type": "block"
+    },
+    {
+      "id": "andesite",
+      "nameEn": "Andesite",
+      "nameFa": "آندزیت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 6.0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "stone_pickaxe",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای استخراج پله‌های پوتون، از stone_pickaxe استفاده کن.",
+    "در صورت نیاز به harvesting خودکار، مکانیزم Piston بساز.",
+    "با Silk Touch می‌تونی بلوک کامل برداری."
+  ],
+  "interactions": [
+    "پله‌های پوتون با بلاک‌های مجاور سازگاره.",
+    "این بلوک با آب تعامل خاصی نداره.",
+    "با Redstone شاید تعامل داشته باشه (بسته به دسته)."
+  ],
+  "buildingIdeas": [
+    "در ساختمان‌های تزئینی از پله‌های پوتون استفاده کن.",
+    "برای کف یا دیوار مناسب است.",
+    "در ترکیب با بلوک‌های مشابه، ترکیب‌های زیبا بساز."
+  ],
+  "technical": [
+    "پله‌های پوتون سختی 3.0 داره.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "category: building, tool: stone_pickaxe"
+  ]
+}

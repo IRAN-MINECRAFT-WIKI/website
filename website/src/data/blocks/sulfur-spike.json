@@ -1,0 +1,121 @@
+{
+  "id": "sulfur-spike",
+  "nameEn": "Sulfur Spike",
+  "nameFa": "خار سولفور",
+  "category": "mechanism",
+  "icon": "sulfur-spike",
+  "hardness": 0.5,
+  "tool": "pickaxe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.22+",
+    "bedrock": "1.22.0+"
+  },
+  "description": "خار سولفور که به بازیکن آسیب می‌زنه و در ساخت تله‌ها استفاده می‌شه.",
+  "uses": [
+    "ساخت با خار سولفور",
+    "تزئین با خار سولفور",
+    "استفاده در ساختارهای مختلف"
+  ],
+  "locations": [
+    "در بایوم Potone",
+    "از استخراج یا crafting"
+  ],
+  "drops": [
+    {
+      "item": "sulfur-spike",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Sulfur_Spike",
+  "intro": [
+    "خار سولفور (Sulfur Spike) بلوکی از نسخه‌ی 1.22+ ماینکرفت است. خار سولفور که به بازیکن آسیب می‌زنه و در ساخت تله‌ها استفاده می‌شه.",
+    "این بلوک با سختی 0.5 و ابزار pickaxe قابل استخراج است و 64 تا در inventory قابل stacking است.",
+    "خار سولفور در دسته‌ی 'mechanism' قرار می‌گیره و برای بازیکنان استفاده‌های متنوعی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن خار سولفور رو با pickaxe استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "شفاف است و 0 سطح نور تولید می‌کنه."
+  ],
+  "trivia": [
+    "خار سولفور در نسخه‌ی Java 1.22+ اضافه شد.",
+    "این بلوک در دسته‌ی 'mechanism' قرار داره.",
+    "در Bedrock، شاید ویژگی‌های بصری کمی متفاوت باشه.",
+    "با ابزار pickaxe و سختی 0.5 تعریف شده.",
+    "در ساخت‌وسازهای تزئینی هم استفاده می‌شه."
+  ],
+  "history": [
+    {
+      "version": "Java 1.22+",
+      "change": "خار سولفور به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.22.0+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21.x",
+      "change": "ویژگی‌های بلوک بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، رفتار بلوک استاندارد است.",
+    "در Bedrock، شاید زمان rendering کمی متفاوت باشه.",
+    "هر دو نسخه بلوک رو در inventory یکسان نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "deepslate",
+      "nameEn": "Deepslate",
+      "nameFa": "اسلیت عمیق",
+      "type": "block"
+    },
+    {
+      "id": "andesite",
+      "nameEn": "Andesite",
+      "nameFa": "آندزیت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 6,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "pickaxe",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای استخراج خار سولفور، از pickaxe استفاده کن.",
+    "در صورت نیاز به harvesting خودکار، مکانیزم Piston بساز.",
+    "با Silk Touch می‌تونی بلوک کامل برداری."
+  ],
+  "interactions": [
+    "خار سولفور با بلاک‌های مجاور سازگاره.",
+    "این بلوک با آب تعامل خاصی نداره.",
+    "با Redstone شاید تعامل داشته باشه (بسته به دسته)."
+  ],
+  "buildingIdeas": [
+    "در ساختمان‌های تزئینی از خار سولفور استفاده کن.",
+    "برای کف یا دیوار مناسب است.",
+    "در ترکیب با بلوک‌های مشابه، ترکیب‌های زیبا بساز."
+  ],
+  "technical": [
+    "خار سولفور سختی 0.5 داره.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "category: mechanism, tool: pickaxe"
+  ]
+}

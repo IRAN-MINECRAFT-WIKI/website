@@ -1,0 +1,121 @@
+{
+  "id": "allow-block",
+  "nameEn": "Allow Block",
+  "nameFa": "بلوک اجازه",
+  "category": "utility",
+  "icon": "allow-block",
+  "hardness": -1,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Education+",
+    "bedrock": "Education+"
+  },
+  "description": "بلوک فنی Education Edition که در چند‌بازیکنی محدود می‌کنه کجا بازیکن می‌تونه بلاک بذاره.",
+  "uses": [
+    "ساخت با بلوک اجازه",
+    "تزئین با بلوک اجازه",
+    "استفاده در ساختارهای مختلف"
+  ],
+  "locations": [
+    "فقط با کامند قابل دسترسی",
+    "از استخراج یا crafting"
+  ],
+  "drops": [
+    {
+      "item": "allow-block",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Allow_Block",
+  "intro": [
+    "بلوک اجازه (Allow Block) بلوکی از نسخه‌ی Education+ ماینکرفت است. بلوک فنی Education Edition که در چند‌بازیکنی محدود می‌کنه کجا بازیکن می‌تونه بلاک بذاره.",
+    "این بلوک با سختی -1 و ابزار none قابل استخراج است و 64 تا در inventory قابل stacking است.",
+    "بلوک اجازه در دسته‌ی 'utility' قرار می‌گیره و برای بازیکنان استفاده‌های متنوعی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن بلوک اجازه رو با none استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "شفاف است و 0 سطح نور تولید می‌کنه."
+  ],
+  "trivia": [
+    "بلوک اجازه در نسخه‌ی Java Education+ اضافه شد.",
+    "این بلوک در دسته‌ی 'utility' قرار داره.",
+    "در Bedrock، شاید ویژگی‌های بصری کمی متفاوت باشه.",
+    "با ابزار none و سختی -1 تعریف شده.",
+    "در ساخت‌وسازهای تزئینی هم استفاده می‌شه."
+  ],
+  "history": [
+    {
+      "version": "Java Education+",
+      "change": "بلوک اجازه به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock Education+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21.x",
+      "change": "ویژگی‌های بلوک بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، رفتار بلوک استاندارد است.",
+    "در Bedrock، شاید زمان rendering کمی متفاوت باشه.",
+    "هر دو نسخه بلوک رو در inventory یکسان نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "deepslate",
+      "nameEn": "Deepslate",
+      "nameFa": "اسلیت عمیق",
+      "type": "block"
+    },
+    {
+      "id": "andesite",
+      "nameEn": "Andesite",
+      "nameFa": "آندزیت",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای استخراج بلوک اجازه، از none استفاده کن.",
+    "در صورت نیاز به harvesting خودکار، مکانیزم Piston بساز.",
+    "با Silk Touch می‌تونی بلوک کامل برداری."
+  ],
+  "interactions": [
+    "بلوک اجازه با بلاک‌های مجاور سازگاره.",
+    "این بلوک با آب تعامل خاصی نداره.",
+    "با Redstone شاید تعامل داشته باشه (بسته به دسته)."
+  ],
+  "buildingIdeas": [
+    "در ساختمان‌های تزئینی از بلوک اجازه استفاده کن.",
+    "برای کف یا دیوار مناسب است.",
+    "در ترکیب با بلوک‌های مشابه، ترکیب‌های زیبا بساز."
+  ],
+  "technical": [
+    "بلوک اجازه سختی -1 داره.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "category: utility, tool: none"
+  ]
+}

@@ -1,0 +1,306 @@
+---
+/**
+ * /wiki/items — لیست کامل آیتم‌های ماینکرفت
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import StructuredData from '@components/StructuredData.astro';
+import { breadcrumbJsonLd } from '@/lib/seo';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const BASE = import.meta.env.BASE_URL;
+const base = (p: string) => (p.startsWith('/') ? `${BASE}${p.slice(1)}` : `${BASE}${p}`);
+
+const breadcrumb = [
+  { name: 'خانه', url: base('/') },
+  { name: 'ویکی', url: base('/wiki') },
+  { name: 'آیتم‌ها', url: base('/wiki/items') },
+];
+const ldBread = breadcrumbJsonLd(breadcrumb);
+
+function faNum(n: number | string): string {
+  const map = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return String(n).replace(/\d/g, (d) => map[+d]!);
+}
+
+const ITEM_CATEGORIES = [
+  {
+    id: 'tools', nameFa: 'ابزارها', emoji: '⛏️', color: '#7cc84a',
+    desc: 'ابزارهای استخراج و کار با بلاک‌ها',
+    items: [
+      { id: 'wooden-pickaxe', nameFa: 'پیکه چوبی' }, { id: 'stone-pickaxe', nameFa: 'پیکه سنگی' },
+      { id: 'iron-pickaxe', nameFa: 'پیکه آهنی' }, { id: 'golden-pickaxe', nameFa: 'پیکه طلایی' },
+      { id: 'diamond-pickaxe', nameFa: 'پیکه الماسی' }, { id: 'netherite-pickaxe', nameFa: 'پیکه ندرایت' },
+      { id: 'wooden-axe', nameFa: 'تبر چوبی' }, { id: 'iron-axe', nameFa: 'تبر آهنی' },
+      { id: 'diamond-axe', nameFa: 'تبر الماسی' }, { id: 'netherite-axe', nameFa: 'تبر ندرایت' },
+      { id: 'wooden-shovel', nameFa: 'بیل چوبی' }, { id: 'iron-shovel', nameFa: 'بیل آهنی' },
+      { id: 'diamond-shovel', nameFa: 'بیل الماسی' }, { id: 'wooden-hoe', nameFa: 'داس چوبی' },
+      { id: 'iron-hoe', nameFa: 'داس آهنی' }, { id: 'diamond-hoe', nameFa: 'داس الماسی' },
+      { id: 'shears', nameFa: 'قیچی' }, { id: 'flint-and-steel', nameFa: 'چخماق و فولاد' },
+      { id: 'fishing-rod', nameFa: 'چوب ماهیگیری' }, { id: 'compass', nameFa: 'قطبنما' },
+      { id: 'clock', nameFa: 'ساعت' }, { id: 'map', nameFa: 'نقشه' },
+      { id: 'bucket', nameFa: 'سطل' }, { id: 'water-bucket', nameFa: 'سطل آب' },
+      { id: 'lava-bucket', nameFa: 'سطل لاوا' }, { id: 'milk-bucket', nameFa: 'سطل شیر' },
+    ],
+  },
+  {
+    id: 'weapons', nameFa: 'سلاح‌ها', emoji: '⚔️', color: '#c8403a',
+    desc: 'سلاح‌های نبرد و دفاع',
+    items: [
+      { id: 'wooden-sword', nameFa: 'شمشیر چوبی' }, { id: 'stone-sword', nameFa: 'شمشیر سنگی' },
+      { id: 'iron-sword', nameFa: 'شمشیر آهنی' }, { id: 'golden-sword', nameFa: 'شمشیر طلایی' },
+      { id: 'diamond-sword', nameFa: 'شمشیر الماسی' }, { id: 'netherite-sword', nameFa: 'شمشیر ندرایت' },
+      { id: 'bow', nameFa: 'کمان' }, { id: 'crossbow', nameFa: 'کراسبو' },
+      { id: 'trident', nameFa: 'ترایدنت' }, { id: 'shield', nameFa: 'سپر' },
+      { id: 'arrow', nameFa: 'تیر' }, { id: 'ender-pearl', nameFa: 'مروارید اندر' },
+      { id: 'eye-of-ender', nameFa: 'چشم اندر' }, { id: 'firework-rocket', nameFa: 'فشفشه راکت' },
+    ],
+  },
+  {
+    id: 'food', nameFa: 'غذاها', emoji: '🍞', color: '#fcb32b',
+    desc: 'غذاها برای بازیابی hunger',
+    items: [
+      { id: 'apple', nameFa: 'سیب' }, { id: 'golden-apple', nameFa: 'سیب طلایی' },
+      { id: 'enchanted-golden-apple', nameFa: 'سیب طلایی جادویی' }, { id: 'bread', nameFa: 'نان' },
+      { id: 'carrot', nameFa: 'هویج' }, { id: 'golden-carrot', nameFa: 'هویج طلایی' },
+      { id: 'potato', nameFa: 'سیبزمینی' }, { id: 'baked-potato', nameFa: 'سیبزمینی پخته' },
+      { id: 'beetroot', nameFa: 'چغندر' }, { id: 'beetroot-soup', nameFa: 'سوپ چغندر' },
+      { id: 'mushroom-stew', nameFa: 'سوپ قارچ' }, { id: 'rabbit-stew', nameFa: 'سوپ خرگوش' },
+      { id: 'cooked-beef', nameFa: 'گوشت پخته' }, { id: 'cooked-porkchop', nameFa: 'گوشت خوک پخته' },
+      { id: 'cooked-chicken', nameFa: 'مرغ پخته' }, { id: 'cooked-mutton', nameFa: 'گوشت گوسفند پخته' },
+      { id: 'cooked-cod', nameFa: 'ماهی کاد پخته' }, { id: 'cooked-salmon', nameFa: 'سالمون پخته' },
+      { id: 'cake', nameFa: 'کیک' }, { id: 'pumpkin-pie', nameFa: 'پای کدو' },
+      { id: 'cookie', nameFa: 'کلوچه' }, { id: 'sweet-berries', nameFa: 'توت شیرین' },
+      { id: 'glow-berries', nameFa: 'توت نورانی' }, { id: 'chorus-fruit', nameFa: 'میوه کوروس' },
+      { id: 'honey-bottle', nameFa: 'بطری عسل' }, { id: 'dried-kelp', nameFa: 'کلپ خشک' },
+    ],
+  },
+  {
+    id: 'armor', nameFa: 'زره‌ها', emoji: '🛡️', color: '#7e7e7e',
+    desc: 'زره‌ها برای محافظت',
+    items: [
+      { id: 'leather-helmet', nameFa: 'کلاهخود چرمی' }, { id: 'leather-chestplate', nameFa: 'زره تن چرمی' },
+      { id: 'leather-leggings', nameFa: 'شلوار چرمی' }, { id: 'leather-boots', nameFa: 'بوت چرمی' },
+      { id: 'iron-helmet', nameFa: 'کلاهخود آهنی' }, { id: 'iron-chestplate', nameFa: 'زره تن آهنی' },
+      { id: 'iron-leggings', nameFa: 'شلوار آهنی' }, { id: 'iron-boots', nameFa: 'بوت آهنی' },
+      { id: 'golden-helmet', nameFa: 'کلاهخود طلایی' }, { id: 'golden-chestplate', nameFa: 'زره تن طلایی' },
+      { id: 'diamond-helmet', nameFa: 'کلاهخود الماسی' }, { id: 'diamond-chestplate', nameFa: 'زره تن الماسی' },
+      { id: 'diamond-leggings', nameFa: 'شلوار الماسی' }, { id: 'diamond-boots', nameFa: 'بوت الماسی' },
+      { id: 'netherite-helmet', nameFa: 'کلاهخود ندرایت' }, { id: 'netherite-chestplate', nameFa: 'زره تن ندرایت' },
+      { id: 'netherite-leggings', nameFa: 'شلوار ندرایت' }, { id: 'netherite-boots', nameFa: 'بوت ندرایت' },
+      { id: 'turtle-shell', nameFa: 'پوست لاکپشت' }, { id: 'elytra', nameFa: 'بالهای پرواز' },
+    ],
+  },
+  {
+    id: 'potions', nameFa: 'پاتیل‌ها', emoji: '⚗️', color: '#9c7b4e',
+    desc: 'پاتیل‌های جادویی',
+    items: [
+      { id: 'water-bottle', nameFa: 'بطری آب' }, { id: 'potion-of-healing', nameFa: 'پاتیل درمان' },
+      { id: 'potion-of-regeneration', nameFa: 'پاتیل بازسازی' }, { id: 'potion-of-strength', nameFa: 'پاتیل قدرت' },
+      { id: 'potion-of-swiftness', nameFa: 'پاتیل سرعت' }, { id: 'potion-of-fire-resistance', nameFa: 'پاتیل مقاومت آتش' },
+      { id: 'potion-of-water-breathing', nameFa: 'پاتیل تنفس در آب' }, { id: 'potion-of-night-vision', nameFa: 'پاتیل دید شب' },
+      { id: 'potion-of-invisibility', nameFa: 'پاتیل نامرئی' }, { id: 'potion-of-leaping', nameFa: 'پاتیل پرش' },
+      { id: 'potion-of-slow-falling', nameFa: 'پاتیل سقوط آهسته' }, { id: 'potion-of-poison', nameFa: 'پاتیل زهر' },
+      { id: 'potion-of-weakness', nameFa: 'پاتیل ضعف' }, { id: 'potion-of-harming', nameFa: 'پاتیل آسیب' },
+      { id: 'potion-of-turtle-master', nameFa: 'پاتیل استاد لاکپشت' },
+    ],
+  },
+  {
+    id: 'materials', nameFa: 'مواد اولیه', emoji: '📦', color: '#5fa838',
+    desc: 'مواد اولیه برای crafting',
+    items: [
+      { id: 'stick', nameFa: 'چوب دستی' }, { id: 'coal', nameFa: 'زغال' },
+      { id: 'iron-ingot', nameFa: 'شمش آهن' }, { id: 'gold-ingot', nameFa: 'شمش طلا' },
+      { id: 'diamond', nameFa: 'الماس' }, { id: 'emerald', nameFa: 'زمرد' },
+      { id: 'netherite-ingot', nameFa: 'شمش ندرایت' }, { id: 'lapis-lazuli', nameFa: 'لاجورد' },
+      { id: 'redstone', nameFa: 'رداستون' }, { id: 'quartz', nameFa: 'کوارتز' },
+      { id: 'amethyst-shard', nameFa: 'خرده آمتیست' }, { id: 'copper-ingot', nameFa: 'شمش مس' },
+      { id: 'string', nameFa: 'نخ' }, { id: 'leather', nameFa: 'چرم' },
+      { id: 'feather', nameFa: 'پر' }, { id: 'flint', nameFa: 'چخماق' },
+      { id: 'gunpowder', nameFa: 'باروت' }, { id: 'blaze-rod', nameFa: 'میله بلیز' },
+      { id: 'blaze-powder', nameFa: 'پودر بلیز' }, { id: 'ghast-tear', nameFa: 'اشک گاست' },
+      { id: 'nether-star', nameFa: 'ستاره ندر' }, { id: 'shulker-shell', nameFa: 'پوست شالکر' },
+      { id: 'prismarine-shard', nameFa: 'خرده پریزمارین' }, { id: 'nautilus-shell', nameFa: 'پوست ناتیلوس' },
+      { id: 'heart-of-the-sea', nameFa: 'قلب دریا' }, { id: 'phantom-membrane', nameFa: 'غشاء فانتوم' },
+      { id: 'slimeball', nameFa: 'گوی اسلایم' }, { id: 'magma-cream', nameFa: 'کرم ماگما' },
+      { id: 'sugar', nameFa: 'شکر' }, { id: 'paper', nameFa: 'کاغذ' },
+      { id: 'book', nameFa: 'کتاب' }, { id: 'glowstone-dust', nameFa: 'پودر گلوستون' },
+      { id: 'bone-meal', nameFa: 'پودر استخوان' }, { id: 'ink-sac', nameFa: 'کیسه مرکب' },
+      { id: 'cocoa-beans', nameFa: 'دانه کاکائو' }, { id: 'wheat', nameFa: 'گندم' },
+      { id: 'honeycomb', nameFa: 'کندوی عسل' },
+    ],
+  },
+  {
+    id: 'redstone', nameFa: 'رداستون', emoji: '🔴', color: '#c8403a',
+    desc: 'اجزای مدارهای رداستون',
+    items: [
+      { id: 'redstone', nameFa: 'رداستون' }, { id: 'redstone-torch', nameFa: 'مشعل رداستون' },
+      { id: 'redstone-repeater', nameFa: 'تکرارکننده' }, { id: 'redstone-comparator', nameFa: 'مقایسه‌کننده' },
+      { id: 'lever', nameFa: 'اهرم' }, { id: 'button', nameFa: 'دکمه' },
+      { id: 'pressure-plate', nameFa: 'صفحه فشار' }, { id: 'tripwire-hook', nameFa: 'قلاب تریپ‌وایر' },
+      { id: 'daylight-detector', nameFa: 'آشکارساز نور روز' }, { id: 'observer', nameFa: 'مشاهده‌گر' },
+      { id: 'piston', nameFa: 'پیستون' }, { id: 'sticky-piston', nameFa: 'پیستون چسبناک' },
+      { id: 'hopper', nameFa: 'هوپر' }, { id: 'dispenser', nameFa: 'دیسپنسر' },
+      { id: 'dropper', nameFa: 'دراپر' }, { id: 'note-block', nameFa: 'بلوک نت' },
+    ],
+  },
+  {
+    id: 'transportation', nameFa: 'حمل و نقل', emoji: '🚂', color: '#5fa838',
+    desc: 'وسایل نقلیه و راه‌ها',
+    items: [
+      { id: 'minecart', nameFa: 'واگن' }, { id: 'minecart-with-chest', nameFa: 'واگن با صندوق' },
+      { id: 'minecart-with-hopper', nameFa: 'واگن با هوپر' }, { id: 'minecart-with-tnt', nameFa: 'واگن با تیانتی' },
+      { id: 'rail', nameFa: 'ریل' }, { id: 'powered-rail', nameFa: 'ریل نیرومند' },
+      { id: 'detector-rail', nameFa: 'ریل آشکارساز' }, { id: 'activator-rail', nameFa: 'ریل فعال‌کننده' },
+      { id: 'oak-boat', nameFa: 'قایق بلوط' }, { id: 'spruce-boat', nameFa: 'قایق اسپرووس' },
+      { id: 'birch-boat', nameFa: 'قایق بیرچ' }, { id: 'jungle-boat', nameFa: 'قایق جنگل' },
+      { id: 'acacia-boat', nameFa: 'قایق اکاسیا' }, { id: 'dark-oak-boat', nameFa: 'قایق بلوط تیره' },
+      { id: 'mangrove-boat', nameFa: 'قایق مانگرو' }, { id: 'cherry-boat', nameFa: 'قایق چری' },
+      { id: 'bamboo-raft', nameFa: 'قایق بامبو' }, { id: 'saddle', nameFa: 'زین' },
+      { id: 'elytra', nameFa: 'بالهای پرواز' }, { id: 'firework-rocket', nameFa: 'فشفشه راکت' },
+    ],
+  },
+  {
+    id: 'decoration', nameFa: 'تزئینی', emoji: '🎨', color: '#fcb32b',
+    desc: 'آیتم‌های تزئینی',
+    items: [
+      { id: 'banner', nameFa: 'پرچم' }, { id: 'painting', nameFa: 'نقاشی' },
+      { id: 'item-frame', nameFa: 'قاب آیتم' }, { id: 'glow-item-frame', nameFa: 'قاب نورانی' },
+      { id: 'flower-pot', nameFa: 'گلدان' }, { id: 'armor-stand', nameFa: 'استند زره' },
+      { id: 'lantern', nameFa: 'فانوس' }, { id: 'soul-lantern', nameFa: 'فانوس روح' },
+      { id: 'torch', nameFa: 'مشعل' }, { id: 'soul-torch', nameFa: 'مشعل روح' },
+      { id: 'end-rod', nameFa: 'میله اند' }, { id: 'candle', nameFa: 'شمع' },
+    ],
+  },
+  {
+    id: 'special', nameFa: 'ویژه', emoji: '✨', color: '#9c7b4e',
+    desc: 'آیتم‌های ویژه و کمیاب',
+    items: [
+      { id: 'nether-star', nameFa: 'ستاره ندر' }, { id: 'elytra', nameFa: 'بالهای پرواز' },
+      { id: 'totem-of-undying', nameFa: 'توتِم جاودانگی' }, { id: 'dragon-breath', nameFa: 'نفس اژدها' },
+      { id: 'dragon-egg', nameFa: 'تخم اژدها' }, { id: 'enchanted-golden-apple', nameFa: 'سیب طلایی جادویی' },
+      { id: 'heart-of-the-sea', nameFa: 'قلب دریا' }, { id: 'conduit', nameFa: 'کاندویت' },
+      { id: 'beacon', nameFa: 'بیکن' }, { id: 'end-crystal', nameFa: 'کریستال اند' },
+      { id: 'wither-skeleton-skull', nameFa: 'جمجمه ویزر' }, { id: 'dragon-head', nameFa: 'سر اژدها' },
+      { id: 'skeleton-skull', nameFa: 'جمجمه اسکلتون' }, { id: 'creeper-head', nameFa: 'سر کریپر' },
+      { id: 'zombie-head', nameFa: 'سر زامبی' }, { id: 'goat-horn', nameFa: 'شاخ بز' },
+      { id: 'spyglass', nameFa: 'دوربین' }, { id: 'brush', nameFa: 'براش' },
+      { id: 'recovery-compass', nameFa: 'قطبنمای بازیابی' }, { id: 'echo-shard', nameFa: 'خرده اکو' },
+    ],
+  },
+];
+
+const totalItems = ITEM_CATEGORIES.reduce((sum, c) => sum + c.items.length, 0);
+
+function textureExists(id: string): boolean {
+  const p1 = path.resolve('./public/textures/items', `${id}.png`);
+  const p2 = path.resolve('./public/textures/items', `${id.replace(/-/g, '_')}.png`);
+  return fs.existsSync(p1) || fs.existsSync(p2);
+}
+---
+
+<BaseLayout
+  path="/wiki/items"
+  title="لیست کامل آیتم‌های ماینکرفت — ویکی فارسی"
+  description={`مرور کامل ${faNum(totalItems)}+ آیتم ماینکرفت در ${faNum(ITEM_CATEGORIES.length)} دسته: ابزارها، سلاح‌ها، غذاها، زره‌ها، پاتیل‌ها، مواد اولیه، رداستون، حمل‌ونقل، تزئینی و ویژه.`}
+  type="website"
+>
+  <Breadcrumbs items={breadcrumb} />
+  <StructuredData data={ldBread} />
+
+  <header class="mc-panel p-5 lg:p-7 mb-5">
+    <div class="flex items-center gap-3 mb-2 flex-wrap">
+      <span class="text-3xl">⚔️</span>
+      <h1 class="text-2xl lg:text-3xl font-extrabold">آیتم‌های ماینکرفت</h1>
+      <span class="mc-chip text-xs">{faNum(totalItems)}+ آیتم</span>
+    </div>
+    <p class="text-sm text-mc-text-2 leading-loose">
+      مرور کامل آیتم‌های ماینکرفت در <strong class="text-mc-grass-2">{faNum(ITEM_CATEGORIES.length)} دسته</strong>:
+      ابزارها، سلاح‌ها، غذاها، زره‌ها، پاتیل‌ها، مواد اولیه، رداستون، حمل‌ونقل، تزئینی و ویژه.
+    </p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 mt-4">
+      {ITEM_CATEGORIES.map((cat) => (
+        <a href={`#cat-${cat.id}`} class="cat-card" style={`--c:${cat.color}`}>
+          <span class="cat-emoji">{cat.emoji}</span>
+          <span class="cat-name">{cat.nameFa}</span>
+          <span class="cat-count">{faNum(cat.items.length)} آیتم</span>
+        </a>
+      ))}
+    </div>
+  </header>
+
+  {ITEM_CATEGORIES.map((cat) => (
+    <section class="mc-panel p-5 mb-5" id={`cat-${cat.id}`}>
+      <div class="flex items-center gap-3 mb-3 flex-wrap">
+        <span class="text-2xl">{cat.emoji}</span>
+        <h2 class="text-lg font-extrabold">{cat.nameFa}</h2>
+        <span class="mc-chip text-xs">{faNum(cat.items.length)} آیتم</span>
+        <span class="text-xs text-mc-text-3" style={`color: ${cat.color}`}>{cat.desc}</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+        {cat.items.map((item) => (
+          <div class={`item-tile ${textureExists(item.id) ? '' : 'no-tex'}`}>
+            {textureExists(item.id) ? (
+              <img src={`${BASE}textures/items/${item.id}.png`} alt={item.nameFa} width="32" height="32" loading="lazy" class="pixel-img" onerror="this.style.display='none';" />
+            ) : (
+              <span class="item-emoji">📦</span>
+            )}
+            <div class="item-tile-name">{item.nameFa}</div>
+            <div class="item-tile-en" dir="ltr">{item.id}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <div class="mc-panel p-4 text-center">
+    <p class="text-xs text-mc-text-3 leading-loose">
+      برای راهنمای کامل کاربرد هر آیتم، صفحه‌ی <a href={base('/wiki/items')} class="text-mc-grass-2 hover:underline">آیتم‌ها و کاربردها</a> رو ببین.
+      برای محاسبه‌ی مواد لازم برای ساخت آیتم‌ها، از <a href={base('/calculator')} class="text-mc-grass-2 hover:underline">ماشین‌حساب کرافتینگ</a> استفاده کن.
+    </p>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .cat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: rgba(13, 13, 24, 0.6);
+    border: 2px solid var(--mc-line, #2e2e4a);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  .cat-card:hover {
+    border-color: var(--c);
+    transform: translateY(-2px);
+  }
+  .cat-emoji { font-size: 1.5rem; }
+  .cat-name { font-size: 0.75rem; font-weight: 700; color: var(--mc-text, #e6e6f2); }
+  .cat-count { font-size: 0.65rem; color: var(--mc-text-3, #8585a3); }
+  .item-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background: rgba(13, 13, 24, 0.5);
+    border: 1px solid var(--mc-line, #2e2e4a);
+    border-radius: 6px;
+    transition: all 0.15s ease;
+    text-align: center;
+  }
+  .item-tile:hover {
+    border-color: var(--mc-grass-2, #7cc84a);
+    background: rgba(124, 200, 74, 0.08);
+  }
+  .item-tile.no-tex { opacity: 0.7; }
+  .item-tile img { image-rendering: pixelated; width: 32px; height: 32px; }
+  .item-emoji { font-size: 1.5rem; line-height: 32px; height: 32px; }
+  .item-tile-name { font-size: 0.7rem; font-weight: 600; color: var(--mc-text, #e6e6f2); line-height: 1.2; }
+  .item-tile-en { font-size: 0.55rem; color: var(--mc-text-3, #8585a3); font-family: monospace; }
+</style>
