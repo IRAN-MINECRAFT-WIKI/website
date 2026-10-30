@@ -221,6 +221,13 @@ const badgeLetter = (code: string) => {
                 </div>
               </div>
               <div>
+                <div class="legend-sec-title">
+                  <span>ساختارهای اطراف</span>
+                  <span class="text-[10px] text-mc-text-3" id="nearbyHint">۸ نزدیک‌ترین</span>
+                </div>
+                <div id="nearbyStructs" class="nearby-list" role="list"></div>
+              </div>
+              <div>
                 <div class="legend-sec-title"><span>بیوم‌های پرکاربرد</span></div>
                 <div id="legendBiomes" class="legend-biomes"></div>
               </div>
@@ -461,6 +468,7 @@ const badgeLetter = (code: string) => {
     var root, canvas, ctx, seedInput, versionSelect, mapOverlay, ovLoading, ovProgress, ovError;
     var ovPercent, ovBar, pinCard, pinBiome, pinCoords, pinTp, infoX, infoZ, infoBiome, infoScale;
     var legendDetails, legendStructs, structMaster, legendBiomes, finderOverlay, finderStructs;
+    var nearbyStructs, nearbyHint;
     var finderBiomes, finderRadius, finderCount, finderMaxDist, finderVersion, finderStart;
     var finderStop, finderProgress, finderChecked, finderFound, finderResults, seedToast;
 
@@ -488,6 +496,8 @@ const badgeLetter = (code: string) => {
       legendStructs = $('legendStructs');
       structMaster = $('structMaster');
       legendBiomes = $('legendBiomes');
+      nearbyStructs = $('nearbyStructs');
+      nearbyHint = $('nearbyHint');
       finderOverlay = $('finderOverlay');
       finderStructs = $('finderStructs');
       finderBiomes = $('finderBiomes');
@@ -767,6 +777,7 @@ const badgeLetter = (code: string) => {
 
       updateScale();
       scanStructures();
+      updateNearbyStructs();
       startRegen();
       syncUrl();
     }
@@ -943,7 +954,13 @@ const badgeLetter = (code: string) => {
     /* Build (or rebuild) the offscreen texture canvas for a given cache.
      * Each biome cell is painted as a TEX_TILE×TEX_TILE block texture tile;
      * biomes without a texture fall back to their flat color. The result is
-     * drawn with a single drawImage() per frame — as cheap as the flat cache. */
+     * drawn with a single drawImage() per frame — as cheap as the flat cache.
+     *
+     * Perf: the base color pass reuses the existing 1px-per-cell flat cache
+     * canvas (c.canvas) scaled up via ONE drawImage call (was cols*rows
+     * fillRects ≈ 67500 calls for a 300×225 region). The texture pass
+     * precomputes a biome-id→image map so engine.biomeTexture() is called at
+     * most once per unique biome (~20–30) instead of once per cell. */
     function buildTexCache(c) {
       if (!c) return;
       var cols = c.cols, rows = c.rows, data = c.data;
@@ -952,24 +969,23 @@ const badgeLetter = (code: string) => {
       off.height = rows * TEX_TILE;
       var octx = off.getContext('2d');
       octx.imageSmoothingEnabled = false;
-      // base pass: flat colors everywhere (so missing textures still render)
-      for (var j = 0; j < rows; j++) {
-        var base = j * cols;
-        for (var i = 0; i < cols; i++) {
-          var rgb = colorFor(data[base + i]);
-          octx.fillStyle = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
-          octx.fillRect(i * TEX_TILE, j * TEX_TILE, TEX_TILE, TEX_TILE);
-        }
+      // base pass: reuse the flat-color cache canvas (1px per cell) scaled up —
+      // nearest-neighbor gives crisp flat biome colors in a single drawImage.
+      if (c.canvas) octx.drawImage(c.canvas, 0, 0, cols, rows, 0, 0, cols * TEX_TILE, rows * TEX_TILE);
+      // precompute biome id → texture image (only ~20–30 unique biomes per region)
+      var idToTex = new Map();
+      for (var k = 0; k < data.length; k++) {
+        var bid = data[k];
+        if (idToTex.has(bid)) continue;
+        var tfn = null;
+        try { tfn = engine ? engine.biomeTexture(bid) : null; } catch (e) { tfn = null; }
+        idToTex.set(bid, (tfn && texCache.get(tfn)) || null);
       }
       // texture pass: stamp the representative block texture per cell where loaded
       for (var jj = 0; jj < rows; jj++) {
         var b = jj * cols;
         for (var ii = 0; ii < cols; ii++) {
-          var id = data[b + ii];
-          var fn = null;
-          try { fn = engine ? engine.biomeTexture(id) : null; } catch (e) { fn = null; }
-          if (!fn) continue;
-          var img = texCache.get(fn);
+          var img = idToTex.get(data[b + ii]);
           if (img) octx.drawImage(img, ii * TEX_TILE, jj * TEX_TILE, TEX_TILE, TEX_TILE);
         }
       }
@@ -1127,8 +1143,11 @@ const badgeLetter = (code: string) => {
         var rX1 = Math.ceil(vx1 / step) + 1;
         var rZ0 = Math.floor(vz0 / step) - 1;
         var rZ1 = Math.ceil(vz1 / step) + 1;
-        // guard: tiny regions (buried treasure / mineshaft) at far zoom-out
-        var lim = rs <= 4 ? 160 : 40;
+        // guard: tiny regions (buried treasure / mineshaft / dungeon) at far
+        // zoom-out. rs=1 (per-chunk) structures are very dense so a tighter
+        // cap keeps the first-scan hitch small while still covering the
+        // viewport at close/mid zoom (≤ ~100 chunks visible).
+        var lim = rs <= 1 ? 100 : (rs <= 4 ? 160 : 40);
         var midX = (rX0 + rX1) / 2, midZ = (rZ0 + rZ1) / 2;
         if (rX1 - rX0 + 1 > lim) { rX0 = Math.round(midX - lim / 2); rX1 = rX0 + lim - 1; }
         if (rZ1 - rZ0 + 1 > lim) { rZ0 = Math.round(midZ - lim / 2); rZ1 = rZ0 + lim - 1; }
@@ -1152,8 +1171,84 @@ const badgeLetter = (code: string) => {
       clearTimeout(scanTimer);
       scanTimer = setTimeout(function () {
         scanStructures();
+        updateNearbyStructs();
         scheduleDraw();
       }, 250);
+    }
+
+    /* ════════════════════ nearby structures list ════════════════════ */
+
+    // 8-wind compass labels in Persian (index = round(angle/45) mod 8, angle
+    // measured from +X=east, +Z=south, 0..360 after normalising atan2 output).
+    var COMPASS_FA = ['شرق', 'جنوب شرق', 'جنوب', 'جنوب غرب', 'غرب', 'شمال غرب', 'شمال', 'شمال شرق'];
+    function directionOf(dx, dz) {
+      if (Math.abs(dx) < 8 && Math.abs(dz) < 8) return 'مرکز';
+      var ang = Math.atan2(dz, dx) * 180 / Math.PI;
+      if (ang < 0) ang += 360;
+      return COMPASS_FA[Math.round(ang / 45) % 8];
+    }
+
+    /* Render the N nearest ENABLED structures to the current view center as a
+     * clickable list. Clicking a row pans the map to that structure and drops
+     * a pin on it. Respects the per-type toggles — only checked structure
+     * types appear here, so the list doubles as a "structures around me" view
+     * that's fully user-configurable via the chip toggles above. */
+    function updateNearbyStructs() {
+      if (!nearbyStructs) return;
+      var cx = state.cx, cz = state.cz;
+      var list = [];
+      for (var i = 0; i < markers.length; i++) {
+        var m = markers[i];
+        if (!enabledStructs.has(m.id)) continue;
+        var dx = m.x - cx, dz = m.z - cz;
+        list.push({ id: m.id, x: m.x, z: m.z, d2: dx * dx + dz * dz, dx: dx, dz: dz });
+      }
+      list.sort(function (a, b) { return a.d2 - b.d2; });
+      var top = list.slice(0, 8);
+      nearbyStructs.textContent = '';
+      if (!top.length) {
+        var empty = document.createElement('div');
+        empty.className = 'nearby-empty';
+        empty.textContent = 'ساختاری در محدوده پیدا نشد — زوم را کم کن یا نوع ساختار را فعال کن';
+        nearbyStructs.appendChild(empty);
+        if (nearbyHint) nearbyHint.textContent = '';
+        return;
+      }
+      if (nearbyHint) nearbyHint.textContent = faNum(top.length) + ' نزدیک‌ترین';
+      for (var k = 0; k < top.length; k++) {
+        var t = top[k];
+        var meta = structMeta.get(t.id);
+        var dist = Math.round(Math.sqrt(t.d2));
+        var row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'nearby-row';
+        row.setAttribute('role', 'listitem');
+        var dot = document.createElement('span');
+        dot.className = 'dot';
+        dot.style.background = (meta && meta.color) || '#888888';
+        var name = document.createElement('span');
+        name.className = 'nearby-name';
+        name.textContent = (meta && meta.fa) || t.id;
+        var inf = document.createElement('span');
+        inf.className = 'nearby-inf';
+        inf.dir = 'ltr';
+        inf.textContent = directionOf(t.dx, t.dz) + ' · ' + faNum(dist) + ' بلاک';
+        row.appendChild(dot);
+        row.appendChild(name);
+        row.appendChild(inf);
+        row.addEventListener('click', (function (mm) {
+          return function () {
+            state.cx = mm.x; state.cz = mm.z;
+            clampCenter();
+            state.pin = { x: mm.x, z: mm.z };
+            planCheck();
+            scheduleScan();
+            scheduleDraw();
+            syncUrl();
+          };
+        })(t));
+        nearbyStructs.appendChild(row);
+      }
     }
 
     /* ════════════════════ drawing ════════════════════ */
@@ -1419,7 +1514,10 @@ const badgeLetter = (code: string) => {
     function onViewChanged() {
       scheduleDraw();
       planCheck();
-      scheduleScan();
+      // skip the (relatively expensive) structure scan while the user is
+      // actively dragging / pinching — it'll fire once on gesture end instead.
+      // `drag` and `pinch` are declared below in bindCanvas but hoisted here.
+      if (!drag && !pinch) scheduleScan();
       scheduleUrlSync();
     }
 
@@ -1712,6 +1810,7 @@ const badgeLetter = (code: string) => {
         chip.classList.toggle('on', on);
         chip.setAttribute('aria-pressed', on ? 'true' : 'false');
         updateMasterLabel();
+        updateNearbyStructs();
         scheduleDraw();
       });
 
@@ -1725,6 +1824,7 @@ const badgeLetter = (code: string) => {
           chip.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
         updateMasterLabel();
+        updateNearbyStructs();
         scheduleDraw();
       });
 
@@ -2379,6 +2479,66 @@ const badgeLetter = (code: string) => {
     height: 14px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     flex-shrink: 0;
+  }
+
+  /* ── nearby structures list ───────────────────────────────────── */
+  .nearby-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-height: 18rem;
+    overflow-y: auto;
+    padding-left: 2px;
+  }
+  .nearby-list::-webkit-scrollbar { width: 6px; }
+  .nearby-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+  .nearby-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    border: 1px solid var(--line, #2a2a3a);
+    background: var(--bg-2, #161624);
+    color: var(--text, #f0f0fa);
+    font-size: 0.72rem;
+    text-align: right;
+    cursor: pointer;
+    transition: border-color 0.12s, background 0.12s, transform 0.06s;
+  }
+  .nearby-row:hover {
+    border-color: var(--grass-2, #7cc84a);
+    background: var(--bg-3, #1c1c2e);
+  }
+  .nearby-row:active { transform: scale(0.985); }
+  .nearby-row:focus-visible { outline: 2px solid var(--grass-2, #7cc84a); outline-offset: -2px; }
+  .nearby-row .dot {
+    width: 10px;
+    height: 10px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .nearby-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+  }
+  .nearby-inf {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    color: var(--text-3, #8a8aa8);
+    direction: ltr;
+  }
+  .nearby-empty {
+    font-size: 0.7rem;
+    color: var(--text-3, #8a8aa8);
+    padding: 0.5rem;
+    text-align: center;
+    line-height: 1.6;
   }
 
   /* ── finder drawer ────────────────────────────────────────────── */
