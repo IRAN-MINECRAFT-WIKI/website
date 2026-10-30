@@ -1,0 +1,126 @@
+{
+  "id": "dead-tube-coral-fan",
+  "nameEn": "Dead Tube Coral Fan",
+  "nameFa": "پنکه مرجان لوله‌ای مرده",
+  "category": "natural",
+  "icon": "dead-tube-coral-fan",
+  "hardness": 0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.13+",
+    "bedrock": "1.4.0+"
+  },
+  "description": "پنکه مرجان لوله‌ای مرده خاکستری‌رنگ.",
+  "uses": [
+    "تزئین آکواریوم",
+    "استفاده در Coral Reef ساختار",
+    "تزئین زیر آب"
+  ],
+  "locations": [
+    "در اقیانوس‌های گرم (Warm Ocean)",
+    "در Coral Reef ساختار"
+  ],
+  "drops": [
+    {
+      "item": "dead-tube-coral-fan",
+      "count": "1",
+      "condition": "با Silk Touch (مرجان‌های زنده) یا هر ابزار (مرده)"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Dead_Tube_Coral_Fan",
+  "intro": [
+    "پنکه مرجان لوله‌ای مرده (Dead Tube Coral Fan) بلوک مرجان طبیعی است که در اقیانوس‌های گرم پیدا می‌شه. پنکه مرجان لوله‌ای مرده خاکستری‌رنگ.",
+    "این بلوک با سختی 0 قابل استخراج است و شفاف است.",
+    "مرجان‌های زنده فقط با Silk Touch قابل برداشتن هستن؛ بدون اون، تبدیل به مرجان مرده می‌شن."
+  ],
+  "behavior": [
+    "مرجان‌های زنده وقتی خارج از آب قرار می‌گیرن، پس از چند ثانیه می‌میرن و تبدیل به مرجان مرده می‌شن.",
+    "مرجان‌ها در inventory با stack size 64 قابل نگه‌داری هستن.",
+    "برای برداشتن مرجان زنده، حتماً از Silk Touch استفاده کن."
+  ],
+  "trivia": [
+    "پنکه مرجان لوله‌ای مرده در نسخه‌ی Java 1.13 (Update Aquatic) اضافه شد.",
+    "5 نوع مرجان وجود داره: لوله‌ای، مغزی، حبابی، آتشی و شاخی.",
+    "مرجان‌های مرده خاکستری‌رنگ هستن و نور تولید نمی‌کنن.",
+    "با Bone Meal روی مرجان مرده در آب، نمی‌تونی اون رو احیا کنی.",
+    "مرجان‌ها فقط در Warm Ocean biome به‌طور طبیعی پیدا می‌شن."
+  ],
+  "history": [
+    {
+      "version": "Java 1.13",
+      "change": "پنکه مرجان لوله‌ای مرده به‌عنوان بخشی از Update Aquatic اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.4.0",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.14",
+      "change": "رفع اشکال: مرجان‌ها درست دراپ می‌شن."
+    }
+  ],
+  "differences": [
+    "در Java، مرجان‌ها با Silk Touch دراپ می‌شن؛ در Bedrock هم همینطور.",
+    "در Bedrock، شاید رنگ مرجان‌ها کمی متفاوت باشه.",
+    "هر دو نسخه، مرجان‌های مرده رو به‌طور یکسان نمایش می‌دن."
+  ],
+  "related": [
+    {
+      "id": "tube-coral-block",
+      "nameEn": "Tube Coral Block",
+      "nameFa": "بلوک مرجان لوله‌ای",
+      "type": "block"
+    },
+    {
+      "id": "sea-pickle",
+      "nameEn": "Sea Pickle",
+      "nameFa": "خیار دریایی",
+      "type": "block"
+    },
+    {
+      "id": "seagrass",
+      "nameEn": "Seagrass",
+      "nameFa": "علف دریایی",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0,
+    "renewable": false,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": true,
+    "minPickaxe": "none",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای برداشتن مرجان زنده، حتماً از ابزار با Silk Touch استفاده کن.",
+    "مرجان‌ها رو در آکواریوم با آب source block نگه‌دار تا زنده بمونن.",
+    "با Coral Farm، می‌تونی مرجان‌های بی‌نهایت تولید کنی."
+  ],
+  "interactions": [
+    "مرجان‌های زنده فقط در آب source block زنده می‌مونن.",
+    "با Bone Meal روی بلوک مرجان در آب، می‌تونی مرجان جدید رشد بدی.",
+    "مرجان‌ها با Sea Pickle و Seagrass در همون بایوم پیدا می‌شن."
+  ],
+  "buildingIdeas": [
+    "در آکواریوم‌های تزئینی از مرجان‌های رنگارنگ استفاده کن.",
+    "برای ساخت Coral Reef مصنوعی عالیه.",
+    "در دیوارهای زیر آب، ترکیب مرجان + Sea Pickle نورانی زیبا می‌سازه."
+  ],
+  "technical": [
+    "پنکه مرجان لوله‌ای مرده سختی 0 داره و شفاف است.",
+    "مرجان‌های زنده فقط با Silk Touch دراپ می‌شن.",
+    "در سطح blockstate، این بلوک waterlogged=true/false داره."
+  ],
+  "farming": [
+    "برای کشت مرجان، یک Coral Farm با Bone Meal روی بلوک مرجان در آب بساز.",
+    "با Silk Touch، مرجان‌های زنده رو بردار و در آکواریوم با آب source قرار بده.",
+    "با Observer + Piston، می‌تونی harvest اتوماتیک بسازی."
+  ]
+}

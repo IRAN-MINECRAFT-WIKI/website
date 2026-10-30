@@ -6775,6 +6775,146 @@
       "nameFa": "زامبی Head",
       "category": "other",
       "icon": "px-zombie-head"
+    },
+    {
+      "id": "tube-coral",
+      "nameEn": "Tube Coral",
+      "nameFa": "مرجان لوله‌ای",
+      "category": "natural",
+      "icon": "tube-coral"
+    },
+    {
+      "id": "brain-coral",
+      "nameEn": "Brain Coral",
+      "nameFa": "مرجان مغزی",
+      "category": "natural",
+      "icon": "brain-coral"
+    },
+    {
+      "id": "bubble-coral",
+      "nameEn": "Bubble Coral",
+      "nameFa": "مرجان حبابی",
+      "category": "natural",
+      "icon": "bubble-coral"
+    },
+    {
+      "id": "fire-coral",
+      "nameEn": "Fire Coral",
+      "nameFa": "مرجان آتشی",
+      "category": "natural",
+      "icon": "fire-coral"
+    },
+    {
+      "id": "horn-coral",
+      "nameEn": "Horn Coral",
+      "nameFa": "مرجان شاخی",
+      "category": "natural",
+      "icon": "horn-coral"
+    },
+    {
+      "id": "dead-tube-coral",
+      "nameEn": "Dead Tube Coral",
+      "nameFa": "مرجان لوله‌ای مرده",
+      "category": "natural",
+      "icon": "dead-tube-coral"
+    },
+    {
+      "id": "dead-brain-coral",
+      "nameEn": "Dead Brain Coral",
+      "nameFa": "مرجان مغزی مرده",
+      "category": "natural",
+      "icon": "dead-brain-coral"
+    },
+    {
+      "id": "dead-bubble-coral",
+      "nameEn": "Dead Bubble Coral",
+      "nameFa": "مرجان حبابی مرده",
+      "category": "natural",
+      "icon": "dead-bubble-coral"
+    },
+    {
+      "id": "dead-fire-coral",
+      "nameEn": "Dead Fire Coral",
+      "nameFa": "مرجان آتشی مرده",
+      "category": "natural",
+      "icon": "dead-fire-coral"
+    },
+    {
+      "id": "dead-horn-coral",
+      "nameEn": "Dead Horn Coral",
+      "nameFa": "مرجان شاخی مرده",
+      "category": "natural",
+      "icon": "dead-horn-coral"
+    },
+    {
+      "id": "tube-coral-fan",
+      "nameEn": "Tube Coral Fan",
+      "nameFa": "پنکه مرجان لوله‌ای",
+      "category": "natural",
+      "icon": "tube-coral-fan"
+    },
+    {
+      "id": "brain-coral-fan",
+      "nameEn": "Brain Coral Fan",
+      "nameFa": "پنکه مرجان مغزی",
+      "category": "natural",
+      "icon": "brain-coral-fan"
+    },
+    {
+      "id": "bubble-coral-fan",
+      "nameEn": "Bubble Coral Fan",
+      "nameFa": "پنکه مرجان حبابی",
+      "category": "natural",
+      "icon": "bubble-coral-fan"
+    },
+    {
+      "id": "fire-coral-fan",
+      "nameEn": "Fire Coral Fan",
+      "nameFa": "پنکه مرجان آتشی",
+      "category": "natural",
+      "icon": "fire-coral-fan"
+    },
+    {
+      "id": "horn-coral-fan",
+      "nameEn": "Horn Coral Fan",
+      "nameFa": "پنکه مرجان شاخی",
+      "category": "natural",
+      "icon": "horn-coral-fan"
+    },
+    {
+      "id": "dead-tube-coral-fan",
+      "nameEn": "Dead Tube Coral Fan",
+      "nameFa": "پنکه مرجان لوله‌ای مرده",
+      "category": "natural",
+      "icon": "dead-tube-coral-fan"
+    },
+    {
+      "id": "dead-brain-coral-fan",
+      "nameEn": "Dead Brain Coral Fan",
+      "nameFa": "پنکه مرجان مغزی مرده",
+      "category": "natural",
+      "icon": "dead-brain-coral-fan"
+    },
+    {
+      "id": "dead-bubble-coral-fan",
+      "nameEn": "Dead Bubble Coral Fan",
+      "nameFa": "پنکه مرجان حبابی مرده",
+      "category": "natural",
+      "icon": "dead-bubble-coral-fan"
+    },
+    {
+      "id": "dead-fire-coral-fan",
+      "nameEn": "Dead Fire Coral Fan",
+      "nameFa": "پنکه مرجان آتشی مرده",
+      "category": "natural",
+      "icon": "dead-fire-coral-fan"
+    },
+    {
+      "id": "dead-horn-coral-fan",
+      "nameEn": "Dead Horn Coral Fan",
+      "nameFa": "پنکه مرجان شاخی مرده",
+      "category": "natural",
+      "icon": "dead-horn-coral-fan"
     }
   ],
   "intro": [
