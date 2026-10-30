@@ -1,0 +1,126 @@
+{
+  "id": "small-dripleaf",
+  "nameEn": "Small Dripleaf",
+  "nameFa": "درپشت برگ کوچک",
+  "category": "natural",
+  "icon": "small-dripleaf",
+  "hardness": 0.1,
+  "tool": "shears",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "1.17+",
+    "bedrock": "1.17.0+"
+  },
+  "description": "برگ کوچک آبی در Lush Caves که با Bone Meal به Big Dripleaf تبدیل می‌شه.",
+  "uses": [
+    "تزئین محیط با درپشت برگ کوچک",
+    "استفاده در ساخت درپشت برگ کوچک farm",
+    "استفاده به‌عنوان عنصر طبیعی"
+  ],
+  "locations": [
+    "در بایوم‌های مناسب پیدا می‌شه",
+    "گاهی از Village Chestها"
+  ],
+  "drops": [
+    {
+      "item": "small-dripleaf",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Small_Dripleaf",
+  "intro": [
+    "درپشت برگ کوچک (Small Dripleaf) یکی از بلوک‌های طبیعی ماینکرفت است که در نسخه‌ی Java 1.17+ و Bedrock 1.17.0+ اضافه شد. برگ کوچک آبی در Lush Caves که با Bone Meal به Big Dripleaf تبدیل می‌شه.",
+    "این بلوک با سختی 0.1 و ابزار shears قابل استخراج است. شفاف است و 0 سطح نور تولید می‌کنه.",
+    "درپشت برگ کوچک در بایوم‌های متنوع پیدا می‌شه و برای بازیکنان استفاده‌های تزئینی و کاربردی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن درپشت برگ کوچک رو با shears استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "با Silk Touch یا ابزار مناسب، می‌تونی بلوک کامل رو برداری."
+  ],
+  "trivia": [
+    "درپشت برگ کوچک اولین بار در Java 1.17+ اضافه شد.",
+    "در Bedrock، شاید ظاهر یا رفتار این بلوک کمی با Java متفاوت باشه.",
+    "این بلوک در ساخت‌وسازهای تزئینی استفاده می‌شه.",
+    "با Bone Meal می‌تونی برخی از این بلوک‌ها رو سریع‌تر رشد بدی.",
+    "درپشت برگ کوچک درخت-دوست نیست و در دیتابیس Minecraft به‌عنوان category 'natural' ثبت شده."
+  ],
+  "history": [
+    {
+      "version": "Java 1.17+",
+      "change": "درپشت برگ کوچک به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 1.17.0+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21",
+      "change": "ویژگی‌های بلوک در 1.21 بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، شاید نرخ رشد یا رفتار متفاوت از Bedrock باشه.",
+    "در Bedrock، بعضی ویژگی‌های بصری متفاوتن.",
+    "هر دو نسخه، بلوک رو به‌طور یکسان در inventory نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "dirt",
+      "nameEn": "Dirt",
+      "nameFa": "خاک",
+      "type": "block"
+    },
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.5,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "shears",
+    "burnTime": 100
+  },
+  "tips": [
+    "برای جمع‌آوری سریع درپشت برگ کوچک، از ابزار مناسب (shears) استفاده کن.",
+    "در صورت نیاز به فِرم خودکار، مکانیزم‌های رشد خودکار بساز.",
+    "با Silk Touch می‌تونی بلوک رو کامل برداری."
+  ],
+  "interactions": [
+    "درپشت برگ کوچک با آب و با بلاک‌های مجاور سازگاره.",
+    "این بلوک با رداستون تعامل خاصی نداره.",
+    "با Bone Meal می‌تونی رشدش رو تسریع کنی."
+  ],
+  "buildingIdeas": [
+    "در باغچه‌های تزئینی از درپشت برگ کوچک استفاده کن.",
+    "برای ساخت خانه‌ی سبز یا گلخانه عالیه.",
+    "در دیوارهای طبیعی و باغ‌های عمودی به کار ببر."
+  ],
+  "technical": [
+    "درپشت برگ کوچک سختی 0.1 داره و با ابزار shears قابل استخراجه.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "در Java و Bedrock، ویژگی‌های فنی یکسان هستن."
+  ],
+  "farming": [
+    "برای کشت خودکار درپشت برگ کوچک، یک مزرعه با Bone Meal بساز.",
+    "با Observer و Piston می‌تونی harvest اتوماتیک داشته باشی.",
+    "در Farmland مناسب کاشته می‌شه."
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "id": "vines",
+  "nameEn": "Vines",
+  "nameFa": "پیچک‌ها",
+  "category": "natural",
+  "icon": "vines",
+  "hardness": 0.2,
+  "tool": "shears",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.8+",
+    "bedrock": "0.9.0+"
+  },
+  "description": "پیچک‌های سبز روی دیوارها در Jungle و Swamp biome.",
+  "uses": [
+    "تزئین محیط با پیچک‌ها",
+    "استفاده در ساخت پیچک‌ها farm",
+    "استفاده به‌عنوان عنصر طبیعی"
+  ],
+  "locations": [
+    "در بایوم‌های مناسب پیدا می‌شه",
+    "گاهی از Village Chestها"
+  ],
+  "drops": [
+    {
+      "item": "vines",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Vines",
+  "intro": [
+    "پیچک‌ها (Vines) یکی از بلوک‌های طبیعی ماینکرفت است که در نسخه‌ی Java Beta 1.8+ و Bedrock 0.9.0+ اضافه شد. پیچک‌های سبز روی دیوارها در Jungle و Swamp biome.",
+    "این بلوک با سختی 0.2 و ابزار shears قابل استخراج است. شفاف است و 0 سطح نور تولید می‌کنه.",
+    "پیچک‌ها در بایوم‌های متنوع پیدا می‌شه و برای بازیکنان استفاده‌های تزئینی و کاربردی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن پیچک‌ها رو با shears استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "با Silk Touch یا ابزار مناسب، می‌تونی بلوک کامل رو برداری."
+  ],
+  "trivia": [
+    "پیچک‌ها اولین بار در Java Beta 1.8+ اضافه شد.",
+    "در Bedrock، شاید ظاهر یا رفتار این بلوک کمی با Java متفاوت باشه.",
+    "این بلوک در ساخت‌وسازهای تزئینی استفاده می‌شه.",
+    "با Bone Meal می‌تونی برخی از این بلوک‌ها رو سریع‌تر رشد بدی.",
+    "پیچک‌ها درخت-دوست نیست و در دیتابیس Minecraft به‌عنوان category 'natural' ثبت شده."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.8+",
+      "change": "پیچک‌ها به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 0.9.0+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21",
+      "change": "ویژگی‌های بلوک در 1.21 بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، شاید نرخ رشد یا رفتار متفاوت از Bedrock باشه.",
+    "در Bedrock، بعضی ویژگی‌های بصری متفاوتن.",
+    "هر دو نسخه، بلوک رو به‌طور یکسان در inventory نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "dirt",
+      "nameEn": "Dirt",
+      "nameFa": "خاک",
+      "type": "block"
+    },
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.5,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "shears",
+    "burnTime": 100
+  },
+  "tips": [
+    "برای جمع‌آوری سریع پیچک‌ها، از ابزار مناسب (shears) استفاده کن.",
+    "در صورت نیاز به فِرم خودکار، مکانیزم‌های رشد خودکار بساز.",
+    "با Silk Touch می‌تونی بلوک رو کامل برداری."
+  ],
+  "interactions": [
+    "پیچک‌ها با آب و با بلاک‌های مجاور سازگاره.",
+    "این بلوک با رداستون تعامل خاصی نداره.",
+    "با Bone Meal می‌تونی رشدش رو تسریع کنی."
+  ],
+  "buildingIdeas": [
+    "در باغچه‌های تزئینی از پیچک‌ها استفاده کن.",
+    "برای ساخت خانه‌ی سبز یا گلخانه عالیه.",
+    "در دیوارهای طبیعی و باغ‌های عمودی به کار ببر."
+  ],
+  "technical": [
+    "پیچک‌ها سختی 0.2 داره و با ابزار shears قابل استخراجه.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "در Java و Bedrock، ویژگی‌های فنی یکسان هستن."
+  ],
+  "farming": [
+    "برای کشت خودکار پیچک‌ها، یک مزرعه با Bone Meal بساز.",
+    "با Observer و Piston می‌تونی harvest اتوماتیک داشته باشی.",
+    "در Farmland مناسب کاشته می‌شه."
+  ]
+}

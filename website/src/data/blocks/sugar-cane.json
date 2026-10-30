@@ -1,0 +1,126 @@
+{
+  "id": "sugar-cane",
+  "nameEn": "Sugar Cane",
+  "nameFa": "نی شکر",
+  "category": "natural",
+  "icon": "sugar-cane",
+  "hardness": 0,
+  "tool": "none",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Beta 1.2+",
+    "bedrock": "0.5.0+"
+  },
+  "description": "نی شکر کنار آب که تا ۳ بلاک رشد می‌کنه و Sugar و Paper می‌ده.",
+  "uses": [
+    "تزئین محیط با نی شکر",
+    "استفاده در ساخت نی شکر farm",
+    "استفاده به‌عنوان عنصر طبیعی"
+  ],
+  "locations": [
+    "در بایوم‌های مناسب پیدا می‌شه",
+    "گاهی از Village Chestها"
+  ],
+  "drops": [
+    {
+      "item": "sugar-cane",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Sugar_Cane",
+  "intro": [
+    "نی شکر (Sugar Cane) یکی از بلوک‌های طبیعی ماینکرفت است که در نسخه‌ی Java Beta 1.2+ و Bedrock 0.5.0+ اضافه شد. نی شکر کنار آب که تا ۳ بلاک رشد می‌کنه و Sugar و Paper می‌ده.",
+    "این بلوک با سختی 0 و ابزار none قابل استخراج است. شفاف است و 0 سطح نور تولید می‌کنه.",
+    "نی شکر در بایوم‌های متنوع پیدا می‌شه و برای بازیکنان استفاده‌های تزئینی و کاربردی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن نی شکر رو با none استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "با Silk Touch یا ابزار مناسب، می‌تونی بلوک کامل رو برداری."
+  ],
+  "trivia": [
+    "نی شکر اولین بار در Java Beta 1.2+ اضافه شد.",
+    "در Bedrock، شاید ظاهر یا رفتار این بلوک کمی با Java متفاوت باشه.",
+    "این بلوک در ساخت‌وسازهای تزئینی استفاده می‌شه.",
+    "با Bone Meal می‌تونی برخی از این بلوک‌ها رو سریع‌تر رشد بدی.",
+    "نی شکر درخت-دوست نیست و در دیتابیس Minecraft به‌عنوان category 'natural' ثبت شده."
+  ],
+  "history": [
+    {
+      "version": "Java Beta 1.2+",
+      "change": "نی شکر به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 0.5.0+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21",
+      "change": "ویژگی‌های بلوک در 1.21 بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، شاید نرخ رشد یا رفتار متفاوت از Bedrock باشه.",
+    "در Bedrock، بعضی ویژگی‌های بصری متفاوتن.",
+    "هر دو نسخه، بلوک رو به‌طور یکسان در inventory نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "dirt",
+      "nameEn": "Dirt",
+      "nameFa": "خاک",
+      "type": "block"
+    },
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.5,
+    "renewable": true,
+    "flammable": true,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "none",
+    "burnTime": 100
+  },
+  "tips": [
+    "برای جمع‌آوری سریع نی شکر، از ابزار مناسب (none) استفاده کن.",
+    "در صورت نیاز به فِرم خودکار، مکانیزم‌های رشد خودکار بساز.",
+    "با Silk Touch می‌تونی بلوک رو کامل برداری."
+  ],
+  "interactions": [
+    "نی شکر با آب و با بلاک‌های مجاور سازگاره.",
+    "این بلوک با رداستون تعامل خاصی نداره.",
+    "با Bone Meal می‌تونی رشدش رو تسریع کنی."
+  ],
+  "buildingIdeas": [
+    "در باغچه‌های تزئینی از نی شکر استفاده کن.",
+    "برای ساخت خانه‌ی سبز یا گلخانه عالیه.",
+    "در دیوارهای طبیعی و باغ‌های عمودی به کار ببر."
+  ],
+  "technical": [
+    "نی شکر سختی 0 داره و با ابزار none قابل استخراجه.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "در Java و Bedrock، ویژگی‌های فنی یکسان هستن."
+  ],
+  "farming": [
+    "برای کشت خودکار نی شکر، یک مزرعه با Bone Meal بساز.",
+    "با Observer و Piston می‌تونی harvest اتوماتیک داشته باشی.",
+    "در Farmland مناسب کاشته می‌شه."
+  ]
+}

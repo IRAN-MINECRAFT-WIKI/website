@@ -1,0 +1,126 @@
+{
+  "id": "rail",
+  "nameEn": "Rail",
+  "nameFa": "ریل",
+  "category": "redstone",
+  "icon": "rail",
+  "hardness": 0.7,
+  "tool": "pickaxe",
+  "stackSize": 64,
+  "transparent": true,
+  "lightLevel": 0,
+  "versions": {
+    "java": "Classic 0.8.0+",
+    "bedrock": "0.4.0+"
+  },
+  "description": "ریل معمولی برای minecart که در ۶ جهت مختلف قابل قرار گیریه.",
+  "uses": [
+    "تزئین محیط با ریل",
+    "استفاده در ساخت ریل farm",
+    "استفاده به‌عنوان عنصر طبیعی"
+  ],
+  "locations": [
+    "در بایوم‌های مناسب پیدا می‌شه",
+    "گاهی از Village Chestها"
+  ],
+  "drops": [
+    {
+      "item": "rail",
+      "count": "1",
+      "condition": "با Silk Touch یا ابزار درست"
+    }
+  ],
+  "wikiLink": "https://minecraft.wiki/w/Rail",
+  "intro": [
+    "ریل (Rail) یکی از بلوک‌های طبیعی ماینکرفت است که در نسخه‌ی Java Classic 0.8.0+ و Bedrock 0.4.0+ اضافه شد. ریل معمولی برای minecart که در ۶ جهت مختلف قابل قرار گیریه.",
+    "این بلوک با سختی 0.7 و ابزار pickaxe قابل استخراج است. شفاف است و 0 سطح نور تولید می‌کنه.",
+    "ریل در بایوم‌های متنوع پیدا می‌شه و برای بازیکنان استفاده‌های تزئینی و کاربردی داره."
+  ],
+  "behavior": [
+    "وقتی بازیکن ریل رو با pickaxe استخراج می‌کنه، خودش دراپ می‌شه.",
+    "این بلوک در inventory با stack size 64 قابل نگه‌داریه.",
+    "با Silk Touch یا ابزار مناسب، می‌تونی بلوک کامل رو برداری."
+  ],
+  "trivia": [
+    "ریل اولین بار در Java Classic 0.8.0+ اضافه شد.",
+    "در Bedrock، شاید ظاهر یا رفتار این بلوک کمی با Java متفاوت باشه.",
+    "این بلوک در ساخت‌وسازهای تزئینی استفاده می‌شه.",
+    "با Bone Meal می‌تونی برخی از این بلوک‌ها رو سریع‌تر رشد بدی.",
+    "ریل درخت-دوست نیست و در دیتابیس Minecraft به‌عنوان category 'redstone' ثبت شده."
+  ],
+  "history": [
+    {
+      "version": "Java Classic 0.8.0+",
+      "change": "ریل به بازی اضافه شد."
+    },
+    {
+      "version": "Bedrock 0.4.0+",
+      "change": "در نسخه‌ی Bedrock هم اضافه شد."
+    },
+    {
+      "version": "Java 1.21",
+      "change": "ویژگی‌های بلوک در 1.21 بهینه شد."
+    }
+  ],
+  "differences": [
+    "در Java، شاید نرخ رشد یا رفتار متفاوت از Bedrock باشه.",
+    "در Bedrock، بعضی ویژگی‌های بصری متفاوتن.",
+    "هر دو نسخه، بلوک رو به‌طور یکسان در inventory نشان می‌دن."
+  ],
+  "related": [
+    {
+      "id": "stone",
+      "nameEn": "Stone",
+      "nameFa": "سنگ",
+      "type": "block"
+    },
+    {
+      "id": "dirt",
+      "nameEn": "Dirt",
+      "nameFa": "خاک",
+      "type": "block"
+    },
+    {
+      "id": "grass-block",
+      "nameEn": "Grass Block",
+      "nameFa": "بلوک چمن",
+      "type": "block"
+    }
+  ],
+  "extraStats": {
+    "blastResistance": 0.5,
+    "renewable": true,
+    "flammable": false,
+    "luminance": 0,
+    "slipperiness": 0.6,
+    "gravity": false,
+    "silktouch": false,
+    "minPickaxe": "pickaxe",
+    "burnTime": 0
+  },
+  "tips": [
+    "برای جمع‌آوری سریع ریل، از ابزار مناسب (pickaxe) استفاده کن.",
+    "در صورت نیاز به فِرم خودکار، مکانیزم‌های رشد خودکار بساز.",
+    "با Silk Touch می‌تونی بلوک رو کامل برداری."
+  ],
+  "interactions": [
+    "ریل با آب و با بلاک‌های مجاور سازگاره.",
+    "این بلوک با رداستون تعامل خاصی نداره.",
+    "با Bone Meal می‌تونی رشدش رو تسریع کنی."
+  ],
+  "buildingIdeas": [
+    "در باغچه‌های تزئینی از ریل استفاده کن.",
+    "برای ساخت خانه‌ی سبز یا گلخانه عالیه.",
+    "در دیوارهای طبیعی و باغ‌های عمودی به کار ببر."
+  ],
+  "technical": [
+    "ریل سختی 0.7 داره و با ابزار pickaxe قابل استخراجه.",
+    "در سطح blockstate، این بلوک 0 نور تولید می‌کنه.",
+    "در Java و Bedrock، ویژگی‌های فنی یکسان هستن."
+  ],
+  "redstone": [
+    "ریل با سیگنال رداستون قابل کنترله.",
+    "این بلوک در مدارهای رداستون کاربرد داره.",
+    "با Repeater و Comparator می‌تونی سیگنال رو تقویت کنی."
+  ]
+}

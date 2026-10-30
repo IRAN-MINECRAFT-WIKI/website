@@ -783,6 +783,454 @@
       "nameFa": "لنگر اسپاون",
       "category": "utility",
       "icon": "glowstone"
+    },
+    {
+      "id": "activator-rail",
+      "nameEn": "Activator Rail",
+      "nameFa": "ریل فعال‌کننده",
+      "category": "redstone",
+      "icon": "activator-rail"
+    },
+    {
+      "id": "allium",
+      "nameEn": "Allium",
+      "nameFa": "آلیوم",
+      "category": "natural",
+      "icon": "allium"
+    },
+    {
+      "id": "amethyst-cluster",
+      "nameEn": "Amethyst Cluster",
+      "nameFa": "خوشه آمتیست",
+      "category": "natural",
+      "icon": "amethyst-cluster"
+    },
+    {
+      "id": "azure-bluet",
+      "nameEn": "Azure Bluet",
+      "nameFa": "آزور بلو",
+      "category": "natural",
+      "icon": "azure-bluet"
+    },
+    {
+      "id": "bamboo",
+      "nameEn": "Bamboo",
+      "nameFa": "بامبو",
+      "category": "natural",
+      "icon": "bamboo"
+    },
+    {
+      "id": "beetroot-seeds",
+      "nameEn": "Beetroots",
+      "nameFa": "چغندر",
+      "category": "natural",
+      "icon": "beetroot-seeds"
+    },
+    {
+      "id": "big-dripleaf",
+      "nameEn": "Big Dripleaf",
+      "nameFa": "درپشت برگ بزرگ",
+      "category": "natural",
+      "icon": "big-dripleaf"
+    },
+    {
+      "id": "blue-orchid",
+      "nameEn": "Blue Orchid",
+      "nameFa": "ارکید آبی",
+      "category": "natural",
+      "icon": "blue-orchid"
+    },
+    {
+      "id": "brown-mushroom",
+      "nameEn": "Brown Mushroom",
+      "nameFa": "قارچ قهوه‌ای",
+      "category": "natural",
+      "icon": "brown-mushroom"
+    },
+    {
+      "id": "campfire",
+      "nameEn": "Campfire",
+      "nameFa": "آتش‌دان",
+      "category": "utility",
+      "icon": "campfire"
+    },
+    {
+      "id": "candle",
+      "nameEn": "Candle",
+      "nameFa": "شمع",
+      "category": "decoration",
+      "icon": "candle"
+    },
+    {
+      "id": "carrot",
+      "nameEn": "Carrots",
+      "nameFa": "هویج",
+      "category": "natural",
+      "icon": "carrot"
+    },
+    {
+      "id": "chain",
+      "nameEn": "Chain",
+      "nameFa": "زنجیر",
+      "category": "decoration",
+      "icon": "chain"
+    },
+    {
+      "id": "chiseled-purpur",
+      "nameEn": "Chiseled Purpur",
+      "nameFa": "پورپور حکاکی‌شده",
+      "category": "building",
+      "icon": "chiseled-purpur"
+    },
+    {
+      "id": "cobweb",
+      "nameEn": "Cobweb",
+      "nameFa": "تار عنکبوت",
+      "category": "natural",
+      "icon": "cobweb"
+    },
+    {
+      "id": "cocoa-beans",
+      "nameEn": "Cocoa",
+      "nameFa": "کاکائو",
+      "category": "natural",
+      "icon": "cocoa-beans"
+    },
+    {
+      "id": "crimson-fungus",
+      "nameEn": "Crimson Fungus",
+      "nameFa": "قارچ قرمز",
+      "category": "natural",
+      "icon": "crimson-fungus"
+    },
+    {
+      "id": "crimson-roots",
+      "nameEn": "Crimson Roots",
+      "nameFa": "ریشه قرمز",
+      "category": "natural",
+      "icon": "crimson-roots"
+    },
+    {
+      "id": "dandelion",
+      "nameEn": "Dandelion",
+      "nameFa": "شقایق",
+      "category": "natural",
+      "icon": "dandelion"
+    },
+    {
+      "id": "detector-rail",
+      "nameEn": "Detector Rail",
+      "nameFa": "ریل آشکارساز",
+      "category": "redstone",
+      "icon": "detector-rail"
+    },
+    {
+      "id": "eyeblossom",
+      "nameEn": "Eyeblossom",
+      "nameFa": "ای‌بلاسم",
+      "category": "natural",
+      "icon": "eyeblossom"
+    },
+    {
+      "id": "fern",
+      "nameEn": "Fern",
+      "nameFa": "سرخس",
+      "category": "natural",
+      "icon": "fern"
+    },
+    {
+      "id": "froglight",
+      "nameEn": "Froglight",
+      "nameFa": "فروگ‌لایت",
+      "category": "decoration",
+      "icon": "froglight"
+    },
+    {
+      "id": "frogspawn",
+      "nameEn": "Frogspawn",
+      "nameFa": "تخم قورباغه",
+      "category": "natural",
+      "icon": "frogspawn"
+    },
+    {
+      "id": "glow-berries",
+      "nameEn": "Glow Berries",
+      "nameFa": "توت‌های نورانی",
+      "category": "natural",
+      "icon": "glow-berries"
+    },
+    {
+      "id": "glow-lichen",
+      "nameEn": "Glow Lichen",
+      "nameFa": "گلیکن نورانی",
+      "category": "natural",
+      "icon": "glow-lichen"
+    },
+    {
+      "id": "hanging-roots",
+      "nameEn": "Hanging Roots",
+      "nameFa": "ریشه‌های آویزان",
+      "category": "natural",
+      "icon": "hanging-roots"
+    },
+    {
+      "id": "hay-bale",
+      "nameEn": "Hay Bale",
+      "nameFa": "بال شیر",
+      "category": "building",
+      "icon": "hay-bale"
+    },
+    {
+      "id": "iron-chain",
+      "nameEn": "Iron Chain",
+      "nameFa": "زنجیر آهنی",
+      "category": "decoration",
+      "icon": "iron-chain"
+    },
+    {
+      "id": "kelp",
+      "nameEn": "Kelp",
+      "nameFa": "کِلپ",
+      "category": "natural",
+      "icon": "kelp"
+    },
+    {
+      "id": "large-fern",
+      "nameEn": "Large Fern",
+      "nameFa": "سرخس بزرگ",
+      "category": "natural",
+      "icon": "large-fern"
+    },
+    {
+      "id": "lilac",
+      "nameEn": "Lilac",
+      "nameFa": "یاس",
+      "category": "natural",
+      "icon": "lilac"
+    },
+    {
+      "id": "lily-of-the-valley",
+      "nameEn": "Lily of the Valley",
+      "nameFa": "لاله‌ی دره",
+      "category": "natural",
+      "icon": "lily-of-the-valley"
+    },
+    {
+      "id": "lily-pad",
+      "nameEn": "Lily Pad",
+      "nameFa": "پد نیلوفر",
+      "category": "natural",
+      "icon": "lily-pad"
+    },
+    {
+      "id": "mangrove-propagule",
+      "nameEn": "Mangrove Propagule",
+      "nameFa": "پراپاگول مانگرو",
+      "category": "natural",
+      "icon": "mangrove-propagule"
+    },
+    {
+      "id": "melon-seeds",
+      "nameEn": "Melon Stem",
+      "nameFa": "ساقه هندوانه",
+      "category": "natural",
+      "icon": "melon-seeds"
+    },
+    {
+      "id": "nether-sprouts",
+      "nameEn": "Nether Sprouts",
+      "nameFa": "جوانه ندر",
+      "category": "natural",
+      "icon": "nether-sprouts"
+    },
+    {
+      "id": "oxeye-daisy",
+      "nameEn": "Oxeye Daisy",
+      "nameFa": "گل مارگاریت",
+      "category": "natural",
+      "icon": "oxeye-daisy"
+    },
+    {
+      "id": "peony",
+      "nameEn": "Peony",
+      "nameFa": "پیونی",
+      "category": "natural",
+      "icon": "peony"
+    },
+    {
+      "id": "pink-petals",
+      "nameEn": "Pink Petals",
+      "nameFa": " گلبرگ‌های صورتی",
+      "category": "natural",
+      "icon": "pink-petals"
+    },
+    {
+      "id": "pitcher-plant",
+      "nameEn": "Pitcher Plant",
+      "nameFa": "گیاه پارچ",
+      "category": "natural",
+      "icon": "pitcher-plant"
+    },
+    {
+      "id": "pitcher-pod",
+      "nameEn": "Pitcher Crop",
+      "nameFa": "گیاه پارچ کاشتی",
+      "category": "natural",
+      "icon": "pitcher-pod"
+    },
+    {
+      "id": "poppy",
+      "nameEn": "Poppy",
+      "nameFa": "شقایق قرمز",
+      "category": "natural",
+      "icon": "poppy"
+    },
+    {
+      "id": "powered-rail",
+      "nameEn": "Powered Rail",
+      "nameFa": "ریل نیرومند",
+      "category": "redstone",
+      "icon": "powered-rail"
+    },
+    {
+      "id": "pumpkin-seeds",
+      "nameEn": "Pumpkin Stem",
+      "nameFa": "ساقه کدو",
+      "category": "natural",
+      "icon": "pumpkin-seeds"
+    },
+    {
+      "id": "rail",
+      "nameEn": "Rail",
+      "nameFa": "ریل",
+      "category": "redstone",
+      "icon": "rail"
+    },
+    {
+      "id": "red-mushroom",
+      "nameEn": "Red Mushroom",
+      "nameFa": "قارچ قرمز",
+      "category": "natural",
+      "icon": "red-mushroom"
+    },
+    {
+      "id": "sculk-vein",
+      "nameEn": "Sculk Vein",
+      "nameFa": "رگه اسکالک",
+      "category": "natural",
+      "icon": "sculk-vein"
+    },
+    {
+      "id": "sea-pickle",
+      "nameEn": "Sea Pickle",
+      "nameFa": "خیار دریایی",
+      "category": "natural",
+      "icon": "sea-pickle"
+    },
+    {
+      "id": "seagrass",
+      "nameEn": "Seagrass",
+      "nameFa": "علف دریایی",
+      "category": "natural",
+      "icon": "seagrass"
+    },
+    {
+      "id": "small-dripleaf",
+      "nameEn": "Small Dripleaf",
+      "nameFa": "درپشت برگ کوچک",
+      "category": "natural",
+      "icon": "small-dripleaf"
+    },
+    {
+      "id": "smooth-quartz-block",
+      "nameEn": "Smooth Quartz Block",
+      "nameFa": "بلوک کوارتز صاف",
+      "category": "building",
+      "icon": "smooth-quartz-block"
+    },
+    {
+      "id": "sniffer-egg",
+      "nameEn": "Sniffer Egg",
+      "nameFa": "تخم اسنیفر",
+      "category": "natural",
+      "icon": "sniffer-egg"
+    },
+    {
+      "id": "soul-fire",
+      "nameEn": "Soul Fire",
+      "nameFa": "آتش روح",
+      "category": "natural",
+      "icon": "soul-fire"
+    },
+    {
+      "id": "sugar-cane",
+      "nameEn": "Sugar Cane",
+      "nameFa": "نی شکر",
+      "category": "natural",
+      "icon": "sugar-cane"
+    },
+    {
+      "id": "sweet-berries",
+      "nameEn": "Sweet Berry Bush",
+      "nameFa": "بوته توت شیرین",
+      "category": "natural",
+      "icon": "sweet-berries"
+    },
+    {
+      "id": "tulip",
+      "nameEn": "Tulip",
+      "nameFa": "لاله",
+      "category": "natural",
+      "icon": "tulip"
+    },
+    {
+      "id": "turtle-egg",
+      "nameEn": "Turtle Egg",
+      "nameFa": "تخم لاک‌پشت",
+      "category": "natural",
+      "icon": "turtle-egg"
+    },
+    {
+      "id": "twisting-vines",
+      "nameEn": "Twisting Vines",
+      "nameFa": "پیچک‌های پیچان",
+      "category": "natural",
+      "icon": "twisting-vines"
+    },
+    {
+      "id": "vines",
+      "nameEn": "Vines",
+      "nameFa": "پیچک‌ها",
+      "category": "natural",
+      "icon": "vines"
+    },
+    {
+      "id": "warped-fungus",
+      "nameEn": "Warped Fungus",
+      "nameFa": "قارچ پیچان",
+      "category": "natural",
+      "icon": "warped-fungus"
+    },
+    {
+      "id": "warped-roots",
+      "nameEn": "Warped Roots",
+      "nameFa": "ریشه پیچان",
+      "category": "natural",
+      "icon": "warped-roots"
+    },
+    {
+      "id": "weeping-vines",
+      "nameEn": "Weeping Vines",
+      "nameFa": "پیچک‌های گریان",
+      "category": "natural",
+      "icon": "weeping-vines"
+    },
+    {
+      "id": "wither-rose",
+      "nameEn": "Wither Rose",
+      "nameFa": "گل ویزر",
+      "category": "natural",
+      "icon": "wither-rose"
     }
   ],
   "intro": [
