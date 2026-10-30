@@ -47,19 +47,19 @@ const ccvaultsItems = buildCdnLookup(mc.items);
  */
 const KNOWN_MISSING_FROM_HF: ReadonlySet<string> = new Set([
   'banner',
-  'quartz-block',
-  'jack-o-lantern',
-  'carpet',
-  'item-frame',
-  'redstone-block',
-  'repeater',
+  'brewing-stand',
   'button',
-  'redstone-wire',
-  'pressure-plate',
-  'tripwire-hook',
+  'carpet',
   'comparator',
   'hopper',
-  'brewing-stand',
+  'item-frame',
+  'jack-o-lantern',
+  'pressure-plate',
+  'quartz-block',
+  'redstone-block',
+  'redstone-wire',
+  'repeater',
+  'tripwire-hook',
 ]);
 
 export function blockImgUrl(id: string): string | null {
