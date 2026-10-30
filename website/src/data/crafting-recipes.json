@@ -191,7 +191,7 @@
     },
     {
       "id": "wooden-pickaxe",
-      "nameFa": "کلنگ چوبی",
+      "nameFa": "پیکه چوبی",
       "nameEn": "Wooden Pickaxe",
       "aliases": [
         "کلنگ چوبی",
@@ -228,7 +228,7 @@
     },
     {
       "id": "stone-pickaxe",
-      "nameFa": "کلنگ سنگی",
+      "nameFa": "پیکه سنگی",
       "nameEn": "Stone Pickaxe",
       "aliases": [
         "کلنگ سنگی",
@@ -264,7 +264,7 @@
     },
     {
       "id": "iron-pickaxe",
-      "nameFa": "کلنگ آهنی",
+      "nameFa": "پیکه آهنی",
       "nameEn": "Iron Pickaxe",
       "aliases": [
         "کلنگ آهنی",
@@ -300,7 +300,7 @@
     },
     {
       "id": "diamond-pickaxe",
-      "nameFa": "کلنگ الماسی",
+      "nameFa": "پیکه الماسی",
       "nameEn": "Diamond Pickaxe",
       "aliases": [
         "کلنگ الماسی",
@@ -1260,7 +1260,7 @@
     },
     {
       "id": "golden-pickaxe",
-      "nameFa": "کلنگ طلایی",
+      "nameFa": "پیکه طلایی",
       "nameEn": "Golden Pickaxe",
       "aliases": [
         "کلنگ طلایی",
@@ -1296,7 +1296,7 @@
     },
     {
       "id": "netherite-pickaxe",
-      "nameFa": "کلنگ نادریتی",
+      "nameFa": "پیکه نادریتی",
       "nameEn": "Netherite Pickaxe",
       "aliases": [
         "کلنگ نادریتی",
