@@ -135,14 +135,18 @@ const badgeLetter = (code: string) => {
               </button>
             </div>
 
-            <!-- pin info card -->
+            <!-- pin / structure info card -->
             <div id="pinCard" class="pin-card" hidden>
               <div class="flex items-center justify-between gap-2 mb-1">
-                <strong id="pinBiome" class="text-mc-grass-2 text-xs">بیوم</strong>
+                <div class="flex items-center gap-2 min-w-0">
+                  <img id="pinStructIcon" class="pin-struct-icon" alt="" hidden />
+                  <strong id="pinBiome" class="text-mc-grass-2 text-xs truncate">بیوم</strong>
+                </div>
                 <button id="pinClose" type="button" class="icon-btn" aria-label="بستن کارت مختصات">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><use href="#icon-close" /></svg>
                 </button>
               </div>
+              <div id="pinStructEyes" class="pin-eyes" hidden></div>
               <div id="pinCoords" dir="ltr" class="pin-coords">X: ۰ · Z: ۰</div>
               <code id="pinTp" dir="ltr" class="pin-tp">/tp @s 0 ~ 0</code>
               <button id="pinCopy" type="button" class="mc-btn small w-full mt-2">
@@ -234,6 +238,57 @@ const badgeLetter = (code: string) => {
                 <div class="legend-sec-title"><span>بیوم‌های پرکاربرد</span></div>
                 <div id="legendBiomes" class="legend-biomes"></div>
               </div>
+            </div>
+          </details>
+
+          <!-- ═══ Seed search panel (conditions in the same side menu) ═══ -->
+          <details id="searchPanel" class="mc-panel legend-panel search-panel">
+            <summary>
+              <span class="inline-flex items-center gap-2">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                جستجوی سید با ویژگی
+              </span>
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-left" /></svg>
+            </summary>
+            <div class="search-body">
+              <p class="text-[11px] text-mc-text-3 mb-2 leading-relaxed">
+                ساختارهای موردنظر را تیک بزن، شعاع و حداقل چشم را تنظیم کن، بعد «جستجو» را بزن تا سیدی پیدا شود که همه شرایط را داشته باشد.
+              </p>
+              <div id="searchFeatureList" class="search-features"></div>
+              <div class="grid grid-cols-2 gap-2 mt-3">
+                <label class="block">
+                  <span class="text-[10px] font-bold text-mc-text-3 mb-0.5 block">شعاع (بلاک)</span>
+                  <select id="searchRadius" class="sw-input w-full text-[11px] py-1">
+                    <option value="500">۵۰۰</option>
+                    <option value="1000" selected>۱۰۰۰</option>
+                    <option value="2000">۲۰۰۰</option>
+                    <option value="4000">۴۰۰۰</option>
+                  </select>
+                </label>
+                <label class="block" id="searchEyesWrap">
+                  <span class="text-[10px] font-bold text-mc-text-3 mb-0.5 block">حداقل چشم</span>
+                  <select id="searchEyes" class="sw-input w-full text-[11px] py-1">
+                    <option value="0">هرچقدر</option>
+                    <option value="1">۱+</option>
+                    <option value="3">۳+</option>
+                    <option value="6">۶+</option>
+                    <option value="12">۱۲ (کامل)</option>
+                  </select>
+                </label>
+              </div>
+              <div class="flex items-center gap-2 mt-2">
+                <label class="block flex-1">
+                  <span class="text-[10px] font-bold text-mc-text-3 mb-0.5 block">تست سیدها</span>
+                  <select id="searchLimit" class="sw-input w-full text-[11px] py-1">
+                    <option value="200">۲۰۰</option>
+                    <option value="500" selected>۵۰۰</option>
+                    <option value="2000">۲۰۰۰</option>
+                  </select>
+                </label>
+                <button id="searchGoBtn" type="button" class="mc-btn small mt-4">🔍 جستجو</button>
+              </div>
+              <div id="searchProgress" class="search-progress" hidden></div>
+              <div id="searchResult" class="search-result" hidden></div>
             </div>
           </details>
         </aside>
@@ -469,9 +524,10 @@ const badgeLetter = (code: string) => {
     /* ════════════════════ dom refs ════════════════════ */
 
     var root, canvas, ctx, seedInput, versionSelect, mapOverlay, ovLoading, ovProgress, ovError;
-    var ovPercent, ovBar, pinCard, pinBiome, pinCoords, pinTp, infoX, infoZ, infoBiome, infoScale;
+    var ovPercent, ovBar, pinCard, pinBiome, pinCoords, pinTp, pinStructIcon, pinStructEyes, infoX, infoZ, infoBiome, infoScale;
     var legendDetails, legendStructs, structMaster, legendBiomes, finderOverlay, finderStructs;
     var nearbyStructs, nearbyHint, goNearestBtn;
+    var searchPanel, searchFeatureList, searchRadius, searchEyes, searchLimit, searchGoBtn, searchProgress, searchResult;
     var finderBiomes, finderRadius, finderCount, finderMaxDist, finderVersion, finderStart;
     var finderStop, finderProgress, finderChecked, finderFound, finderResults, seedToast;
 
@@ -491,6 +547,8 @@ const badgeLetter = (code: string) => {
       pinBiome = $('pinBiome');
       pinCoords = $('pinCoords');
       pinTp = $('pinTp');
+      pinStructIcon = $('pinStructIcon');
+      pinStructEyes = $('pinStructEyes');
       infoX = $('infoX');
       infoZ = $('infoZ');
       infoBiome = $('infoBiome');
@@ -502,6 +560,14 @@ const badgeLetter = (code: string) => {
       nearbyStructs = $('nearbyStructs');
       nearbyHint = $('nearbyHint');
       goNearestBtn = $('goNearestBtn');
+      searchPanel = $('searchPanel');
+      searchFeatureList = $('searchFeatureList');
+      searchRadius = $('searchRadius');
+      searchEyes = $('searchEyes');
+      searchLimit = $('searchLimit');
+      searchGoBtn = $('searchGoBtn');
+      searchProgress = $('searchProgress');
+      searchResult = $('searchResult');
       finderOverlay = $('finderOverlay');
       finderStructs = $('finderStructs');
       finderBiomes = $('finderBiomes');
@@ -568,7 +634,8 @@ const badgeLetter = (code: string) => {
       showSlime: false,
       showGrid: false,
       showSpawn: true,
-      showTextures: true
+      showTextures: true,
+      pinStruct: null          // when set, pin is on a structure → card shows its info
     };
 
     var cssW = 0, cssH = 0;
@@ -760,6 +827,7 @@ const badgeLetter = (code: string) => {
       buildLegendStructs();
       buildLegendBiomes();
       buildFinderChips();
+      buildSearchFeatures();
 
       // seed + view from URL
       state.seedStr = params.get('seed') || String(engine.randomSeed());
@@ -841,6 +909,7 @@ const badgeLetter = (code: string) => {
       buildLegendStructs();
       buildLegendBiomes();
       buildFinderChips();
+      buildSearchFeatures();
       slimeCache.clear();
       cache = null;
       genToken++;
@@ -1506,7 +1575,36 @@ const badgeLetter = (code: string) => {
         pinCard.hidden = true;
         return;
       }
-      pinBiome.textContent = 'بیوم: ' + biomeFaAt(state.pin.x, state.pin.z);
+      var bf = biomeFaAt(state.pin.x, state.pin.z);
+      // if the pin is on a structure, show its name + icon + eye count
+      var ps = state.pinStruct;
+      if (ps && structMeta) {
+        var meta = structMeta.get(ps.id);
+        var name = (meta && meta.fa) || ps.id;
+        pinBiome.textContent = name;
+        // structure icon image
+        if (pinStructIcon) {
+          if (meta && meta.icon && texCache.get(meta.icon)) {
+            pinStructIcon.src = texUrl(meta.icon);
+            pinStructIcon.hidden = false;
+          } else {
+            pinStructIcon.hidden = true;
+          }
+        }
+        // eye count for strongholds
+        if (pinStructEyes) {
+          if (ps.id === 'stronghold' && ps.eyes != null) {
+            pinStructEyes.textContent = 'چشم اند پورتال: ' + faNum(ps.eyes) + ' از ۱۲';
+            pinStructEyes.hidden = false;
+          } else {
+            pinStructEyes.hidden = true;
+          }
+        }
+      } else {
+        pinBiome.textContent = 'بیوم: ' + bf;
+        if (pinStructIcon) pinStructIcon.hidden = true;
+        if (pinStructEyes) pinStructEyes.hidden = true;
+      }
       pinCoords.textContent = 'X: ' + faNum(state.pin.x) + ' · Z: ' + faNum(state.pin.z);
       pinTp.textContent = '/tp @s ' + Math.round(state.pin.x) + ' ~ ' + Math.round(state.pin.z);
       pinCard.hidden = false;
@@ -1688,10 +1786,19 @@ const badgeLetter = (code: string) => {
           drag = null;
           if (wasClick && engineReady) {
             var p = canvasPos(e);
-            state.pin = {
-              x: Math.round(state.cx + (p.x - cssW / 2) * state.zoom),
-              z: Math.round(state.cz + (p.y - cssH / 2) * state.zoom)
-            };
+            var bx = Math.round(state.cx + (p.x - cssW / 2) * state.zoom);
+            var bz = Math.round(state.cz + (p.y - cssH / 2) * state.zoom);
+            // check if the click landed on a structure marker (within ~14px)
+            var hit = null, hitD = 14;
+            for (var mi = 0; mi < markers.length; mi++) {
+              var mm = markers[mi];
+              if (!enabledStructs.has(mm.id)) continue;
+              var mx = b2sX(mm.x), my = b2sZ(mm.z);
+              var dd = Math.hypot(mx - p.x, my - p.y);
+              if (dd < hitD) { hitD = dd; hit = mm; }
+            }
+            state.pin = { x: hit ? hit.x : bx, z: hit ? hit.z : bz };
+            state.pinStruct = hit || null;
             draw();
           } else {
             onViewChanged(true);
@@ -1794,9 +1901,22 @@ const badgeLetter = (code: string) => {
         b.className = 'struct-chip on';
         b.dataset.sid = s.id;
         b.setAttribute('aria-pressed', 'true');
+        // guide image: the structure's block-texture icon. When it loads,
+        // hide the colored dot fallback so the chip shows ONLY the block
+        // image (a clear visual guide to what's on the map). If the icon
+        // fails to load, the dot stays as the fallback indicator.
         var dot = document.createElement('span');
         dot.className = 'dot';
         dot.style.background = s.color || '#888888';
+        if (s.icon) {
+          var img = document.createElement('img');
+          img.className = 'chip-icon';
+          img.alt = '';
+          img.src = texUrl(s.icon);
+          img.onload = function () { if (dot) dot.style.display = 'none'; };
+          img.onerror = function () { img.hidden = true; };
+          b.appendChild(img);
+        }
         b.appendChild(dot);
         b.appendChild(document.createTextNode(s.fa || s.name || s.id));
         legendStructs.appendChild(b);
@@ -1952,6 +2072,160 @@ const badgeLetter = (code: string) => {
       }
       legendMq();
       if (lgMq.addEventListener) lgMq.addEventListener('change', legendMq);
+
+      // seed search panel: open the search details on desktop too
+      if (searchPanel && lgMq.matches) searchPanel.open = true;
+
+      // build the search feature list + bind the search button
+      buildSearchFeatures();
+      if (searchGoBtn) searchGoBtn.addEventListener('click', onSearchGo);
+    }
+
+    /* ════════════════════ seed search (in side panel) ════════════════════ */
+
+    // Build compact toggle chips for each structure the engine supports, with
+    // the block-icon guide image. Clicking toggles whether it's a search
+    // condition. Reuses the already-loaded engine (no separate import).
+    function buildSearchFeatures() {
+      if (!searchFeatureList || !engine) return;
+      searchFeatureList.textContent = '';
+      var avail = (engine.structures || []).filter(function (s) {
+        try { return engine.structureAvailableInVersion(s.id, state.versionLabel); }
+        catch (e) { return false; }
+      });
+      avail.forEach(function (s) {
+        var lab = document.createElement('label');
+        lab.className = 'search-feat';
+        lab.dataset.sid = s.id;
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.value = s.id;
+        cb.className = 'search-feat-cb';
+        var dot = document.createElement('span');
+        dot.className = 'dot';
+        dot.style.background = s.color || '#888888';
+        if (s.icon) {
+          var img = document.createElement('img');
+          img.className = 'chip-icon';
+          img.alt = '';
+          img.src = texUrl(s.icon);
+          img.onload = function () { if (dot) dot.style.display = 'none'; };
+          img.onerror = function () { img.hidden = true; };
+          lab.appendChild(img);
+        }
+        lab.appendChild(dot);
+        lab.appendChild(document.createTextNode(s.fa || s.name || s.id));
+        lab.appendChild(cb);
+        searchFeatureList.appendChild(lab);
+      });
+    }
+
+    var searchInFlight = false;
+    function onSearchGo() {
+      if (searchInFlight || !engineReady) return;
+      var feats = [];
+      var cbs = searchFeatureList ? searchFeatureList.querySelectorAll('.search-feat-cb:checked') : [];
+      for (var i = 0; i < cbs.length; i++) feats.push(cbs[i].value);
+      if (!feats.length) { showToast('حداقل یک ساختار انتخاب کن', true); return; }
+      var radius = parseInt(searchRadius.value, 10) || 1000;
+      var minEyes = parseInt(searchEyes.value, 10) || 0;
+      var limit = parseInt(searchLimit.value, 10) || 500;
+      var wantSH = feats.indexOf('stronghold') !== -1;
+
+      searchInFlight = true;
+      if (searchGoBtn) { searchGoBtn.disabled = true; searchGoBtn.textContent = 'در حال جستجو…'; }
+      if (searchResult) searchResult.hidden = true;
+      if (searchProgress) { searchProgress.hidden = false; searchProgress.textContent = 'در حال بارگذاری…'; }
+
+      var chunkR = Math.ceil(radius / 16);
+      var checked = 0, startTime = Date.now();
+
+      function batch() {
+        for (var b = 0; b < 3 && checked < limit; b++) {
+          var seedStr = engine.randomSeed();
+          engine.setSeed(seedStr);
+          var ok = true, results = [];
+          for (var fi = 0; fi < feats.length && ok; fi++) {
+            var sid = feats[fi];
+            if (sid === 'stronghold') {
+              var sh = engine.findNearestStrongholdWithin(0, 0, radius);
+              if (!sh) { ok = false; break; }
+              if (minEyes > 0 && (sh.eyes == null || sh.eyes < minEyes)) { ok = false; break; }
+              results.push(sh);
+            } else {
+              var found = engine.getStructures([sid], -chunkR, -chunkR, chunkR, chunkR);
+              if (!found || !found.length) { ok = false; break; }
+              var best = null, bestD = Infinity;
+              for (var k = 0; k < found.length; k++) {
+                var d = found[k].x * found[k].x + found[k].z * found[k].z;
+                if (d < bestD) { bestD = d; best = found[k]; }
+              }
+              results.push(best);
+            }
+          }
+          checked++;
+          if (ok) { finishSearchGo(seedStr, results, checked, Date.now() - startTime); return; }
+        }
+        if (checked < limit) {
+          if (searchProgress) searchProgress.textContent = 'در حال جستجو… ' + Math.round(checked / limit * 100) + '٪ (' + faNum(checked) + '/' + faNum(limit) + ')';
+          setTimeout(batch, 0);
+        } else {
+          finishSearchGo(null, [], checked, Date.now() - startTime);
+        }
+      }
+      batch();
+    }
+
+    function finishSearchGo(seedStr, results, checked, elapsed) {
+      searchInFlight = false;
+      if (searchGoBtn) { searchGoBtn.disabled = false; searchGoBtn.textContent = '🔍 جستجو'; }
+      if (searchProgress) searchProgress.hidden = true;
+      if (!seedStr) {
+        if (searchResult) {
+          searchResult.hidden = false;
+          searchResult.innerHTML = '<div class="search-nope">❌ در ' + faNum(checked) + ' سید پیدا نشد. شعاع را بیشتر کن یا چشم را کمتر.</div>';
+        }
+        return;
+      }
+      // build the result card
+      var html = '<div class="search-ok">✅ سید پیدا شد!</div>';
+      html += '<div class="search-seed" dir="ltr">' + seedStr + '</div>';
+      html += '<div class="search-coords">';
+      for (var i = 0; i < results.length; i++) {
+        var r = results[i];
+        var meta = structMeta.get(r.id) || {};
+        var eyesT = r.eyes != null ? ' · ' + faNum(r.eyes) + ' چشم' : '';
+        var bf = '—';
+        try { bf = engine.biomeFa(engine.biomeAt(r.x, r.z)) || '—'; } catch (e) {}
+        html += '<div class="search-coord">';
+        if (meta.icon) html += '<img class="chip-icon" src="' + texUrl(meta.icon) + '" alt="" />';
+        html += '<span class="sc-name">' + (meta.fa || r.id) + '</span>';
+        html += '<span class="sc-pos" dir="ltr">X:' + faNum(r.x) + ' Z:' + faNum(r.z) + '</span>';
+        html += '<span class="sc-biome">' + bf + eyesT + '</span>';
+        html += '</div>';
+      }
+      html += '</div>';
+      html += '<button type="button" class="mc-btn small w-full mt-2" id="searchLoadBtn">بارگذاری روی نقشه</button>';
+      html += '<div class="search-time">' + faNum(Math.round(elapsed / 1000)) + ' ثانیه · ' + faNum(checked) + ' سید تست</div>';
+      if (searchResult) {
+        searchResult.hidden = false;
+        searchResult.innerHTML = html;
+      }
+      // bind the load button → load this seed into the map
+      var loadBtn = document.getElementById('searchLoadBtn');
+      if (loadBtn) loadBtn.addEventListener('click', function () {
+        seedInput.value = seedStr;
+        loadSeed(seedStr, { center: { x: 0, z: 0 } });
+        // pan to the first result if it's a stronghold, else spawn
+        if (results.length && results[0]) {
+          state.cx = results[0].x; state.cz = results[0].z;
+          state.pin = { x: results[0].x, z: results[0].z };
+          state.pinStruct = results[0];
+          clampCenter();
+          planCheck(); scheduleScan(); scheduleDraw(); syncUrl();
+        }
+        showToast('سید بارگذاری شد');
+      });
     }
 
     /* ════════════════════ finder ════════════════════ */
@@ -2241,6 +2515,7 @@ const badgeLetter = (code: string) => {
 
       $('pinClose').addEventListener('click', function () {
         state.pin = null;
+        state.pinStruct = null;
         pinCard.hidden = true;
         draw();
       });
@@ -2328,9 +2603,80 @@ const badgeLetter = (code: string) => {
   .map-layout { display: grid; gap: 1rem; align-items: start; }
   @media (min-width: 1024px) {
     .map-layout { grid-template-columns: 300px minmax(0, 1fr); }
-    .map-legend { grid-column: 1; grid-row: 1; }
+    .map-legend { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; gap: 0.75rem; }
     .map-main { grid-column: 2; grid-row: 1; }
   }
+
+  /* ── seed search panel (in the side menu) ─────────────────────── */
+  .search-panel { margin-top: 0; }
+  .search-body { padding: 0 1rem 1rem; }
+  .search-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    max-height: 12rem;
+    overflow-y: auto;
+  }
+  .search-feat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.68rem;
+    border: 1px solid var(--line, #2a2a3a);
+    background: var(--bg-2, #161624);
+    cursor: pointer;
+    border-radius: 4px;
+    user-select: none;
+  }
+  .search-feat:hover { border-color: var(--grass-2, #7cc84a); }
+  .search-feat-cb { display: none; }
+  .search-feat:has(.search-feat-cb:checked) {
+    border-color: var(--grass, #5fa838);
+    background: rgba(95, 168, 56, 0.15);
+    box-shadow: 0 0 0 1px var(--grass, #5fa838) inset;
+  }
+  .search-feat .dot { width: 8px; height: 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.35); flex-shrink: 0; }
+  .search-feat .chip-icon { width: 14px; height: 14px; image-rendering: pixelated; flex-shrink: 0; }
+  .search-progress {
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--diamond, #4aedd9);
+    text-align: center;
+    padding: 0.4rem;
+    background: rgba(74, 237, 217, 0.08);
+    border-radius: 4px;
+  }
+  .search-result { margin-top: 0.5rem; }
+  .search-ok { font-size: 0.78rem; font-weight: 800; color: var(--grass-2, #7cc84a); margin-bottom: 0.3rem; }
+  .search-nope { font-size: 0.72rem; color: var(--redstone, #c63); text-align: center; padding: 0.4rem; }
+  .search-seed {
+    font-family: 'Vazirmatn', monospace;
+    font-size: 0.72rem;
+    color: var(--diamond, #4aedd9);
+    background: var(--bg-2, #14142a);
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    word-break: break-all;
+    margin-bottom: 0.4rem;
+    text-align: left;
+  }
+  .search-coords { display: flex; flex-direction: column; gap: 0.3rem; }
+  .search-coord {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid var(--line, #2a2a3a);
+    border-radius: 4px;
+    background: var(--bg-2, #161624);
+    font-size: 0.66rem;
+    flex-wrap: wrap;
+  }
+  .sc-name { font-weight: 700; color: var(--text, #f0f0fa); }
+  .sc-pos { font-family: 'Vazirmatn', monospace; color: var(--diamond, #4aedd9); direction: ltr; }
+  .sc-biome { color: var(--text-3, #8a8aa8); width: 100%; }
+  .search-time { font-size: 0.6rem; color: var(--text-3, #8a8aa8); text-align: center; margin-top: 0.4rem; }
 
   /* ── canvas ───────────────────────────────────────────────────── */
   .map-canvas-wrap {
@@ -2425,6 +2771,21 @@ const badgeLetter = (code: string) => {
     padding: 0.625rem 0.75rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     font-size: 0.78rem;
+  }
+  .pin-struct-icon {
+    width: 18px;
+    height: 18px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+  }
+  .pin-eyes {
+    font-size: 0.68rem;
+    color: var(--diamond, #4aedd9);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    background: rgba(74, 237, 217, 0.1);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
   }
   .pin-coords { font-weight: 700; color: var(--text, #f0f0fa); margin-bottom: 0.3rem; }
   .pin-tp {
@@ -2546,6 +2907,14 @@ const badgeLetter = (code: string) => {
     border: 1px solid rgba(255, 255, 255, 0.45);
     flex-shrink: 0;
   }
+  .struct-chip .chip-icon {
+    width: 16px;
+    height: 16px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+    margin-left: -2px;
+  }
+  .struct-chip:has(.chip-icon) .dot { width: 7px; height: 7px; }
 
   .legend-biomes {
     display: grid;

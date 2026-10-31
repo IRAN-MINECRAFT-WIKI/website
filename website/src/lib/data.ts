@@ -493,7 +493,7 @@ export const siteConfig = {
   locale: 'fa_IR',
   localeAlt: 'en_US',
   twitter: '@craftify',
-  telegram: 'https://t.me/MineBedWeb',
+  rubika: 'https://rubika.ir/minebedfarsi',
   instagram: 'https://instagram.com/craftify',
   youtube: 'https://youtube.com/@craftify',
   email: 'contact@minebed.ir',

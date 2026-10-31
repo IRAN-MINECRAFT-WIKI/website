@@ -266,7 +266,7 @@ export function organizationJsonLd() {
     url: SITE_PUBLIC_BASE,
     logo: `${SITE_PUBLIC_BASE}/web-app-manifest-512x512.png`,
     sameAs: [
-      siteConfig.telegram,
+      siteConfig.rubika,
       siteConfig.instagram,
       siteConfig.youtube,
     ],

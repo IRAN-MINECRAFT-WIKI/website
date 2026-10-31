@@ -36,6 +36,17 @@ for (const item of nav) {
       <span class="brand-text">MINEBED</span>
     </a>
 
+    <a href={base('/')} class="header-banner" aria-label="MineBed — ماین بید" title="MineBed">
+      <img
+        src={base('/img/minebed-banner.png')}
+        alt="MineBed — ماین بید"
+        width="356"
+        height="178"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+
     <nav class="main-nav">
       {
         nav.map((item) => (
@@ -120,6 +131,34 @@ for (const item of nav) {
     image-rendering: pixelated;
     border-radius: 6px;
     flex-shrink: 0;
+  }
+
+  /* P4-6 banner: crowned voxel MineBed emblem in the top-right of the header.
+     Image is a wide horizontal banner (1774x887, ~2:1) so we constrain by
+     height and let width follow the aspect ratio. Hidden on very narrow
+     screens to avoid crowding the nav on mobile. */
+  .header-banner {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-inline-start: 0.25rem;
+    text-decoration: none;
+    line-height: 0;
+  }
+
+  .header-banner img {
+    height: 48px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+    transition: transform 0.15s ease, filter 0.15s ease;
+  }
+
+  .header-banner:hover img {
+    transform: translateY(-1px);
+    filter: drop-shadow(0 2px 4px rgba(124, 200, 74, 0.35));
   }
 
   .main-nav {
@@ -229,12 +268,31 @@ for (const item of nav) {
     }
     .main-nav { gap: 0.125rem; }
     .header-inner { gap: 0.75rem; padding: 0.625rem 0.875rem; }
+    .header-banner img { height: 40px; }
   }
 
+  /* Tablet/mobile: nav collapses to hamburger; banner stays visible
+     but slightly smaller so it doesn't crowd the brand + actions. */
+  @media (max-width: 1279px) {
+    .header-banner img { height: 40px; }
+  }
+
+  /* Phones: hide the English brand-text and let the banner carry
+     the visual identity; smaller banner height to leave room for the
+     search box and menu toggle on narrow screens. */
   @media (max-width: 480px) {
     .brand-text { font-size: 0.75rem; }
     .header-inner { padding: 0.5rem; }
     .header-actions { gap: 0.375rem; }
+    .header-banner img { height: 32px; }
+  }
+
+  /* Very small phones: hide the brand-text entirely (the banner
+     already carries the MineBed wordmark + Persian text) to avoid
+     overflow. */
+  @media (max-width: 360px) {
+    .brand-text { display: none; }
+    .header-banner img { height: 28px; }
   }
 </style>
 
