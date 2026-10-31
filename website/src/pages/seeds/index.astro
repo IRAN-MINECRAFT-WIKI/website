@@ -223,9 +223,12 @@ const badgeLetter = (code: string) => {
               <div>
                 <div class="legend-sec-title">
                   <span>ساختارهای اطراف</span>
-                  <span class="text-[10px] text-mc-text-3" id="nearbyHint">۸ نزدیک‌ترین</span>
+                  <button id="goNearestBtn" type="button" class="mc-chip chip-mini" title="رفتن به نزدیک‌ترین ساختار فعال (حتی بیرون نقشه)">
+                    برو به نزدیک‌ترین
+                  </button>
                 </div>
                 <div id="nearbyStructs" class="nearby-list" role="list"></div>
+                <span class="text-[10px] text-mc-text-3" id="nearbyHint"></span>
               </div>
               <div>
                 <div class="legend-sec-title"><span>بیوم‌های پرکاربرد</span></div>
@@ -433,7 +436,7 @@ const badgeLetter = (code: string) => {
       jungle_pyramid: 'Jt', swamp_hut: 'Hu', igloo: 'Ig', pillager_outpost: 'Po',
       ruined_portal: 'Rp', shipwreck: 'Sh', ocean_ruin: 'Or', ancient_city: 'Ac',
       trail_ruins: 'Tr', trial_chambers: 'Tc', buried_treasure: 'Bt', mineshaft: 'Ms',
-      desert_well: 'Dw', dungeon: 'Sp', fortress: 'Fo', bastion_remnant: 'Ba'
+      desert_well: 'Dw', dungeon: 'Sp', stronghold: 'Sh', fortress: 'Fo', bastion_remnant: 'Ba'
     };
 
     // curated legend biomes (first existing alias wins)
@@ -468,7 +471,7 @@ const badgeLetter = (code: string) => {
     var root, canvas, ctx, seedInput, versionSelect, mapOverlay, ovLoading, ovProgress, ovError;
     var ovPercent, ovBar, pinCard, pinBiome, pinCoords, pinTp, infoX, infoZ, infoBiome, infoScale;
     var legendDetails, legendStructs, structMaster, legendBiomes, finderOverlay, finderStructs;
-    var nearbyStructs, nearbyHint;
+    var nearbyStructs, nearbyHint, goNearestBtn;
     var finderBiomes, finderRadius, finderCount, finderMaxDist, finderVersion, finderStart;
     var finderStop, finderProgress, finderChecked, finderFound, finderResults, seedToast;
 
@@ -498,6 +501,7 @@ const badgeLetter = (code: string) => {
       legendBiomes = $('legendBiomes');
       nearbyStructs = $('nearbyStructs');
       nearbyHint = $('nearbyHint');
+      goNearestBtn = $('goNearestBtn');
       finderOverlay = $('finderOverlay');
       finderStructs = $('finderStructs');
       finderBiomes = $('finderBiomes');
@@ -940,14 +944,18 @@ const badgeLetter = (code: string) => {
     function preloadTextures() {
       if (!engine) return;
       var names = engine.biomeNames;
-      if (!names || !names.forEach) return;
-      names.forEach(function (name, id) {
-        var fn = null;
-        try { fn = engine.biomeTexture(id); } catch (e) { fn = null; }
-        if (fn) requestTex(fn);
+      if (names && names.forEach) {
+        names.forEach(function (name, id) {
+          var fn = null;
+          try { fn = engine.biomeTexture(id); } catch (e) { fn = null; }
+          if (fn) requestTex(fn);
+        });
+      }
+      // preload every structure icon texture so markers render as block images
+      // (village→emerald, desert_pyramid→sandstone, stronghold→end-portal, etc.)
+      (engine.structures || []).forEach(function (s) {
+        if (s.icon) requestTex(s.icon);
       });
-      // also preload the dungeon/spawner marker icon
-      requestTex('monster-spawner');
       if (texTotal === 0) texReady = true; // nothing to load (engine gave no biomes)
     }
 
@@ -1192,7 +1200,9 @@ const badgeLetter = (code: string) => {
      * clickable list. Clicking a row pans the map to that structure and drops
      * a pin on it. Respects the per-type toggles — only checked structure
      * types appear here, so the list doubles as a "structures around me" view
-     * that's fully user-configurable via the chip toggles above. */
+     * that's fully user-configurable via the chip toggles above.
+     * Strongholds show their end-portal eye count (e.g. "۳ چشم") alongside
+     * the distance, since that's the key property players look for. */
     function updateNearbyStructs() {
       if (!nearbyStructs) return;
       var cx = state.cx, cz = state.cz;
@@ -1201,7 +1211,7 @@ const badgeLetter = (code: string) => {
         var m = markers[i];
         if (!enabledStructs.has(m.id)) continue;
         var dx = m.x - cx, dz = m.z - cz;
-        list.push({ id: m.id, x: m.x, z: m.z, d2: dx * dx + dz * dz, dx: dx, dz: dz });
+        list.push({ id: m.id, x: m.x, z: m.z, d2: dx * dx + dz * dz, dx: dx, dz: dz, eyes: m.eyes });
       }
       list.sort(function (a, b) { return a.d2 - b.d2; });
       var top = list.slice(0, 8);
@@ -1209,7 +1219,7 @@ const badgeLetter = (code: string) => {
       if (!top.length) {
         var empty = document.createElement('div');
         empty.className = 'nearby-empty';
-        empty.textContent = 'ساختاری در محدوده پیدا نشد — زوم را کم کن یا نوع ساختار را فعال کن';
+        empty.textContent = 'ساختاری در محدوده پیدا نشد — زوم را کم کن، «برو به نزدیک‌ترین» را بزن، یا نوع ساختار را فعال کن';
         nearbyStructs.appendChild(empty);
         if (nearbyHint) nearbyHint.textContent = '';
         return;
@@ -1232,7 +1242,12 @@ const badgeLetter = (code: string) => {
         var inf = document.createElement('span');
         inf.className = 'nearby-inf';
         inf.dir = 'ltr';
-        inf.textContent = directionOf(t.dx, t.dz) + ' · ' + faNum(dist) + ' بلاک';
+        var txt = directionOf(t.dx, t.dz) + ' · ' + faNum(dist) + ' بلاک';
+        // strongholds: append the (approximate) end-portal eye count
+        if (t.id === 'stronghold' && t.eyes != null) {
+          txt += ' · ' + faNum(t.eyes) + ' چشم';
+        }
+        inf.textContent = txt;
         row.appendChild(dot);
         row.appendChild(name);
         row.appendChild(inf);
@@ -1362,9 +1377,18 @@ const badgeLetter = (code: string) => {
           return da - db;
         }).slice(0, 800);
       }
-      // pre-resolve the spawner icon once (dungeon markers render as the
-      // monster-spawner texture instead of a colored circle)
-      var spawnerImg = texReady ? texCache.get('monster-spawner') : null;
+      // pre-resolve icon textures per structure id (village→emerald,
+      // desert_pyramid→sandstone, stronghold→end-portal, dungeon→spawner, …)
+      // so markers render as the relevant block image instead of text badges.
+      // Check each icon individually (don't gate on global texReady — a single
+      // slow biome texture shouldn't block all structure icons from rendering).
+      var iconImgs = {};
+      structMeta.forEach(function (meta, id) {
+        if (meta && meta.icon) {
+          var img = texCache.get(meta.icon);
+          if (img) iconImgs[id] = img;
+        }
+      });
       ctx.font = '700 7px Tahoma, Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -1374,19 +1398,22 @@ const badgeLetter = (code: string) => {
         var meta = structMeta.get(m.id);
         var x = b2sX(m.x), y = b2sZ(m.z);
         if (x < -16 || y < -16 || x > cssW + 16 || y > cssH + 16) continue;
-        // structures with an `icon` texture (e.g. dungeon → spawner) render as
-        // a small block-texture marker with a dark ring; everything else keeps
-        // the classic colored-circle + 2-letter badge.
-        if (meta && meta.icon && spawnerImg) {
-          var r = 10;
+        var iconImg = iconImgs[m.id];
+        // structures with an icon texture render as a block image in a dark
+        // ring; strongholds get a slightly bigger marker so the End Portal icon
+        // is legible. Structures without an icon keep the colored-circle badge.
+        if (iconImg) {
+          var big = (m.id === 'stronghold');
+          var r = big ? 12 : 10;
+          var half = big ? 9 : 7;
           ctx.beginPath();
           ctx.arc(x, y, r, 0, Math.PI * 2);
           ctx.fillStyle = 'rgba(0,0,0,0.55)';
           ctx.fill();
           ctx.lineWidth = 1.5;
-          ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+          ctx.strokeStyle = big ? 'rgba(95,221,221,0.95)' : 'rgba(255,255,255,0.9)';
           ctx.stroke();
-          ctx.drawImage(spawnerImg, x - 7, y - 7, 14, 14);
+          ctx.drawImage(iconImg, x - half, y - half, half * 2, half * 2);
           continue;
         }
         ctx.beginPath();
@@ -1839,6 +1866,48 @@ const badgeLetter = (code: string) => {
       bindLayerToggle($('toggleSlime'), 'showSlime');
       bindLayerToggle($('toggleGrid'), 'showGrid');
       bindLayerToggle($('toggleSpawn'), 'showSpawn');
+
+      /* "برو به نزدیک‌ترین" — pan to the nearest enabled structure. Searches
+       * the in-viewport markers first; for strongholds (which are usually far
+       * outside the viewport at 1408+ blocks) falls back to the engine's full
+       * 128-stronghold list so the jump always lands somewhere useful. */
+      if (goNearestBtn) {
+        goNearestBtn.addEventListener('click', function () {
+          if (!engineReady) { showToast('موتور نقشه هنوز آماده نیست', true); return; }
+          var cx = state.cx, cz = state.cz;
+          var best = null, bestD = Infinity;
+          // 1) nearest enabled marker in the current viewport scan
+          for (var i = 0; i < markers.length; i++) {
+            var m = markers[i];
+            if (!enabledStructs.has(m.id)) continue;
+            var dx = m.x - cx, dz = m.z - cz;
+            var d = dx * dx + dz * dz;
+            if (d < bestD) { bestD = d; best = m; }
+          }
+          // 2) if nothing in viewport AND stronghold is enabled, search all 128
+          if (!best && enabledStructs.has('stronghold')) {
+            try {
+              var sh = engine.findNearestStronghold(cx, cz);
+              if (sh) { best = sh; bestD = (sh.x - cx) * (sh.x - cx) + (sh.z - cz) * (sh.z - cz); }
+            } catch (e) { /* ignore */ }
+          }
+          if (!best) {
+            showToast('ساختار فعالی پیدا نشد — حداقل یک نوع را فعال کن', true);
+            return;
+          }
+          state.cx = best.x; state.cz = best.z;
+          clampCenter();
+          state.pin = { x: best.x, z: best.z };
+          planCheck();
+          scheduleScan();
+          updateNearbyStructs();
+          scheduleDraw();
+          syncUrl();
+          var meta = structMeta.get(best.id);
+          var dist = Math.round(Math.sqrt(bestD));
+          showToast('رفتیم به ' + (meta && meta.fa ? meta.fa : best.id) + ' · ' + faNum(dist) + ' بلاک');
+        });
+      }
 
       // textures toggle: when turned on, rebuild the texCanvas for the current
       // cache (the cache may have been built without it). When off, a plain

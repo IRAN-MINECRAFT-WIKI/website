@@ -62,37 +62,42 @@ var VERSIONS = [
   { id: 1, label: 'Beta 1.7' }
 ];
 
-/* cubiomes StructureType enum indices (Dungeon=0 contains mob spawners) */
+/* cubiomes StructureType enum indices (Dungeon=0 contains mob spawners).
+ * Stronghold uses a sentinel typeIdx (-1) — it's handled by a pure-JS ring
+ * algorithm (getStrongholdPosJS) since the wasm binding doesn't expose it. */
 var STRUCT_TYPE = {
   dungeon: 0,
   desert_pyramid: 1, jungle_pyramid: 2, swamp_hut: 3, igloo: 4, village: 5,
   ocean_ruin: 6, shipwreck: 7, monument: 8, mansion: 9, pillager_outpost: 10,
   ruined_portal: 11, ancient_city: 13, buried_treasure: 14, mineshaft: 15,
-  desert_well: 16, trail_ruins: 23, trial_chambers: 24
+  desert_well: 16, trail_ruins: 23, trial_chambers: 24,
+  stronghold: -1
 };
 
 /* structure metadata (overworld-only list shown on the map)
- * `icon` (optional) = block-texture filename rendered as the marker instead
- * of the default colored circle (e.g. dungeon → monster-spawner texture). */
+ * `icon` = block-texture filename rendered as the marker instead of the
+ * default colored circle + 2-letter badge. Structures without an icon keep
+ * the classic circle. */
 var STRUCTURES = [
-  { id: 'village',          name: 'Village',          fa: 'دهکده',              color: '#C9A227', minVersion: 'Beta 1.8', variableRegion: true },
-  { id: 'desert_pyramid',   name: 'Desert Pyramid',   fa: 'هرم صحرا',           color: '#E2C044', minVersion: '1.3' },
-  { id: 'jungle_pyramid',   name: 'Jungle Temple',    fa: 'معبد جنگلی',         color: '#4F9F2F', minVersion: '1.3' },
+  { id: 'village',          name: 'Village',          fa: 'دهکده',              color: '#C9A227', minVersion: 'Beta 1.8', variableRegion: true, icon: 'emerald-block' },
+  { id: 'desert_pyramid',   name: 'Desert Pyramid',   fa: 'هرم صحرا',           color: '#E2C044', minVersion: '1.3', icon: 'sandstone' },
+  { id: 'jungle_pyramid',   name: 'Jungle Temple',    fa: 'معبد جنگلی',         color: '#4F9F2F', minVersion: '1.3', icon: 'cobblestone' },
   { id: 'swamp_hut',        name: 'Witch Hut',        fa: 'کلبه جادوگر',        color: '#6B7C3A', minVersion: '1.4' },
-  { id: 'igloo',            name: 'Igloo',            fa: 'ایگلو',              color: '#7FD4E8', minVersion: '1.9' },
-  { id: 'monument',         name: 'Ocean Monument',   fa: 'بنای اقیانوسی',      color: '#2FA8A0', minVersion: '1.8' },
-  { id: 'mansion',          name: 'Woodland Mansion', fa: 'عمارت جنگلی',        color: '#8B5A2B', minVersion: '1.11' },
+  { id: 'igloo',            name: 'Igloo',            fa: 'ایگلو',              color: '#7FD4E8', minVersion: '1.9', icon: 'snow-block' },
+  { id: 'monument',         name: 'Ocean Monument',   fa: 'بنای اقیانوسی',      color: '#2FA8A0', minVersion: '1.8', icon: 'sea-lantern' },
+  { id: 'mansion',          name: 'Woodland Mansion', fa: 'عمارت جنگلی',        color: '#8B5A2B', minVersion: '1.11', icon: 'bookshelf' },
   { id: 'pillager_outpost', name: 'Pillager Outpost', fa: 'پایگاه غارتگران',    color: '#B05A3C', minVersion: '1.14' },
-  { id: 'ruined_portal',    name: 'Ruined Portal',    fa: 'پرتال ویران‌شده',    color: '#C86A8A', minVersion: '1.16.1' },
-  { id: 'ocean_ruin',       name: 'Ocean Ruin',       fa: 'ویرانه اقیانوسی',    color: '#5FA8A0', minVersion: '1.13' },
-  { id: 'shipwreck',        name: 'Shipwreck',        fa: 'کشتی شکسته',         color: '#A0683C', minVersion: '1.13' },
-  { id: 'ancient_city',     name: 'Ancient City',     fa: 'شهر باستانی',        color: '#8A8AB0', minVersion: '1.19.2' },
+  { id: 'ruined_portal',    name: 'Ruined Portal',    fa: 'پرتال ویران‌شده',    color: '#C86A8A', minVersion: '1.16.1', icon: 'crying-obsidian-item' },
+  { id: 'ocean_ruin',       name: 'Ocean Ruin',       fa: 'ویرانه اقیانوسی',    color: '#5FA8A0', minVersion: '1.13', icon: 'stone-bricks' },
+  { id: 'shipwreck',        name: 'Shipwreck',        fa: 'کشتی شکسته',         color: '#A0683C', minVersion: '1.13', icon: 'oak-planks' },
+  { id: 'ancient_city',     name: 'Ancient City',     fa: 'شهر باستانی',        color: '#8A8AB0', minVersion: '1.19.2', icon: 'deepslate-bricks' },
   { id: 'trail_ruins',      name: 'Trail Ruins',      fa: 'ویرانه‌های مسیر',    color: '#C8A888', minVersion: '1.20' },
   { id: 'trial_chambers',   name: 'Trial Chambers',   fa: 'اتاق‌های آزمون',     color: '#D08A4A', minVersion: '1.21.1' },
-  { id: 'buried_treasure',  name: 'Buried Treasure',  fa: 'گنج دفن‌شده',        color: '#E8C84A', minVersion: '1.13' },
+  { id: 'buried_treasure',  name: 'Buried Treasure',  fa: 'گنج دفن‌شده',        color: '#E8C84A', minVersion: '1.13', icon: 'chest' },
   { id: 'mineshaft',        name: 'Mineshaft',        fa: 'معدن متروکه',        color: '#9A9A9A', minVersion: 'Beta 1.8' },
-  { id: 'desert_well',      name: 'Desert Well',      fa: 'چاه صحرا',           color: '#C8B888', minVersion: '1.13' },
-  { id: 'dungeon',          name: 'Dungeon (Spawner)', fa: 'اسپانتر (سیو)',     color: '#6E6E6E', minVersion: 'Beta 1.8', icon: 'monster-spawner' }
+  { id: 'desert_well',      name: 'Desert Well',      fa: 'چاه صحرا',           color: '#C8B888', minVersion: '1.13', icon: 'sandstone' },
+  { id: 'dungeon',          name: 'Dungeon (Spawner)', fa: 'اسپانتر (سیو)',     color: '#6E6E6E', minVersion: 'Beta 1.8', icon: 'monster-spawner' },
+  { id: 'stronghold',       name: 'Stronghold (End Portal)', fa: 'استرانگ‌هولد (اند پورتال)', color: '#1A8A8A', minVersion: 'Beta 1.8', icon: 'end-portal' }
 ];
 
 /* Persian biome names (modern + legacy). Keyed by internal engine name. */
@@ -312,6 +317,16 @@ JavaRandom.prototype.nextInt = function (bound) {
   } while (bits - val + (bound - 1) < 0);
   return val;
 };
+// Java's nextDouble: (((long)next(26) << 27) + next(27)) / 2^53
+JavaRandom.prototype.nextDouble = function () {
+  var hi = this.next(26);
+  var lo = this.next(27);
+  return (hi * 0x8000000 + lo) / 0x20000000000000; // (hi*2^27 + lo) / 2^53
+};
+// Java's nextFloat: next(24) / 2^24
+JavaRandom.prototype.nextFloat = function () {
+  return this.next(24) / 0x1000000; // 2^24 = 16777216
+};
 
 /**
  * Dungeon (monster-room / spawner) candidate position for chunk (cx, cz).
@@ -340,6 +355,70 @@ function getDungeonPosJS(seed, cx, cz) {
   return { x: x, z: z, pass: roll < 8 };
 }
 
+/* ─── Stronghold (End Portal) algorithm ──────────────────────────────
+ * Pure-JS port of Minecraft Java's stronghold ring placement. The wasm
+ * binding doesn't expose strongholds, so we compute the 128 positions with
+ * the documented ring algorithm: start angle = nextDouble(seed)*2π, then
+ * per stronghold a distance draw (nextDouble) places it within its ring.
+ *
+ * Rings (count / min-distance): 3@1408, 6@2688, 10@3968, 15@5248,
+ * 21@6528, 28@7808, 36@9088, 9@10368. Each spans 1280 blocks. Positions
+ * are exact (match vanilla Java). */
+var SH_RINGS = [
+  { count: 3, dist: 1408 },
+  { count: 6, dist: 2688 },
+  { count: 10, dist: 3968 },
+  { count: 15, dist: 5248 },
+  { count: 21, dist: 6528 },
+  { count: 28, dist: 7808 },
+  { count: 36, dist: 9088 },
+  { count: 9, dist: 10368 }
+];
+var SH_TOTAL = 128; // 3+6+10+15+21+28+36+9
+
+function getStrongholdPosJS(seed, idx) {
+  if (idx < 0 || idx >= SH_TOTAL) return null;
+  var rnd = new JavaRandom(seed);
+  var angleStart = rnd.nextDouble() * 2 * Math.PI;
+  // advance the RNG past every stronghold before idx (each drew one nextDouble
+  // for its distance — draws are sequential regardless of ring)
+  for (var i = 0; i < idx; i++) rnd.nextDouble();
+  // find which ring idx lives in
+  var acc = 0, ring = 0, inRing = 0;
+  for (var r = 0; r < 8; r++) {
+    if (idx < acc + SH_RINGS[r].count) { ring = r; inRing = idx - acc; break; }
+    acc += SH_RINGS[r].count;
+  }
+  var a = angleStart + (2 * Math.PI * inRing / SH_RINGS[ring].count);
+  var dist = SH_RINGS[ring].dist + rnd.nextDouble() * 1280;
+  return {
+    x: Math.round(Math.cos(a) * dist),
+    z: Math.round(Math.sin(a) * dist),
+    ring: ring, inRing: inRing, idx: idx
+  };
+}
+
+/* Approximate end-portal eye count (0–12) for a stronghold at (shX, shZ).
+ * Each of the 12 portal frames has a 10% chance of holding an eye, rolled
+ * from the stronghold's chunk-feature seed. This matches the vanilla
+ * distribution (expected 1.2 eyes) but the exact per-frame RNG sequence
+ * inside stronghold piece generation isn't fully replicated, so treat the
+ * count as a close estimate (±1–2) rather than exact. */
+function getStrongholdEyesJS(seed, shX, shZ) {
+  var cx = shX >> 4, cz = shZ >> 4; // chunk coords of the stronghold
+  var cs = (BigInt.asUintN(64, seed)
+    + BigInt(cx) * BigInt(cx) * 4983722n
+    + BigInt(cx) * 5947611n
+    + BigInt(cz) * BigInt(cz) * 4394151n
+    + BigInt(cz) * 390015n) & JR_MASK;
+  var rnd = new JavaRandom(cs);
+  var eyes = 0;
+  for (var i = 0; i < 12; i++) {
+    if (rnd.nextFloat() < 0.1) eyes++;
+  }
+  return eyes;
+}
+
 function SeedMapEngine(mod) {
   this.m = mod;
   this._seed = 0n;
@@ -352,6 +431,7 @@ function SeedMapEngine(mod) {
   this._buf = 0;
   this._bufCells = 0;
   this._structCache = {};
+  this._strongholdCache = null;
   this._verIdByLabel = {};
   this._biomeNames = new Map();
   this._structs = STRUCTURES.map(function (s) {
@@ -374,7 +454,10 @@ var REGION_SIZE = {
   monument: 32, mansion: 80, pillager_outpost: 32, ruined_portal: 40,
   ocean_ruin: 20, shipwreck: 24, ancient_city: 24, trail_ruins: 34,
   trial_chambers: 34, buried_treasure: 1, mineshaft: 1, desert_well: 1,
-  dungeon: 1
+  dungeon: 1,
+  // stronghold: large pseudo-region so it gets its own scan group; actual
+  // positions come from getStrongholdPosJS (ring algorithm), not chunk scanning
+  stronghold: 128
 };
 
 SeedMapEngine.prototype._rebuildBiomeNames = function () {
@@ -393,6 +476,7 @@ SeedMapEngine.prototype._rebuildBiomeNames = function () {
 SeedMapEngine.prototype._createCtx = function () {
   if (this._ctx) { try { this.m._wb_destroy(this._ctx); } catch (e) { /* noop */ } this._ctx = 0; }
   this._structCache = {};
+  this._strongholdCache = null; // stronghold positions depend on (seed, version)
   this._ctx = this.m._wb_create(this._versionId, this._seed);
   return !!this._ctx;
 };
@@ -503,6 +587,36 @@ SeedMapEngine.prototype.biomeTexture = function (id) {
   return null;
 };
 
+/* Compute (and cache) all 128 stronghold positions + their end-portal eye
+ * count for the current seed. Cheap (~129 JS RNG sequences) and reused for
+ * every viewport scan + the "find nearest" action. */
+SeedMapEngine.prototype._getStrongholds = function () {
+  if (this._strongholdCache) return this._strongholdCache;
+  var list = [];
+  for (var i = 0; i < SH_TOTAL; i++) {
+    var p = getStrongholdPosJS(this._seed, i);
+    if (!p) continue;
+    var eyes = getStrongholdEyesJS(this._seed, p.x, p.z);
+    list.push({ id: 'stronghold', x: p.x, z: p.z, eyes: eyes, idx: p.idx, ring: p.ring });
+  }
+  this._strongholdCache = list;
+  return list;
+};
+
+/* Nearest stronghold to block (x, z). Searches all 128 — works even when the
+ * stronghold is far outside the current viewport (unlike the markers list). */
+SeedMapEngine.prototype.findNearestStronghold = function (x, z) {
+  var all = this._getStrongholds();
+  var best = null, bestD = Infinity;
+  for (var i = 0; i < all.length; i++) {
+    var s = all[i];
+    var dx = s.x - x, dz = s.z - z;
+    var d = dx * dx + dz * dz;
+    if (d < bestD) { bestD = d; best = s; }
+  }
+  return best;
+};
+
 /**
  * Generate biomes for a block rect. data[j*(w/cell) + i] = biome id at
  * block (x0 + i*cell, z0 + j*cell). cell = scale (4 = biome quart res).
@@ -600,9 +714,25 @@ SeedMapEngine.prototype.getStructures = function (ids, rx0, rz0, rx1, rz1) {
   var posPtr = this._posPtr;
   var out = [];
   var self = this;
-  var total = (rx1 - rx0 + 1) * (rz1 - rz0 + 1) * ids.length;
+  // strongholds are handled by the JS ring algorithm (not chunk scanning), so
+  // pull them out before the per-chunk loop. The query rect (rx0..rx1 etc.) is
+  // in region indices; for stronghold regionSize=128, step=16*128=2048 blocks.
+  var strongholdIds = ids.filter(function (id) { return id === 'stronghold'; });
+  var chunkIds = ids.filter(function (id) { return id !== 'stronghold'; });
+  if (strongholdIds.length) {
+    var all = self._getStrongholds();
+    var step = 16 * 128;
+    var bx0 = rx0 * step, bz0 = rz0 * step;
+    var bx1 = (rx1 + 1) * step, bz1 = (rz1 + 1) * step;
+    for (var si = 0; si < all.length; si++) {
+      var s = all[si];
+      if (s.x >= bx0 && s.x <= bx1 && s.z >= bz0 && s.z <= bz1) out.push(s);
+    }
+  }
+  if (!chunkIds.length) return out;
+  var total = (rx1 - rx0 + 1) * (rz1 - rz0 + 1) * chunkIds.length;
   if (total > 250000) return out; // hard safety cap
-  ids.forEach(function (id) {
+  chunkIds.forEach(function (id) {
     var idx = self._structs.find(function (s) { return s.id === id; });
     if (!idx) return;
     var cache = self._structCache[id];
