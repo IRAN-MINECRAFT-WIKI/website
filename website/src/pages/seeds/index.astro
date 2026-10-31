@@ -53,66 +53,60 @@ const badgeLetter = (code: string) => {
   title="نقشه سید ماینکرافت — ابزار جستجو و مشاهده بیوم‌ها | MineBed"
   description="نقشه سید ماینکرافت آنلاین: بیوم‌ها، دهکده‌ها، معادن و ساختارها را برای هر سیدی ببینید؛ با پیداکننده سید، بهترین سیدهای اسپاون را پیدا کنید یا از بین سیدهای منتخب و تست‌شده انتخاب کنید."
 >
-  <div id="seedmapRoot">
+  <div id="seedmapRoot" class="seed-page">
     <Breadcrumbs items={breadcrumb} />
 
-    <!-- ── Page header ─────────────────────────────────────────────── -->
-    <div class="mb-5">
-      <h1 class="text-2xl lg:text-3xl font-extrabold mb-2">نقشه سید ماینکرافت</h1>
-      <p class="text-sm text-mc-text-2">
-        بیوم‌ها و ساختارهای هر سیدی را روی نقشه ببین، سید مناسب اسپاون پیدا کن یا از میان سیدهای منتخب انتخاب کن.
-      </p>
-    </div>
-
-    <!-- ── Tabs ────────────────────────────────────────────────────── -->
-    <nav class="seed-tabs" role="tablist" aria-label="بخش‌های ابزار سید">
-      <button id="tabBtnMap" type="button" class="seed-tab active" data-tab="map" role="tab" aria-selected="true" aria-controls="tab-map">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-map" /></svg>
-        نقشه سید
-      </button>
-      <button id="tabBtnList" type="button" class="seed-tab" data-tab="list" role="tab" aria-selected="false" aria-controls="tab-list">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-seed" /></svg>
-        سیدهای منتخب
-      </button>
-    </nav>
-
-    <!-- ══════════════════════════════════════════════════════════════
-         TAB 1 — Seed Map
-         ══════════════════════════════════════════════════════════════ -->
-    <section id="tab-map" role="tabpanel" aria-labelledby="tabBtnMap">
-      <!-- Toolbar -->
-      <div class="mc-panel p-3 mb-4 flex flex-wrap items-center gap-2">
-        <label for="seedInput" class="text-xs font-bold text-mc-text-3">سید:</label>
+    <!-- ── Compact toolbar: tabs + seed input + actions in ONE row ── -->
+    <div class="seed-toolbar mc-panel">
+      <nav class="seed-tabs" role="tablist" aria-label="بخش‌های ابزار سید">
+        <button id="tabBtnMap" type="button" class="seed-tab active" data-tab="map" role="tab" aria-selected="true" aria-controls="tab-map">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-map" /></svg>
+          نقشه
+        </button>
+        <button id="tabBtnList" type="button" class="seed-tab" data-tab="list" role="tab" aria-selected="false" aria-controls="tab-list">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-seed" /></svg>
+          منتخب
+        </button>
+      </nav>
+      <div class="seed-controls">
         <input
           id="seedInput"
           type="text"
           dir="ltr"
-          class="sw-input flex-1 min-w-[170px] max-w-[270px] py-1.5 px-2 text-sm"
-          placeholder="مثلاً 12345 یا MySeed"
+          class="sw-input seed-input"
+          placeholder="سید…"
           maxlength="64"
           autocomplete="off"
           spellcheck="false"
+          aria-label="کد سید"
         />
-        <label for="versionSelect" class="text-xs font-bold text-mc-text-3">نسخه:</label>
-        <select id="versionSelect" class="sw-input py-1.5 px-2 text-xs max-w-[200px]" aria-label="نسخه تولید نقشه"></select>
-        <button id="showMapBtn" type="button" class="mc-btn small">
+        <select id="versionSelect" class="sw-input version-select" aria-label="نسخه تولید نقشه"></select>
+        <button id="showMapBtn" type="button" class="mc-btn small" title="نمایش نقشه این سید">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-map" /></svg>
-          نمایش نقشه
+          <span class="btn-label">نمایش</span>
         </button>
-        <button id="randomSeedBtn" type="button" class="mc-btn small ghost">
+        <button id="randomSeedBtn" type="button" class="mc-btn small ghost icon-only" title="سید تصادفی" aria-label="سید تصادفی">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-dice" /></svg>
-          سید تصادفی
         </button>
-        <button id="finderOpenBtn" type="button" class="mc-btn small ghost">
+        <button id="finderOpenBtn" type="button" class="mc-btn small ghost icon-only" title="پیدا کردن سید" aria-label="پیدا کردن سید">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-search" /></svg>
-          پیدا کردن سید
         </button>
-        <button id="copyLinkBtn" type="button" class="mc-btn small ghost">
+        <button id="copyLinkBtn" type="button" class="mc-btn small ghost icon-only" title="کپی لینک" aria-label="کپی لینک">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-clipboard" /></svg>
-          کپی لینک
+        </button>
+        <button id="legendToggleBtn" type="button" class="mc-btn small ghost icon-only legend-toggle" title="راهنما و فیلترها" aria-label="راهنما و فیلترها">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+        <button id="fullscreenBtn" type="button" class="mc-btn small ghost icon-only" title="حالت تمام‌صفحه" aria-label="حالت تمام‌صفحه">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
         </button>
       </div>
+    </div>
 
+    <!-- ══════════════════════════════════════════════════════════════
+         TAB 1 — Seed Map (fills remaining viewport height)
+         ══════════════════════════════════════════════════════════════ -->
+    <section id="tab-map" role="tabpanel" aria-labelledby="tabBtnMap" class="map-section">
       <!-- Map + legend -->
       <div class="map-layout">
         <!-- Main map column -->
@@ -292,6 +286,7 @@ const badgeLetter = (code: string) => {
             </div>
           </details>
         </aside>
+        <div id="legendBackdrop" class="map-legend-backdrop"></div>
       </div>
     </section>
 
@@ -528,6 +523,7 @@ const badgeLetter = (code: string) => {
     var legendDetails, legendStructs, structMaster, legendBiomes, finderOverlay, finderStructs;
     var nearbyStructs, nearbyHint, goNearestBtn;
     var searchPanel, searchFeatureList, searchRadius, searchEyes, searchLimit, searchGoBtn, searchProgress, searchResult;
+    var legendToggleBtn, fullscreenBtn, legendBackdrop;
     var finderBiomes, finderRadius, finderCount, finderMaxDist, finderVersion, finderStart;
     var finderStop, finderProgress, finderChecked, finderFound, finderResults, seedToast;
 
@@ -568,6 +564,9 @@ const badgeLetter = (code: string) => {
       searchGoBtn = $('searchGoBtn');
       searchProgress = $('searchProgress');
       searchResult = $('searchResult');
+      legendToggleBtn = $('legendToggleBtn');
+      fullscreenBtn = $('fullscreenBtn');
+      legendBackdrop = $('legendBackdrop');
       finderOverlay = $('finderOverlay');
       finderStructs = $('finderStructs');
       finderBiomes = $('finderBiomes');
@@ -2500,6 +2499,40 @@ const badgeLetter = (code: string) => {
         copyText(location.href, 'لینک کپی شد');
       });
 
+      /* legend drawer toggle (mobile) — slides the sidebar in/out */
+      if (legendToggleBtn) {
+        legendToggleBtn.addEventListener('click', function () {
+          var aside = root.querySelector('.map-legend');
+          if (!aside) return;
+          aside.classList.toggle('open');
+          if (legendBackdrop) legendBackdrop.classList.toggle('open', aside.classList.contains('open'));
+        });
+      }
+      if (legendBackdrop) {
+        legendBackdrop.addEventListener('click', function () {
+          var aside = root.querySelector('.map-legend');
+          if (aside) aside.classList.remove('open');
+          legendBackdrop.classList.remove('open');
+        });
+      }
+
+      /* fullscreen toggle — hides the toolbar so the map fills the viewport */
+      if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', function () {
+          root.classList.toggle('fullscreen');
+          fullscreenBtn.setAttribute('aria-pressed', root.classList.contains('fullscreen') ? 'true' : 'false');
+          // resize the canvas after the layout settles
+          setTimeout(function () { resizeCanvas(); }, 60);
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && root.classList.contains('fullscreen')) {
+            root.classList.remove('fullscreen');
+            fullscreenBtn.setAttribute('aria-pressed', 'false');
+            setTimeout(function () { resizeCanvas(); }, 60);
+          }
+        });
+      }
+
       $('zoomIn').addEventListener('click', function () {
         if (!engineReady) return;
         zoomTo(stepZoom(-1), cssW / 2, cssH / 2);
@@ -2599,13 +2632,122 @@ const badgeLetter = (code: string) => {
     .seed-tab { flex: 1 1 calc(50% - 0.5rem); min-width: 0; font-size: 0.75rem; padding: 0.5rem 0.4rem; }
   }
 
-  /* ── map layout: legend on the RIGHT in RTL (grid col 1) on lg ── */
-  .map-layout { display: grid; gap: 1rem; align-items: start; }
-  @media (min-width: 1024px) {
-    .map-layout { grid-template-columns: 300px minmax(0, 1fr); }
-    .map-legend { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; gap: 0.75rem; }
-    .map-main { grid-column: 2; grid-row: 1; }
+  /* ── map-first page layout: fills viewport, map dominates ─────── */
+  .seed-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 56px); /* viewport minus site header height */
+    min-height: 400px;
+    gap: 0.5rem;
+    overflow: hidden;
   }
+  .seed-page > nav:first-child { flex-shrink: 0; } /* breadcrumbs */
+  @media (max-width: 1023px) {
+    .seed-page { height: calc(100vh - 50px); }
+  }
+
+  /* compact toolbar: tabs + controls in ONE row */
+  .seed-toolbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    flex-wrap: wrap;
+  }
+  .seed-toolbar .seed-tabs { flex-shrink: 0; }
+  .seed-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+  .seed-input {
+    flex: 1 1 120px;
+    min-width: 80px;
+    max-width: 220px;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  .version-select {
+    max-width: 130px;
+    padding: 0.35rem 0.4rem;
+    font-size: 0.72rem;
+  }
+  .seed-toolbar .icon-only { padding: 0.4rem 0.5rem; min-width: 34px; min-height: 34px; display: inline-flex; align-items: center; justify-content: center; }
+  .seed-toolbar .btn-label { display: inline; }
+
+  /* mobile: compact 2-row toolbar (tabs+input on row 1, icon actions on row 2) */
+  @media (max-width: 1023px) {
+    .seed-toolbar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.25rem;
+      padding: 0.3rem 0.4rem;
+    }
+    .seed-toolbar .seed-tabs { width: auto; }
+    .seed-toolbar .seed-tab { padding: 0.35rem 0.5rem; font-size: 0.72rem; }
+    .seed-controls {
+      flex-wrap: nowrap;
+      gap: 0.25rem;
+    }
+    .seed-input { flex: 1 1 90px; min-width: 70px; max-width: none; font-size: 0.75rem; padding: 0.3rem 0.4rem; }
+    .version-select { max-width: 95px; font-size: 0.68rem; padding: 0.3rem 0.3rem; }
+    .seed-toolbar .btn-label { display: none; }
+    .seed-toolbar .mc-btn.small { padding: 0.3rem 0.45rem; min-height: 32px; }
+    .seed-toolbar .icon-only { min-width: 32px; min-height: 32px; padding: 0.3rem; }
+  }
+
+  /* map section fills remaining viewport height */
+  .map-section { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+  .map-section[hidden] { display: none; }
+  .map-layout { flex: 1 1 auto; min-height: 0; display: grid; gap: 0.5rem; grid-template-rows: minmax(0, 1fr); }
+  .map-main { min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+  /* list tab scrolls normally when visible */
+  #tab-list { flex: 1 1 auto; overflow-y: auto; padding-bottom: 2rem; }
+  #tab-list[hidden] { display: none; }
+
+  /* ── map layout: legend sidebar on desktop, drawer on mobile ── */
+  @media (min-width: 1024px) {
+    .map-layout { grid-template-columns: 290px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+    .map-legend { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; gap: 0.5rem; max-height: 100%; min-height: 0; overflow: hidden; }
+    .map-legend > details { min-height: 0; }
+    .map-legend > details[open] .legend-body, .map-legend > details[open] .search-body { max-height: calc(100vh - 220px); overflow-y: auto; }
+    .map-main { grid-column: 2; grid-row: 1; min-height: 0; }
+    .legend-toggle { display: none !important; }
+  }
+  @media (max-width: 1023px) {
+    .map-layout { grid-template-columns: 1fr; }
+    .map-main { grid-column: 1; grid-row: 1; min-height: 0; }
+    /* sidebar becomes a slide-in drawer from the right (RTL) */
+    .map-legend {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(340px, 85vw);
+      z-index: 80;
+      background: var(--bg, #0e0e1a);
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+      overflow-y: auto;
+      padding: 1rem;
+      box-shadow: -4px 0 24px rgba(0,0,0,0.5);
+    }
+    .map-legend.open { transform: translateX(0); }
+    .map-legend-backdrop {
+      position: fixed; inset: 0; z-index: 79;
+      background: rgba(0,0,0,0.5);
+      display: none;
+    }
+    .map-legend-backdrop.open { display: block; }
+  }
+
+  /* fullscreen mode: hide toolbar + breadcrumbs, map fills everything */
+  .seed-page.fullscreen .seed-toolbar,
+  .seed-page.fullscreen > nav:first-child { display: none; }
+  .seed-page.fullscreen .map-section { flex: 1 1 auto; }
+  .seed-page.fullscreen .map-layout { height: 100%; }
 
   /* ── seed search panel (in the side menu) ─────────────────────── */
   .search-panel { margin-top: 0; }
@@ -2684,11 +2826,13 @@ const badgeLetter = (code: string) => {
     padding: 0;
     overflow: hidden;
     background: #10101f;
+    height: 100%;
+    min-height: 300px;
   }
   #seedCanvas {
     display: block;
     width: 100%;
-    height: clamp(340px, 70vh, 640px);
+    height: 100%;
     cursor: grab;
     touch-action: none;
     image-rendering: pixelated;
