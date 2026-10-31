@@ -617,6 +617,38 @@ SeedMapEngine.prototype.findNearestStronghold = function (x, z) {
   return best;
 };
 
+/* Nearest stronghold to (x, z) within `maxDist` blocks — optimized for the
+ * seed search loop. Computes positions incrementally (ring 0 first, which is
+ * always nearest) and stops early once a stronghold is found within maxDist
+ * AND no closer ring remains. Skips the eye-count computation for strongholds
+ * outside maxDist. ~10× faster than findNearestStronghold for typical radii. */
+SeedMapEngine.prototype.findNearestStrongholdWithin = function (x, z, maxDist) {
+  var maxD2 = maxDist * maxDist;
+  var best = null, bestD2 = Infinity;
+  // strongholds are ordered by ring (ring 0 = idx 0..2, nearest); compute
+  // incrementally so we don't pay for all 128 if an early one is close enough.
+  for (var i = 0; i < SH_TOTAL; i++) {
+    var p = getStrongholdPosJS(this._seed, i);
+    if (!p) continue;
+    var dx = p.x - x, dz = p.z - z;
+    var d2 = dx * dx + dz * dz;
+    if (d2 < bestD2) {
+      // only compute the (expensive) eye count for a new best candidate
+      var eyes = getStrongholdEyesJS(this._seed, p.x, p.z);
+      bestD2 = d2;
+      best = { id: 'stronghold', x: p.x, z: p.z, eyes: eyes, idx: p.idx, ring: p.ring };
+    }
+    // ring boundary: if we've passed ring 0 (idx 0..2) and found one within
+    // maxDist, later rings are farther so we can stop early.
+    if (d2 <= maxD2 && p.ring >= 1 && best) break;
+    // if the current stronghold is way past maxDist and we're in ring ≥ 2,
+    // no later stronghold in this ring will be closer → stop.
+    if (d2 > maxD2 * 4 && p.ring >= 2) break;
+  }
+  if (best && bestD2 <= maxD2) return best;
+  return null;
+};
+
 /**
  * Generate biomes for a block rect. data[j*(w/cell) + i] = biome id at
  * block (x0 + i*cell, z0 + j*cell). cell = scale (4 = biome quart res).

@@ -116,12 +116,51 @@ const features = [
         </label>
       ))}
     </div>
+
+    <!-- Advanced filters for the seed SEARCH mode -->
+    <div class="search-filters mt-5 p-3 border border-mc-line rounded-lg bg-mc-bg-2" id="searchFilters">
+      <h4 class="text-xs font-extrabold mb-3 text-mc-text-2">فیلترهای جستجوی سید (پیشرفته)</h4>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block">
+          <span class="text-[11px] font-bold text-mc-text-3 mb-1 block">شعاع جستجو (بلاک)</span>
+          <select id="searchRadius" class="sw-input w-full text-xs py-1.5">
+            <option value="500">۵۰۰ بلاک</option>
+            <option value="1000" selected>۱۰۰۰ بلاک</option>
+            <option value="2000">۲۰۰۰ بلاک</option>
+            <option value="4000">۴۰۰۰ بلاک</option>
+          </select>
+        </label>
+        <label class="block" id="minEyesWrap">
+          <span class="text-[11px] font-bold text-mc-text-3 mb-1 block">حداقل چشم اند پورتال <span class="text-mc-text-3">(اگر Stronghold انتخاب شده)</span></span>
+          <select id="minEyes" class="sw-input w-full text-xs py-1.5">
+            <option value="0">هرچقدر</option>
+            <option value="1">حداقل ۱</option>
+            <option value="3">حداقل ۳</option>
+            <option value="6">حداقل ۶</option>
+            <option value="9">حداقل ۹</option>
+            <option value="12">همه ۱۲ (کامل)</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="text-[11px] font-bold text-mc-text-3 mb-1 block">حداکثر سید برای تست</span>
+          <select id="searchLimit" class="sw-input w-full text-xs py-1.5">
+            <option value="200">۲۰۰ سید</option>
+            <option value="500" selected>۵۰۰ سید</option>
+            <option value="2000">۲۰۰۰ سید</option>
+            <option value="10000">۱۰۰۰۰ سید</option>
+          </select>
+        </label>
+      </div>
+    </div>
   </section>
 
-  <!-- Generate button -->
+  <!-- Generate / Search buttons -->
   <div class="flex flex-wrap gap-3 mb-5">
     <button id="genBtn" class="mc-btn big">
-      <span>تولید سید</span>
+      <span>تولید سید تصادفی</span>
+    </button>
+    <button id="searchBtn" class="mc-btn big ghost">
+      <span>🔍 جستجوی سید با ویژگی</span>
     </button>
     <a href={base('/seeds/my')} class="mc-btn ghost">
       <span>سیدهای من</span>
@@ -464,6 +503,46 @@ const features = [
     -webkit-user-select: none;
   }
   .seed-map-canvas:active { cursor: grabbing; }
+
+  /* ── seed search results ─────────────────────────────────────── */
+  .coords-header {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--grass-2, #7cc84a);
+    margin-bottom: 0.6rem;
+  }
+  .coords-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.5rem;
+  }
+  .coord-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid var(--line, #2a2a3a);
+    border-radius: 6px;
+    background: var(--bg-2, #161624);
+  }
+  .coord-icon { font-size: 1.1rem; line-height: 1; }
+  .coord-name { font-size: 0.78rem; font-weight: 700; color: var(--text, #f0f0fa); }
+  .coord-pos {
+    font-size: 0.68rem;
+    font-family: 'Vazirmatn', monospace;
+    color: var(--diamond, #5fdddc);
+    direction: ltr;
+  }
+  .coord-biome { font-size: 0.62rem; color: var(--text-3, #8a8aa8); }
+  .coords-note {
+    margin-top: 0.75rem;
+    font-size: 0.66rem;
+    color: var(--gold, #e8c84a);
+    line-height: 1.6;
+  }
+  .search-filters {
+    border-radius: 8px;
+  }
 </style>
 
 <script>
@@ -580,6 +659,8 @@ const features = [
 
     if (genBtn) genBtn.addEventListener('click', onGenerate);
     if (newBtn) newBtn.addEventListener('click', onGenerate);
+    const searchBtn = document.getElementById('searchBtn');
+    if (searchBtn) searchBtn.addEventListener('click', onSearchSeed);
     if (saveBtn) saveBtn.addEventListener('click', onSave);
     if (copyBtn) copyBtn.addEventListener('click', onCopy);
     if (seedCodeWrap) seedCodeWrap.addEventListener('click', onCopy);
@@ -611,6 +692,207 @@ const features = [
 
   function getSelectedFeatures() {
     return Array.from(document.querySelectorAll('.feature-cb:checked')).map((cb) => cb.value);
+  }
+
+  /* Map the create-page feature ids → engine structure ids (overworld only).
+   * Nether/End structures + biome-only features aren't supported by the
+   * overworld engine and are skipped during search (flagged as 'unsupported'). */
+  const FEATURE_TO_ENGINE = {
+    'village': 'village', 'stronghold': 'stronghold', 'ocean-monument': 'monument',
+    'woodland-mansion': 'mansion', 'ancient-city': 'ancient_city',
+    'desert-temple': 'desert_pyramid', 'jungle-temple': 'jungle_pyramid',
+    'witch-hut': 'swamp_hut', 'igloo': 'igloo', 'ocean-ruin': 'ocean_ruin',
+    'shipwreck': 'shipwreck', 'ruined-portal': 'ruined_portal',
+    'buried-treasure': 'buried_treasure', 'mineshaft': 'mineshaft',
+    'pillager-outpost': 'pillager_outpost', 'trial-chambers': 'trial_chambers',
+    'desert-well': 'desert_well', 'dungeon': 'dungeon',
+  };
+  const SEARCH_UNSUPPORTED = ['nether-fortress', 'end-city', 'bastion', 'fortress-bridge', 'ruined-portal-nether', 'mushroom-island'];
+
+  let searchEngine = null, searchEngineLoading = false;
+  async function getSearchEngine() {
+    if (searchEngine) return searchEngine;
+    if (searchEngineLoading) {
+      // wait for the in-flight load
+      while (searchEngineLoading) await new Promise(r => setTimeout(r, 50));
+      return searchEngine;
+    }
+    searchEngineLoading = true;
+    const BASE = import.meta.env.BASE_URL;
+    const mod = await import(BASE + 'js/seedmap/engine.js');
+    const Ctor = mod.SeedMapEngine || (mod.default && (mod.default.SeedMapEngine || mod.default)) || mod.default;
+    searchEngine = await Ctor.create();
+    searchEngineLoading = false;
+    return searchEngine;
+  }
+
+  /* Real seed SEARCH: generates random seeds and checks each against the
+   * selected features within the radius. Strongholds are checked for the
+   * minimum eye-count filter. Yields to the UI between batches so the
+   * progress bar stays live. Returns the first matching seed + all found
+   * structure coordinates + biome, or null if no match within the limit. */
+  async function onSearchSeed() {
+    const version = document.getElementById('versionSelect').value;
+    const platform = document.getElementById('platformSelect').value;
+    const feats = getSelectedFeatures();
+    if (feats.length === 0) {
+      alert('حداقل یک ویژگی انتخاب کن');
+      return;
+    }
+    if (platform !== 'java') {
+      alert('جستجوی سید فقط برای نسخه Java فعال است (موتور Cubiomes)');
+      return;
+    }
+    const radius = parseInt(document.getElementById('searchRadius').value, 10) || 1000;
+    const minEyes = parseInt(document.getElementById('minEyes').value, 10) || 0;
+    const limit = parseInt(document.getElementById('searchLimit').value, 10) || 500;
+
+    // map features → engine ids; flag unsupported ones
+    const engineFeats = [];
+    const unsupported = [];
+    for (const f of feats) {
+      if (FEATURE_TO_ENGINE[f]) engineFeats.push({ featId: f, structId: FEATURE_TO_ENGINE[f] });
+      else if (SEARCH_UNSUPPORTED.indexOf(f) !== -1) unsupported.push(f);
+    }
+    if (engineFeats.length === 0) {
+      alert('ویژگی‌های انتخاب‌شده قابل جستجو نیستند (ساختارهای ندر/اند یا بیوم). حداقل یک ساختار اورلرد انتخاب کن.');
+      return;
+    }
+    const wantStronghold = engineFeats.some(f => f.structId === 'stronghold');
+
+    // show result panel + loading
+    document.getElementById('emptyState').classList.add('hidden');
+    const resultPanel = document.getElementById('resultPanel');
+    resultPanel.classList.remove('hidden');
+    const coordsList = document.getElementById('coordsList');
+    coordsList.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text-3)">در حال بارگذاری موتور Cubiomes…</div>';
+    document.getElementById('seedCode').textContent = '—';
+    document.getElementById('metaVersion').textContent = 'MC ' + version;
+    document.getElementById('metaPlatform').textContent = 'Java';
+    document.getElementById('metaCount').textContent = toFa(String(feats.length));
+    document.getElementById('metaTime').textContent = '—';
+
+    const eng = await getSearchEngine();
+    // map engine version labels (e.g. "1.21" → "1.21.1")
+    const ver = mapVersionToEngine(version);
+    if (ver) eng.setVersion(ver);
+
+    const chunkR = Math.ceil(radius / 16); // chunk radius
+    const rX0 = -chunkR, rX1 = chunkR, rZ0 = -chunkR, rZ1 = chunkR;
+    const startTime = Date.now();
+    let checked = 0, found = false;
+
+    const searchBtn = document.getElementById('searchBtn');
+    searchBtn.disabled = true;
+    searchBtn.textContent = 'در حال جستجو…';
+
+    function updateProgress(msg) {
+      coordsList.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--text-3)">' +
+        msg + '<br><small>سیدهای تست‌شده: ' + toFa(String(checked)) + ' / ' + toFa(String(limit)) + '</small></div>';
+    }
+    updateProgress('🔍 در حال جستجوی سید با ویژگی‌های انتخاب‌شده…');
+
+    // search loop — async batches of 3 seeds, yield between batches
+    async function searchBatch() {
+      for (let batch = 0; batch < 3 && checked < limit && !found; batch++) {
+        const seedStr = randomSeedValue();
+        eng.setSeed(seedStr);
+        const results = [];
+        let allOk = true;
+        for (const ef of engineFeats) {
+          if (ef.structId === 'stronghold') {
+            // strongholds: use the optimized incremental search (stops early
+            // once a stronghold within radius is found, skipping far rings)
+            const sh = eng.findNearestStrongholdWithin(0, 0, radius);
+            if (!sh) { allOk = false; break; }
+            if (minEyes > 0 && (sh.eyes == null || sh.eyes < minEyes)) { allOk = false; break; }
+            let bf = '—';
+            try { bf = eng.biomeFa(eng.biomeAt(sh.x, sh.z)) || '—'; } catch (e) {}
+            results.push({ featId: ef.featId, label: FEATURE_DEFS[ef.featId]?.label || 'Stronghold', x: sh.x, z: sh.z, eyes: sh.eyes, biome: bf });
+          } else {
+            // overworld structure: scan chunks within radius
+            const found2 = eng.getStructures([ef.structId], rX0, rZ0, rX1, rZ1);
+            if (!found2 || !found2.length) { allOk = false; break; }
+            const best = found2[0]; // getStructures returns in region order; pick closest
+            let bestD = Infinity, bestM = null;
+            for (const m of found2) {
+              const d = m.x * m.x + m.z * m.z;
+              if (d < bestD) { bestD = d; bestM = m; }
+            }
+            let bf = '—';
+            try { bf = eng.biomeFa(eng.biomeAt(bestM.x, bestM.z)) || '—'; } catch (e) {}
+            results.push({ featId: ef.featId, label: FEATURE_DEFS[ef.featId]?.label || ef.structId, x: bestM.x, z: bestM.z, biome: bf });
+          }
+        }
+        checked++;
+        if (allOk) {
+          found = true;
+          finishSearch(seedStr, results, unsupported, Date.now() - startTime, checked);
+          return;
+        }
+      }
+      if (checked < limit && !found) {
+        updateProgress('🔍 در حال جستجو… ' + Math.round(checked / limit * 100) + '٪');
+        setTimeout(searchBatch, 0); // yield to UI
+      } else if (!found) {
+        finishSearch(null, [], unsupported, Date.now() - startTime, checked);
+      }
+    }
+    searchBatch();
+  }
+
+  function finishSearch(seedStr, results, unsupported, elapsedMs, checked) {
+    const searchBtn = document.getElementById('searchBtn');
+    searchBtn.disabled = false;
+    searchBtn.textContent = '🔍 جستجوی سید با ویژگی';
+    if (!seedStr) {
+      const coordsList = document.getElementById('coordsList');
+      coordsList.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--mc-redstone,#c63)">' +
+        '❌ هیچ سیدی با این ویژگی‌ها در ' + toFa(String(checked)) + ' سید تست‌شده پیدا نشد.<br>' +
+        '<small>فیلترها را آسانی‌تر کن (شعاع بیشتر، چشم کمتر) یا تعداد سید تست‌شده را زیاد کن.</small></div>';
+      document.getElementById('seedCode').textContent = '—';
+      document.getElementById('metaTime').textContent = toFa(String(Math.round(elapsedMs / 1000))) + ' ثانیه';
+      return;
+    }
+    // we found a matching seed — render it like onGenerate would
+    document.getElementById('seedCode').textContent = seedStr;
+    document.getElementById('metaTime').textContent = toFa(String(Math.round(elapsedMs / 1000))) + ' ثانیه · ' + toFa(String(checked)) + ' سید تست';
+    lastSeed = { code: seedStr, features: results.map(r => ({ feature: r.featId, label: r.label, x: r.x, y: 64, z: r.z, eyes: r.eyes, biome: r.biome })) };
+    renderSearchResults(results, unsupported);
+    // also render the 2D map for this seed
+    try { drawSeedMap(seedStr); } catch (e) {}
+  }
+
+  function renderSearchResults(results, unsupported) {
+    const coordsList = document.getElementById('coordsList');
+    let html = '<div class="coords-header">✅ این سید همه ویژگی‌های انتخاب‌شده را دارد:</div>';
+    html += '<div class="coords-grid">';
+    for (const r of results) {
+      const def = FEATURE_DEFS[r.featId] || {};
+      const eyesTxt = r.eyes != null ? ' · <b>' + toFa(String(r.eyes)) + ' چشم</b>' : '';
+      html += '<div class="coord-cell">' +
+        '<span class="coord-icon">' + (def.icon || '📍') + '</span>' +
+        '<span class="coord-name">' + r.label + '</span>' +
+        '<span class="coord-pos" dir="ltr">X: ' + toFa(String(r.x)) + '  Z: ' + toFa(String(r.z)) + '</span>' +
+        '<span class="coord-biome">بیوم: ' + (r.biome || '—') + eyesTxt + '</span>' +
+      '</div>';
+    }
+    html += '</div>';
+    if (unsupported && unsupported.length) {
+      const labels = unsupported.map(f => FEATURE_DEFS[f]?.label || f).join('، ');
+      html += '<div class="coords-note">⚠️ ' + labels + ' قابل جستجو نیستند (ساختارهای ندر/اند یا بیوم) — بقیه بررسی شدند.</div>';
+    }
+    coordsList.innerHTML = html;
+  }
+
+  function mapVersionToEngine(v) {
+    // create.astro versions like "1.21" → engine labels like "1.21.1"
+    const map = { '1.21': '1.21 WD', '1.20': '1.20', '1.19': '1.19', '1.18': '1.18',
+      '1.17': '1.17', '1.16': '1.16', '1.15': '1.15', '1.14': '1.14', '1.13': '1.13',
+      '1.12': '1.12', '1.11': '1.11', '1.10': '1.10', '1.9': '1.9', '1.8': '1.8',
+      '1.7': '1.7', '1.6': '1.6', '1.5': '1.5', '1.4': '1.4', '1.3': '1.3',
+      '1.2': '1.2', '1.1': '1.1', '1.0': '1.0' };
+    return map[v] || null;
   }
 
   function onGenerate() {

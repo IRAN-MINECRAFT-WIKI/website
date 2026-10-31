@@ -1197,12 +1197,11 @@ const badgeLetter = (code: string) => {
     }
 
     /* Render the N nearest ENABLED structures to the current view center as a
-     * clickable list. Clicking a row pans the map to that structure and drops
-     * a pin on it. Respects the per-type toggles — only checked structure
-     * types appear here, so the list doubles as a "structures around me" view
-     * that's fully user-configurable via the chip toggles above.
-     * Strongholds show their end-portal eye count (e.g. "۳ چشم") alongside
-     * the distance, since that's the key property players look for. */
+     * clickable list. Each row shows: colored dot + Persian name + direction +
+     * distance on line 1, and exact coordinates (X, Z) + the biome at the
+     * structure's location on line 2. Strongholds also show their end-portal
+     * eye count. Clicking a row pans the map to the structure and drops a pin.
+     * This is richer than Chunkbase's list (which only shows name + coords). */
     function updateNearbyStructs() {
       if (!nearbyStructs) return;
       var cx = state.cx, cz = state.cz;
@@ -1229,10 +1228,23 @@ const badgeLetter = (code: string) => {
         var t = top[k];
         var meta = structMeta.get(t.id);
         var dist = Math.round(Math.sqrt(t.d2));
+        // biome at the structure's location (richer than chunkbase which
+        // doesn't show per-structure biome in its list)
+        var biomeFa = '—';
+        if (engine) {
+          try {
+            var bid = engine.biomeAt(t.x, t.z);
+            var bf = engine.biomeFa(bid);
+            if (bf) biomeFa = bf;
+          } catch (e) { /* keep — */ }
+        }
         var row = document.createElement('button');
         row.type = 'button';
         row.className = 'nearby-row';
         row.setAttribute('role', 'listitem');
+        // line 1: dot + name + direction/distance (+eyes for strongholds)
+        var main = document.createElement('span');
+        main.className = 'nearby-main';
         var dot = document.createElement('span');
         dot.className = 'dot';
         dot.style.background = (meta && meta.color) || '#888888';
@@ -1243,14 +1255,18 @@ const badgeLetter = (code: string) => {
         inf.className = 'nearby-inf';
         inf.dir = 'ltr';
         var txt = directionOf(t.dx, t.dz) + ' · ' + faNum(dist) + ' بلاک';
-        // strongholds: append the (approximate) end-portal eye count
-        if (t.id === 'stronghold' && t.eyes != null) {
-          txt += ' · ' + faNum(t.eyes) + ' چشم';
-        }
+        if (t.id === 'stronghold' && t.eyes != null) txt += ' · ' + faNum(t.eyes) + ' چشم';
         inf.textContent = txt;
-        row.appendChild(dot);
-        row.appendChild(name);
-        row.appendChild(inf);
+        main.appendChild(dot);
+        main.appendChild(name);
+        main.appendChild(inf);
+        // line 2: exact coordinates + biome
+        var sub = document.createElement('span');
+        sub.className = 'nearby-sub';
+        sub.dir = 'ltr';
+        sub.textContent = 'X:' + faNum(t.x) + '  Z:' + faNum(t.z) + '  · بیوم: ' + biomeFa;
+        row.appendChild(main);
+        row.appendChild(sub);
         row.addEventListener('click', (function (mm) {
           return function () {
             state.cx = mm.x; state.cz = mm.z;
@@ -1260,6 +1276,7 @@ const badgeLetter = (code: string) => {
             scheduleScan();
             scheduleDraw();
             syncUrl();
+            showToast((structMeta.get(mm.id) && structMeta.get(mm.id).fa || mm.id) + ' · X:' + faNum(mm.x) + ' Z:' + faNum(mm.z));
           };
         })(t));
         nearbyStructs.appendChild(row);
@@ -2563,10 +2580,10 @@ const badgeLetter = (code: string) => {
   .nearby-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
   .nearby-row {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    flex-direction: column;
+    gap: 0.15rem;
     width: 100%;
-    padding: 0.4rem 0.5rem;
+    padding: 0.45rem 0.55rem;
     border: 1px solid var(--line, #2a2a3a);
     background: var(--bg-2, #161624);
     color: var(--text, #f0f0fa);
@@ -2581,6 +2598,23 @@ const badgeLetter = (code: string) => {
   }
   .nearby-row:active { transform: scale(0.985); }
   .nearby-row:focus-visible { outline: 2px solid var(--grass-2, #7cc84a); outline-offset: -2px; }
+  .nearby-main {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .nearby-sub {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--text-3, #8a8aa8);
+    font-family: 'Vazirmatn', monospace;
+    line-height: 1.5;
+    padding-right: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .nearby-row .dot {
     width: 10px;
     height: 10px;
