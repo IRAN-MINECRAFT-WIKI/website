@@ -103,6 +103,16 @@ const badgeLetter = (code: string) => {
       </div>
     </div>
 
+    <!-- accuracy note (collapsible) -->
+    <details class="accuracy-note">
+      <summary>ℹ️ دقت نقشه و سازگاری</summary>
+      <div class="accuracy-body">
+        این نقشه از موتور <strong>Cubiomes</strong> برای شبیه‌سازی دقیق ماینکرافت <strong>Java Edition</strong> استفاده می‌کند.
+        بیوم‌ها و ساختارها برای نسخه‌های Java قابل اعتماد هستند. <strong>Bedrock</strong> از همین موتور پشتیبانی نمی‌شود (بیوم‌های بدراک متفاوت‌اند).
+        اگر نتیجه با بازی شما مطابقت ندارد، نسخه را از منوی بالا تغییر دهید یا با <a href="https://www.chunkbase.com/apps/biome-finder" target="_blank" rel="noopener">Chunkbase</a> مقایسه کنید.
+      </div>
+    </details>
+
     <!-- ══════════════════════════════════════════════════════════════
          TAB 1 — Seed Map (fills remaining viewport height)
          ══════════════════════════════════════════════════════════════ -->
@@ -849,6 +859,7 @@ const badgeLetter = (code: string) => {
       updateScale();
       scanStructures();
       updateNearbyStructs();
+      updateInfoBar();
       startRegen();
       syncUrl();
     }
@@ -2604,13 +2615,13 @@ const badgeLetter = (code: string) => {
   }
   .seed-tab {
     flex: 1;
-    min-width: 140px;
+    min-width: 100px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.4rem;
-    padding: 0.6rem 0.9rem;
-    font-size: 0.85rem;
+    gap: 0.3rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.78rem;
     font-weight: 700;
     font-family: inherit;
     color: var(--text-2, #b8b8d0);
@@ -2632,37 +2643,61 @@ const badgeLetter = (code: string) => {
     .seed-tab { flex: 1 1 calc(50% - 0.5rem); min-width: 0; font-size: 0.75rem; padding: 0.5rem 0.4rem; }
   }
 
+  /* when tabs are inside the compact toolbar, strip the heavy card styling */
+  .seed-toolbar .seed-tabs {
+    padding: 0.15rem;
+    margin-bottom: 0;
+    border: 1px solid var(--line, #2e2e4a);
+    border-radius: 6px;
+    box-shadow: none;
+    background: transparent;
+    gap: 0.2rem;
+    flex-wrap: nowrap;
+  }
+
+  /* accuracy note (collapsible, compact) */
+  .accuracy-note {
+    flex-shrink: 0;
+    font-size: 0.68rem;
+    color: var(--text-3, #8a8aa8);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    background: rgba(232, 200, 74, 0.06);
+    border: 1px solid rgba(232, 200, 74, 0.15);
+  }
+  .accuracy-note summary { cursor: pointer; font-weight: 600; }
+  .accuracy-note[open] summary { margin-bottom: 0.3rem; }
+  .accuracy-body { line-height: 1.7; padding: 0.2rem 0; }
+  .accuracy-body a { color: var(--diamond, #4aedd9); text-decoration: underline; }
+
   /* ── map-first page layout: fills viewport, map dominates ─────── */
   .seed-page {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 56px); /* viewport minus site header height */
+    height: calc(100vh - 71px); /* viewport minus site header (71px measured) */
     min-height: 400px;
-    gap: 0.5rem;
+    gap: 0.25rem;
     overflow: hidden;
   }
-  .seed-page > nav:first-child { flex-shrink: 0; } /* breadcrumbs */
-  @media (max-width: 1023px) {
-    .seed-page { height: calc(100vh - 50px); }
-  }
+  .seed-page > nav:first-child { flex-shrink: 0; margin-bottom: 0 !important; } /* breadcrumbs */
 
-  /* compact toolbar: tabs + controls in ONE row */
+  /* compact toolbar: tabs + controls in ONE row on desktop */
   .seed-toolbar {
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.35rem 0.5rem;
-    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.3rem 0.5rem;
+    flex-wrap: nowrap;
   }
   .seed-toolbar .seed-tabs { flex-shrink: 0; }
   .seed-controls {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.25rem;
     flex: 1 1 auto;
     min-width: 0;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
   .seed-input {
     flex: 1 1 120px;
