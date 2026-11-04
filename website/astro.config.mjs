@@ -46,11 +46,16 @@ export default defineConfig({
       // falls back to per-URL lastmod from the build's last-modified
       // time of each page's source file, which is what we want.
 
-      // ⛔ Exclude the hidden admin panel URL from the sitemap. The
-      // panel is also covered by a `noindex` meta tag (set via the
-      // `noindex: true` prop on BaseLayout) and a `Disallow:` rule in
-      // public/robots.txt. Belt + braces + a third belt.
-      filter: (page) => !page.includes('/admin-minebed-control'),
+      // ⛔ Exclude URLs that cause Google Search Console errors:
+      //  - admin panel (noindex + Disallow)
+      //  - /authors/ pages (thin content, encoded URLs with spaces/&, Google flags them)
+      //  - /tags/ pages (thin auto-generated tag pages)
+      //  - /categories/ pages (thin auto-generated category pages)
+      filter: (page) =>
+        !page.includes('/admin-minebed-control') &&
+        !page.includes('/authors/') &&
+        !page.includes('/tags/') &&
+        !page.includes('/categories/'),
     }),
   ],
   image: {

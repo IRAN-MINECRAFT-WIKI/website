@@ -74,12 +74,12 @@ const orgLd = organizationJsonLd();
       <meta name="yandex-verification" content={import.meta.env.PUBLIC_YANDEX_VERIFICATION} />
     )}
 
-    <!-- Favicon (with base prefix) -->
-    <link rel="icon" type="image/png" href={base('/favicon-96x96.png')} sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href={base('/favicon.svg')} />
-    <link rel="shortcut icon" href={base('/favicon.ico')} />
-    <link rel="apple-touch-icon" sizes="180x180" href={base('/apple-touch-icon.png')} />
-    <link rel="manifest" href={base('/site.webmanifest')} />
+    <!-- Favicon — absolute URLs so Bing/Google find them at /website/ (not root) -->
+    <link rel="icon" type="image/png" href={`https://iran-minecraft-wiki.github.io${base('/favicon-96x96.png')}`} sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href={`https://iran-minecraft-wiki.github.io${base('/favicon.svg')}`} />
+    <link rel="shortcut icon" href={`https://iran-minecraft-wiki.github.io${base('/favicon.ico')}`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`https://iran-minecraft-wiki.github.io${base('/apple-touch-icon.png')}`} />
+    <link rel="manifest" href={`https://iran-minecraft-wiki.github.io${base('/site.webmanifest')}`} />
 
     <!-- RSS feed + OpenSearch (with base prefix) -->
     <link rel="alternate" type="application/rss+xml" title="MineBed Farsi RSS" href={base('/rss.xml')} />
