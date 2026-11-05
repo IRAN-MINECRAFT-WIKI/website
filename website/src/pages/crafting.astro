@@ -300,11 +300,19 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════
-       MAIN LAYOUT: GRID (LEFT) + RECIPE LIST (RIGHT)
+       MAIN LAYOUT: 3D CRAFTING TABLE (LEFT) + ITEM GRID (RIGHT)
        ═══════════════════════════════════════════════════════════ -->
   <section class="craft-layout">
-    <!-- LEFT: crafting table -->
+    <!-- LEFT: 3D crafting table visual + grid -->
     <div class="craft-grid-area">
+      <!-- 3D isometric crafting table block (CSS 3D transform, 75° view) -->
+      <div class="craft-3d-stage" aria-hidden="true">
+        <div class="craft-3d-block">
+          <div class="craft-3d-top"></div>
+          <div class="craft-3d-front"></div>
+          <div class="craft-3d-right"></div>
+        </div>
+      </div>
       <div class="mcui-Crafting_Table" id="craftingTableUI">
         <div class="mcui-input">
           <div class="mcui-shaped">
@@ -356,33 +364,34 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
       <!-- Empty-state hint (shown when no recipe is loaded) -->
       <div class="empty-hint" id="emptyHint">
-        <p>روی یکی از رسپی‌های سمت چپ کلیک کن تا ترکیب ۳×۳ این‌جا نمایش داده بشه.</p>
+        <p>روی یکی از آیکون‌های سمت چپ کلیک کن یا درگ کن روی میز کار.</p>
       </div>
     </div>
 
-    <!-- RIGHT: recipe list -->
-    <aside class="recipe-list-area" aria-label="لیست رسپی‌ها">
+    <!-- RIGHT: item icon grid (icon-only, tooltip on hover) -->
+    <aside class="recipe-list-area" aria-label="لیست آیتم‌ها">
       <div class="recipe-list-head">
-        <h3>لیست رسپی‌ها</h3>
+        <h3>آیتم‌ها</h3>
         <span class="recipe-count-display">
-          <span id="recipeListCount">{recipes.length}</span> رسپی
+          <span id="recipeListCount">{recipes.length}</span>
         </span>
       </div>
-      <ul class="recipe-list" id="recipeList">
+      <div class="item-icon-grid" id="recipeList">
         {recipes.map((r) => (
-          <li>
-            <button class="recipe-item" data-recipe-id={r.id} data-recipe-name={r.nameFa} draggable="true" type="button">
-              <span class="recipe-item-icon" data-emoji={r.icon || itemIcons[r.output.item] || '📦'} set:html={renderIcon(r.output.item, r.icon)} />
-              <span class="recipe-item-name">{r.nameFa}</span>
-              {r.output.count > 1 && (
-                <span class="recipe-item-count">×{r.output.count}</span>
-              )}
-            </button>
-          </li>
+          <button
+            class="item-icon-btn"
+            data-recipe-id={r.id}
+            data-recipe-name={r.nameFa}
+            title={r.nameFa}
+            draggable="true"
+            type="button"
+          >
+            <span class="recipe-item-icon" data-emoji={r.icon || itemIcons[r.output.item] || '📦'} set:html={renderIcon(r.output.item, r.icon)} />
+          </button>
         ))}
-      </ul>
+      </div>
       <p class="recipe-list-empty" id="recipeListEmpty" hidden>
-        هیچ رسپی پیدا نشد. کلمه‌ی دیگه‌ای امتحان کن.
+        پیدا نشد.
       </p>
     </aside>
   </section>
@@ -642,6 +651,55 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 
+  /* 3D isometric crafting table block — CSS 3D, 75° viewing angle */
+  .craft-3d-stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 0.75rem;
+    perspective: 600px;
+  }
+  .craft-3d-block {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    transform-style: preserve-3d;
+    transform: rotateX(15deg) rotateY(-45deg);
+    animation: craft3dFloat 4s ease-in-out infinite;
+  }
+  @keyframes craft3dFloat {
+    0%, 100% { transform: rotateX(15deg) rotateY(-45deg) translateY(0); }
+    50% { transform: rotateX(15deg) rotateY(-45deg) translateY(-6px); }
+  }
+  .craft-3d-top {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    background: url('/website/textures/blocks/crafting-table-top.png') center / cover;
+    image-rendering: pixelated;
+    transform: rotateX(90deg) translateZ(32px);
+    box-shadow: 0 0 12px rgba(123, 197, 92, 0.3);
+  }
+  .craft-3d-front {
+    position: absolute;
+    width: 64px;
+    height: 32px;
+    background: url('/website/textures/blocks/crafting-table-side.png') center / cover;
+    image-rendering: pixelated;
+    transform: translateZ(32px);
+    bottom: 0;
+  }
+  .craft-3d-right {
+    position: absolute;
+    width: 32px;
+    height: 64px;
+    background: url('/website/textures/blocks/crafting-table-side.png') center / cover;
+    image-rendering: pixelated;
+    transform: rotateY(90deg) translateZ(32px);
+    right: 0;
+  }
+
   /* The 3x3 grid + arrow + result, modeled on CraftingGrid.astro */
   .mcui-Crafting_Table {
     display: inline-flex;
@@ -805,34 +863,71 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.625rem 0.875rem;
+    padding: 0.5rem 0.75rem;
     background: linear-gradient(135deg, rgba(123, 197, 92, 0.15) 0%, rgba(123, 197, 92, 0.05) 100%);
     border-bottom: 2px solid var(--line, #2e2e4a);
   }
   .recipe-list-head h3 {
     font-family: 'Press Start 2P', monospace;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: var(--grass-2, #7cc84a);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
     margin: 0;
   }
   .recipe-count-display {
     color: var(--text-2, #b8b8d0);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-family: 'Courier New', monospace;
   }
-  .recipe-list {
-    list-style: none;
+  /* Icon-only grid — compact, no text, tooltip via title attr */
+  .item-icon-grid {
     margin: 0;
-    padding: 0.375rem;
+    padding: 0.3rem;
     overflow-y: auto;
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
     gap: 2px;
-    direction: ltr;     /* list itself LTR — text inside is RTL via .recipe-item-name */
+    direction: ltr;
   }
-  .recipe-list li { margin: 0; }
+  .item-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+  .item-icon-btn:hover {
+    background: rgba(123, 197, 92, 0.2);
+    border-color: var(--grass-2, #7cc84a);
+    transform: scale(1.1);
+    z-index: 5;
+  }
+  .item-icon-btn:active { transform: scale(0.95); }
+  .item-icon-btn.active {
+    background: rgba(123, 197, 92, 0.3);
+    border-color: var(--grass, #5fa838);
+    box-shadow: 0 0 6px rgba(123, 197, 92, 0.4);
+  }
+  .item-icon-btn.dragging {
+    opacity: 0.4;
+  }
+  .item-icon-btn .pixel-img {
+    width: 24px;
+    height: 24px;
+    image-rendering: pixelated;
+  }
+  .item-icon-btn .emoji-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+  /* keep old recipe-item styles for drag compatibility */
   .recipe-item {
     display: flex;
     align-items: center;
@@ -1165,7 +1260,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     const recipeList = document.getElementById('recipeList');
     const recipeListCount = document.getElementById('recipeListCount');
     const recipeListEmpty = document.getElementById('recipeListEmpty');
-    const recipeItems = document.querySelectorAll('.recipe-item');
+    const recipeItems = document.querySelectorAll('.item-icon-btn');
 
     if (!searchInput || !craftResultSlot || recipes.length === 0) return;
 
@@ -1222,7 +1317,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
       // Mark the matching list item active
       recipeItems.forEach((el) => el.classList.remove('active'));
-      const matchItem = document.querySelector('.recipe-item[data-recipe-id="' + recipe.id + '"]');
+      const matchItem = document.querySelector('.item-icon-btn[data-recipe-id="' + recipe.id + '"]');
       if (matchItem) {
         matchItem.classList.add('active');
         // Scroll the active item into view inside the list
@@ -1419,7 +1514,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
     // 1. Make recipe-items draggable (set dataTransfer with recipe id + name)
     function setupDragSource() {
-      document.querySelectorAll('.recipe-item[draggable="true"]').forEach((el) => {
+      document.querySelectorAll('.item-icon-btn[draggable="true"]').forEach((el) => {
         el.addEventListener('dragstart', (e) => {
           const id = el.getAttribute('data-recipe-id');
           const name = el.getAttribute('data-recipe-name') || '';
@@ -1488,7 +1583,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
     // 4. Touch support for mobile — tap recipe-item then tap a slot
     let pendingItem = null;
-    document.querySelectorAll('.recipe-item[draggable="true"]').forEach((el) => {
+    document.querySelectorAll('.item-icon-btn[draggable="true"]').forEach((el) => {
       el.addEventListener('touchstart', () => {
         pendingItem = {
           id: el.getAttribute('data-recipe-id'),

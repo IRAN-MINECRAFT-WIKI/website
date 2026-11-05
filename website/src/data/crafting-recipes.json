@@ -696,19 +696,19 @@
       ],
       "grid": [
         [
-          "stick",
+          "string",
           null,
-          "string"
+          "stick"
         ],
         [
           null,
-          "stick",
-          "string"
+          "string",
+          "stick"
         ],
         [
-          "stick",
+          "string",
           null,
-          "string"
+          "stick"
         ]
       ],
       "output": {
