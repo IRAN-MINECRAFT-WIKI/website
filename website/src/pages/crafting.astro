@@ -67,30 +67,22 @@ const blocksRenderWebps = listWebp(blocksRenderDir);
 
 function pngExists(name: string | null | undefined): boolean {
   if (!name) return false;
-  // CDN match counts as "has an image" so the client renders an <img alt="ماینکرفت بدراک | ماین بد (MineBed)">
-  // (whose src will be the ccvaults.com URL — no GitHub Pages hit).
-  if (itemImgUrl(name) || blockImgUrl(name)) return true;
+  // Check LOCAL files only — the HuggingFace CDN returns HTML (not PNG)
+  // for missing items, causing broken images. Local files are reliable.
   return (
-    itemsRenderWebps.has(name + '.webp') ||
-    blocksRenderWebps.has(name + '.webp') ||
     itemsPngs.has(name + '.png') ||
     blocksPngs.has(name + '.png')
   );
 }
 
-// Returns the URL of the highest-preference image asset for an item name,
-// or null if no image asset exists. Preference: ccvaults.com CDN → local
-// 3D render (dev only, since *-render/ dirs are git-ignored).
+// Returns the URL of the local image asset for an item name, or null.
+// PREFERENCE: local flat PNG (items/ or blocks/) — reliable, no CDN.
 function renderSrc(name: string | null | undefined): string | null {
   if (!name) return null;
-  const itemCdn = itemImgUrl(name);
-  if (itemCdn) return itemCdn;
-  const blockCdn = blockImgUrl(name);
-  if (blockCdn) return blockCdn;
-  if (itemsRenderWebps.has(name + '.webp'))
-    return `${BASE}textures/items-render/${name}.webp`;
-  if (blocksRenderWebps.has(name + '.webp'))
-    return `${BASE}textures/blocks-render/${name}.webp`;
+  if (itemsPngs.has(name + '.png'))
+    return `${BASE}textures/items/${name}.png`;
+  if (blocksPngs.has(name + '.png'))
+    return `${BASE}textures/blocks/${name}.png`;
   return null;
 }
 
@@ -222,7 +214,7 @@ function texPath(name?: string | null): string | null {
 function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls = ''): string {
   if (pngExists(name)) {
     const src = texPath(name) || '';
-    return `<img src="${src}" alt="ماینکرفت بدراک | ماین بد (MineBed)" width="16" height="16" class="pixel-img ${cls}" loading="lazy" decoding="async" onerror="this.style.display='none'; const e=this.parentElement?.getAttribute('data-emoji'); if(e){this.parentElement.textContent=e;}" />`;
+    return `<img src="${src}" alt="${name || ''}" width="16" height="16" class="pixel-img ${cls}" decoding="async" />`;
   }
   const emoji = fallbackEmoji || (name ? (itemIcons[name] || '📦') : '📦');
   return `<span class="emoji-icon ${cls}" aria-hidden="true">${emoji}</span>`;
@@ -1084,17 +1076,33 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       'planks', 'sand-side',
     ]);
 
+    // ── Texture cache (localStorage) for faster subsequent loads ──
+    // Caches the resolved texture URL for each item name so we don't re-check
+    // multiple paths on every render. Also caches failed lookups (null) so we
+    // don't retry paths that 404'd before.
+    const TEX_CACHE_KEY = 'mb_tex_cache_v2';
+    let texCache = {};
+    try { texCache = JSON.parse(localStorage.getItem(TEX_CACHE_KEY) || '{}'); }
+    catch (e) { texCache = {}; }
+    function saveTexCache() {
+      try { localStorage.setItem(TEX_CACHE_KEY, JSON.stringify(texCache)); }
+      catch (e) { /* quota or private mode */ }
+    }
+
     function texPath(name) {
       if (!name) return null;
-      // Prefer CDN URL (no GitHub Pages bandwidth cost)
-      if (cdnMap[name]) return cdnMap[name];
-      // Then local 3D renders (dev fallback — git-ignored in prod)
-      if (itemsRenderSet.has(name))
-        return BASE + 'textures/items-render/' + name + '.webp';
-      if (blocksRenderSet.has(name))
-        return BASE + 'textures/blocks-render/' + name + '.webp';
-      const folder = BLOCK_NAMES_CLIENT.has(name) ? 'blocks' : 'items';
-      return BASE + 'textures/' + folder + '/' + name + '.png';
+      // Check cache first
+      if (texCache[name] !== undefined) return texCache[name];
+      // PREFER LOCAL files over CDN — the HuggingFace CDN returns HTML (not PNG)
+      // for items that don't exist there, causing broken images.
+      // Local files are reliable (376/377 items have local PNGs).
+      if (BLOCK_NAMES_CLIENT.has(name)) {
+        var u = BASE + 'textures/blocks/' + name + '.png';
+        texCache[name] = u; return u;
+      }
+      // Default: items folder (most item textures live here)
+      var u = BASE + 'textures/items/' + name + '.png';
+      texCache[name] = u; return u;
     }
 
     // ── Render a single grid-slot or result-slot item ────────
@@ -1104,16 +1112,23 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     function renderItemIcon(parentEl, itemName, fallbackEmoji, large) {
       parentEl.innerHTML = '';
       const emoji = fallbackEmoji || itemIcons[itemName] || '📦';
-      if (hasPng(itemName)) {
+      // Always try to load an image — even if hasPng() returns false, the
+      // file might exist under a different name or folder. Let the browser
+      // handle 404 via onerror → emoji fallback.
+      const src = texPath(itemName);
+      if (src) {
         const img = document.createElement('img');
-        img.src = texPath(itemName);
+        img.src = src;
         img.alt = itemName;
         img.loading = 'eager';
         img.decoding = 'async';
         img.style.cssText = 'width: ' + (large ? '70%' : '70%') +
           '; height: ' + (large ? '70%' : '70%') +
-          '; image-rendering: pixelated;';
+          '; image-rendering: pixelated; object-fit: contain;';
         img.onerror = function () {
+          // Mark this path as failed in cache so we don't retry
+          texCache[itemName] = null;
+          saveTexCache();
           this.style.display = 'none';
           const span = document.createElement('span');
           span.className = 'emoji-icon';
@@ -1124,7 +1139,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         };
         parentEl.appendChild(img);
       } else {
-        // No PNG — emoji fallback directly
+        // No texture path — emoji fallback directly
         const span = document.createElement('span');
         span.className = 'emoji-icon';
         span.style.cssText = 'font-size: ' + (large ? '1.5rem' : '1rem') +
