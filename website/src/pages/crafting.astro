@@ -1706,6 +1706,26 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   // Crafting table block — NO rotation, locked in place
   const loader = new THREE.TextureLoader();
   loader.crossOrigin = 'anonymous';
+
+  // ── Mob texture cache: preload common mob textures at startup so they're
+  //    available immediately (avoids intermittent 502/fallback during scenes)
+  const mobTexCache = {};
+  function getCachedMobTex(path) {
+    if (mobTexCache[path]) return mobTexCache[path];
+    var tex = loader.load(BASE + path);
+    tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
+    mobTexCache[path] = tex;
+    return tex;
+  }
+  // preload common mob textures
+  ['entity/illager/evoker.png', 'entity/zombie/zombie.png', 'entity/skeleton/skeleton.png',
+   'entity/creeper/creeper.png', 'entity/enderman/enderman.png', 'textures/entity/blaze/blaze.png',
+   'entity/illager/evoker.png'].forEach(function (p) {
+    if (p.startsWith('entity/')) getCachedMobTex('textures/' + p);
+  });
+  // also preload Steve
+  getCachedMobTex('textures/steve.png');
   const topTex = loader.load(BASE + 'textures/blocks/crafting-table-top.png', () => {
     if (hint) hint.hidden = true;
   });
@@ -2161,29 +2181,105 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   }
 
   // Create the right mob model for a given mob id (async — loads texture)
+  // Illager mobs (evoker, vindicator, pillager) share the illager model:
+  // player head/body/arms UV + a distinctive NOSE cube on the head front,
+  // legs hidden under the robe, arms crossed in the iconic pose.
+  var ILLAGER_MOBS = { 'evoker': 1, 'vindicator': 1, 'pillager': 1 };
+
+  function buildIllagerModel(tex, scale) {
+    var root = buildPlayerFromTexture(tex, scale);
+    var P = root.userData.parts;
+    var s = 64;
+    var px = (0.5 * scale) / 8;
+    // ── REPLACE the body with the illager robe UV (texOffs 0,44 — the dark
+    //    robe with gold trim, NOT the player body UV at 16,16 which is gray).
+    //    Illager body box: 8×12×4 at texOffs(0,44).
+    if (P.body) {
+      root.remove(P.body);
+      if (P.body.geometry) P.body.geometry.dispose();
+      var bw = 0.5 * scale, bh = 0.75 * scale, bd = 0.25 * scale;
+      var bodyGeo = new THREE.BoxGeometry(bw, bh, bd);
+      // ModelRenderer UV for box (8,12,4) at texOffs(0,44):
+      setFaceUV(bodyGeo, 2, 4, 44, 12, 48, s);   // top    (u+d, v)=(4,44) size(8,4)
+      setFaceUV(bodyGeo, 3, 12, 44, 20, 48, s);  // bottom (u+d+w, v)=(12,44)
+      setFaceUV(bodyGeo, 0, 0, 48, 4, 60, s);    // right  (u, v+d)=(0,48) size(4,12)
+      setFaceUV(bodyGeo, 4, 4, 48, 12, 60, s);   // front  (u+d, v+d)=(4,48) size(8,12)
+      setFaceUV(bodyGeo, 1, 12, 48, 16, 60, s);  // left   (u+d+w, v+d)=(12,48) size(4,12)
+      setFaceUV(bodyGeo, 5, 16, 48, 24, 60, s);  // back   (u+2d+w, v+d)=(16,48) size(8,12)
+      flipSideUVs(bodyGeo);
+      var bodyMat = new THREE.MeshLambertMaterial({ map: tex, transparent: true, opacity: 1, side: THREE.DoubleSide });
+      P.body = new THREE.Mesh(bodyGeo, bodyMat);
+      P.body.position.y = 0.85 * scale;
+      root.add(P.body);
+      root.userData.lambertMats.push(bodyMat);
+    }
+    // ── NOSE: 4×4×2 box (texOffs 24,0) — the distinctive illager nose ──
+    var nw = 4 * px, nh = 4 * px, nd = 2 * px;
+    var noseGeo = new THREE.BoxGeometry(nw, nh, nd);
+    setFaceUV(noseGeo, 2, 26, 0, 30, 2, s);
+    setFaceUV(noseGeo, 3, 30, 0, 34, 2, s);
+    setFaceUV(noseGeo, 0, 24, 2, 26, 6, s);
+    setFaceUV(noseGeo, 4, 26, 2, 30, 6, s);
+    setFaceUV(noseGeo, 1, 30, 2, 32, 6, s);
+    setFaceUV(noseGeo, 5, 32, 2, 36, 6, s);
+    flipSideUVs(noseGeo);
+    var noseMat = new THREE.MeshLambertMaterial({ map: tex, transparent: true, opacity: 1, side: THREE.DoubleSide });
+    var nose = new THREE.Mesh(noseGeo, noseMat);
+    nose.scale.set(1.7, 2.1, 1.7);
+    nose.position.set(0, -0.13 * scale, 0.25 * scale + (nd * 1.7) / 2 + 0.01);
+    P.head.add(nose);
+    root.userData.lambertMats.push(noseMat);
+    // ── hide the legs (the robe covers them) ──
+    if (P.legR) P.legR.visible = false;
+    if (P.legL) P.legL.visible = false;
+    root.userData.isIllager = true;
+    return root;
+  }
+
+  // Idle for illagers: breathing bob + arms held crossed in front (iconic pose)
+  function setIdleIllagerAnim(model) {
+    var t0 = performance.now();
+    var P = model.userData.parts;
+    model.userData.animate = function (now) {
+      var t = (now - t0) / 1000;
+      model.position.y = Math.sin(t * 1.8) * 0.025;
+      if (P.head) P.head.rotation.z = Math.sin(t * 1.8 + 0.5) * 0.03;
+      // arms crossed in front: both rotated forward strongly + tilted inward
+      if (P.armR) { P.armR.rotation.x = -1.5 + Math.sin(t * 1.8) * 0.03; P.armR.rotation.z = 0.6; }
+      if (P.armL) { P.armL.rotation.x = -1.5 - Math.sin(t * 1.8) * 0.03; P.armL.rotation.z = -0.6; }
+    };
+  }
+
   function createMobModel(mobId, scale) {
     mobId = mobId || 'evoker';
     scale = scale || 1;
     return new Promise(function (resolve) {
       var texPath = MOB_TEXTURES[mobId];
+      // use cached texture (preloaded at startup) — Three.js auto-updates the
+      // material when the texture finishes loading, so we can resolve immediately
+      function loadTex(path, onDone) {
+        onDone(getCachedMobTex(path));
+      }
       // distinctive models
       if (mobId === 'creeper') {
-        loader.load(BASE + 'textures/' + texPath, function (tex) { resolve(buildCreeperModel(tex, scale)); },
-          undefined, function () { resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), scale)); });
+        loadTex('textures/' + texPath, function (tex) { resolve(buildCreeperModel(tex, scale)); });
         return;
       }
       if (mobId === 'blaze') {
-        loader.load(BASE + 'textures/' + texPath, function (tex) { resolve(buildBlazeModel(tex, scale)); },
-          undefined, function () { resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), scale)); });
+        loadTex('textures/' + texPath, function (tex) { resolve(buildBlazeModel(tex, scale)); });
+        return;
+      }
+      // illager mobs (evoker/vindicator/pillager) → illager model with nose + crossed arms
+      if (ILLAGER_MOBS[mobId]) {
+        var illPath = texPath ? 'textures/' + texPath : 'textures/entity/illager/evoker.png';
+        loadTex(illPath, function (tex) { resolve(buildIllagerModel(tex, scale)); });
         return;
       }
       // enderman = tall player (scale 1.5)
       var sc = (mobId === 'enderman') ? scale * 1.5 : (BIPED_MOBS[mobId] && BIPED_MOBS[mobId] !== 1 ? BIPED_MOBS[mobId] : scale);
       if (texPath) {
-        loader.load(BASE + 'textures/' + texPath, function (tex) { resolve(buildPlayerFromTexture(tex, sc)); },
-          undefined, function () { resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), sc)); });
+        loadTex('textures/' + texPath, function (tex) { resolve(buildPlayerFromTexture(tex, sc)); });
       } else {
-        // unknown mob — gray biped fallback
         resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), scale));
       }
     });
@@ -2918,12 +3014,15 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     createMobModel(sceneMobId, 1).then(function (model) {
       sceneMob = model;
       sceneMob.position.set(1.7, 0, 0);
-      sceneMob.rotation.y = -Math.PI / 2 + 0.42; // face -X (toward Steve), angled toward camera
+      sceneMob.rotation.y = -Math.PI / 2 + 0.72; // face -X (toward Steve), angled ~41° toward camera so the face/nose is visible
       sceneGroup.add(sceneMob);
-      // blaze has its own float idle; others use the breathing idle
+      // blaze has its own float idle; illagers use the crossed-arm idle;
+      // others use the breathing idle
       if (sceneMob.userData.idle) {
         var idleFn = sceneMob.userData.idle;
         sceneMob.userData.animate = function (now) { idleFn(now); };
+      } else if (sceneMob.userData.isIllager) {
+        setIdleIllagerAnim(sceneMob);
       } else {
         setIdleAnim(sceneMob);
       }
