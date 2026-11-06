@@ -305,13 +305,10 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   <section class="craft-layout">
     <!-- LEFT: 3D crafting table visual + grid -->
     <div class="craft-grid-area">
-      <!-- 3D isometric crafting table block (CSS 3D transform, 75° view) -->
-      <div class="craft-3d-stage" aria-hidden="true">
-        <div class="craft-3d-block">
-          <div class="craft-3d-top"></div>
-          <div class="craft-3d-front"></div>
-          <div class="craft-3d-right"></div>
-        </div>
+      <!-- 3D crafting table canvas (Three.js) -->
+      <div class="craft-3d-canvas-wrap" id="craft3DWrap">
+        <canvas id="craft3DCanvas" width="400" height="200"></canvas>
+        <div class="craft-3d-hint" id="craft3DHint">در حال بارگذاری صحنه سه‌بعدی…</div>
       </div>
       <div class="mcui-Crafting_Table" id="craftingTableUI">
         <div class="mcui-input">
@@ -651,53 +648,63 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 
-  /* 3D isometric crafting table block — CSS 3D, 75° viewing angle */
-  .craft-3d-stage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    margin-bottom: 0.75rem;
-    perspective: 600px;
-  }
-  .craft-3d-block {
+  /* 3D crafting table canvas (Three.js) */
+  .craft-3d-canvas-wrap {
     position: relative;
-    width: 64px;
-    height: 64px;
-    transform-style: preserve-3d;
-    transform: rotateX(15deg) rotateY(-45deg);
-    animation: craft3dFloat 4s ease-in-out infinite;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 0.75rem;
+    background: radial-gradient(ellipse at center, rgba(60, 50, 30, 0.15) 0%, transparent 70%);
+    border-radius: 8px;
+    overflow: hidden;
   }
-  @keyframes craft3dFloat {
-    0%, 100% { transform: rotateX(15deg) rotateY(-45deg) translateY(0); }
-    50% { transform: rotateX(15deg) rotateY(-45deg) translateY(-6px); }
+  .craft-3d-canvas-wrap canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
-  .craft-3d-top {
+  .craft-3d-hint {
     position: absolute;
-    width: 64px;
-    height: 64px;
-    background: url('/website/textures/blocks/crafting-table-top.png') center / cover;
-    image-rendering: pixelated;
-    transform: rotateX(90deg) translateZ(32px);
-    box-shadow: 0 0 12px rgba(123, 197, 92, 0.3);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-3, #8a8aa8);
+    font-size: 0.75rem;
+    text-align: center;
   }
-  .craft-3d-front {
-    position: absolute;
-    width: 64px;
-    height: 32px;
-    background: url('/website/textures/blocks/crafting-table-side.png') center / cover;
-    image-rendering: pixelated;
-    transform: translateZ(32px);
-    bottom: 0;
+  .craft-3d-hint[hidden] { display: none; }
+
+  /* Item drop animation — items fall from above into grid slots */
+  @keyframes itemDrop {
+    0% {
+      transform: translateY(-80px) rotate(180deg) scale(0.5);
+      opacity: 0;
+    }
+    60% {
+      transform: translateY(8px) rotate(0deg) scale(1.1);
+      opacity: 1;
+    }
+    80% {
+      transform: translateY(-4px) rotate(0deg) scale(1);
+    }
+    100% {
+      transform: translateY(0) rotate(0deg) scale(1);
+      opacity: 1;
+    }
   }
-  .craft-3d-right {
-    position: absolute;
-    width: 32px;
-    height: 64px;
-    background: url('/website/textures/blocks/crafting-table-side.png') center / cover;
-    image-rendering: pixelated;
-    transform: rotateY(90deg) translateZ(32px);
-    right: 0;
+  .craft-slot .pixel-img,
+  .craft-slot .emoji-icon {
+    animation: itemDrop 0.5s ease-out;
+  }
+  /* Result slot pop animation */
+  @keyframes resultPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .craft-result-slot .pixel-img,
+  .craft-result-slot .emoji-icon {
+    animation: resultPop 0.4s ease-out;
   }
 
   /* The 3x3 grid + arrow + result, modeled on CraftingGrid.astro */
@@ -1313,6 +1320,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       recipeInfo.hidden = true;
       if (emptyHint) emptyHint.hidden = false;
 
+      // Clear 3D scene items + reset camera
+      if (window.__craft3D) {
+        window.__craft3D.resetCamera();
+      }
+
       if (!recipe) return;
 
       // Mark the matching list item active
@@ -1320,11 +1332,10 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       const matchItem = document.querySelector('.item-icon-btn[data-recipe-id="' + recipe.id + '"]');
       if (matchItem) {
         matchItem.classList.add('active');
-        // Scroll the active item into view inside the list
         try { matchItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
       }
 
-      // Fill 3x3 grid (animated pop-in)
+      // Fill 3x3 grid (animated drop-in) + trigger 3D item drops
       const flatGrid = [];
       for (let r = 0; r < 3; r++) {
         for (let c = 0; c < 3; c++) {
@@ -1339,14 +1350,17 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         setTimeout(() => {
           slot.classList.remove('empty');
           renderItemIcon(slot, itemName, itemIcons[itemName] || '📦', false);
-        }, idx * 60);
+          // Trigger 3D item drop on the crafting table
+          if (window.__craft3D) {
+            window.__craft3D.dropItem(itemName, idx);
+          }
+        }, idx * 80);
       });
 
-      // Output slot
+      // Output slot + camera moves up to show recipe from above
       setTimeout(() => {
         craftResultSlot.classList.remove('empty');
         if (emptyHint) emptyHint.hidden = true;
-        // Render output item icon (PNG or emoji fallback)
         renderItemIcon(craftResultSlot, recipe.output.item, recipe.icon || itemIcons[recipe.output.item] || '📦', true);
 
         if (recipe.output.count && recipe.output.count > 1) {
@@ -1354,6 +1368,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
           count.className = 'slot-count';
           count.textContent = recipe.output.count;
           craftResultSlot.appendChild(count);
+        }
+
+        // Camera moves up to show the recipe from above
+        if (window.__craft3D) {
+          window.__craft3D.showRecipe();
         }
 
         // Recipe info
@@ -1605,6 +1624,166 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       });
     });
   })();
+</script>
+
+<!-- ═══ 3D Crafting Table Scene (Three.js) ═══ -->
+<script is:inline type="module" data-base={BASE}>
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js';
+
+  const canvas = document.getElementById('craft3DCanvas');
+  const hint = document.getElementById('craft3DHint');
+  if (!canvas) throw new Error('no craft3DCanvas');
+
+  const BASE = '/website/';
+  const texUrl = (name) => BASE + 'textures/blocks/' + name + '.png';
+
+  // Scene setup
+  const scene = new THREE.Scene();
+  scene.background = null; // transparent
+
+  const camera = new THREE.PerspectiveCamera(35, canvas.width / canvas.height, 0.1, 100);
+  camera.position.set(4, 5, 4);
+  camera.lookAt(0, 0, 0);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+
+  // Lighting — warm directional + ambient
+  const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+  scene.add(ambient);
+  const dirLight = new THREE.DirectionalLight(0xfff5e0, 0.8);
+  dirLight.position.set(5, 8, 5);
+  scene.add(dirLight);
+
+  // Crafting table block (3 faces visible: top, front, right)
+  const loader = new THREE.TextureLoader();
+  const topTex = loader.load(texUrl('crafting-table-top'), () => {
+    if (hint) hint.hidden = true;
+  });
+  const sideTex = loader.load(texUrl('crafting-table-side'));
+  topTex.magFilter = THREE.NearestFilter;
+  topTex.minFilter = THREE.NearestFilter;
+  sideTex.magFilter = THREE.NearestFilter;
+  sideTex.minFilter = THREE.NearestFilter;
+
+  const blockGeo = new THREE.BoxGeometry(2, 2, 2);
+  // Face order: +X, -X, +Y(top), -Y(bottom), +Z(front), -Z(back)
+  const materials = [
+    new THREE.MeshLambertMaterial({ map: sideTex }), // +X (right side)
+    new THREE.MeshLambertMaterial({ map: sideTex }), // -X (left side)
+    new THREE.MeshLambertMaterial({ map: topTex }),  // +Y (top)
+    new THREE.MeshLambertMaterial({ color: 0x8B5A2B }), // -Y (bottom, plain)
+    new THREE.MeshLambertMaterial({ map: sideTex }), // +Z (front)
+    new THREE.MeshLambertMaterial({ map: sideTex }), // -Z (back)
+  ];
+  const tableBlock = new THREE.Mesh(blockGeo, materials);
+  tableBlock.position.y = 0;
+  scene.add(tableBlock);
+
+  // Floating item planes (for drop animation)
+  const itemGroup = new THREE.Group();
+  scene.add(itemGroup);
+
+  // Camera animation state
+  let cameraTargetY = 5;
+  let cameraTargetZ = 4;
+  let isAnimating = false;
+
+  function animateCamera() {
+    isAnimating = true;
+  }
+
+  // Expose API for the crafting page JS to trigger item drops
+  window.__craft3D = {
+    dropItem: function(itemName, slotIdx) {
+      // Create a plane with the item texture
+      const tex = loader.load(BASE + 'textures/items/' + itemName + '.png', undefined, undefined, () => {
+        // fallback to blocks folder
+        loader.load(BASE + 'textures/blocks/' + itemName + '.png', (t) => {
+          createItemPlane(t, slotIdx);
+        });
+      });
+      tex.magFilter = THREE.NearestFilter;
+      createItemPlane(tex, slotIdx);
+    },
+    showRecipe: function() {
+      // Camera moves up to show the grid from above
+      cameraTargetY = 8;
+      cameraTargetZ = 2;
+      animateCamera();
+    },
+    resetCamera: function() {
+      cameraTargetY = 5;
+      cameraTargetZ = 4;
+      animateCamera();
+    }
+  };
+
+  function createItemPlane(texture, slotIdx) {
+    const mat = new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: 0.5 });
+    const geo = new THREE.PlaneGeometry(0.6, 0.6);
+    const mesh = new THREE.Mesh(geo, mat);
+    // Position above the crafting table
+    mesh.position.set(
+      (slotIdx % 3 - 1) * 0.6,
+      3, // start above
+      (Math.floor(slotIdx / 3) - 1) * 0.6
+    );
+    mesh.rotation.x = -Math.PI / 2; // face up
+    itemGroup.add(mesh);
+
+    // Animate falling
+    const startY = 3;
+    const endY = 1.05; // just above table top
+    const duration = 500;
+    const startTime = performance.now();
+    mesh.userData.animate = function(now) {
+      const t = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      mesh.position.y = startY + (endY - startY) * eased;
+      mesh.rotation.z = (1 - t) * Math.PI; // spin during fall
+      if (t >= 1) mesh.userData.animate = null;
+    };
+  }
+
+  // Render loop
+  let blockRotation = 0;
+  function render(now) {
+    requestAnimationFrame(render);
+    // Gentle auto-rotation
+    if (!isAnimating) {
+      blockRotation += 0.003;
+      tableBlock.rotation.y = blockRotation;
+    }
+    // Camera animation
+    if (isAnimating) {
+      camera.position.y += (cameraTargetY - camera.position.y) * 0.08;
+      camera.position.z += (cameraTargetZ - camera.position.z) * 0.08;
+      camera.lookAt(0, 0.5, 0);
+      if (Math.abs(camera.position.y - cameraTargetY) < 0.01 &&
+          Math.abs(camera.position.z - cameraTargetZ) < 0.01) {
+        isAnimating = false;
+      }
+    }
+    // Animate falling items
+    itemGroup.children.forEach(mesh => {
+      if (mesh.userData.animate) mesh.userData.animate(now);
+    });
+    renderer.render(scene, camera);
+  }
+  render(0);
+
+  // Resize handler
+  function onResize() {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false);
+  }
+  window.addEventListener('resize', onResize);
+  setTimeout(onResize, 100); // initial size fix
 </script>
 
 <style is:global>
