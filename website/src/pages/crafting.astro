@@ -1228,8 +1228,6 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     const searchInput = document.getElementById('craftingSearch');
     const searchClear = document.getElementById('craftingSearchClear');
     const chips = document.querySelectorAll('.craft-chip');
-    const craftSlots = document.querySelectorAll('.craft-slot');
-    const craftResultSlot = document.getElementById('craftResultSlot');
     const recipeInfo = document.getElementById('recipeInfo');
     const recipeTitle = document.getElementById('recipeTitle');
     const recipeDesc = document.getElementById('recipeDesc');
@@ -1242,7 +1240,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     const recipeListEmpty = document.getElementById('recipeListEmpty');
     const recipeItems = document.querySelectorAll('.item-icon-btn');
 
-    if (!searchInput || !craftResultSlot || recipes.length === 0) return;
+    if (!searchInput || recipes.length === 0) return;
 
     // (BLOCK_NAMES_CLIENT + texPath + renderItemIcon defined above, near top of IIFE.)
 
@@ -1284,12 +1282,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       return recipes.find((r) => r.id === recipeId) || null;
     }
 
-    // ── Render recipe into 3x3 grid + result slot ──────────
+    // ── Render recipe into 3D scene ───────────────────────
     function renderRecipe(recipe) {
       // Clear 3D scene items FIRST (fixes bug where old items pile up)
       if (window.__craft3D) {
         window.__craft3D.clearItems();
-        window.__craft3D.resetCamera();
       }
 
       if (!recipe) return;
@@ -1302,7 +1299,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         try { matchItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
       }
 
-      // Fill 3x3 grid (animated drop-in) + trigger 3D item drops
+      // Drop items onto the 3D crafting table one by one
       const flatGrid = [];
       for (let r = 0; r < 3; r++) {
         for (let c = 0; c < 3; c++) {
@@ -1312,30 +1309,17 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       }
       flatGrid.forEach((itemName, idx) => {
         if (!itemName) return;
-        const slot = craftSlots[idx];
-        if (!slot) return;
         setTimeout(() => {
-          slot.classList.remove('empty');
-          renderItemIcon(slot, itemName, itemIcons[itemName] || '📦', false);
-          // Trigger 3D item drop on the crafting table
           if (window.__craft3D) {
             window.__craft3D.dropItem(itemName, idx);
           }
-        }, idx * 80);
+        }, idx * 100);
       });
 
-      // Output slot + camera moves up to show recipe from above
+      // After all items dropped, move camera up to show recipe from above
+      const filledCount = flatGrid.filter(Boolean).length;
       setTimeout(() => {
-        craftResultSlot.classList.remove('empty');
         if (emptyHint) emptyHint.hidden = true;
-        renderItemIcon(craftResultSlot, recipe.output.item, recipe.icon || itemIcons[recipe.output.item] || '📦', true);
-
-        if (recipe.output.count && recipe.output.count > 1) {
-          const count = document.createElement('span');
-          count.className = 'slot-count';
-          count.textContent = recipe.output.count;
-          craftResultSlot.appendChild(count);
-        }
 
         // Camera moves up to show the recipe from above
         if (window.__craft3D) {
@@ -1382,9 +1366,10 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
     // ── Clear grid + info ──────────────────────────────────
     function clearGrid() {
-      craftSlots.forEach((s) => { s.innerHTML = ''; s.classList.add('empty'); });
-      craftResultSlot.innerHTML = '';
-      craftResultSlot.classList.add('empty');
+      if (window.__craft3D) {
+        window.__craft3D.clearItems();
+        window.__craft3D.resetCamera();
+      }
       recipeInfo.hidden = true;
       if (emptyHint) emptyHint.hidden = false;
       recipeItems.forEach((el) => el.classList.remove('active'));
@@ -1524,50 +1509,34 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       observer.observe(recipeListEl, { childList: true, subtree: true });
     }
 
-    // 3. Make craft-slots droppable
-    // (Task SA-ITEMS: renamed to droppableSlots — `craftSlots` was already
-    // declared at the top of the IIFE, so the previous `const craftSlots`
-    // duplicate caused a SyntaxError that broke the entire inline script.)
-    const droppableSlots = document.querySelectorAll('.craft-slot[data-craft-slot]');
-    droppableSlots.forEach((slot) => {
-      slot.addEventListener('dragover', (e) => {
+    // 3. Make the 3D canvas droppable — drag item from list → drop on table
+    const craft3DWrap = document.getElementById('craft3DWrap');
+    if (craft3DWrap) {
+      craft3DWrap.addEventListener('dragover', (e) => {
         e.preventDefault();
         if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
-        slot.classList.add('drag-over');
+        craft3DWrap.style.borderColor = 'var(--grass-2, #7cc84a)';
       });
-      slot.addEventListener('dragleave', () => {
-        slot.classList.remove('drag-over');
+      craft3DWrap.addEventListener('dragleave', () => {
+        craft3DWrap.style.borderColor = '';
       });
-      slot.addEventListener('drop', (e) => {
+      craft3DWrap.addEventListener('drop', (e) => {
         e.preventDefault();
-        slot.classList.remove('drag-over');
+        craft3DWrap.style.borderColor = '';
         const raw = e.dataTransfer ? e.dataTransfer.getData('text/plain') : '';
         if (!raw) return;
-        const [id, name] = raw.split('|');
-        // Find the recipe to get its icon/item
+        const id = raw.split('|')[0];
         const recipe = findById(id);
-        if (!recipe) return;
-        // Render the item icon in this slot
-        const slotIdx = slot.getAttribute('data-craft-slot');
-        slot.innerHTML = renderIcon(recipe.output.item, recipe.icon) || '';
-        slot.classList.add('filled');
-        slot.setAttribute('data-placed-item', recipe.output.item);
-        slot.setAttribute('data-placed-id', id);
-        slot.setAttribute('title', name + ' — کلیک برای پاک‌کردن');
-      });
-      // Click filled slot to clear
-      slot.addEventListener('click', () => {
-        if (slot.classList.contains('filled')) {
-          slot.innerHTML = '';
-          slot.classList.remove('filled');
-          slot.removeAttribute('data-placed-item');
-          slot.removeAttribute('data-placed-id');
-          slot.removeAttribute('title');
+        if (recipe) {
+          renderRecipe(recipe);
+          searchInput.value = recipe.nameFa;
+          if (searchClear) searchClear.hidden = false;
+          filterList(recipe.nameFa);
         }
       });
-    });
+    }
 
-    // 4. Touch support for mobile — tap recipe-item then tap a slot
+    // 4. Touch support for mobile — tap item then tap the 3D canvas
     let pendingItem = null;
     document.querySelectorAll('.item-icon-btn[draggable="true"]').forEach((el) => {
       el.addEventListener('touchstart', () => {
@@ -1577,19 +1546,19 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         };
       });
     });
-    craftSlots.forEach((slot) => {
-      slot.addEventListener('touchend', () => {
+    if (craft3DWrap) {
+      craft3DWrap.addEventListener('touchend', () => {
         if (!pendingItem) return;
         const recipe = findById(pendingItem.id);
         if (recipe) {
-          slot.innerHTML = renderIcon(recipe.output.item, recipe.icon) || '';
-          slot.classList.add('filled');
-          slot.setAttribute('data-placed-item', recipe.output.item);
-          slot.setAttribute('title', pendingItem.name + ' — کلیک برای پاک‌کردن');
+          renderRecipe(recipe);
+          searchInput.value = recipe.nameFa;
+          if (searchClear) searchClear.hidden = false;
+          filterList(recipe.nameFa);
         }
         pendingItem = null;
       });
-    });
+    }
   })();
 </script>
 
