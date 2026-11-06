@@ -1724,8 +1724,15 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   scene.add(itemGroup);
 
   // Camera animation: smooth transition between idle and recipe-view
-  let camTargetY = 6.5, camTargetZ = 3.5;
+  let camTargetX = 0, camTargetY = 6.5, camTargetZ = 3.5;
+  let camLookX = 0, camLookY = 0.3, camLookZ = 0;
   let camAnimating = false;
+  // helper to set camera target + lookAt in one go
+  function camTo(x, y, z, lx, ly, lz) {
+    camTargetX = x; camTargetY = y; camTargetZ = z;
+    camLookX = lx; camLookY = ly; camLookZ = lz;
+    camAnimating = true;
+  }
 
   function clearItems() {
     // Remove all old item meshes + dispose geometry/materials
@@ -1826,6 +1833,22 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     uv.setXY(base + 3, u1, vBot);
   }
 
+  // Flip the U (horizontal) coordinate on the +X(right) and -X(left) faces.
+  // Minecraft skin wrapping requires these side faces to be mirrored vs the
+  // default BoxGeometry UV order, otherwise the head sides appear reversed.
+  function flipSideUVs(geo) {
+    var uv = geo.attributes.uv;
+    [0, 1].forEach(function (faceIdx) {
+      var base = faceIdx * 4;
+      var ua = uv.getX(base), ub = uv.getX(base + 1);
+      uv.setXY(base,     ub, uv.getY(base));
+      uv.setXY(base + 1, ua, uv.getY(base + 1));
+      uv.setXY(base + 2, ub, uv.getY(base + 2));
+      uv.setXY(base + 3, ua, uv.getY(base + 3));
+    });
+    geo.attributes.uv.needsUpdate = true;
+  }
+
   // ═══════════════════════════════════════════════════════════════
   //  REAL MINECRAFT PLAYER MODEL (UV-mapped skin + limb pivots)
   //  Limbs are pivot Groups at shoulder/hip so they can swing.
@@ -1858,7 +1881,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     setFaceUV(headGeo, 1, 16, 8, 24, 16, s);   // left
     setFaceUV(headGeo, 2, 8, 0, 16, 8, s);     // top
     setFaceUV(headGeo, 3, 16, 0, 24, 8, s);    // bottom
-    headGeo.attributes.uv.needsUpdate = true;
+    flipSideUVs(headGeo); // mirror side faces so head sides aren't reversed
     var head = new THREE.Mesh(headGeo, mkMat());
     head.position.y = 1.5 * scale;
     root.add(head); P.head = head; mats.push(head.material);
@@ -1872,7 +1895,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     setFaceUV(bodyGeo, 1, 16, 20, 20, 32, s);
     setFaceUV(bodyGeo, 2, 20, 16, 28, 20, s);
     setFaceUV(bodyGeo, 3, 28, 16, 36, 20, s);
-    bodyGeo.attributes.uv.needsUpdate = true;
+    flipSideUVs(bodyGeo);
     var body = new THREE.Mesh(bodyGeo, mkMat());
     body.position.y = 0.85 * scale;
     root.add(body); P.body = body; mats.push(body.material);
@@ -1887,7 +1910,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       setFaceUV(geo, 1, uvs.l[0], uvs.l[1], uvs.l[2], uvs.l[3], s);
       setFaceUV(geo, 2, uvs.t[0], uvs.t[1], uvs.t[2], uvs.t[3], s);
       setFaceUV(geo, 3, uvs.bt[0], uvs.bt[1], uvs.bt[2], uvs.bt[3], s);
-      geo.attributes.uv.needsUpdate = true;
+      flipSideUVs(geo);
       var mesh = new THREE.Mesh(geo, mkMat());
       mesh.position.y = -ah / 2; // hang below the pivot (joint)
       var pivot = new THREE.Group();
@@ -1921,8 +1944,10 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     return buildPlayerFromTexture(skinTex, scale);
   }
 
-  // ── Generate a 64×64 Evoker (illager) skin on a canvas → texture ──
-  // Gray skin, dark robe with gold trim — recognizable Mojang-style illager.
+  // ── Evoker: REAL Minecraft entity texture (illager) ──
+  // The illager head uses the standard player-head UV (face at 8,8-16,16),
+  // so buildPlayerFromTexture renders the real evoker face correctly. The
+  // body/arms map onto the illager robe (real dark robe + gold trim colors).
   function makeEvokerSkinTexture() {
     var c = document.createElement('canvas');
     c.width = 64; c.height = 64;
@@ -1988,10 +2013,16 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     return tex;
   }
 
-  // Build the Evoker model (sync — uses generated canvas skin)
+  // Build the Evoker model using the REAL Minecraft entity texture (illager).
+  // Falls back to the canvas-generated skin if the real texture fails to load.
   function createEvokerModel(scale) {
-    var tex = makeEvokerSkinTexture();
-    return buildPlayerFromTexture(tex, scale);
+    return new Promise(function (resolve) {
+      loader.load(BASE + 'textures/entity/illager/evoker.png', function (tex) {
+        resolve(buildPlayerFromTexture(tex, scale));
+      }, undefined, function () {
+        resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), scale));
+      });
+    });
   }
 
   // ── Diamond sword: textured plane held in the hand, extends below the fist ──
@@ -2214,37 +2245,51 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     return g;
   }
 
-  // Create a real textured Minecraft chest with opening lid
+  // Create a REAL textured Minecraft chest (normal.png, 64×64) with opening lid.
+  // UV regions per the vanilla chest texture layout. Lid is hinged at the
+  // back-top edge and rotates open around X.
   function makeChestTextured() {
     var g = new THREE.Group();
-    // Load chest texture
-    var chestTex = loader.load(BASE + 'textures/blocks/chest.png');
+    var chestTex = loader.load(BASE + 'textures/entity/chest/normal.png');
     chestTex.magFilter = THREE.NearestFilter;
     chestTex.minFilter = THREE.NearestFilter;
     chestTex.generateMipmaps = false;
     chestTex.colorSpace = THREE.SRGBColorSpace;
 
     var mat = new THREE.MeshLambertMaterial({ map: chestTex, transparent: true });
+    var s = 64;
 
-    // Chest body (bottom part) — 14×10×14 pixels in Minecraft → scale to ~1.2×0.8×1.2
-    var bodyGeo = new THREE.BoxGeometry(1.4, 1.0, 1.0);
+    // BODY: 14×10×14 px → 1.4 × 1.0 × 1.4 units (texture offset 0,19 per ModelChest)
+    var bodyGeo = new THREE.BoxGeometry(1.4, 1.0, 1.4);
+    setFaceUV(bodyGeo, 4, 14, 33, 28, 43, s);  // front (lock face)
+    setFaceUV(bodyGeo, 5, 42, 33, 56, 43, s);  // back
+    setFaceUV(bodyGeo, 0, 0, 33, 14, 43, s);   // right
+    setFaceUV(bodyGeo, 1, 28, 33, 42, 43, s);  // left
+    setFaceUV(bodyGeo, 2, 14, 19, 28, 33, s);  // top (interior, shared w/ lid bottom)
+    setFaceUV(bodyGeo, 3, 14, 33, 28, 43, s);  // bottom (reuse front)
+    flipSideUVs(bodyGeo);
     var body = new THREE.Mesh(bodyGeo, mat.clone());
     body.position.y = 0.5;
     g.add(body);
 
-    // Chest lid (top part) — hinged at back, rotates to open
-    var lidGeo = new THREE.BoxGeometry(1.4, 0.4, 1.0);
+    // LID: 14×5×14 px → 1.4 × 0.5 × 1.4 units (texture offset 0,0 per ModelChest)
+    var lidGeo = new THREE.BoxGeometry(1.4, 0.5, 1.4);
+    setFaceUV(lidGeo, 4, 14, 14, 28, 19, s);   // front (latch)
+    setFaceUV(lidGeo, 5, 42, 14, 56, 19, s);   // back
+    setFaceUV(lidGeo, 0, 0, 14, 14, 19, s);    // right
+    setFaceUV(lidGeo, 1, 28, 14, 42, 19, s);   // left
+    setFaceUV(lidGeo, 2, 14, 0, 28, 14, s);    // top (14×14)
+    setFaceUV(lidGeo, 3, 14, 19, 28, 33, s);   // bottom (interior, shared)
+    flipSideUVs(lidGeo);
     var lid = new THREE.Mesh(lidGeo, mat.clone());
-    // Position lid so its back edge is the hinge point
-    lid.position.set(0, 1.1, -0.45);
-    g.add(lid);
-    g.userData.lid = lid;
-
-    // Gold lock plate
-    var lockTex = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
-    var lock = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.05), lockTex);
-    lock.position.set(0, 0.9, 0.51);
-    g.add(lock);
+    // offset lid so its back-bottom edge sits at the pivot origin (the hinge)
+    lid.position.set(0, 0.25, 0.7);
+    var lidPivot = new THREE.Group();
+    lidPivot.add(lid);
+    // hinge at back-top edge of the body (body top = y1.0, back = z-0.7)
+    lidPivot.position.set(0, 1.0, -0.7);
+    g.add(lidPivot);
+    g.userData.lid = lidPivot;
 
     return g;
   }
@@ -2311,12 +2356,14 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       setIdleAnim(sceneSteve);
     });
 
-    // ── EVOKER (generated illager skin) ──
-    sceneMob = createEvokerModel(1);
-    sceneMob.position.set(1.7, 0, 0);
-    sceneMob.rotation.y = -Math.PI / 2 + 0.42; // face -X (toward Steve), angled toward camera
-    sceneGroup.add(sceneMob);
-    setIdleAnim(sceneMob);
+    // ── EVOKER (REAL illager entity texture) ──
+    createEvokerModel(1).then(function (model) {
+      sceneMob = model;
+      sceneMob.position.set(1.7, 0, 0);
+      sceneMob.rotation.y = -Math.PI / 2 + 0.42; // face -X (toward Steve), angled toward camera
+      sceneGroup.add(sceneMob);
+      setIdleAnim(sceneMob);
+    });
 
     // ── load the totem/item texture for the drop ──
     var itemUrl = BASE + 'textures/items/' + itemName + '.png';
@@ -2357,10 +2404,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       if (btn) btn.hidden = true; // hide during auto-play
       playAttackScene();
     } else if (sceneState === 2) {
-      // Zoom on the dropped totem
+      // Zoom on the dropped totem — move camera to the totem and look at it
       var btn = document.getElementById('sceneNextBtn');
       if (btn) { btn.textContent = 'افتادن چست ←'; btn.hidden = false; }
-      camTargetY = 2.2; camTargetZ = 2.2; camAnimating = true;
+      var tx = (window.__craft3D && window.__craft3D._totemX) || 1.6;
+      camTo(tx + 0.35, 0.85, 1.15, tx, 0.32, 0);
     } else if (sceneState === 3) {
       var btn = document.getElementById('sceneNextBtn');
       if (btn) btn.textContent = 'باز شدن چست ←';
@@ -2397,9 +2445,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       spawnHitSparkles(p, sceneGroup);
       playDeathSequence(sceneMob, sceneGroup, function onDead() {
         // totem drops from where the Evoker was, glowing green
+        var totemX = sceneMob.position.x - 0.1;
+        if (window.__craft3D) window.__craft3D._totemX = totemX;
         if (sceneItemMesh) {
           sceneItemMesh.material.visible = true;
-          sceneItemMesh.position.set(sceneMob.position.x - 0.1, 1.4, 0);
+          sceneItemMesh.position.set(totemX, 1.4, 0);
           sceneItemMesh.rotation.set(-Math.PI / 2, 0, 0);
           sceneItemMesh.scale.set(1, 1, 1);
           // green glow light (totem of undying)
@@ -2453,10 +2503,8 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     sceneGroup.add(sceneChest);
     sceneChestLid = sceneChest.userData.lid;
 
-    // Camera moves to watch chest fall
-    camTargetY = 3;
-    camTargetZ = 4;
-    camAnimating = true;
+    // Camera moves to watch chest fall (reset to center on the chest at origin)
+    camTo(0, 2.6, 4.2, 0, 0.6, 0);
 
     // Animate chest falling
     var startTime = performance.now();
@@ -2514,17 +2562,15 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
               };
             }
           };
-          // Camera zooms on prize
-          camTargetY = 2.8;
-          camTargetZ = 1.6;
-          camAnimating = true;
+          // Camera frames chest + rising totem prize
+          camTo(0, 2.9, 3.4, 0, 1.5, 0);
         }
       }
     };
 
-    // Golden glow effect
-    var glow = new THREE.PointLight(0xFFD700, 2.5, 5);
-    glow.position.set(0, 1, 0);
+    // Golden glow effect (subtle, so it doesn't blow out the close camera)
+    var glow = new THREE.PointLight(0xFFD700, 1.0, 4);
+    glow.position.set(0, 1.2, 0);
     sceneChest.add(glow);
   }
 
@@ -2576,10 +2622,19 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     requestAnimationFrame(render);
     // Camera animation only (no block rotation)
     if (camAnimating) {
-      camera.position.y += (camTargetY - camera.position.y) * 0.06;
-      camera.position.z += (camTargetZ - camera.position.z) * 0.06;
-      camera.lookAt(0, 0.3, 0);
-      if (Math.abs(camera.position.y - camTargetY) < 0.01) camAnimating = false;
+      camera.position.x += (camTargetX - camera.position.x) * 0.08;
+      camera.position.y += (camTargetY - camera.position.y) * 0.08;
+      camera.position.z += (camTargetZ - camera.position.z) * 0.08;
+      // smoothly interpolate the lookAt target too
+      var clx = camera._lookX || 0, cly = camera._lookY || 0.3, clz = camera._lookZ || 0;
+      clx += (camLookX - clx) * 0.08;
+      cly += (camLookY - cly) * 0.08;
+      clz += (camLookZ - clz) * 0.08;
+      camera._lookX = clx; camera._lookY = cly; camera._lookZ = clz;
+      camera.lookAt(clx, cly, clz);
+      if (Math.abs(camera.position.y - camTargetY) < 0.01 &&
+          Math.abs(camera.position.x - camTargetX) < 0.01 &&
+          Math.abs(camera.position.z - camTargetZ) < 0.01) camAnimating = false;
     }
     // Animate falling items (recipe drops)
     itemGroup.children.forEach(mesh => {
