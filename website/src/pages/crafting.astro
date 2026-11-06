@@ -1663,8 +1663,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 </script>
 
 <!-- ═══ 3D Crafting Table Scene (Three.js) ═══ -->
+<script is:inline src="/website/js/skinview3d.bundle.js"></script>
 <script is:inline type="module" data-base={BASE}>
   import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js';
+  // skinview3d is loaded as a global via the script tag above (UMD bundle)
+  const SkinViewer = window.skinview3d?.SkinViewer;
 
   const canvas = document.getElementById('craft3DCanvas');
   const hint = document.getElementById('craft3DHint');
@@ -1811,34 +1814,150 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     if (sn) sn.hidden = false;
   }
 
-  function makeBoxCharacter(colors, scale) {
+  // Create a Minecraft player model with REAL skin texture on the head
+  // Uses the skin texture for the face + solid colors for body parts
+  async function createSkinModel(skinUrl, scale) {
     var g = new THREE.Group();
-    // Use transparent materials so fade-out works
     var mkMat = (c) => new THREE.MeshLambertMaterial({ color: c, transparent: true, opacity: 1 });
-    // head
-    var head = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.5*scale, 0.5*scale), mkMat(colors.head));
+
+    // Load the skin texture for the head
+    var skinTex = await new Promise(function(resolve, reject) {
+      loader.load(skinUrl, resolve, undefined, reject);
+    });
+    skinTex.magFilter = THREE.NearestFilter;
+    skinTex.minFilter = THREE.NearestFilter;
+    skinTex.generateMipmaps = false;
+    skinTex.colorSpace = THREE.SRGBColorSpace;
+
+    // Head — uses the skin texture (shows the face!)
+    // The face is at UV (8,8)-(16,16) in a 64x64 skin
+    var headGeo = new THREE.BoxGeometry(0.5*scale, 0.5*scale, 0.5*scale);
+    // Set UVs so the front face shows the face from the skin texture
+    var uv = headGeo.attributes.uv;
+    var s = 64; // skin texture size
+    // Face 4 (front/+Z): map to (8,8)-(16,16) in skin texture
+    uv.setXY(16, 8/s, 1-16/s); uv.setXY(17, 8/s, 1-8/s);
+    uv.setXY(18, 16/s, 1-8/s); uv.setXY(19, 16/s, 1-16/s);
+    // Face 0 (right/+X): map to (0,8)-(8,16)
+    uv.setXY(0, 0/s, 1-16/s); uv.setXY(1, 0/s, 1-8/s);
+    uv.setXY(2, 8/s, 1-8/s); uv.setXY(3, 8/s, 1-16/s);
+    // Face 1 (left/-X): map to (16,8)-(24,16)
+    uv.setXY(4, 16/s, 1-16/s); uv.setXY(5, 16/s, 1-8/s);
+    uv.setXY(6, 24/s, 1-8/s); uv.setXY(7, 24/s, 1-16/s);
+    // Face 5 (back/-Z): map to (24,8)-(32,16)
+    uv.setXY(20, 24/s, 1-16/s); uv.setXY(21, 24/s, 1-8/s);
+    uv.setXY(22, 32/s, 1-8/s); uv.setXY(23, 32/s, 1-16/s);
+    // Face 2 (top/+Y): map to (8,0)-(16,8)
+    uv.setXY(8, 8/s, 1-8/s); uv.setXY(9, 8/s, 1-0/s);
+    uv.setXY(10, 16/s, 1-0/s); uv.setXY(11, 16/s, 1-8/s);
+    // Face 3 (bottom/-Y): map to (16,0)-(24,8)
+    uv.setXY(12, 16/s, 1-8/s); uv.setXY(13, 16/s, 1-0/s);
+    uv.setXY(14, 24/s, 1-0/s); uv.setXY(15, 24/s, 1-8/s);
+    uv.needsUpdate = true;
+
+    var headMat = new THREE.MeshLambertMaterial({ map: skinTex, transparent: true, opacity: 1 });
+    var head = new THREE.Mesh(headGeo, headMat);
     head.position.y = 1.5*scale;
     g.add(head);
-    // body
-    var body = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.75*scale, 0.25*scale), mkMat(colors.body));
+
+    // Body — solid color (will use skin texture for body too if it's Steve)
+    var bodyTex = skinTex; // reuse same texture
+    var bodyGeo = new THREE.BoxGeometry(0.5*scale, 0.75*scale, 0.25*scale);
+    // Body UV: front (20,20)-(28,32), use this for front face
+    var buv = bodyGeo.attributes.uv;
+    // Front: (20,20)-(28,32) → in 64px: (20/64, 1-32/64) to (28/64, 1-20/64)
+    buv.setXY(16, 20/s, 1-32/s); buv.setXY(17, 20/s, 1-20/s);
+    buv.setXY(18, 28/s, 1-20/s); buv.setXY(19, 28/s, 1-32/s);
+    // Right arm area for body right face: (16,20)-(20,32)
+    buv.setXY(0, 16/s, 1-32/s); buv.setXY(1, 16/s, 1-20/s);
+    buv.setXY(2, 20/s, 1-20/s); buv.setXY(3, 20/s, 1-32/s);
+    buv.needsUpdate = true;
+
+    var body = new THREE.Mesh(bodyGeo, new THREE.MeshLambertMaterial({ map: bodyTex, transparent: true, opacity: 1 }));
     body.position.y = 0.85*scale;
     g.add(body);
-    // arms
+
+    // Arms — use skin texture for the arm UV region
+    var armGeo = new THREE.BoxGeometry(0.25*scale, 0.75*scale, 0.25*scale);
+    var auv = armGeo.attributes.uv;
+    // Right arm front: (44,20)-(48,32)
+    auv.setXY(16, 44/s, 1-32/s); auv.setXY(17, 44/s, 1-20/s);
+    auv.setXY(18, 48/s, 1-20/s); auv.setXY(19, 48/s, 1-32/s);
+    // Right arm right: (40,20)-(44,32)
+    auv.setXY(0, 40/s, 1-32/s); auv.setXY(1, 40/s, 1-20/s);
+    auv.setXY(2, 44/s, 1-20/s); auv.setXY(3, 44/s, 1-32/s);
+    auv.needsUpdate = true;
+
+    var armMat = new THREE.MeshLambertMaterial({ map: skinTex, transparent: true, opacity: 1 });
+    var armL = new THREE.Mesh(armGeo, armMat); armL.position.set(-0.375*scale, 0.85*scale, 0); g.add(armL);
+    var armR = new THREE.Mesh(armGeo, armMat.clone()); armR.position.set(0.375*scale, 0.85*scale, 0); g.add(armR);
+
+    // Legs — use skin texture for the leg UV region
+    var legGeo = new THREE.BoxGeometry(0.25*scale, 0.75*scale, 0.25*scale);
+    var luv = legGeo.attributes.uv;
+    // Right leg front: (4,20)-(8,32)
+    luv.setXY(16, 4/s, 1-32/s); luv.setXY(17, 4/s, 1-20/s);
+    luv.setXY(18, 8/s, 1-20/s); luv.setXY(19, 8/s, 1-32/s);
+    luv.setXY(0, 0/s, 1-32/s); luv.setXY(1, 0/s, 1-20/s);
+    luv.setXY(2, 4/s, 1-20/s); luv.setXY(3, 4/s, 1-32/s);
+    luv.needsUpdate = true;
+
+    var legMat = new THREE.MeshLambertMaterial({ map: skinTex, transparent: true, opacity: 1 });
+    var legL = new THREE.Mesh(legGeo, legMat); legL.position.set(-0.125*scale, 0.15*scale, 0); g.add(legL);
+    var legR = new THREE.Mesh(legGeo, legMat.clone()); legR.position.set(0.125*scale, 0.15*scale, 0); g.add(legR);
+
+    return g;
+  }
+
+  // Fallback: simple box character (used if skin fails to load)
+  function makeBoxCharacter(colors, scale) {
+    var g = new THREE.Group();
+    var mkMat = (c) => new THREE.MeshLambertMaterial({ color: c, transparent: true, opacity: 1 });
+    var head = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.5*scale, 0.5*scale), mkMat(colors.head));
+    head.position.y = 1.5*scale; g.add(head);
+    var body = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.75*scale, 0.25*scale), mkMat(colors.body));
+    body.position.y = 0.85*scale; g.add(body);
     var armGeo = new THREE.BoxGeometry(0.2*scale, 0.75*scale, 0.2*scale);
-    var armL = new THREE.Mesh(armGeo, mkMat(colors.arms));
-    armL.position.set(-0.35*scale, 0.85*scale, 0);
-    g.add(armL);
-    var armR = new THREE.Mesh(armGeo, mkMat(colors.arms));
-    armR.position.set(0.35*scale, 0.85*scale, 0);
-    g.add(armR);
-    // legs
+    var armL = new THREE.Mesh(armGeo, mkMat(colors.arms)); armL.position.set(-0.35*scale, 0.85*scale, 0); g.add(armL);
+    var armR = new THREE.Mesh(armGeo, mkMat(colors.arms)); armR.position.set(0.35*scale, 0.85*scale, 0); g.add(armR);
     var legGeo = new THREE.BoxGeometry(0.2*scale, 0.75*scale, 0.2*scale);
-    var legL = new THREE.Mesh(legGeo, mkMat(colors.legs));
-    legL.position.set(-0.15*scale, 0.15*scale, 0);
-    g.add(legL);
-    var legR = new THREE.Mesh(legGeo, mkMat(colors.legs));
-    legR.position.set(0.15*scale, 0.15*scale, 0);
-    g.add(legR);
+    var legL = new THREE.Mesh(legGeo, mkMat(colors.legs)); legL.position.set(-0.15*scale, 0.15*scale, 0); g.add(legL);
+    var legR = new THREE.Mesh(legGeo, mkMat(colors.legs)); legR.position.set(0.15*scale, 0.15*scale, 0); g.add(legR);
+    return g;
+  }
+
+  // Create a real textured Minecraft chest with opening lid
+  function makeChestTextured() {
+    var g = new THREE.Group();
+    // Load chest texture
+    var chestTex = loader.load(BASE + 'textures/blocks/chest.png');
+    chestTex.magFilter = THREE.NearestFilter;
+    chestTex.minFilter = THREE.NearestFilter;
+    chestTex.generateMipmaps = false;
+    chestTex.colorSpace = THREE.SRGBColorSpace;
+
+    var mat = new THREE.MeshLambertMaterial({ map: chestTex, transparent: true });
+
+    // Chest body (bottom part) — 14×10×14 pixels in Minecraft → scale to ~1.2×0.8×1.2
+    var bodyGeo = new THREE.BoxGeometry(1.4, 1.0, 1.0);
+    var body = new THREE.Mesh(bodyGeo, mat.clone());
+    body.position.y = 0.5;
+    g.add(body);
+
+    // Chest lid (top part) — hinged at back, rotates to open
+    var lidGeo = new THREE.BoxGeometry(1.4, 0.4, 1.0);
+    var lid = new THREE.Mesh(lidGeo, mat.clone());
+    // Position lid so its back edge is the hinge point
+    lid.position.set(0, 1.1, -0.45);
+    g.add(lid);
+    g.userData.lid = lid;
+
+    // Gold lock plate
+    var lockTex = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
+    var lock = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.05), lockTex);
+    lock.position.set(0, 0.9, 0.51);
+    g.add(lock);
+
     return g;
   }
 
@@ -1869,21 +1988,37 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     sceneGroup = new THREE.Group();
     scene.add(sceneGroup);
 
-    // Create mob — Evoker (gray robe, yellow trim — Illager style)
-    sceneMob = makeBoxCharacter({
-      head: 0x9A9A9A, body: 0x808080, arms: 0x606060, legs: 0x404040
-    }, 1);
-    sceneMob.position.set(2, 0, 0);
-    sceneMob.rotation.y = -Math.PI / 2; // face Steve (face left)
-    sceneGroup.add(sceneMob);
+    // Create Steve using REAL skin texture via skinview3d
+    createSkinModel(BASE + 'textures/steve.png', 16).then(function(model) {
+      sceneSteve = model;
+      sceneSteve.position.set(-2, 0, 0);
+      sceneSteve.rotation.y = Math.PI / 2; // face the mob
+      sceneGroup.add(sceneSteve);
+    }).catch(function() {
+      // Fallback to box character
+      sceneSteve = makeBoxCharacter({
+        head: 0xF0C8A0, body: 0x00AAAA, arms: 0x4488CC, legs: 0x4444AA
+      }, 1);
+      sceneSteve.position.set(-2, 0, 0);
+      sceneSteve.rotation.y = Math.PI / 2;
+      sceneGroup.add(sceneSteve);
+    });
 
-    // Create Steve — the hero who kills the mob
-    sceneSteve = makeBoxCharacter({
-      head: 0xF0C8A0, body: 0x00AAAA, arms: 0x4488CC, legs: 0x4444AA
-    }, 1);
-    sceneSteve.position.set(-2, 0, 0);
-    sceneSteve.rotation.y = Math.PI / 2; // face the mob (face right)
-    sceneGroup.add(sceneSteve);
+    // Create Evoker using REAL skin texture via skinview3d
+    createSkinModel(BASE + 'textures/mobs/evoker.png', 16).then(function(model) {
+      sceneMob = model;
+      sceneMob.position.set(2, 0, 0);
+      sceneMob.rotation.y = -Math.PI / 2; // face Steve
+      sceneGroup.add(sceneMob);
+    }).catch(function() {
+      // Fallback to box character
+      sceneMob = makeBoxCharacter({
+        head: 0x9A9A9A, body: 0x808080, arms: 0x606060, legs: 0x404040
+      }, 1);
+      sceneMob.position.set(2, 0, 0);
+      sceneMob.rotation.y = -Math.PI / 2;
+      sceneGroup.add(sceneMob);
+    });
 
     // Load the item texture for later drop
     var itemUrl = BASE + 'textures/items/' + itemName + '.png';
@@ -1914,11 +2049,13 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     // Hide crafting table, show scene
     tableBlock.visible = false;
 
-    // Scene 0: camera approaches mob
+    // Scene 0: camera approaches — positioned to see both characters
     sceneState = 0;
-    camTargetY = 3;
-    camTargetZ = 5;
+    camTargetY = 4;
+    camTargetZ = 7;
     camAnimating = true;
+    // Also move camera X to center between the two characters
+    camera.position.x = 0;
 
     // Update next button text
     var btn = document.getElementById('sceneNextBtn');
@@ -2020,8 +2157,8 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     if (sceneMob) { sceneGroup.remove(sceneMob); sceneMob = null; }
     if (sceneSteve) { sceneGroup.remove(sceneSteve); sceneSteve = null; }
 
-    // Create chest
-    sceneChest = makeChest();
+    // Create real textured chest
+    sceneChest = makeChestTextured();
     sceneChest.position.set(0, 5, 0); // start above
     sceneGroup.add(sceneChest);
     sceneChestLid = sceneChest.userData.lid;
