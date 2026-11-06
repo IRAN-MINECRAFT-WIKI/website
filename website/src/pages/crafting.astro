@@ -1659,8 +1659,14 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     if (hint) hint.hidden = true;
   });
   const sideTex = loader.load(BASE + 'textures/blocks/crafting-table-side.png');
-  topTex.magFilter = THREE.NearestFilter;
-  sideTex.magFilter = THREE.NearestFilter;
+  // CRITICAL: disable mipmaps + use NearestFilter for BOTH mag AND min
+  // to keep the 16x16 pixel-art texture crisp at any scale (no blurriness)
+  [topTex, sideTex].forEach(tex => {
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false;
+    tex.colorSpace = THREE.SRGBColorSpace;
+  });
 
   const blockGeo = new THREE.BoxGeometry(2, 2, 2);
   const materials = [
@@ -1701,11 +1707,16 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       const url = BASE + 'textures/items/' + itemName + '.png';
       loader.load(url, (tex) => {
         tex.magFilter = THREE.NearestFilter;
+        tex.minFilter = THREE.NearestFilter;
+        tex.generateMipmaps = false;
+        tex.colorSpace = THREE.SRGBColorSpace;
         createItemPlane(tex, slotIdx);
       }, undefined, () => {
-        // fallback to blocks folder
         loader.load(BASE + 'textures/blocks/' + itemName + '.png', (tex) => {
           tex.magFilter = THREE.NearestFilter;
+          tex.minFilter = THREE.NearestFilter;
+          tex.generateMipmaps = false;
+          tex.colorSpace = THREE.SRGBColorSpace;
           createItemPlane(tex, slotIdx);
         });
       });
