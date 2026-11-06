@@ -1826,124 +1826,375 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     uv.setXY(base + 3, u1, vBot);
   }
 
-  // Build a real Minecraft player model with skin texture UV-mapped to all body parts
-  async function createSkinModel(skinUrl, scale) {
-    var g = new THREE.Group();
-
-    // Load the skin texture
-    var skinTex = await new Promise(function(resolve, reject) {
-      loader.load(skinUrl, resolve, undefined, reject);
-    });
+  // ═══════════════════════════════════════════════════════════════
+  //  REAL MINECRAFT PLAYER MODEL (UV-mapped skin + limb pivots)
+  //  Limbs are pivot Groups at shoulder/hip so they can swing.
+  //  userData.parts = { head, body, armR, armL, legR, legL }
+  //  userData.lambertMats = materials that support emissive (for death flash)
+  // ═══════════════════════════════════════════════════════════════
+  function buildPlayerFromTexture(skinTex, scale) {
     skinTex.magFilter = THREE.NearestFilter;
     skinTex.minFilter = THREE.NearestFilter;
     skinTex.generateMipmaps = false;
     skinTex.colorSpace = THREE.SRGBColorSpace;
 
-    var mat = new THREE.MeshLambertMaterial({ map: skinTex, transparent: true, opacity: 1, side: THREE.DoubleSide });
-    var s = 64; // standard skin texture size
+    var s = 64;
+    var texH = (skinTex.image && skinTex.image.height) ? skinTex.image.height : 64;
+    var isOld = texH < 64; // 64×32 old format → left limbs mirror right
+    var mkMat = function () {
+      return new THREE.MeshLambertMaterial({ map: skinTex, transparent: true, opacity: 1, side: THREE.DoubleSide });
+    };
 
-    // HEAD (8x8x8 pixels → scaled)
+    var root = new THREE.Group();
+    var P = {};
+    var mats = [];
+
+    // ── HEAD (8×8×8) ──
     var hs = 0.5 * scale;
     var headGeo = new THREE.BoxGeometry(hs, hs, hs);
-    setFaceUV(headGeo, 4, 8, 8, 16, 16, s);   // front (face)
+    setFaceUV(headGeo, 4, 8, 8, 16, 16, s);    // front (face)
     setFaceUV(headGeo, 5, 24, 8, 32, 16, s);   // back
     setFaceUV(headGeo, 0, 0, 8, 8, 16, s);     // right
     setFaceUV(headGeo, 1, 16, 8, 24, 16, s);   // left
     setFaceUV(headGeo, 2, 8, 0, 16, 8, s);     // top
     setFaceUV(headGeo, 3, 16, 0, 24, 8, s);    // bottom
     headGeo.attributes.uv.needsUpdate = true;
-    var head = new THREE.Mesh(headGeo, mat);
+    var head = new THREE.Mesh(headGeo, mkMat());
     head.position.y = 1.5 * scale;
-    g.add(head);
+    root.add(head); P.head = head; mats.push(head.material);
 
-    // BODY (8x12x4 pixels → scaled)
+    // ── BODY (8×12×4) ──
     var bw = 0.5 * scale, bh = 0.75 * scale, bd = 0.25 * scale;
     var bodyGeo = new THREE.BoxGeometry(bw, bh, bd);
-    setFaceUV(bodyGeo, 4, 20, 20, 28, 32, s);  // front
-    setFaceUV(bodyGeo, 5, 32, 20, 40, 32, s);  // back
-    setFaceUV(bodyGeo, 0, 28, 20, 32, 32, s);  // right
-    setFaceUV(bodyGeo, 1, 16, 20, 20, 32, s);  // left
-    setFaceUV(bodyGeo, 2, 20, 16, 28, 20, s);  // top
-    setFaceUV(bodyGeo, 3, 28, 16, 36, 20, s);  // bottom
+    setFaceUV(bodyGeo, 4, 20, 20, 28, 32, s);
+    setFaceUV(bodyGeo, 5, 32, 20, 40, 32, s);
+    setFaceUV(bodyGeo, 0, 28, 20, 32, 32, s);
+    setFaceUV(bodyGeo, 1, 16, 20, 20, 32, s);
+    setFaceUV(bodyGeo, 2, 20, 16, 28, 20, s);
+    setFaceUV(bodyGeo, 3, 28, 16, 36, 20, s);
     bodyGeo.attributes.uv.needsUpdate = true;
-    var body = new THREE.Mesh(bodyGeo, mat.clone());
+    var body = new THREE.Mesh(bodyGeo, mkMat());
     body.position.y = 0.85 * scale;
-    g.add(body);
+    root.add(body); P.body = body; mats.push(body.material);
 
-    // RIGHT ARM (4x12x4 pixels → scaled)
+    // ── LIMB builder: pivot Group at the joint, mesh hangs below ──
     var aw = 0.25 * scale, ah = 0.75 * scale, ad = 0.25 * scale;
-    var armGeoR = new THREE.BoxGeometry(aw, ah, ad);
-    setFaceUV(armGeoR, 4, 44, 20, 48, 32, s);  // front
-    setFaceUV(armGeoR, 5, 52, 20, 56, 32, s);  // back
-    setFaceUV(armGeoR, 0, 48, 20, 52, 32, s);  // right
-    setFaceUV(armGeoR, 1, 40, 20, 44, 32, s);  // left
-    setFaceUV(armGeoR, 2, 44, 16, 48, 20, s);  // top
-    setFaceUV(armGeoR, 3, 48, 16, 52, 20, s);  // bottom
-    armGeoR.attributes.uv.needsUpdate = true;
-    var armR = new THREE.Mesh(armGeoR, mat.clone());
-    armR.position.set(0.375 * scale, 0.85 * scale, 0);
-    g.add(armR);
-
-    // LEFT ARM (mirror of right arm — uses same UV for 64x64 skins)
-    var armGeoL = new THREE.BoxGeometry(aw, ah, ad);
-    setFaceUV(armGeoL, 4, 36, 52, 40, 64, s);  // front (left arm layer in 64x64)
-    setFaceUV(armGeoL, 5, 44, 52, 48, 64, s);  // back
-    setFaceUV(armGeoL, 0, 40, 52, 44, 64, s);  // right
-    setFaceUV(armGeoL, 1, 32, 52, 36, 64, s);  // left
-    setFaceUV(armGeoL, 2, 36, 48, 40, 52, s);  // top
-    setFaceUV(armGeoL, 3, 40, 48, 44, 52, s);  // bottom
-    armGeoL.attributes.uv.needsUpdate = true;
-    // If texture is only 64x32 (old format), left arm uses same UVs as right
-    // Check texture height — if <64, use right arm UVs for left arm too
-    if (skinTex.image && skinTex.image.height < 64) {
-      setFaceUV(armGeoL, 4, 44, 20, 48, 32, s);
-      setFaceUV(armGeoL, 5, 52, 20, 56, 32, s);
-      setFaceUV(armGeoL, 0, 48, 20, 52, 32, s);
-      setFaceUV(armGeoL, 1, 40, 20, 44, 32, s);
-      setFaceUV(armGeoL, 2, 44, 16, 48, 20, s);
-      setFaceUV(armGeoL, 3, 48, 16, 52, 20, s);
-      armGeoL.attributes.uv.needsUpdate = true;
+    function buildLimb(uvs, px, py) {
+      var geo = new THREE.BoxGeometry(aw, ah, ad);
+      setFaceUV(geo, 4, uvs.f[0], uvs.f[1], uvs.f[2], uvs.f[3], s);
+      setFaceUV(geo, 5, uvs.b[0], uvs.b[1], uvs.b[2], uvs.b[3], s);
+      setFaceUV(geo, 0, uvs.r[0], uvs.r[1], uvs.r[2], uvs.r[3], s);
+      setFaceUV(geo, 1, uvs.l[0], uvs.l[1], uvs.l[2], uvs.l[3], s);
+      setFaceUV(geo, 2, uvs.t[0], uvs.t[1], uvs.t[2], uvs.t[3], s);
+      setFaceUV(geo, 3, uvs.bt[0], uvs.bt[1], uvs.bt[2], uvs.bt[3], s);
+      geo.attributes.uv.needsUpdate = true;
+      var mesh = new THREE.Mesh(geo, mkMat());
+      mesh.position.y = -ah / 2; // hang below the pivot (joint)
+      var pivot = new THREE.Group();
+      pivot.add(mesh);
+      pivot.position.set(px, py, 0);
+      mats.push(mesh.material);
+      return pivot;
     }
-    var armL = new THREE.Mesh(armGeoL, mat.clone());
-    armL.position.set(-0.375 * scale, 0.85 * scale, 0);
-    g.add(armL);
 
-    // RIGHT LEG (4x12x4 pixels → scaled)
-    var legGeoR = new THREE.BoxGeometry(aw, ah, ad);
-    setFaceUV(legGeoR, 4, 4, 20, 8, 32, s);   // front
-    setFaceUV(legGeoR, 5, 12, 20, 16, 32, s);  // back
-    setFaceUV(legGeoR, 0, 8, 20, 12, 32, s);   // right
-    setFaceUV(legGeoR, 1, 0, 20, 4, 32, s);    // left
-    setFaceUV(legGeoR, 2, 4, 16, 8, 20, s);    // top
-    setFaceUV(legGeoR, 3, 8, 16, 12, 20, s);   // bottom
-    legGeoR.attributes.uv.needsUpdate = true;
-    var legR = new THREE.Mesh(legGeoR, mat.clone());
-    legR.position.set(0.125 * scale, 0.15 * scale, 0);
-    g.add(legR);
+    var armUVR = { f: [44, 20, 48, 32], b: [52, 20, 56, 32], r: [48, 20, 52, 32], l: [40, 20, 44, 32], t: [44, 16, 48, 20], bt: [48, 16, 52, 20] };
+    var armUVL = isOld ? armUVR : { f: [36, 52, 40, 64], b: [44, 52, 48, 64], r: [40, 52, 44, 64], l: [32, 52, 36, 64], t: [36, 48, 40, 52], bt: [40, 48, 44, 52] };
+    var legUVR = { f: [4, 20, 8, 32], b: [12, 20, 16, 32], r: [8, 20, 12, 32], l: [0, 20, 4, 32], t: [4, 16, 8, 20], bt: [8, 16, 12, 20] };
+    var legUVL = isOld ? legUVR : { f: [20, 52, 24, 64], b: [28, 52, 32, 64], r: [24, 52, 28, 64], l: [16, 52, 20, 64], t: [20, 48, 24, 52], bt: [24, 48, 28, 52] };
 
-    // LEFT LEG (mirror — uses 64x64 lower layer UVs)
-    var legGeoL = new THREE.BoxGeometry(aw, ah, ad);
-    setFaceUV(legGeoL, 4, 20, 52, 24, 64, s);
-    setFaceUV(legGeoL, 5, 28, 52, 32, 64, s);
-    setFaceUV(legGeoL, 0, 24, 52, 28, 64, s);
-    setFaceUV(legGeoL, 1, 16, 52, 20, 64, s);
-    setFaceUV(legGeoL, 2, 20, 48, 24, 52, s);
-    setFaceUV(legGeoL, 3, 24, 48, 28, 52, s);
-    legGeoL.attributes.uv.needsUpdate = true;
-    if (skinTex.image && skinTex.image.height < 64) {
-      setFaceUV(legGeoL, 4, 4, 20, 8, 32, s);
-      setFaceUV(legGeoL, 5, 12, 20, 16, 32, s);
-      setFaceUV(legGeoL, 0, 8, 20, 12, 32, s);
-      setFaceUV(legGeoL, 1, 0, 20, 4, 32, s);
-      setFaceUV(legGeoL, 2, 4, 16, 8, 20, s);
-      setFaceUV(legGeoL, 3, 8, 16, 12, 20, s);
-      legGeoL.attributes.uv.needsUpdate = true;
-    }
-    var legL = new THREE.Mesh(legGeoL, mat.clone());
-    legL.position.set(-0.125 * scale, 0.15 * scale, 0);
-    g.add(legL);
+    var shoulderY = 1.225 * scale, hipY = 0.525 * scale;
+    P.armR = buildLimb(armUVR, 0.375 * scale, shoulderY); root.add(P.armR);
+    P.armL = buildLimb(armUVL, -0.375 * scale, shoulderY); root.add(P.armL);
+    P.legR = buildLimb(legUVR, 0.125 * scale, hipY); root.add(P.legR);
+    P.legL = buildLimb(legUVL, -0.125 * scale, hipY); root.add(P.legL);
 
+    root.userData.parts = P;
+    root.userData.lambertMats = mats;
+    return root;
+  }
+
+  // Async wrapper: load skin URL → build model
+  async function createPlayerModel(skinUrl, scale) {
+    var skinTex = await new Promise(function (resolve, reject) {
+      loader.load(skinUrl, resolve, undefined, reject);
+    });
+    return buildPlayerFromTexture(skinTex, scale);
+  }
+
+  // ── Generate a 64×64 Evoker (illager) skin on a canvas → texture ──
+  // Gray skin, dark robe with gold trim — recognizable Mojang-style illager.
+  function makeEvokerSkinTexture() {
+    var c = document.createElement('canvas');
+    c.width = 64; c.height = 64;
+    var ctx = c.getContext('2d');
+    ctx.clearRect(0, 0, 64, 64);
+    var skin = '#B0B0BA', skinD = '#9696A0';
+    var robe = '#1E1E2C', robeD = '#14141F';
+    var gold = '#F0C840', dark = '#101018', beard = '#D0D0CC';
+    // HEAD
+    ctx.fillStyle = skin;  ctx.fillRect(8, 8, 8, 8);   // front
+    ctx.fillStyle = skinD; ctx.fillRect(24, 8, 8, 8);  // back
+    ctx.fillStyle = skin;  ctx.fillRect(0, 8, 8, 8);   // right
+    ctx.fillStyle = skin;  ctx.fillRect(16, 8, 8, 8);  // left
+    ctx.fillStyle = skinD; ctx.fillRect(8, 0, 8, 8);   // top
+    ctx.fillStyle = skinD; ctx.fillRect(16, 0, 8, 8);  // bottom
+    // face: angry eyebrows, eyes, beard
+    ctx.fillStyle = dark;
+    ctx.fillRect(9, 10, 2, 1); ctx.fillRect(13, 10, 4, 1);          // eyebrows
+    ctx.fillRect(10, 11, 2, 2); ctx.fillRect(14, 11, 2, 2);         // eyes
+    ctx.fillStyle = beard; ctx.fillRect(9, 13, 6, 2);               // beard
+    // BODY (robe)
+    ctx.fillStyle = robe;  ctx.fillRect(20, 20, 8, 12);  // front
+    ctx.fillStyle = robeD; ctx.fillRect(32, 20, 8, 12);  // back
+    ctx.fillStyle = robeD; ctx.fillRect(28, 20, 4, 12);  // right
+    ctx.fillStyle = robeD; ctx.fillRect(16, 20, 4, 12);  // left
+    ctx.fillStyle = robeD; ctx.fillRect(20, 16, 8, 4);   // top
+    ctx.fillStyle = robe;  ctx.fillRect(28, 16, 8, 4);   // bottom
+    ctx.fillStyle = gold;  ctx.fillRect(21, 20, 6, 1); ctx.fillRect(23, 20, 2, 2); // gold collar
+    // RIGHT ARM
+    ctx.fillStyle = robe;  ctx.fillRect(44, 20, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(52, 20, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(48, 20, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(40, 20, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(44, 16, 4, 4);
+    ctx.fillStyle = robe;  ctx.fillRect(48, 16, 4, 4);
+    // LEFT ARM (64×64 lower layer)
+    ctx.fillStyle = robe;  ctx.fillRect(36, 52, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(44, 52, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(40, 52, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(32, 52, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(36, 48, 4, 4);
+    ctx.fillStyle = robe;  ctx.fillRect(40, 48, 4, 4);
+    // RIGHT LEG
+    ctx.fillStyle = robeD; ctx.fillRect(4, 20, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(12, 20, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(8, 20, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(0, 20, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(4, 16, 4, 4);
+    ctx.fillStyle = robeD; ctx.fillRect(8, 16, 4, 4);
+    // LEFT LEG (64×64 lower layer)
+    ctx.fillStyle = robeD; ctx.fillRect(20, 52, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(28, 52, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(24, 52, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(16, 52, 4, 12);
+    ctx.fillStyle = robeD; ctx.fillRect(20, 48, 4, 4);
+    ctx.fillStyle = robeD; ctx.fillRect(24, 48, 4, 4);
+
+    var tex = new THREE.CanvasTexture(c);
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+
+  // Build the Evoker model (sync — uses generated canvas skin)
+  function createEvokerModel(scale) {
+    var tex = makeEvokerSkinTexture();
+    return buildPlayerFromTexture(tex, scale);
+  }
+
+  // ── Diamond sword: textured plane held in the hand, extends below the fist ──
+  function createSword(scale) {
+    var g = new THREE.Group();
+    var swTex = loader.load(BASE + 'textures/items/diamond-sword.png');
+    swTex.magFilter = THREE.NearestFilter; swTex.minFilter = THREE.NearestFilter;
+    swTex.generateMipmaps = false; swTex.colorSpace = THREE.SRGBColorSpace;
+    var mat = new THREE.MeshBasicMaterial({ map: swTex, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide });
+    var swW = 0.28 * scale, swH = 0.92 * scale;
+    var blade = new THREE.Mesh(new THREE.PlaneGeometry(swW, swH), mat);
+    // arm mesh is 0.75 tall hanging below the shoulder pivot; the hand (fist) is
+    // at the bottom = y -0.75. Place the sword so its top sits at the hand and it
+    // extends downward, pushed slightly in front of the arm box (+Z = arm front).
+    blade.position.set(0, -0.75 * scale - swH / 2 + 0.06 * scale, 0.14 * scale);
+    g.add(blade);
+    g.userData.swordTex = swTex;
     return g;
+  }
+
+  // ═══ ANIMATIONS ═══
+  // Idle: gentle breathing bob + head sway (persistent)
+  function setIdleAnim(model) {
+    var t0 = performance.now();
+    var P = model.userData.parts;
+    model.userData.animate = function (now) {
+      var t = (now - t0) / 1000;
+      model.position.y = Math.sin(t * 1.8) * 0.025;
+      if (P.head) P.head.rotation.z = Math.sin(t * 1.8 + 0.5) * 0.03;
+      if (P.armR) P.armR.rotation.x = -0.05 + Math.sin(t * 1.8) * 0.04;
+      if (P.armL) P.armL.rotation.x = -0.05 - Math.sin(t * 1.8) * 0.04;
+    };
+  }
+
+  // Walk: legs & arms swing oppositely. Returns {stop} that resets limbs.
+  function startWalkAnim(model, speed) {
+    speed = speed || 9;
+    var t0 = performance.now();
+    var P = model.userData.parts;
+    function reset() {
+      P.legR.rotation.x = 0; P.legL.rotation.x = 0;
+      P.armR.rotation.x = -0.05; P.armL.rotation.x = -0.05;
+    }
+    model.userData.animate = function (now) {
+      var t = (now - t0) / 1000;
+      var sw = Math.sin(t * speed) * 0.85;
+      P.legR.rotation.x = sw;
+      P.legL.rotation.x = -sw;
+      P.armR.rotation.x = -0.05 - sw * 0.6;
+      P.armL.rotation.x = -0.05 + sw * 0.6;
+    };
+    return { stop: function () { reset(); model.userData.animate = null; } };
+  }
+
+  // Attack sequence: approach → wind-up (raise sword) → slash → recover.
+  // onImpact called at the hit moment. onDone called when fully recovered.
+  function playAttackSequence(steve, startX, endX, onImpact, onDone) {
+    var P = steve.userData.parts;
+    var t0 = performance.now();
+    var phase = 'approach';
+    steve.userData.animate = function (now) {
+      var t = (now - t0) / 1000;
+      if (phase === 'approach') {
+        var p = Math.min(t / 0.75, 1);
+        var e = 1 - Math.pow(1 - p, 2);
+        steve.position.x = startX + (endX - startX) * e;
+        var sw = Math.sin(t * 11) * 0.9;
+        P.legR.rotation.x = sw; P.legL.rotation.x = -sw;
+        P.armR.rotation.x = -0.05 - sw * 0.5; P.armL.rotation.x = -0.05 + sw * 0.5;
+        if (p >= 1) { phase = 'windup'; t0 = now; }
+      } else if (phase === 'windup') {
+        var pw = Math.min(t / 0.42, 1);
+        // raise sword arm forward & up (rotation.x negative = forward/up)
+        P.armR.rotation.x = -0.05 - pw * 2.5;
+        P.legR.rotation.x = -0.22; P.legL.rotation.x = 0.28; // small stance
+        if (pw >= 1) { phase = 'slash'; t0 = now; if (onImpact) onImpact(); }
+      } else if (phase === 'slash') {
+        var ps = Math.min(t / 0.22, 1);
+        // swing hard from raised (-2.55) down past vertical to +0.35
+        P.armR.rotation.x = -2.55 + ps * 2.9;
+        if (ps >= 1) { phase = 'recover'; t0 = now; }
+      } else if (phase === 'recover') {
+        var pr = Math.min(t / 0.4, 1);
+        P.armR.rotation.x = 0.3 * (1 - pr) - 0.05 * pr;
+        P.legR.rotation.x *= (1 - pr); P.legL.rotation.x *= (1 - pr);
+        if (pr >= 1) {
+          P.armR.rotation.x = -0.05; P.armL.rotation.x = -0.05;
+          P.legR.rotation.x = 0; P.legL.rotation.x = 0;
+          steve.userData.animate = null;
+          if (onDone) onDone();
+        }
+      }
+    };
+  }
+
+  // Death sequence: red flash → fall backward → shrink+fade + particle poof
+  function playDeathSequence(mob, group, onDone) {
+    var P = mob.userData.parts;
+    var mats = mob.userData.lambertMats || [];
+    var red = new THREE.Color(0xCC0000);
+    mats.forEach(function (m) { m.emissive = red.clone(); m.emissiveIntensity = 0; });
+    var t0 = performance.now();
+    var phase = 'flash';
+    mob.userData.animate = function (now) {
+      var t = (now - t0) / 1000;
+      if (phase === 'flash') {
+        // flash red 4 times over 0.6s
+        var fp = t / 0.6;
+        var on = Math.floor(fp * 8) % 2 === 0;
+        mats.forEach(function (m) { m.emissiveIntensity = on ? 0.85 : 0; });
+        if (fp >= 1) {
+          mats.forEach(function (m) { m.emissiveIntensity = 0; });
+          phase = 'fall'; t0 = now;
+        }
+      } else if (phase === 'fall') {
+        var pf = Math.min(t / 0.45, 1);
+        var e = 1 - Math.pow(1 - pf, 2);
+        // fall backward (tilt so head goes behind, away from attacker)
+        mob.rotation.x = -e * (Math.PI / 2 - 0.08);
+        if (pf >= 1) {
+          phase = 'poof'; t0 = now;
+          spawnDeathParticles(mob, group);
+        }
+      } else if (phase === 'poof') {
+        var pp = Math.min(t / 0.4, 1);
+        mob.scale.setScalar(1 - pp * 0.6);
+        mats.forEach(function (m) { m.opacity = 1 - pp; });
+        if (pp >= 1) {
+          mob.visible = false;
+          mob.userData.animate = null;
+          if (onDone) onDone();
+        }
+      }
+    };
+  }
+
+  // Mojang-style death particle burst: small textured cubes fly outward + fade
+  function spawnDeathParticles(mob, group) {
+    var N = 28;
+    var baseY = mob.position.y;
+    for (var i = 0; i < N; i++) {
+      var sz = 0.06 + Math.random() * 0.08;
+      var geo = new THREE.BoxGeometry(sz, sz, sz);
+      var col = Math.random() < 0.5 ? 0x9696A0 : 0x1E1E2C;
+      var mat = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 1 });
+      var m = new THREE.Mesh(geo, mat);
+      m.position.set(
+        mob.position.x + (Math.random() - 0.5) * 0.5,
+        baseY + 0.4 + Math.random() * 1.3,
+        (mob.position.z || 0) + (Math.random() - 0.5) * 0.5
+      );
+      var ang = Math.random() * Math.PI * 2;
+      var spd = 1.2 + Math.random() * 2.2;
+      var vel = new THREE.Vector3(Math.cos(ang) * spd, 1.8 + Math.random() * 2.6, Math.sin(ang) * spd);
+      var life = { t: 0, max: 0.8 + Math.random() * 0.4 };
+      (function (m, vel, life) {
+        m.userData.animate = function () {
+          var dt = 0.016;
+          life.t += dt;
+          m.position.x += vel.x * dt;
+          m.position.y += vel.y * dt;
+          m.position.z += vel.z * dt;
+          vel.y -= 9.8 * dt; // gravity
+          m.rotation.x += dt * 7; m.rotation.z += dt * 5;
+          m.material.opacity = Math.max(0, 1 - life.t / life.max);
+          if (life.t >= life.max) {
+            group.remove(m); m.geometry.dispose(); m.material.dispose();
+            m.userData.animate = null;
+          }
+        };
+      })(m, vel, life);
+      group.add(m);
+    }
+  }
+
+  // Small golden "critical hit" sparkle burst at an impact point
+  function spawnHitSparkles(point, group) {
+    var N = 10;
+    for (var i = 0; i < N; i++) {
+      var sz = 0.05 + Math.random() * 0.05;
+      var geo = new THREE.BoxGeometry(sz, sz, sz);
+      var mat = new THREE.MeshBasicMaterial({ color: 0xFFE660, transparent: true, opacity: 1 });
+      var m = new THREE.Mesh(geo, mat);
+      m.position.copy(point);
+      var ang = Math.random() * Math.PI * 2;
+      var spd = 1.0 + Math.random() * 1.5;
+      var vel = new THREE.Vector3(Math.cos(ang) * spd, 1.2 + Math.random() * 1.6, Math.sin(ang) * spd);
+      var life = { t: 0, max: 0.45 };
+      (function (m, vel, life) {
+        m.userData.animate = function () {
+          var dt = 0.016;
+          life.t += dt;
+          m.position.addScaledVector(vel, dt);
+          vel.y -= 7 * dt;
+          m.material.opacity = Math.max(0, 1 - life.t / life.max);
+          if (life.t >= life.max) {
+            group.remove(m); m.geometry.dispose(); m.material.dispose();
+            m.userData.animate = null;
+          }
+        };
+      })(m, vel, life);
+      group.add(m);
+    }
   }
 
   // Fallback: simple box character (used if skin fails to load)
@@ -2019,172 +2270,182 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     return g;
   }
 
+  // ═══ MOB / CHEST DISCOVERY ANIMATION (Mojang-style) ═══
+  // Scene 0: Steve (sword) vs Evoker face off, idle breathing, camera intro
+  // Scene 1: Steve walks in → sword swing → Evoker flashes red, falls, poofs into particles; totem drops glowing
+  // Scene 2: zoom on totem
+  // Scene 3: chest falls from sky + bounce
+  // Scene 4: chest opens, golden glow, totem rises as prize
   function startMobScene(itemName) {
     clearScene();
     clearItems();
     sceneGroup = new THREE.Group();
     scene.add(sceneGroup);
 
-    // Create Steve with REAL skin texture (UV-mapped player model)
-    createSkinModel(BASE + 'textures/steve.png', 1).then(function(model) {
+    // subtle ground disc so the fall feels grounded
+    var groundGeo = new THREE.CircleGeometry(4.5, 48);
+    var groundMat = new THREE.MeshBasicMaterial({ color: 0x16161E, transparent: true, opacity: 0.55 });
+    var ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -0.02;
+    sceneGroup.add(ground);
+
+    // ── STEVE (real skin model + sword in right hand) ──
+    createPlayerModel(BASE + 'textures/steve.png', 1).then(function (model) {
       sceneSteve = model;
-      sceneSteve.position.set(-1.5, 0, 0);
-      sceneSteve.rotation.y = Math.PI / 2;
+      sceneSteve.position.set(-1.7, 0, 0);
+      // face +X (toward Evoker), angled ~22° toward camera so the face is visible
+      sceneSteve.rotation.y = Math.PI / 2 - 0.42;
       sceneGroup.add(sceneSteve);
-    }).catch(function(err) {
+      // attach diamond sword to right hand
+      var sword = createSword(1);
+      sceneSteve.userData.parts.armR.add(sword);
+      sceneSteve.userData.sword = sword;
+      setIdleAnim(sceneSteve);
+    }).catch(function (err) {
       console.error('[craft3D] Steve model failed:', err);
-      sceneSteve = makeBoxCharacter({
-        head: 0xF0C8A0, body: 0x00AAAA, arms: 0x4488CC, legs: 0x4444AA
-      }, 1);
-      sceneSteve.position.set(-1.5, 0, 0);
-      sceneSteve.rotation.y = Math.PI / 2;
+      sceneSteve = makeBoxCharacter({ head: 0xF0C8A0, body: 0x00AAAA, arms: 0x4488CC, legs: 0x4444AA }, 1);
+      sceneSteve.position.set(-1.7, 0, 0);
+      sceneSteve.rotation.y = Math.PI / 2 - 0.42;
       sceneGroup.add(sceneSteve);
+      setIdleAnim(sceneSteve);
     });
 
-    // Create Evoker — gray Illager (box character, evoker.png is not a skin format)
-    sceneMob = makeBoxCharacter({
-      head: 0x9A9A9A, body: 0x808080, arms: 0x606060, legs: 0x404040
-    }, 1);
-    sceneMob.position.set(1.5, 0, 0);
-    sceneMob.rotation.y = -Math.PI / 2;
+    // ── EVOKER (generated illager skin) ──
+    sceneMob = createEvokerModel(1);
+    sceneMob.position.set(1.7, 0, 0);
+    sceneMob.rotation.y = -Math.PI / 2 + 0.42; // face -X (toward Steve), angled toward camera
     sceneGroup.add(sceneMob);
+    setIdleAnim(sceneMob);
 
-    // Load the item texture for later drop
+    // ── load the totem/item texture for the drop ──
     var itemUrl = BASE + 'textures/items/' + itemName + '.png';
-    loader.load(itemUrl, (tex) => {
-      tex.magFilter = THREE.NearestFilter;
-      tex.minFilter = THREE.NearestFilter;
-      tex.generateMipmaps = false;
-      tex.colorSpace = THREE.SRGBColorSpace;
+    var makeItemMesh = function (tex) {
+      tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
+      tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
       sceneItemMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.5, 0.5),
-        new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, visible: false })
+        new THREE.PlaneGeometry(0.55, 0.55),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide, visible: false })
       );
       sceneGroup.add(sceneItemMesh);
-    }, undefined, () => {
-      loader.load(BASE + 'textures/blocks/' + itemName + '.png', (tex) => {
-        tex.magFilter = THREE.NearestFilter;
-        tex.minFilter = THREE.NearestFilter;
-        tex.generateMipmaps = false;
-        scene.colorSpace = THREE.SRGBColorSpace;
-        sceneItemMesh = new THREE.Mesh(
-          new THREE.PlaneGeometry(0.5, 0.5),
-          new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, visible: false })
-        );
-        sceneGroup.add(sceneItemMesh);
-      });
+    };
+    loader.load(itemUrl, makeItemMesh, undefined, function () {
+      loader.load(BASE + 'textures/blocks/' + itemName + '.png', makeItemMesh);
     });
 
-    // Hide crafting table, show scene
+    // hide crafting table
     tableBlock.visible = false;
 
-    // Scene 0: camera approaches — positioned to see both characters
+    // Scene 0: camera intro — front elevated view of both fighters
     sceneState = 0;
-    camTargetY = 4;
-    camTargetZ = 7;
-    camAnimating = true;
-    // Also move camera X to center between the two characters
+    camera.position.set(0, 3.0, 6.5);
+    camTargetY = 3.0; camTargetZ = 6.5;
     camera.position.x = 0;
+    camAnimating = true;
 
-    // Update next button text
     var btn = document.getElementById('sceneNextBtn');
-    if (btn) btn.textContent = 'حمله استیو ←';
+    if (btn) { btn.textContent = '⚔ حمله استیو ←'; btn.hidden = false; }
+    var sb = document.getElementById('sceneBtns');
+    if (sb) sb.hidden = false;
   }
 
   function advanceScene() {
     sceneState++;
     if (sceneState === 1) {
-      // Steve attacks: Steve lunges forward, mob falls, item drops
+      // Auto-play the attack + death + totem drop
       var btn = document.getElementById('sceneNextBtn');
-      if (btn) btn.textContent = 'زوم روی آیتم ←';
-      animateMobAttack();
+      if (btn) btn.hidden = true; // hide during auto-play
+      playAttackScene();
     } else if (sceneState === 2) {
-      // Zoom on item
+      // Zoom on the dropped totem
       var btn = document.getElementById('sceneNextBtn');
-      if (btn) btn.textContent = 'افتادن چست ←';
-      camTargetY = 2;
-      camTargetZ = 1.5;
-      camAnimating = true;
-      if (sceneItemMesh) {
-        camAnimating = true;
-      }
+      if (btn) { btn.textContent = 'افتادن چست ←'; btn.hidden = false; }
+      camTargetY = 2.2; camTargetZ = 2.2; camAnimating = true;
     } else if (sceneState === 3) {
-      // Chest falls from above
       var btn = document.getElementById('sceneNextBtn');
       if (btn) btn.textContent = 'باز شدن چست ←';
       spawnChest();
     } else if (sceneState === 4) {
-      // Chest opens, item pops out as prize
       var btn = document.getElementById('sceneNextBtn');
       if (btn) { btn.textContent = '✓ تمام'; btn.hidden = true; }
       openChest();
     } else if (sceneState >= 5) {
-      // Return to crafting table
       returnToCraftingTable();
     }
   }
 
-  function animateMobAttack() {
-    if (!sceneMob || !sceneSteve) return;
-    var startTime = performance.now();
+  // The full attack → death → totem-drop sequence (auto-plays on scene 1)
+  function playAttackScene() {
+    if (!sceneSteve || !sceneMob) {
+      // models not ready yet (Steve still loading) — retry shortly
+      setTimeout(playAttackScene, 120);
+      return;
+    }
+    // stop idle anims
+    sceneSteve.userData.animate = null;
+    sceneMob.userData.animate = null;
+
     var steveStartX = sceneSteve.position.x;
+    var steveFaceX = sceneSteve.rotation.y; // keep facing
+    // Steve walks from -1.7 toward the Evoker but stops ~0.35 (sword reach),
+    // leaving the Evoker clearly visible to the camera (no overlap).
+    var approachEnd = 0.35;
 
-    // Steve lunges TOWARD the mob (attacks)
-    sceneSteve.userData.animate = function(now) {
-      var t = Math.min((now - startTime) / 500, 1);
-      // Steve charges forward toward mob
-      sceneSteve.position.x = steveStartX + t * 2.5;
-      // Attack swing animation (lean forward)
-      sceneSteve.rotation.z = Math.sin(t * Math.PI) * 0.3;
-      if (t >= 1) {
-        // Steve returns to position
-        var retStart = performance.now();
-        sceneSteve.userData.animate = function(now2) {
-          var t2 = Math.min((now2 - retStart) / 300, 1);
-          sceneSteve.position.x = steveStartX + 2.5 - t2 * 1.5;
-          sceneSteve.rotation.z = (1 - t2) * 0.3;
-          if (t2 >= 1) {
-            sceneSteve.rotation.z = 0;
-            sceneSteve.userData.animate = null;
-          }
-        };
-
-        // MOB falls and dies — item drops from the mob
-        sceneMob.userData.animate = function(now2) {
-          var t2 = Math.min((now2 - startTime - 500) / 500, 1);
-          // Mob falls backward
-          sceneMob.rotation.z = t2 * Math.PI / 2.2; // fall over
-          sceneMob.position.y = -t2 * 0.3;
-          // Fade out slightly
-          sceneMob.traverse(obj => {
-            if (obj.material) obj.material.opacity = 1 - t2 * 0.3;
-          });
-          if (t2 >= 1) {
-            sceneMob.userData.animate = null;
-            // Item (totem) drops from the dying mob
-            if (sceneItemMesh) {
-              sceneItemMesh.material.visible = true;
-              sceneItemMesh.position.set(sceneMob.position.x, 1.5, 0);
-              sceneItemMesh.rotation.x = -Math.PI / 2;
-              var dropStart = performance.now();
-              sceneItemMesh.userData.animate = function(now3) {
-                var t3 = Math.min((now3 - dropStart) / 800, 1);
-                var eased = 1 - Math.pow(1 - t3, 3);
-                sceneItemMesh.position.y = 1.5 + (0.3 - 1.5) * eased;
-                sceneItemMesh.rotation.z = (1 - t3) * Math.PI * 2; // spin
-                if (t3 >= 1) sceneItemMesh.userData.animate = null;
+    playAttackSequence(sceneSteve, steveStartX, approachEnd, function onImpact() {
+      // impact moment: hit sparkles at the Evoker's torso + trigger death
+      var p = new THREE.Vector3(sceneMob.position.x - 0.4, 1.1, 0);
+      spawnHitSparkles(p, sceneGroup);
+      playDeathSequence(sceneMob, sceneGroup, function onDead() {
+        // totem drops from where the Evoker was, glowing green
+        if (sceneItemMesh) {
+          sceneItemMesh.material.visible = true;
+          sceneItemMesh.position.set(sceneMob.position.x - 0.1, 1.4, 0);
+          sceneItemMesh.rotation.set(-Math.PI / 2, 0, 0);
+          sceneItemMesh.scale.set(1, 1, 1);
+          // green glow light (totem of undying)
+          var glow = new THREE.PointLight(0x35FF66, 1.6, 4);
+          glow.position.set(sceneMob.position.x - 0.1, 0.7, 0);
+          sceneGroup.add(glow);
+          var dropStart = performance.now();
+          sceneItemMesh.userData.animate = function (now) {
+            var t = Math.min((now - dropStart) / 900, 1);
+            var eased = 1 - Math.pow(1 - t, 3);
+            sceneItemMesh.position.y = 1.4 + (0.32 - 1.4) * eased;
+            sceneItemMesh.rotation.z = (1 - t) * Math.PI * 3; // spin while falling
+            // gentle bob after landing
+            if (t >= 1) {
+              var bobStart = performance.now();
+              sceneItemMesh.userData.animate = function (now2) {
+                var tt = (now2 - bobStart) / 1000;
+                sceneItemMesh.position.y = 0.32 + Math.sin(tt * 2.5) * 0.05;
+                sceneItemMesh.rotation.z = Math.sin(tt * 2.5) * 0.15;
               };
             }
+          };
+        }
+        // after the drop settles, reveal the "zoom" button
+        setTimeout(function () {
+          if (sceneState === 1) {
+            var btn = document.getElementById('sceneNextBtn');
+            if (btn) { btn.textContent = 'زوم روی آیتم ←'; btn.hidden = false; }
           }
-        };
-      }
-    };
+        }, 1100);
+      });
+    }, function onAttackDone() {
+      // Steve holds his pose after the strike
+      setIdleAnim(sceneSteve);
+    });
   }
 
   function spawnChest() {
-    // Remove mob + Steve
+    // Remove mob + Steve (mob already poofed, Steve leaves the scene)
     if (sceneMob) { sceneGroup.remove(sceneMob); sceneMob = null; }
     if (sceneSteve) { sceneGroup.remove(sceneSteve); sceneSteve = null; }
+    // hide the dropped totem while the chest falls (it'll reappear as the prize)
+    if (sceneItemMesh) {
+      sceneItemMesh.userData.animate = null;
+      sceneItemMesh.material.visible = false;
+    }
 
     // Create real textured chest
     sceneChest = makeChestTextured();
@@ -2233,25 +2494,36 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         if (sceneItemMesh) {
           var popStart = performance.now();
           sceneItemMesh.position.set(0, 0.8, 0);
+          sceneItemMesh.rotation.set(-Math.PI / 2, 0, 0);
           sceneItemMesh.material.visible = true;
+          var popDur = 700;
           sceneItemMesh.userData.animate = function(now2) {
-            var t2 = Math.min((now2 - popStart) / 600, 1);
-            sceneItemMesh.position.y = 0.8 + t2 * 1.5; // rise up
+            var t2 = Math.min((now2 - popStart) / popDur, 1);
+            var e = 1 - Math.pow(1 - t2, 2);
+            sceneItemMesh.position.y = 0.8 + e * 1.6; // rise up
             sceneItemMesh.rotation.z = t2 * Math.PI * 2; // spin
-            var scale = 0.5 + t2 * 0.8;
+            var scale = 0.6 + e * 0.6;
             sceneItemMesh.scale.set(scale, scale, scale);
-            if (t2 >= 1) sceneItemMesh.userData.animate = null;
+            if (t2 >= 1) {
+              // gentle float + spin as the prize
+              var floatStart = performance.now();
+              sceneItemMesh.userData.animate = function(now3) {
+                var tt = (now3 - floatStart) / 1000;
+                sceneItemMesh.position.y = 2.4 + Math.sin(tt * 2) * 0.12;
+                sceneItemMesh.rotation.z = tt * 1.2;
+              };
+            }
           };
           // Camera zooms on prize
-          camTargetY = 2.5;
-          camTargetZ = 1.5;
+          camTargetY = 2.8;
+          camTargetZ = 1.6;
           camAnimating = true;
         }
       }
     };
 
     // Golden glow effect
-    var glow = new THREE.PointLight(0xFFD700, 2, 5);
+    var glow = new THREE.PointLight(0xFFD700, 2.5, 5);
     glow.position.set(0, 1, 0);
     sceneChest.add(glow);
   }
