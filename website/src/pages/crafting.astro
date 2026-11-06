@@ -324,6 +324,12 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       <div class="empty-hint" id="emptyHint">
         <p>روی یکی از آیکون‌های سمت راست کلیک کن.</p>
       </div>
+
+      <!-- Scene control buttons (shown during mob/chest animation) -->
+      <div class="scene-btns" id="sceneBtns" hidden>
+        <button class="mc-btn small" id="sceneNextBtn" type="button">بعدی ←</button>
+        <button class="mc-btn ghost small" id="sceneReturnBtn" type="button">↩ بازگشت به میز کرافت</button>
+      </div>
     </div>
 
     <!-- RIGHT: ALL items grid (876 textures — double-click for recipe) -->
@@ -826,6 +832,22 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     line-height: 1.6;
   }
   .empty-hint[hidden] { display: none; }
+
+  /* Scene control buttons — shown during mob/chest discovery animation */
+  .scene-btns {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+  }
+  .scene-btns[hidden] { display: none; }
+  .scene-btns .mc-btn { min-width: 120px; }
+  .scene-btns #sceneNextBtn {
+    background: linear-gradient(135deg, var(--gold, #e8c84a), #c69a30);
+    color: #1a1208;
+    font-weight: 800;
+  }
 
   /* ─── RIGHT: recipe list ─── */
   .recipe-list-area {
@@ -1510,23 +1532,17 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       });
     });
 
-    // Show "no recipe" message for items that can't be crafted
+    // Show "no recipe" → trigger 3D mob/chest animation
     function showNoRecipeMessage(itemName) {
       if (window.__craft3D) {
         window.__craft3D.clearItems();
-        window.__craft3D.resetCamera();
+        window.__craft3D.showMobScene(itemName);
       }
-      if (emptyHint) {
-        emptyHint.hidden = false;
-        emptyHint.innerHTML = '<div style="text-align:center;padding:1rem">' +
-          '<p style="font-size:1.1rem;font-weight:700;color:var(--gold,#e8c84a);margin-bottom:0.5rem">' +
-          itemName + '</p>' +
-          '<p style="color:var(--text-2,#b8b8d0)">این آیتم کرافت ندارد.</p>' +
-          '<p style="color:var(--text-3,#8a8aa8);font-size:0.8rem;margin-top:0.5rem">' +
-          'در چست‌ها، روی زمین، یا از کشتن ماب‌ها پیدا می‌شه.</p>' +
-          '</div>';
-      }
+      if (emptyHint) emptyHint.hidden = true;
       recipeInfo.hidden = true;
+      // Show the scene control buttons
+      var sceneBtns = document.getElementById('sceneBtns');
+      if (sceneBtns) sceneBtns.hidden = false;
     }
 
     // Clear-grid button
@@ -1537,6 +1553,29 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         if (searchClear) searchClear.hidden = true;
         filterList('');
         searchInput.focus();
+      });
+    }
+
+    // Scene control buttons (mob/chest animation)
+    var sceneNextBtn = document.getElementById('sceneNextBtn');
+    var sceneReturnBtn = document.getElementById('sceneReturnBtn');
+    if (sceneNextBtn) {
+      sceneNextBtn.addEventListener('click', () => {
+        if (window.__craft3D) window.__craft3D.nextScene();
+      });
+    }
+    if (sceneReturnBtn) {
+      sceneReturnBtn.addEventListener('click', () => {
+        if (window.__craft3D) {
+          window.__craft3D.clearItems();
+          window.__craft3D.resetCamera();
+        }
+        var sb = document.getElementById('sceneBtns');
+        if (sb) sb.hidden = true;
+        if (emptyHint) {
+          emptyHint.hidden = false;
+          emptyHint.innerHTML = '<p>روی یکی از آیکون‌های سمت راست کلیک کن.</p>';
+        }
       });
     }
 
@@ -1728,11 +1767,321 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     },
     resetCamera: function() {
       clearItems();
+      clearScene();
       camTargetY = 6.5;
       camTargetZ = 3.5;
       camAnimating = true;
+    },
+    showMobScene: function(itemName) {
+      startMobScene(itemName);
+    },
+    nextScene: function() {
+      advanceScene();
     }
   };
+
+  // ═══ MOB / CHEST DISCOVERY ANIMATION ═══
+  // Scenes: 0=mob_approach, 1=mob_attack+drop, 2=zoom_item, 3=chest_fall, 4=chest_open+prize
+  let sceneState = -1;
+  let sceneItemMesh = null;
+  let sceneMob = null;
+  let sceneSteve = null;
+  let sceneChest = null;
+  let sceneChestLid = null;
+  let sceneGroup = null;
+
+  function clearScene() {
+    if (sceneGroup) {
+      scene.remove(sceneGroup);
+      sceneGroup.traverse(obj => {
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) { if (obj.material.map) obj.material.map.dispose(); obj.material.dispose(); }
+      });
+      sceneGroup = null;
+    }
+    sceneState = -1;
+    sceneItemMesh = null;
+    sceneMob = null;
+    sceneSteve = null;
+    sceneChest = null;
+    sceneChestLid = null;
+    var sb = document.getElementById('sceneBtns');
+    if (sb) sb.hidden = true;
+    var sn = document.getElementById('sceneNextBtn');
+    if (sn) sn.hidden = false;
+  }
+
+  function makeBoxCharacter(colors, scale) {
+    var g = new THREE.Group();
+    // head
+    var head = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.5*scale, 0.5*scale),
+      new THREE.MeshLambertMaterial({ color: colors.head }));
+    head.position.y = 1.5*scale;
+    g.add(head);
+    // body
+    var body = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.75*scale, 0.25*scale),
+      new THREE.MeshLambertMaterial({ color: colors.body }));
+    body.position.y = 0.85*scale;
+    g.add(body);
+    // arms
+    var armGeo = new THREE.BoxGeometry(0.2*scale, 0.75*scale, 0.2*scale);
+    var armL = new THREE.Mesh(armGeo, new THREE.MeshLambertMaterial({ color: colors.arms }));
+    armL.position.set(-0.35*scale, 0.85*scale, 0);
+    g.add(armL);
+    var armR = new THREE.Mesh(armGeo, new THREE.MeshLambertMaterial({ color: colors.arms }));
+    armR.position.set(0.35*scale, 0.85*scale, 0);
+    g.add(armR);
+    // legs
+    var legGeo = new THREE.BoxGeometry(0.2*scale, 0.75*scale, 0.2*scale);
+    var legL = new THREE.Mesh(legGeo, new THREE.MeshLambertMaterial({ color: colors.legs }));
+    legL.position.set(-0.15*scale, 0.15*scale, 0);
+    g.add(legL);
+    var legR = new THREE.Mesh(legGeo, new THREE.MeshLambertMaterial({ color: colors.legs }));
+    legR.position.set(0.15*scale, 0.15*scale, 0);
+    g.add(legR);
+    return g;
+  }
+
+  function makeChest() {
+    var g = new THREE.Group();
+    // chest body
+    var body = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.8, 0.8),
+      new THREE.MeshLambertMaterial({ color: 0x8B4513 }));
+    body.position.y = 0.4;
+    g.add(body);
+    // chest lid (will rotate to open)
+    var lid = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.35, 0.8),
+      new THREE.MeshLambertMaterial({ color: 0x6B3410 }));
+    lid.position.set(0, 0.975, -0.35); // hinge at back
+    g.add(lid);
+    g.userData.lid = lid;
+    // gold lock
+    var lock = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.15, 0.1),
+      new THREE.MeshLambertMaterial({ color: 0xFFD700 }));
+    lock.position.set(0, 0.8, 0.41);
+    g.add(lock);
+    return g;
+  }
+
+  function startMobScene(itemName) {
+    clearScene();
+    clearItems();
+    sceneGroup = new THREE.Group();
+    scene.add(sceneGroup);
+
+    // Create mob (witch — purple/dark)
+    sceneMob = makeBoxCharacter({
+      head: 0x6B3FA0, body: 0x4A2D6B, arms: 0x3A2050, legs: 0x2A1535
+    }, 1);
+    sceneMob.position.set(2, 0, 0);
+    sceneGroup.add(sceneMob);
+
+    // Create Steve
+    sceneSteve = makeBoxCharacter({
+      head: 0xF0C8A0, body: 0x00AAAA, arms: 0x4488CC, legs: 0x4444AA
+    }, 1);
+    sceneSteve.position.set(-2, 0, 0);
+    sceneSteve.rotation.y = Math.PI / 2; // face the mob
+    sceneGroup.add(sceneSteve);
+
+    // Load the item texture for later drop
+    var itemUrl = BASE + 'textures/items/' + itemName + '.png';
+    loader.load(itemUrl, (tex) => {
+      tex.magFilter = THREE.NearestFilter;
+      tex.minFilter = THREE.NearestFilter;
+      tex.generateMipmaps = false;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      sceneItemMesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(0.5, 0.5),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, visible: false })
+      );
+      sceneGroup.add(sceneItemMesh);
+    }, undefined, () => {
+      loader.load(BASE + 'textures/blocks/' + itemName + '.png', (tex) => {
+        tex.magFilter = THREE.NearestFilter;
+        tex.minFilter = THREE.NearestFilter;
+        tex.generateMipmaps = false;
+        scene.colorSpace = THREE.SRGBColorSpace;
+        sceneItemMesh = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.5, 0.5),
+          new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, visible: false })
+        );
+        sceneGroup.add(sceneItemMesh);
+      });
+    });
+
+    // Hide crafting table, show scene
+    tableBlock.visible = false;
+
+    // Scene 0: camera approaches mob
+    sceneState = 0;
+    camTargetY = 3;
+    camTargetZ = 5;
+    camAnimating = true;
+
+    // Update next button text
+    var btn = document.getElementById('sceneNextBtn');
+    if (btn) btn.textContent = 'حمله ماب ←';
+  }
+
+  function advanceScene() {
+    sceneState++;
+    if (sceneState === 1) {
+      // Mob attack: mob lunges forward, Steve falls, item drops
+      var btn = document.getElementById('sceneNextBtn');
+      if (btn) btn.textContent = 'زوم روی آیتم ←';
+      // Animate mob lunge
+      animateMobAttack();
+    } else if (sceneState === 2) {
+      // Zoom on item
+      var btn = document.getElementById('sceneNextBtn');
+      if (btn) btn.textContent = 'افتادن چست ←';
+      camTargetY = 2;
+      camTargetZ = 1.5;
+      camAnimating = true;
+      if (sceneItemMesh) {
+        camAnimating = true;
+      }
+    } else if (sceneState === 3) {
+      // Chest falls from above
+      var btn = document.getElementById('sceneNextBtn');
+      if (btn) btn.textContent = 'باز شدن چست ←';
+      spawnChest();
+    } else if (sceneState === 4) {
+      // Chest opens, item pops out as prize
+      var btn = document.getElementById('sceneNextBtn');
+      if (btn) { btn.textContent = '✓ تمام'; btn.hidden = true; }
+      openChest();
+    } else if (sceneState >= 5) {
+      // Return to crafting table
+      returnToCraftingTable();
+    }
+  }
+
+  function animateMobAttack() {
+    if (!sceneMob || !sceneSteve) return;
+    var startTime = performance.now();
+    var mobStartX = sceneMob.position.x;
+    var steveRotY = sceneSteve.rotation.y;
+
+    // Mob lunges forward
+    sceneMob.userData.animate = function(now) {
+      var t = Math.min((now - startTime) / 600, 1);
+      sceneMob.position.x = mobStartX - t * 1.5; // move toward Steve
+      sceneMob.rotation.y = -Math.PI / 2 + Math.sin(t * Math.PI * 3) * 0.3; // shake
+      if (t >= 1) {
+        // Steve falls
+        sceneSteve.userData.animate = function(now2) {
+          var t2 = Math.min((now2 - startTime - 600) / 400, 1);
+          sceneSteve.rotation.z = t2 * Math.PI / 2.5; // fall over
+          sceneSteve.position.y = -t2 * 0.3;
+          if (t2 >= 1) {
+            sceneSteve.userData.animate = null;
+            // Item drops from mob
+            if (sceneItemMesh) {
+              sceneItemMesh.material.visible = true;
+              sceneItemMesh.position.set(sceneMob.position.x, 2, 0);
+              sceneItemMesh.rotation.x = -Math.PI / 2;
+              var dropStart = performance.now();
+              sceneItemMesh.userData.animate = function(now3) {
+                var t3 = Math.min((now3 - dropStart) / 800, 1);
+                var eased = 1 - Math.pow(1 - t3, 3);
+                sceneItemMesh.position.y = 2 + (0.3 - 2) * eased;
+                sceneItemMesh.rotation.z = (1 - t3) * Math.PI * 2;
+                if (t3 >= 1) sceneItemMesh.userData.animate = null;
+              };
+            }
+          }
+        };
+        sceneMob.userData.animate = null;
+      }
+    };
+  }
+
+  function spawnChest() {
+    // Remove mob + Steve
+    if (sceneMob) { sceneGroup.remove(sceneMob); sceneMob = null; }
+    if (sceneSteve) { sceneGroup.remove(sceneSteve); sceneSteve = null; }
+
+    // Create chest
+    sceneChest = makeChest();
+    sceneChest.position.set(0, 5, 0); // start above
+    sceneGroup.add(sceneChest);
+    sceneChestLid = sceneChest.userData.lid;
+
+    // Camera moves to watch chest fall
+    camTargetY = 3;
+    camTargetZ = 4;
+    camAnimating = true;
+
+    // Animate chest falling
+    var startTime = performance.now();
+    sceneChest.userData.animate = function(now) {
+      var t = Math.min((now - startTime) / 1000, 1);
+      var eased = t * t; // accelerate (gravity feel)
+      sceneChest.position.y = 5 + (0 - 5) * eased;
+      if (t >= 1) {
+        // Bounce
+        var bounceStart = performance.now();
+        sceneChest.userData.animate = function(now2) {
+          var t2 = Math.min((now2 - bounceStart) / 300, 1);
+          sceneChest.position.y = Math.sin(t2 * Math.PI) * 0.3 * (1 - t2);
+          if (t2 >= 1) {
+            sceneChest.position.y = 0;
+            sceneChest.userData.animate = null;
+          }
+        };
+      }
+    };
+  }
+
+  function openChest() {
+    if (!sceneChest || !sceneChestLid) return;
+
+    // Animate lid opening
+    var startTime = performance.now();
+    sceneChestLid.userData.animate = function(now) {
+      var t = Math.min((now - startTime) / 500, 1);
+      // Rotate lid back (hinge at back-bottom)
+      sceneChestLid.rotation.x = -t * Math.PI * 0.4; // open ~72°
+      if (t >= 1) {
+        sceneChestLid.userData.animate = null;
+        // Item pops out as prize
+        if (sceneItemMesh) {
+          var popStart = performance.now();
+          sceneItemMesh.position.set(0, 0.8, 0);
+          sceneItemMesh.material.visible = true;
+          sceneItemMesh.userData.animate = function(now2) {
+            var t2 = Math.min((now2 - popStart) / 600, 1);
+            sceneItemMesh.position.y = 0.8 + t2 * 1.5; // rise up
+            sceneItemMesh.rotation.z = t2 * Math.PI * 2; // spin
+            var scale = 0.5 + t2 * 0.8;
+            sceneItemMesh.scale.set(scale, scale, scale);
+            if (t2 >= 1) sceneItemMesh.userData.animate = null;
+          };
+          // Camera zooms on prize
+          camTargetY = 2.5;
+          camTargetZ = 1.5;
+          camAnimating = true;
+        }
+      }
+    };
+
+    // Golden glow effect
+    var glow = new THREE.PointLight(0xFFD700, 2, 5);
+    glow.position.set(0, 1, 0);
+    sceneChest.add(glow);
+  }
+
+  function returnToCraftingTable() {
+    clearScene();
+    tableBlock.visible = true;
+    camTargetY = 6.5;
+    camTargetZ = 3.5;
+    camAnimating = true;
+    var sb = document.getElementById('sceneBtns');
+    if (sb) sb.hidden = true;
+  }
 
   function createItemPlane(texture, slotIdx) {
     const mat = new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: 0.5 });
@@ -1777,10 +2126,16 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       camera.lookAt(0, 0.3, 0);
       if (Math.abs(camera.position.y - camTargetY) < 0.01) camAnimating = false;
     }
-    // Animate falling items
+    // Animate falling items (recipe drops)
     itemGroup.children.forEach(mesh => {
       if (mesh.userData.animate) mesh.userData.animate(now);
     });
+    // Animate scene objects (mob/chest/prize)
+    if (sceneGroup) {
+      sceneGroup.traverse(obj => {
+        if (obj.userData && obj.userData.animate) obj.userData.animate(now);
+      });
+    }
     renderer.render(scene, camera);
   }
   render(0);
