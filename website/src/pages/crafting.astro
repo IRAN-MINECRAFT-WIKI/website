@@ -303,40 +303,12 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
        MAIN LAYOUT: 3D CRAFTING TABLE (LEFT) + ITEM GRID (RIGHT)
        ═══════════════════════════════════════════════════════════ -->
   <section class="craft-layout">
-    <!-- LEFT: 3D crafting table visual + grid -->
+    <!-- LEFT: 3D crafting table ONLY (no 2D grid) -->
     <div class="craft-grid-area">
-      <!-- 3D crafting table canvas (Three.js) -->
+      <!-- 3D crafting table canvas (Three.js) — everything happens here -->
       <div class="craft-3d-canvas-wrap" id="craft3DWrap">
-        <canvas id="craft3DCanvas" width="400" height="200"></canvas>
+        <canvas id="craft3DCanvas" width="400" height="400"></canvas>
         <div class="craft-3d-hint" id="craft3DHint">در حال بارگذاری صحنه سه‌بعدی…</div>
-      </div>
-      <div class="mcui-Crafting_Table" id="craftingTableUI">
-        <div class="mcui-input">
-          <div class="mcui-shaped">
-            {[0, 1, 2].map((r) => (
-              <div class="mcui-row">
-                {[0, 1, 2].map((c) => {
-                  const idx = r * 3 + c;
-                  return (
-                    <div
-                      class="craft-slot"
-                      data-craft-slot={idx}
-                      aria-label={`اسلات ${idx + 1}`}
-                    ></div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div class="mcui-arrow" aria-hidden="true">
-          <svg width="32" height="16" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 8h22M21 3l5 5-5 5" />
-          </svg>
-        </div>
-        <div class="mcui-output">
-          <div class="craft-result-slot" id="craftResultSlot" aria-label="خروجی"></div>
-        </div>
       </div>
 
       <!-- Recipe info card (revealed when a recipe is loaded) -->
@@ -361,7 +333,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
       <!-- Empty-state hint (shown when no recipe is loaded) -->
       <div class="empty-hint" id="emptyHint">
-        <p>روی یکی از آیکون‌های سمت چپ کلیک کن یا درگ کن روی میز کار.</p>
+        <p>روی یکی از آیکون‌های سمت راست کلیک کن.</p>
       </div>
     </div>
 
@@ -648,15 +620,16 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 
-  /* 3D crafting table canvas (Three.js) */
+  /* 3D crafting table canvas (Three.js) — the main view */
   .craft-3d-canvas-wrap {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 400px;
     margin-bottom: 0.75rem;
-    background: radial-gradient(ellipse at center, rgba(60, 50, 30, 0.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(60, 50, 30, 0.2) 0%, transparent 70%);
     border-radius: 8px;
     overflow: hidden;
+    border: 1px solid var(--line, #2e2e4a);
   }
   .craft-3d-canvas-wrap canvas {
     display: block;
@@ -1313,15 +1286,9 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
     // ── Render recipe into 3x3 grid + result slot ──────────
     function renderRecipe(recipe) {
-      // Clear grid + result
-      craftSlots.forEach((s) => { s.innerHTML = ''; s.classList.add('empty'); });
-      craftResultSlot.innerHTML = '';
-      craftResultSlot.classList.add('empty');
-      recipeInfo.hidden = true;
-      if (emptyHint) emptyHint.hidden = false;
-
-      // Clear 3D scene items + reset camera
+      // Clear 3D scene items FIRST (fixes bug where old items pile up)
       if (window.__craft3D) {
+        window.__craft3D.clearItems();
         window.__craft3D.resetCamera();
       }
 
@@ -1635,136 +1602,134 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   if (!canvas) throw new Error('no craft3DCanvas');
 
   const BASE = '/website/';
-  const texUrl = (name) => BASE + 'textures/blocks/' + name + '.png';
 
   // Scene setup
   const scene = new THREE.Scene();
-  scene.background = null; // transparent
+  scene.background = null;
 
-  const camera = new THREE.PerspectiveCamera(35, canvas.width / canvas.height, 0.1, 100);
-  camera.position.set(4, 5, 4);
-  camera.lookAt(0, 0, 0);
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+  // Fixed angle — 75° from horizontal (15° tilt from straight down)
+  camera.position.set(0, 6.5, 3.5);
+  camera.lookAt(0, 0.3, 0);
 
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
 
-  // Lighting — warm directional + ambient
-  const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+  // Lighting
+  const ambient = new THREE.AmbientLight(0xffffff, 0.6);
   scene.add(ambient);
-  const dirLight = new THREE.DirectionalLight(0xfff5e0, 0.8);
-  dirLight.position.set(5, 8, 5);
+  const dirLight = new THREE.DirectionalLight(0xfff5e0, 0.7);
+  dirLight.position.set(3, 6, 4);
   scene.add(dirLight);
 
-  // Crafting table block (3 faces visible: top, front, right)
+  // Crafting table block — NO rotation, locked in place
   const loader = new THREE.TextureLoader();
-  const topTex = loader.load(texUrl('crafting-table-top'), () => {
+  loader.crossOrigin = 'anonymous';
+  const topTex = loader.load(BASE + 'textures/blocks/crafting-table-top.png', () => {
     if (hint) hint.hidden = true;
   });
-  const sideTex = loader.load(texUrl('crafting-table-side'));
+  const sideTex = loader.load(BASE + 'textures/blocks/crafting-table-side.png');
   topTex.magFilter = THREE.NearestFilter;
-  topTex.minFilter = THREE.NearestFilter;
   sideTex.magFilter = THREE.NearestFilter;
-  sideTex.minFilter = THREE.NearestFilter;
 
   const blockGeo = new THREE.BoxGeometry(2, 2, 2);
-  // Face order: +X, -X, +Y(top), -Y(bottom), +Z(front), -Z(back)
   const materials = [
-    new THREE.MeshLambertMaterial({ map: sideTex }), // +X (right side)
-    new THREE.MeshLambertMaterial({ map: sideTex }), // -X (left side)
-    new THREE.MeshLambertMaterial({ map: topTex }),  // +Y (top)
-    new THREE.MeshLambertMaterial({ color: 0x8B5A2B }), // -Y (bottom, plain)
-    new THREE.MeshLambertMaterial({ map: sideTex }), // +Z (front)
-    new THREE.MeshLambertMaterial({ map: sideTex }), // -Z (back)
+    new THREE.MeshLambertMaterial({ map: sideTex }),
+    new THREE.MeshLambertMaterial({ map: sideTex }),
+    new THREE.MeshLambertMaterial({ map: topTex }),
+    new THREE.MeshLambertMaterial({ color: 0x8B5A2B }),
+    new THREE.MeshLambertMaterial({ map: sideTex }),
+    new THREE.MeshLambertMaterial({ map: sideTex }),
   ];
   const tableBlock = new THREE.Mesh(blockGeo, materials);
-  tableBlock.position.y = 0;
   scene.add(tableBlock);
 
-  // Floating item planes (for drop animation)
+  // Items sit on a GROUP that is locked to the table (no rotation)
   const itemGroup = new THREE.Group();
   scene.add(itemGroup);
 
-  // Camera animation state
-  let cameraTargetY = 5;
-  let cameraTargetZ = 4;
-  let isAnimating = false;
+  // Camera animation: smooth transition between idle and recipe-view
+  let camTargetY = 6.5, camTargetZ = 3.5;
+  let camAnimating = false;
 
-  function animateCamera() {
-    isAnimating = true;
+  function clearItems() {
+    // Remove all old item meshes + dispose geometry/materials
+    while (itemGroup.children.length > 0) {
+      const child = itemGroup.children[0];
+      if (child.geometry) child.geometry.dispose();
+      if (child.material) {
+        if (child.material.map) child.material.map.dispose();
+        child.material.dispose();
+      }
+      itemGroup.remove(child);
+    }
   }
 
-  // Expose API for the crafting page JS to trigger item drops
   window.__craft3D = {
+    clearItems: clearItems,
     dropItem: function(itemName, slotIdx) {
-      // Create a plane with the item texture
-      const tex = loader.load(BASE + 'textures/items/' + itemName + '.png', undefined, undefined, () => {
+      const url = BASE + 'textures/items/' + itemName + '.png';
+      loader.load(url, (tex) => {
+        tex.magFilter = THREE.NearestFilter;
+        createItemPlane(tex, slotIdx);
+      }, undefined, () => {
         // fallback to blocks folder
-        loader.load(BASE + 'textures/blocks/' + itemName + '.png', (t) => {
-          createItemPlane(t, slotIdx);
+        loader.load(BASE + 'textures/blocks/' + itemName + '.png', (tex) => {
+          tex.magFilter = THREE.NearestFilter;
+          createItemPlane(tex, slotIdx);
         });
       });
-      tex.magFilter = THREE.NearestFilter;
-      createItemPlane(tex, slotIdx);
     },
     showRecipe: function() {
-      // Camera moves up to show the grid from above
-      cameraTargetY = 8;
-      cameraTargetZ = 2;
-      animateCamera();
+      camTargetY = 7.5;
+      camTargetZ = 1.5;
+      camAnimating = true;
     },
     resetCamera: function() {
-      cameraTargetY = 5;
-      cameraTargetZ = 4;
-      animateCamera();
+      clearItems();
+      camTargetY = 6.5;
+      camTargetZ = 3.5;
+      camAnimating = true;
     }
   };
 
   function createItemPlane(texture, slotIdx) {
     const mat = new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: 0.5 });
-    const geo = new THREE.PlaneGeometry(0.6, 0.6);
+    const geo = new THREE.PlaneGeometry(0.55, 0.55);
     const mesh = new THREE.Mesh(geo, mat);
-    // Position above the crafting table
+    // Grid layout on top of the table (3x3, centered)
+    const col = slotIdx % 3;
+    const row = Math.floor(slotIdx / 3);
     mesh.position.set(
-      (slotIdx % 3 - 1) * 0.6,
-      3, // start above
-      (Math.floor(slotIdx / 3) - 1) * 0.6
+      (col - 1) * 0.62,
+      3,
+      (row - 1) * 0.62
     );
-    mesh.rotation.x = -Math.PI / 2; // face up
+    mesh.rotation.x = -Math.PI / 2;
     itemGroup.add(mesh);
 
-    // Animate falling
+    // Animate falling onto table
     const startY = 3;
-    const endY = 1.05; // just above table top
-    const duration = 500;
+    const endY = 1.06;
+    const duration = 600;
     const startTime = performance.now();
     mesh.userData.animate = function(now) {
       const t = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      const eased = 1 - Math.pow(1 - t, 3);
       mesh.position.y = startY + (endY - startY) * eased;
-      mesh.rotation.z = (1 - t) * Math.PI; // spin during fall
       if (t >= 1) mesh.userData.animate = null;
     };
   }
 
-  // Render loop
-  let blockRotation = 0;
+  // Render loop — NO table rotation, items locked to table
   function render(now) {
     requestAnimationFrame(render);
-    // Gentle auto-rotation
-    if (!isAnimating) {
-      blockRotation += 0.003;
-      tableBlock.rotation.y = blockRotation;
-    }
-    // Camera animation
-    if (isAnimating) {
-      camera.position.y += (cameraTargetY - camera.position.y) * 0.08;
-      camera.position.z += (cameraTargetZ - camera.position.z) * 0.08;
-      camera.lookAt(0, 0.5, 0);
-      if (Math.abs(camera.position.y - cameraTargetY) < 0.01 &&
-          Math.abs(camera.position.z - cameraTargetZ) < 0.01) {
-        isAnimating = false;
-      }
+    // Camera animation only (no block rotation)
+    if (camAnimating) {
+      camera.position.y += (camTargetY - camera.position.y) * 0.06;
+      camera.position.z += (camTargetZ - camera.position.z) * 0.06;
+      camera.lookAt(0, 0.3, 0);
+      if (Math.abs(camera.position.y - camTargetY) < 0.01) camAnimating = false;
     }
     // Animate falling items
     itemGroup.children.forEach(mesh => {
@@ -1778,12 +1743,13 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   function onResize() {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
+    if (w === 0 || h === 0) return;
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h, false);
   }
   window.addEventListener('resize', onResize);
-  setTimeout(onResize, 100); // initial size fix
+  setTimeout(onResize, 100);
 </script>
 
 <style is:global>
