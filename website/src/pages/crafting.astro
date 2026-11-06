@@ -1813,30 +1813,30 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
   function makeBoxCharacter(colors, scale) {
     var g = new THREE.Group();
+    // Use transparent materials so fade-out works
+    var mkMat = (c) => new THREE.MeshLambertMaterial({ color: c, transparent: true, opacity: 1 });
     // head
-    var head = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.5*scale, 0.5*scale),
-      new THREE.MeshLambertMaterial({ color: colors.head }));
+    var head = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.5*scale, 0.5*scale), mkMat(colors.head));
     head.position.y = 1.5*scale;
     g.add(head);
     // body
-    var body = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.75*scale, 0.25*scale),
-      new THREE.MeshLambertMaterial({ color: colors.body }));
+    var body = new THREE.Mesh(new THREE.BoxGeometry(0.5*scale, 0.75*scale, 0.25*scale), mkMat(colors.body));
     body.position.y = 0.85*scale;
     g.add(body);
     // arms
     var armGeo = new THREE.BoxGeometry(0.2*scale, 0.75*scale, 0.2*scale);
-    var armL = new THREE.Mesh(armGeo, new THREE.MeshLambertMaterial({ color: colors.arms }));
+    var armL = new THREE.Mesh(armGeo, mkMat(colors.arms));
     armL.position.set(-0.35*scale, 0.85*scale, 0);
     g.add(armL);
-    var armR = new THREE.Mesh(armGeo, new THREE.MeshLambertMaterial({ color: colors.arms }));
+    var armR = new THREE.Mesh(armGeo, mkMat(colors.arms));
     armR.position.set(0.35*scale, 0.85*scale, 0);
     g.add(armR);
     // legs
     var legGeo = new THREE.BoxGeometry(0.2*scale, 0.75*scale, 0.2*scale);
-    var legL = new THREE.Mesh(legGeo, new THREE.MeshLambertMaterial({ color: colors.legs }));
+    var legL = new THREE.Mesh(legGeo, mkMat(colors.legs));
     legL.position.set(-0.15*scale, 0.15*scale, 0);
     g.add(legL);
-    var legR = new THREE.Mesh(legGeo, new THREE.MeshLambertMaterial({ color: colors.legs }));
+    var legR = new THREE.Mesh(legGeo, mkMat(colors.legs));
     legR.position.set(0.15*scale, 0.15*scale, 0);
     g.add(legR);
     return g;
@@ -1869,19 +1869,20 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     sceneGroup = new THREE.Group();
     scene.add(sceneGroup);
 
-    // Create mob (witch — purple/dark)
+    // Create mob — Evoker (gray robe, yellow trim — Illager style)
     sceneMob = makeBoxCharacter({
-      head: 0x6B3FA0, body: 0x4A2D6B, arms: 0x3A2050, legs: 0x2A1535
+      head: 0x9A9A9A, body: 0x808080, arms: 0x606060, legs: 0x404040
     }, 1);
     sceneMob.position.set(2, 0, 0);
+    sceneMob.rotation.y = -Math.PI / 2; // face Steve (face left)
     sceneGroup.add(sceneMob);
 
-    // Create Steve
+    // Create Steve — the hero who kills the mob
     sceneSteve = makeBoxCharacter({
       head: 0xF0C8A0, body: 0x00AAAA, arms: 0x4488CC, legs: 0x4444AA
     }, 1);
     sceneSteve.position.set(-2, 0, 0);
-    sceneSteve.rotation.y = Math.PI / 2; // face the mob
+    sceneSteve.rotation.y = Math.PI / 2; // face the mob (face right)
     sceneGroup.add(sceneSteve);
 
     // Load the item texture for later drop
@@ -1921,16 +1922,15 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
     // Update next button text
     var btn = document.getElementById('sceneNextBtn');
-    if (btn) btn.textContent = 'حمله ماب ←';
+    if (btn) btn.textContent = 'حمله استیو ←';
   }
 
   function advanceScene() {
     sceneState++;
     if (sceneState === 1) {
-      // Mob attack: mob lunges forward, Steve falls, item drops
+      // Steve attacks: Steve lunges forward, mob falls, item drops
       var btn = document.getElementById('sceneNextBtn');
       if (btn) btn.textContent = 'زوم روی آیتم ←';
-      // Animate mob lunge
       animateMobAttack();
     } else if (sceneState === 2) {
       // Zoom on item
@@ -1961,39 +1961,56 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   function animateMobAttack() {
     if (!sceneMob || !sceneSteve) return;
     var startTime = performance.now();
-    var mobStartX = sceneMob.position.x;
-    var steveRotY = sceneSteve.rotation.y;
+    var steveStartX = sceneSteve.position.x;
 
-    // Mob lunges forward
-    sceneMob.userData.animate = function(now) {
-      var t = Math.min((now - startTime) / 600, 1);
-      sceneMob.position.x = mobStartX - t * 1.5; // move toward Steve
-      sceneMob.rotation.y = -Math.PI / 2 + Math.sin(t * Math.PI * 3) * 0.3; // shake
+    // Steve lunges TOWARD the mob (attacks)
+    sceneSteve.userData.animate = function(now) {
+      var t = Math.min((now - startTime) / 500, 1);
+      // Steve charges forward toward mob
+      sceneSteve.position.x = steveStartX + t * 2.5;
+      // Attack swing animation (lean forward)
+      sceneSteve.rotation.z = Math.sin(t * Math.PI) * 0.3;
       if (t >= 1) {
-        // Steve falls
+        // Steve returns to position
+        var retStart = performance.now();
         sceneSteve.userData.animate = function(now2) {
-          var t2 = Math.min((now2 - startTime - 600) / 400, 1);
-          sceneSteve.rotation.z = t2 * Math.PI / 2.5; // fall over
-          sceneSteve.position.y = -t2 * 0.3;
+          var t2 = Math.min((now2 - retStart) / 300, 1);
+          sceneSteve.position.x = steveStartX + 2.5 - t2 * 1.5;
+          sceneSteve.rotation.z = (1 - t2) * 0.3;
           if (t2 >= 1) {
+            sceneSteve.rotation.z = 0;
             sceneSteve.userData.animate = null;
-            // Item drops from mob
+          }
+        };
+
+        // MOB falls and dies — item drops from the mob
+        sceneMob.userData.animate = function(now2) {
+          var t2 = Math.min((now2 - startTime - 500) / 500, 1);
+          // Mob falls backward
+          sceneMob.rotation.z = t2 * Math.PI / 2.2; // fall over
+          sceneMob.position.y = -t2 * 0.3;
+          // Fade out slightly
+          sceneMob.traverse(obj => {
+            if (obj.material) obj.material.opacity = 1 - t2 * 0.3;
+          });
+          if (t2 >= 1) {
+            sceneMob.userData.animate = null;
+            // Item (totem) drops from the dying mob
             if (sceneItemMesh) {
               sceneItemMesh.material.visible = true;
-              sceneItemMesh.position.set(sceneMob.position.x, 2, 0);
+              sceneItemMesh.position.set(sceneMob.position.x, 1.5, 0);
               sceneItemMesh.rotation.x = -Math.PI / 2;
               var dropStart = performance.now();
               sceneItemMesh.userData.animate = function(now3) {
                 var t3 = Math.min((now3 - dropStart) / 800, 1);
                 var eased = 1 - Math.pow(1 - t3, 3);
-                sceneItemMesh.position.y = 2 + (0.3 - 2) * eased;
-                sceneItemMesh.rotation.z = (1 - t3) * Math.PI * 2;
+                sceneItemMesh.position.y = 1.5 + (0.3 - 1.5) * eased;
+                sceneItemMesh.rotation.z = (1 - t3) * Math.PI * 2; // spin
                 if (t3 >= 1) sceneItemMesh.userData.animate = null;
               };
             }
           }
         };
-        sceneMob.userData.animate = null;
       }
     };
   }
