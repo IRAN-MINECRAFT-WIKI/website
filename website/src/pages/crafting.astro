@@ -1694,11 +1694,14 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   // Lighting
-  const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+  const ambient = new THREE.AmbientLight(0xffffff, 0.85);
   scene.add(ambient);
-  const dirLight = new THREE.DirectionalLight(0xfff5e0, 0.7);
+  const dirLight = new THREE.DirectionalLight(0xfff5e0, 0.9);
   dirLight.position.set(3, 6, 4);
   scene.add(dirLight);
+  const dirLight2 = new THREE.DirectionalLight(0xddeeff, 0.5);
+  dirLight2.position.set(-3, 4, -2);
+  scene.add(dirLight2);
 
   // Crafting table block — NO rotation, locked in place
   const loader = new THREE.TextureLoader();
@@ -1749,8 +1752,8 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       const child = itemGroup.children[0];
       if (child.geometry) child.geometry.dispose();
       if (child.material) {
-        if (child.material.map) child.material.map.dispose();
-        child.material.dispose();
+        var mats = Array.isArray(child.material) ? child.material : [child.material];
+        mats.forEach(function(m){ if (m.map) m.map.dispose(); m.dispose(); });
       }
       itemGroup.remove(child);
     }
@@ -1816,7 +1819,10 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       scene.remove(sceneGroup);
       sceneGroup.traverse(obj => {
         if (obj.geometry) obj.geometry.dispose();
-        if (obj.material) { if (obj.material.map) obj.material.map.dispose(); obj.material.dispose(); }
+        if (obj.material) {
+          var mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+          mats.forEach(function(m){ if (m.map) m.map.dispose(); m.dispose(); });
+        }
       });
       sceneGroup = null;
     }
@@ -2183,19 +2189,27 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     });
   }
 
-  // ── Diamond sword: textured plane held in the hand, extends below the fist ──
+  // ── Diamond sword: 3D extruded item held by the handle (like Minecraft's
+  //    item-in-hand rendering). A thin box with the sword texture on the front
+  //    and back faces; the texture is flipped so the HANDLE is at the top
+  //    (where Steve grips) and the blade points down/away.
   function createSword(scale) {
     var g = new THREE.Group();
     var swTex = loader.load(BASE + 'textures/items/diamond-sword.png');
     swTex.magFilter = THREE.NearestFilter; swTex.minFilter = THREE.NearestFilter;
     swTex.generateMipmaps = false; swTex.colorSpace = THREE.SRGBColorSpace;
-    var mat = new THREE.MeshBasicMaterial({ map: swTex, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide });
-    var swW = 0.28 * scale, swH = 0.92 * scale;
-    var blade = new THREE.Mesh(new THREE.PlaneGeometry(swW, swH), mat);
-    // arm mesh is 0.75 tall hanging below the shoulder pivot; the hand (fist) is
-    // at the bottom = y -0.75. Place the sword so its top sits at the hand and it
-    // extends downward, pushed slightly in front of the arm box (+Z = arm front).
-    blade.position.set(0, -0.75 * scale - swH / 2 + 0.06 * scale, 0.14 * scale);
+    // flip V so the handle (bottom of the item texture) lands at the top of the box
+    swTex.repeat.set(1, -1); swTex.offset.set(0, 1);
+    var swordMat = new THREE.MeshBasicMaterial({ map: swTex, transparent: true, alphaTest: 0.5 });
+    var edgeMat = new THREE.MeshBasicMaterial({ color: 0x5a3a1a }); // stick/handle edge color
+    var swW = 0.26 * scale, swH = 0.9 * scale, swD = 0.045 * scale;
+    // 6 materials: +X,-X,+Y,-Y,+Z(front),-Z(back) — front+back show the sword
+    var blade = new THREE.Mesh(
+      new THREE.BoxGeometry(swW, swH, swD),
+      [edgeMat, edgeMat, edgeMat, edgeMat, swordMat, swordMat]
+    );
+    // top of the sword box sits at the hand (arm bottom = y -0.75), blade hangs below
+    blade.position.set(0, -0.75 * scale - swH / 2 + 0.05 * scale, 0.14 * scale);
     g.add(blade);
     g.userData.swordTex = swTex;
     return g;
@@ -2449,6 +2463,13 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     g.add(lidPivot);
     g.userData.lid = lidPivot;
 
+    // silver lock plate on the front (at the lid/body seam, facing +Z/camera)
+    var lockMat = new THREE.MeshBasicMaterial({ color: 0xC0C0C8 });
+    var lock = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.16, 0.04), lockMat);
+    lock.position.set(0, 0.95, 0.72); // front face, just below the lid seam
+    g.add(lock);
+    g.userData.lock = lock;
+
     return g;
   }
 
@@ -2561,17 +2582,64 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     return g;
   }
 
-  // ── Axe: textured plane held in the hand (for chopping) ──
+  // ── Axe: 3D extruded item held by the handle (for chopping) ──
   function createAxe(scale) {
     var g = new THREE.Group();
     var axTex = loader.load(BASE + 'textures/items/diamond-axe.png');
     axTex.magFilter = THREE.NearestFilter; axTex.minFilter = THREE.NearestFilter;
     axTex.generateMipmaps = false; axTex.colorSpace = THREE.SRGBColorSpace;
-    var mat = new THREE.MeshBasicMaterial({ map: axTex, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide });
-    var blade = new THREE.Mesh(new THREE.PlaneGeometry(0.32 * scale, 0.88 * scale), mat);
-    blade.position.set(0, -0.75 * scale - 0.44 * scale + 0.06 * scale, 0.14 * scale);
+    axTex.repeat.set(1, -1); axTex.offset.set(0, 1); // handle at top
+    var axeMat = new THREE.MeshBasicMaterial({ map: axTex, transparent: true, alphaTest: 0.5 });
+    var edgeMat = new THREE.MeshBasicMaterial({ color: 0x5a3a1a });
+    var aW = 0.3 * scale, aH = 0.86 * scale, aD = 0.045 * scale;
+    var blade = new THREE.Mesh(
+      new THREE.BoxGeometry(aW, aH, aD),
+      [edgeMat, edgeMat, edgeMat, edgeMat, axeMat, axeMat]
+    );
+    blade.position.set(0, -0.75 * scale - aH / 2 + 0.05 * scale, 0.14 * scale);
     g.add(blade);
     return g;
+  }
+
+  // ── Build a 3D drop-item mesh: a full cube for block textures, or a thin
+  //    extruded box for item textures (like Minecraft's dropped-item rendering).
+  //    `isBlock` = true → cube (texture on all 6 faces); false → thin box
+  //    (texture on front/back, brown edges), flat-ish but with real Z depth.
+  function makeDropItemMesh(tex, isBlock) {
+    tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
+    var mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5 });
+    var mesh;
+    if (isBlock) {
+      mesh = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.55, 0.55),
+        [mat, mat, mat, mat, mat, mat]);
+    } else {
+      var edgeMat = new THREE.MeshBasicMaterial({ color: 0x4a4a4a, transparent: true, alphaTest: 0.5 });
+      mesh = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.05),
+        [edgeMat, edgeMat, edgeMat, edgeMat, mat, mat]);
+    }
+    mesh.visible = false; // hidden until the drop animation reveals it
+    return mesh;
+  }
+
+  // Load a drop item: try blocks/ first (3D cube), then items/ (extruded sprite).
+  // Sets sceneItemMesh + adds it to sceneGroup.
+  function loadDropItem(itemName, group) {
+    var blockUrl = BASE + 'textures/blocks/' + itemName + '.png';
+    var itemUrl = BASE + 'textures/items/' + itemName + '.png';
+    function onBlock(tex) {
+      sceneItemMesh = makeDropItemMesh(tex, true);
+      group.add(sceneItemMesh);
+    }
+    function onItem(tex) {
+      sceneItemMesh = makeDropItemMesh(tex, false);
+      group.add(sceneItemMesh);
+    }
+    loader.load(blockUrl, onBlock, undefined, function () {
+      loader.load(itemUrl, onItem, undefined, function () {
+        // both failed — leave sceneItemMesh null (openChest has a fallback)
+      });
+    });
   }
 
   // ── Block-break particle burst (Mojang-style: small cubes fly + fade) ──
@@ -2601,41 +2669,57 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     }
   }
 
-  // ── Scene slide transition: slide current group out left, build new ──
+  // ── Scene slide transition: slide current group out left, build new scene
+  //    sliding in from the right. Self-contained (uses its own rAF so it
+  //    works even though the render loop only traverses `sceneGroup`).
   function slideTransition(onMidSwap) {
     if (!sceneGroup) { onMidSwap(); return; }
-    var t0 = performance.now();
     var oldGroup = sceneGroup;
-    sceneGroup = null; // detached; render loop still traverses oldGroup via a temp
-    // slide out left + fade
-    oldGroup.userData._slide = { t0: t0, dir: -1 };
-    oldGroup.userData.animate = function (now) {
-      var t = Math.min((now - t0) / 450, 1);
-      oldGroup.position.x = -t * 8;
-      oldGroup.traverse(function (o) {
-        if (o.material) { if (o.material.opacity === undefined) {} o.material.transparent = true; o.material.opacity = 1 - t; }
-      });
-      if (t >= 1) {
-        scene.remove(oldGroup);
-        oldGroup.traverse(function (o) { if (o.geometry) o.geometry.dispose(); if (o.material) { if (o.material.map) o.material.map.dispose(); o.material.dispose(); } });
-        oldGroup.userData.animate = null;
-      }
+    sceneGroup = null;
+    scene.add(oldGroup); // keep visible during slide-out
+    var ot0 = performance.now();
+    var inAnim = true;
+    // cache original opacities so we can restore them if needed
+    var setOpacity = function (o, op) {
+      if (!o.material) return;
+      var mats = Array.isArray(o.material) ? o.material : [o.material];
+      mats.forEach(function (m) { m.transparent = true; m.opacity = op; });
     };
-    scene.add(oldGroup); // keep rendering during slide-out
-    // at mid-point, build the new scene
+    oldGroup.traverse(function (o) { if (o.material) { o.userData._op = 1; setOpacity(o, 1); } });
+    function slideOut() {
+      if (!inAnim) return;
+      requestAnimationFrame(slideOut);
+      var t = Math.min((performance.now() - ot0) / 450, 1);
+      oldGroup.position.x = -t * 8;
+      oldGroup.traverse(function (o) { setOpacity(o, (o.userData._op || 1) * (1 - t)); });
+      if (t >= 1) {
+        inAnim = false;
+        scene.remove(oldGroup);
+        oldGroup.traverse(function (o) { if (o.geometry) o.geometry.dispose(); if (o.material) { var mats = Array.isArray(o.material) ? o.material : [o.material]; mats.forEach(function(m){ if (m.map) m.map.dispose(); m.dispose(); }); } });
+      }
+    }
+    slideOut();
+    // at ~65% of the slide-out, build the new scene + slide it in from the right
     setTimeout(function () {
       onMidSwap();
       if (sceneGroup) {
         sceneGroup.position.x = 8;
         var nt0 = performance.now();
-        var baseOp = [];
-        sceneGroup.traverse(function (o) { if (o.material) { o.material.transparent = true; baseOp.push([o, o.material.opacity]); } });
-        sceneGroup.userData.animate = function (now) {
-          var t = Math.min((now - nt0) / 450, 1);
+        var inAnim2 = true;
+        sceneGroup.traverse(function (o) { if (o.material) { o.userData._op = 1; setOpacity(o, 0); } });
+        function slideIn() {
+          if (!inAnim2) return;
+          requestAnimationFrame(slideIn);
+          var t = Math.min((performance.now() - nt0) / 450, 1);
           sceneGroup.position.x = 8 - t * 8;
-          sceneGroup.traverse(function (o) { if (o.material) o.material.opacity = t; });
-          if (t >= 1) { sceneGroup.position.x = 0; sceneGroup.userData.animate = null; }
-        };
+          sceneGroup.traverse(function (o) { setOpacity(o, (o.userData._op || 1) * t); });
+          if (t >= 1) {
+            inAnim2 = false;
+            sceneGroup.position.x = 0;
+            sceneGroup.traverse(function (o) { setOpacity(o, (o.userData._op || 1)); });
+          }
+        }
+        slideIn();
       }
     }, 300);
   }
@@ -2665,17 +2749,8 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       sceneSteve.userData.parts.armR.add(createAxe(1));
       setIdleAnim(sceneSteve);
     });
-    // item texture (the log)
-    var makeItemMesh = function (tex) {
-      tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
-      tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
-      sceneItemMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5),
-        new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide, visible: false }));
-      sceneGroup.add(sceneItemMesh);
-    };
-    loader.load(BASE + 'textures/items/' + itemName + '.png', makeItemMesh, undefined, function () {
-      loader.load(BASE + 'textures/blocks/' + itemName + '.png', makeItemMesh);
-    });
+    // dropped item (3D cube for blocks, extruded sprite for items)
+    loadDropItem(itemName, sceneGroup);
     tableBlock.visible = false;
     sceneState = 0;
     camTo(0, 3.2, 6.0, 0, 1.4, 0);
@@ -2727,11 +2802,21 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         P.armR.rotation.x = -0.05 - (Math.sin(cp * Math.PI * 2) * 0.5 + 0.5) * 2.0;
         P.legR.rotation.x = -0.15; P.legL.rotation.x = 0.15;
         if (phase === 'done') {
-          // drop the log item from the tree base
+          // drop the log item from the tree base.
+          // If the texture failed to load (502 etc.), make a fallback 3D log cube.
+          if (!sceneItemMesh) {
+            var fbTex = loader.load(BASE + 'textures/blocks/' + itemName + '.png');
+            fbTex.magFilter = THREE.NearestFilter; fbTex.minFilter = THREE.NearestFilter;
+            fbTex.generateMipmaps = false; fbTex.colorSpace = THREE.SRGBColorSpace;
+            var fbMat = new THREE.MeshBasicMaterial({ map: fbTex });
+            sceneItemMesh = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.55, 0.55),
+              [fbMat, fbMat, fbMat, fbMat, fbMat, fbMat]);
+            sceneGroup.add(sceneItemMesh);
+          }
           if (sceneItemMesh) {
-            sceneItemMesh.material.visible = true;
+            sceneItemMesh.visible = true;
             sceneItemMesh.position.set(treeX - 0.2, 2.0, 0);
-            sceneItemMesh.rotation.set(-Math.PI / 2, 0, 0);
+            sceneItemMesh.rotation.set(0, 0, 0);
             sceneItemMesh.scale.set(1, 1, 1);
             if (window.__craft3D) window.__craft3D._totemX = treeX - 0.2;
             var dropStart = performance.now();
@@ -2739,13 +2824,13 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
               var dt2 = Math.min((now2 - dropStart) / 800, 1);
               var e2 = 1 - Math.pow(1 - dt2, 3);
               sceneItemMesh.position.y = 2.0 + (0.32 - 2.0) * e2;
-              sceneItemMesh.rotation.z = (1 - dt2) * Math.PI * 2;
+              sceneItemMesh.rotation.y = (1 - dt2) * Math.PI * 2; // spin around Y (3D cube)
               if (dt2 >= 1) {
                 var bob = performance.now();
                 sceneItemMesh.userData.animate = function (n3) {
                   var tt = (n3 - bob) / 1000;
                   sceneItemMesh.position.y = 0.32 + Math.sin(tt * 2.5) * 0.05;
-                  sceneItemMesh.rotation.z = Math.sin(tt * 2.5) * 0.15;
+                  sceneItemMesh.rotation.y = tt * 1.0; // slow spin
                 };
               }
             };
@@ -2771,16 +2856,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       new THREE.MeshBasicMaterial({ color: 0x16161E, transparent: true, opacity: 0.55 }));
     ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02;
     sceneGroup.add(ground);
-    var makeItemMesh = function (tex) {
-      tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
-      tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
-      sceneItemMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.55, 0.55),
-        new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide, visible: false }));
-      sceneGroup.add(sceneItemMesh);
-    };
-    loader.load(BASE + 'textures/items/' + itemName + '.png', makeItemMesh, undefined, function () {
-      loader.load(BASE + 'textures/blocks/' + itemName + '.png', makeItemMesh);
-    });
+    loadDropItem(itemName, sceneGroup);
     tableBlock.visible = false;
     sceneState = 0;
     // chest already on the ground (no fall), Steve walks up to open it
@@ -2853,20 +2929,8 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       }
     });
 
-    // ── load the totem/item texture for the drop ──
-    var itemUrl = BASE + 'textures/items/' + itemName + '.png';
-    var makeItemMesh = function (tex) {
-      tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
-      tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
-      sceneItemMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.55, 0.55),
-        new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide, visible: false })
-      );
-      sceneGroup.add(sceneItemMesh);
-    };
-    loader.load(itemUrl, makeItemMesh, undefined, function () {
-      loader.load(BASE + 'textures/blocks/' + itemName + '.png', makeItemMesh);
-    });
+    // ── load the drop item (3D cube for blocks, extruded sprite for items) ──
+    loadDropItem(itemName, sceneGroup);
 
     // hide crafting table
     tableBlock.visible = false;
@@ -2985,9 +3049,9 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
         var totemX = sceneMob.position.x - 0.1;
         if (window.__craft3D) window.__craft3D._totemX = totemX;
         if (sceneItemMesh) {
-          sceneItemMesh.material.visible = true;
+          sceneItemMesh.visible = true;
           sceneItemMesh.position.set(totemX, 1.4, 0);
-          sceneItemMesh.rotation.set(-Math.PI / 2, 0, 0);
+          sceneItemMesh.rotation.set(0, 0, 0);
           sceneItemMesh.scale.set(1, 1, 1);
           // green glow light (totem of undying)
           var glow = new THREE.PointLight(0x35FF66, 1.6, 4);
@@ -2998,14 +3062,14 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
             var t = Math.min((now - dropStart) / 900, 1);
             var eased = 1 - Math.pow(1 - t, 3);
             sceneItemMesh.position.y = 1.4 + (0.32 - 1.4) * eased;
-            sceneItemMesh.rotation.z = (1 - t) * Math.PI * 3; // spin while falling
+            sceneItemMesh.rotation.y = (1 - t) * Math.PI * 3; // spin around Y (3D)
             // gentle bob after landing
             if (t >= 1) {
               var bobStart = performance.now();
               sceneItemMesh.userData.animate = function (now2) {
                 var tt = (now2 - bobStart) / 1000;
                 sceneItemMesh.position.y = 0.32 + Math.sin(tt * 2.5) * 0.05;
-                sceneItemMesh.rotation.z = Math.sin(tt * 2.5) * 0.15;
+                sceneItemMesh.rotation.y = tt * 1.0;
               };
             }
           };
@@ -3031,7 +3095,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     // hide the dropped totem while the chest falls (it'll reappear as the prize)
     if (sceneItemMesh) {
       sceneItemMesh.userData.animate = null;
-      sceneItemMesh.material.visible = false;
+      sceneItemMesh.visible = false;
     }
 
     // Create real textured chest
@@ -3086,7 +3150,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
           var popStart = performance.now();
           sceneItemMesh.position.set(0, 0.8, 0);
           sceneItemMesh.rotation.set(0, 0, 0); // upright, facing the camera
-          sceneItemMesh.material.visible = true;
+          sceneItemMesh.visible = true;
           // glow halo behind the prize so it's clearly visible
           var halo = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.6),
             new THREE.MeshBasicMaterial({ color: 0xFFE680, transparent: true, opacity: 0.35, depthWrite: false }));
