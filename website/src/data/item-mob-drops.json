@@ -1,0 +1,283 @@
+{
+"emerald": [
+"evoker",
+"pillager",
+"vindicator"
+],
+"totem-of-undying": [
+"evoker"
+],
+"wool": [
+"sheep"
+],
+"mutton": [
+"sheep",
+"goat"
+],
+"saddle": [
+"ravager"
+],
+"tropical-fish": [
+"tropical-fish"
+],
+"bone": [
+"tropical-fish",
+"stray",
+"wither-skeleton",
+"bogged",
+"skeleton-horse",
+"skeleton"
+],
+"crossbow": [
+"pillager"
+],
+"arrow": [
+"pillager",
+"stray",
+"bogged",
+"skeleton"
+],
+"raw-chicken": [
+"chicken"
+],
+"feather": [
+"chicken",
+"parrot"
+],
+"rotten-flesh": [
+"zombie-horse",
+"horse",
+"zombie-villager",
+"zombified-piglin",
+"zombie",
+"husk",
+"drowned",
+"piglin",
+"zoglin"
+],
+"nothing": [
+"vex",
+"endermite",
+"fox",
+"frog",
+"sniffer",
+"bat",
+"wolf",
+"camel",
+"axolotl",
+"piglin-brute",
+"villager",
+"allay",
+"ocelot",
+"tadpole",
+"bee",
+"illusioner",
+"silverfish"
+],
+"leather": [
+"mule",
+"horse",
+"mooshroom",
+"cow",
+"hoglin",
+"skeleton-horse",
+"donkey",
+"llama"
+],
+"string": [
+"cat",
+"spider",
+"strider",
+"cave-spider"
+],
+"arrow-of-slowness": [
+"stray"
+],
+"glow-ink-sac": [
+"glow-squid"
+],
+"nether-star": [
+"wither"
+],
+"raw-cod": [
+"dolphin",
+"guardian",
+"elder-guardian",
+"polar-bear",
+"cod"
+],
+"coal": [
+"wither-skeleton"
+],
+"wither-skeleton-skull": [
+"wither-skeleton"
+],
+"spider-eye": [
+"spider",
+"witch",
+"cave-spider"
+],
+"phantom-membrane": [
+"phantom"
+],
+"prismarine-shard": [
+"guardian",
+"elder-guardian"
+],
+"gunpowder": [
+"creeper",
+"witch",
+"ghast"
+],
+"music-disc": [
+"creeper"
+],
+"ink-sac": [
+"squid"
+],
+"seagrass": [
+"turtle"
+],
+"turtle-shell": [
+"turtle"
+],
+"slimeball": [
+"slime"
+],
+"sugar": [
+"witch"
+],
+"redstone": [
+"witch"
+],
+"glass-bottle": [
+"witch"
+],
+"stick": [
+"witch"
+],
+"ender-pearl": [
+"enderman"
+],
+"armadillo-scute": [
+"armadillo"
+],
+"sculk-catalyst": [
+"warden"
+],
+"snowball": [
+"snow-golem"
+],
+"carved-pumpkin": [
+"snow-golem"
+],
+"iron-ingot": [
+"zombie-villager",
+"iron-golem",
+"zombie",
+"husk"
+],
+"raw-porkchop": [
+"pig",
+"hoglin"
+],
+"tipped-arrow-poison": [
+"bogged"
+],
+"prismarine-crystals": [
+"elder-guardian"
+],
+"sponge": [
+"elder-guardian"
+],
+"raw-beef": [
+"mooshroom",
+"cow"
+],
+"mushroom": [
+"mooshroom"
+],
+"magma-cream": [
+"magma-cube"
+],
+"raw-salmon": [
+"salmon",
+"polar-bear"
+],
+"pufferfish": [
+"pufferfish"
+],
+"shulker-shell": [
+"shulker"
+],
+"creaking-heart": [
+"creaking"
+],
+"poppy": [
+"iron-golem"
+],
+"bamboo": [
+"panda"
+],
+"gold-nugget": [
+"zombified-piglin"
+],
+"gold-ingot": [
+"zombified-piglin",
+"piglin"
+],
+"golden-sword": [
+"zombified-piglin"
+],
+"carrot": [
+"zombie"
+],
+"potato": [
+"zombie"
+],
+"sand": [
+"husk"
+],
+"experience": [
+"ender-dragon"
+],
+"dragon-egg": [
+"ender-dragon"
+],
+"blaze-rod": [
+"blaze"
+],
+"rabbit-hide": [
+"rabbit"
+],
+"raw-rabbit": [
+"rabbit"
+],
+"rabbit-foot": [
+"rabbit"
+],
+"nautilus-shell": [
+"drowned"
+],
+"trident": [
+"drowned"
+],
+"copper-ingot": [
+"drowned"
+],
+"breeze-rod": [
+"breeze"
+],
+"iron-axe": [
+"vindicator"
+],
+"lead": [
+"wandering-trader"
+],
+"potion-of-invisibility": [
+"wandering-trader"
+],
+"ghast-tear": [
+"ghast"
+]
+}

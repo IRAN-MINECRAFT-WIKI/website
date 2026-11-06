@@ -21,6 +21,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import recipesJson from '@/data/crafting-recipes.json';
 import allItems from '@/data/all-items.json';
+import itemMobDrops from '@/data/item-mob-drops.json';
 import SteveViewer from '@components/SteveViewer.astro';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -118,6 +119,9 @@ const recipesData = JSON.stringify(
 
 // All items list (876 textures: 297 with recipes, 579 without)
 const allItemsData = JSON.stringify(allItems);
+
+// item → mob(s) reverse index (which mob drops each non-craftable item)
+const itemMobDropsJson = JSON.stringify(itemMobDrops);
 
 // Pass itemIcons map to client JS as JSON string.
 const itemIconsJson = JSON.stringify(itemIcons);
@@ -1069,7 +1073,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   }
 </style>
 
-<script is:inline define:vars={{ recipesData, allItemsData, itemIconsJson, pngItemsJson, itemsRenderJson, blocksRenderJson, cdnMapJson, BASE }}>
+<script is:inline define:vars={{ recipesData, allItemsData, itemIconsJson, pngItemsJson, itemsRenderJson, blocksRenderJson, cdnMapJson, BASE, itemMobDropsJson }}>
   (function () {
     // ── Modern Tab Switching (Phase 7) ─────────────────────────
     // The first tab ("رسپی‌ها") shows the search + recipe list + grid.
@@ -1137,6 +1141,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     let itemIcons = {};
     try { itemIcons = JSON.parse(itemIconsJson) || {}; }
     catch (e) { itemIcons = {}; }
+    // item → mob reverse index (which mob drops the item)
+    var itemMobDrops = {};
+    try { itemMobDrops = JSON.parse(itemMobDropsJson) || {}; } catch (e) {}
+    // expose for the 3D module script
+    window.__itemMobDrops = itemMobDrops;
 
     // ── Set of item names that DO have any image asset (Task SA-ITEMS) ──
     // Built at build-time by scanning /public/textures/{items,blocks} (flat PNGs)
@@ -1784,7 +1793,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       var d = getDiscovery(itemName);
       if (d.type === 'mine_tree') startMineTreeScene(itemName, d.tree);
       else if (d.type === 'chest_loot') startChestLootScene(itemName);
-      else startMobScene(itemName); // mob_drop (default, incl. totem/evoker)
+      else startMobScene(itemName, d.mob); // mob_drop — pass the mob id
     },
     nextScene: function() {
       advanceScene();
@@ -1796,6 +1805,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   let sceneState = -1;
   let sceneItemMesh = null;
   let sceneMob = null;
+  let sceneMobId = 'evoker';
   let sceneSteve = null;
   let sceneChest = null;
   let sceneChestLid = null;
@@ -2027,6 +2037,149 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       }, undefined, function () {
         resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), scale));
       });
+    });
+  }
+
+  // ═══ MOB MODEL DISPATCHER ═══
+  // Maps each mob id → its entity texture path + model archetype.
+  // Humanoid mobs reuse the player model with their real skin; distinctive
+  // mobs (creeper, enderman, blaze) get purpose-built geometry.
+  var MOB_TEXTURES = {
+    'evoker': 'entity/illager/evoker.png',
+    'vindicator': 'entity/vindicator/vindicator.png',
+    'pillager': 'entity/pillager/pillager.png',
+    'zombie': 'entity/zombie/zombie.png',
+    'husk': 'entity/husk/husk.png',
+    'drowned': 'entity/zombie/drowned.png',
+    'zombie-villager': 'entity/zombie/zombie_villager.png',
+    'zombified-piglin': 'entity/zombified-piglin/zombified-piglin.png',
+    'skeleton': 'entity/skeleton/skeleton.png',
+    'stray': 'entity/stray/stray.png',
+    'wither-skeleton': 'entity/wither-skeleton/wither-skeleton.png',
+    'bogged': 'entity/skeleton/bogged.png',
+    'witch': 'entity/witch/witch.png',
+    'iron-golem': 'entity/iron-golem/iron-golem.png',
+    'creeper': 'entity/creeper/creeper.png',
+    'enderman': 'entity/enderman/enderman.png',
+    'blaze': 'entity/blaze/blaze.png'
+  };
+  // mobs that use the standard biped (player) model with their skin
+  var BIPED_MOBS = {
+    'evoker': 1, 'vindicator': 1, 'pillager': 1,
+    'zombie': 1, 'husk': 1, 'drowned': 1, 'zombie-villager': 1, 'zombified-piglin': 1,
+    'skeleton': 1, 'stray': 1, 'wither-skeleton': 1, 'bogged': 1,
+    'witch': 1, 'iron-golem': 1.4 // iron golem is bigger
+  };
+
+  // Build a creeper model: big head + body + 4 short corner legs (no arms)
+  function buildCreeperModel(tex, scale) {
+    tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
+    var s = (tex.image && tex.image.width) || 64;
+    var mkMat = function () { return new THREE.MeshLambertMaterial({ map: tex, transparent: true, opacity: 1, side: THREE.DoubleSide }); };
+    var root = new THREE.Group();
+    var P = {}; var mats = [];
+    // HEAD 8×8×8 (creeper face uses the same UV as the player head)
+    var hs = 0.5 * scale;
+    var headGeo = new THREE.BoxGeometry(hs, hs, hs);
+    setFaceUV(headGeo, 4, 8, 8, 16, 16, s); setFaceUV(headGeo, 5, 24, 8, 32, 16, s);
+    setFaceUV(headGeo, 0, 0, 8, 8, 16, s); setFaceUV(headGeo, 1, 16, 8, 24, 16, s);
+    setFaceUV(headGeo, 2, 8, 0, 16, 8, s); setFaceUV(headGeo, 3, 16, 0, 24, 8, s);
+    flipSideUVs(headGeo);
+    var head = new THREE.Mesh(headGeo, mkMat()); head.position.y = 1.5 * scale;
+    root.add(head); P.head = head; mats.push(head.material);
+    // BODY 8×12×4
+    var bw = 0.5 * scale, bh = 0.75 * scale, bd = 0.25 * scale;
+    var bodyGeo = new THREE.BoxGeometry(bw, bh, bd);
+    setFaceUV(bodyGeo, 4, 20, 20, 28, 32, s); setFaceUV(bodyGeo, 5, 32, 20, 40, 32, s);
+    setFaceUV(bodyGeo, 0, 28, 20, 32, 32, s); setFaceUV(bodyGeo, 1, 16, 20, 20, 32, s);
+    setFaceUV(bodyGeo, 2, 20, 16, 28, 20, s); setFaceUV(bodyGeo, 3, 28, 16, 36, 20, s);
+    flipSideUVs(bodyGeo);
+    var body = new THREE.Mesh(bodyGeo, mkMat()); body.position.y = 0.85 * scale;
+    root.add(body); P.body = body; mats.push(body.material);
+    // 4 LEGS 4×6×4 at the corners (creeper has no arms). Leg UV = player leg region.
+    var lw = 0.25 * scale, lh = 0.375 * scale, ld = 0.25 * scale;
+    function buildLeg(px, pz) {
+      var geo = new THREE.BoxGeometry(lw, lh, ld);
+      setFaceUV(geo, 4, 4, 20, 8, 26, s); setFaceUV(geo, 5, 12, 20, 16, 26, s);
+      setFaceUV(geo, 0, 8, 20, 12, 26, s); setFaceUV(geo, 1, 0, 20, 4, 26, s);
+      setFaceUV(geo, 2, 4, 16, 8, 20, s); setFaceUV(geo, 3, 8, 16, 12, 20, s);
+      flipSideUVs(geo);
+      var mesh = new THREE.Mesh(geo, mkMat()); mesh.position.y = -lh / 2;
+      var pivot = new THREE.Group(); pivot.add(mesh); pivot.position.set(px, 0.5 * scale, pz);
+      mats.push(mesh.material); return pivot;
+    }
+    P.legFR = buildLeg(0.125 * scale, 0.125 * scale); root.add(P.legFR);
+    P.legFL = buildLeg(-0.125 * scale, 0.125 * scale); root.add(P.legFL);
+    P.legBR = buildLeg(0.125 * scale, -0.125 * scale); root.add(P.legBR);
+    P.legBL = buildLeg(-0.125 * scale, -0.125 * scale); root.add(P.legBL);
+    // creeper has no arms — reuse leg pivots for animation compatibility
+    P.armR = P.legFR; P.armL = P.legFL; P.legR = P.legBR; P.legL = P.legBL;
+    root.userData.parts = P; root.userData.lambertMats = mats;
+    return root;
+  }
+
+  // Build a blaze model: floating head + body cube + 6 rod cubes circling it
+  function buildBlazeModel(tex, scale) {
+    tex.magFilter = THREE.NearestFilter; tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false; tex.colorSpace = THREE.SRGBColorSpace;
+    var mkMat = function () { return new THREE.MeshLambertMaterial({ map: tex, transparent: true, opacity: 1, side: THREE.DoubleSide }); };
+    var root = new THREE.Group();
+    var P = {}; var mats = [];
+    // head: small 8×8×8 cube at top
+    var head = new THREE.Mesh(new THREE.BoxGeometry(0.5 * scale, 0.5 * scale, 0.5 * scale), mkMat());
+    head.position.y = 1.4 * scale; root.add(head); P.head = head; mats.push(head.material);
+    // body: 8×8×8 cube
+    var body = new THREE.Mesh(new THREE.BoxGeometry(0.5 * scale, 0.5 * scale, 0.5 * scale), mkMat());
+    body.position.y = 0.8 * scale; root.add(body); P.body = body; mats.push(body.material);
+    // 6 rods circling the body (use the blaze texture, small cubes)
+    P.rods = [];
+    for (var i = 0; i < 6; i++) {
+      var ang = (i / 6) * Math.PI * 2;
+      var rod = new THREE.Mesh(new THREE.BoxGeometry(0.12 * scale, 0.5 * scale, 0.12 * scale), mkMat());
+      rod.position.set(Math.cos(ang) * 0.5 * scale, 0.5 * scale, Math.sin(ang) * 0.5 * scale);
+      root.add(rod); P.rods.push(rod); mats.push(rod.material);
+    }
+    // no limbs — give dummy pivots so death anim doesn't crash
+    P.armR = { rotation: { x: 0 } }; P.armL = { rotation: { x: 0 } };
+    P.legR = { rotation: { x: 0 } }; P.legL = { rotation: { x: 0 } };
+    root.userData.parts = P; root.userData.lambertMats = mats;
+    // blaze floats + bobs
+    var t0 = performance.now();
+    root.userData.idle = function (now) {
+      var t = (now - t0) / 1000;
+      root.position.y = Math.sin(t * 2) * 0.15;
+      root.rotation.y = t * 0.6;
+    };
+    return root;
+  }
+
+  // Create the right mob model for a given mob id (async — loads texture)
+  function createMobModel(mobId, scale) {
+    mobId = mobId || 'evoker';
+    scale = scale || 1;
+    return new Promise(function (resolve) {
+      var texPath = MOB_TEXTURES[mobId];
+      // distinctive models
+      if (mobId === 'creeper') {
+        loader.load(BASE + 'textures/' + texPath, function (tex) { resolve(buildCreeperModel(tex, scale)); },
+          undefined, function () { resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), scale)); });
+        return;
+      }
+      if (mobId === 'blaze') {
+        loader.load(BASE + 'textures/' + texPath, function (tex) { resolve(buildBlazeModel(tex, scale)); },
+          undefined, function () { resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), scale)); });
+        return;
+      }
+      // enderman = tall player (scale 1.5)
+      var sc = (mobId === 'enderman') ? scale * 1.5 : (BIPED_MOBS[mobId] && BIPED_MOBS[mobId] !== 1 ? BIPED_MOBS[mobId] : scale);
+      if (texPath) {
+        loader.load(BASE + 'textures/' + texPath, function (tex) { resolve(buildPlayerFromTexture(tex, sc)); },
+          undefined, function () { resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), sc)); });
+      } else {
+        // unknown mob — gray biped fallback
+        resolve(buildPlayerFromTexture(makeEvokerSkinTexture(), scale));
+      }
     });
   }
 
@@ -2331,25 +2484,45 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   let sceneTree = null;
   let sceneType = 'mob_drop'; // current discovery scene type
 
+  // Priority order: prefer the most iconic/base mob for a drop over variants
+  // (e.g. rotten-flesh → zombie, not zombie-horse; bone → skeleton, not tropical-fish)
+  var MOB_PRIORITY = ['zombie','skeleton','creeper','enderman','spider','cave-spider',
+    'blaze','witch','iron-golem','evoker','vindicator','pillager','husk','stray',
+    'drowned','wither-skeleton','bogged','zombie-villager','zombified-piglin',
+    'ghast','slime','magma-cube','guardian','elder-guardian','shulker','phantom',
+    'vex','ravager','hoglin','zoglin','piglin','piglin-brute','cow','sheep','pig',
+    'chicken','horse','wolf','cat','parrot','bee','llama','trader-llama',
+    'mooshroom','goat','axolotl','allay','frog','tadpole','sniffer','camel',
+    'turtle','dolphin','panda','polar-bear','fox','ocelot','rabbit','bat',
+    'strider','hoglin','wandering-trader','villager','tropical-fish','cod',
+    'salmon','pufferfish','squid','glow-squid','skeleton-horse','zombie-horse',
+    'mule','donkey'];
+
   function getDiscovery(itemName) {
     var n = (itemName || '').toLowerCase();
-    var mobDrops = {
-      'totem-of-undying': 'evoker', 'bone': 'skeleton', 'bone-meal': 'skeleton',
-      'gunpowder': 'creeper', 'rotten-flesh': 'zombie', 'ender-pearl': 'enderman',
-      'skeleton-skull': 'skeleton', 'creeper-head': 'creeper', 'zombie-head': 'zombie'
-    };
-    if (mobDrops[n]) return { type: 'mob_drop', mob: mobDrops[n] };
-    // logs / wood
+    // 1) mob drop — look up the reverse index built from all 81 mob JSONs
+    var drops = (window.__itemMobDrops || {});
+    if (drops[n] && drops[n].length) {
+      // pick the highest-priority mob we have a model for (fallback to first)
+      var ranked = drops[n].slice().sort(function (a, b) {
+        var pa = MOB_PRIORITY.indexOf(a), pb = MOB_PRIORITY.indexOf(b);
+        if (pa < 0) pa = 999; if (pb < 0) pb = 999;
+        return pa - pb;
+      });
+      return { type: 'mob_drop', mob: ranked[0], allMobs: drops[n] };
+    }
+    // 2) logs / wood → chop a tree
     var logM = n.match(/(oak|birch|spruce|jungle|acacia|dark-oak|mangrove|cherry|crimson|warped)/);
     if (/(^|[-_])log($|-)/.test(n) || /-wood$/.test(n) || /-log$/.test(n)) {
       return { type: 'mine_tree', tree: logM ? logM[1] : 'oak' };
     }
-    // ores / minerals
+    // 3) ores / minerals
     var oreMap = { 'diamond': 'diamond', 'iron-ore': 'iron', 'raw-iron': 'iron',
       'coal': 'coal', 'coal-ore': 'coal', 'gold-ore': 'gold', 'raw-gold': 'gold',
       'lapis-lazuli': 'lapis', 'redstone': 'redstone', 'redstone-dust': 'redstone',
       'emerald': 'emerald', 'nether-quartz': 'quartz', 'amethyst-shard': 'amethyst' };
     if (oreMap[n]) return { type: 'mine_ore', ore: oreMap[n] };
+    // 4) default: chest loot
     return { type: 'chest_loot' };
   }
 
@@ -2628,10 +2801,11 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   // Scene 2: zoom on totem
   // Scene 3: chest falls from sky + bounce
   // Scene 4: chest opens, golden glow, totem rises as prize
-  function startMobScene(itemName) {
+  function startMobScene(itemName, mobId) {
     clearScene();
     clearItems();
     sceneType = 'mob_drop';
+    sceneMobId = mobId || 'evoker';
     sceneGroup = new THREE.Group();
     scene.add(sceneGroup);
 
@@ -2664,13 +2838,19 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       setIdleAnim(sceneSteve);
     });
 
-    // ── EVOKER (REAL illager entity texture) ──
-    createEvokerModel(1).then(function (model) {
+    // ── MOB (real entity model dispatched by mob id) ──
+    createMobModel(sceneMobId, 1).then(function (model) {
       sceneMob = model;
       sceneMob.position.set(1.7, 0, 0);
       sceneMob.rotation.y = -Math.PI / 2 + 0.42; // face -X (toward Steve), angled toward camera
       sceneGroup.add(sceneMob);
-      setIdleAnim(sceneMob);
+      // blaze has its own float idle; others use the breathing idle
+      if (sceneMob.userData.idle) {
+        var idleFn = sceneMob.userData.idle;
+        sceneMob.userData.animate = function (now) { idleFn(now); };
+      } else {
+        setIdleAnim(sceneMob);
+      }
     });
 
     // ── load the totem/item texture for the drop ──
