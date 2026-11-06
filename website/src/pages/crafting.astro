@@ -20,8 +20,8 @@
  */
 import BaseLayout from '@layouts/BaseLayout.astro';
 import recipesJson from '@/data/crafting-recipes.json';
+import allItems from '@/data/all-items.json';
 import SteveViewer from '@components/SteveViewer.astro';
-import { itemImgUrl, blockImgUrl } from '@/lib/cdn-images';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -116,6 +116,9 @@ const recipesData = JSON.stringify(
   }))
 );
 
+// All items list (876 textures: 297 with recipes, 579 without)
+const allItemsData = JSON.stringify(allItems);
+
 // Pass itemIcons map to client JS as JSON string.
 const itemIconsJson = JSON.stringify(itemIcons);
 
@@ -144,22 +147,8 @@ const pngItemsJson = JSON.stringify(pngItemsList);
 const itemsRenderJson = JSON.stringify([...itemsRenderSet]);
 const blocksRenderJson = JSON.stringify([...blocksRenderSet]);
 
-// Build a { name → ccvaults.com URL } map for items appearing in recipes
-// that have a CDN URL. Passed to client so its texPath() can prefer CDN
-// URLs over local files (saves GitHub Pages bandwidth — local *-render/
-// dirs are git-ignored).
+// CDN map is now empty — we use LOCAL textures only (HuggingFace CDN was broken)
 const cdnMap: Record<string, string> = {};
-for (const r of recipes) {
-  const collect = (name?: string | null) => {
-    if (!name || cdnMap[name]) return;
-    const u = itemImgUrl(name) || blockImgUrl(name);
-    if (u) cdnMap[name] = u;
-  };
-  for (const row of r.grid || []) {
-    for (const cell of row || []) collect(cell);
-  }
-  collect(r.output?.item);
-}
 const cdnMapJson = JSON.stringify(cdnMap);
 
 // Build the list of categories from recipes (for filter chips, if we add them later).
@@ -337,25 +326,33 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       </div>
     </div>
 
-    <!-- RIGHT: item icon grid (icon-only, tooltip on hover) -->
+    <!-- RIGHT: ALL items grid (876 textures — double-click for recipe) -->
     <aside class="recipe-list-area" aria-label="لیست آیتم‌ها">
       <div class="recipe-list-head">
         <h3>آیتم‌ها</h3>
         <span class="recipe-count-display">
-          <span id="recipeListCount">{recipes.length}</span>
+          <span id="recipeListCount">{allItems.length}</span>
         </span>
       </div>
       <div class="item-icon-grid" id="recipeList">
-        {recipes.map((r) => (
+        {allItems.map((item) => (
           <button
-            class="item-icon-btn"
-            data-recipe-id={r.id}
-            data-recipe-name={r.nameFa}
-            title={r.nameFa}
+            class={`item-icon-btn${item.hasRecipe ? '' : ' no-recipe'}`}
+            data-item-name={item.name}
+            data-recipe-id={item.recipeId || ''}
+            data-has-recipe={item.hasRecipe}
+            title={item.name}
             draggable="true"
             type="button"
           >
-            <span class="recipe-item-icon" data-emoji={r.icon || itemIcons[r.output.item] || '📦'} set:html={renderIcon(r.output.item, r.icon)} />
+            <img
+              src={item.isBlock ? `${BASE}textures/blocks/${item.name}.png` : `${BASE}textures/items/${item.name}.png`}
+              alt={item.name}
+              width="24"
+              height="24"
+              class="pixel-img"
+              decoding="async"
+            />
           </button>
         ))}
       </div>
@@ -907,6 +904,25 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     font-size: 1rem;
     line-height: 1;
   }
+  /* Items without a recipe — slightly dimmed to distinguish */
+  .item-icon-btn.no-recipe {
+    opacity: 0.6;
+  }
+  .item-icon-btn.no-recipe:hover {
+    opacity: 1;
+  }
+  /* Tooltip showing recipe status */
+  .item-icon-btn[data-has-recipe="true"]::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 5px;
+    height: 5px;
+    background: var(--grass-2, #7cc84a);
+    border-radius: 50%;
+  }
+  .item-icon-btn { position: relative; }
   /* keep old recipe-item styles for drag compatibility */
   .recipe-item {
     display: flex;
@@ -1031,7 +1047,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   }
 </style>
 
-<script is:inline define:vars={{ recipesData, itemIconsJson, pngItemsJson, itemsRenderJson, blocksRenderJson, cdnMapJson, BASE }}>
+<script is:inline define:vars={{ recipesData, allItemsData, itemIconsJson, pngItemsJson, itemsRenderJson, blocksRenderJson, cdnMapJson, BASE }}>
   (function () {
     // ── Modern Tab Switching (Phase 7) ─────────────────────────
     // The first tab ("رسپی‌ها") shows the search + recipe list + grid.
@@ -1340,24 +1356,29 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       }, flatGrid.filter(Boolean).length * 60 + 120);
     }
 
-    // ── Filter the recipe list (substring on nameFa / nameEn / aliases) ──
+    // ── Filter the item list by name (all items, not just recipes) ──
     function filterList(query) {
       const q = (query || '').trim().toLowerCase();
       let visibleCount = 0;
       recipeItems.forEach((el) => {
+        const name = el.getAttribute('data-item-name') || '';
+        const recipeId = el.getAttribute('data-recipe-id');
         if (!q) {
-          el.parentElement.style.display = '';
+          el.style.display = '';
           visibleCount++;
           return;
         }
-        const id = el.getAttribute('data-recipe-id');
-        const r = findById(id);
-        if (!r) return;
-        const matches =
-          (r.nameFa || '').toLowerCase().includes(q) ||
-          (r.nameEn || '').toLowerCase().includes(q) ||
-          (r.aliases || []).some((a) => a.toLowerCase().includes(q));
-        el.parentElement.style.display = matches ? '' : 'none';
+        // Match against item name, recipe nameFa, recipe nameEn, aliases
+        let matches = name.toLowerCase().includes(q);
+        if (!matches && recipeId) {
+          const r = findById(recipeId);
+          if (r) {
+            matches = (r.nameFa || '').toLowerCase().includes(q) ||
+              (r.nameEn || '').toLowerCase().includes(q) ||
+              (r.aliases || []).some((a) => a.toLowerCase().includes(q));
+          }
+        }
+        el.style.display = matches ? '' : 'none';
         if (matches) visibleCount++;
       });
       if (recipeListCount) recipeListCount.textContent = String(visibleCount);
@@ -1455,18 +1476,58 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
       });
     });
 
-    // Recipe list items — EXACT id lookup
+    // Item grid: single click = load recipe (if has one), double-click = always try
     recipeItems.forEach((el) => {
+      // Single click — load recipe if the item has one
       el.addEventListener('click', () => {
-        const id = el.getAttribute('data-recipe-id');
-        const recipe = findById(id);
-        if (!recipe) return;
-        searchInput.value = recipe.nameFa;
-        if (searchClear) searchClear.hidden = false;
-        filterList(recipe.nameFa);
-        renderRecipe(recipe);
+        const hasRecipe = el.getAttribute('data-has-recipe') === 'true';
+        const recipeId = el.getAttribute('data-recipe-id');
+        const itemName = el.getAttribute('data-item-name') || '';
+        if (hasRecipe && recipeId) {
+          const recipe = findById(recipeId);
+          if (recipe) {
+            searchInput.value = recipe.nameFa;
+            if (searchClear) searchClear.hidden = false;
+            filterList(recipe.nameFa);
+            renderRecipe(recipe);
+          }
+        } else {
+          // No recipe — show info message
+          showNoRecipeMessage(itemName);
+        }
+      });
+      // Double-click — force recipe view even for no-recipe items (shows message)
+      el.addEventListener('dblclick', () => {
+        const hasRecipe = el.getAttribute('data-has-recipe') === 'true';
+        const recipeId = el.getAttribute('data-recipe-id');
+        const itemName = el.getAttribute('data-item-name') || '';
+        if (hasRecipe && recipeId) {
+          const recipe = findById(recipeId);
+          if (recipe) renderRecipe(recipe);
+        } else {
+          showNoRecipeMessage(itemName);
+        }
       });
     });
+
+    // Show "no recipe" message for items that can't be crafted
+    function showNoRecipeMessage(itemName) {
+      if (window.__craft3D) {
+        window.__craft3D.clearItems();
+        window.__craft3D.resetCamera();
+      }
+      if (emptyHint) {
+        emptyHint.hidden = false;
+        emptyHint.innerHTML = '<div style="text-align:center;padding:1rem">' +
+          '<p style="font-size:1.1rem;font-weight:700;color:var(--gold,#e8c84a);margin-bottom:0.5rem">' +
+          itemName + '</p>' +
+          '<p style="color:var(--text-2,#b8b8d0)">این آیتم کرافت ندارد.</p>' +
+          '<p style="color:var(--text-3,#8a8aa8);font-size:0.8rem;margin-top:0.5rem">' +
+          'در چست‌ها، روی زمین، یا از کشتن ماب‌ها پیدا می‌شه.</p>' +
+          '</div>';
+      }
+      recipeInfo.hidden = true;
+    }
 
     // Clear-grid button
     if (clearGridBtn) {
@@ -1664,15 +1725,20 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
 
   function createItemPlane(texture, slotIdx) {
     const mat = new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: 0.5 });
-    const geo = new THREE.PlaneGeometry(0.55, 0.55);
+    const geo = new THREE.PlaneGeometry(0.58, 0.58);
     const mesh = new THREE.Mesh(geo, mat);
-    // Grid layout on top of the table (3x3, centered)
+    // Grid layout EXACTLY aligned with the crafting table's 3x3 pattern
+    // The crafting table texture has grid lines at 5/16 and 10/16
+    // Each cell is ~5.33/16 of the block width = 5.33/16 * 2 = 0.667 units
+    // Center the grid: offset by -0.667 so the grid is centered on the block
     const col = slotIdx % 3;
     const row = Math.floor(slotIdx / 3);
+    const cellSize = 0.62;  // matches the grid cell size on the texture
+    const offset = -cellSize; // center the 3x3 grid
     mesh.position.set(
-      (col - 1) * 0.62,
-      3,
-      (row - 1) * 0.62
+      offset + col * cellSize,
+      3, // start above, will animate down
+      offset + row * cellSize
     );
     mesh.rotation.x = -Math.PI / 2;
     itemGroup.add(mesh);
