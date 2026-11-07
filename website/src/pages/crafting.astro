@@ -1726,6 +1726,14 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   });
   // also preload Steve
   getCachedMobTex('textures/steve.png');
+  // preload tool + common block textures (axe/sword for chop/attack, logs/leaves for trees)
+  ['textures/items/diamond-axe.png', 'textures/items/diamond-sword.png',
+   'textures/blocks/oak-log.png', 'textures/blocks/leaves.png'].forEach(function (p) {
+    var t = loader.load(BASE + p);
+    t.magFilter = THREE.NearestFilter; t.minFilter = THREE.NearestFilter;
+    t.generateMipmaps = false; t.colorSpace = THREE.SRGBColorSpace;
+    mobTexCache[p] = t;
+  });
   const topTex = loader.load(BASE + 'textures/blocks/crafting-table-top.png', () => {
     if (hint) hint.hidden = true;
   });
@@ -2647,9 +2655,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   function createTree(treeType, scale) {
     var g = new THREE.Group();
     var logName = (treeType || 'oak') + '-log';
-    var logTex = loader.load(BASE + 'textures/blocks/' + logName + '.png', undefined, undefined, function () {
-      // fallback to oak log
-    });
+    var logTex = loader.load(BASE + 'textures/blocks/' + logName + '.png', undefined, undefined, function () {});
     logTex.magFilter = THREE.NearestFilter; logTex.minFilter = THREE.NearestFilter;
     logTex.generateMipmaps = false; logTex.colorSpace = THREE.SRGBColorSpace;
     var logMat = new THREE.MeshLambertMaterial({ map: logTex });
@@ -2657,20 +2663,27 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     leavesTex.magFilter = THREE.NearestFilter; leavesTex.minFilter = THREE.NearestFilter;
     leavesTex.generateMipmaps = false; leavesTex.colorSpace = THREE.SRGBColorSpace;
     var leavesMat = new THREE.MeshLambertMaterial({ map: leavesTex });
+    var BS = 0.6 * scale; // block size (compact tree)
+    // trunk: 4 log blocks stacked (taller than the canopy)
     var trunkBlocks = [];
-    for (var i = 0; i < 3; i++) {
-      var blk = new THREE.Mesh(new THREE.BoxGeometry(0.8 * scale, 0.8 * scale, 0.8 * scale), logMat.clone());
-      blk.position.set(0, 0.4 * scale + i * 0.8 * scale, 0);
+    for (var i = 0; i < 4; i++) {
+      var blk = new THREE.Mesh(new THREE.BoxGeometry(BS, BS, BS), logMat.clone());
+      blk.position.set(0, BS / 2 + i * BS, 0);
       g.add(blk); trunkBlocks.push(blk);
     }
-    var leafTop = 0.4 * scale + 3 * 0.8 * scale;
-    var lp = [[0,leafTop+0.3*scale,0],[-0.7*scale,leafTop+0.3*scale,0],[0.7*scale,leafTop+0.3*scale,0],
-      [0,leafTop+0.3*scale,-0.7*scale],[0,leafTop+0.3*scale,0.7*scale],
-      [-0.7*scale,leafTop+0.3*scale,-0.7*scale],[0.7*scale,leafTop+0.3*scale,0.7*scale],
-      [-0.7*scale,leafTop+0.3*scale,0.7*scale],[0.7*scale,leafTop+0.3*scale,-0.7*scale],
-      [0,leafTop+0.9*scale,0]];
-    lp.forEach(function (p) {
-      var l = new THREE.Mesh(new THREE.BoxGeometry(0.85 * scale, 0.85 * scale, 0.85 * scale), leavesMat.clone());
+    var trunkTopY = BS / 2 + 3 * BS; // top of the 4th block
+    // canopy: compact 2-layer plus pattern (proportional to trunk)
+    var layer1 = [[BS, trunkTopY - BS * 0.3, 0], [-BS, trunkTopY - BS * 0.3, 0],
+                  [0, trunkTopY - BS * 0.3, BS], [0, trunkTopY - BS * 0.3, -BS],
+                  [BS, trunkTopY - BS * 0.3, BS], [BS, trunkTopY - BS * 0.3, -BS],
+                  [-BS, trunkTopY - BS * 0.3, BS], [-BS, trunkTopY - BS * 0.3, -BS]];
+    var layer2 = [[0, trunkTopY + BS * 0.7, 0], [BS * 0.7, trunkTopY + BS * 0.7, 0],
+                  [-BS * 0.7, trunkTopY + BS * 0.7, 0], [0, trunkTopY + BS * 0.7, BS * 0.7],
+                  [0, trunkTopY + BS * 0.7, -BS * 0.7]];
+    var layer3 = [[0, trunkTopY + BS * 1.4, 0]];
+    var allLeaves = layer1.concat(layer2).concat(layer3);
+    allLeaves.forEach(function (p) {
+      var l = new THREE.Mesh(new THREE.BoxGeometry(BS, BS, BS), leavesMat.clone());
       l.position.set(p[0], p[1], p[2]);
       g.add(l);
     });
@@ -2681,18 +2694,20 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
   // ── Axe: 3D extruded item held by the handle (for chopping) ──
   function createAxe(scale) {
     var g = new THREE.Group();
-    var axTex = loader.load(BASE + 'textures/items/diamond-axe.png');
+    // use the preloaded cached texture (avoids 502); set flip directly (one axe at a time)
+    var axTex = mobTexCache['textures/items/diamond-axe.png'];
+    if (!axTex) { axTex = loader.load(BASE + 'textures/items/diamond-axe.png'); }
     axTex.magFilter = THREE.NearestFilter; axTex.minFilter = THREE.NearestFilter;
     axTex.generateMipmaps = false; axTex.colorSpace = THREE.SRGBColorSpace;
     axTex.repeat.set(1, -1); axTex.offset.set(0, 1); // handle at top
     var axeMat = new THREE.MeshBasicMaterial({ map: axTex, transparent: true, alphaTest: 0.5 });
     var edgeMat = new THREE.MeshBasicMaterial({ color: 0x5a3a1a });
-    var aW = 0.3 * scale, aH = 0.86 * scale, aD = 0.045 * scale;
+    var aW = 0.32 * scale, aH = 0.9 * scale, aD = 0.05 * scale;
     var blade = new THREE.Mesh(
       new THREE.BoxGeometry(aW, aH, aD),
       [edgeMat, edgeMat, edgeMat, edgeMat, axeMat, axeMat]
     );
-    blade.position.set(0, -0.75 * scale - aH / 2 + 0.05 * scale, 0.14 * scale);
+    blade.position.set(0, -0.75 * scale - aH / 2 + 0.06 * scale, 0.16 * scale);
     g.add(blade);
     return g;
   }
@@ -2829,7 +2844,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     sceneGroup = new THREE.Group();
     scene.add(sceneGroup);
     sceneTree = createTree(treeType, 1);
-    sceneTree.position.set(1.3, 0, 0);
+    sceneTree.position.set(1.0, 0, 0);
     sceneGroup.add(sceneTree);
     // grass ground
     var ground = new THREE.Mesh(new THREE.CircleGeometry(4.5, 48),
@@ -2849,7 +2864,7 @@ function renderIcon(name: string | null | undefined, fallbackEmoji?: string, cls
     loadDropItem(itemName, sceneGroup);
     tableBlock.visible = false;
     sceneState = 0;
-    camTo(0, 3.2, 6.0, 0, 1.4, 0);
+    camTo(0, 2.6, 7.5, 0, 0.9, 0);
     var btn = document.getElementById('sceneNextBtn');
     if (btn) { btn.textContent = '🪓 برش درخت ←'; btn.hidden = false; }
     var sb = document.getElementById('sceneBtns'); if (sb) sb.hidden = false;
